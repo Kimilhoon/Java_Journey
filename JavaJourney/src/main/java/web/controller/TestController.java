@@ -22,7 +22,8 @@ public class TestController {
 	public void testJJ() {}
 	
 	
-	asd
+	@GetMapping("/asd")
+	public void s() {}
 	
 	
 	
