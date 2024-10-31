@@ -15,5 +15,6 @@ public class TestController {
 	public void test() {
 		log.info("test 접속!");
 	}
-	
+	@GetMapping("/testDJ")
+	public void testDH() {}
 }
