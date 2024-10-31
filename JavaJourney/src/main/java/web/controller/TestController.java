@@ -20,4 +20,24 @@ public class TestController {
 	
 	@GetMapping("/testJJ")
 	public void testJJ() {}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/testCH")
+	public void m() {}
 }
