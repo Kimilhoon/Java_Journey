@@ -5,11 +5,11 @@
 	<title>Home</title>
 </head>
 <body>
+<h1>
+	Hello world!  
+</h1>
 
-
-
-
-
+<P>  The time on the server is ${serverTime}. </P>
 
 
 <h1>TEST 다시 테스트 함..</h1>
