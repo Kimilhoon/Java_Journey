@@ -18,6 +18,8 @@ public class TestController {
 	@GetMapping("/testDJ")
 	public void testDH() {}
 	
+	@GetMapping("/testJJ")
+	public void testJJ() {}
 	
 	
 	
