@@ -17,4 +17,25 @@ public class TestController {
 	}
 	@GetMapping("/testDJ")
 	public void testDH() {}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/testCH")
+	public void m() {}
 }
