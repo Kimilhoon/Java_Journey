@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.FreeBoard;
 import web.service.face.CommunityService;
 import web.service.impl.CommunityServiceImpl;
+import web.util.Paging;
 
 @Controller
 @RequestMapping("/comm")
@@ -21,23 +22,28 @@ public class CommunityController {
 	@Autowired
 	private CommunityService service = new CommunityServiceImpl();
 	
-	@GetMapping("/freeboard")
-	public void freeBoardForm() {}
+	//--------------------------------------------------------------------------------------
+	//동쥬니
+	
+	@GetMapping("/freeboard/list")
+	public void freeBoardForm() {
+		List<FreeBoard> freeBoardList = service.getFreeBoardList(); 
+		
+	}
 	
 	@GetMapping("/myrecipe")
 	public void mr() {}
 
-	//아무거나 써보기 
-	@GetMapping("/creview/list")
+	
+	//--------------------------------------------------------------------------------------
+	//이루니
+	
+	@GetMapping("/list")
 	public void cafeReviewForm(Model model, String order, String search) {
 		
-		//아무거나 써보기 
 		List<FreeBoard> list = service.getCafeReviewList(order, search);
 		
 	}
-	
-	//아무거나 써보기 
-	//아무거나 써보기 
 	
 	
 	
