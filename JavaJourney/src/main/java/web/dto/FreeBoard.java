@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class FreeBoard {
+	
 	private int freeNo;
 	private int userNo;
 	private int imageNo;
