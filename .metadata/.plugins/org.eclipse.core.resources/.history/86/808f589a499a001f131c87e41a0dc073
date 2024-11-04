@@ -1,0 +1,87 @@
+package interceptor.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class AdminInterceptor implements HandlerInterceptor {
+	
+	@Autowired private HttpSession session;
+	
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		
+		log.info("+ + + 시작 + + +");
+		
+		//세션에서 등급(grade) 정보 꺼내기
+//		String grade = (String) request.getSession().getAttribute("grade");
+		String grade = (String) session.getAttribute("grade");
+		log.info("grade : {}", grade);
+		
+		if( null == grade ) {
+			log.info("비 로그인 상태");
+			
+			response.sendRedirect("./fail");
+			return false;
+			
+		} else if ( "G".equals(grade) ) {
+			log.info("일반 사용자 로그인 상태");
+			
+			response.sendRedirect("./fail");
+			return false;
+			
+		} else if ( "A".equals(grade) ){
+			log.info("관리자 사용자 로그인 상태");
+			
+		}
+		
+		return true; //컨트롤러 접근 허용
+//		return false; //컨트롤러 접근 차단
+		
+	}
+	
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		
+		log.info("+ + + 종료 + + +");
+		
+	}
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

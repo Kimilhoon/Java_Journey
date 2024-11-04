@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>글을써봐용</h1>
+<hr>
+
+<form action="/interceptor/board/write" method="post">
+
+<label for="title">제목</label>
+<input type="text" name="title" id="title"><br><br>
+
+<label for="content">본문</label>
+<textarea name="content" id="content"></textarea><br>
+
+<a href="./list"><button>작성하기</button></a>
+
+</form>
+
+<a href="../main"><button>메인</button></a>
+
+</body>
+</html>

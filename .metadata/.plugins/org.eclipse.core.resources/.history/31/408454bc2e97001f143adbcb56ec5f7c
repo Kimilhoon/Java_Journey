@@ -1,0 +1,13 @@
+package web.dto;
+
+import lombok.Data;
+
+@Data
+public class File {
+	
+	private int fileNo;
+	private int boardNo;
+	private String originName;
+	private String storedName;
+	
+}

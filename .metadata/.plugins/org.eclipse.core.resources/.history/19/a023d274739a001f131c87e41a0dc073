@@ -1,0 +1,31 @@
+package web.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import lombok.extern.slf4j.Slf4j;
+import web.dao.face.CommunityDao;
+import web.dto.FreeBoard;
+import web.service.face.CommunityService;
+
+@Service
+@Slf4j
+public class CommunityServiceImpl implements CommunityService {
+	
+	private CommunityDao dao;
+	
+	@Override
+	public List<FreeBoard> getCafeList(String order, String search) {
+		
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("order", order);
+		param.put("search", search);
+		
+		List<FreeBoard> list = dao.selectCafeAllByOrderSearch(param);
+		
+		return list;
+	}
+	
+}
