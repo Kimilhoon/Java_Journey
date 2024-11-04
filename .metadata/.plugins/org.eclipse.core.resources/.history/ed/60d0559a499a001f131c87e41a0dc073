@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="login.dao.face.LoginDao">
+
+	<insert id="insert" parameterType="Login">
+		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+			SELECT login_seq.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO logintb ( no, id, pw, email, phone )
+		VALUES ( #{no }, #{id }, #{pw }, #{email }, #{phone } )
+	</insert>
+	
+	<select id="selectCntByIdPw" resultType="int" parameterType="Login">
+		SELECT count(*) cnt
+		FROM logintb
+		<where>
+			AND id = #{id }
+			AND pw = #{pw }
+		</where>
+	</select>
+	
+	<select id="selectNoById" resultType="int" parameterType="Login">
+		SELECT no
+		FROM logintb
+		<where>
+			AND id = #{id }
+		</where>
+	</select>
+	
+	<select id="selectByNo" resultType="Login" parameterType="int">
+		SELECT
+			no, id, email, phone
+		FROM logintb
+		<where>
+			AND no = #{no }
+		</where>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

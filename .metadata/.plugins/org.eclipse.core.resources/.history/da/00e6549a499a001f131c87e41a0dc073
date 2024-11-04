@@ -1,0 +1,59 @@
+package login.service.face;
+
+import login.dto.Login;
+
+public interface LoginService {
+
+	/**
+	 * 회원가입 처리
+	 * 
+	 * @param param - 회원가입 데이터
+	 */
+	public void join(Login param);
+
+	/**
+	 * 로그인 처리
+	 * 
+	 * @param param - 로그인 데이터
+	 * @return 인증 성공/실패
+	 */
+	public boolean login(Login param);
+
+	/**
+	 * PK값인 loginno 찾아오기
+	 * 
+	 * 로그인 폼으로 전달된 id를 활용한다
+	 * 
+	 * @param param - no 를 찾는 데 사용할 id
+	 * @return 조회된 no
+	 */
+	public int getLoginno(Login param);
+
+	/**
+	 * 사용자 정보 조회하기
+	 * 
+	 * @param no - 조회할 PK
+	 * @return 조회된 정보
+	 */
+	public Login info(int no);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

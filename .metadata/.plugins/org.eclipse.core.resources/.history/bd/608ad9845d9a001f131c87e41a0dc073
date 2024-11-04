@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+	<!-- 스프링 MVC 컴포넌트를 어노테이션으로 등록할 수 있도록 허가 -->
+	<!-- -> @Component, @Controller, @Service, @Repository처리 가능 -->
+	<annotation-driven />
+	
+	<!-- @Transaction 어노테이션 처리 허가 -->
+	<tx:annotation-driven />
+	
+	<!-- @Aspect 어노테이션을 이용한 AOP 객체 관리 활성화 -->
+	<aop:aspectj-autoproxy />
+	
+	
+	
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/interceptor/admin/**" /> -->
+<!-- 			<exclude-mapping path="/interceptor/admin/fail"/> -->
+<!-- 			<beans:bean class="interceptor.interceptor.AdminInterceptor" /> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+	
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/interceptor/board/wirte" /> -->
+<!-- 			<beans:bean class="interceptor.interceptor.BoardInterceptor" /> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+<!-- 	<interceptors> -->
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/interceptor/board/**" /> -->
+<!-- 			<exclude-mapping path="/interceptor/board/noLogin"/> -->
+<!-- 			<exclude-mapping path="/interceptor/board/list"/> -->
+<!-- 			<beans:bean class="interceptor.interceptor.BoardInterceptor" /> -->
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
+	
+	
+	
+	
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+<!-- 	<annotation-driven /> -->
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+<!-- 	<resources mapping="/up/**" location="/upload/" /> -->
+
+	<!-- View 인식 -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1" />
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
+	
+	<!-- 파일 다운로드 뷰 객체를 스프링 빈으로 등록하기 -->
+	<beans:bean id="downView" class="file.view.FileDownloadView" />
+	
+   <!-- JacksonDatabind를 이용해 응답을 JSON으로 변환하는 뷰 객체 -->
+   <!-- viewName : "jsonView" -->
+   <!-- Model값: Model 객체 이용 -->
+	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+	
+	
+	<!-- MVC인식 -->
+<!-- 	<context:component-scan base-package="com.test.www, *.controller, *.service" /> -->
+	<context:component-scan base-package="*.controller, *.service, aop" />
+	
+<!-- 	<context:component-scan base-package="web"> -->
+<!-- 		<context:exclude-filter type="regex" expression="*.dao" /> -->
+<!-- 	</context:component-scan> -->
+	
+	<!-- 파일 업로드(multipart/form-data) 를 처리하는 스프링 빈 설정 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	
+		<!-- 메모리에서 임시 파일을 처리할 수 있는 최대 사이즈 : 1MB -->
+		<beans:property name="maxInMemorySize" value="1048576"/>
+		
+		<!-- 파일 업로드 최대 허용 사이즈 : 10MB --> <!-- 전체 파일 용량 -->
+		<beans:property name="maxUploadSize" value="10485760" />
+		
+		<!-- 업로드된 파일 당 사이즈 제한 : 5MB --> <!-- 각각의 파일 용량 -->
+		<beans:property name="maxUploadSizePerFile" value="5242880"/>
+	
+	</beans:bean>
+	
+	
+</beans:beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,6 +6,12 @@
     
 <mapper namespace="web.dao.face.CommunityDao">
 	
+	<select id="selectCafeReview" resultType="FreeBoard" parameterType="hashmap">
 	
+	<if test="null != #{order }">
+	
+	</if>
+	
+	</select>
 	
 </mapper>

@@ -1,17 +1,18 @@
 package web.dto;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
 public class FreeBoard {
-//	
-	private int freeNo;
+
 	private int userNo;
-	private int imageNo;
-	private String freeCategory;
-	private String freeTitle;
-	private String freeContent;
-	private String freeHit;
-	private String freeWriteDate;
+	private String freeBoardCategory;
+	private String freeBoardTitle;
+	private String freeBoardContent;
+	private int freeBoardHit;
+	private Date freeBoardWriteDate;
+	private int freeImgNo;
 	
-}
+} // class end

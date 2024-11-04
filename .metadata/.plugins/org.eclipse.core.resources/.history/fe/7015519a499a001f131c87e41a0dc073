@@ -1,0 +1,256 @@
+package web.controller;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.util.HashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import web.dto.User;
+
+@Controller
+@RequestMapping("/param")
+public class ParamController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@GetMapping("/requestParam")
+	public String paramForm() {
+		logger.info("/param/requestParam [GET]");
+		
+		return "param/paramForm";
+	}
+	
+	@PostMapping("/requestParam")
+	public void paramResult(
+			
+			//전달 파라미터를 처리(추출)하는 변수
+			String username,
+//			String userage
+			int userage,
+			
+			@RequestParam(value = "username") String test1,
+			@RequestParam(name = "userage") String test2,
+			
+			@RequestParam("username") String test3,
+			@RequestParam("userage") String test4
+			
+			
+			) {
+		logger.info("/param/requestParam [POST]");
+		
+		logger.info("username : {}", username);
+		logger.info("userage : {}", userage);
+		
+		logger.info("test1 : {}", test1);
+		logger.info("test2 : {}", test2);
+		
+		logger.info("test3 : {}", test3);
+		logger.info("test4 : {}", test4);
+		
+	}
+	
+	@RequestMapping("/required")
+	public void paramRequired(
+			
+			String data1,					//필수X
+			@RequestParam String data2,		//필수O
+			
+			@RequestParam(required = false) String data3,	//필수X
+			@RequestParam(required = true) String data4		//필수O
+			
+			) {
+		logger.info("/param/required");
+		
+		logger.info("data1 : {}", data1);
+		logger.info("data2 : {}", data2);
+		
+		logger.info("data3 : {}", data3);
+		logger.info("data4 : {}", data4);
+		
+	}
+	
+	@GetMapping("/list")
+	public void boardlist(
+			
+			//페이징에서 사용하는 현재 페이지번호(curPage)는 int 형이다
+//			String curPage
+			
+			//curPage 파라미터가 필수가 아니기 때문에 null 이 전달될 수 있다
+			//	-> int형으로 변환하면서 에러가 발생한다
+//			int curPage
+			
+			//필수 전달값으로 지정은 되지만, null 또는 "" 전달을 막을 수 없다
+//			@RequestParam(required = true) int curPage
+			
+			//전달값이 null 또는 "" 일 경우 "0" 으로 대체한다
+			//	-> int형 변수로 "0"이 전달되어 정수 0으로 변환된다
+			@RequestParam(defaultValue = "0") int curPage
+			
+			) {
+		logger.info("/param/list [GET]");
+		logger.info("curPage : {}", curPage);
+		
+	}
+	
+	   @GetMapping("/map")
+	   public void paramMapForm() {}
+	   
+	   @PostMapping("/map")
+	   public String paramMapResult(
+			   
+			   //일반 해시맵 객체 선언
+			   //	-> 전달 파라미터를 추출하지 않는다
+			   HashMap<String, String> map,
+			   
+			   //전달 파라미터를 추출하는 해시맵 선언
+			   //	-> @RequestParam 적용 필수
+			   @RequestParam HashMap<String, String> paramMap
+			   
+			   //모델값 객체
+			   , Model model
+			   
+			   ) {
+	      
+		   logger.info("/param/map [POST]");
+		   
+		   logger.info("map: {}", map);
+		   logger.info("paramMap: {}", paramMap);
+		   //-----------------------------------------------------
+		   
+		   //모델값 전달 - 객체를 모델값으로 전달한다
+		   model.addAttribute("m", paramMap);
+		   
+		   //모델값 전달 - 맴 객체 내부의 키=값 쌍을 각각의 모델값으로 전달한다
+		   model.addAllAttributes(paramMap);
+	      
+		   //-----------------------------------------------------
+	      return "param/result";
+	   }
+	
+	@GetMapping("/dto")
+	public void paramDtoForm() {}
+	
+	@PostMapping("/dto")
+	public String paramDtoResult(
+			
+			//** 커맨드 객체, Command Object
+			//	-> 전달파라미터 추출 객체
+			User user,
+			@ModelAttribute User user2,
+			@ModelAttribute("u3") User user3
+			
+			//** @ModelAttribute 어노테이션
+			//	-> DTO객체의 멤버 필드에 맞게 전달 파라미터를 추출한다
+			//	-> 모델값으로 지정하여 객체를 View에 전달한다
+			
+			) {
+		
+		logger.info("{}", user);
+		logger.info("{}", user2);
+		logger.info("{}", user3);
+		
+		User u = new User();
+
+//		User test = new User("aaa", "111");
+		
+//		User test = User.builder().userage("23").username("Clare").build();
+//		logger.info( "빌더: " + test.toString() );
+		
+		return "param/dtoResult";
+		
+	}
+	
+	@RequestMapping("/sample")
+	public void paramTest(
+
+			HttpServletRequest req,
+			HttpServletResponse resp,
+			
+			Reader reader,
+			Writer writer,
+			
+			HttpSession session,
+			
+			@SessionAttribute("name") String data,
+
+			@SessionAttribute(value = "login", required = false) boolean login
+//			, @SessionAttribute(value = "loginno", required = false) int loginno
+			, @SessionAttribute(value = "loginno", required = false) Integer loginno
+			
+			) {
+
+//		logger.info("{}", req.getParameter("test"));
+//		
+//		try {
+//			req.setCharacterEncoding("UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		
+		//-----------------------------------------------
+		
+//		try {
+//			req.getRequestDispatcher("/WEB-INF/views/param/dto").forward(req, resp);
+//		} catch (ServletException | IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		//-----------------------------------------------
+//		
+//		try {
+//			resp.sendRedirect("URL");
+//			
+//			Writer out = resp.getWriter();
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		//-----------------------------------------------
+		
+		session.setAttribute("name", "value");
+		
+		logger.info("{}", session.getAttribute("name"));
+		
+		logger.info("data: {}", data);
+		logger.info("login: {}", login);
+
+	} // paramTest() end
+
+	
+	
+	
+} //ParamController
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

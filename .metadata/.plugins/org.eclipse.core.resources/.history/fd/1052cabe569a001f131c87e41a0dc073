@@ -1,0 +1,7 @@
+package web.service.impl;
+
+import web.service.face.CommunityService;
+
+public class CommunityServiceImpl implements CommunityService {
+
+}
