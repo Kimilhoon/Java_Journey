@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class BeanRevComm {
-
+//
 	private int commNo;
 	private int revNo;
 	private int beanNo;

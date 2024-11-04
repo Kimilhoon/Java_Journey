@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Bean {
-
+//
 	private int beanNo;
 	private int beanImgNo;
 	private String beanName;

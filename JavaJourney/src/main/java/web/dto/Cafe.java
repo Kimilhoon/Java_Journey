@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Cafe {
-
+//
 	private int cafeNo;
 	private int imgNo;
 	private String cafeName;

@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 @Data
 public class BeanRev {
-	
+//	
 	private int revNo;
 	private int beanNo;
 	private int subNo;

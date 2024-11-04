@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 @Data
 public class CafeRev {
-
+//
 	private int revNo;
 	private int cafeNo;
 	private int userNo;
