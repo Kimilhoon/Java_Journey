@@ -24,12 +24,18 @@ public class CommunityController {
 	@GetMapping("/freeboard")
 	public void freeBoardForm() {}
 	
+	@GetMapping("/myrecipe")
+	public void mr() {}
+
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String order, String search) {
 		
 		List<FreeBoard> list = service.getCafeReviewList(order, search);
 		
 	}
+	
+	
+	
 	
 	
 }
