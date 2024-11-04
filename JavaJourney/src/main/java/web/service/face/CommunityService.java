@@ -15,6 +15,8 @@ public interface CommunityService {
 	 */
 	public List<FreeBoard> getCafeReviewList(String order, String search);
 	
+	public List<FreeBoard> getFreeBoardList();
+	
 	
 	
 }
