@@ -29,7 +29,6 @@ public class CommunityController {
 		
 		List<FreeBoard> list = service.getCafeReviewList(order, search);
 		
-		
 	}
 	
 	
