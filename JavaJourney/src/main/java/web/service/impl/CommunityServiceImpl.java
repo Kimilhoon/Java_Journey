@@ -30,4 +30,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return list;
 	}
 	
+	@Override
+	public List<FreeBoard> getFreeBoardList() {
+		return null;
+	}
+	
 }
