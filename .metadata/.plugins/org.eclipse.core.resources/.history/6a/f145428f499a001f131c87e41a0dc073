@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>맵 모델값 전달 테스트</h1>
+<hr>
+
+<div>
+	${m }
+	<hr>
+</div>
+
+<div>
+	<h3>데이터1: ${m.data1 }</h3>
+	<h3>데이터2: ${m.data2 }</h3>
+	<h3>데이터3: ${m.data3 }</h3>
+	<h3>데이터4: ${m.data4 }</h3>
+	<h3>이름: ${m.username }</h3>
+	<h3>나이: ${m.userage }살</h3>
+	<hr>
+</div>
+
+<div>
+	data1: ${data1 }<br>
+	data2: ${data2 }<br>
+	data3: ${data3 }<br>
+	data4: ${data4 }<br>
+	username: ${username }<br>
+	userage: ${userage }<br>
+	<hr>
+</div>
+
+<div>
+<a href="./map"><button>돌아가기</button></a>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,94 @@
+package di.xml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import di.tire.Tire;
+
+public class Person {
+	public static void main(String[] args) {
+		
+		//스프링 컨텍스트 객체
+		ApplicationContext context = null;
+		
+		//Bean configuration XML 파일을 읽어들여 Spring Context를 구성한다
+		context = new FileSystemXmlApplicationContext("/src/main/java/di/xml/spring-config.xml");
+		//------------------------------------------------------------------
+		System.out.println( context );
+		
+		// Spring Context에 등록된 "car"라는 이름의 스프링 빈을
+		// Car 객체로 사용한다
+		Car car = context.getBean("car", Car.class);
+		Tire gTire = context.getBean("gTire", Tire.class);
+		Tire sTire = context.getBean("sTire", Tire.class);
+		
+		car.setTire( null );
+		car.setTire( gTire );
+		car.setTire( context.getBean("gTire", Tire.class) );
+		
+		System.out.println( car );
+		System.out.println( car.getInfo() );
+		
+		car.setTire( sTire );
+		System.out.println( car.getInfo() );
+		System.out.println("------------------------");
+		
+		//------------------------------------------------------------------------
+		
+		
+		Car car1 = context.getBean("car", Car.class);
+		car1.setTire(context.getBean("sTire", Tire.class));
+		
+		System.out.println( car1 );
+		System.out.println( car1.getInfo() );
+		
+		System.out.println("-----");
+		
+		Car car2 = context.getBean("car", Car.class);
+		car2.setTire(context.getBean("gTire", Tire.class));
+		
+		System.out.println( car2 );
+		System.out.println( car2.getInfo() );
+		
+		//------------------------------------------------------------------------
+		
+		System.out.println("-----------------------------");
+		
+		Car c2 = context.getBean("car2", Car.class);
+		Car c3 = context.getBean("car3", Car.class);
+		
+		System.out.println("c2 : " + c2);
+		System.out.println("c3 : " + c3);
+		
+		System.out.println( c2.getInfo() );
+		System.out.println( c3.getInfo() );
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

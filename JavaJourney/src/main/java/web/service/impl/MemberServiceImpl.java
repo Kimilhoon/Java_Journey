@@ -1,5 +1,6 @@
 package web.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,6 @@ import web.service.face.MemberService;
 @Slf4j
 public class MemberServiceImpl implements MemberService {
 	
-	private MemberDao dao;
+	@Autowired private MemberDao dao;
 	
 }

@@ -1,0 +1,94 @@
+package web.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping("/page")
+public class PageController {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+//	@RequestMapping(value = "/forward")
+//	@RequestMapping("URLPattern")
+	
+//	@RequestMapping(value = "/forward", method = RequestMethod.GET)
+//	@GetMapping("URLPattern")
+	
+//	@RequestMapping(value = "/forward", method = RequestMethod.POST)
+//	@PostMapping("URLPattern")
+	
+	@GetMapping("/forward")
+	public String forwardPage() {
+		logger.info("/page/forward [GET]");
+		//---------------------------------------------------
+		
+		// 반환된 "viewName"을 이용하여 InternalResourceViewResolver가
+		// JSP 파일을 이용하여 포워드한다
+//		return "viewName";
+		//---------------------------------------------------
+		
+		//지정된 URL 경로로 포워드한다
+		//	-> 다른 컨트롤러나 JSP로 포워드 할 수 있다
+//		return "forward:URL경로";
+//		return "forward:/return/test"; // "/return/test"이 매핑된 컨트롤러 forward
+		
+//		req.getRequestDispatcher("/WEB-INF/views/return/test.jsp");
+		return "forward:/WEB-INF/views/return/test.jsp";
+		
+	}
+	
+	@GetMapping("/redirect")
+	public String redirectPage() {
+		logger.info("/page/redirect [GET]");
+		
+//		return "redirect:URL경로";
+		return "redirect:/return/test2";
+		
+	}
+	
+	@GetMapping("/redirectMav")
+	public ModelAndView redirectPageMav( ModelAndView mav ) {
+		logger.info("/page/redirectMav [GET]");
+
+		//------------------------------------------------------------------
+
+		// JSP로 forward
+//	      mav.setViewName("viewName");
+
+		// URL로 forward
+//	      mav.setViewName("forward:/return/test3");
+
+		// URL로 redirect
+		mav.setViewName("redirect:/return/test3");
+
+		return mav;
+
+	} // redirectPageMav( ModelAndView mav ) end
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

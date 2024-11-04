@@ -1,5 +1,6 @@
 package web.manager.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +13,7 @@ import web.manager.service.impl.ManagerServiceImpl;
 @Slf4j
 public class ManagerController {
 	
+	@Autowired
 	private ManagerService service = new ManagerServiceImpl();
 	
 }

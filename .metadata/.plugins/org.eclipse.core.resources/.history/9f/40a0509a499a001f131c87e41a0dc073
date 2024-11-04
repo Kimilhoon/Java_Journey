@@ -1,0 +1,102 @@
+package web.controller;
+
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class LogTestController {
+	
+	//로그 객체
+	private static final Logger LOGGER = LoggerFactory.getLogger(LogTestController.class);
+//	private final Logger logger = LoggerFactory.getLogger( this.getClass() );
+	
+	@RequestMapping("/log/test")
+	public void logtest() {
+//		System.out.println("/log/test");
+		
+		LOGGER.info("로그 메시지");
+		
+		//-------------------------------------------------------------
+		
+		//로그 메시지 레벨
+		LOGGER.trace("트레이스");
+		LOGGER.debug("디버그");
+		LOGGER.info("인포메이션");
+		LOGGER.warn("경고");
+		LOGGER.error("에러");
+		
+		LOGGER.info("-------------------");
+		
+		Object obj = new Object();
+		
+//		System.out.println( obj ); //참조값 출력 가능
+		
+//		LOGGER.info( obj ); //참조형 사용 불가
+		LOGGER.info( obj.toString() ); //문자열(String) 타입만 출력 가능!
+		
+		LOGGER.info("-------------------");
+		
+		LOGGER.info("{} 중괄호 출력하기");
+		
+		//** 두 번째 전달인자를 {}파라미터에 집어 넣는다
+		LOGGER.info("{} 중괄호 출력하기", "파라미터");
+		
+		LOGGER.info("A: {}, B: {}", 12345, true);
+		
+		//{}파라미터에 객체를 적용하면 .toString() 결과가 적용된다
+		LOGGER.info("{}", obj);
+		
+		LOGGER.info("-------------------");
+		
+		//** 에러, {}파라미터는 2개 까지만 허용한다
+//		LOGGER.info("{}, {}, {}", 1, 2, 3);
+		
+		Object[] data = {"출력", "데이터", "여러 개", "지정", 3421, new Date()};
+		
+		LOGGER.info("{}, {}, {}", data);
+		LOGGER.info("{}, {}, {}, {}, {}, {}", data);
+		
+		LOGGER.info("-------------------");
+		
+		int idx = 0;
+		LOGGER.trace("#{}. 메소드 시작", idx++);
+		
+		LOGGER.trace("#{}. 주석대신 사용하기 좋음", idx++);
+		
+		LOGGER.trace("#{}. 개발할 때 idx 변수를 활용하여", idx++);
+		
+		LOGGER.trace("#{}. 어디까지 실행됐는 지", idx++);
+		
+		LOGGER.trace("#{}. 로그를 보고 확인할 수 있음", idx++);
+		
+		LOGGER.trace("#{}. 메소드 끝", idx++);
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
