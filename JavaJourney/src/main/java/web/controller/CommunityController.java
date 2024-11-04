@@ -21,6 +21,9 @@ public class CommunityController {
 	@Autowired
 	private CommunityService service = new CommunityServiceImpl();
 	
+	@GetMapping("/freeboard")
+	public void freeBoardForm() {}
+	
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String order, String search) {
 		
