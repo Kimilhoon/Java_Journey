@@ -1,6 +1,8 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,9 @@ import web.service.impl.CommunityServiceImpl;
 @Slf4j
 public class CommunityController {
 	
-	private CommunityService service = new CommunityServiceImpl();
+	@Autowired private CommunityService service = new CommunityServiceImpl();
+	
+	@GetMapping("/freeboard")
+	public void freeBoardForm() {}
 	
 }
