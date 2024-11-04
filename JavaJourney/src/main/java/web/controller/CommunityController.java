@@ -18,21 +18,12 @@ import web.service.impl.CommunityServiceImpl;
 @Slf4j
 public class CommunityController {
 	
-	public class cafe {
-		
-		//아무거나 써보기 
-		@GetMapping("/list")
-		public void cafeReviewForm(Model model, String order, String search) {
-			
-			//아무거나 써보기 
-			List<FreeBoard> list = service.getCafeReviewList(order, search);
-			
-		}
-		
-	}
-	
 	@Autowired
 	private CommunityService service = new CommunityServiceImpl();
+	
+	//--------------------------------------------------------------------------------------
+	//동쥬니
+	
 	
 	@GetMapping("/freeboard")
 	public void freeBoardForm() {}
@@ -40,6 +31,19 @@ public class CommunityController {
 	@GetMapping("/myrecipe")
 	public void mr() {}
 
+	
+	//--------------------------------------------------------------------------------------
+	//이루니
+	
+	@GetMapping("/list")
+	public void cafeReviewForm(Model model, String order, String search) {
+		
+		List<FreeBoard> list = service.getCafeReviewList(order, search);
+		
+	}
+	
+	
+	
 	
 	
 }
