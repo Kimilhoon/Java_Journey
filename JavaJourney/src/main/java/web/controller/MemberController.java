@@ -28,7 +28,7 @@ public class MemberController {
 	public void loginForm(Member member, HttpSession session) {
 		log.info("login param : {}", member);
 		
-		//boolean isLogin = service.login(member);
+		boolean isLogin = service.login(member);
 	}
 	
 	

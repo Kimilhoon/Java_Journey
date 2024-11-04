@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.MemberDao;
+import web.dto.Member;
 import web.service.face.MemberService;
 
 @Service
@@ -12,5 +13,14 @@ import web.service.face.MemberService;
 public class MemberServiceImpl implements MemberService {
 	
 	@Autowired private MemberDao dao;
+
+	@Override
+	public boolean login(Member member) {
+		int result = dao.SelectByMemberIdPw(member);
+		if(result>0)
+			return true;
+		
+		return false;
+	}
 	
 }
