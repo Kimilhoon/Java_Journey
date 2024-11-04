@@ -27,12 +27,17 @@ public class CommunityController {
 	@GetMapping("/myrecipe")
 	public void mr() {}
 
+	//아무거나 써보기 
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String order, String search) {
 		
+		//아무거나 써보기 
 		List<FreeBoard> list = service.getCafeReviewList(order, search);
 		
 	}
+	
+	//아무거나 써보기 
+	//아무거나 써보기 
 	
 	
 	
