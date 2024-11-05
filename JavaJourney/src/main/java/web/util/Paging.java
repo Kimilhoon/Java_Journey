@@ -53,6 +53,7 @@ public class Paging {
 		this.totalCount = totalCount;
 		this.listCount = listCount;
 		this.pageCount = pageCount;
+		this.makePaging();
 	}
 
 	@Override
