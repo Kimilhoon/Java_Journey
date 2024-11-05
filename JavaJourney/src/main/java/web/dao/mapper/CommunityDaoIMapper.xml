@@ -5,13 +5,14 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.CommunityDao">
-	
-	<select id="selectCafeReview" resultType="FreeBoard" parameterType="hashmap">
-	
-	<if test="null != #{order }">
-	
-	</if>
-	
-	</select>
+<!-- 	<insert id="insertBeanData"> -->
+<!-- 	<selectKey order="BEFORE" keyColumn="beanno" resultType="int"> -->
+<!-- 		select beanno_seq.nextval from dual -->
+<!-- 	</selectKey> -->
+<!-- 		INSERT INTO bean(BEANNO, BEANIMGNO, BEANNAME, ORIGIN -->
+<!-- 				, BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO) -->
+<!-- 		VALUES(#{beanno}, BEANIMGNO_seq.nextval -->
+<!-- 		, #{beanName}, #{origin}, #{beanComm}, #{beanInfo}, #{beanPrice}, #{businessNo}) -->
+<!-- 	</insert> -->
 	
 </mapper>

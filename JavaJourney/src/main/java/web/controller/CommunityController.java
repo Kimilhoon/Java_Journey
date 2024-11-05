@@ -1,18 +1,16 @@
 package web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
-import web.dto.FreeBoard;
+import web.dto.Bean;
 import web.service.face.CommunityService;
-import web.service.impl.CommunityServiceImpl;
-import web.util.Paging;
 
 @Controller
 @RequestMapping("/comm")
@@ -20,35 +18,37 @@ import web.util.Paging;
 public class CommunityController {
 	
 	@Autowired
-	private CommunityService service = new CommunityServiceImpl();
+	private CommunityService service;
 	
-	@GetMapping("/freeboard/list")
-	public void freeBoardForm() {
-		List<FreeBoard> freeBoardList = service.getFreeBoardList(); 
-		
-	}
-	
-	@GetMapping("/myrecipe")
-	public void mr() {}
+	@GetMapping("/bean/write")
+	public void beanWriteForm() {}
 
-	//아무거나 써보기 
-	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String order, String search) {
+	@PostMapping("/bean/write")
+	public void beanWriteProc(
+		@RequestParam("beanName") String beanName ,
+		@RequestParam("origin") String origin ,
+		@RequestParam("beanComm") String beanComm ,
+		@RequestParam("beanInfo") MultipartFile beanInfo ,
+		@RequestParam("beanPrice") int beanPrice ,
+		@RequestParam("businessNo") int businessNo
+			) {
+		Bean bean = new Bean();
+		bean.setBeanName(beanName);
+		bean.setOrigin(origin);
+		bean.setBeanComm(beanComm);
+		bean.setBeanInfo(beanInfo);
+		bean.setBeanPrice(beanPrice);
+		bean.setBusinessNo(businessNo);
 		
-		//아무거나 써보기 
-		List<FreeBoard> list = service.getCafeReviewList(order, search);
+		log.info("beanController : {}",bean);
 		
+//		service.insertBean(bean);
 	}
-	
-	//아무거나 써보기 
-	//아무거나 써보기 
-	
-	
+
 	
 	
 	
 }
-
 
 
 

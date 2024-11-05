@@ -5,18 +5,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import web.dto.Bean;
 import web.dto.FreeBoard;
 
 @Mapper
 public interface CommunityDao {
 
 	/**
-	 * db에 저장된 카페 리뷰 리스트 불러오
-	 * 
-	 * @param param - 사용자가 선택한 정렬방법, 검색어
-	 * @return 해당 정보가 담긴 리스트
+	 * DTO에 담긴 Bean, DB에 삽입하기
+	 * @param bean - - beanName, origin, beanComm, beanPrice, businessNo
 	 */
-	public List<FreeBoard> selectCafeReview(HashMap<String, String> param);
+//	public void insertBeanData(Bean bean);
 	
 	
 	
