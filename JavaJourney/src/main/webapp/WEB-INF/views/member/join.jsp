@@ -57,10 +57,10 @@ $(function() {
 			alert("닉네임을 입력하세요");
 			return false;
 		}
-		if( !nickCheck ) {
-			alert("닉네임을 중복체크하세요");
-			return false;
-		}
+// 		if( !nickCheck ) {
+// 			alert("닉네임을 중복체크하세요");
+// 			return false;
+// 		}
 		if( nickDuplicate ) {
 			alert("이미 존재하는 닉네임입니다");
 			return false;
@@ -230,7 +230,7 @@ $(function() {
 <div>
 	<label for="userNick">닉네임</label>
 	<input type="text" name="userNick" id="userNick" required="required">
-	<button id="userNickCheck" type="button">중복확인</button>
+<!-- 	<button id="userNickCheck" type="button">중복확인</button> -->
 	<span id="userNickCheckMsg"></span>
 </div>
 
