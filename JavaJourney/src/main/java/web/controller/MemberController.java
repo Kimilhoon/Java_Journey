@@ -59,8 +59,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
 	@GetMapping("/login")
 	public void login() {}
 	
@@ -86,6 +84,22 @@ public class MemberController {
 		
 		return "redirect:/main";
 
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main";
+	}
+	
+	@RequestMapping("/idfind")
+	public void idfind() {
+		
+	}
+	
+	@RequestMapping("/pwfind")
+	public void pwfind() {
+		
 	}
 	
 	
