@@ -9,6 +9,7 @@ import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.Member;
 
 @Mapper
 public interface CommunityDao {
@@ -47,6 +48,41 @@ public interface CommunityDao {
 	
 	
 	
+	
+	
+	//자유게시판--------------------------------------------------------------------------------------
+	/**
+	 * 카테고리와 검색어로 필터링된 프리보드리스트 수
+	 * 
+	 * @param map - 카테고리,검색어 정보 담은 객체
+	 * @return 필터링된 보드 갯수
+	 */
+	public int getFreeBoardTotalCnt(HashMap<String, String> map);
+	
+	/**
+	 * 카테고리와 검색어로 필터링된 자유게시판 리스트
+	 * 
+	 * @param map - 페이징, 검색어 정보를 담은 객체
+	 * @return - 필터링된 보드 리스트
+	 */
+	public List<FreeBoard> selectFreeBoardListAll(HashMap<String, Object> map);
+	
+	/**
+	 * 자유게시판 번호로 자유게시판 조회
+	 * @param freeBoard - 게시판 넘버를 담은 객체
+	 * @return - 조회된 객체
+	 */
+	public FreeBoard selectFreeBoardByFreeBoardNo(FreeBoard freeBoard);
+	
+	/**
+	 * 자유게시판 쓴 유저 정보 조회
+	 * 
+	 * 
+	 * @param freeBoard - 유저 번호가 있는 자유게시판 객체
+	 * @return - 조회된 멤버
+	 */
+	public Member selectMemberByFreeBoardNo(FreeBoard freeBoard);
+	//자유게시판--------------------------------------------------------------------------------------
 }
 
 

@@ -39,6 +39,40 @@
 			AND cafeNo = #{cafeNo }
 		</where>
 	</select>
+
+	<select id="getFreeBoardTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM FREEBOARD
+		<where>
+			<if test='category != "N" '>
+				AND FREEBOARDCATEGORY = #{category}
+			</if>
+			<if test='search != "N" '>
+				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectFreeBoardListAll" parameterType="hashmap" resultType="FreeBoard">
+		SELECT FREEBOARDNO,USERNO,FREEBOARDCATEGORY,FREEBOARDTITLE,FREEBOARDCONTENT,FREEBOARDHIT,FREEBOARDWRITEDATE,FREEIMGNO  
+		FROM (
+			SELECT rownum r,a.* FROM(
+				SELECT * FROM FREEBOARD 
+				WHERE upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				ORDER BY FREEBOARDNO DESC
+				)a
+			)
+		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<select id="selectFreeBoardByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoard">
+		SELECT * FROM FREEBOARD
+		WHERE freeboardno = #{freeBoardNo}
+	</select>
+	
+	<select id="selectMemberByFreeBoardNo" parameterType="FreeBoard">
+		SELECT * FROM MEMBER
+		WHERE userno = #{userNo}
+	</select>
 	
 </mapper>
 

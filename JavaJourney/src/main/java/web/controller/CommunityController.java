@@ -15,6 +15,7 @@ import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.Member;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -26,20 +27,38 @@ public class CommunityController {
 	@Autowired
 	private CommunityService service;
 	
-	//--------------------------------------------------------------------------------------
-	//동쥬니
-	
-	@GetMapping("/freeboard/list")
-	public void freeBoardForm() {
-		List<FreeBoard> freeBoardList = service.getFreeBoardList(); 
-		
-	}
-	
 	@GetMapping("/myrecipe")
 	public void mr() {}
+	//--------------------------------------------------------------------------------------
+		//동쥬니
+		
+		@GetMapping("/freeboard/list")
+		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
+			Paging paging = service.getFreeBoardPaging(curPage,search,category);
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search); 
+			model.addAttribute("freeBoardList", freeBoardList);
+			model.addAttribute("paging", paging);
+			model.addAttribute("search", search);
+			
+		}
+		@GetMapping("/freeboard/view")
+		public void freeBoardView(Model model, FreeBoard freeBoard ) {
+			freeBoard = service.getFreeBoardView(freeBoard);
+			Member member = service.getMemberByFreeBoardNo(freeBoard);
+			model.addAttribute("freeBoardView", freeBoard);
+			model.addAttribute("member", member);
+			
+		}
+		
+		@GetMapping("/freeboard/write")
+		public void freeBoardWriteForm() {}
+
 	
 	//--------------------------------------------------------------------------------------
 	//이루니
+	@GetMapping("/creview/list")
+	public void cafeReviewForm(Model model, String order, String search) {}
+	
 	
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
@@ -76,6 +95,7 @@ public class CommunityController {
 		
 		return null;
 	}
+	
 	
 	
 	
