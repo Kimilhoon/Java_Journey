@@ -7,15 +7,14 @@
 
 <h1>구독원두 작성</h1>
 <script>
-  $(document).ready(function() {
-    $('#beanComm').summernote({
-      height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
-    });
-  });
-</script>
-
+$(function () {
+    $('#beanInfo').summernote({
+        height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+      });
+})
+</script>	
 <div class="container">
-<form action="" method="post" enctype="multipart/form-data">
+<form id="form" action="./write" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td>원두이름</td>
@@ -27,12 +26,15 @@
 		</tr>
 		<tr>
 			<td>원두설명</td>
-			<td><textarea class="summernote" id="beanComm" name="beanComm"
-			rows="5" cols="25" value="t"></textarea></td>
+			<td><input type="text" id="beanComm" name="beanComm"></td>
 		</tr>
 		<tr>
 			<td>원두상세설명</td>
-			<td><input type="file" id="beanInfo" name="beanInfo"></td>
+			<td>
+<!-- 			<input type="file" id="beanInfo" name="beanInfo"> -->
+			<textarea id="beanInfo" name="beanInfo" class="form-control"
+			rows="5" cols="25"></textarea>
+			</td>
 		</tr>
 		<tr>
 			<td>원두금액</td>
@@ -44,8 +46,9 @@
 		</tr>
 	</table>
 	
-	<div id="btnWrite"><button>-완-</button></div>
+	<input type="file" name="file" class="form-control">
 	
+	<div id="btnWrite"><button>-완-</button></div>
 </form>
 </div>
 

@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
 <mapper namespace="web.dao.face.CommunityDao">
-<!-- 	<insert id="insertBeanData"> -->
-<!-- 	<selectKey order="BEFORE" keyColumn="beanno" resultType="int"> -->
-<!-- 		select beanno_seq.nextval from dual -->
-<!-- 	</selectKey> -->
+<!-- 	<insert id="insertBeanData" parameter="Bean"> -->
+<!-- 		<selectKey order="BEFORE" keyColumn="beanno" resultType="int"> -->
+<!-- 			select beanno_seq.nextval from dual -->
+<!-- 		</selectKey> -->
 <!-- 		INSERT INTO bean(BEANNO, BEANIMGNO, BEANNAME, ORIGIN -->
 <!-- 				, BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO) -->
 <!-- 		VALUES(#{beanno}, BEANIMGNO_seq.nextval -->
-<!-- 		, #{beanName}, #{origin}, #{beanComm}, #{beanInfo}, #{beanPrice}, #{businessNo}) -->
+<!-- 		, #{beanName}, BEANIMGNO.nextval, #{origin}, #{beanComm}, #{beanInfo}, #{beanPrice}, #{businessNo}) -->
 <!-- 	</insert> -->
-	
+    <insert id="insertBeanData" parameterType="Bean">
+        <selectKey order="BEFORE" keyProperty="beanNo" resultType="int">
+            SELECT BEAN_SEQ.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO bean(BEANNO, BEANIMGNO, BEANNAME, ORIGIN,
+                         BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO)
+        VALUES(#{beanNo}, BEANIMG_SEQ.NEXTVAL, #{beanName}, #{origin}, 
+               #{beanComm}, #{beanInfo}, #{beanPrice}, #{businessNo})
+    </insert>
 </mapper>
+

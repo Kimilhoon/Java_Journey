@@ -12,7 +12,7 @@ public class Bean {
 	private String beanName;
 	private String origin;
 	private String beanComm;
-	private MultipartFile beanInfo;
+	private String beanInfo;
 	private int beanPrice;
 	private int businessNo;	
 	
