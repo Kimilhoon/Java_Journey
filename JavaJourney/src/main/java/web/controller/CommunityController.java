@@ -60,7 +60,7 @@ public class CommunityController {
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
 		
-		List<FreeBoard> creviewList = service.getCafeReviewList(category, order, search, paging);
+		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
 		model.addAttribute("creviewList", creviewList);
 		
