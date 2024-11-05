@@ -6,6 +6,21 @@
     
 <mapper namespace="web.dao.face.BeanDao">
 	
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM bean
+	</select>
 	
+	<select id="selectAll" resultType="Bean" parameterType="web.util.Paging">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT 
+					beanNo, beanImgNo, beanName, origin, beanComm,
+					beanInfo, beanPrice, businessNo
+				FROM bean
+				ORDER BY beanNo DESC
+			) B
+		) bean
+		WHERE rnum BETWEEN #{ startNo } AND #{ endNo }
+	</select> 
 	
 </mapper>
