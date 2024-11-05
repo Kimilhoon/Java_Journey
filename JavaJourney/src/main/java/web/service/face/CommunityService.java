@@ -26,7 +26,6 @@ public interface CommunityService {
 	public List<CafeRev> getCafeReviewList(String category, String order, String search, Paging paging);
 	
 	
-
 	/**
 	 * 카페 리뷰 댓글 정보 불러오기
 	 * 
@@ -145,6 +144,13 @@ public interface CommunityService {
 	 * @param session - 유저
 	 */
 	public void joinFreeBoardComment(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session);
+	
+	/**
+	 * 카페 리뷰 수정하기
+	 * 
+	 * @param cafeRev 수정할 게시글 번호
+	 */
+	public void changeCafeReview(CafeRev cafeRev);
 	
 }
 

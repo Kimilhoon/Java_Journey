@@ -101,6 +101,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
 	}
 	
+	@Override
+	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	//자유게시판--------------------------------------------------------------------------------
 	
 	//=================== 이루니 ===================
@@ -163,9 +169,9 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
-		// TODO Auto-generated method stub
+	public void changeCafeReview(CafeRev cafeRev) {
 		
+		int res = dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
 	
