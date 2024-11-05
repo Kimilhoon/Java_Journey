@@ -49,7 +49,28 @@ public class CommunityController {
 		
 		@GetMapping("/freeboard/write")
 		public void freeBoardWriteForm() {}
-
+		
+		@PostMapping("/freeboard/write")
+		public void freeBoardWriteProc() {
+			//로그인 연동 되면 구현
+		}
+		
+		@GetMapping("/freeboard/update")
+		public void freeBoardUpdateForm(FreeBoard freeBoard, Model model) {
+			freeBoard = service.getFreeBoardView(freeBoard);
+			model.addAttribute("freeBoardView", freeBoard);
+			Member member = service.getMemberByFreeBoardNo(freeBoard);
+			model.addAttribute("member", member);
+		}
+		@PostMapping("/freeboard/update")
+		public void freeBoardUpdateProc() {
+			//로그인 연동 되면 구현
+		}
+		
+		@GetMapping("/freeboard/delete")
+		public void freeBoardDeleteForm() {}
+		
+		
 
 	
 	
