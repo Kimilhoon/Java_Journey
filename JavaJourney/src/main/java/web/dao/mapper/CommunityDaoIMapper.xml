@@ -107,9 +107,27 @@
 	
 	<insert id="insertCafeReview" parameterType="CafeRev">
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
-		VALUES #{revNo_seq.nextval, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+		VALUES(#{revNo_seq.nextval}, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
 	
+	<insert id="insertFreeBoardComment" parameterType="FreeBoardComment">
+		INSERT INTO FREEBOARDCOMMENT f (commentNO,freeboardno,usernick,commentcontent,userno)
+		VALUES (freeboardcomment_seq.nextval,#{freeBoardNo},#{userNick},#{commentContent},#{userNo})
+	</insert>
+	<select id="selectMemberByUserID">
+		SELECT * FROM MEMBER
+		WHERE userid=#{userId}
+	</select>
+	
+	<delete id="deleteFreeBoardCommentByFreeBoardCommentNo" parameterType="FreeBoardComment">
+		DELETE FROM FREEBOARDCOMMENT
+		WHERE commentno=#{commentNo}
+	</delete>
+	
+	<select id="selectFreeBoardCommentCnt" parameterType="FreeBoard">
+		SELECT count(*) FROM freeboardcomment
+		WHERE freeboardno = #{freeBoardNo}
+	</select>
 </mapper>
 
 

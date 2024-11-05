@@ -12,16 +12,36 @@ $(function() {
 		$.ajax({
 			url: "./commentinsert?freeBoardNo="+${freeBoardView.freeBoardNo },
 			type: "get",
-			dataType: "",
-			success: function() {
+			data:{
 				"commentContent":$("#comment").val()
 			},
+			success: function() {
+				location.href=location.href
+			},
 			error: function() {
+				location.href=location.href
+				
+			}
+			
+		});
+	});
+	
+	$(".btn_cDelete").click(function() {
+		
+		$.ajax({
+			url: "./commentdelete?commentNo="+$(this).parent().prev().text(),
+			type: "get",
+			success: function() {
+				location.href=location.href
+			},
+			error: function() {
+				location.href=location.href
 				
 			}
 			
 		});
 	})
+	
 })
 	
 </script>
@@ -57,6 +77,7 @@ $(function() {
 </tbody>
 </table>
 </div>
+
 <div>
 <br>
 <h3>댓글입력</h3>
@@ -75,12 +96,13 @@ $(function() {
 <tbody>
 	<c:forEach var="freeBoardComment" items="${freeBoardCommentList }">
 	<tr>
-		<td>${freeBoardComment.freeBoardContent}</td>
+		<td>${freeBoardComment.commentContent}</td>
 		<td>${freeBoardComment.userNick}</td>
-		<td><fmt:formatDate value="${freeBoardComment.freeBoardWriteDate }" pattern="yyyy년 MM월 dd일"/></td>
+		<td><fmt:formatDate value="${freeBoardComment.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
+		<td style="display: none;">${freeBoardComment.commentNo }</td>
 		<td>
-			<c:if test="${ freeBoardComment.userNick eq info}">
-				<button>삭제</button>
+			<c:if test="${ freeBoardComment.userNick eq userNick}">
+				<button class="btn_cDelete">삭제</button>
 			</c:if>
 		</td>
 	</tr>

@@ -78,7 +78,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">카페리뷰</a></li>
             <li><a class="dropdown-item" href="#">원두리뷰</a></li>
-            <li><a class="dropdown-item" href="#">자유게시판</a></li>
+            <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
             <li><a class="dropdown-item" href="#">나만의 레시피</a></li>
             <li><a class="dropdown-item" href="#">이벤트</a></li>
             <li><a class="dropdown-item" href="#">공지사항</a></li>

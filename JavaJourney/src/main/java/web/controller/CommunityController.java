@@ -35,10 +35,15 @@ public class CommunityController {
 		@GetMapping("/freeboard/list")
 		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
 			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category); 
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category);
+			
+			
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
+			model.addAttribute("category", category);
+			
+			
 			
 		}
 		@GetMapping("/freeboard/view")
@@ -51,6 +56,9 @@ public class CommunityController {
 			List<FreeBoardComment> cList = service.getFreeBoardCommentList(freeBoard);
 			model.addAttribute("freeBoardCommentList", cList);
 			session.setAttribute("info", "tmpNick");
+			
+			
+			
 			
 		}
 		
@@ -90,8 +98,13 @@ public class CommunityController {
 		@GetMapping("/freeboard/commentinsert")
 		public void freeBoardCommentInsert(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session) {
 			service.joinFreeBoardComment(freeBoard,freeBoardComment,session);
+			
 		}
-	
+		
+		@GetMapping("/freeboard/commentdelete")
+		public void freeBoardCommentDelete(FreeBoardComment freeBoardComment) {
+			service.dropFreeBoardComment(freeBoardComment);
+		}
 
 	
 	//--------------------------------------------------------------------------------------

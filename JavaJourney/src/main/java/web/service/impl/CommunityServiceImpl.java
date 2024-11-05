@@ -3,6 +3,8 @@ package web.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +73,9 @@ public class CommunityServiceImpl implements CommunityService {
 		map.put("search", search);
 		map.put("category", category);
 		List<FreeBoard> freeBoardList = dao.selectFreeBoardListAll(map);
+		for(FreeBoard f : freeBoardList) {
+			f.setFreeBoardCommentCount(dao.selectFreeBoardCommentCnt(f));
+		}
 		
 		return freeBoardList;
 	}
@@ -98,6 +103,23 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<FreeBoardComment> getFreeBoardCommentList(FreeBoard freeBoard) {
 		return dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
 	}
+	
+	@Override
+	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
+		freeBoardComment.setFreeBoardNo(freeBoard.getFreeBoardNo());
+		
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoardComment.setUserNo(member.getUserNo());
+		freeBoardComment.setUserNick(member.getUserNick());
+		dao.insertFreeBoardComment(freeBoardComment);
+		
+	}
+	
+	@Override
+	public void dropFreeBoardComment(FreeBoardComment freeBoardComment) {
+		dao.deleteFreeBoardCommentByFreeBoardCommentNo(freeBoardComment);
+	}
+	
 	
 	//자유게시판--------------------------------------------------------------------------------
 	
