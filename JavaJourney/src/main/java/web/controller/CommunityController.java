@@ -13,6 +13,7 @@ import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.service.face.CommunityService;
+import web.util.Paging;
 
 @Controller
 @RequestMapping("/comm")
@@ -33,15 +34,14 @@ public class CommunityController {
 	
 	@GetMapping("/myrecipe")
 	public void mr() {}
-
 	
 	//--------------------------------------------------------------------------------------
 	//이루니
 	
 	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String category, String order, String search) {
+	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
 		
-		List<FreeBoard> creviewList = service.getCafeReviewList(category, order, search);
+		List<FreeBoard> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
 		model.addAttribute("creviewList", creviewList);
 		

@@ -12,6 +12,7 @@ import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.service.face.CommunityService;
+import web.util.Paging;
 
 @Service
 @Slf4j
@@ -21,12 +22,13 @@ public class CommunityServiceImpl implements CommunityService {
 	private CommunityDao dao;
 	
 	@Override
-	public List<FreeBoard> getCafeReviewList(String category, String order, String search) {
+	public List<FreeBoard> getCafeReviewList(String category, String order, String search, Paging paging) {
 		
-		HashMap<String, String> param = new HashMap<String, String>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
 		param.put("order", order);
 		param.put("search", search);
+		param.put("paging", paging);
 		
 		List<FreeBoard> list = dao.selectCafeReview(param);
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.util.Paging;
 
 public interface CommunityService {
 	
@@ -16,7 +17,7 @@ public interface CommunityService {
 	 * @param search - 검색
 	 * @return 카페리뷰 리스트
 	 */
-	public List<FreeBoard> getCafeReviewList(String category, String order, String search);
+	public List<FreeBoard> getCafeReviewList(String category, String order, String search, Paging paging);
 	
 	public List<FreeBoard> getFreeBoardList();
 
