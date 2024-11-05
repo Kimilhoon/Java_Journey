@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +59,7 @@ public class CommunityController {
 	public void cafeReviewForm(Model model, String order, String search) {}
 	
 	
-	@GetMapping("/creview/list")
+	@PostMapping("/creview/list")
 	public void cafeReviewForm(Model model, String category, String order, String search) {
 		
 		List<FreeBoard> creviewList = service.getCafeReviewList(category, order, search);
