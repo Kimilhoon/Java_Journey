@@ -33,17 +33,23 @@
 
 <div id="table">
 <table class="table">
-	<tr class="col-12">
-		<td class="row col-9">카페명</td>
-		<td class="col-3">작성자</td>
+	<tr>
+		<td>카페명</td>
+		<td colspan="5"></td>
+		<td>작성자</td>
+		<td colspan="2"></td>
 	</tr>
-	<tr class="col-12">
-		<td class="row col-4">지역</td>
-		<td class="col-2">별점</td>
-		<td class="col-6">작성일</td>
+	<tr>
+		<td>지역</td>
+		<td></td>
+		<td>별점</td>
+		<td></td>
+		<td>작성일</td>
+		<td></td>
 	</tr>
-	<tr class="col-12">
-		<td class="row col-12">본문</td>
+	<tr>
+		<td colspan="12">작성자</td>
+		<td></td>
 	</tr>
 </table>
 </div> <!-- table -->
@@ -55,7 +61,6 @@
 		<span><a href="./update?revNo=">수정</a></span>
 		<span><a href="./delete?revNo=">삭제</a></span>
 	</c:if>
-</div>
 
 <a href="./list"><button>목록</button></a>
 <a href="./view?revNo="><button>이전</button></a>
