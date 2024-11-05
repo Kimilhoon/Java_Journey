@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:import url="../layout/header.jsp" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,7 +157,7 @@ $(function() {
 				nickCheck = true;
 				
 				//중복 확인 결과 설정
-				NickDuplicate = res.duplicateNick;
+				nickDuplicate = res.duplicateNick;
 				
 				console.log("--- 중복체크 응답 ---");
 				console.log( res.duplicateNick );
@@ -176,7 +178,7 @@ $(function() {
 			, error: function() {
 				console.log("AJAX 실패");
 				
-				NickCheck = false;
+				nickCheck = false;
 			}
 		})
 		
@@ -188,7 +190,7 @@ $(function() {
 		.html("");
 		
 		//닉네임 중복체크 수행 상태 설정
-		NickCheck = false;
+		nickCheck = false;
 	}) //$("#userNick") end		
 	
 	
@@ -230,7 +232,7 @@ $(function() {
 <div>
 	<label for="userNick">닉네임</label>
 	<input type="text" name="userNick" id="userNick" required="required">
-<!-- 	<button id="userNickCheck" type="button">중복확인</button> -->
+	<button id="userNickCheck" type="button">중복확인</button>
 	<span id="userNickCheckMsg"></span>
 </div>
 
@@ -289,3 +291,6 @@ $(function() {
 
 </body>
 </html>
+
+
+<c:import url="../layout/footer.jsp" />

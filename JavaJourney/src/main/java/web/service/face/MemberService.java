@@ -35,6 +35,14 @@ public interface MemberService {
 	 */
 	public boolean login(Member member);
 
+	/**
+	 * 로그인 정보
+	 * 
+	 * @param member
+	 * @return
+	 */
+	public Member info(Member member);
+
 
 
 	
