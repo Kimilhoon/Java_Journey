@@ -60,8 +60,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
 	@GetMapping("/login")
 	public void login() {}
 	
@@ -77,7 +75,7 @@ public class MemberController {
 			member= service.info(member);
 			
 			session.setAttribute("isLogin", isLogin);
-			session.setAttribute("writerId", member.getUserId());
+			session.setAttribute("userId", member.getUserId());
 			
 		}else {
 			log.info("로그인 실패");
@@ -87,6 +85,22 @@ public class MemberController {
 		
 		return "redirect:/main";
 
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main";
+	}
+	
+	@RequestMapping("/idfind")
+	public void idfind() {
+		
+	}
+	
+	@RequestMapping("/pwfind")
+	public void pwfind() {
+		
 	}
 	
 	
