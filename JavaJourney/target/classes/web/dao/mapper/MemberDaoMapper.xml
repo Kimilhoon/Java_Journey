@@ -42,6 +42,16 @@
 		</where>	
 	</select>
 	
+	<select id="selectByLogin" parameterType="Member" resultType="Member">
+		SELECT userNo, userId, userPw, userNick, userEmail, userName
+		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		FROM member
+		<where>
+			AND userId = #{userId}
+		</where>
+	</select>
+	
+	
 	
 	
 	
