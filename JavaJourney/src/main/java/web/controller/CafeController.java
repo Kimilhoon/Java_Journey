@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import web.dto.Cafe;
 import web.service.face.CafeService;
 import web.service.impl.CafeServiceImpl;
 
@@ -26,10 +27,10 @@ public class CafeController {
 		
 	} // AllCafeForm() end
 
-//	@GetMapping("/info")
-//	public void CafeInfoForm(Cafe param) {
-//		
-//	} // CafeInfoForm(Cafe param) end
+	@GetMapping("/info")
+	public void CafeInfoForm(Cafe param) {
+		
+	} // CafeInfoForm(Cafe param) end
 	
 	
 } // class end
