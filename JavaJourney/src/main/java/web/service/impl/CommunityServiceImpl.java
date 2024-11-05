@@ -3,6 +3,8 @@ package web.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,6 +101,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
 	}
 	
+	@Override
+	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	//자유게시판--------------------------------------------------------------------------------
 	
 	//=================== 이루니 ===================
@@ -145,6 +153,25 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		int res = dao.insertCafeReview(cafeRev);
 		
+	}
+	
+	@Override
+	public String getWriterId(CafeRev cafeRev) {
+
+		return dao.selectWriterId(cafeRev);
+	}
+	
+	@Override
+	public void dropCafeReview(CafeRev cafeRev) {
+		
+		dao.deleteCafeReviewByCafeNo(cafeRev);
+		
+	}
+	
+	@Override
+	public void changeCafeReview(CafeRev cafeRev) {
+		
+		int res = dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
 	

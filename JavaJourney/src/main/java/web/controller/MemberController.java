@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Member;
 import web.service.face.MemberService;
-import web.service.impl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/member")

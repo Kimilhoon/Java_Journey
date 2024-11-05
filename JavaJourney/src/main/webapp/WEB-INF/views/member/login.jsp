@@ -15,6 +15,7 @@
 
 <script type="text/javascript">
 $(function() {
+	
 	$("#goJoin").click(function() {	
 		location.href = "./join";
 	});

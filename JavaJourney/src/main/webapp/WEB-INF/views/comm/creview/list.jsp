@@ -26,6 +26,8 @@
 </head>
 <body>
 
+<c:import url="../../layout/header.jsp" />
+
 <h1>카페리뷰리스트</h1>
 <br>
 
@@ -85,7 +87,9 @@
 	<tr>
 	<td class="col-1" scope="row">${list.revNo }</td>
 	<td class="col-1">${list.cafeLoc }</td>
-	<td class="col-5">${list.cafeName }</td>
+	<td class="col-5">
+	<a href="./view?revNo=${list.revNo }"> ${list.cafeName } </a>
+	</td>
 	<td class="col-2">${list.userNo }</td>
 	<td class="col-2">${list.revDate }</td>
 	<td class="col-1">${list.revsp }</td>

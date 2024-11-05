@@ -26,7 +26,6 @@ public interface CommunityService {
 	public List<CafeRev> getCafeReviewList(String category, String order, String search, Paging paging);
 	
 	
-
 	/**
 	 * 카페 리뷰 댓글 정보 불러오기
 	 * 
@@ -101,6 +100,21 @@ public interface CommunityService {
 	 * @param cafeRev - 사용자가 입력한 본문
 	 */
 	public void joinCafeReview(CafeRev cafeRev);
+
+	/**
+	 * 작성자 아이디 불러오기
+	 * 
+	 * @param cafeRev - 조회할 게시글
+	 * @return 조회된 작성자 아이디
+	 */
+	public String getWriterId(CafeRev cafeRev);
+
+	/**
+	 * 게시글 삭제하기
+	 * 
+	 * @param cafeRev - 삭제할 게시글 번호를 담은 객체
+	 */
+	public void dropCafeReview(CafeRev cafeRev);
 	
 	/**
 	 * 자유게시판 삭제
@@ -130,6 +144,13 @@ public interface CommunityService {
 	 * @param session - 유저
 	 */
 	public void joinFreeBoardComment(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session);
+	
+	/**
+	 * 카페 리뷰 수정하기
+	 * 
+	 * @param cafeRev 수정할 게시글 번호
+	 */
+	public void changeCafeReview(CafeRev cafeRev);
 	
 }
 
