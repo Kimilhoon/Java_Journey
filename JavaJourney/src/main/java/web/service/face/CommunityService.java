@@ -2,10 +2,13 @@ package web.service.face;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.util.Paging;
 
@@ -56,7 +59,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return - 필터링된 자유게시판 리스트
 	 */
-	public List<FreeBoard> getFreeBoardList(Paging paging , String search);
+	public List<FreeBoard> getFreeBoardList(Paging paging , String search,String category);
 	
 	/**
 	 * 조건에 따른 페이징 객체 생성
@@ -114,6 +117,46 @@ public interface CommunityService {
 	 */
 	public void dropCafeReview(CafeRev cafeRev);
 	
+	/**
+	 * 자유게시판 삭제
+	 * @param freeBoard - 보드넘버를 가진 객체
+	 */
+	public void dropFreeBoard(FreeBoard freeBoard);
 	
+	/**
+	 * 조회수 증가
+	 * @param freeBoard - 보드 넘버 
+	 */
+	public void freeBoardHitUp(FreeBoard freeBoard);
+	
+	/**
+	 * 
+	 * 게시판 댓글 조회
+	 * 
+	 * @param freeBoard - freeBoard 유저 넘버가 담긴 보드 객체
+	 * @return 조회된 댓글 리스트
+	 */
+	public List<FreeBoardComment> getFreeBoardCommentList(FreeBoard freeBoard);
+	
+	/**
+	 *  자유게시판 댓글 등록
+	 * @param freeBoard - 보드번호
+	 * @param freeBoardComment - 댓글 내용
+	 * @param session - 유저
+	 */
+	public void joinFreeBoardComment(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session);
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

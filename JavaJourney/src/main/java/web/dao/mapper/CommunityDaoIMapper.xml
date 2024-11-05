@@ -63,6 +63,9 @@
 			SELECT rownum r,a.* FROM(
 				SELECT * FROM FREEBOARD 
 				WHERE upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				<if test='category != "N" '>
+					AND FREEBOARDCATEGORY = #{category}
+				</if>
 				ORDER BY FREEBOARDNO DESC
 				)a
 			)
@@ -77,6 +80,22 @@
 	<select id="selectMemberByFreeBoardNo" parameterType="FreeBoard">
 		SELECT * FROM MEMBER
 		WHERE userno = #{userNo}
+	</select>
+	<delete id="deleteFreeBoardByFreeBoardNo" parameterType="FreeBoard">
+		DELETE FROM freeboard
+		WHERE freeboardno = #{freeBoardNo}
+	</delete>
+	
+	<update id="updateFreeBoardHitByFreeBoardNo" parameterType="FreeBoard">
+		UPDATE freeboard
+		SET
+			freeboardhit = freeboardhit+1
+		WHERE freeboardno = #{freeBoardNo}
+	</update>
+	
+	<select id="selectFreeBoardCommentByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoardComment">
+		SELECT * FROM FREEBOARDCOMMENT
+		WHERE freeboardno = #{freeBoardNo}
 	</select>
 	
 	<select id="selectUsernoByUserid" resultType="int" parameterType="string">
