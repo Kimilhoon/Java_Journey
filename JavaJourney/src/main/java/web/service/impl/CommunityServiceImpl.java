@@ -17,14 +17,6 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void insertBean(Bean bean) {
-//		log.info("bean Service : {}",bean);
-//		MultipartFile file = bean.getBeanInfo();
-//		if( file.isEmpty() || file.getSize() <= 0) {
-//			log.info("파일 업로드가 없음");
-//		}
-//		String storedPath = context.getRealPath("beanUpload");
-//		File storedFolder = new File(storedPath);
-//		storedFolder.mkdir();
 		log.info("bean: {}",bean);
 		dao.insertBeanData(bean);
 	}
