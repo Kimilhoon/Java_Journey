@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
@@ -35,6 +36,14 @@ public interface CommunityDao {
 	 * @return 해당 리뷰 정보가 담긴 객체
 	 */
 	public CafeRev selectCafeReviewInfo(CafeRev revNo);
+
+	/**
+	 * 카페번호를 이용하여 카페 이름 불러오기
+	 * 
+	 * @param cafeNo - 조회할 카페 번호
+	 * @return 조회된 카페 이름
+	 */
+	public String selectCafeNameByCafeNo(Cafe cafeNo);
 	
 	
 	

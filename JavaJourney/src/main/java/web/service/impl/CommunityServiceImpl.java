@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
+import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
@@ -43,19 +44,20 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public List<CafeRevComm> getCafeReviewCommentList(CafeRev revNo) {
 		
-		List<CafeRevComm> list = dao.selectCafeReviewCommentListByCafeReviewNo(revNo);
-		
-		return list;
+		return dao.selectCafeReviewCommentListByCafeReviewNo(revNo);
 	}
 	
 	@Override
 	public CafeRev getCafeReviewInfo(CafeRev revNo) {
 		
-		CafeRev cafeRev = dao.selectCafeReviewInfo(revNo);
-		
-		return cafeRev;
+		return dao.selectCafeReviewInfo(revNo);
 	}
 	
+	@Override
+	public String getCafeName(Cafe cafeNo) {
+		
+		return dao.selectCafeNameByCafeNo(cafeNo);
+	}
 	
 }
 

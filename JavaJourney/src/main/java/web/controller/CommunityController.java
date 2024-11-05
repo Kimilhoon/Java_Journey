@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
+import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
@@ -59,7 +62,20 @@ public class CommunityController {
 		
 	}
 	
+	@GetMapping("/creview/write")
+	public void cafeReviewWrite(Model model, Cafe cafeNo) {
+		
+		String cafeName = service.getCafeName(cafeNo);
+		
+		model.addAttribute("cafeName", cafeName);
+		
+	}
 	
+	@PostMapping("/creview/write")
+	public String cafeReviewWriteProc(CafeRev cafeRev) {
+		
+		return null;
+	}
 	
 	
 	

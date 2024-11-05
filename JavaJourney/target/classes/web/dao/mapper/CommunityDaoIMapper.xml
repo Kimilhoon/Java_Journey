@@ -6,6 +6,7 @@
     
 <mapper namespace="web.dao.face.CommunityDao">
 	
+	<!--수정해야댐 ㅜ -->
 	<select id="selectCafeReview" resultType="FreeBoard" parameterType="hashmap">
 	
 		SELECT * FROM freeboard
@@ -30,6 +31,13 @@
 			AND revNo = #{revNo }
 		</where>
 	
+	</select>
+	
+	<select id="selectCafeNameByCafeNo" resultType="string" parameterType="Cafe">
+		SELECT cafeName FROM cafe
+		<where>
+			AND cafeNo = #{cafeNo }
+		</where>
 	</select>
 	
 </mapper>
