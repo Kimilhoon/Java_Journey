@@ -8,6 +8,8 @@ public class CafeRev {
 //
 	private int revNo;
 	private int cafeNo;
+	private String cafeName;
+	private String cafeLoc;
 	private int userNo;
 	private String revContent;
 	private int revHit;

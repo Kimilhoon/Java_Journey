@@ -14,6 +14,6 @@ import web.service.impl.MypageServiceImpl;
 public class MypageController {
 	
 	@Autowired
-	private MypageService service = new MypageServiceImpl();
+	private MypageService service;
 	
 }

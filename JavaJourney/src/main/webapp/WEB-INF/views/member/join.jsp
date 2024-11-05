@@ -283,6 +283,7 @@ $(function() {
 </div>
 
 
+
 </form>
 </div> <!-- id="joinForm" -->
 
