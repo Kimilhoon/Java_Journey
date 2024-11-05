@@ -8,9 +8,8 @@
 	
 	<select id="selectCafeReview" resultType="FreeBoard" parameterType="hashmap">
 	
-	<if test="null != #{order }">
-	
-	</if>
+		SELECT * FROM freeboard
+		ORDER BY freeboardno DESC
 	
 	</select>
 	

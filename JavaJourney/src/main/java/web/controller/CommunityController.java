@@ -38,7 +38,7 @@ public class CommunityController {
 	//--------------------------------------------------------------------------------------
 	//이루니
 	
-	@GetMapping("/list")
+	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String order, String search) {
 		
 		List<FreeBoard> list = service.getCafeReviewList(order, search);
