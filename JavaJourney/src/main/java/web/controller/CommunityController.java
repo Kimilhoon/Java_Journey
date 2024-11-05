@@ -56,9 +56,6 @@ public class CommunityController {
 	
 	//--------------------------------------------------------------------------------------
 	//이루니
-	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String order, String search) {}
-	
 	
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
