@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.service.face.CommunityService;
 
@@ -19,9 +21,10 @@ public class CommunityServiceImpl implements CommunityService {
 	private CommunityDao dao;
 	
 	@Override
-	public List<FreeBoard> getCafeReviewList(String order, String search) {
+	public List<FreeBoard> getCafeReviewList(String category, String order, String search) {
 		
 		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("category", category);
 		param.put("order", order);
 		param.put("search", search);
 		
@@ -35,4 +38,40 @@ public class CommunityServiceImpl implements CommunityService {
 		return null;
 	}
 	
+	@Override
+	public List<CafeRevComm> getCafeReviewCommentList(CafeRev revNo) {
+		
+		List<CafeRevComm> list = dao.selectCafeReviewCommentListByCafeReviewNo(revNo);
+		
+		return list;
+	}
+	
+	@Override
+	public CafeRev getCafeReviewInfo(CafeRev revNo) {
+		
+		CafeRev cafeRev = dao.selectCafeReviewInfo(revNo);
+		
+		return cafeRev;
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

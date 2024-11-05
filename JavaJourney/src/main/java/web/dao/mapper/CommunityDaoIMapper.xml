@@ -13,4 +13,44 @@
 	
 	</select>
 	
+	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
+	
+		SELECT * FROM caferevcomm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+		ORDER BY caferevcommno desc
+		
+	</select>
+	
+	<select id="selectCafeReviewInfo" resultType="CafeRev" parameterType="CafeRev">
+	
+		SELECT * FROM caferev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	
+	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
