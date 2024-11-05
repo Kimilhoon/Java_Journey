@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
@@ -19,7 +20,7 @@ public interface CommunityDao {
 	 * @param param - 사용자가 선택한 정렬방법, 검색어
 	 * @return 해당 정보가 담긴 리스트
 	 */
-	public List<FreeBoard> selectCafeReview(HashMap<String, String> param);
+	public List<FreeBoard> selectCafeReview(HashMap<String, Object> param);
 
 	/**
 	 * db에 저장된 해당 카페 리뷰 댓글 불러오기
@@ -36,6 +37,18 @@ public interface CommunityDao {
 	 * @return 해당 리뷰 정보가 담긴 객체
 	 */
 	public CafeRev selectCafeReviewInfo(CafeRev revNo);
+
+	/**
+	 * 카페번호를 이용하여 카페 이름 불러오기
+	 * 
+	 * @param cafeNo - 조회할 카페 번호
+	 * @return 조회된 카페 이름
+	 */
+	public String selectCafeNameByCafeNo(Cafe cafeNo);
+	
+	
+	
+	
 	
 	//자유게시판--------------------------------------------------------------------------------------
 	/**

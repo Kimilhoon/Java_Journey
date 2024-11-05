@@ -2,6 +2,7 @@ package web.service.face;
 
 import java.util.List;
 
+import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
@@ -18,7 +19,7 @@ public interface CommunityService {
 	 * @param search - 검색
 	 * @return 카페리뷰 리스트
 	 */
-	public List<FreeBoard> getCafeReviewList(String category, String order, String search);
+	public List<FreeBoard> getCafeReviewList(String category, String order, String search, Paging paging);
 	
 	
 
@@ -37,6 +38,14 @@ public interface CommunityService {
 	 * @return 조회된 카페 리뷰
 	 */
 	public CafeRev getCafeReviewInfo(CafeRev revNo);
+
+	/**
+	 * 카페번호를 이용하여 카페이름 불러오기
+	 * 
+	 * @param cafeNo - 조회할 카페 번호
+	 * @return 카페이름
+	 */
+	public String getCafeName(Cafe cafeNo);
 	
 	/**
 	 * 
