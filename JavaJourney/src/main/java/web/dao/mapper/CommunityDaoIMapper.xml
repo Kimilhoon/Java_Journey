@@ -27,11 +27,14 @@
 	</select>
 	
 	<select id="selectCafeReviewInfo" resultType="CafeRev" parameterType="CafeRev">
-	
-		SELECT * FROM caferev
+
+		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
+		FROM caferev cr
+		JOIN cafe c ON cr.cafeno = c.cafeno
 		<where>
 			AND revNo = #{revNo }
 		</where>
+		ORDER BY revno desc
 	
 	</select>
 	
@@ -75,6 +78,18 @@
 		SELECT * FROM MEMBER
 		WHERE userno = #{userNo}
 	</select>
+	
+	<select id="selectUsernoByUserid" resultType="int" parameterType="string">
+		SELECT userno FROM member
+		<where>
+			userId = #{userId }
+		</where>
+	</select>
+	
+	<insert id="insertCafeReview" parameterType="CafeRev">
+		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
+		VALUES #{revNo_seq.nextval, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+	</insert>
 	
 </mapper>
 
