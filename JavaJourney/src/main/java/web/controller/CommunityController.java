@@ -2,6 +2,8 @@ package web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +43,7 @@ public class CommunityController {
 			
 		}
 		@GetMapping("/freeboard/view")
-		public void freeBoardView(Model model, FreeBoard freeBoard ) {
+		public void freeBoardView(Model model, FreeBoard freeBoard, HttpSession session) {
 			freeBoard = service.getFreeBoardView(freeBoard);
 			Member member = service.getMemberByFreeBoardNo(freeBoard);
 			model.addAttribute("freeBoardView", freeBoard);
@@ -49,6 +51,7 @@ public class CommunityController {
 			
 			List<FreeBoardComment> cList = service.getFreeBoardCommentList(freeBoard);
 			model.addAttribute("freeBoardCommentList", cList);
+			session.setAttribute("info", "tmpNick");
 			
 		}
 		
@@ -79,13 +82,16 @@ public class CommunityController {
 		}
 		
 		@GetMapping("/freeboard/hit")
-		public void hit(FreeBoard freeBoard) {
+		public void freeBoardHit(FreeBoard freeBoard) {
 			log.info("{}",freeBoard.getFreeBoardNo());
 			service.freeBoardHitUp(freeBoard);
 		}
 		
 		
-		
+		@GetMapping("/freeboard/commentinsert")
+		public void freeBoardCommentInsert(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session) {
+			service.joinFreeBoardComment(freeBoard,freeBoardComment,session);
+		}
 	
 
 	

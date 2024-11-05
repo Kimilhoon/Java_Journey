@@ -4,7 +4,25 @@
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 <script type="text/javascript">
-
+$(function() {
+	$("#btn_writeComment").click(function() {
+		console.log($("#comment").val());
+		
+		
+		$.ajax({
+			url: "./commentinsert?freeBoardNo="+${freeBoardView.freeBoardNo },
+			type: "get",
+			dataType: "",
+			success: function() {
+				"commentContent":$("#comment").val()
+			},
+			error: function() {
+				
+			}
+			
+		});
+	})
+})
 	
 </script>
 </head>
@@ -61,7 +79,7 @@
 		<td>${freeBoardComment.userNick}</td>
 		<td><fmt:formatDate value="${freeBoardComment.freeBoardWriteDate }" pattern="yyyy년 MM월 dd일"/></td>
 		<td>
-			<c:if test="${ freeBoardComment.userNick eq info.userNick}">
+			<c:if test="${ freeBoardComment.userNick eq info}">
 				<button>삭제</button>
 			</c:if>
 		</td>

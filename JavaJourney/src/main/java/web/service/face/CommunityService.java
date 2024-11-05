@@ -2,6 +2,8 @@ package web.service.face;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -106,5 +108,25 @@ public interface CommunityService {
 	 */
 	public List<FreeBoardComment> getFreeBoardCommentList(FreeBoard freeBoard);
 	
+	/**
+	 *  자유게시판 댓글 등록
+	 * @param freeBoard - 보드번호
+	 * @param freeBoardComment - 댓글 내용
+	 * @param session - 유저
+	 */
+	public void joinFreeBoardComment(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session);
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
