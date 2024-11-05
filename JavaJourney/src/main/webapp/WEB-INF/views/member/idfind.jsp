@@ -19,7 +19,7 @@
 <div>
 	<label for="userPhone">전화번호</label>
 	<input type="text" name="userPhone" id="userPhone" required="required">
-	<button id="idfind" type="button">전송</button>
+	<button id="btnIdFind" type="button">전송</button>
 </div>
 
 <a href="./pwfind">|비밀번호 찾기|</a>

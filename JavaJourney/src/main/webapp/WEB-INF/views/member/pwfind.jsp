@@ -23,7 +23,7 @@
 <div>
 	<label for="userPhone">전화번호</label>
 	<input type="text" name="userPhone" id="userPhone" required="required">
-	<button id="idfind" type="button">전송</button>
+	<button id="btnPwFind" type="button">전송</button>
 </div>
 
 <a href="./idfind">|아이디 찾기|</a>
