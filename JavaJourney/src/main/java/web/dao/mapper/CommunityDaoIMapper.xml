@@ -88,7 +88,7 @@
 	
 	<insert id="insertCafeReview" parameterType="CafeRev">
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
-		VALUES ( #{revNo_seq.nextval, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+		VALUES ( #{revNo_seq.nextval }, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
 	
 	<select id="selectWriterId" resultType="string" parameterType="CafeRev">
