@@ -27,6 +27,7 @@
 <body>
 
 <h1>카페리뷰리스트</h1>
+<br>
 
 <div id="content">
 <div class="container" id="top">
@@ -68,6 +69,32 @@
 </div> <!-- container -->
 </div> <!-- content -->
 
+<div class="container" id="center">
+
+<table class="table text-center">
+<tr>
+	<th class="col-1" scope="col">글번호</th>
+	<th class="col-1" scope="col">지역</th>
+	<th class="col-5" scope="col">카페이름</th>
+	<th class="col-2" scope="col">작성자</th>
+	<th class="col-2" scope="col">작성일</th>
+	<th class="col-1" scope="col">별점</th>
+</tr>
+
+<c:forEach var="list" items="${creviewList }">
+	<tr>
+	<td class="col-1" scope="row">${list.revNo }</td>
+	<td class="col-1">${list.cafeLoc }</td>
+	<td class="col-5">${list.cafeName }</td>
+	<td class="col-2">${list.userNo }</td>
+	<td class="col-2">${list.revDate }</td>
+	<td class="col-1">${list.revsp }</td>
+	</tr>
+</c:forEach>
+
+</table>
+
+</div>
 
 </body>
 </html>

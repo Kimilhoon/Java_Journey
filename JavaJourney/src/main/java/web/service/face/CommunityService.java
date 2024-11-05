@@ -20,7 +20,7 @@ public interface CommunityService {
 	 * @param paging - 페이징
 	 * @return 카페리뷰 리스트
 	 */
-	public List<FreeBoard> getCafeReviewList(String category, String order, String search, Paging paging);
+	public List<CafeRev> getCafeReviewList(String category, String order, String search, Paging paging);
 	
 	
 

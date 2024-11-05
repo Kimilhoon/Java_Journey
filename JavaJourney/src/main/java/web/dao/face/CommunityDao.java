@@ -20,7 +20,7 @@ public interface CommunityDao {
 	 * @param param - 사용자가 선택한 정렬방법, 검색어
 	 * @return 해당 정보가 담긴 리스트
 	 */
-	public List<FreeBoard> selectCafeReview(HashMap<String, Object> param);
+	public List<CafeRev> selectCafeReview(HashMap<String, Object> param);
 
 	/**
 	 * db에 저장된 해당 카페 리뷰 댓글 불러오기
