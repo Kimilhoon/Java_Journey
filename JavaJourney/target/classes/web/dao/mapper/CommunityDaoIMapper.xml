@@ -88,6 +88,11 @@
 		WHERE freeboardno = #{freeBoardNo}
 	</update>
 	
+	<select id="selectFreeBoardCommentByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoardComment">
+		SELECT * FROM FREEBOARDCOMMENT
+		WHERE freeboardno = #{freeBoardNo}
+	</select>
+	
 </mapper>
 
 

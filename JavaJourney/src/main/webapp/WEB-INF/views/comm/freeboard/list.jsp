@@ -92,7 +92,19 @@ $(function() {
 	<tr>
 		<td>${freeBoardList.freeBoardNo}</td>
 		<td>${freeBoardList.freeBoardCategory}</td>
-		<td><a href="./view?freeBoardNo=${freeBoardList.freeBoardNo }"class="hit" >${freeBoardList.freeBoardTitle}</a></td>
+		
+		<td>
+		
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+		<fmt:formatDate value="${freeBoardList.freeBoardWriteDate}" pattern="yyyyMMdd" var="wDate" /> 
+		<c:if test="${nowDate eq wDate }">
+			<span>new</span>
+		</c:if>
+		<a href="./view?freeBoardNo=${freeBoardList.freeBoardNo }"class="hit" >${freeBoardList.freeBoardTitle}</a>
+		
+		</td>
+		
 		<td>${freeBoardList.freeBoardHit}</td>
 		<td><fmt:formatDate value="${freeBoardList.freeBoardWriteDate }" pattern="yyyy년 MM월 dd일"/></td>
 	</tr>

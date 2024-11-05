@@ -152,7 +152,7 @@ $(function() {
 				console.log("AJAX 성공");
 				
 				//아이디 중복체크 수행 상태 설정
-				NickCheck = true;
+				nickCheck = true;
 				
 				//중복 확인 결과 설정
 				NickDuplicate = res.duplicateNick;

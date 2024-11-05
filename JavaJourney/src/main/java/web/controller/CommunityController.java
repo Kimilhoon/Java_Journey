@@ -15,6 +15,7 @@ import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.service.face.CommunityService;
 import web.util.Paging;
@@ -45,6 +46,9 @@ public class CommunityController {
 			Member member = service.getMemberByFreeBoardNo(freeBoard);
 			model.addAttribute("freeBoardView", freeBoard);
 			model.addAttribute("member", member);
+			
+			List<FreeBoardComment> cList = service.getFreeBoardCommentList(freeBoard);
+			model.addAttribute("freeBoardCommentList", cList);
 			
 		}
 		
@@ -81,7 +85,7 @@ public class CommunityController {
 		}
 		
 		
-
+		
 	
 
 	

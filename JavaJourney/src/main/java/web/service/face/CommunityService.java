@@ -6,6 +6,7 @@ import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.util.Paging;
 
@@ -95,6 +96,14 @@ public interface CommunityService {
 	 */
 	public void freeBoardHitUp(FreeBoard freeBoard);
 	
+	/**
+	 * 
+	 * 게시판 댓글 조회
+	 * 
+	 * @param freeBoard - freeBoard 유저 넘버가 담긴 보드 객체
+	 * @return 조회된 댓글 리스트
+	 */
+	public List<FreeBoardComment> getFreeBoardCommentList(FreeBoard freeBoard);
 	
 	
 }

@@ -9,6 +9,7 @@ import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.FreeBoardComment;
 import web.dto.Member;
 
 @Mapper
@@ -95,6 +96,14 @@ public interface CommunityDao {
 	 * @param freeBoard
 	 */
 	public void updateFreeBoardHitByFreeBoardNo(FreeBoard freeBoard);
+	
+	/**
+	 * 자유게시판 게시글 댓글 리스트 조회
+	 * 
+	 * @param freeBoard - 보드넘버
+	 * @return - 조회된 댓글리스트
+	 */
+	public List<FreeBoardComment> selectFreeBoardCommentByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
 }
 

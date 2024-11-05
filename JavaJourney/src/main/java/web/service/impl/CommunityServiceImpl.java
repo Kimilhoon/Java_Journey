@@ -12,6 +12,7 @@ import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
+import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.service.face.CommunityService;
 import web.util.Paging;
@@ -93,6 +94,10 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.updateFreeBoardHitByFreeBoardNo(freeBoard);
 	}
 	
+	@Override
+	public List<FreeBoardComment> getFreeBoardCommentList(FreeBoard freeBoard) {
+		return dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
+	}
 	
 	//자유게시판--------------------------------------------------------------------------------
 	
