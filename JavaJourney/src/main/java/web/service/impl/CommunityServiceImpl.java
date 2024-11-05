@@ -119,6 +119,19 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 	
+	@Override
+	public String getWriterId(CafeRev cafeRev) {
+
+		return dao.selectWriterId(cafeRev);
+	}
+	
+	@Override
+	public void dropCafeReview(CafeRev cafeRev) {
+		
+		dao.deleteCafeReviewByCafeNo(cafeRev);
+		
+	}
+	
 	
 	
 }
