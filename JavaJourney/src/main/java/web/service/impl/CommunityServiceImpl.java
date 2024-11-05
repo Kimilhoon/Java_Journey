@@ -26,12 +26,17 @@ public class CommunityServiceImpl implements CommunityService {
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
 	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
-
+		log.info("{}",search);
+		log.info("{}",category);
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
-		if(category == null || "".equals(category)) {
+		if(category == null || "".equals(category)||"all".equals(category)) {
 			category = "N";
+		}else if(category.equals("cafe")) {
+			category="카페";
+		}else {
+			category="원두";
 		}
 		if(search == null || "".equals(search)) {
 			search = "N";
@@ -49,12 +54,21 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return paging;
 	}
+	
 	@Override
-	public List<FreeBoard> getFreeBoardList(Paging paging, String search) {
+	public List<FreeBoard> getFreeBoardList(Paging paging, String search,String category) {
+		
+		if(category == null || "".equals(category)||"all".equals(category)) {
+			category = "N";
+		}else if(category.equals("cafe")) {
+			category="카페";
+		}else {
+			category="원두";
+		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("paging", paging);
 		map.put("search", search);
-		
+		map.put("category", category);
 		List<FreeBoard> freeBoardList = dao.selectFreeBoardListAll(map);
 		
 		return freeBoardList;
@@ -70,6 +84,15 @@ public class CommunityServiceImpl implements CommunityService {
 	public Member getMemberByFreeBoardNo(FreeBoard freeBoard) {
 		return dao.selectMemberByFreeBoardNo(freeBoard);
 	}
+	@Override
+	public void dropFreeBoard(FreeBoard freeBoard) {
+		dao.deleteFreeBoardByFreeBoardNo(freeBoard);
+	}
+	@Override
+	public void freeBoardHitUp(FreeBoard freeBoard) {
+		dao.updateFreeBoardHitByFreeBoardNo(freeBoard);
+	}
+	
 	
 	//자유게시판--------------------------------------------------------------------------------
 	

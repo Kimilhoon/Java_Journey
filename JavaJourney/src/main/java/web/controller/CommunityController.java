@@ -27,15 +27,13 @@ public class CommunityController {
 	@Autowired
 	private CommunityService service;
 	
-	@GetMapping("/myrecipe")
-	public void mr() {}
 	//--------------------------------------------------------------------------------------
 		//동쥬니
 		
 		@GetMapping("/freeboard/list")
 		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
 			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search); 
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category); 
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
@@ -71,7 +69,16 @@ public class CommunityController {
 		}
 		
 		@GetMapping("/freeboard/delete")
-		public void freeBoardDeleteForm() {}
+		public String freeBoardDeleteForm(FreeBoard freeBoard) {
+			service.dropFreeBoard(freeBoard);
+			return "redirect:./list";
+		}
+		
+		@GetMapping("/freeboard/hit")
+		public void hit(FreeBoard freeBoard) {
+			log.info("{}",freeBoard.getFreeBoardNo());
+			service.freeBoardHitUp(freeBoard);
+		}
 		
 		
 

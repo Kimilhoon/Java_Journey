@@ -82,6 +82,19 @@ public interface CommunityDao {
 	 * @return - 조회된 멤버
 	 */
 	public Member selectMemberByFreeBoardNo(FreeBoard freeBoard);
+
+	
+	/**
+	 * 자유게시판 삭제
+	 * @param freeBoard - 자유게시판 번호가 담긴 객체
+	 */
+	public void deleteFreeBoardByFreeBoardNo(FreeBoard freeBoard); 
+	
+	/**
+	 * 자유게시판 조회수 증가
+	 * @param freeBoard
+	 */
+	public void updateFreeBoardHitByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
 }
 

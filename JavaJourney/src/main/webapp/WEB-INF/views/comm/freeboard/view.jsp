@@ -19,7 +19,7 @@
 <body>
 <a href="./list"><button>목록</button></a>
 <a href="./update?freeBoardNo=${freeBoardView.freeBoardNo }"><button>수정</button></a>
-<a href="./delete"><button>삭제</button></a>
+<a href="./delete?freeBoardNo=${freeBoardView.freeBoardNo }"><button>삭제</button></a>
 <div>
 <table>
 <thead>

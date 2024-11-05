@@ -55,7 +55,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return - 필터링된 자유게시판 리스트
 	 */
-	public List<FreeBoard> getFreeBoardList(Paging paging , String search);
+	public List<FreeBoard> getFreeBoardList(Paging paging , String search,String category);
 	
 	/**
 	 * 조건에 따른 페이징 객체 생성
@@ -81,7 +81,19 @@ public interface CommunityService {
 	 * @param freeBoard 유저 넘버가 담긴 보드 객체
 	 * @return - 조회된 멤버
 	 */
-	public Member getMemberByFreeBoardNo(FreeBoard freeBoard);
+	public Member getMemberByFreeBoardNo(FreeBoard freeBoard); 
+	
+	/**
+	 * 자유게시판 삭제
+	 * @param freeBoard - 보드넘버를 가진 객체
+	 */
+	public void dropFreeBoard(FreeBoard freeBoard);
+	
+	/**
+	 * 조회수 증가
+	 * @param freeBoard - 보드 넘버 
+	 */
+	public void freeBoardHitUp(FreeBoard freeBoard);
 	
 	
 	
