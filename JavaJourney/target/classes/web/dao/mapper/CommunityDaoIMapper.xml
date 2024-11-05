@@ -6,6 +6,7 @@
     
 <mapper namespace="web.dao.face.CommunityDao">
 	
+	<!--수정해야댐 ㅜ -->
 	<select id="selectCafeReview" resultType="FreeBoard" parameterType="hashmap">
 	
 		SELECT * FROM freeboard
@@ -32,6 +33,13 @@
 	
 	</select>
 	
+	<select id="selectCafeNameByCafeNo" resultType="string" parameterType="Cafe">
+		SELECT cafeName FROM cafe
+		<where>
+			AND cafeNo = #{cafeNo }
+		</where>
+	</select>
+
 	<select id="getFreeBoardTotalCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM FREEBOARD
 		<where>
@@ -65,7 +73,6 @@
 		SELECT * FROM MEMBER
 		WHERE userno = #{userNo}
 	</select>
-	
 	
 </mapper>
 

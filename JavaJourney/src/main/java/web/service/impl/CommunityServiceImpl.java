@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
+import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
@@ -71,13 +72,16 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	//자유게시판--------------------------------------------------------------------------------
+	
+	//=================== 이루니 ===================
 	@Override
-	public List<FreeBoard> getCafeReviewList(String category, String order, String search) {
+	public List<FreeBoard> getCafeReviewList(String category, String order, String search, Paging paging) {
 		
-		HashMap<String, String> param = new HashMap<String, String>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
 		param.put("order", order);
 		param.put("search", search);
+		param.put("paging", paging);
 		
 		List<FreeBoard> list = dao.selectCafeReview(param);
 		
@@ -87,19 +91,20 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public List<CafeRevComm> getCafeReviewCommentList(CafeRev revNo) {
 		
-		List<CafeRevComm> list = dao.selectCafeReviewCommentListByCafeReviewNo(revNo);
-		
-		return list;
+		return dao.selectCafeReviewCommentListByCafeReviewNo(revNo);
 	}
 	
 	@Override
 	public CafeRev getCafeReviewInfo(CafeRev revNo) {
 		
-		CafeRev cafeRev = dao.selectCafeReviewInfo(revNo);
-		
-		return cafeRev;
+		return dao.selectCafeReviewInfo(revNo);
 	}
 	
+	@Override
+	public String getCafeName(Cafe cafeNo) {
+		
+		return dao.selectCafeNameByCafeNo(cafeNo);
+	}
 	
 }
 
