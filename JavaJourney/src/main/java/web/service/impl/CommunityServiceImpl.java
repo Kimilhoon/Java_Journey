@@ -103,7 +103,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	//=================== 이루니 ===================
 	@Override
-	public List<FreeBoard> getCafeReviewList(String category, String order, String search, Paging paging) {
+	public List<CafeRev> getCafeReviewList(String category, String order, String search, Paging paging) {
 		
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
@@ -111,7 +111,7 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
-		List<FreeBoard> list = dao.selectCafeReview(param);
+		List<CafeRev> list = dao.selectCafeReview(param);
 		
 		return list;
 	}

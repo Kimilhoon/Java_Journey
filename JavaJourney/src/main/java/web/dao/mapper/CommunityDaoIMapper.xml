@@ -7,10 +7,12 @@
 <mapper namespace="web.dao.face.CommunityDao">
 	
 	<!--수정해야댐 ㅜ -->
-	<select id="selectCafeReview" resultType="FreeBoard" parameterType="hashmap">
+	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
 	
-		SELECT * FROM freeboard
-		ORDER BY freeboardno DESC
+		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
+		FROM caferev cr
+		JOIN cafe c ON cr.cafeno = c.cafeno
+		ORDER BY revno desc
 	
 	</select>
 	

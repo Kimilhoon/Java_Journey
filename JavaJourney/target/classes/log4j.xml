@@ -39,6 +39,10 @@
 	<logger name="web.service">
 		<level value="info" />
 	</logger>
+
+	<logger name="web.dao">
+		<level value="debug" />
+	</logger>
 	
 	<logger name="web.manager.controller">
 		<level value="info" />
@@ -46,6 +50,10 @@
 
 	<logger name="web.manager.service">
 		<level value="info" />
+	</logger>
+
+	<logger name="web.manager.dao">
+		<level value="debug" />
 	</logger>
 	
 	<logger name="aop">
