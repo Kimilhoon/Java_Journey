@@ -128,6 +128,11 @@
 		SELECT count(*) FROM freeboardcomment
 		WHERE freeboardno = #{freeBoardNo}
 	</select>
+	
+	<insert id="insertFreeBoard" parameterType="FreeBoard">
+		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit)
+		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0);
+	</insert>
 </mapper>
 
 

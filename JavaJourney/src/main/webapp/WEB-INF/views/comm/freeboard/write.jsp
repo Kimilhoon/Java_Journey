@@ -11,11 +11,11 @@ $(document).ready(function() {
 <body>
 <a href="./list"><button>목록</button></a>
 
-<form action="./write" method="post">
+<form action="./write" method="post" enctype="multipart/form-data">
 
-<label>제목<input type="text"></label>
-<label>카테고리<input type="radio" name="category">원두<input type="radio" name="category">카페</label>
-<label>내용<textarea id="summernote" rows="15" cols="50" name="content" required="required" class="form-control"></textarea></label>
+<label>제목<input type="text" name="freeBoardTitle"></label>
+<label>카테고리<input type="radio" name="freeBoardCategory" value="bean">원두<input type="radio" name="freeBoardCategory" value="cafe">카페</label>
+<label>내용<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control"></textarea></label>
 <button>작성</button>
 </form>
 

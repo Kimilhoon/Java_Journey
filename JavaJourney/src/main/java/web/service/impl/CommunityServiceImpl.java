@@ -120,6 +120,21 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.deleteFreeBoardCommentByFreeBoardCommentNo(freeBoardComment);
 	}
 	
+	@Override
+	public void joinFreeBoard(FreeBoard freeBoard, HttpSession session) {
+		if(freeBoard.getFreeBoardCategory().equals("cafe")) {
+			freeBoard.setFreeBoardCategory("카페");
+		}else {
+			freeBoard.setFreeBoardCategory("원두");
+			
+		}
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoard.setUserNick(member.getUserNick());
+		freeBoard.setUserNo(member.getUserNo());
+		log.info("{}",freeBoard);
+		dao.insertFreeBoard(freeBoard);
+	}
+	
 	
 	//자유게시판--------------------------------------------------------------------------------
 	

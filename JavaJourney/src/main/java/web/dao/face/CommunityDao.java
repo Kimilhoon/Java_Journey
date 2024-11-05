@@ -147,6 +147,12 @@ public interface CommunityDao {
 	 * @return 각 보드 댓글 수
 	 */
 	public int selectFreeBoardCommentCnt(FreeBoard freeBoard);
+	
+	/**
+	 * 보드 인서트
+	 * @param freeBoard
+	 */
+	public void insertFreeBoard(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
 
 

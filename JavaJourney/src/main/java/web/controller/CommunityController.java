@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
@@ -66,8 +67,9 @@ public class CommunityController {
 		public void freeBoardWriteForm() {}
 		
 		@PostMapping("/freeboard/write")
-		public void freeBoardWriteProc() {
+		public void freeBoardWriteProc(@RequestParam FreeBoard freeBoard,HttpSession session) {
 			//로그인 연동 되면 구현
+			service.joinFreeBoard(freeBoard,session);
 		}
 		
 		@GetMapping("/freeboard/update")

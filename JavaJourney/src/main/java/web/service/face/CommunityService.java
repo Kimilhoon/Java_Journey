@@ -137,6 +137,13 @@ public interface CommunityService {
 	 */
 	public void dropFreeBoardComment(FreeBoardComment freeBoardComment);
 	
+	/**
+	 * 보드 인서트
+	 * @param freeBoard - 제목,컨텐츠,카테고리 있음
+	 * @param session - 유저 정보 있음
+	 */
+	public void joinFreeBoard(FreeBoard freeBoard, HttpSession session);
+	
 }
 
 
