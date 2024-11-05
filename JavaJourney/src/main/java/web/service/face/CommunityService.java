@@ -83,6 +83,21 @@ public interface CommunityService {
 	 * @return - 조회된 멤버
 	 */
 	public Member getMemberByFreeBoardNo(FreeBoard freeBoard);
+
+	/**
+	 * 유저 아이디를 이용하여 유저번호 갖고오기
+	 * 
+	 * @param userid - 유저번호를 조회할 아이디(로그인한 아이디)
+	 * @return 유저번호
+	 */
+	public int getUserNo(String userId);
+
+	/**
+	 * 사용자가 입력한 본문 내용을 저장한다
+	 * 
+	 * @param cafeRev - 사용자가 입력한 본문
+	 */
+	public void joinCafeReview(CafeRev cafeRev);
 	
 	
 	
