@@ -14,6 +14,6 @@ import web.service.impl.QuizServiceImpl;
 public class QuizController {
 	
 	@Autowired
-	private QuizService service = new QuizServiceImpl();
+	private QuizService service;
 	
 }
