@@ -63,6 +63,20 @@ public interface CommunityDao {
 	 */
 	public int insertCafeReview(CafeRev cafeRev);
 	
+	/**
+	 * 게시글을 작성한 유저 아이디 정보 갖고오기
+	 * 
+	 * @param cafeRev - 조회할 유저 아이디를 담은 객체
+	 * @return 작성자 아이디
+	 */
+	public String selectWriterId(CafeRev cafeRev);
+	
+	/**
+	 * 게시글을 삭제한
+	 * 
+	 * @param cafeRev - 삭제할 게시글 번호를 담은 객체
+	 */
+	public void deleteCafeReviewByCafeNo(CafeRev cafeRev);
 	
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -119,6 +133,8 @@ public interface CommunityDao {
 	 */
 	public List<FreeBoardComment> selectFreeBoardCommentByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
+
+
 
 
 }

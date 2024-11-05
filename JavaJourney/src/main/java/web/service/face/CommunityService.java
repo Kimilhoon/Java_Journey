@@ -101,6 +101,21 @@ public interface CommunityService {
 	 * @param cafeRev - 사용자가 입력한 본문
 	 */
 	public void joinCafeReview(CafeRev cafeRev);
+
+	/**
+	 * 작성자 아이디 불러오기
+	 * 
+	 * @param cafeRev - 조회할 게시글
+	 * @return 조회된 작성자 아이디
+	 */
+	public String getWriterId(CafeRev cafeRev);
+
+	/**
+	 * 게시글 삭제하기
+	 * 
+	 * @param cafeRev - 삭제할 게시글 번호를 담은 객체
+	 */
+	public void dropCafeReview(CafeRev cafeRev);
 	
 	/**
 	 * 자유게시판 삭제

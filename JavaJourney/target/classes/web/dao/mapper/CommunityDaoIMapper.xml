@@ -107,8 +107,24 @@
 	
 	<insert id="insertCafeReview" parameterType="CafeRev">
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
-		VALUES #{revNo_seq.nextval, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+		VALUES ( #{revNo_seq.nextval }, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
+	
+	<select id="selectWriterId" resultType="string" parameterType="CafeRev">
+		SELECT userid
+		FROM CAFEREV c, MEMBER m
+		<where>
+			AND c.USERNO = m.USERNO 
+			AND c.userNo = #{userNo }
+		</where>
+	</select>
+	
+	<delete id="deleteCafeReviewByCafeNo" parameterType="CafeRev">
+		DELETE CafeRev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
 	
 </mapper>
 

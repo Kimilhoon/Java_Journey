@@ -131,10 +131,27 @@ public class CommunityController {
 	@PostMapping("/creview/write")
 	public String cafeReviewWriteProc(CafeRev cafeRev, HttpSession session) {
 		
-		String userId = (String) session.getAttribute("memberid");
+		String userId = (String) session.getAttribute("writerId");
 		int userNo = service.getUserNo(userId);
 		cafeRev.setUserNo(userNo);
 		service.joinCafeReview(cafeRev);
+		
+		return "redirect: ./list";
+	}
+	
+	@RequestMapping("/creview/delete")
+	public String cafeReviewDelete(CafeRev cafeRev, HttpSession session) {
+		
+		//로그인한 유저id
+		String userId = (String) session.getAttribute("writerId");	
+		
+		//작성한 유저id
+		String writerId = service.getWriterId(cafeRev);
+		
+		if( userId == writerId ) {
+			service.dropCafeReview(cafeRev);
+			return "redirect: ./list";
+		}
 		
 		return "redirect: ./list";
 	}
