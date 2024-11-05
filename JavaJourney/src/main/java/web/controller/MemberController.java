@@ -62,15 +62,31 @@ public class MemberController {
 	
 	
 	
-	
 	@GetMapping("/login")
 	public void login() {}
 	
 	@PostMapping("/login")
-	public void loginForm(Member member, HttpSession session) {
+	public String loginForm(Member member, HttpSession session) {
 		log.info("login param : {}", member);
 		
 		boolean isLogin = service.login(member);
+
+		if(isLogin) {
+			log.info("로그인 성공");
+			
+			member= service.info(member);
+			
+			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("writerId", member.getUserId());
+			
+		}else {
+			log.info("로그인 실패");
+			
+			session.invalidate();
+		}
+		
+		return "redirect:/main/main";
+
 	}
 	
 	

@@ -61,6 +61,11 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	}
 
+	@Override
+	public Member info(Member member) {
+		return dao.selectByLogin(member);
+	}
+
 
 	
 }

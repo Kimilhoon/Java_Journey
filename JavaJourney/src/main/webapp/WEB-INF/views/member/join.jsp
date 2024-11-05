@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:import url="../layout/header.jsp" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,10 +59,10 @@ $(function() {
 			alert("닉네임을 입력하세요");
 			return false;
 		}
-		if( !nickCheck ) {
-			alert("닉네임을 중복체크하세요");
-			return false;
-		}
+// 		if( !nickCheck ) {
+// 			alert("닉네임을 중복체크하세요");
+// 			return false;
+// 		}
 		if( nickDuplicate ) {
 			alert("이미 존재하는 닉네임입니다");
 			return false;
@@ -152,10 +154,10 @@ $(function() {
 				console.log("AJAX 성공");
 				
 				//아이디 중복체크 수행 상태 설정
-				NickCheck = true;
+				nickCheck = true;
 				
 				//중복 확인 결과 설정
-				NickDuplicate = res.duplicateNick;
+				nickDuplicate = res.duplicateNick;
 				
 				console.log("--- 중복체크 응답 ---");
 				console.log( res.duplicateNick );
@@ -176,7 +178,7 @@ $(function() {
 			, error: function() {
 				console.log("AJAX 실패");
 				
-				NickCheck = false;
+				nickCheck = false;
 			}
 		})
 		
@@ -188,7 +190,7 @@ $(function() {
 		.html("");
 		
 		//닉네임 중복체크 수행 상태 설정
-		NickCheck = false;
+		nickCheck = false;
 	}) //$("#userNick") end		
 	
 	
@@ -283,8 +285,12 @@ $(function() {
 </div>
 
 
+
 </form>
 </div> <!-- id="joinForm" -->
 
 </body>
 </html>
+
+
+<c:import url="../layout/footer.jsp" />

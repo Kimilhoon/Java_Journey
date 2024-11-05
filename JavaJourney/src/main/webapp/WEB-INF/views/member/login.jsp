@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:import url="../layout/header.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +79,7 @@ $(function() {
 
 
 
+
 <!-- -------------------------------------------------------------------------- -->
 <!-- 지도api -->
 <!-- <div id="map" style="width:500px; height:400px;"></div> -->
@@ -119,3 +122,5 @@ $(function() {
 
 </body>
 </html>
+
+<c:import url="../layout/footer.jsp" />
