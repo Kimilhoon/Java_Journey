@@ -47,7 +47,21 @@ public interface CommunityDao {
 	 */
 	public String selectCafeNameByCafeNo(Cafe cafeNo);
 	
+	/**
+	 * 유저아이디를 이용하여 유저넘버 갖고오기
+	 * 
+	 * @param userid - 유저넘버를 불러올 유저아이디
+	 * @return 유저번호
+	 */
+	public int selectUsernoByUserid(String userId);
 	
+	/**
+	 * 카페 리뷰 데이터를 입력한다
+	 * 
+	 * @param cafeRev - 카페 리뷰 작성 정보를 담은 객체
+	 * @return 삽입된 인서트 행의 갯수
+	 */
+	public int insertCafeReview(CafeRev cafeRev);
 	
 	
 	
@@ -105,6 +119,8 @@ public interface CommunityDao {
 	 */
 	public List<FreeBoardComment> selectFreeBoardCommentByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
+
+
 }
 
 

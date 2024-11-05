@@ -134,6 +134,21 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectCafeNameByCafeNo(cafeNo);
 	}
 	
+	@Override
+	public int getUserNo(String userId) {
+		
+		return dao.selectUsernoByUserid(userId);
+	}
+	
+	@Override
+	public void joinCafeReview(CafeRev cafeRev) {
+		
+		int res = dao.insertCafeReview(cafeRev);
+		
+	}
+	
+	
+	
 }
 
 

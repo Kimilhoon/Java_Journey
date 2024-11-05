@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -130,9 +129,14 @@ public class CommunityController {
 	}
 	
 	@PostMapping("/creview/write")
-	public String cafeReviewWriteProc(CafeRev cafeRev) {
+	public String cafeReviewWriteProc(CafeRev cafeRev, HttpSession session) {
 		
-		return null;
+		String userId = (String) session.getAttribute("memberid");
+		int userNo = service.getUserNo(userId);
+		cafeRev.setUserNo(userNo);
+		service.joinCafeReview(cafeRev);
+		
+		return "redirect: ./list";
 	}
 	
 	
