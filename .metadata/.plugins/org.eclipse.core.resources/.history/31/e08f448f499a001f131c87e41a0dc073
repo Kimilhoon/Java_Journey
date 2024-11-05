@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>irooni world!</h1>
+<hr>
+
+<div>
+	<label><input type="text" placeholder="${test }"></label>
+</div>
+
+<br><br>
+
+<div>
+	<a href="/"><button>요호~~~</button></a>
+</div>
+
+</body>
+</html>

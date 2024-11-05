@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>인터셉터 테스트</h1>
+<h3>글작성 페이지입니당당구리</h3>
+<hr>
+ 
+<h1 style="color: red;"> X.X 여기는 로그인해야 글을 쓸 수 있어용 X.X </h1>
+
+<a href="../login">로그인하기</a>
+
+</body>
+</html>

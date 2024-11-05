@@ -1,0 +1,132 @@
+package file.service.impl;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import file.dao.face.FileDao;
+import file.dto.FileParam;
+import file.dto.FileTest;
+import file.service.face.FileService;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class FileServiceImpl implements FileService {
+	
+	@Autowired private ServletContext context;
+	
+	@Autowired private FileDao fileDao;
+	
+	@Override
+	public void filesave(FileParam param) {
+		
+		MultipartFile file = param.getFile();
+		
+		//------------------------------------------------------------
+		if( file.isEmpty() || file.getSize() <= 0 ) {
+			log.info("파일 업로드 잘못됨, 처리 중단!");
+			
+			//파일 처리 메소드 filesave() 중단
+			return;
+		}
+		
+		//------------------------------------------------------------
+		// 파일의 저장 경로 - Real Path
+		String storedPath = context.getRealPath("upload");
+		log.info("storedPath : {}", storedPath);
+		
+		//upload폴더가 없으면 생성하기
+		File storedFolder = new File(storedPath);
+		storedFolder.mkdir();
+		
+		// 업로드된 파일이 저장되는 이름
+		String storedName = null;
+
+		// 파일을 저장시킬 객체
+		File dest = null;
+
+		// 저장 될 파일명이 중복되지 않도록 반복한다
+		do {
+
+			storedName = file.getOriginalFilename(); // 원본 파일명
+			storedName += UUID.randomUUID().toString().split("-")[4]; // UUID 추가
+
+			// folder는 고정 이름, name은 랜덤 이름
+			dest = new File( storedFolder, storedName );
+
+		} while( dest.exists() );
+
+		//-------------------------------------------------------------------
+
+		try {
+			// 업로드된 임시 파일을 upload 폴더로 옮겨 실제 파일을 생성한다
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//-------------------------------------------------------------------
+		//DB에 기록하기
+		
+		FileTest fileTest = new FileTest();
+		
+		fileTest.setTitle( param.getTitle() );
+		fileTest.setOriginName( file.getOriginalFilename() );
+		fileTest.setStoredName( storedName );
+		
+		log.info("fileTest : {}", fileTest);
+		//-------------------------------------------------------------------
+		fileDao.insert( fileTest );
+		
+		
+	}
+	
+	@Override
+	public List<FileTest> view() {
+		
+		return fileDao.selectAll();
+	}
+	
+	@Override
+	public FileTest info(int fileno) {
+		
+		return fileDao.selectByFileno(fileno);
+	}
+	
+	@Override
+	public FileTest getFile(int fileno) {
+		
+		return fileDao.selectByFileno(fileno);
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,69 @@
+package login.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import login.dao.face.LoginDao;
+import login.dto.Login;
+import login.service.face.LoginService;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class LoginServiceImpl implements LoginService {
+	
+	@Autowired private LoginDao loginDao;
+	
+	@Override
+	@Transactional
+	public void join(Login param) {
+		
+		loginDao.insert(param);
+		
+	}
+
+	@Override
+	public boolean login(Login param) {
+		
+		int result = loginDao.selectCntByIdPw( param );
+		log.debug("login result : {}", result);
+		
+		if( result > 0 )	return true;
+		return false;
+	}
+
+	@Override
+	public int getLoginno(Login param) {
+		return loginDao.selectNoById( param );
+	}
+
+	@Override
+	public Login info(int no) {
+		return loginDao.selectByNo( no );
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

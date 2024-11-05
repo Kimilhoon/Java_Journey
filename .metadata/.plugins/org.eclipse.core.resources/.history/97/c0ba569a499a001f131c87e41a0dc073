@@ -1,0 +1,119 @@
+package login.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import login.dto.Login;
+import login.service.face.LoginService;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+@RequestMapping("/login")
+public class LoginController {
+	
+	@Autowired private LoginService loginService;
+	
+	@RequestMapping("/main")
+	public void main() {}
+	
+	
+	
+	@GetMapping("/join")
+	public void join() {}
+	
+	
+	
+	@PostMapping("/join")
+	public String joinProc(Login param) {
+		
+		log.info("param : {}", param);
+		
+		loginService.join(param);
+		
+		return "redirect:./main";
+	}
+	
+	
+	
+	@GetMapping("/login")
+	public void login() {}
+	
+	
+	
+	@PostMapping("/login")
+	public String loginProc(Login param, HttpSession session) {
+		log.info("login param : {}", param);
+		
+		boolean isLogin = loginService.login( param );
+		log.info("isLogin : {}", isLogin);
+		
+		if( isLogin ) {
+			log.info("로그인 성공");
+			
+			int loginno = loginService.getLoginno( param );
+			log.info("PK loginno : {}", loginno);
+			
+			session.setAttribute("isLogin", isLogin); //로그인 상태
+			session.setAttribute("loginno", loginno); //PK
+			
+		} else {
+			log.info("로그인 실패");
+			
+			session.invalidate();
+		}
+		
+		return "redirect:./main";
+	}
+	
+	
+	
+	@RequestMapping("/mypage")
+	public void mypage(@SessionAttribute("loginno") int no, Model model) {
+		log.info("loginno : {}", no);
+		
+		Login loginInfo = loginService.info(no);
+		log.info("info : {}", loginInfo);
+		
+		model.addAttribute("info", loginInfo);
+		
+	}
+	
+	
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:./main";
+	}
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

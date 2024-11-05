@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="web.dao.face.BoardDao">
+	
+	<select id="selectAll" resultType="Board">
+		SELECT * FROM board
+		ORDER BY board_no DESC
+	</select>
+	
+	<select id="selectByBoardno" resultType="Board" parameterType="int">
+		SELECT * FROM board
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE board
+		SET hit = hit + 1
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</update>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO board ( board_no, title, content, writer_id, writer_nick )
+		VALUES ( board_seq.nextval, #{title }, #{content }, #{writerId }, #{writerNick } )
+	</insert>
+	
+	<select id="lastBoardno" resultType="Board">
+		SELECT * FROM board
+		ORDER BY board_no desc
+	</select>
+	
+	<insert id="fileInsert" parameterType="File">
+		<selectKey order="BEFORE" resultType="int" keyProperty="fileNo">
+				SELECT boardfile_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO boardfile ( file_no, board_no, origin_name, stored_name )
+		VALUES ( #{fileNo}, #{boardNo }, #{originName }, #{storedName } )
+	</insert>
+	
+	<select id="selectFile" resultType="File">
+		SELECT * FROM boardfile
+		ORDER BY file_no
+	</select>
+	
+	<select id="selectFileByBoardno" resultType="file" parameterType="int">
+		SELECT * FROM boardfile
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE board
+		SET title = #{title }, content = #{content }
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</update>
+	
+	<update id="fileUpdate" parameterType="File">
+		UPDATE boardfile
+		SET origin_name = #{originName }
+		, stored_name = #{storedName }
+		<where>
+			AND file_no = #{fileNo }
+		</where>
+	</update>
+	
+	<delete id="deleteFile" parameterType="Board">
+		DELETE boardfile
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</delete>
+	
+	<delete id="deleteBoard" parameterType="Board">
+		DELETE board
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</delete>
+	
+	<select id="selectAllByBoardno" resultType="File" parameterType="Board">
+		SELECT * FROM boardfile
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</select>
+	
+	<select id="countRecommendByUserid" resultType="int" parameterType="hashmap">
+		SELECT count(*) FROM recommend
+		<where>
+			AND id = #{userid }
+			AND board_no = #{boardNo }
+		</where>
+	</select>
+	
+	<delete id="deleteRecommendByUserid" parameterType="hashmap">
+		DELETE recommend
+		<where>
+			And id = #{userid }
+			AND board_no = #{boardNo }
+		</where>
+	</delete>
+	
+	<insert id="insertRecommendByUserid" parameterType="hashmap">
+		INSERT INTO recommend ( id, board_no )
+		VALUES ( #{userid }, #{boardNo } )
+	</insert>
+	
+	<select id="cntByRecommend" parameterType="int" resultType="int">
+		SELECT count(*) FROM recommend
+		<where>
+			AND board_no = #{boardNo }
+		</where>
+	</select>
+	
+	<insert id="insertComment" parameterType="hashmap">
+		INSERT INTO commenttb ( commentno, boardno, userid, content )
+		VALUES ( commentTB_seq.nextval, #{comment.boardno }, #{comment.userid }, #{comment.content } )
+	</insert>
+	
+	<select id="selectCommentByBoardno" resultType="comment" parameterType="int">
+		SELECT * FROM commenttb
+		<where>
+			AND boardno = #{boardno }
+		</where>
+	</select>
+	
+	<select id="selectByTitleSearch" resultType="Board" parameterType="Board">
+		SELECT * FROM board
+		<where>
+			AND title LIKE '%'||upper(#{title })||'%'
+		</where>
+		order by board_no desc
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

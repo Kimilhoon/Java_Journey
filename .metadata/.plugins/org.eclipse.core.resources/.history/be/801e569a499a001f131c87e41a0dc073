@@ -1,0 +1,67 @@
+package login.dao.face;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import login.dto.Login;
+
+@Mapper
+public interface LoginDao {
+
+	/**
+	 * 회원 정보 데이터 삽입
+	 * 회원 가입에 활용
+	 * 
+	 * @param param - 삽입할 데이터
+	 */
+	public void insert(Login param);
+
+	/**
+	 * id, pw 일치하는 행 수 조회하기
+	 * 
+	 * 로그인 인증에 사용한다
+	 * 
+	 * @param param - 로그인 전달된 id, pw
+	 * @return 일치하는 행 수
+	 */
+	public int selectCntByIdPw(Login param);
+
+	/**
+	 * id를 이용하여 no를 알아낸다
+	 * 
+	 * @param param - 조회할 id
+	 * @return 조회된 no
+	 */
+	public int selectNoById(Login param);
+
+	/**
+	 * 사용자 정보 조회하기
+	 * 
+	 * 패스워드(pw) 생략
+	 * 
+	 * @param no - 조회할 사용자 PK
+	 * @return 조회된 사용자 정보
+	 */
+	public Login selectByNo(int no);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

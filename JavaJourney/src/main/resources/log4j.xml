@@ -40,6 +40,18 @@
 		<level value="info" />
 	</logger>
 	
+	<logger name="web.manager.controller">
+		<level value="info" />
+	</logger>
+
+	<logger name="web.manager.service">
+		<level value="info" />
+	</logger>
+	
+	<logger name="aop">
+		<level value="info" />
+	</logger>
+	
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

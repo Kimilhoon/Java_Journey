@@ -1,0 +1,13 @@
+package web.service.face;
+
+import java.util.List;
+
+import web.dto.FreeBoard;
+
+public interface CommunityService {
+
+	public List<FreeBoard> getCafeList(String order, String search);
+	
+	
+	
+}
