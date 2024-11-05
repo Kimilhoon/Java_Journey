@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.service.face.CommunityService;
-import web.service.impl.CommunityServiceImpl;
-import web.util.Paging;
 
 @Controller
 @RequestMapping("/comm")
@@ -20,7 +20,7 @@ import web.util.Paging;
 public class CommunityController {
 	
 	@Autowired
-	private CommunityService service = new CommunityServiceImpl();
+	private CommunityService service;
 	
 	//--------------------------------------------------------------------------------------
 	//동쥬니
@@ -39,9 +39,23 @@ public class CommunityController {
 	//이루니
 	
 	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String order, String search) {
+	public void cafeReviewForm(Model model, String category, String order, String search) {
 		
-		List<FreeBoard> list = service.getCafeReviewList(order, search);
+		List<FreeBoard> creviewList = service.getCafeReviewList(category, order, search);
+		
+		model.addAttribute("creviewList", creviewList);
+		
+	}
+	
+	@GetMapping("/creview/view")
+	public void cafeReviewView(Model model, CafeRev revNo) {
+		
+		List<CafeRevComm> crevcommList = service.getCafeReviewCommentList(revNo);
+		
+		CafeRev cafeRev = service.getCafeReviewInfo(revNo);
+		
+		model.addAttribute("crevcommList", crevcommList);
+		model.addAttribute("cafeRev", cafeRev);
 		
 	}
 	
