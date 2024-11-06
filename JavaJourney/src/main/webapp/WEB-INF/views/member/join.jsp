@@ -114,10 +114,14 @@ $(function() {
 			return false;
 		}
 		
-		if( !userPw.value) {
-			alert("비밀번호를 입력하세요");
-			return false;
-		}
+// 		if( !userPw.value) {
+// 			alert("비밀번호를 입력하세요");
+// 			return false;
+// 		}
+// 		if( !userPwCheck.value) {
+// 			alert("비밀번호 확인을 입력하세요");
+// 			return false;
+// 		}
 		
 		if( !userNick.value ) {
 			alert("닉네임을 입력하세요");
@@ -160,6 +164,8 @@ $(function() {
 			alert("상세주소를 입력하세요");
 			return false;
 		}
+		
+// 		return true;
 		
 	}) //$("#joinForm form") end
 	
@@ -331,7 +337,7 @@ $(function() {
 
 <div>
 	<label for="userEmail">이메일
-		<input type="text" name="userEmail" id="userEmail" required="required">
+		<input type="email" name="userEmail" id="userEmail" required="required">
 	</label>
 </div>
 

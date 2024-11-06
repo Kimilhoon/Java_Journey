@@ -5,7 +5,11 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="web.dao.face.CommunityDao">
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> refs/remotes/origin/master
 	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
 		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
 		FROM caferev cr
@@ -110,7 +114,7 @@
 		</where>
 	</select>
 	
-	<insert id="insertCafeReview" parameterType="CafeRev">
+	<insert id="insertCafeReview" parameterType="CafeRev" >
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
 		VALUES ( revNo_seq.nextval , #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
