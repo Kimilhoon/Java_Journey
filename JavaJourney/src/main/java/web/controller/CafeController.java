@@ -45,14 +45,16 @@ public class CafeController {
 				
 		//전체 페이지 조회
 		List<Cafe> AllCafeList = service.getAllCafe();
+		//전체 페이지 모델값으로 전달
 		model.addAttribute("AllCafeList", AllCafeList);
 		
 	} // AllCafeForm() end
-//
-//	@GetMapping("/info")
-//	public void CafeInfoForm(Cafe param) {
-//		
-//	} // CafeInfoForm(Cafe param) end
+	
+	
+	@GetMapping("/info")
+	public void CafeInfoForm(Cafe param) {
+		
+	} // CafeInfoForm(Cafe param) end
 	
 	
 } // class end
