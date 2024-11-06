@@ -30,9 +30,8 @@
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
 		<where>
-			AND revNo = #{revNo }
+			AND revno = #{revNo }
 		</where>
-		ORDER BY revno desc
 	
 	</select>
 	
@@ -169,7 +168,7 @@
 		FROM CAFEREV c, MEMBER m
 		<where>
 			AND c.USERNO = m.USERNO 
-			AND c.userNo = #{userNo }
+			AND revno = #{revNo }
 		</where>
 	</select>
 	
