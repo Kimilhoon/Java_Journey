@@ -130,9 +130,10 @@
 	</select>
 	
 	<insert id="insertFreeBoard" parameterType="FreeBoard">
-		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit)
-		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0)
+		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit,freeboardmapx,freeboardmapy)
+		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0,#{freeBoardMapX},#{freeBoardMapY})
 	</insert>
+	
 	<update id="updateFreeBoardByFreeBoardNo" parameterType="FreeBoard">
 		UPDATE freeboard
 		SET
