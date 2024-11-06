@@ -5,6 +5,26 @@
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 <script type="text/javascript">
 $(function() {
+	
+	$.ajax({
+		url: "./reccheck?freeBoardNo="+${freeBoardView.freeBoardNo },
+		type: "get",
+		dataType:"json",
+		success: function(res) {
+			
+			if(res.isRec){
+        		$("#btn_rec").css("background","gold");
+        		$("#btn_rec").text("✔추천 ["+res.recCount+"]");
+        	}else{
+        		$("#btn_rec").text("☆추천 ["+res.recCount+"]");
+        		$("#btn_rec").css("background","");
+        	}
+			
+		}
+	});
+	
+	
+	
 	$("#btn_writeComment").click(function() {
 		console.log($("#comment").val());
 		
@@ -40,10 +60,33 @@ $(function() {
 			}
 			
 		});
-	})
+	});
+	
+	$("#btn_rec").click(function() {
+		
+		$.ajax({
+			url: "./recommend?freeBoardNo="+${freeBoardView.freeBoardNo },
+			type: "get",
+			dataType:"json",
+			success: function(res) {
+				
+				if(res.isRec){
+            		$("#btn_rec").css("background","gold");
+            		$("#btn_rec").text("✔추천 ["+res.recCount+"]");
+            	}else{
+            		$("#btn_rec").text("☆추천 ["+res.recCount+"]");
+            		$("#btn_rec").css("background","");
+            	}
+				
+			}
+		});
+	});
+	
+	
+	
+	
 	
 })
-	
 </script>
 </head>
 <body>
@@ -77,6 +120,7 @@ $(function() {
 </tbody>
 </table>
 </div>
+<button id="btn_rec">☆추천</button>
 
 <div>
 <br>

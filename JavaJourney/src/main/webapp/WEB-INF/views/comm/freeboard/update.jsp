@@ -7,18 +7,40 @@
 $(document).ready(function() {
 	  $('#summernote').summernote();
 	});
+$(function() {
+	
+	$("#update").click(function() {
+		$.ajax({
+			url: "./update",
+			type: "post",
+			data: {
+				"freeBoardTitle":$("#t").val(),
+				"freeBoardContent":$("#summernote").val(),
+				"freeBoardNo":${freeBoardView.freeBoardNo }
+			},
+			dataType: "text",
+			success: function() {
+				location.href = "./view?freeBoardNo="+${freeBoardView.freeBoardNo };
+			},
+			error: function() {
+				
+			}
+			
+		});
+	})
+	
+	
+})	
+	
 </script>
 
 </head>
 <body>
 <a href="./view?freeBoardNo=${freeBoardView.freeBoardNo }"><button>취소</button></a>
 <div>
-<form action="./write" method="post">
-
-<label>제목<input type="text" value="${freeBoardView.freeBoardTitle }"></label>
-<label>내용<textarea id="summernote" rows="15" cols="50" name="content" required="required" class="form-control" >${freeBoardView.freeBoardContent }</textarea></label>
-<button>수정</button>
-</form>
+<label>제목<input type="text" value="${freeBoardView.freeBoardTitle }" name="freeBoardTitle" id="t"></label>
+<label>내용<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control" >${freeBoardView.freeBoardContent }</textarea></label>
+<button id="update">수정</button>
 </div>
 </body>
 </html>

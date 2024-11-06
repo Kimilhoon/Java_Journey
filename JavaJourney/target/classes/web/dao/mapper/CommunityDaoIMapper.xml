@@ -131,8 +131,40 @@
 	
 	<insert id="insertFreeBoard" parameterType="FreeBoard">
 		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit)
-		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0);
+		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0)
 	</insert>
+	<update id="updateFreeBoardByFreeBoardNo" parameterType="FreeBoard">
+		UPDATE freeboard
+		SET
+			freeboardtitle = #{freeBoardTitle},
+			freeboardcontent = #{freeBoardContent}
+		WHERE freeBoardNo = #{freeBoardNo}
+	</update>
+	
+	<select id="selectFreeBoardRecommendByFreeBoardNoUserNo" parameterType="FreeBoard" resultType="int">
+		SELECT count(*) FROM freeboardrecommend
+		<where>
+			AND freeBoardNo = #{freeBoardNo}
+			AND userno = #{userNo}
+		</where>
+	</select>
+	<delete id="deleteFreeBoardRecommendByFreeBoardNoUserNo" parameterType="FreeBoard" >
+		DELETE FROM freeboardrecommend
+		<where>
+			AND freeBoardNo = #{freeBoardNo}
+			AND userno = #{userNo}
+		</where>
+	</delete>
+	
+	<insert id="insertFreeBoardRecommendByFreeBoardNoUserNo" parameterType="FreeBoard" >
+		INSERT INTO freeboardrecommend
+		VALUES(#{freeBoardNo},#{userNo})
+	</insert>
+	
+	<select id="getFreeBoardRecCountByFreeBoardNo" parameterType="FreeBoard" resultType="int">
+		SELECT count(*) FROM freeboardrecommend
+		WHERE freeBoardNo = #{freeBoardNo}
+	</select>
 </mapper>
 
 

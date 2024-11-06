@@ -1,7 +1,10 @@
 package web.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
@@ -67,9 +71,10 @@ public class CommunityController {
 		public void freeBoardWriteForm() {}
 		
 		@PostMapping("/freeboard/write")
-		public void freeBoardWriteProc(@RequestParam FreeBoard freeBoard,HttpSession session) {
-			//로그인 연동 되면 구현
+		public String freeBoardWriteProc(FreeBoard freeBoard,HttpSession session) {
 			service.joinFreeBoard(freeBoard,session);
+			
+			return "redirect:./list";
 		}
 		
 		@GetMapping("/freeboard/update")
@@ -80,8 +85,9 @@ public class CommunityController {
 			model.addAttribute("member", member);
 		}
 		@PostMapping("/freeboard/update")
-		public void freeBoardUpdateProc() {
-			//로그인 연동 되면 구현
+		public void freeBoardUpdateProc(FreeBoard freeBoard) {
+			log.info("{}",freeBoard);
+			service.changeFreeBoard(freeBoard);
 		}
 		
 		@GetMapping("/freeboard/delete")
@@ -107,7 +113,38 @@ public class CommunityController {
 		public void freeBoardCommentDelete(FreeBoardComment freeBoardComment) {
 			service.dropFreeBoardComment(freeBoardComment);
 		}
-
+		
+		@GetMapping("freeboard/recommend")
+		public void freeBoardRecommend(FreeBoard freeBoard, HttpSession session,HttpServletResponse resp) {
+			boolean isRec = service.isFreeBoardRec(freeBoard,session);
+			int recCount = service.getFreeBoardRecCount(freeBoard);
+			
+			Gson gson = new Gson();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("isRec", isRec);
+			map.put("recCount", recCount);
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		@GetMapping("/freeboard/reccheck")
+		public void freeBoardRecCheck(FreeBoard freeBoard, HttpSession session,HttpServletResponse resp) {
+			boolean isRec = service.isFreeBoardRecCheck(freeBoard,session);
+			int recCount = service.getFreeBoardRecCount(freeBoard);
+			
+			Gson gson = new Gson();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("isRec", isRec);
+			map.put("recCount", recCount);
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	
 	//--------------------------------------------------------------------------------------
 	//이루니

@@ -153,6 +153,38 @@ public interface CommunityDao {
 	 * @param freeBoard
 	 */
 	public void insertFreeBoard(FreeBoard freeBoard);
+	
+	/**
+	 * 보드 업데이트
+	 * @param freeBoard 보드넘버,제목,내용
+	 */
+	public void updateFreeBoardByFreeBoardNo(FreeBoard freeBoard);
+	
+	/**
+	 * 보드 추천 돼있는지 확인
+	 * @param freeboard - 보드넘버,유저넘버 있음
+	 * @return
+	 */
+	public int selectFreeBoardRecommendByFreeBoardNoUserNo(FreeBoard freeboard);
+	/**
+	 * 보드 추천 취소
+	 * @param freeboard - 보드넘버,유저넘버 있음
+	 * @return
+	 */
+	public void deleteFreeBoardRecommendByFreeBoardNoUserNo(FreeBoard freeboard);
+	/**
+	 * 보드 추천 
+	 * @param freeboard - 보드넘버,유저넘버 있음
+	 * @return
+	 */
+	public void insertFreeBoardRecommendByFreeBoardNoUserNo(FreeBoard freeboard);
+	
+	/**
+	 * 자유 게시판 추천 수 
+	 * @param freeBoard - 보드 넘버
+	 * @return
+	 */
+	public int getFreeBoardRecCountByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
 
 

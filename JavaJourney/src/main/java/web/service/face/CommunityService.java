@@ -144,6 +144,35 @@ public interface CommunityService {
 	 */
 	public void joinFreeBoard(FreeBoard freeBoard, HttpSession session);
 	
+	/**
+	 * 보드 수정
+	 * @param freeBoard - 보드넘버,제목,내용 있음
+	 */
+	public void changeFreeBoard(FreeBoard freeBoard);
+	
+	/**
+	 * 자유 게시판 추천
+	 * @param freeBoard - 보드넘버
+	 * @param session - 아이디 가져올거임
+	 * @return
+	 */
+	public boolean isFreeBoardRec(FreeBoard freeBoard,HttpSession session);
+	
+	/**
+	 * 자유 게시판 추천 체크
+	 * @param freeBoard - 보드넘버
+	 * @param session - 아이디 가져올거임
+	 * @return
+	 */
+	public boolean isFreeBoardRecCheck(FreeBoard freeBoard,HttpSession session);
+	
+	/**
+	 * 자유 게시판 추천수
+	 * @param freeBoard - 보드 넘버 있음
+	 * @return
+	 */
+	public int getFreeBoardRecCount(FreeBoard freeBoard);
+	
 }
 
 

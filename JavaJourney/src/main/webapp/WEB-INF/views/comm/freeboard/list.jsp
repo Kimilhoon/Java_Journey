@@ -56,6 +56,8 @@ $(function() {
 <a href="./list"><button>목록</button></a>
 <a href="./write"><button>작성</button></a>
 <br>
+
+<br>
 <div>
 	<select id="category">
 		<option value="all">전체</option>
@@ -71,6 +73,7 @@ $(function() {
 	<tr>
 		<th>보드 넘버</th>
 		<th>보드 분류</th>
+		<th>추천수</th>
 		<th>보드 제목</th>
 		<th>보드 조회수</th>
 		<th>보드 작성일</th>
@@ -81,7 +84,7 @@ $(function() {
 	<tr>
 		<td>${freeBoardList.freeBoardNo}</td>
 		<td>${freeBoardList.freeBoardCategory}</td>
-		
+		<td>${freeBoardList.freeBoardRecommendCount}</td>
 		<td>
 		
 			<jsp:useBean id="now" class="java.util.Date" />

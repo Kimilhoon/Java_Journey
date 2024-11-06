@@ -106,11 +106,11 @@
   <div class="d-flex align-items-center" style="width: 10%" id="loginLoc">
     <div class="flex-shrink-0">
       <ul>
-      	<li><a href="#">회원가입</a></li>
-      	<li><a href="#">로그인</a></li>
+      	<li><a href="/member/join">회원가입</a></li>
+      	<li><a href="/member/login">로그인</a></li>
       	<li><a href="#">카페등록</a></li>
       	<li><a href="./comm/bean/write">원두등록</a></li>
-      	<li><a href="../../main"><button>메인</button></a></li>
+      	<li><a href="/main"><button>메인</button></a></li>
       </ul>
     </div>
   </div>

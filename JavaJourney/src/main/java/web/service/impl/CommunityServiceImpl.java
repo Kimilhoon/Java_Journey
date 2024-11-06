@@ -75,6 +75,7 @@ public class CommunityServiceImpl implements CommunityService {
 		List<FreeBoard> freeBoardList = dao.selectFreeBoardListAll(map);
 		for(FreeBoard f : freeBoardList) {
 			f.setFreeBoardCommentCount(dao.selectFreeBoardCommentCnt(f));
+			f.setFreeBoardRecommendCount(dao.getFreeBoardRecCountByFreeBoardNo(f));
 		}
 		
 		return freeBoardList;
@@ -133,6 +134,43 @@ public class CommunityServiceImpl implements CommunityService {
 		freeBoard.setUserNo(member.getUserNo());
 		log.info("{}",freeBoard);
 		dao.insertFreeBoard(freeBoard);
+	}
+	
+	@Override
+	public void changeFreeBoard(FreeBoard freeBoard) {
+		dao.updateFreeBoardByFreeBoardNo(freeBoard);
+	}
+	
+	@Override
+	public boolean isFreeBoardRec(FreeBoard freeBoard, HttpSession session) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoard.setUserNo(member.getUserNo());
+		int res = dao.selectFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+		if(res>0) {
+
+			dao.deleteFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+			return false;
+		}else {
+			dao.insertFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+			return true;
+		}
+	}
+	
+	@Override
+	public boolean isFreeBoardRecCheck(FreeBoard freeBoard, HttpSession session) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoard.setUserNo(member.getUserNo());
+		int res = dao.selectFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+		if(res>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int getFreeBoardRecCount(FreeBoard freeBoard) {
+		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
 	}
 	
 	

@@ -17,5 +17,6 @@ public class FreeBoard {
 	private Date freeBoardWriteDate;
 	private int freeImgNo;
 	private int freeBoardCommentCount;
+	private int freeBoardRecommendCount;
 	
 } // class end
