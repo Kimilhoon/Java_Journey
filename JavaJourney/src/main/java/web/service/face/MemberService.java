@@ -48,7 +48,15 @@ public interface MemberService {
 	 * @param member
 	 * @return
 	 */
-	public Member selectByMemberEmail(Member member);
+	public String searchId(Member member);
+
+	/**
+	 * 비밀번호 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchPw(Member member);
+
 
 
 

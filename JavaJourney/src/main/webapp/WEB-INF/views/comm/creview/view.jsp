@@ -32,24 +32,23 @@
 <div id="content">
 
 <div id="table">
-<table class="table">
+<table class="table table-bordered text-center">
 	<tr>
 		<td>카페명</td>
-		<td colspan="5"></td>
+		<td colspan="3">${cafeRev.cafeName }</td>
 		<td>작성자</td>
-		<td colspan="2"></td>
+		<td colspan="2">${writerId }</td>
 	</tr>
 	<tr>
 		<td>지역</td>
-		<td></td>
+		<td>${cafeRev.cafeLoc }</td>
 		<td>별점</td>
-		<td></td>
+		<td>${cafeRev.revsp }</td>
 		<td>작성일</td>
-		<td></td>
+		<td><fmt:formatDate value="${cafeRev.revDate }" pattern="yyyy-MM-dd" /></td>
 	</tr>
 	<tr>
-		<td colspan="12">작성자</td>
-		<td></td>
+		<td colspan="9">${cafeRev.revContent }</td>
 	</tr>
 </table>
 </div> <!-- table -->

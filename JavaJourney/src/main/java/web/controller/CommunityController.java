@@ -1,7 +1,10 @@
 package web.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
@@ -35,10 +40,15 @@ public class CommunityController {
 		@GetMapping("/freeboard/list")
 		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
 			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category); 
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category);
+			
+			
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
+			model.addAttribute("category", category);
+			
+			
 			
 		}
 		@GetMapping("/freeboard/view")
@@ -52,14 +62,19 @@ public class CommunityController {
 			model.addAttribute("freeBoardCommentList", cList);
 			session.setAttribute("info", "tmpNick");
 			
+			
+			
+			
 		}
 		
 		@GetMapping("/freeboard/write")
 		public void freeBoardWriteForm() {}
 		
 		@PostMapping("/freeboard/write")
-		public void freeBoardWriteProc() {
-			//로그인 연동 되면 구현
+		public String freeBoardWriteProc(FreeBoard freeBoard,HttpSession session) {
+			service.joinFreeBoard(freeBoard,session);
+			
+			return "redirect:./list";
 		}
 		
 		@GetMapping("/freeboard/update")
@@ -70,8 +85,9 @@ public class CommunityController {
 			model.addAttribute("member", member);
 		}
 		@PostMapping("/freeboard/update")
-		public void freeBoardUpdateProc() {
-			//로그인 연동 되면 구현
+		public void freeBoardUpdateProc(FreeBoard freeBoard) {
+			log.info("{}",freeBoard);
+			service.changeFreeBoard(freeBoard);
 		}
 		
 		@GetMapping("/freeboard/delete")
@@ -90,9 +106,45 @@ public class CommunityController {
 		@GetMapping("/freeboard/commentinsert")
 		public void freeBoardCommentInsert(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session) {
 			service.joinFreeBoardComment(freeBoard,freeBoardComment,session);
+			
 		}
-	
-
+		
+		@GetMapping("/freeboard/commentdelete")
+		public void freeBoardCommentDelete(FreeBoardComment freeBoardComment) {
+			service.dropFreeBoardComment(freeBoardComment);
+		}
+		
+		@GetMapping("freeboard/recommend")
+		public void freeBoardRecommend(FreeBoard freeBoard, HttpSession session,HttpServletResponse resp) {
+			boolean isRec = service.isFreeBoardRec(freeBoard,session);
+			int recCount = service.getFreeBoardRecCount(freeBoard);
+			
+			Gson gson = new Gson();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("isRec", isRec);
+			map.put("recCount", recCount);
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		@GetMapping("/freeboard/reccheck")
+		public void freeBoardRecCheck(FreeBoard freeBoard, HttpSession session,HttpServletResponse resp) {
+			boolean isRec = service.isFreeBoardRecCheck(freeBoard,session);
+			int recCount = service.getFreeBoardRecCount(freeBoard);
+			
+			Gson gson = new Gson();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("isRec", isRec);
+			map.put("recCount", recCount);
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	
 	//--------------------------------------------------------------------------------------
 	//이루니
@@ -134,6 +186,7 @@ public class CommunityController {
 		String cafeName = service.getCafeName(cafeNo);
 		
 		model.addAttribute("cafeName", cafeName);
+		model.addAttribute("cafeNo", cafeNo);
 		
 	}
 	

@@ -88,15 +88,23 @@
 	<td class="col-1" scope="row">${list.revNo }</td>
 	<td class="col-1">${list.cafeLoc }</td>
 	<td class="col-5">
-	<a href="./view?revNo=${list.revNo }"> ${list.cafeName } </a>
+		<a href="./view?revNo=${list.revNo }">
+		${list.cafeName }
+		</a>
 	</td>
 	<td class="col-2">${list.userNo }</td>
-	<td class="col-2">${list.revDate }</td>
+	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
 	<td class="col-1">${list.revsp }</td>
 	</tr>
 </c:forEach>
 
 </table>
+
+<div id="write-btn" class="row">
+        <div class="col-1">
+        <a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a>
+        </div>
+</div>
 
 </div>
 

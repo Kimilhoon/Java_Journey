@@ -140,6 +140,73 @@ public interface CommunityDao {
 	 * @return - 조회된 댓글리스트
 	 */
 	public List<FreeBoardComment> selectFreeBoardCommentByFreeBoardNo(FreeBoard freeBoard);
+	
+	/**
+	 * 댓글 삽입
+	 * 
+	 * @param freeBoardComment - 작성자 닉네임, 보드넘버, 내용 이 저장된 객체
+	 */
+	public void insertFreeBoardComment(FreeBoardComment freeBoardComment);
+	
+	/**
+	 * 유저아이디로 멤버 객체 받기
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Member selectMemberByUserID(String userId);
+	
+	/**
+	 * 댓글번호로 댓글 삭제
+	 * 
+	 * @param freeBoardComment - 댓글번호 있음
+	 */
+	public void deleteFreeBoardCommentByFreeBoardCommentNo(FreeBoardComment freeBoardComment);
+	
+	/**
+	 * 각 보드의 댓글 수 얻기
+	 * @param freeBoard - 보드전체 리스트 조회 결과
+	 * @return 각 보드 댓글 수
+	 */
+	public int selectFreeBoardCommentCnt(FreeBoard freeBoard);
+	
+	/**
+	 * 보드 인서트
+	 * @param freeBoard
+	 */
+	public void insertFreeBoard(FreeBoard freeBoard);
+	
+	/**
+	 * 보드 업데이트
+	 * @param freeBoard 보드넘버,제목,내용
+	 */
+	public void updateFreeBoardByFreeBoardNo(FreeBoard freeBoard);
+	
+	/**
+	 * 보드 추천 돼있는지 확인
+	 * @param freeboard - 보드넘버,유저넘버 있음
+	 * @return
+	 */
+	public int selectFreeBoardRecommendByFreeBoardNoUserNo(FreeBoard freeboard);
+	/**
+	 * 보드 추천 취소
+	 * @param freeboard - 보드넘버,유저넘버 있음
+	 * @return
+	 */
+	public void deleteFreeBoardRecommendByFreeBoardNoUserNo(FreeBoard freeboard);
+	/**
+	 * 보드 추천 
+	 * @param freeboard - 보드넘버,유저넘버 있음
+	 * @return
+	 */
+	public void insertFreeBoardRecommendByFreeBoardNoUserNo(FreeBoard freeboard);
+	
+	/**
+	 * 자유 게시판 추천 수 
+	 * @param freeBoard - 보드 넘버
+	 * @return
+	 */
+	public int getFreeBoardRecCountByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
 
 

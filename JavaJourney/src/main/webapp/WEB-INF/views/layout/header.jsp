@@ -78,7 +78,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">카페리뷰</a></li>
             <li><a class="dropdown-item" href="#">원두리뷰</a></li>
-            <li><a class="dropdown-item" href="#">자유게시판</a></li>
+            <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
             <li><a class="dropdown-item" href="#">나만의 레시피</a></li>
             <li><a class="dropdown-item" href="#">이벤트</a></li>
             <li><a class="dropdown-item" href="#">공지사항</a></li>
@@ -110,7 +110,7 @@
       	<li><a href="/member/login">로그인</a></li>
       	<li><a href="#">카페등록</a></li>
       	<li><a href="./comm/bean/write">원두등록</a></li>
-      	<li><a href="../../main"><button>메인</button></a></li>
+      	<li><a href="/main"><button>메인</button></a></li>
       </ul>
     </div>
   </div>

@@ -8,6 +8,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function() {
+	$("#btnIdFind").click(function() {
+        var userName = $("#userName").val();
+        var userPhone = $("#userPhone").val();
+        
+		$.ajax({
+			type: "post"
+			, url: "./idfind"
+			, data: {
+	              userName: userName,
+	              userPhone: userPhone
+			}
+			, dataType: "json"
+			, success: function( obj ) {
+				
+                $("#resultIdDiv").show();
+				
+                if(obj.msg == "succ") {
+                    $("#searchIdResult").text("아이디는 " + obj.searchId +" 입니다.");
+                } else{
+                    $("#searchIdResult").text("존재하지 않는 사용자입니다.");
+                }
+       
+				
+			}
+			, error: function(e) {
+				console.log(e);
+				
+			}
+			
+		}) // $.ajax end
+		
+	}) //$("#btnIdFind") end
+	
+});	//$(function) end
+
+</script>
 </head>
 <body>
 아이디 찾기
@@ -22,36 +60,26 @@
 </div>
 
 <div>
-	<label for="userEmail">이메일</label>
-	<input type="text" name="userEmail" id="userEmail" required="required">
+	<label for="userPhone">전화번호</label>
+	<input type="text" name="userPhone" id="userPhone" required="required">
 </div>
 
 <div>
-	<button id="btnIdFind" type="submit">전송</button>
+	<button id="btnIdFind" type="button">아이디 찾기</button>
+</div>
+
+<div id="resultIdDiv" style="display: none;">
+	<p id="searchIdResult"></p>
 </div>
 
 <a href="./pwfind">|비밀번호 찾기|</a>
 
-<div>
-	<a href="./login">
-	<button>로그인 하기</button>
-	</a>
-</div>
 </form>
 
-<div class="result-box">
-	<c:choose>
-		<c:when test="${not empty msg}">
-		<p>${msg }</p>
-		</c:when>
-		<c:when test="${not empty idfind}">
-		<p>${idfind.userId }</p>
-		</c:when>
-		
-        <c:otherwise>
-            <p>조회결과 없음</p>
-        </c:otherwise>
-	</c:choose>
+<div>
+	<a href="./login">
+	<button>로그인 하러가기</button>
+	</a>
 </div>
 
 

@@ -66,10 +66,18 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectByLogin(member);
 	}
 
+
 	@Override
-	public Member selectByMemberEmail(Member member) {
-		return dao.selectByMemberEmail(member);
+	public String searchId(Member member) {
+		return dao.searchId(member);
 	}
+
+	@Override
+	public String searchPw(Member member) {
+		return dao.searchPw(member);
+	}
+
+
 
 
 	
