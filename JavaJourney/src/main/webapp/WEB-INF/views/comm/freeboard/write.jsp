@@ -42,8 +42,11 @@ $(function() {
 <!-- <form action="./write" method="post" accept-charset="utf-8"> -->
 
 <label>제목<input type="text" name="freeBoardTitle" id="t"></label>
-<label>카테고리<input type="radio" name="freeBoardCategory" value="bean">원두<input type="radio" name="freeBoardCategory" value="cafe">카페</label>
+<br>
+<label>카테고리<input type="radio" name="freeBoardCategory" value="bean" checked="checked">원두<input type="radio" name="freeBoardCategory" value="cafe">카페</label>
+<br>
 <label>내용<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control" ></textarea></label>
+<br>
 <button id="write">작성</button>
 <!-- </form> -->
 
