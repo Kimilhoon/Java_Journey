@@ -17,6 +17,7 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -30,8 +31,8 @@ public class CommunityServiceImpl implements CommunityService {
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
 	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
-		log.info("{}",search);
-		log.info("{}",category);
+//		log.info("{}",search);
+//		log.info("{}",category);
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
@@ -183,9 +184,45 @@ public class CommunityServiceImpl implements CommunityService {
 	public int getFreeBoardRecCount(FreeBoard freeBoard) {
 		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
 	}
+	
+	//공지사항--------------------------------------------------------------------------------
+	
+	@Override
+	public Paging getNoticePaging(Paging curPage, String search) {
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+
+		int totalCnt = dao.getNoticeTotalCnt(map);
+		
+		log.info("totalCNT{}",totalCnt);
+		
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Notice> getNoticeList(Paging paging, String search) {
 
 	
-	//자유게시판--------------------------------------------------------------------------------
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<Notice> noticeList = dao.selectNoticeListAll(map);
+		
+		return noticeList;
+		
+	}
+	
+	
+	
 	
 	//=================== 이루니 ===================
 	@Override

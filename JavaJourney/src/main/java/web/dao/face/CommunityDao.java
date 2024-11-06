@@ -11,6 +11,8 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.Notice;
+import web.util.Paging;
 
 
 @Mapper
@@ -209,7 +211,22 @@ public interface CommunityDao {
 	public int getFreeBoardRecCountByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
 
-
+	/**
+	 * 공지사항 검색 조건에 따른 글 수
+	 * @param map - 검색어
+	 * @return - 수
+	 */
+	public int getNoticeTotalCnt(HashMap<String, String> map);
+	
+	/**
+	 * 
+	 * 검색조건에 따라 공지사항 리스트 조회
+	 * 
+	 * @param paging
+	 * @param search
+	 * @return
+	 */
+	public List<Notice> selectNoticeListAll(HashMap<String, Object> map);
 
 
 

@@ -197,5 +197,27 @@
 		</where>
 	</update>
 	
+	<select id="getNoticeTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM NOTICE
+		<where>
+		
+			<if test='search != "N" '>
+				AND upper(TITLE) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectNoticeListAll" parameterType="hashmap" resultType="Notice">
+		SELECT NOTICENO,TITLE,CONTENT,WRITEDATE
+		FROM (
+			SELECT rownum r,a.* FROM(
+				SELECT * FROM NOTICE 
+				WHERE upper(TITLE) LIKE '%'||upper(#{search})||'%'
+				ORDER BY NOTICENO DESC
+				)a
+			)
+		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
 </mapper>
 

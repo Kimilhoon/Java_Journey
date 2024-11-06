@@ -10,6 +10,7 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.Notice;
 import web.util.Paging;
 
 
@@ -194,6 +195,23 @@ public interface CommunityService {
 	 * @param cafeRev 수정할 게시글 번호
 	 */
 	public void changeCafeReview(CafeRev cafeRev);
+	
+	/**
+	 * 조건에 따른 페이징 객체 얻기
+	 * 
+	 * @param curPage - 현재페이지
+	 * @param search - 검색어
+	 */
+	public Paging getNoticePaging(Paging curPage, String search);
+	
+	/**
+	 * 조건에 따른 공지사항 리스트 얻기
+	 * 
+	 * @param paging
+	 * @param search
+	 * @return
+	 */
+	public List<Notice> getNoticeList(Paging paging, String search);
 	
 }
 
