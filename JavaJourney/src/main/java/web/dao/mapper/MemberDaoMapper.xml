@@ -51,6 +51,24 @@
 		</where>
 	</select>
 	
+	<select id="searchId" parameterType="Member" resultType="String">
+		SELECT userId FROM member
+		<where>
+			AND userName = #{userName}		
+			AND userPhone = #{userPhone}
+		</where>			
+	</select>
+	
+	<select id="searchPw" parameterType="Member" resultType="String">
+		SELECT userPw FROM member
+		<where>
+			AND userId = #{userId}		
+			AND userName = #{userName}		
+			AND userPhone = #{userPhone}
+		</where>			
+	</select>
+	
+	
 	
 	
 	

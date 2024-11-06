@@ -6,6 +6,7 @@
 
 <mapper namespace="web.dao.face.CommunityDao">
 
+	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
 		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
@@ -110,7 +111,7 @@
 		</where>
 	</select>
 	
-	<insert id="insertCafeReview" parameterType="CafeRev">
+	<insert id="insertCafeReview" parameterType="CafeRev" >
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
 		VALUES ( revNo_seq.nextval , #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
