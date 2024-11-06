@@ -3,14 +3,5 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CommunityDao">
-    <insert id="insertBeanData" parameterType="Bean">
-        <selectKey order="BEFORE" keyProperty="beanNo" resultType="int">
-            SELECT BEAN_SEQ.NEXTVAL FROM dual
-        </selectKey>
-        INSERT INTO bean(BEANNO, BEANIMGNO, BEANNAME, ORIGIN,
-                         BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO)
-        VALUES(#{beanNo}, BEANIMG_SEQ.NEXTVAL, #{beanName}, #{origin}, 
-               #{beanComm}, #{beanInfo}, #{beanPrice}, #{businessNo})
-    </insert>
 </mapper>
 
