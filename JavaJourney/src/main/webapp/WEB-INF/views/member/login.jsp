@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:import url="../layout/header.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,7 @@
 
 <script type="text/javascript">
 $(function() {
+	
 	$("#goJoin").click(function() {	
 		location.href = "./join";
 	});
@@ -58,7 +61,7 @@ $(function() {
 
 <div>
 	<label for="userPw">비밀번호</label>
-	<input type="text" name="userPw" id="userPw">
+	<input type="password" name="userPw" id="userPw">
 </div>
 
 <div>
@@ -73,6 +76,7 @@ $(function() {
 <div>
 	<button id="btnLogin" class="btn btn-primary">로그인</button>
 </div>
+
 
 
 
@@ -119,3 +123,5 @@ $(function() {
 
 </body>
 </html>
+
+<c:import url="../layout/footer.jsp" />

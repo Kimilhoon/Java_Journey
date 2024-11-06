@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import web.service.face.MypageService;
-import web.service.impl.MypageServiceImpl;
 
 @Controller
 @RequestMapping("/mypage")
@@ -14,6 +13,6 @@ import web.service.impl.MypageServiceImpl;
 public class MypageController {
 	
 	@Autowired
-	private MypageService service = new MypageServiceImpl();
+	private MypageService service;
 	
 }

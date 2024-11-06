@@ -37,7 +37,14 @@ public interface MemberDao {
 	 */
 	public int SelectByMemberIdPw(Member member);
 
-	
+	/**
+	 * 로그인 세션 정보
+	 * 
+	 * @param member
+	 * @return
+	 */
+	public Member selectByLogin(Member member);
+
 	
 	
 }
