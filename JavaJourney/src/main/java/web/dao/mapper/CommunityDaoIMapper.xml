@@ -3,15 +3,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CommunityDao">
-<!-- 	<insert id="insertBeanData" parameter="Bean"> -->
-<!-- 		<selectKey order="BEFORE" keyColumn="beanno" resultType="int"> -->
-<!-- 			select beanno_seq.nextval from dual -->
-<!-- 		</selectKey> -->
-<!-- 		INSERT INTO bean(BEANNO, BEANIMGNO, BEANNAME, ORIGIN -->
-<!-- 				, BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO) -->
-<!-- 		VALUES(#{beanno}, BEANIMGNO_seq.nextval -->
-<!-- 		, #{beanName}, BEANIMGNO.nextval, #{origin}, #{beanComm}, #{beanInfo}, #{beanPrice}, #{businessNo}) -->
-<!-- 	</insert> -->
     <insert id="insertBeanData" parameterType="Bean">
         <selectKey order="BEFORE" keyProperty="beanNo" resultType="int">
             SELECT BEAN_SEQ.NEXTVAL FROM dual
