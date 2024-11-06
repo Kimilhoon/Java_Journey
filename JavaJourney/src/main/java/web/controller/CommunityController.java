@@ -158,7 +158,9 @@ public class CommunityController {
 	//이루니
 	
 	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
+	public void cafeReviewForm(Model model, String category, String order, String search, Paging curPage) {
+		
+		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
 		
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
@@ -230,10 +232,10 @@ public class CommunityController {
 	
 	@PostMapping("/creview/update")
 	public String cafeReviewUpdateProc(CafeRev cafeRev) {
-		
+		log.info("dddd{}",cafeRev);
 		service.changeCafeReview(cafeRev);
 		
-		return "./view?revNo=" + cafeRev.getRevNo();
+		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
 
 	

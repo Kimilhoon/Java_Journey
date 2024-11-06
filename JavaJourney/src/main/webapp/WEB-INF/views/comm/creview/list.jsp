@@ -127,7 +127,7 @@ $(function() {
 		${list.cafeName }
 		</a>
 	</td>
-	<td class="col-2">${list.userNo }</td>
+	<td class="col-2">${list.userNick }</td>
 	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
 	<td class="col-1">${list.revsp }</td>
 	</tr>

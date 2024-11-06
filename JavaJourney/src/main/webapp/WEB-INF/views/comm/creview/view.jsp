@@ -56,9 +56,9 @@
 <div id="bottom">
 	<i class="bi bi-share"></i>
 	
-	<c:if test="true">
-		<span><a href="./update?revNo=">수정</a></span>
-		<span><a href="./delete?revNo=">삭제</a></span>
+	<c:if test="${userId eq writerId }">
+		<span><a href="./update?revNo=${cafeRev.revNo }">수정</a></span>
+		<span><a href="./delete?revNo=${cafeRev.revNo }">삭제</a></span>
 	</c:if>
 
 <a href="./list"><button>목록</button></a>
