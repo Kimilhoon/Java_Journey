@@ -172,7 +172,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public int getFreeBoardRecCount(FreeBoard freeBoard) {
 		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
 	}
-	
+
 	
 	//자유게시판--------------------------------------------------------------------------------
 	
@@ -220,6 +220,25 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		int res = dao.insertCafeReview(cafeRev);
 		
+	}
+	
+	@Override
+	public String getWriterId(CafeRev cafeRev) {
+
+		return dao.selectWriterId(cafeRev);
+	}
+	
+	@Override
+	public void dropCafeReview(CafeRev cafeRev) {
+		
+		dao.deleteCafeReviewByCafeNo(cafeRev);
+		
+	}
+	
+	@Override
+	public void changeCafeReview(CafeRev cafeRev) {
+		
+		int res = dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
 	

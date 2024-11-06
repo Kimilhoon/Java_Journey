@@ -15,6 +15,7 @@
 
 <script type="text/javascript">
 $(function() {
+	
 	$("#goJoin").click(function() {	
 		location.href = "./join";
 	});
@@ -60,7 +61,7 @@ $(function() {
 
 <div>
 	<label for="userPw">비밀번호</label>
-	<input type="text" name="userPw" id="userPw">
+	<input type="password" name="userPw" id="userPw">
 </div>
 
 <div>

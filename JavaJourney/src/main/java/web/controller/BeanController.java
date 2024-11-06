@@ -31,15 +31,12 @@ public class BeanController {
 		
 		// 전달파라미터를 이용해서 현재 페이징 객체 알아내기
 		Paging paging = service.getPaging( param );
+		log.info("paging : {}",paging);
 		
 		model.addAttribute("paging", paging);
 		
 		List<Bean> list = service.getAllBean( paging );
 
-		//[TEST] 조회 결과 확인
-		if( list == null ) System.out.println("list 반환값 없음");
-		else for( Bean b : list ) System.out.println( b );
-		
 		model.addAttribute("list", list);
 		
 	} // AllBeanForm() end

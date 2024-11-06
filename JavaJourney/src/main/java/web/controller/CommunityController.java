@@ -149,7 +149,6 @@ public class CommunityController {
 	//--------------------------------------------------------------------------------------
 	//이루니
 	
-	
 	@GetMapping("/creview/list")
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
 		
@@ -160,14 +159,24 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/creview/view")
-	public void cafeReviewView(Model model, CafeRev revNo) {
+	public void cafeReviewView(Model model, HttpSession session, CafeRev revNo) {
 		
+		//댓글 리스트
 		List<CafeRevComm> crevcommList = service.getCafeReviewCommentList(revNo);
 		
+		//카페 상세 정보
 		CafeRev cafeRev = service.getCafeReviewInfo(revNo);
+		
+		//로그인한 유저id
+		String userId = (String) session.getAttribute("userId");	
+		
+		//작성한 유저id
+		String writerId = service.getWriterId(cafeRev);
 		
 		model.addAttribute("crevcommList", crevcommList);
 		model.addAttribute("cafeRev", cafeRev);
+		model.addAttribute("userId", userId);
+		model.addAttribute("writerId", writerId);
 		
 	}
 	
@@ -183,7 +192,7 @@ public class CommunityController {
 	@PostMapping("/creview/write")
 	public String cafeReviewWriteProc(CafeRev cafeRev, HttpSession session) {
 		
-		String userId = (String) session.getAttribute("memberid");
+		String userId = (String) session.getAttribute("userId");
 		int userNo = service.getUserNo(userId);
 		cafeRev.setUserNo(userNo);
 		service.joinCafeReview(cafeRev);
@@ -191,7 +200,28 @@ public class CommunityController {
 		return "redirect: ./list";
 	}
 	
+	@RequestMapping("/creview/delete")
+	public String cafeReviewDelete(CafeRev cafeRev) {
+		
+		service.dropCafeReview(cafeRev);
+			
+		return "redirect: ./list";
+	}
 	
+	@GetMapping("/creview/update")
+	public void cafeReviewUpdate(Model model, CafeRev cafeNo) {
+		CafeRev cafeRev = service.getCafeReviewInfo(cafeNo);
+		
+		model.addAttribute("cafeRev", cafeRev);
+	}
+	
+	@PostMapping("/creview/update")
+	public String cafeReviewUpdateProc(CafeRev cafeRev) {
+		
+		service.changeCafeReview(cafeRev);
+		
+		return "./view?revNo=" + cafeRev.getRevNo();
+	}
 	
 	
 }
