@@ -19,7 +19,6 @@
 		</if>
 		</where>
 		
-		
 		ORDER BY revno desc
 	</select>
 	
