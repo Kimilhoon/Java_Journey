@@ -208,7 +208,7 @@
 	</select>
 	
 	<select id="selectNoticeListAll" parameterType="hashmap" resultType="Notice">
-		SELECT NOTICENO,TITLE,CONTENT,WRITEDATE
+		SELECT NOTICENO,TITLE,CONTENT,WIRTEDATE
 		FROM (
 			SELECT rownum r,a.* FROM(
 				SELECT * FROM NOTICE 
