@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import web.service.face.QuizService;
-import web.service.impl.QuizServiceImpl;
 
 @Controller
 @RequestMapping("/quiz")
@@ -14,6 +13,6 @@ import web.service.impl.QuizServiceImpl;
 public class QuizController {
 	
 	@Autowired
-	private QuizService service = new QuizServiceImpl();
+	private QuizService service;
 	
 }
