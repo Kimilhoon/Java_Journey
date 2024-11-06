@@ -20,15 +20,45 @@
 
 <style>
 
+#title {
+	cursor: pointer;
+}
 
 </style>
+
+<script type="text/javascript">
+
+$(function() {
+	
+	$("#category").change(function() {
+		
+		if($("#category").val() == "all") {
+			location.href = "./list";
+			return;
+		}
+		
+		location.href = "./list?category=" + $("#category").val();
+		
+	})
+	
+	$("#title").click(function() {
+		
+		location.href = "./list";
+		
+	})
+	
+	
+})
+
+
+</script>
 
 </head>
 <body>
 
 <c:import url="../../layout/header.jsp" />
 
-<h1>카페리뷰리스트</h1>
+<h1 id="title">카페리뷰리스트</h1>
 <br>
 
 <div id="content">
@@ -45,13 +75,14 @@
 
 <div id="category-list">
 카테고리
-<select id="category">
+	<select id="category">
+      <option hidden="none"></option>
       <option value="all">전체</option>
-      <option value="seoul">서울</option>
-      <option value="gyeonggi">경기</option>
-      <option value="incehon">인천</option>
-      <option value="busan">부산</option>
-      <option value="jeju">제주</option>
+      <option value="서울">서울</option>
+      <option value="경기">경기</option>
+      <option value="인천">인천</option>
+      <option value="부산">부산</option>
+      <option value="제주">제주</option>
    </select>
 </div> <!-- category-list -->
 </div> <!-- col -->
@@ -59,12 +90,16 @@
 
 <div class="col-6 text-right">
 <div id="search">
+
 <form class="search-box" action="./list" method="get">
+
 	<input class="search-txt" type="text" name="search">
 	<button class="search-btn" type="submit">
 		<i class="bi bi-search"></i>
 	</button>
+	
 </form>
+
 </div> <!-- search -->
 </div> <!-- col -->
 
