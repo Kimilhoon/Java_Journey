@@ -51,6 +51,13 @@
 		</where>
 	</select>
 	
+	<select id="selectByMemberEmail" parameterType="Member" resultType="Member">
+		SELECT userId FROM member
+		<where>
+			AND userName = #{userName}		
+			AND userEmail = #{userEmail}
+		</where>			
+	</select>
 	
 	
 	

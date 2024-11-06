@@ -43,6 +43,13 @@ public interface MemberService {
 	 */
 	public Member info(Member member);
 
+	/**
+	 * 아이디 찾기
+	 * @param member
+	 * @return
+	 */
+	public Member selectByMemberEmail(Member member);
+
 
 
 	
