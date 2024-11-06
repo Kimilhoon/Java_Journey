@@ -32,6 +32,8 @@ $.ajax({
     data: JSON.stringify({ content: $('#summernote').val() })
 });
 
+$("select[name=revsp] option[value=${cafeRev.revsp}]").prop("selected", true);
+
 </script>
 
 </head>
@@ -39,23 +41,17 @@ $.ajax({
 
 <a href="./list"><button>목록</button></a>
 
-<form action="./write" method="post">
+<form action="./update" method="post">
+
+<input type="text" name="revNo" value="${cafeRev.revNo }" hidden="none">
 
 <div id="write-area">
-<table>
-
-<tr>
-<td>
-<input type="text" name="cafeNo" value="${cafeNo.cafeNo }" hidden="none">
-</td>
-</tr>
-
-<tr>
-<td>
-<label class="bordered"> <small>카페명</small> | ${cafeName}<input type="text" readonly="readonly"></label>
-</td>
-
-<td>
+<label>제목 ${cafeRev.cafeName}<input type="text" readonly="readonly"></label><br>
+<label>
+<textarea id="summernote" name="revContent" rows="30" cols="50" name="content" required="required" class="form-control">
+${cafeRev.revContent }
+</textarea>
+</label><br>
 <label>별점
 <select name="revsp">
 	<option value="5">★★★★★</option>
@@ -65,20 +61,6 @@ $.ajax({
 	<option value="1">★☆☆☆☆</option>
 </select>
 </label>
-</td>
-</tr>
-
-<tr>
-<td colspan="3">
-<label>
-<textarea id="summernote" name="revContent" rows="30" cols="50" name="content" required="required" class="form-control"></textarea>
-</label>
-</td>
-</tr>
-<br>
-
-</table>
-
 <button class="btn btn-primary">작성</button>
 </div>
 
