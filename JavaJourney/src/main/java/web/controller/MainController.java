@@ -14,6 +14,9 @@ public class MainController {
 	@GetMapping("")
 	public void mainForm() {}
 	
+	@GetMapping("/admin")
+	public void adminmenuForm() {}
+	
 	
 	
 }

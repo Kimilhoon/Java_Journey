@@ -12,6 +12,7 @@ import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.util.Paging;
 
+
 public interface CommunityService {
 	
 	/**

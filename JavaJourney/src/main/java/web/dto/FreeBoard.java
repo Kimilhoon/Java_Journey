@@ -18,5 +18,7 @@ public class FreeBoard {
 	private int freeImgNo;
 	private int freeBoardCommentCount;
 	private int freeBoardRecommendCount;
+	private String freeBoardMapX;
+	private String freeBoardMapY;
 	
 } // class end
