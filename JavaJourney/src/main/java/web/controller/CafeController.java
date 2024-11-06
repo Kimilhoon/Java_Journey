@@ -49,11 +49,12 @@ public class CafeController {
 		model.addAttribute("AllCafeList", AllCafeList);
 		
 	} // AllCafeForm() end
-//
-//	@GetMapping("/info")
-//	public void CafeInfoForm(Cafe param) {
-//		
-//	} // CafeInfoForm(Cafe param) end
+	
+	
+	@GetMapping("/info")
+	public void CafeInfoForm(Cafe param) {
+		
+	} // CafeInfoForm(Cafe param) end
 	
 	
 } // class end
