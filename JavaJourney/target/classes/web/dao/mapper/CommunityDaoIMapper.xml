@@ -4,4 +4,189 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CommunityDao">
 </mapper>
+	<!--수정해야댐 ㅜ -->
+	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
+	
+		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
+		FROM caferev cr
+		JOIN cafe c ON cr.cafeno = c.cafeno
+		ORDER BY revno desc
+	
+	</select>
+	
+	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
+	
+		SELECT * FROM caferevcomm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+		ORDER BY caferevcommno desc
+		
+	</select>
+	
+	<select id="selectCafeReviewInfo" resultType="CafeRev" parameterType="CafeRev">
+
+		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
+		FROM caferev cr
+		JOIN cafe c ON cr.cafeno = c.cafeno
+		<where>
+			AND revNo = #{revNo }
+		</where>
+		ORDER BY revno desc
+	
+	</select>
+	
+	<select id="selectCafeNameByCafeNo" resultType="string" parameterType="Cafe">
+		SELECT cafeName FROM cafe
+		<where>
+			AND cafeNo = #{cafeNo }
+		</where>
+	</select>
+
+	<select id="getFreeBoardTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM FREEBOARD
+		<where>
+			<if test='category != "N" '>
+				AND FREEBOARDCATEGORY = #{category}
+			</if>
+			<if test='search != "N" '>
+				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectFreeBoardListAll" parameterType="hashmap" resultType="FreeBoard">
+		SELECT FREEBOARDNO,USERNO,FREEBOARDCATEGORY,FREEBOARDTITLE,FREEBOARDCONTENT,FREEBOARDHIT,FREEBOARDWRITEDATE,FREEIMGNO  
+		FROM (
+			SELECT rownum r,a.* FROM(
+				SELECT * FROM FREEBOARD 
+				WHERE upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				<if test='category != "N" '>
+					AND FREEBOARDCATEGORY = #{category}
+				</if>
+				ORDER BY FREEBOARDNO DESC
+				)a
+			)
+		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<select id="selectFreeBoardByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoard">
+		SELECT * FROM FREEBOARD
+		WHERE freeboardno = #{freeBoardNo}
+	</select>
+	
+	<select id="selectMemberByFreeBoardNo" parameterType="FreeBoard">
+		SELECT * FROM MEMBER
+		WHERE userno = #{userNo}
+	</select>
+	<delete id="deleteFreeBoardByFreeBoardNo" parameterType="FreeBoard">
+		DELETE FROM freeboard
+		WHERE freeboardno = #{freeBoardNo}
+	</delete>
+	
+	<update id="updateFreeBoardHitByFreeBoardNo" parameterType="FreeBoard">
+		UPDATE freeboard
+		SET
+			freeboardhit = freeboardhit+1
+		WHERE freeboardno = #{freeBoardNo}
+	</update>
+	
+	<select id="selectFreeBoardCommentByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoardComment">
+		SELECT * FROM FREEBOARDCOMMENT
+		WHERE freeboardno = #{freeBoardNo}
+	</select>
+	
+	<select id="selectUsernoByUserid" resultType="int" parameterType="string">
+		SELECT userno FROM member
+		<where>
+			userId = #{userId }
+		</where>
+	</select>
+	
+	<insert id="insertCafeReview" parameterType="CafeRev">
+		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
+		VALUES ( revNo_seq.nextval , #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+	</insert>
+	
+	<insert id="insertFreeBoardComment" parameterType="FreeBoardComment">
+		INSERT INTO FREEBOARDCOMMENT f (commentNO,freeboardno,usernick,commentcontent,userno)
+		VALUES (freeboardcomment_seq.nextval,#{freeBoardNo},#{userNick},#{commentContent},#{userNo})
+	</insert>
+	<select id="selectMemberByUserID">
+		SELECT * FROM MEMBER
+		WHERE userid=#{userId}
+	</select>
+	
+	<delete id="deleteFreeBoardCommentByFreeBoardCommentNo" parameterType="FreeBoardComment">
+		DELETE FROM FREEBOARDCOMMENT
+		WHERE commentno=#{commentNo}
+	</delete>
+	
+	<select id="selectFreeBoardCommentCnt" parameterType="FreeBoard">
+		SELECT count(*) FROM freeboardcomment
+		WHERE freeboardno = #{freeBoardNo}
+	</select>
+	
+	<insert id="insertFreeBoard" parameterType="FreeBoard">
+		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit)
+		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0)
+	</insert>
+	<update id="updateFreeBoardByFreeBoardNo" parameterType="FreeBoard">
+		UPDATE freeboard
+		SET
+			freeboardtitle = #{freeBoardTitle},
+			freeboardcontent = #{freeBoardContent}
+		WHERE freeBoardNo = #{freeBoardNo}
+	</update>
+	
+	<select id="selectFreeBoardRecommendByFreeBoardNoUserNo" parameterType="FreeBoard" resultType="int">
+		SELECT count(*) FROM freeboardrecommend
+		<where>
+			AND freeBoardNo = #{freeBoardNo}
+			AND userno = #{userNo}
+		</where>
+	</select>
+	<delete id="deleteFreeBoardRecommendByFreeBoardNoUserNo" parameterType="FreeBoard" >
+		DELETE FROM freeboardrecommend
+		<where>
+			AND freeBoardNo = #{freeBoardNo}
+			AND userno = #{userNo}
+		</where>
+	</delete>
+	
+	<insert id="insertFreeBoardRecommendByFreeBoardNoUserNo" parameterType="FreeBoard" >
+		INSERT INTO freeboardrecommend
+		VALUES(#{freeBoardNo},#{userNo})
+	</insert>
+	
+	<select id="getFreeBoardRecCountByFreeBoardNo" parameterType="FreeBoard" resultType="int">
+		SELECT count(*) FROM freeboardrecommend
+		WHERE freeBoardNo = #{freeBoardNo}
+	</select>
+	
+	<select id="selectWriterId" resultType="string" parameterType="CafeRev">
+		SELECT userid
+		FROM CAFEREV c, MEMBER m
+		<where>
+			AND c.USERNO = m.USERNO 
+			AND c.userNo = #{userNo }
+		</where>
+	</select>
+	
+	<delete id="deleteCafeReviewByCafeNo" parameterType="CafeRev">
+		DELETE CafeRev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<update id="updateCafeReviewByCafeNo" parameterType="CafeRev">
+		UPDATE CafeRev
+		SET revContent = #{revContent }
+		<where>
+			revNo = #{revNo }
+		</where>
+	</update>
+	
+</mapper>
 

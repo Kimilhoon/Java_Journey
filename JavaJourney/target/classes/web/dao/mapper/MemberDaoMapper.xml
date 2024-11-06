@@ -5,6 +5,53 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.MemberDao">
+
+	<insert id="insertMember" parameterType="Member">
+		<selectKey order="BEFORE" resultType="int" keyProperty="userNo">
+			SELECT userNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO MEMBER (userNo, userId, userPw, userNick, userEmail, userName
+		, userPhone, userPostcode, userAdd1, userAdd2, businessNo)
+		VALUES (#{userNo}, #{userId}, #{userPw}, #{userNick}, #{userEmail}, #{userName}
+		, #{userPhone}, #{userPostcode}, #{userAdd1}, #{userAdd2}, #{businessNo})
+	</insert>
+	
+	<select id="selectByMemberId" resultType="int" parameterType="Member">
+		SELECT count(*) cnt
+		FROM member
+		<where>
+			AND userId = #{userId}
+		</where>
+	</select>
+	
+	<select id="selectByMemberNick" resultType="int" parameterType="Member">
+		SELECT count(*) cnt
+		FROM member
+		<where>
+			AND userNick = #{userNick}
+		</where>
+	</select>
+
+
+	<select id="SelectByMemberIdPw" resultType="int" parameterType="Member">
+		SELECT count(*) cnt
+		FROM member
+		<where>
+			AND userId = #{userId}
+			AND userPw = #{userPw}
+		</where>	
+	</select>
+	
+	<select id="selectByLogin" parameterType="Member" resultType="Member">
+		SELECT userNo, userId, userPw, userNick, userEmail, userName
+		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		FROM member
+		<where>
+			AND userId = #{userId}
+		</where>
+	</select>
+	
+	
 	
 	
 	
