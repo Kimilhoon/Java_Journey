@@ -1,5 +1,6 @@
 package web.controller;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import web.dto.Member;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
+
 @Controller
 @RequestMapping("/comm")
 @Slf4j
@@ -33,6 +35,7 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService service;
+
 	
 	//--------------------------------------------------------------------------------------
 		//동쥬니
@@ -227,10 +230,9 @@ public class CommunityController {
 		
 		return "./view?revNo=" + cafeRev.getRevNo();
 	}
-	
+
 	
 }
-
 
 
 

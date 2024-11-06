@@ -1,5 +1,6 @@
 package web.service.impl;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +24,9 @@ import web.util.Paging;
 @Slf4j
 public class CommunityServiceImpl implements CommunityService {
 	
-	@Autowired
-	private CommunityDao dao;
+	@Autowired private CommunityDao dao;
 	
+
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
 	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
@@ -240,8 +241,6 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		int res = dao.updateCafeReviewByCafeNo(cafeRev);
 	}
-	
-	
 	
 }
 
