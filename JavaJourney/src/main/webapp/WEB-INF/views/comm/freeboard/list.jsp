@@ -49,11 +49,14 @@ $(function() {
 })
 
 </script>
+
 </head>
 <body>
 <h1>자유게시판 리스트</h1>
 <a href="./list"><button>목록</button></a>
 <a href="./write"><button>작성</button></a>
+<br>
+
 <br>
 <div>
 	<select id="category">
@@ -70,6 +73,7 @@ $(function() {
 	<tr>
 		<th>보드 넘버</th>
 		<th>보드 분류</th>
+		<th>추천수</th>
 		<th>보드 제목</th>
 		<th>보드 조회수</th>
 		<th>보드 작성일</th>
@@ -80,17 +84,19 @@ $(function() {
 	<tr>
 		<td>${freeBoardList.freeBoardNo}</td>
 		<td>${freeBoardList.freeBoardCategory}</td>
-		
+		<td>${freeBoardList.freeBoardRecommendCount}</td>
 		<td>
 		
-		<jsp:useBean id="now" class="java.util.Date" />
-		<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
-		<fmt:formatDate value="${freeBoardList.freeBoardWriteDate}" pattern="yyyyMMdd" var="wDate" /> 
-		<c:if test="${nowDate eq wDate }">
-			<span>new</span>
-		</c:if>
-		<a href="./view?freeBoardNo=${freeBoardList.freeBoardNo }"class="hit" >${freeBoardList.freeBoardTitle}</a>
-		
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+			<fmt:formatDate value="${freeBoardList.freeBoardWriteDate}" pattern="yyyyMMdd" var="wDate" /> 
+			<c:if test="${nowDate eq wDate }">
+				<span>new</span>
+			</c:if>
+			<a href="./view?freeBoardNo=${freeBoardList.freeBoardNo }"class="hit" >
+				${freeBoardList.freeBoardTitle}
+			</a>
+				[${freeBoardList.freeBoardCommentCount}]
 		</td>
 		
 		<td>${freeBoardList.freeBoardHit}</td>
@@ -102,7 +108,7 @@ $(function() {
 </table>
 </div>
 <div>
-	<a href="./list?curPage=${paging.curPage-1  }&search=${search}">이전</a>
-	<a href="./list?curPage=${paging.curPage+1  }&search=${search}">다음</a>
+	<a href="./list?curPage=${paging.curPage-1  }&search=${search}&category=${category}">이전</a>
+	<a href="./list?curPage=${paging.curPage+1  }&search=${search}&category=${category}">다음</a>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

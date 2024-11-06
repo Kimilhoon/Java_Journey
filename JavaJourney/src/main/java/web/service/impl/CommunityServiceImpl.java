@@ -73,6 +73,10 @@ public class CommunityServiceImpl implements CommunityService {
 		map.put("search", search);
 		map.put("category", category);
 		List<FreeBoard> freeBoardList = dao.selectFreeBoardListAll(map);
+		for(FreeBoard f : freeBoardList) {
+			f.setFreeBoardCommentCount(dao.selectFreeBoardCommentCnt(f));
+			f.setFreeBoardRecommendCount(dao.getFreeBoardRecCountByFreeBoardNo(f));
+		}
 		
 		return freeBoardList;
 	}
@@ -103,9 +107,72 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
-		// TODO Auto-generated method stub
+		freeBoardComment.setFreeBoardNo(freeBoard.getFreeBoardNo());
+		
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoardComment.setUserNo(member.getUserNo());
+		freeBoardComment.setUserNick(member.getUserNick());
+		dao.insertFreeBoardComment(freeBoardComment);
 		
 	}
+	
+	@Override
+	public void dropFreeBoardComment(FreeBoardComment freeBoardComment) {
+		dao.deleteFreeBoardCommentByFreeBoardCommentNo(freeBoardComment);
+	}
+	
+	@Override
+	public void joinFreeBoard(FreeBoard freeBoard, HttpSession session) {
+		if(freeBoard.getFreeBoardCategory().equals("cafe")) {
+			freeBoard.setFreeBoardCategory("카페");
+		}else {
+			freeBoard.setFreeBoardCategory("원두");
+			
+		}
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoard.setUserNick(member.getUserNick());
+		freeBoard.setUserNo(member.getUserNo());
+		log.info("{}",freeBoard);
+		dao.insertFreeBoard(freeBoard);
+	}
+	
+	@Override
+	public void changeFreeBoard(FreeBoard freeBoard) {
+		dao.updateFreeBoardByFreeBoardNo(freeBoard);
+	}
+	
+	@Override
+	public boolean isFreeBoardRec(FreeBoard freeBoard, HttpSession session) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoard.setUserNo(member.getUserNo());
+		int res = dao.selectFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+		if(res>0) {
+
+			dao.deleteFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+			return false;
+		}else {
+			dao.insertFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+			return true;
+		}
+	}
+	
+	@Override
+	public boolean isFreeBoardRecCheck(FreeBoard freeBoard, HttpSession session) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		freeBoard.setUserNo(member.getUserNo());
+		int res = dao.selectFreeBoardRecommendByFreeBoardNoUserNo(freeBoard);
+		if(res>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int getFreeBoardRecCount(FreeBoard freeBoard) {
+		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
+	}
+
 	
 	//자유게시판--------------------------------------------------------------------------------
 	

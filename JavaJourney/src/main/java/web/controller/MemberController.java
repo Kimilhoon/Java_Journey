@@ -75,6 +75,7 @@ public class MemberController {
 			
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("userId", member.getUserId());
+			session.setAttribute("userNick", member.getUserNick());
 			
 		}else {
 			log.info("로그인 실패");
