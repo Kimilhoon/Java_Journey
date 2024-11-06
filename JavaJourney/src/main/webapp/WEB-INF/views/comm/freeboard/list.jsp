@@ -10,7 +10,7 @@ $(function() {
 	$(".hit").click(function() {
 		
 		$.ajax({
-			url: "./hit?freeBoardNo="+$(this).parent().prev().prev().text(),
+			url: "./hit?freeBoardNo="+$(this).parent().prev().prev().prev().text(),
 			type: "get",
 			dataType: "",
 			success: function() {

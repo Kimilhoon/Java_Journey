@@ -19,7 +19,6 @@
 			AND cafeloc = #{category }
 		</if>
 		</where>
-		
 		ORDER BY revno desc
 	</select>
 	
@@ -144,7 +143,9 @@
 		UPDATE freeboard
 		SET
 			freeboardtitle = #{freeBoardTitle},
-			freeboardcontent = #{freeBoardContent}
+			freeboardcontent = #{freeBoardContent},
+			freeboardmapx = #{freeBoardMapX},
+			freeboardmapy = #{freeBoardMapY}
 		WHERE freeBoardNo = #{freeBoardNo}
 	</update>
 	
