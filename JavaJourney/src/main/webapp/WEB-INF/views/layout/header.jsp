@@ -25,14 +25,10 @@
 </head>
 <body>
 <div class="d-flex justify-content-center">
-<img src="<c:url value='/resources/img/h.jpg' />"
-alt="해쌤" width="200" height="200" /> 
 <a href="/main" style="text-decoration: none;">
 <img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
 alt="로고" width="200" height="200" />
 </a>
-<img src="<c:url value='/resources/img/trumpbean.jpg' />"
-alt="트쌤" width="200" height="200" /> 
 <!-- 로그인 및 기타 링크 -->
   <div class="d-flex align-items-center" style="width: 10%" id="loginLoc">
     <div class="flex-shrink-0">
