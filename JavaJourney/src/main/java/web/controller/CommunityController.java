@@ -167,6 +167,8 @@ public class CommunityController {
 		//댓글 리스트
 		List<CafeRevComm> crevcommList = service.getCafeReviewCommentList(revNo);
 		
+		log.info("revNo: {}", revNo);
+		
 		//카페 상세 정보
 		CafeRev cafeRev = service.getCafeReviewInfo(revNo);
 		
@@ -175,6 +177,8 @@ public class CommunityController {
 		
 		//작성한 유저id
 		String writerId = service.getWriterId(cafeRev);
+		
+		log.info("cafeRev: {}", cafeRev);
 		
 		model.addAttribute("crevcommList", crevcommList);
 		model.addAttribute("cafeRev", cafeRev);

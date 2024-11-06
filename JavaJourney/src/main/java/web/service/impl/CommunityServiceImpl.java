@@ -94,6 +94,11 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	@Override
 	public void dropFreeBoard(FreeBoard freeBoard) {
+		
+		List<FreeBoardComment> cList = dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
+		for(FreeBoardComment c:cList) {
+			dao.deleteFreeBoardCommentByFreeBoardCommentNo(c);
+		}
 		dao.deleteFreeBoardByFreeBoardNo(freeBoard);
 	}
 	@Override
@@ -130,6 +135,11 @@ public class CommunityServiceImpl implements CommunityService {
 			freeBoard.setFreeBoardCategory("원두");
 			
 		}
+		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null) {
+			freeBoard.setFreeBoardMapX("37.68023654904071");
+			freeBoard.setFreeBoardMapY("127.27331371310157");
+		}
+		
 		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
 		freeBoard.setUserNick(member.getUserNick());
 		freeBoard.setUserNo(member.getUserNo());
