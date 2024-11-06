@@ -136,8 +136,8 @@ public class CommunityServiceImpl implements CommunityService {
 			freeBoard.setFreeBoardCategory("원두");
 			
 		}
-		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null) {
-			freeBoard.setFreeBoardMapX("37.68023654904071");
+		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null || "".equals(freeBoard.getFreeBoardMapX())) {
+			freeBoard.setFreeBoardMapX("123");
 			freeBoard.setFreeBoardMapY("127.27331371310157");
 		}
 		

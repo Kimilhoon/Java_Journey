@@ -4,6 +4,7 @@
 <!-- header -->
 <c:import url="./layout/header.jsp"/>
 
+
 <div class="container">
 <div>
 <!-- 이달의 베스트카페 -->
@@ -17,6 +18,7 @@
 <c:choose>
 	<c:when test="${isLogin }">
 	<a href="./comm/freeboard/list" ><button>자유게시판</button> </a>
+	<a href="./comm/notice/list" ><button>공지사항</button> </a>
 	<a href="./comm/creview/list" ><button>카페게시판</button> </a>
 	<a href="./comm/breview/list" ><button>원두게시판</button> </a>
 	<a href="./member/logout" ><button>로그아웃</button> </a>
