@@ -91,15 +91,15 @@ alt="트쌤" width="200" height="200" />
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown fs-1 text-light" href="/mypage/myinfo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               마이페이지
             </a>
             <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="#">내 취향 결과</a></li>
-              <li><a class="dropdown-item" href="#">구독 정보</a></li>
-              <li><a class="dropdown-item" href="#">찜 목록</a></li>
-              <li><a class="dropdown-item" href="#">작성글 확인</a></li>
-              <li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
+              <li><a class="dropdown-item" href="/mypage/myinfo">회원 정보 수정</a></li>
+              <li><a class="dropdown-item" href="/mypage/quizers">내 취향 결과</a></li>
+              <li><a class="dropdown-item" href="/mypage/subscribe">구독 정보</a></li>
+              <li><a class="dropdown-item" href="/mypage/like">찜 목록</a></li>
+              <li><a class="dropdown-item" href="/mypage/likeview">작성글 확인</a></li>
             </ul>
           </li>
         </ul>
@@ -110,9 +110,9 @@ alt="트쌤" width="200" height="200" />
     <div class="d-flex flex-column align-items-center text-light ms-5" id="loginLoc">
       <ul class="list-unstyled mb-0 text-center">
         <li><a href="/member/join" class="text-light">회원가입</a></li>
-        <li><a href="/" class="text-light">로그인</a></li>
-        <li><a href="/" class="text-light">카페등록</a></li>
-        <li><a href="/comm/bean/write" class="text-light">원두등록</a></li>
+        <li><a href="/member/login" class="text-light">로그인</a></li>
+        <li><a href="/create/cafe" class="text-light">카페등록</a></li>
+        <li><a href="/create/bean" class="text-light">원두등록</a></li>
         <li><a href="/main" class="text-light">메인</a></li>
       </ul>
     </div>

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- header -->`
-<c:import url="../../layout/header.jsp"/>
+<!-- header -->
+<c:import url="../layout/header.jsp"/>
+
 <h1 class="text-center">구독원두 작성</h1>
 <script>
 $(function () {
@@ -19,6 +20,10 @@ $(function () {
 			<td><input type="text" id="beanName" name="beanName" value="t"></td>
 			<td>원두원산지</td>
 			<td><input type="text" id="origin" name="origin" value="t"></td>
+		</tr>
+		<tr>
+		<td>원두이미지[TEST]</td>
+		<td><button></button> </td>
 		</tr>
 		<tr>
 			<td>원두금액</td>
@@ -44,7 +49,5 @@ $(function () {
 </form>
 </div>
 
-
-
 <!-- footer -->
-<c:import url="../../layout/footer.jsp"/>
+<c:import url="../layout/footer.jsp"/>

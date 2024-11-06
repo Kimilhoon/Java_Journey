@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CreateBeanDao">
-
+<!-- <insert id="insertBeanData" parameterType="Bean"> -->
+<!-- 	<selectKey order="BEFORE" keyProperty="beanNo" resultType="int"> -->
+<!-- 		select bean_seq from dual -->
+<!-- 	</selectKey> -->
+<!-- 	INSERT INTO bean(BEANNO, BEANIMGNO, BEANNAME, ORIGIN -->
+<!-- 	, BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO) -->
+<!-- 	VALUES(#{beanNo}, #{}, #{beanName}, #{origin}, #{beanComm} -->
+<!-- 	, #{beanInfo}, #{beanPrice}, #{businessNo}) -->
+<!-- </insert> -->
 </mapper>

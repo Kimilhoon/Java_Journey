@@ -17,10 +17,10 @@ public class CreateBeanController {
 	
 	@Autowired CreateBeanService service;
 	
-	@GetMapping("/bean/write")
+	@GetMapping("/bean")
 	public void beanWriteForm() {}
 
-	@PostMapping("/bean/write")
+	@PostMapping("/bean")
 	public void beanWriteProc(
 			Bean bean
 			) {
