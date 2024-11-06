@@ -23,24 +23,24 @@ $(function () {
     $("#btnBeanImg").click(function() {
         window.open("/create/selectimage", "popupWindow"
         		, "width=900,height=600");
-	})
+	});
     
 })
-</script>	
+</script>
 <div class="container">
 <div>
 <button id="btnManagerMenu">관리자메뉴로가기</button>
 <button id="btnBack">뒤로가기</button>
-</div>
+</div>	
 <form id="form" action="./bean" method="post" enctype="multipart/form-data">
 	<table class="table table-info">
 		<tr>
 			<td>원두이름</td>
-			<td><input type="text" id="beanName" name="beanName" value="t"></td>
+			<td><input type="text" id="beanName" name="beanName" value=""></td>
 		</tr>
 		<tr>
 			<td>원두원산지</td>
-			<td><input type="text" id="origin" name="origin" value="t"></td>
+			<td><input type="text" id="origin" name="origin" value=""></td>
 		</tr>
 		<tr>
 			<td>원두이미지[TEST]</td>
@@ -51,11 +51,11 @@ $(function () {
 		</tr>
 		<tr>
 			<td>원두금액</td>
-			<td><input type="text" id="beanPrice" name="beanPrice" value="1"></td>
+			<td><input type="text" id="beanPrice" name="beanPrice" value=""></td>
 		</tr>
 		<tr>
 			<td>사업자번호</td>
-			<td><input type="text" id="businessNo" name="businessNo" value="1"></td>
+			<td><input type="text" id="businessNo" name="businessNo" value=""></td>
 		</tr>
 		<tr>
 		<td>원두설명</td>
@@ -70,9 +70,9 @@ $(function () {
 		</tr>
 	</table>
 	
-	<div id="btnWrite">
-	<button class="btn btn-primary">완료</button>
-	</div>
+<div id="btnUpdate">
+	<button class="btn btn-primary">수정</button>
+</div>
 </form>
 </div>
 

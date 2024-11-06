@@ -39,10 +39,18 @@ public class CreateBeanController {
 	public void beanWriteProc(
 			Bean bean
 			) {
-		
 		log.info("bena : {}", bean);
-		System.out.println("이미지 크기: " + bean.getBeanInfo());
 		service.insertBean(bean);
 	}
+	
+	@GetMapping("/update")
+	public void beanUpdateForm() {}
 
+	@PostMapping("/update")
+	public void beanUpdateProc(
+			Bean bean
+			) {
+		log.info("bena : {}", bean);
+//		service.updateBean(bean);
+	}
 }
