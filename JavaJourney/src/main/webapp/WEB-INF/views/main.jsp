@@ -4,7 +4,6 @@
 <!-- header -->
 <c:import url="./layout/header.jsp"/>
 
-<<<<<<< HEAD
 <div class="container">
 <div>
 <!-- 이달의 베스트카페 -->
@@ -13,7 +12,6 @@
 <!-- 이달의 베스트원두 -->
 </div>
 </div>
-=======
 <body>
 
 <c:choose>
@@ -30,7 +28,6 @@
 	</c:otherwise>
 </c:choose>
 
->>>>>>> refs/remotes/origin/master
 
 
 <!-- footer -->

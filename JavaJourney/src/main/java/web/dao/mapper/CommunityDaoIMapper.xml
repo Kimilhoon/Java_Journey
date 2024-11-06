@@ -6,6 +6,7 @@
 
 <mapper namespace="web.dao.face.CommunityDao">
 
+	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
 		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
@@ -17,8 +18,6 @@
 			AND cafeloc = #{category }
 		</if>
 		</where>
-		
-		
 		ORDER BY revno desc
 	</select>
 	
