@@ -3,17 +3,22 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <mapper namespace="web.dao.face.CommunityDao">
-	
-	<!--수정해야댐 ㅜ -->
+
 	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
-	
 		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
+		<where>
+		<if test="search != null">
+			AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+		</if>
+		<if test="category != null">
+			AND cafeloc = #{category }
+		</if>
+		</where>
 		ORDER BY revno desc
-	
 	</select>
 	
 	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
@@ -32,9 +37,8 @@
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
 		<where>
-			AND revNo = #{revNo }
+			AND revno = #{revNo }
 		</where>
-		ORDER BY revno desc
 	
 	</select>
 	
@@ -105,9 +109,9 @@
 		</where>
 	</select>
 	
-	<insert id="insertCafeReview" parameterType="CafeRev">
+	<insert id="insertCafeReview" parameterType="CafeRev" >
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
-		VALUES ( #{revNo_seq.nextval }, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+		VALUES ( revNo_seq.nextval , #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
 	
 	<insert id="insertFreeBoardComment" parameterType="FreeBoardComment">
@@ -130,14 +134,17 @@
 	</select>
 	
 	<insert id="insertFreeBoard" parameterType="FreeBoard">
-		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit)
-		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0)
+		INSERT INTO FREEBOARD(freeBoardNo, userNo,freeBoardCategory,freeBoardTitle,freeBoardContent,freeBoardHit,freeboardmapx,freeboardmapy)
+		VALUES(FreeBoard_seq.NEXTVAL,#{userNo},#{freeBoardCategory},#{freeBoardTitle},#{freeBoardContent},0,#{freeBoardMapX},#{freeBoardMapY})
 	</insert>
+	
 	<update id="updateFreeBoardByFreeBoardNo" parameterType="FreeBoard">
 		UPDATE freeboard
 		SET
 			freeboardtitle = #{freeBoardTitle},
-			freeboardcontent = #{freeBoardContent}
+			freeboardcontent = #{freeBoardContent},
+			freeboardmapx = #{freeBoardMapX},
+			freeboardmapy = #{freeBoardMapY}
 		WHERE freeBoardNo = #{freeBoardNo}
 	</update>
 	
@@ -171,7 +178,7 @@
 		FROM CAFEREV c, MEMBER m
 		<where>
 			AND c.USERNO = m.USERNO 
-			AND c.userNo = #{userNo }
+			AND revno = #{revNo }
 		</where>
 	</select>
 	
@@ -191,24 +198,4 @@
 	</update>
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

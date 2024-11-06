@@ -10,7 +10,7 @@ $(function() {
 	$(".hit").click(function() {
 		
 		$.ajax({
-			url: "./hit?freeBoardNo="+$(this).parent().prev().prev().text(),
+			url: "./hit?freeBoardNo="+$(this).parent().prev().prev().prev().text(),
 			type: "get",
 			dataType: "",
 			success: function() {
@@ -46,6 +46,8 @@ $(function() {
 		
 	});
 	
+	
+	
 })
 
 </script>
@@ -56,7 +58,11 @@ $(function() {
 <a href="./list"><button>목록</button></a>
 <a href="./write"><button>작성</button></a>
 <br>
-
+<div id="order">
+<a href="./list" id="W">최근리뷰순</a>
+<a href="./list" id="R">추천순</a>
+<a href="./list" id="C">댓글많은순</a>
+</div> <!-- order-list -->
 <br>
 <div>
 	<select id="category">
