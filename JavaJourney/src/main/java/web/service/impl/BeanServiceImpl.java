@@ -20,30 +20,31 @@ public class BeanServiceImpl implements BeanService {
 	@Override
 	public Paging getPaging(Paging param) {
 		
-		int cpage = param.getCurPage(); // int 타입
-		String page = String.valueOf(cpage); // int를 String으로 변환
-		int curPage = 0;
-		
-		if( page != null && !"".equals(page) ) {
-			curPage = Integer.parseInt(page);
-		
-		} else {
-			log.info("curPage값이 null 이거나 비어있습니다");
-		
-		} // if( page != null && !"".equals(page) )
+//		int cpage = param.getCurPage(); // int 타입
+//		String page = String.valueOf(cpage); // int를 String으로 변환
+//		int curPage = 0;
+//		
+//		if( page != null && !"".equals(page) ) {
+//			curPage = Integer.parseInt(page);
+//		
+//		} else {
+//			log.info("curPage값이 null 이거나 비어있습니다");
+//		
+//		} // if( page != null && !"".equals(page) )
 			
 		// 총 게시글 수 조회 하기
 		int totalCount = dao.selectCntAll();
 		
 		// 페이징 계산하기
-		param.setCurPage(curPage);
+//		param.setCurPage(curPage);
 		param.setTotalCount(totalCount);
-		param.setListCount(8);
-		param.setPageCount(2);
+//		param.setListCount(4);
+//		param.setPageCount(2);
+		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 5);
 		
-		log.info("paging: {}", param);
+		log.info("paging: {}", paging);
 		
-		return param;
+		return paging;
 	} // getPaging(Paging param) end
 
 	
