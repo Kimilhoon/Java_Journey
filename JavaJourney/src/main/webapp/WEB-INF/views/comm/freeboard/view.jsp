@@ -3,6 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8fbebe3028eb8e4ca3a2c1633eec190&libraries=services"></script>
+
 <script type="text/javascript">
 $(function() {
 	
@@ -82,7 +85,13 @@ $(function() {
 		});
 	});
 	
-	
+	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: new kakao.maps.LatLng(${freeBoardView.freeBoardMapX }, ${freeBoardView.freeBoardMapY }), //지도의 중심좌표.
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	
 	
 	
@@ -91,8 +100,10 @@ $(function() {
 </head>
 <body>
 <a href="./list"><button>목록</button></a>
-<a href="./update?freeBoardNo=${freeBoardView.freeBoardNo }"><button>수정</button></a>
-<a href="./delete?freeBoardNo=${freeBoardView.freeBoardNo }"><button>삭제</button></a>
+<c:if test="${member.userNick eq userNick}">
+	<a href="./update?freeBoardNo=${freeBoardView.freeBoardNo }"><button>수정</button></a>
+	<a href="./delete?freeBoardNo=${freeBoardView.freeBoardNo }"><button>삭제</button></a>
+</c:if>
 <div>
 <table>
 <thead>
@@ -119,6 +130,11 @@ $(function() {
 
 </tbody>
 </table>
+<c:if test="${not empty freeBoardView.freeBoardMapX }">
+<div>
+	<div id="map" style="width:500px; height:400px;"></div>
+</div>
+</c:if>
 </div>
 <button id="btn_rec">☆추천</button>
 
