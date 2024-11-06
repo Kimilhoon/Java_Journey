@@ -9,6 +9,8 @@
 <c:choose>
 	<c:when test="${isLogin }">
 	<a href="./comm/freeboard/list" ><button>자유게시판</button> </a>
+	<a href="./comm/creview/list" ><button>카페게시판</button> </a>
+	<a href="./comm/breview/list" ><button>원두게시판</button> </a>
 	<a href="./member/logout" ><button>로그아웃</button> </a>
 	</c:when>
 	<c:otherwise>

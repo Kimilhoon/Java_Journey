@@ -186,6 +186,7 @@ public class CommunityController {
 		String cafeName = service.getCafeName(cafeNo);
 		
 		model.addAttribute("cafeName", cafeName);
+		model.addAttribute("cafeNo", cafeNo);
 		
 	}
 	
