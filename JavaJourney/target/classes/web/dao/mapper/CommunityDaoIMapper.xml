@@ -3,9 +3,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <mapper namespace="web.dao.face.CommunityDao">
-	
+
 	<!--수정해야댐 ㅜ -->
 	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
 	
@@ -32,9 +32,8 @@
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
 		<where>
-			AND revNo = #{revNo }
+			AND revno = #{revNo }
 		</where>
-		ORDER BY revno desc
 	
 	</select>
 	
@@ -107,7 +106,7 @@
 	
 	<insert id="insertCafeReview" parameterType="CafeRev">
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
-		VALUES ( revNo_seq.nextval, #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
+		VALUES ( revNo_seq.nextval , #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
 	
 	<insert id="insertFreeBoardComment" parameterType="FreeBoardComment">
@@ -172,7 +171,7 @@
 		FROM CAFEREV c, MEMBER m
 		<where>
 			AND c.USERNO = m.USERNO 
-			AND c.userNo = #{userNo }
+			AND revno = #{revNo }
 		</where>
 	</select>
 	
@@ -192,24 +191,4 @@
 	</update>
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

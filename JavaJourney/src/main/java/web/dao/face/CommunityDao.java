@@ -12,8 +12,10 @@ import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
 
+
 @Mapper
 public interface CommunityDao {
+
 
 	/**
 	 * db에 저장된 카페 리뷰 리스트 불러오기
