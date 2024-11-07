@@ -1,5 +1,7 @@
 package web.dao.face;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Member;
@@ -44,6 +46,7 @@ public interface MemberDao {
 	 * @return
 	 */
 	public Member selectByLogin(Member member);
+
 
 	/**
 	 * 아이디 찾기

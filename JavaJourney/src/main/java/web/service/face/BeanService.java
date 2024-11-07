@@ -19,7 +19,6 @@ public interface BeanService {
 	/**
 	 * 모든 원두 조회
 	 * @param paging 
-	 * 
 	 * @return 조회한 원두
 	 */
 	public List<Bean> getAllBean(Paging paging);

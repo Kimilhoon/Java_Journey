@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<!-- header내용 -->
+<!-- header내용 --->
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +38,7 @@ alt="로고" width="200" height="200" />
       	<li><a href="#" style="text-decoration: none; color: red;">카페등록</a></li>
       	<li><a href="/create/bean" style="text-decoration: none; color: red;">원두등록</a></li>
       	<li><a href="/main" style="text-decoration: none; color: red;">메인</a></li>
+      	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
       </ul>
     </div>
   </div>
@@ -71,7 +72,7 @@ alt="로고" width="200" height="200" />
             </a>
             <ul class="dropdown-menu bg-light">
               <li><a class="dropdown-item" href="/bean/best">이달의 원두</a></li>
-              <li><a class="dropdown-item" href="/bean/list">전체 원두</a></li>
+              <li><a class="dropdown-item" href="/bean/all">전체 원두</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">
@@ -87,9 +88,9 @@ alt="로고" width="200" height="200" />
               커뮤니티
             </a>
             <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/comm/cafereview/list">카페리뷰</a></li>
-              <li><a class="dropdown-item" href="/comm/bean/list">원두리뷰</a></li>
-              <li><a class="dropdown-item" href="/comm/story/list">자유게시판</a></li>
+              <li><a class="dropdown-item" href="/comm/creview/list">카페리뷰</a></li>
+              <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
+              <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
               <li><a class="dropdown-item" href="/comm/recipe/list">나만의 레시피</a></li>
               <li><a class="dropdown-item" href="/comm/event">이벤트</a></li>
               <li><a class="dropdown-item" href="/comm/notice">공지사항</a></li>
