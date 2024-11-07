@@ -59,7 +59,8 @@ $(function() {
    
       <td class="text-center">
       <a href="./info?beanNo=${ bean.beanNo }">
-          <img src="<c:url value="${bean.beanStoredName}"/>" alt="${bean.beanName}" style="width: 100%;">
+			${bean.beanOriginName}
+<%--           <img src="<c:url value="${bean.beanOriginName}"/>" alt="${bean.beanName}" style="width: 100%;"> --%>
 <!--           <img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->
       </a>
          <p>${bean.beanName}</p>

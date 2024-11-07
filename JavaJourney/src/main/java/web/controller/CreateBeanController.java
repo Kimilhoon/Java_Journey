@@ -33,8 +33,7 @@ public class CreateBeanController {
 		log.info("insertbenaImg : {}", beanImg);
 		
 		service.insertBean(beanImg, bean);
-		
-		return "redirect:/main";
+		return "redirect:/bean/all";
 	}
 	
 	@GetMapping("/update")

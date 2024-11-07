@@ -16,4 +16,6 @@ public class Bean {
 	private int businessNo;	
 	private String beanStoredName;
 	
+    private String beanOriginName;
+	
 }
