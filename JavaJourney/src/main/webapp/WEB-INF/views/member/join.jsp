@@ -32,7 +32,7 @@ IMP.certification(
     if (rsp.success) {
         // 인증 성공 시 jQuery로 HTTP 요청
         jQuery.ajax({
-          url: "{서버의 인증 정보를 받는 endpoint}",
+          url: "{./join}",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           data: { imp_uid: rsp.imp_uid },

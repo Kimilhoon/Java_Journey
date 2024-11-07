@@ -150,6 +150,17 @@ public class MemberController {
 		return jsonStr;
 	}
 	
+	@GetMapping("/test")
+	public void test() {}
+	
+	@PostMapping("/test")
+	public void testd() {}
+	
+	
+	//본인인증
+//	@PostMapping("/certifications")
+	
+	
 	
 	
 	
