@@ -175,7 +175,7 @@ public class CommunityController {
 		//댓글 리스트
 		List<CafeRevComm> crevcommList = service.getCafeReviewCommentList(revNo);
 		
-		log.info("revNo: {}", revNo);
+//		log.info("revNo: {}", revNo);
 		
 		//카페 상세 정보
 		CafeRev cafeRev = service.getCafeReviewInfo(revNo);
@@ -195,10 +195,8 @@ public class CommunityController {
 		
 	}
 	
-	@PostMapping("/creview/view")
-	public String cafeReviewComment(Model model, HttpSession session, CafeRev revNo, CafeRevComm comm) {
-		
-		return "redirect: /view?revNo=" + revNo.getRevNo();
+	@RequestMapping("/creview/comm")
+	public void cafeReviewComm(CafeRevComm comm, HttpSession session) {
 		
 	}
 	
