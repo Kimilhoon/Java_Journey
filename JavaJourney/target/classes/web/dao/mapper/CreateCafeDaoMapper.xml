@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CreateCafeDao">
+
+	<insert id="write" parameterType="Cafe">
+		<selectKey order="BEFORE" resultType="int" keyProperty="cafeNo">
+			SELECT cafeNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO CAFE (cafeNo, imgNo, cafeName, cafeComm, cafePhone
+		, busyTime, cafeLoc, cafeAdd1, cafeAdd2)
+		VALUES (#{cafeNo}, #{imgNo}, #{cafeName}, #{cafeComm}, #{cafePhone}
+		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2})
+	</insert>
 </mapper>
