@@ -120,10 +120,10 @@ $(function() {
 
 </table>
 
-<div id="write-btn" class="row">
-        <div class="col-1">
-        <a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a>
-        </div>
+
+<div class="col-1">
+	<a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a><br>
+	<small>(삭제해!!!)</small>
 </div>
 
 </div>
