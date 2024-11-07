@@ -45,6 +45,7 @@ public interface MemberDao {
 	 */
 	public Member selectByLogin(Member member);
 
+
 	/**
 	 * 아이디 찾기
 	 * @param member
@@ -58,8 +59,6 @@ public interface MemberDao {
 	 * @return
 	 */
 	public String searchPw(Member member);
-
-
 	
 	
 }

@@ -22,8 +22,6 @@ public class BeanController {
 	
 	@GetMapping("/best")
 	public void BestBeanForm() {
-		
-		
 	} // BestBeanForm() end
 
 	@GetMapping("/all")

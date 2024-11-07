@@ -79,10 +79,10 @@
    <!-- Model값: Model 객체 이용 -->
 	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 	
-	
 	<!-- MVC인식 -->
 <!-- 	<context:component-scan base-package="com.test.www, *.controller, *.service" /> -->
-	<context:component-scan base-package="*.controller, *.service, aop" />
+	<context:component-scan base-package="*.controller, *.service
+	, aop, web.manager.controller, web.manager.service" />
 	
 <!-- 	<context:component-scan base-package="web"> -->
 <!-- 		<context:exclude-filter type="regex" expression="*.dao" /> -->
