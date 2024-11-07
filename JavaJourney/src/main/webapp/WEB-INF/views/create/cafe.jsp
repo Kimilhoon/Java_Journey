@@ -4,17 +4,17 @@
 <!-- header -->
 <c:import url="../layout/header.jsp"/>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+협약 카페 등록 페이지
+<hr>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- 카카오주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3f3cd365ec1ac0081d50ddb6e680b49d&libraries=services"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
  
 <script type="text/javascript">
 $(function() {
@@ -34,13 +34,13 @@ $(function() {
     // 우편번호 찾기 버튼 클릭
     $("#btnPostcode").click(function() {
         // 우편번호 찾기창 초기화
-        $("#cafeLoc").val("");
+        $("#postCode").val("");
         $("#cafeAdd1").val("");
         $("#cafeAdd2").val("");
 
         new daum.Postcode({
             oncomplete: function(data) {
-                $("#cafeLoc").val(data.zonecode);
+                $("#postCode").val(data.zonecode);
                 if (data.userSelectedType === 'R') {
                     $("#cafeAdd1").val(data.roadAddress);
                 } else {
@@ -65,9 +65,15 @@ $(function() {
                     }
                 });
             }
-        }).open();
-    });
-  });
+        }).open(); //팝업창 열기 위한 open
+    }); //$("#btnPostcode") end
+    
+    $('#cafeInfo').summernote({ //섬머노트 설정
+        height: 400  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+      });
+    
+    
+  }); //$(function() end
 </script>
  
 
@@ -105,11 +111,6 @@ $(function() {
 
 </style>
 
-</head>
-<body>
-
-협약 카페 등록 페이지
-<hr>
 
 <div>
 <form action="./cafe" method="post" enctype="multipart/form-data">
@@ -120,7 +121,7 @@ $(function() {
 	</tr>
 	<tr>
 		<td>카페 정보</td>
-		<td><input type="text" id="cafeComm" name="cafeComm" ></td>		
+		<td><textarea id="cafeComm" name="cafeComm" rows="5" cols="22"></textarea></td>		
 	</tr>
 	<tr>
 		<td>카페 전화번호</td>
@@ -136,13 +137,33 @@ $(function() {
 
 	</tr>
 	<tr>
+		<td>카페 지역</td>
+		<td>
+		<select id="category">
+	      <option hidden="none"></option>
+	      <option value="서울">서울</option>
+	      <option value="경기">경기</option>
+	      <option value="인천">인천</option>
+	      <option value="부산">부산</option>
+	      <option value="제주">제주</option>
+  		 </select>
+   </td>
+	</tr>
+	<tr>
+		<td>카페 상세설명</td>
+		<td>
+		<textarea id="cafeInfo" name="cafeInfo" class="form-control"
+		rows="4" cols="2"></textarea>
+		</td>		
+	</tr>
+	<tr>
 		<td>카페 주소</td>
 		<td>
 		<button id="btnPostcode" type="button">우편번호 찾기</button>
-		<div id="postcodeWrap">
+		<div id="postcodeWrap"> <!-- 우편닫기버튼기능 -->
 			<img alt="x" src="../resources/img/close.png" class="closeIcon">
 		</div>
-		<input type="text" id="cafeLoc" placeholder="우편번호" readonly="readonly"><br>
+		<input type="text" id="postCode" placeholder="우편번호" readonly="readonly"><br>
 		<input type="text" id="cafeAdd1" placeholder="주소" readonly="readonly"><br>
 		<input type="text" id="cafeAdd2" placeholder="상세주소"><br>
 		</td>
@@ -174,8 +195,6 @@ $(function() {
 </form>
 </div>
 
-</body>
-</html>
 
 <!-- footer -->
 <c:import url="../layout/footer.jsp"/>

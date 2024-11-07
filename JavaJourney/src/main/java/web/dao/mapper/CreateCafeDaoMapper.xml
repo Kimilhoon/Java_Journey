@@ -12,4 +12,10 @@
 		VALUES (#{cafeNo}, #{imgNo}, #{cafeName}, #{cafeComm}, #{cafePhone}
 		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2})
 	</insert>
+	
+	<select id="selectAllImg" resultType="Cafe">
+		SELECT	cafeImgNo, cafeImgOriName, cafeImgStoName, cafeImgSize
+		FROM CafeImg
+		ORDER BY cafeImgNo
+	</select>
 </mapper>
