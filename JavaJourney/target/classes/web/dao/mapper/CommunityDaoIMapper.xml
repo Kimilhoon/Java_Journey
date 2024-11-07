@@ -198,6 +198,18 @@
 		</where>
 	</update>
 	
+	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM caferev cr
+		JOIN cafe c ON c.cafeno = cr.cafeno
+		<where>
+			<if test='category != "N" '>
+				AND cafeloc = #{category }
+			</if>
+			<if test='search != "N" '>
+				AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
 	
 	
 	
