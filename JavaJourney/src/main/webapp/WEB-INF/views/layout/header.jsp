@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="icon" type="image/png" href="/resources/favicon/JavaJourney.png">
+<link rel="icon" type="image/png" href="/resources/favicon/JavaJourneyIcon.png">
 
 <!-- bootstrap 링크 End -->
 <!-- jquery 링크 -->
