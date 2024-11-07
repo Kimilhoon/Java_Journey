@@ -8,19 +8,13 @@ import web.dto.BeanImg;
 public interface CreateBeanService {
 	
 	/**
-	 * BeanImg를 전체 조회하여
-	 * 전체 데이터 반환하기
-	 * @return
-	 */
-	public List<BeanImg> selectAllImg();
-	
-	/**
 	 * 원두(구독) 글 삽입 로직
-	 * DTO 중 파일(이미지)자료형 String beanInfo;
+	 * DTO 중 파일(이미지)자료형 String beanOriginName;
 	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
+	 * @param beanImg 
 	 * @return 
 	 */
-	public void insertBean(Bean bean);
+	public void insertBean(BeanImg beanImg, Bean bean);
 	
 	/**
 	 * DTO 중 파일(이미지)자료형 String beanInfo;
