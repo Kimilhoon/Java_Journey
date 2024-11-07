@@ -18,14 +18,27 @@ public class CreateBeanServiceImpl implements CreateBeanService{
 	@Autowired CreateBeanDao dao; 
 	
 	@Override
+	public List<BeanImg> selectAllImg() {
+		return dao.selectAllimg();
+	}
+	
+	@Override
 	public void insertBean(Bean bean) {
-			log.info("bean: {}",bean);
+			log.info("insertbean: {}",bean);
 			dao.insertBeanData(bean);
 	}
 	
 	@Override
-	public List<BeanImg> selectAllImg() {
-		return dao.selectAllimg();
+	public Bean updateBean(Bean bean) {
+			log.info("updatebean: {}",bean);
+			return dao.updateBeanData(bean);	
 	}
-		
+	
+	@Override
+	public void beanDelete(int beanNo) {
+		log.info("deletebeanNo: {}", beanNo);
+		dao.deleteByBeanNo(beanNo);
+	}
+	
+	
 }
