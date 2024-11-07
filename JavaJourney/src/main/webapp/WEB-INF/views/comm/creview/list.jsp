@@ -128,10 +128,9 @@ $(function() {
 
 </div>
 
-<div>
-	<a href="./list?curPage=${paging.curPage-1  }&search=${search}&category=${category}">이전</a>
-	<a href="./list?curPage=${paging.curPage+1  }&search=${search}&category=${category}">다음</a>
-</div>
+
+
+<c:import url="../../layout/page.jsp" />
 
 <c:import url="../../layout/footer.jsp" />
 

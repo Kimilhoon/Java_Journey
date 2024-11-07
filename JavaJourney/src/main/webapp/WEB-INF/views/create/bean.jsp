@@ -36,11 +36,11 @@ $(function () {
 	<table class="table table-info">
 		<tr>
 			<td>원두이름</td>
-			<td><input type="text" id="beanName" name="beanName" value="t"></td>
+			<td><input type="text" id="beanName" name="beanName" value=""></td>
 		</tr>
 		<tr>
 			<td>원두원산지</td>
-			<td><input type="text" id="origin" name="origin" value="t"></td>
+			<td><input type="text" id="origin" name="origin" value=""></td>
 		</tr>
 		<tr>
 			<td>원두이미지[TEST]</td>
@@ -51,11 +51,11 @@ $(function () {
 		</tr>
 		<tr>
 			<td>원두금액</td>
-			<td><input type="text" id="beanPrice" name="beanPrice" value="1"></td>
+			<td><input type="text" id="beanPrice" name="beanPrice" value=""></td>
 		</tr>
 		<tr>
 			<td>사업자번호</td>
-			<td><input type="text" id="businessNo" name="businessNo" value="1"></td>
+			<td><input type="text" id="businessNo" name="businessNo" value=""></td>
 		</tr>
 		<tr>
 		<td>원두설명</td>
@@ -69,7 +69,6 @@ $(function () {
 			</td>
 		</tr>
 	</table>
-	
 	<div id="btnWrite">
 	<button class="btn btn-primary">완료</button>
 	</div>

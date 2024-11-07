@@ -83,8 +83,9 @@
 </div>
 
 <a href="./list"><button class="btn btn-light">목록</button></a>
-<a href="./view?revNo="${cafeRev.revNo-1 }><button class="btn btn-light">이전</button></a>
-<a href="./view?revNo="><button class="btn btn-light">다음</button></a>
+
+<a href="./view?revNo=${cafeRev.revNo - 1}"><button class="btn btn-light">이전</button></a>
+<a href="./view?revNo=${cafeRev.revNo + 1}"><button class="btn btn-light">다음</button></a>
 
 </div> <!-- content -->
 
