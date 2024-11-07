@@ -38,7 +38,7 @@ alt="로고" width="200" height="200" />
       <ul style="list-style:none">
       	<li><a href="/member/join" style="text-decoration: none; color: red;">회원가입</a></li>
       	<li><a href="/member/login" style="text-decoration: none; color: red;">로그인</a></li>
-      	<li><a href="#" style="text-decoration: none; color: red;">카페등록</a></li>
+      	<li><a href="/create/cafe" style="text-decoration: none; color: red;">카페등록</a></li>
       	<li><a href="/create/bean" style="text-decoration: none; color: red;">원두등록</a></li>
       	<li><a href="/main" style="text-decoration: none; color: red;">메인</a></li>
       	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
