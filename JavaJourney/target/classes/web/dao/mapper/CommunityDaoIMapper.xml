@@ -11,23 +11,49 @@
 <!-- 		FROM caferev cr -->
 <!-- 		JOIN cafe c ON cr.cafeno = c.cafeno -->
 <!-- 		JOIN member m ON cr.userno = m.userno -->
-		SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc
+
+<!-- 		SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc -->
+<!-- 			FROM ( -->
+<!-- 				SELECT rownum r, a.* FROM ( -->
+<!-- 					SELECT * FROM caferev -->
+<!-- 					ORDER BY revno DESC) a -->
+<!-- 				) cr -->
+			
+<!-- 		JOIN cafe c ON cr.cafeno = c.cafeno -->
+<!-- 		JOIN member m ON cr.userno = m.userno -->
+<!-- 		<where> -->
+<!-- 		<if test="search != null"> -->
+<!-- 			AND upper(cafename) LIKE '%'||upper(#{search})||'%' -->
+<!-- 		</if> -->
+<!-- 		<if test="category != null"> -->
+<!-- 			AND cafeloc = #{category } -->
+<!-- 		</if> -->
+<!-- 			AND r BETWEEN #{paging.startNo} AND #{paging.endNo} -->
+<!-- 		</where> -->
+		
+		SELECT * 
 			FROM (
-				SELECT rownum r, a.* FROM (
-					SELECT * FROM caferev
-					ORDER BY revno DESC) a
-				) cr
-		JOIN cafe c ON cr.cafeno = c.cafeno
-		JOIN member m ON cr.userno = m.userno
+			    SELECT rownum r, a.* 
+			    FROM (
+			        SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc
+			        FROM cafeRev cr
+			        JOIN cafe c ON cr.cafeno = c.cafeno
+			        JOIN member m ON cr.userno = m.userno
+			       	<where>
+						<if test="search != null">
+							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+						</if>
+						<if test="category != null">
+							AND cafeloc = #{category }
+						</if>
+			       	</where>
+			        ORDER BY revno DESC
+			    ) a
+			) 
 		<where>
-		<if test="search != null">
-			AND upper(cafename) LIKE '%'||upper(#{search})||'%'
-		</if>
-		<if test="category != null">
-			AND cafeloc = #{category }
-		</if>
 			AND r BETWEEN #{paging.startNo} AND #{paging.endNo}
 		</where>
+		
 	</select>
 	
 	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
