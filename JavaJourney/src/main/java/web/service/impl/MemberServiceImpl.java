@@ -68,7 +68,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-
 	@Override
 	public String searchId(Member member) {
 		return dao.searchId(member);
@@ -78,9 +77,6 @@ public class MemberServiceImpl implements MemberService {
 	public String searchPw(Member member) {
 		return dao.searchPw(member);
 	}
-
-
-
 
 
 	
