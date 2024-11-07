@@ -14,6 +14,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="icon" type="image/png" href="/resources/favicon/JavaJourneyIcon.png">
+
 <!-- bootstrap 링크 End -->
 <!-- jquery 링크 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -23,10 +25,14 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
 <!-- summernote 링크 End-->
 </head>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
 <body>
 <div class="d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
+<!-- <img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
+alt="로고" width="200" height="200" /> -->
+<img src="<c:url value='/resources/favicon/JavaJourneyIcon.png' />"
 alt="로고" width="200" height="200" />
 </a>
 <!-- 로그인 및 기타 링크 -->
@@ -35,7 +41,7 @@ alt="로고" width="200" height="200" />
       <ul style="list-style:none">
       	<li><a href="/member/join" style="text-decoration: none; color: red;">회원가입</a></li>
       	<li><a href="/member/login" style="text-decoration: none; color: red;">로그인</a></li>
-      	<li><a href="#" style="text-decoration: none; color: red;">카페등록</a></li>
+      	<li><a href="/create/cafe" style="text-decoration: none; color: red;">카페등록</a></li>
       	<li><a href="/create/bean" style="text-decoration: none; color: red;">원두등록</a></li>
       	<li><a href="/main" style="text-decoration: none; color: red;">메인</a></li>
       	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
