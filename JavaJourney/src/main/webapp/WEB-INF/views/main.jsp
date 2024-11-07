@@ -4,7 +4,6 @@
 <!-- header -->
 <c:import url="./layout/header.jsp"/>
 
-<!--  -->
 <div class="container">
 <div>
 <!-- 이달의 베스트카페 -->
@@ -13,8 +12,6 @@
 <!-- 이달의 베스트원두 -->
 </div>
 </div>
-
-
 
 <!-- footer -->
 <c:import url="./layout/footer.jsp"/>

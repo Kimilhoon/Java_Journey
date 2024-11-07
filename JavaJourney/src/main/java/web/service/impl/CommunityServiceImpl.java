@@ -252,6 +252,39 @@ public class CommunityServiceImpl implements CommunityService {
 		int res = dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
+	@Override
+	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search) {
+		
+		//수정해야
+		
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		if(category == null || "".equals(category)||"all".equals(category)) {
+			category = "N";
+		}else if(category.equals("cafe")) {
+			category="카페";
+		}else {
+			category="원두";
+		}
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		map.put("category", category);
+
+		int totalCnt = dao.getFreeBoardTotalCnt(map);
+		
+		log.info("totalCNT{}",totalCnt);
+		
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+		
+		return paging;
+		
+	}
+	
 }
 
 

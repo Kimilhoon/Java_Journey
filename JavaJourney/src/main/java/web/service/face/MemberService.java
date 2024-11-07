@@ -43,6 +43,19 @@ public interface MemberService {
 	 */
 	public Member info(Member member);
 
+	/**
+	 * 아이디 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchId(Member member);
+
+	/**
+	 * 비밀번호 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchPw(Member member);
 	
 	
 }

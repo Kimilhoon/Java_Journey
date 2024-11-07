@@ -6,9 +6,11 @@
 
 <mapper namespace="web.dao.face.CommunityDao">
 
-		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
+	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
+		SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc
 		FROM caferev cr
 		JOIN cafe c ON cr.cafeno = c.cafeno
+		JOIN member m ON cr.userno = m.userno
 		<where>
 		<if test="search != null">
 			AND upper(cafename) LIKE '%'||upper(#{search})||'%'
@@ -17,8 +19,6 @@
 			AND cafeloc = #{category }
 		</if>
 		</where>
-		
-		
 		ORDER BY revno desc
 	</select>
 	
@@ -110,7 +110,7 @@
 		</where>
 	</select>
 	
-	<insert id="insertCafeReview" parameterType="CafeRev">
+	<insert id="insertCafeReview" parameterType="CafeRev" >
 		INSERT INTO caferev (revNo, cafeNo, userNo, revContent, revHit, revDate, revsp)
 		VALUES ( revNo_seq.nextval , #{cafeNo }, #{userNo }, #{revContent }, 0, sysdate, #{revsp } )
 	</insert>
@@ -143,7 +143,9 @@
 		UPDATE freeboard
 		SET
 			freeboardtitle = #{freeBoardTitle},
-			freeboardcontent = #{freeBoardContent}
+			freeboardcontent = #{freeBoardContent},
+			freeboardmapx = #{freeBoardMapX},
+			freeboardmapy = #{freeBoardMapY}
 		WHERE freeBoardNo = #{freeBoardNo}
 	</update>
 	
@@ -196,5 +198,26 @@
 		</where>
 	</update>
 	
+	
+	
+	
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
