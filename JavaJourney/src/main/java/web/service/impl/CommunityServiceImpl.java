@@ -197,6 +197,8 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
+		log.info("param : {}", param);
+		
 		List<CafeRev> list = dao.selectCafeReview(param);
 		
 		return list;
@@ -285,9 +287,12 @@ public class CommunityServiceImpl implements CommunityService {
 
 		int totalCnt = dao.getCafeReviewTotalCnt(map);
 		
-		log.info("totalCNT{}",totalCnt);
+//		log.info("totalCNT{}",totalCnt);
 		
-		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+//		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
+
+		log.info("paging : {}", paging);
 		
 		return paging;
 		
