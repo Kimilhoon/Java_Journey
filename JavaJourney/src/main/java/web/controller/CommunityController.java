@@ -158,10 +158,13 @@ public class CommunityController {
 	//이루니
 	
 	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
+	public void cafeReviewForm(Model model, String category, String order, String search, Paging curPage) {
+		
+		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
 		
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("creviewList", creviewList);
 		
 	}
@@ -183,12 +186,19 @@ public class CommunityController {
 		//작성한 유저id
 		String writerId = service.getWriterId(cafeRev);
 		
-		log.info("cafeRev: {}", cafeRev);
+//		log.info("cafeRev: {}", cafeRev);
 		
 		model.addAttribute("crevcommList", crevcommList);
 		model.addAttribute("cafeRev", cafeRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);
+		
+	}
+	
+	@PostMapping("/creview/view")
+	public String cafeReviewComment(Model model, HttpSession session, CafeRev revNo, CafeRevComm comm) {
+		
+		return "redirect: /view?revNo=" + revNo.getRevNo();
 		
 	}
 	
@@ -230,10 +240,10 @@ public class CommunityController {
 	
 	@PostMapping("/creview/update")
 	public String cafeReviewUpdateProc(CafeRev cafeRev) {
-		
+		log.info("dddd{}",cafeRev);
 		service.changeCafeReview(cafeRev);
 		
-		return "./view?revNo=" + cafeRev.getRevNo();
+		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
 
 	

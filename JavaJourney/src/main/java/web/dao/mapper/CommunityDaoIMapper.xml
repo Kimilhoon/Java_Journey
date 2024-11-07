@@ -7,18 +7,53 @@
 <mapper namespace="web.dao.face.CommunityDao">
 
 	<select id="selectCafeReview" resultType="CafeRev" parameterType="hashmap">
-		SELECT revno, cr.cafeno, userno, revcontent, revhit, revdate, revsp, cafename, cafeloc
-		FROM caferev cr
-		JOIN cafe c ON cr.cafeno = c.cafeno
+<!-- 		SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc -->
+<!-- 		FROM caferev cr -->
+<!-- 		JOIN cafe c ON cr.cafeno = c.cafeno -->
+<!-- 		JOIN member m ON cr.userno = m.userno -->
+
+<!-- 		SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc -->
+<!-- 			FROM ( -->
+<!-- 				SELECT rownum r, a.* FROM ( -->
+<!-- 					SELECT * FROM caferev -->
+<!-- 					ORDER BY revno DESC) a -->
+<!-- 				) cr -->
+			
+<!-- 		JOIN cafe c ON cr.cafeno = c.cafeno -->
+<!-- 		JOIN member m ON cr.userno = m.userno -->
+<!-- 		<where> -->
+<!-- 		<if test="search != null"> -->
+<!-- 			AND upper(cafename) LIKE '%'||upper(#{search})||'%' -->
+<!-- 		</if> -->
+<!-- 		<if test="category != null"> -->
+<!-- 			AND cafeloc = #{category } -->
+<!-- 		</if> -->
+<!-- 			AND r BETWEEN #{paging.startNo} AND #{paging.endNo} -->
+<!-- 		</where> -->
+		
+		SELECT * 
+			FROM (
+			    SELECT rownum r, a.* 
+			    FROM (
+			        SELECT revno, cr.cafeno, cr.userno, usernick, revcontent, revhit, revdate, revsp, cafename, cafeloc
+			        FROM cafeRev cr
+			        JOIN cafe c ON cr.cafeno = c.cafeno
+			        JOIN member m ON cr.userno = m.userno
+			       	<where>
+						<if test="search != null">
+							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+						</if>
+						<if test="category != null">
+							AND cafeloc = #{category }
+						</if>
+			       	</where>
+			        ORDER BY revno DESC
+			    ) a
+			) 
 		<where>
-		<if test="search != null">
-			AND upper(cafename) LIKE '%'||upper(#{search})||'%'
-		</if>
-		<if test="category != null">
-			AND cafeloc = #{category }
-		</if>
+			AND r BETWEEN #{paging.startNo} AND #{paging.endNo}
 		</where>
-		ORDER BY revno desc
+		
 	</select>
 	
 	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
@@ -197,5 +232,38 @@
 		</where>
 	</update>
 	
+	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM caferev cr
+		JOIN cafe c ON c.cafeno = cr.cafeno
+		<where>
+			<if test='category != "N" '>
+				AND cafeloc = #{category }
+			</if>
+			<if test='search != "N" '>
+				AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -5,18 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<c:import url="../../layout/header.jsp" />
 
 <style>
 
@@ -53,10 +42,6 @@ $(function() {
 
 </script>
 
-</head>
-<body>
-
-<c:import url="../../layout/header.jsp" />
 
 <h1 id="title">카페리뷰리스트</h1>
 <br>
@@ -127,7 +112,7 @@ $(function() {
 		${list.cafeName }
 		</a>
 	</td>
-	<td class="col-2">${list.userNo }</td>
+	<td class="col-2">${list.userNick }</td>
 	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
 	<td class="col-1">${list.revsp }</td>
 	</tr>
@@ -135,16 +120,19 @@ $(function() {
 
 </table>
 
-<div id="write-btn" class="row">
-        <div class="col-1">
-        <a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a>
-        </div>
+
+<div class="col-1">
+	<a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a><br>
+	<small>(삭제해!!!)</small>
 </div>
 
 </div>
 
-</body>
-</html>
+
+
+<c:import url="../../layout/page.jsp" />
+
+<c:import url="../../layout/footer.jsp" />
 
 
 

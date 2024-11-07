@@ -16,9 +16,23 @@ public interface CreateBeanDao {
 	
 	/**
 	 * DTO에 담긴 Bean, DB에 삽입하기
-	 * @param bean - - beanName, origin, beanComm, beanPrice, businessNo
+	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
+	 * @return 
 	 */
 	public void insertBeanData(Bean bean);
+	
+	/**
+	 * DTO에 담긴 Bean, DB에 수정하기
+	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
+	 * @return 
+	 */
+	public Bean updateBeanData(Bean bean);
+	
+	/**
+	 * 넘겨받은 beanNo를 DB에 조건절로 주어서 행(데이터) 삭제
+	 * @param beanNo
+	 */
+	public void deleteByBeanNo(int beanNo);
 	
 
 

@@ -194,6 +194,18 @@ public interface CommunityService {
 	 * @param cafeRev 수정할 게시글 번호
 	 */
 	public void changeCafeReview(CafeRev cafeRev);
+
+
+	/**
+	 * 카페리뷰 페이징
+	 * 
+	 * @param curPage - 현재페이지정보
+	 * @param category - 카테고리
+	 * @param order - 정렬방법
+	 * @param search - 검색어
+	 * @return 페이징 객체
+	 */
+	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search);
 	
 }
 

@@ -24,6 +24,7 @@ public class CreateBeanController {
 	@GetMapping("/bean")
 	public void beanWriteForm() {}
 	
+	//BeanImg의 정보 목록 조회
 	@GetMapping("/selectimage")
 	public void selecteImagejspForm(
 		BeanImg beanImg,
@@ -36,13 +37,32 @@ public class CreateBeanController {
 	}
 	
 	@PostMapping("/bean")
-	public void beanWriteProc(
+	public String beanWriteProc(
 			Bean bean
 			) {
-		
-		log.info("bena : {}", bean);
-		System.out.println("이미지 크기: " + bean.getBeanInfo());
+		log.info("insertbena : {}", bean);
 		service.insertBean(bean);
+		return "redirect:/main";
 	}
+	
+	@GetMapping("/update")
+	public void beanUpdateForm() {}
 
+	@PostMapping("/update")
+	public String beanUpdateProc(
+			Bean bean
+			) {
+		log.info("updatebena : {}", bean);
+		Bean updateBean = service.updateBean(bean);
+		return "redirect:/bean/info?=" + updateBean.getBeanNo();
+	}
+	
+	@RequestMapping("/delete")
+	public String beanDeleteProc(
+			Bean bean
+			) {
+		log.info("deletebean : {}", bean.getBeanNo());
+		service.beanDelete(bean.getBeanNo());
+		return "redirect:/bean/all";
+	}
 }
