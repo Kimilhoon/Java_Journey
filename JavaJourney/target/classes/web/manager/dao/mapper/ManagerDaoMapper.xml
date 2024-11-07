@@ -9,5 +9,5 @@
 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
 		from member 
 	</select>
-	
+	<!--  -->
 </mapper>

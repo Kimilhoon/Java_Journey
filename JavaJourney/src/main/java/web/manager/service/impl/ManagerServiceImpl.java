@@ -14,7 +14,7 @@ import web.manager.service.face.ManagerService;
 @Service
 @Slf4j
 public class ManagerServiceImpl implements ManagerService {
-	
+//	
 	@Autowired private ManagerDao dao;
 	
 	@Override

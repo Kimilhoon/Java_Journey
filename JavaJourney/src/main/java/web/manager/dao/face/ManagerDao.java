@@ -8,7 +8,7 @@ import web.dto.Member;
 
 @Mapper
 public interface ManagerDao {
-	
+//	
 	/**
 	 * DB에서 모든 유저 정보 조회
 	 * @return

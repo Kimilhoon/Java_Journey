@@ -4,7 +4,7 @@
 <!-- header -->
 <c:import url="./layout/header.jsp"/>
 
-
+<!--  -->
 <div class="container">
 <div>
 <!-- 이달의 베스트카페 -->

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<!-- header내용 -->
+<!-- header내용 --->
 <!DOCTYPE html>
 <html>
 <head>

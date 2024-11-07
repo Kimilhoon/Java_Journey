@@ -16,7 +16,7 @@ import web.manager.service.face.ManagerService;
 @RequestMapping("/manager")
 @Slf4j
 public class ManagerController {
-	
+//	
 	@Autowired private ManagerService service;
 	
 	@GetMapping("/menu")
