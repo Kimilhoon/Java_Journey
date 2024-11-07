@@ -9,39 +9,40 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- 본인인증 -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
 <script type="text/javascript">
 
-IMP.init("{imp77683350}");
-
-//IMP.certification(param, callback) 호출
-IMP.certification(
-  {
-    // param
-    channelKey: "{channel-key-9937917d-f104-4bb7-822d-9681d7bb33c5}",
-    // 주문 번호
-    merchant_uid: "ORD20180131-0000011",
-    // 모바일환경에서 popup:false(기본값) 인 경우 필수
-    m_redirect_url: "{http://localhost:8088/member/join}",
-    // PC환경에서는 popup 파라미터가 무시되고 항상 true 로 적용됨
-    popup: false,
-  },
-  function (rsp) {
-    // callback
-    if (rsp.success) {
-        // 인증 성공 시 jQuery로 HTTP 요청
-        jQuery.ajax({
-          url: "{./join}",
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          data: { imp_uid: rsp.imp_uid },
-        });
-      } else {
-        alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-      }
-    },
-  );
+// IMP.init("{imp77683350}"); //고객사 식별코드
+// //IMP.certification(param, callback) 호출
+// IMP.certification(
+//   {
+//     // param
+//     channelKey: "channel-key-9937917d-f104-4bb7-822d-9681d7bb33c5",
+//     // 주문 번호
+//     merchant_uid: "ORD20180131-0000011",
+//     // 모바일환경에서 popup:false(기본값) 인 경우 필수
+//     m_redirect_url: "http://localhost:8088/member/join",
+//     // PC환경에서는 popup 파라미터가 무시되고 항상 true 로 적용됨
+//     popup: false,
+//   },
+//   function (rsp) {
+//     // callback
+//     if (rsp.success) {
+//         // 인증 성공 시 jQuery로 HTTP 요청
+//         jQuery.ajax({
+//           url: "./join",
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           data: { imp_uid: rsp.imp_uid },
+//         });
+//       } else {
+//         alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+//       }
+//     },
+//   );
 
 var idValidation = false; //형식 체크
 var pwValidation = false; 
