@@ -29,4 +29,14 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 	public List<CafeImg> selectAllImg() {
 		return dao.selectAllImg();
 	}
+
+	@Override
+	public void update(Cafe cafe) {
+		dao.update(cafe);
+	}
+
+	@Override
+	public void delete(Cafe cafe) {
+		dao.delete(cafe);
+	}
 }

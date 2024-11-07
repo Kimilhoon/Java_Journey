@@ -5,7 +5,7 @@
 <c:import url="../layout/header.jsp"/>
 
 
-협약 카페 등록 페이지
+<h1>협약 카페 등록 페이지</h1>
 <hr>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -69,8 +69,11 @@ $(function() {
     }); //$("#btnPostcode") end
     
     $('#cafeInfo').summernote({ //섬머노트 설정
-        height: 400  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
-      });
+    	width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+        , toolbar: [
+            ['insert', ['picture']] // 이미지 업로드 버튼만 추가
+        ]
+    }); // $('#cafeInfo') end
     
     
   }); //$(function() end

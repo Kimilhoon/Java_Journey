@@ -18,4 +18,28 @@
 		FROM CafeImg
 		ORDER BY cafeImgNo
 	</select>
+	
+	<update id="update" parameterType="Cafe">
+		UPDATE CAFE
+		<set>
+			, cafeName = #{cafeName}
+			, cafeComm = #{cafeComm}
+			, busyTime = #{busyTime}
+			, cafeInfo = #{cafeInfo}
+			, cafeAdd1 = #{cafeAdd1}
+			, cafeAdd2 = #{cafeAdd2}
+		</set>
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</update>
+	<!-- 질문. 주소는 지도로 찍는건데 update로 수정해줘야하는지
+		우편번호는 dto에 없는 id="postCode"로 해뒀는데 어떻게 해야하는지 -->
+		
+	<delete id="delete">
+		DELETE Cafe
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</delete>
 </mapper>

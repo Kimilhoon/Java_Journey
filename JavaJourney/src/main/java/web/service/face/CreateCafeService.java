@@ -20,4 +20,16 @@ public interface CreateCafeService {
 	 */
 	public List<CafeImg> selectAllImg();
 
+	/**
+	 * 협약 카페 글 수정
+	 * @param cafe
+	 */
+	public void update(Cafe cafe);
+
+	/**
+	 * 협약 카페 글 삭제
+	 * @param cafe
+	 */
+	public void delete(Cafe cafe);
+
 }

@@ -21,5 +21,17 @@ public interface CreateCafeDao {
 	 */
 	public List<CafeImg> selectAllImg();
 
+	/**
+	 * 협약 카페 글 수정 반영
+	 * @param cafe
+	 */
+	public void update(Cafe cafe);
+
+	/**
+	 * 협약 카페 글 삭제
+	 * @param cafe
+	 */
+	public void delete(Cafe cafe);
+
 
 }

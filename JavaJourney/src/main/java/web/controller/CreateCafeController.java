@@ -38,6 +38,24 @@ public class CreateCafeController {
 		model.addAttribute("imgList", imgList);
 	}
 	
+	@GetMapping("/cafeUpdate")
+	public void update() {}
+	
+	@PostMapping("/cafeUpdate")
+	public String updateProc(Cafe cafe, Model model) {
+		
+		service.update(cafe);
+		return "redirect:/cafe/all";
+	}
+	
+	@RequestMapping("/cafeDelete")
+	public String delete(Cafe cafe, Model model) {
+		
+		service.delete(cafe);
+		return "redirect:/cafe/all";
+	}
+
+	
 	
 
 }
