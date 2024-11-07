@@ -11,15 +11,29 @@
 	
 	<select id="selectAll" resultType="Bean" parameterType="web.util.Paging">
 		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
+			SELECT rowNum rNum, B.* FROM (
 				SELECT 
-					beanNo, beanImgNo, beanName, origin, beanComm,
-					beanInfo, beanPrice, businessNo
-				FROM bean
+						beanNo, i.beanImgNo, beanName, origin, 
+						beanComm, beanInfo, beanPrice, businessNo,
+						beanOriginname, beanStoredname, beanImgSize
+				FROM	bean b
+				INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				ORDER BY beanNo DESC
 			) B
 		) bean
-		WHERE rnum BETWEEN #{ startNo } AND #{ endNo }
-	</select> 
+		WHERE rNum BETWEEN #{ startNo } AND #{ endNo }
+	</select>  
+	
+	<select id="selectByBeanNo" resultType="Bean" parameterType="Bean">
+		SELECT 
+				beanNo, i.beanImgNo, beanName, origin, 
+				beanComm, beanInfo, beanPrice, businessNo,
+				beanOriginname, beanStoredname, beanImgSize
+		FROM	bean b
+		INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+		<where>
+		AND		beanNo = #{ beanNo }
+		</where>
+	</select>
 	
 </mapper>

@@ -24,6 +24,15 @@ public interface BeanDao {
 	 * @return - 조회된 원두
 	 */
 	public List<Bean> selectAll(Paging paging);
+
+
+	/**
+	 * beanNo로 원두 정보 조회
+	 * 
+	 * @param param - beanNo
+	 * @return 원두 정보
+	 */
+	public Bean selectByBeanNo(Bean param);
 	
 	
 } // interface end
