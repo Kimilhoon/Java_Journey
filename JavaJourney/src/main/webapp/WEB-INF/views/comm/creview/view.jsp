@@ -7,6 +7,12 @@
     
 <c:import url="../../layout/header.jsp" />
 
+<script>
+
+
+
+</script>
+
 <h1>카페리뷰상세보기</h1>
 <br>
 
@@ -42,10 +48,45 @@
 		<span><a href="./delete?revNo=${cafeRev.revNo }">삭제</a></span>
 	</c:if>
 
-<a href="./list"><button>목록</button></a>
-<a href="./view?revNo="><button>이전</button></a>
-<a href="./view?revNo="><button>다음</button></a>
 </div>
+
+
+
+<div id="comment">
+
+<table>
+
+<%-- <c:forEach var="comm" items="${crevcommList }"> --%>
+
+<tr>
+	<td>유저닉네임</td>
+	<td>작성일</td>
+</tr>
+<tr>
+	<td>댓글내용</td>
+</tr>	
+
+<%-- </c:forEach> --%>
+
+</table>
+
+<form action="./view" method="post">
+
+<label>
+<input type="text" name="comment">
+</label>
+<button class="btn btn-primary">댓글작성</button>
+
+
+</form>
+
+</div>
+
+<a href="./list"><button class="btn btn-light">목록</button></a>
+<a href="./view?revNo="${cafeRev.revNo-1 }><button class="btn btn-light">이전</button></a>
+<a href="./view?revNo="><button class="btn btn-light">다음</button></a>
+
+</div> <!-- content -->
 
 
 

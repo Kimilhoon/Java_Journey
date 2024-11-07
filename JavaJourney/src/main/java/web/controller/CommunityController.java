@@ -164,6 +164,7 @@ public class CommunityController {
 		
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("creviewList", creviewList);
 		
 	}
@@ -191,6 +192,13 @@ public class CommunityController {
 		model.addAttribute("cafeRev", cafeRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);
+		
+	}
+	
+	@PostMapping("/creview/view")
+	public String cafeReviewComment(Model model, HttpSession session, CafeRev revNo, CafeRevComm comm) {
+		
+		return "redirect: /view?revNo=" + revNo.getRevNo();
 		
 	}
 	

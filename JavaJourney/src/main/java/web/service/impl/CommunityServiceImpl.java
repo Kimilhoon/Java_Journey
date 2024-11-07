@@ -255,18 +255,26 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search) {
 		
-		//수정해야
+		//수정해야댐
 		
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
+		
 		if(category == null || "".equals(category)||"all".equals(category)) {
 			category = "N";
-		}else if(category.equals("cafe")) {
-			category="카페";
-		}else {
-			category="원두";
+		}else if(category.equals("서울")) {
+			category="서울";
+		}else if(category.equals("경기")) {
+			category="경기";
+		}else if(category.equals("인천")) {
+			category="인천";
+		}else if(category.equals("부산")) {
+			category="부산";
+		}else if(category.equals("제주")) {
+			category="제주";
 		}
+		
 		if(search == null || "".equals(search)) {
 			search = "N";
 		}
@@ -275,7 +283,7 @@ public class CommunityServiceImpl implements CommunityService {
 		map.put("search", search);
 		map.put("category", category);
 
-		int totalCnt = dao.getFreeBoardTotalCnt(map);
+		int totalCnt = dao.getCafeReviewTotalCnt(map);
 		
 		log.info("totalCNT{}",totalCnt);
 		
