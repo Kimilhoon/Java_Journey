@@ -40,10 +40,11 @@ $(function() {
 
 <div class="d-flex">
 <div id="image" style="flex-shrink: 0;">
-<img src="<c:url value="${beanInfo.beanStoredName}"/>" 
-		alt="${beanInfo.beanName}" 
-		class="img-thumbnail" 
-		style="width: 400px; height: 400px; object-fit: contain;" />
+${ beanInfo.beanOriginName }
+<%-- <img src="<c:url value="${beanInfo.beanStoredName}"/>"  --%>
+<%-- 		alt="${beanInfo.beanName}"  --%>
+<!-- 		class="img-thumbnail"  -->
+<!-- 		style="width: 400px; height: 400px; object-fit: contain;" /> -->
 </div>
 
 <div id="explain p-2">
