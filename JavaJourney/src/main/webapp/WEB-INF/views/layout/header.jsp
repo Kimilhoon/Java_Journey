@@ -26,6 +26,7 @@
 <!-- summernote 링크 End-->
 </head>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
 <body>
 <div class="d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
