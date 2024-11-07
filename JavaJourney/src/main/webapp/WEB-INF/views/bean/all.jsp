@@ -6,17 +6,27 @@
 
 <c:import url="../layout/header.jsp" />
 
+<script type="text/javascript">
+$(function() {
+// 	$("#searchIcon").click(function() {
+// 		$("#search").submit();
+// 	})
+})
+</script>
+
 <div class="container">
 
 <div class="text-center mb-5">
 <h1> <전체 원두> </h1>
 </div>
 
-<div class="mb-2">
-<label for="cupnote">
-맛과향 :
-</label>
-<select id="cupnote" name="cupnote">
+<form action="./all" method="post">
+<div id="up" class="mb-2 d-flex" >
+
+<div class="me-auto row align-items-center">
+<label for="cupnote" class="col-sm-4 col-form-label">맛과향</label>
+<div class="col-sm-8">
+<select id="cupnote" name="cupnote" class="form-select" aria-label="Floating label select example">
 	<option value="savory">고소미</option>
 	<option value="Fresh">상큼이</option>
 	<option value="Sweetness">달달이</option>
@@ -24,9 +34,17 @@
 </select>
 </div>
 
-<div>
-<input type="text" >
 </div>
+
+<div id="search" class="p-2">
+<input type="text" id="keyword" name="keyword" class="bi bi-search">
+<span id="searchIcon">
+	<i class="bi bi-search"></i>
+</span>
+</div>
+
+</div>
+</form>
 
 
 <div id="List">

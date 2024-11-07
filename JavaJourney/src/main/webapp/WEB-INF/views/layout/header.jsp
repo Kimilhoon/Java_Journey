@@ -71,7 +71,7 @@ alt="로고" width="200" height="200" />
             </a>
             <ul class="dropdown-menu bg-light">
               <li><a class="dropdown-item" href="/bean/best">이달의 원두</a></li>
-              <li><a class="dropdown-item" href="/bean/list">전체 원두</a></li>
+              <li><a class="dropdown-item" href="/bean/all">전체 원두</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">
