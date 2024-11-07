@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
@@ -23,6 +25,7 @@ public class BeanController {
 	@GetMapping("/best")
 	public void BestBeanForm() {
 	} // BestBeanForm() end
+	
 
 	@GetMapping("/all")
 	public void AllBeanForm(Paging param, Model model) {
@@ -38,9 +41,26 @@ public class BeanController {
 		model.addAttribute("list", list);
 		
 	} // AllBeanForm() end
+	
+	
+	@PostMapping("/all")
+	public void AllBeanFormProc(
+			@RequestParam(required = false) String cupnote, 
+			@RequestParam(required = false) String keyword
+			) {
+		
+		log.info("param1: {}", cupnote);
+		log.info("param2: {}", keyword);
+		
+	} // AllBeanFormProc() end
+	
 
 	@GetMapping("/info")
-	public void BeanInfoForm(Bean param) {
+	public void BeanInfoForm(Bean param, Model model) {
+		log.info("param: {}", param);
+		Bean beanInfo = service.getBeanInfo( param );
+		
+		model.addAttribute("beanInfo", beanInfo);
 		
 	} // BeanInfoForm(Bean param) end
 	

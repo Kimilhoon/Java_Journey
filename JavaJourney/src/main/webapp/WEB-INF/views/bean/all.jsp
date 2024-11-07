@@ -8,36 +8,35 @@
 
 <script type="text/javascript">
 $(function() {
-// 	$("#searchIcon").click(function() {
-// 		$("#search").submit();
-// 	})
+	$("#searchIcon").click(function() {
+		$(this).parents("form").submit();
+	})
 })
 </script>
 
 <div class="container">
 
-<div class="text-center mb-5">
+<div class="text-center m-5">
 <h1> <전체 원두> </h1>
 </div>
 
 <form action="./all" method="post">
-<div id="up" class="mb-2 d-flex" >
+<div id="up" class="mb-4 d-flex flex-row align-items-center">
 
-<div class="me-auto row align-items-center">
+<div class="me-auto d-flex justify-content-start">
 <label for="cupnote" class="col-sm-4 col-form-label">맛과향</label>
-<div class="col-sm-8">
-<select id="cupnote" name="cupnote" class="form-select" aria-label="Floating label select example">
+<div class="col-sm-10">
+<select id="cupnote" name="cupnote" class="form-select">
+	<option value="" selected disabled>-- 선택하세요 --</option>
 	<option value="savory">고소미</option>
 	<option value="Fresh">상큼이</option>
 	<option value="Sweetness">달달이</option>
 	<option value="bitter">쌉쌀이</option>
-
 </select>
 </div>
-
 </div>
 
-<div id="search" class="p-2">
+<div id="search" class="p-2 d-flex justify-content-between">
 <input type="text" id="keyword" name="keyword" class="bi bi-search">
 <span id="searchIcon">
 	<i class="bi bi-search"></i>
@@ -60,8 +59,9 @@ $(function() {
    
       <td class="text-center">
       <a href="./info?beanNo=${ bean.beanNo }">
-          <img src="../resources/img/y.jpg" alt="${bean.beanName}" style="width: 70%;">
-      </a>   
+          <img src="<c:url value="${bean.beanStoredName}"/>" alt="${bean.beanName}" style="width: 100%;">
+<!--           <img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->
+      </a>
          <p>${bean.beanName}</p>
          <p>${bean.origin}</p>
          <p>${bean.beanComm}</p>
@@ -69,7 +69,7 @@ $(function() {
    
       <c:if test="${status.index % 4 == 3 || status.last}">
          </tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
-      </c:if>
+      </c:if>	
 </c:forEach>
 
 <!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
