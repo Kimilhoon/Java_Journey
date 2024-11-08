@@ -10,6 +10,7 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.Notice;
 import web.util.Paging;
 
 
@@ -231,6 +232,31 @@ public interface CommunityService {
 	 * @return 사업자 등록번호
 	 */
 	public String getBusinessNoFromCafeReviewNo(CafeRev revNo);
+	
+	/**
+	 * 조건에 따른 페이징 객체 얻기
+	 * 
+	 * @param curPage - 현재페이지
+	 * @param search - 검색어
+	 */
+	public Paging getNoticePaging(Paging curPage, String search);
+	
+	/**
+	 * 조건에 따른 공지사항 리스트 얻기
+	 * 
+	 * @param paging
+	 * @param search
+	 * @return
+	 */
+	public List<Notice> getNoticeList(Paging paging, String search);
+	
+	/**
+	 * 공지사항 번호로 공지사항 한개 조회
+	 * 
+	 * @param notice 공지사항 번호
+	 * @return
+	 */
+	public Notice getNotice(Notice notice);
 	
 }
 

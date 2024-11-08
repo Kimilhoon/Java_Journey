@@ -24,6 +24,7 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -150,7 +151,26 @@ public class CommunityController {
 		}
 		
 		
+		@GetMapping("/notice/list")
+		public void noticeList(Model model,Paging curPage,String search) {
+			Paging paging = service.getNoticePaging(curPage,search);
+			List<Notice> noticeList = service.getNoticeList(paging,search);
+			model.addAttribute("noticeList", noticeList);
+			model.addAttribute("paging", paging);
+			model.addAttribute("search", search);
+			
+			
+		}
 		
+		@GetMapping("/notice/view")
+		public void noticeView(Notice notice,Model model) {
+			notice = service.getNotice(notice);
+			model.addAttribute("notice",notice);
+			
+		}
+		
+		@GetMapping("/faq/list")
+		public void fatList() {}
 		
 		
 	
