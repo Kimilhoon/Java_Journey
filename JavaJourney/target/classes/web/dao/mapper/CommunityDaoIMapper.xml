@@ -262,7 +262,7 @@
 	
 	<insert id="insertCafeReviewComm" parameterType="CafeRevComm">
 		INSERT INTO caferevcomm
-		VALUES ( cafeRevCommNo_seq.nextval, #{revNo }, #{userNo }, #{commCont }, null, sysdate )
+		VALUES ( cafeRevCommNo_seq.nextval, #{revNo }, #{userNo }, #{cafeCommCont }, null, sysdate )
 	</insert>
 	
 </mapper>

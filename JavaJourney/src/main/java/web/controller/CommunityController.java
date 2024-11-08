@@ -208,12 +208,13 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/creview/comm")
-	public void cafeReviewComm(Model model, CafeRev revNo, CafeRevComm commCont, HttpSession session) {
+	public String cafeReviewComm(Model model, CafeRev revNo, CafeRevComm cafeCommCont, HttpSession session) {
 		
-		String userId = (String) session.getAttribute("userid");
+		String userId = (String) session.getAttribute("userId");
 		
-		service.writeCafeReviewComm(revNo, commCont, userId);
-			
+		service.writeCafeReviewComm(revNo, cafeCommCont, userId);
+		
+		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
 	
 	@GetMapping("/creview/write")
