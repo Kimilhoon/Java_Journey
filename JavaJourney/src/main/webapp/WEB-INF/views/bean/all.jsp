@@ -58,7 +58,7 @@ $(function() {
    </c:if>
    
       <td class="text-center">
-      <a href="./info?beanNo=${ bean.beanNo }">
+      <a href="./info?beanNo=${ bean.beanNo }" class="img-thumbnail">
 			${bean.beanOriginName}
 <%--           <img src="<c:url value="${bean.beanOriginName}"/>" alt="${bean.beanName}" style="width: 100%;"> --%>
 <!--           <img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->
@@ -101,6 +101,8 @@ $(function() {
 <c:import url="./paging.jsp"/>
 
 </div>
+
+<c:import url="../layout/footer.jsp" />
 
 </body>
 </html>
