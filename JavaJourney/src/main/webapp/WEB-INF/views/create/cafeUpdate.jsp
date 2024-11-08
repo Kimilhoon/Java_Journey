@@ -79,7 +79,7 @@ $(function() {
 		location.href="/manager/menu";
 	}) //$("#btnManagerMenu") end
 	
-	$("#btnWrite").click(function() {
+	$("#btnUpdate").click(function() {
 		$(this).parents("form").submit();
 	});
     
@@ -181,25 +181,13 @@ $(function() {
 	</tr>
 
 
-<!-- 	<tr> -->
-<!-- 		<td>사장 아이디</td> -->
-<!-- 		<td> -->
-<!-- 			<input type="text" id="cafeId" name="cafeId"> -->
-<!-- 			<button id="idCheck" type="button">중복확인</button> -->
-<!-- 		</td>		 -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>사장 비밀번호</td> -->
-<!-- 		<td><input type="text" id="cafePw" name="cafePw"></td>		 -->
-<!-- 	</tr> -->
-
 </table>
 
 <!-- 지도를 표시할 div 입니다 -->
 <div id="map" style="width:500px; height:400px;"></div>
 
 
-<button id="btnWrite">등록</button>
+<button id="btnUpdate">수정</button>
 
 </form>
 </div>
