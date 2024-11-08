@@ -3,6 +3,7 @@ package web.service.face;
 import java.util.List;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
 import web.util.Paging;
 
 public interface BeanService {
@@ -31,6 +32,7 @@ public interface BeanService {
 	 * @return 원두 정보
 	 */
 	public Bean getBeanInfo(Bean param);
+
 	
 	
 } // interface end

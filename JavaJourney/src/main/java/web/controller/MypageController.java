@@ -123,17 +123,6 @@ public class MypageController {
 	
 	
 	
-	@GetMapping("/mypage")
-	public void mypageForm() {
-		
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		
-	}
 }
 
 

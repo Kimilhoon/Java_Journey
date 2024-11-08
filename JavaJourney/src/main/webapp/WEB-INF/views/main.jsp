@@ -7,11 +7,13 @@
 <div class="container">
 
 
-<div>
+<div id="bestCafe">
 <!-- 이달의 베스트카페 -->
+<%-- ${cafeBestList } --%>
 </div>
-<div>
+<div id="bestBean">
 <!-- 이달의 베스트원두 -->
+<%-- ${beanBestList } --%>
 </div>
 </div>
 
