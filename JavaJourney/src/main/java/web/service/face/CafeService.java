@@ -27,6 +27,16 @@ public interface CafeService {
 	 */
 	public List<Cafe> getAllCafe();
 
+	/**
+	 * 카페 상세 정보 조회 메소드
+	 * 
+	 * @param cafe - 카페상세 정보 객체
+	 * @return 
+	 */
+	public Cafe getCafeInfo(Cafe cafe);
+
+	
+
 	
 	
 	

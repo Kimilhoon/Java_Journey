@@ -53,8 +53,6 @@
         </div>
     </div>
 
-
-
     <div class="tabs">
         <div class="tab tab-active">제품 상세 정보</div>
         <div class="tab">제품 구매 안내</div>
@@ -68,6 +66,13 @@
     </div>
 </div>
 
+	<div class="d-grid gap-2 col-6 mx-auto" >
+		<a href="./all"><button class="btn btn-primary" type="button">전체카페 보러가기</button></a>
+		<a href="./best"><button class="btn btn-primary" type="button">베스트카페 보러가기</button></a>
+	</div>
 
 
-<c:import url="../layout/footer.jsp"/>
+
+<%-- <c:import url="../layout/footer.jsp"/> --%>
+
+

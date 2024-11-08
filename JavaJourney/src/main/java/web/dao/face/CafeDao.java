@@ -31,6 +31,13 @@ public interface CafeDao {
 	 */
 	public List<Cafe> selectAll();
 
+	/**
+	 * 카페 상세페이지 내용 조회
+	 * @param cafe
+	 * @return
+	 */
+	public Cafe selectByCafeNo(Cafe cafe);
+
 
 
 
