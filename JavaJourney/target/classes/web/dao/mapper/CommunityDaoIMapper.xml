@@ -272,10 +272,30 @@
 		WHERE freeboardno = #{freeBoardNo}
 	</delete>
 	
+	<select id="selectBusinessNoByUserId" resultType="string" parameterType="string">
+		SELECT businessNo FROM member
+		<where>
+			userId = #{userId }
+		</where>
+	</select>
+	
 	<select id="selectNoticeBtNoticeNo" resultType="Notice" parameterType="Notice">
 		SELECT * FROM notice
 		WHERE noticeno = #{noticeNo}
 	</select>
+	
+	<select id="selectBusinessNoByCafeRevNo" resultType="string" parameterType="cafeRev">
+		SELECT businessNo FROM cafe c
+		JOIN caferev cr ON c.cafeno = cr.cafeno
+		<where>
+			cr.revno = #{revNo }
+		</where>
+	</select>
+	
+	<insert id="insertCafeReviewComm" parameterType="CafeRevComm">
+		INSERT INTO caferevcomm
+		VALUES ( cafeRevCommNo_seq.nextval, #{revNo }, #{userNo }, #{cafeCommCont }, null, sysdate )
+	</insert>
 	
 </mapper>
 

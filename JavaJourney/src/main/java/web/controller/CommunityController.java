@@ -206,6 +206,18 @@ public class CommunityController {
 		//작성한 유저id
 		String writerId = service.getWriterId(cafeRev);
 		
+		//로그인한 유저의 사업자번호
+		String userBN = service.getBusinessNoFromMember(userId);
+		
+		//해당 리뷰의 해당하는 카페의 사업자번호
+		String cafeBN = service.getBusinessNoFromCafeReviewNo(revNo);
+		
+		//로그인한 유저와 카페의 사업자번호가 일치하면 소유자 트루, 아님 폴스 반환
+		if( userBN == cafeBN ) {
+			model.addAttribute("isOwner", true);
+		} else {
+			model.addAttribute("isOwner", false);
+		}
 //		log.info("cafeRev: {}", cafeRev);
 		
 		model.addAttribute("crevcommList", crevcommList);
@@ -216,8 +228,13 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/creview/comm")
-	public void cafeReviewComm(CafeRevComm comm, HttpSession session) {
+	public String cafeReviewComm(Model model, CafeRev revNo, CafeRevComm cafeCommCont, HttpSession session) {
 		
+		String userId = (String) session.getAttribute("userId");
+		
+		service.writeCafeReviewComm(revNo, cafeCommCont, userId);
+		
+		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
 	
 	@GetMapping("/creview/write")

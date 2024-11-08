@@ -13,7 +13,7 @@ public class Bean {
 	private String beanComm;
 	private String beanInfo;
 	private int beanPrice;
-	private int businessNo;	
+	private String businessNo;	
 	private String beanStoredName;
 	
     private String beanOriginName;
