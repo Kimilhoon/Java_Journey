@@ -160,7 +160,7 @@
 	
 	<delete id="deleteFreeBoardCommentByFreeBoardCommentNo" parameterType="FreeBoardComment">
 		DELETE FROM FREEBOARDCOMMENT
-		WHERE commentno=#{commentNo}
+		WHERE commentno = #{commentNo}
 	</delete>
 	
 	<select id="selectFreeBoardCommentCnt" parameterType="FreeBoard">
@@ -233,6 +233,28 @@
 		</where>
 	</update>
 	
+	<select id="getNoticeTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM NOTICE
+		<where>
+		
+			<if test='search != "N" '>
+				AND upper(TITLE) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectNoticeListAll" parameterType="hashmap" resultType="Notice">
+		SELECT NOTICENO,TITLE,CONTENT,WIRTEDATE
+		FROM (
+			SELECT rownum r,a.* FROM(
+				SELECT * FROM NOTICE 
+				WHERE upper(TITLE) LIKE '%'||upper(#{search})||'%'
+				ORDER BY NOTICENO DESC
+				)a
+			)
+		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
 	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM caferev cr
 		JOIN cafe c ON c.cafeno = cr.cafeno
@@ -246,11 +268,21 @@
 		</where>
 	</select>
 	
+	<delete id="deleteFreeBoardRecommendByFreeBoardNo">
+		DELETE FROM freeboardrecommend
+		WHERE freeboardno = #{freeBoardNo}
+	</delete>
+	
 	<select id="selectBusinessNoByUserId" resultType="string" parameterType="string">
 		SELECT businessNo FROM member
 		<where>
 			userId = #{userId }
 		</where>
+	</select>
+	
+	<select id="selectNoticeBtNoticeNo" resultType="Notice" parameterType="Notice">
+		SELECT * FROM notice
+		WHERE noticeno = #{noticeNo}
 	</select>
 	
 	<select id="selectBusinessNoByCafeRevNo" resultType="string" parameterType="cafeRev">
