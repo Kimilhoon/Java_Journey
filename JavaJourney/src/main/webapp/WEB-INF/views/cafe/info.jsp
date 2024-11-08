@@ -6,19 +6,15 @@
 
 <c:import url="../layout/header.jsp"/>
 
-<style type="text/css">
-
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.img-fluid {
-    max-width: 50%;
-    height: auto;
-}
-
-</style>
+<script type="text/javascript">
+$(function() {
+	$("#wish").click(function() {
+		const currentText = $(this).text();
+		
+		if (currentText == "찜 5")
+	})
+})
+</script>
 
 <div class="container">
 <!--     <div class="image-placeholder"> -->
@@ -47,9 +43,9 @@
 	        </div>
 	    </div>
 	    
-        <div class="buttons">
-            <button class="button">💖 찜</button>
-            <button class="button">리뷰쓰기</button>
+        <div id="btn" class="d-flex justify-content-left align-self-end">
+            <button type="button" id="wish" class="btn btn-secondary btn-lg m-2">💖 찜</button>
+            <button type="button" id="rev" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
         </div>
     </div>
 

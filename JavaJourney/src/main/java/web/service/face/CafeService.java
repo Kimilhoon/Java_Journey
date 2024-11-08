@@ -8,8 +8,8 @@ import web.util.Paging;
 public interface CafeService {
 
 	/**
-	 * 
-	 * @return
+	 * 베스트 3 카페 조회
+	 * @return - 조회된 3개 카페
 	 */
 	public List<Cafe> getBest();
 
@@ -22,16 +22,16 @@ public interface CafeService {
 	public Paging getPaging(int curPage);
 
 	/**
-	 * 
-	 * @return
+	 * 전체 카페 조회
+	 * @return - 조회된 카페
 	 */
 	public List<Cafe> getAllCafe();
 
 	/**
-	 * 카페 상세 정보 조회 메소드
+	 * CafeNo 전달 받아 Cafe 상세내용 조회
 	 * 
-	 * @param cafe - 카페상세 정보 객체
-	 * @return 
+	 * @param cafe - 전달받은 cafeNo
+	 * @return Cafe 상세 정보 
 	 */
 	public Cafe getCafeInfo(Cafe cafe);
 
