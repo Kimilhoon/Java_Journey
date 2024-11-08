@@ -85,6 +85,9 @@ $(function() {
 		});
 	});
 	
+	if(${freeBoardView.freeBoardMapX}=='123'){
+		$("#map").css("display","none");		
+	}
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
 		center: new kakao.maps.LatLng(${freeBoardView.freeBoardMapX }, ${freeBoardView.freeBoardMapY }), //지도의 중심좌표.
@@ -119,7 +122,7 @@ $(function() {
 </thead>
 <tbody>
 	<tr>
-		<td>${freeBoardView.freeBoardNo}</td>
+		<td class="bno">${freeBoardView.freeBoardNo}</td>
 		<td>${freeBoardView.freeBoardCategory}</td>
 		<td>${freeBoardView.freeBoardTitle}</td>
 		<td>${freeBoardView.freeBoardContent}</td>
@@ -156,7 +159,7 @@ $(function() {
 <tbody>
 	<c:forEach var="freeBoardComment" items="${freeBoardCommentList }">
 	<tr>
-		<td>${freeBoardComment.commentContent}</td>
+		<td class="cno">${freeBoardComment.commentContent}</td>
 		<td>${freeBoardComment.userNick}</td>
 		<td><fmt:formatDate value="${freeBoardComment.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
 		<td style="display: none;">${freeBoardComment.commentNo }</td>

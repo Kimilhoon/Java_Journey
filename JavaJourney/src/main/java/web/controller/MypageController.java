@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -109,7 +110,8 @@ public class MypageController {
 	
 	@PostMapping("/myinfo")
 	public void MyInfoChange() {
-		
+	
+		log.info("충돌오류?");
 	}
 	
 	
@@ -119,6 +121,19 @@ public class MypageController {
 	
 	
 	
+	
+	
+	@GetMapping("/mypage")
+	public void mypageForm() {
+		
+		log.info("");
+		log.info("");
+		log.info("");
+		log.info("");
+		log.info("");
+		log.info("");
+		
+	}
 }
 
 

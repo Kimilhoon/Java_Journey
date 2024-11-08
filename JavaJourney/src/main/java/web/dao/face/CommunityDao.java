@@ -10,7 +10,10 @@ import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.Notice;
+import web.util.Paging;
 
 
 @Mapper
@@ -93,6 +96,29 @@ public interface CommunityDao {
 	 * @return 필터링된 리뷰 갯수
 	 */
 	public int getCafeReviewTotalCnt(HashMap<String, String> map);
+
+	/**
+	 * db에 저장된 멤버테이블의 사업자 번호를 불러온다
+	 * 
+	 * @param userId - 사업자 번호를 조회할 아이디
+	 * @return 사업자 등록번호
+	 */
+	public String selectBusinessNoByUserId(String userId);
+	
+	/**
+	 * db에 저장된 카페테이블의 사업자 번호를 불러온다
+	 * 
+	 * @param revNo - 사업자 번호를 조회할 카페 리뷰 번호(리뷰->카페)
+	 * @return 사업자 등록번호
+	 */
+	public String selectBusinessNoByCafeRevNo(CafeRev revNo);
+	
+	/**
+	 * 카페 리뷰 댓글 삽입하기
+	 * 
+	 * @param comm - 댓글 정보가 저장된 객체
+	 */
+	public void insertCafeReviewComm(CafeRevComm comm);
 
 
 	
@@ -216,7 +242,40 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public int getFreeBoardRecCountByFreeBoardNo(FreeBoard freeBoard);
-	//자유게시판--------------------------------------------------------------------------------------
+	
+	/**
+	 * 자유게시판 글 삭제 시 추천 삭제
+	 * 
+	 * @param freeBoard - 보드 넘버
+	 * @return
+	 */
+	public void deleteFreeBoardRecommendByFreeBoardNo(FreeBoard freeBoard);
+	//공지사항--------------------------------------------------------------------------------------
+
+	/**
+	 * 공지사항 검색 조건에 따른 글 수
+	 * @param map - 검색어
+	 * @return - 수
+	 */
+	public int getNoticeTotalCnt(HashMap<String, String> map);
+	
+	/**
+	 * 
+	 * 검색조건에 따라 공지사항 리스트 조회
+	 * 
+	 * @param paging
+	 * @param search
+	 * @return
+	 */
+	public List<Notice> selectNoticeListAll(HashMap<String, Object> map);
+	
+	/**
+	 * 공지사항 번호로 공지사항 조회
+	 * 
+	 * @param notice - 공지사항 번호
+	 * @return
+	 */
+	public Notice selectNoticeBtNoticeNo(Notice notice);
 
 
 

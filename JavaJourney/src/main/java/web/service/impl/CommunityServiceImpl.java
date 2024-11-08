@@ -16,7 +16,9 @@ import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -30,8 +32,8 @@ public class CommunityServiceImpl implements CommunityService {
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
 	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
-		log.info("{}",search);
-		log.info("{}",category);
+//		log.info("{}",search);
+//		log.info("{}",category);
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
@@ -96,6 +98,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public void dropFreeBoard(FreeBoard freeBoard) {
 		
 		List<FreeBoardComment> cList = dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
+		dao.deleteFreeBoardRecommendByFreeBoardNo(freeBoard);
 		for(FreeBoardComment c:cList) {
 			dao.deleteFreeBoardCommentByFreeBoardCommentNo(c);
 		}
@@ -135,8 +138,8 @@ public class CommunityServiceImpl implements CommunityService {
 			freeBoard.setFreeBoardCategory("원두");
 			
 		}
-		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null) {
-			freeBoard.setFreeBoardMapX("37.68023654904071");
+		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null || "".equals(freeBoard.getFreeBoardMapX())) {
+			freeBoard.setFreeBoardMapX("123");
 			freeBoard.setFreeBoardMapY("127.27331371310157");
 		}
 		
@@ -183,9 +186,48 @@ public class CommunityServiceImpl implements CommunityService {
 	public int getFreeBoardRecCount(FreeBoard freeBoard) {
 		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
 	}
+	
+	//공지사항--------------------------------------------------------------------------------
+	
+	@Override
+	public Paging getNoticePaging(Paging curPage, String search) {
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+
+		int totalCnt = dao.getNoticeTotalCnt(map);
+		
+		log.info("totalCNT{}",totalCnt);
+		
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Notice> getNoticeList(Paging paging, String search) {
 
 	
-	//자유게시판--------------------------------------------------------------------------------
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<Notice> noticeList = dao.selectNoticeListAll(map);
+		
+		return noticeList;
+		
+	}
+	
+	@Override
+	public Notice getNotice(Notice notice) {
+		return dao.selectNoticeBtNoticeNo(notice);
+	}
+	
 	
 	//=================== 이루니 ===================
 	@Override
@@ -296,6 +338,30 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return paging;
 		
+	}
+	
+	@Override
+	public void writeCafeReviewComm(CafeRev revNo, CafeRevComm comm, String userId) {
+		
+		int userNo = dao.selectUsernoByUserid(userId);
+		
+		comm.setRevNo(revNo.getRevNo());
+		comm.setUserNo(userNo);
+		
+		dao.insertCafeReviewComm(comm);
+		
+	}
+	
+	 @Override
+	public String getBusinessNoFromMember(String userId) {
+		 
+		return dao.selectBusinessNoByUserId(userId);
+	}
+	 
+	@Override
+	public String getBusinessNoFromCafeReviewNo(CafeRev revNo) {
+		
+		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
 	
 }
