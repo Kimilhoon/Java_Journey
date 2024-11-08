@@ -32,4 +32,15 @@ public class ManagerController {
 		model.addAttribute("memberList",memberList);
 	}
 	
+	@GetMapping("/subuser")
+	public void subuserFoem(
+			Model model
+			) {
+		List<Member> memberList = service.selectAll();
+		log.info("memberList: {}",memberList);
+		
+		model.addAttribute("memberList",memberList);
+		
+	}
+	
 }
