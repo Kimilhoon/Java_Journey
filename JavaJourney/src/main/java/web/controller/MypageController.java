@@ -16,15 +16,4 @@ public class MypageController {
 	@Autowired
 	private MypageService service;
 	
-	@GetMapping("/mypage")
-	public void mypageForm() {
-		
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		log.info("");
-		
-	}
 }

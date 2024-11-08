@@ -43,7 +43,7 @@
 	  });
 </script>
 
-<div class="bg-light" style="border-top: 1px solid #6f4e37">
+<div class="bg-light fixed-bottom" style="border-top: 1px solid #6f4e37">
 	<div class="d-flex justify-content-center">
 		제휴정보 : 487-86-00763
 		고객센터 : 1577-1577

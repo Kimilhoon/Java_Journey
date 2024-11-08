@@ -29,12 +29,12 @@ public class MainController {
 		
 //		List<Cafe> cafeBestList = cafeservice.getBest();
 //		log.info("cafeBestList : {}",cafeBestList);
-//		
+		
 //		List<BeanRev> beanBestList = beanservice.getBest();
 //		log.info("beanBestList : {}",beanBestList);
-//		
+		
 //		model.addAttribute("cafeBestList",cafeBestList);
-//		model.addAttribute("cafeBestList",cafeBestList);
+//		model.addAttribute("beanBestList",beanBestList);
 		
 	}
 	
