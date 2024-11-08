@@ -38,11 +38,10 @@ $(function() {
 <h1>원두 상세보기</h1>
 </div>
 
-<div class="d-flex">
-<div id="image" style="flex-shrink: 0;">
+<div id="commbean" class="d-flex mb-3">
+<div id="image" class="img-thumbnail" style="flex-shrink: 0; width: 400px; height: 400px; object-fit: contain;">
 ${ beanInfo.beanOriginName }
-<%-- <img src="<c:url value="${beanInfo.beanStoredName}"/>"  --%>
-<%-- 		alt="${beanInfo.beanName}"  --%>
+<%-- <img src="<c:url value='${beanInfo.beanOriginName}'/>" alt="${beanInfo.beanName}"  --%>
 <!-- 		class="img-thumbnail"  -->
 <!-- 		style="width: 400px; height: 400px; object-fit: contain;" /> -->
 </div>
@@ -74,9 +73,15 @@ ${ beanInfo.beanOriginName }
 </div>
 
 </div>
+</div> <!-- <div id="commbean" class="d-flex"> -->
+
+<div id="buttons" class="d-flex">
+<button>제품 상세 정보</button>
+<button>제품 구매 안내</button>
+<button>제품 리뷰</button>
 </div>
 
 
-</div>
+</div> <!-- <div class="container"> -->
 </body>
 </html>

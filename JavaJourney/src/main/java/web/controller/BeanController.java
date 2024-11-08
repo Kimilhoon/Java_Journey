@@ -60,6 +60,8 @@ public class BeanController {
 		log.info("param: {}", param);
 		Bean beanInfo = service.getBeanInfo( param );
 		
+		log.info("beanInfo: {}", beanInfo);
+		
 		model.addAttribute("beanInfo", beanInfo);
 		
 	} // BeanInfoForm(Bean param) end
