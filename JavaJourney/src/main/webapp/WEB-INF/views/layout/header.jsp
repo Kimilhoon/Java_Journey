@@ -64,7 +64,7 @@ alt="로고" width="200" height="200" />
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-center align-items-center" style="width: 100%; background-color: #6f4e37;">
+<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <div class="container d-flex justify-content-center align-items-center" style="max-width: 100%;">
     <!-- 네비게이션 메뉴 -->
     <nav class="navbar navbar-expand-lg">

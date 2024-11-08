@@ -216,7 +216,6 @@ public class CommunityController {
 		} else {
 			model.addAttribute("isOwner", false);
 		}
-//		log.info("cafeRev: {}", cafeRev);
 		
 //		String commId = service.getCafeReviewCommentId();
 		
