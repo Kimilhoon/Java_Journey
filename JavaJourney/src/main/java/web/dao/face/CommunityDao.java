@@ -94,6 +94,29 @@ public interface CommunityDao {
 	 */
 	public int getCafeReviewTotalCnt(HashMap<String, String> map);
 
+	/**
+	 * db에 저장된 멤버테이블의 사업자 번호를 불러온다
+	 * 
+	 * @param userId - 사업자 번호를 조회할 아이디
+	 * @return 사업자 등록번호
+	 */
+	public String selectBusinessNoByUserId(String userId);
+	
+	/**
+	 * db에 저장된 카페테이블의 사업자 번호를 불러온다
+	 * 
+	 * @param revNo - 사업자 번호를 조회할 카페 리뷰 번호(리뷰->카페)
+	 * @return 사업자 등록번호
+	 */
+	public String selectBusinessNoByCafeRevNo(CafeRev revNo);
+	
+	/**
+	 * 카페 리뷰 댓글 삽입하기
+	 * 
+	 * @param comm - 댓글 정보가 저장된 객체
+	 */
+	public void insertCafeReviewComm(CafeRevComm comm);
+
 
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -217,6 +240,8 @@ public interface CommunityDao {
 	 */
 	public int getFreeBoardRecCountByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
+
+
 
 
 

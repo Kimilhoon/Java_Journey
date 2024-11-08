@@ -298,6 +298,30 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 	
+	@Override
+	public void writeCafeReviewComm(CafeRev revNo, CafeRevComm comm, String userId) {
+		
+		int userNo = dao.selectUsernoByUserid(userId);
+		
+		comm.setRevNo(revNo.getRevNo());
+		comm.setUserNo(userNo);
+		
+		dao.insertCafeReviewComm(comm);
+		
+	}
+	
+	 @Override
+	public String getBusinessNoFromMember(String userId) {
+		 
+		return dao.selectBusinessNoByUserId(userId);
+	}
+	 
+	@Override
+	public String getBusinessNoFromCafeReviewNo(CafeRev revNo) {
+		
+		return dao.selectBusinessNoByCafeRevNo(revNo);
+	}
+	
 }
 
 

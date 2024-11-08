@@ -56,24 +56,25 @@
 
 <table>
 
-<%-- <c:forEach var="comm" items="${crevcommList }"> --%>
+<c:forEach var="comm" items="${crevcommList }">
 
 <tr>
-	<td>유저닉네임</td>
-	<td>작성일</td>
+	<td>유저닉네임 : ${comm.userNo }</td>
+	<td> | </td>
+	<td> <fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy-MM-dd"/></td>
 </tr>
 <tr>
-	<td>댓글내용</td>
+	<td>댓글내용 : ${comm.cafeCommCont }</td>
 </tr>	
 
-<%-- </c:forEach> --%>
+</c:forEach>
 
 </table>
 
-<form action="./view" method="post">
+<form action="./comm?revNo=${cafeRev.revNo }" method="post">
 
 <label>
-<input type="text" name="comment">
+<input type="text" name="cafeCommCont">
 </label>
 <button class="btn btn-primary">댓글작성</button>
 
