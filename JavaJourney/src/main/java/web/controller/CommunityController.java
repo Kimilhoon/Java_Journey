@@ -162,6 +162,16 @@ public class CommunityController {
 			
 		}
 		
+		@GetMapping("/notice/view")
+		public void noticeView(Notice notice,Model model) {
+			notice = service.getNotice(notice);
+			model.addAttribute("notice",notice);
+			
+		}
+		
+		@GetMapping("/faq/list")
+		public void fatList() {}
+		
 		
 	
 	//--------------------------------------------------------------------------------------

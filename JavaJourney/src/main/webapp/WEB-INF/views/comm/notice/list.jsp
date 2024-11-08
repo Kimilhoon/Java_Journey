@@ -6,12 +6,7 @@
 <script type="text/javascript">
 $(function() {
 
-	$(".line").click(function() {
-		$(this).next().toggle();
-	})
-	$(".conx").bind("click", function(){
-		$(this).parent().parent().css("display","none");
-	})
+	
 	$("#btn_search").click(function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
@@ -36,12 +31,7 @@ $(function() {
 	});
 })
 </script>
-<style>
-.line:hover{
-	background: #ccc;
-	cursor: pointer;
-}
-</style>
+
 <h1>공지사항 리스트</h1>
 <input type="text" id="search"><button id="btn_search">검색</button>
 <div>
@@ -64,13 +54,11 @@ $(function() {
 			<c:if test="${nowDate eq wDate }">
 				<span>new</span>
 			</c:if>
-				${noticeList.title}
+			<a href="./view?noticeNo=${noticeList.noticeNo }">	${noticeList.title}</a>
 		</td>
 		<td><fmt:formatDate value="${noticeList.wirteDate }" pattern="yyyy년 MM월 dd일"/></td>
 	</tr>
-	<tr class="con" style="display: none;">
-		<td colspan="3" >${noticeList.content}<button class="conx">닫기</button> </td>
-	</tr>
+	
 	</c:forEach>
 </tbody>
 </table>

@@ -225,6 +225,14 @@ public interface CommunityService {
 	 */
 	public List<Notice> getNoticeList(Paging paging, String search);
 	
+	/**
+	 * 공지사항 번호로 공지사항 한개 조회
+	 * 
+	 * @param notice 공지사항 번호
+	 * @return
+	 */
+	public Notice getNotice(Notice notice);
+	
 }
 
 

@@ -160,7 +160,7 @@
 	
 	<delete id="deleteFreeBoardCommentByFreeBoardCommentNo" parameterType="FreeBoardComment">
 		DELETE FROM FREEBOARDCOMMENT
-		WHERE commentno=#{commentNo}
+		WHERE commentno = #{commentNo}
 	</delete>
 	
 	<select id="selectFreeBoardCommentCnt" parameterType="FreeBoard">
@@ -253,6 +253,7 @@
 			)
 		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
+	
 	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM caferev cr
 		JOIN cafe c ON c.cafeno = cr.cafeno
@@ -266,10 +267,15 @@
 		</where>
 	</select>
 	
+	<delete id="deleteFreeBoardRecommendByFreeBoardNo">
+		DELETE FROM freeboardrecommend
+		WHERE freeboardno = #{freeBoardNo}
+	</delete>
 	
-	
-	
-	
+	<select id="selectNoticeBtNoticeNo" resultType="Notice" parameterType="Notice">
+		SELECT * FROM notice
+		WHERE noticeno = #{noticeNo}
+	</select>
 	
 </mapper>
 

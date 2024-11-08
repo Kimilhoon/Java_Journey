@@ -16,6 +16,7 @@ import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.FreeBoardRecommend;
 import web.dto.Member;
 import web.dto.Notice;
 import web.service.face.CommunityService;
@@ -97,6 +98,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public void dropFreeBoard(FreeBoard freeBoard) {
 		
 		List<FreeBoardComment> cList = dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
+		dao.deleteFreeBoardRecommendByFreeBoardNo(freeBoard);
 		for(FreeBoardComment c:cList) {
 			dao.deleteFreeBoardCommentByFreeBoardCommentNo(c);
 		}
@@ -221,7 +223,10 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 	
-	
+	@Override
+	public Notice getNotice(Notice notice) {
+		return dao.selectNoticeBtNoticeNo(notice);
+	}
 	
 	
 	//=================== 이루니 ===================
