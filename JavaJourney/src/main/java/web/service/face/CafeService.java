@@ -3,6 +3,7 @@ package web.service.face;
 import java.util.List;
 
 import web.dto.Cafe;
+import web.dto.CafeRev;
 import web.util.Paging;
 
 public interface CafeService {
@@ -35,13 +36,4 @@ public interface CafeService {
 	 */
 	public Cafe getCafeInfo(Cafe cafe);
 
-	
-
-	
-	
-	
-	
-	
-	
-	
 }

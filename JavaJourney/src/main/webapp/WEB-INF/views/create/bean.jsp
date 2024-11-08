@@ -35,12 +35,15 @@ $(function () {
 	})
     
 })
-</script>	
+</script>
+
 <div class="container">
+
 <div>
 <button id="btnManagerMenu">관리자메뉴로가기</button>
 <button id="btnBack">뒤로가기</button>
 </div>
+	
 <form id="form" action="./bean" method="post" enctype="multipart/form-data">
 	<table class="table table-info">
 		<tr>
@@ -55,16 +58,18 @@ $(function () {
 			<input type="text" id="origin" name="origin" value="Test1">
 			사업자번호
 			<input type="text" id="businessNo" name="businessNo" value="1">
-			</td>
+			</td> 
 		</tr>
 		<tr>
 		</tr>
 		<!-- 원두이미지삽입 -->
 		<tr>
-			<td>원두이미지삽입</td>
+			<td>원두[이미지삽입]</td>
 			<td>
 			<textarea id="beanOriginName" name="beanOriginName" class="form-control"
 			rows="4" cols="4"></textarea>
+			원두맛
+			<input type="text" id="cupNoteName" name="cupNoteName" value="">
 			</td>
 		</tr>
 		<!-- 원두이미지삽입 -->
@@ -73,7 +78,7 @@ $(function () {
 		<td><textarea id="beanComm" name="beanComm" rows="3" style="width: 1000px;"></textarea></td>
 		</tr>
 		<tr>
-			<td>원두상세설명</td>
+			<td>원두상세설명[이미지삽입]</td>
 			<td>
 			<textarea id="beanInfo" name="beanInfo" class="form-control"
 			rows="4" cols="2"></textarea>

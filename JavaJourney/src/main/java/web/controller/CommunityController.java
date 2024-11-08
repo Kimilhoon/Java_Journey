@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -24,6 +26,8 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.MyRecipe;
+import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -149,11 +153,57 @@ public class CommunityController {
 			}
 		}
 		
+		// 공지사항 --------------------------------------------------------------------------
+		@GetMapping("/notice/list")
+		public void noticeList(Model model,Paging curPage,String search) {
+			Paging paging = service.getNoticePaging(curPage,search);
+			List<Notice> noticeList = service.getNoticeList(paging,search);
+			model.addAttribute("noticeList", noticeList);
+			model.addAttribute("paging", paging);
+			model.addAttribute("search", search);
+			
+			
+		}
 		
+		@GetMapping("/notice/view")
+		public void noticeView(Notice notice,Model model) {
+			notice = service.getNotice(notice);
+			model.addAttribute("notice",notice);
+			
+		}
+		// FAQ --------------------------------------------------------------------------
+		@GetMapping("/faq/list")
+		public void fatList() {}
 		
+		// 나만의 레시피 --------------------------------------------------------------------------
 		
+		@GetMapping("/myrecipe/list")
+		public void myrecipe(Paging curPage, String search,Model model) {
+			Paging paging = service.getMyRecipePaging(curPage,search);
+			List<MyRecipe> myRecipeList = service.getMyRecipeList(paging,search);
+			model.addAttribute("myRecipeList", myRecipeList);
+			model.addAttribute("paging", paging);
+			model.addAttribute("search", search);
+			
+		}
+		
+		@GetMapping("myrecipe/write")
+		public void myRecipeForm(MyRecipe myRecipe) {}
+		
+		@PostMapping("myrecipe/write")
+		public String writeProc(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
+			log.info("{}",myRecipe);
+			log.info("{}",file.getOriginalFilename());
+//			service.uploadMyRecipe(session,myRecipe,file);
+			
+			return"redirect:./list";
+		}
 		
 	
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------
 	//이루니
 	
@@ -175,8 +225,6 @@ public class CommunityController {
 		//댓글 리스트
 		List<CafeRevComm> crevcommList = service.getCafeReviewCommentList(revNo);
 		
-//		log.info("revNo: {}", revNo);
-		
 		//카페 상세 정보
 		CafeRev cafeRev = service.getCafeReviewInfo(revNo);
 		
@@ -186,7 +234,20 @@ public class CommunityController {
 		//작성한 유저id
 		String writerId = service.getWriterId(cafeRev);
 		
-//		log.info("cafeRev: {}", cafeRev);
+		//로그인한 유저의 사업자번호
+		String userBN = service.getBusinessNoFromMember(userId);
+		
+		//해당 리뷰의 해당하는 카페의 사업자번호
+		String cafeBN = service.getBusinessNoFromCafeReviewNo(revNo);
+		
+		//로그인한 유저와 카페의 사업자번호가 일치하면 소유자 트루, 아님 폴스 반환
+		if( userBN == cafeBN ) {
+			model.addAttribute("isOwner", true);
+		} else {
+			model.addAttribute("isOwner", false);
+		}
+		
+//		String commId = service.getCafeReviewCommentId();
 		
 		model.addAttribute("crevcommList", crevcommList);
 		model.addAttribute("cafeRev", cafeRev);
@@ -196,8 +257,13 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/creview/comm")
-	public void cafeReviewComm(CafeRevComm comm, HttpSession session) {
+	public String cafeReviewComm(Model model, CafeRev revNo, CafeRevComm cafeCommCont, HttpSession session) {
 		
+		String userId = (String) session.getAttribute("userId");
+		
+		service.writeCafeReviewComm(revNo, cafeCommCont, userId);
+		
+		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
 	
 	@GetMapping("/creview/write")
