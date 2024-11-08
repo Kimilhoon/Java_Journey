@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.MyRecipe;
 import web.dto.Notice;
 import web.util.Paging;
 
@@ -257,6 +260,31 @@ public interface CommunityService {
 	 * @return
 	 */
 	public Notice getNotice(Notice notice);
+	
+	/**
+	 * 나만의 레시피 페이징
+	 * @param paging - curPage
+	 * @param search - 검색어
+	 * @return - 
+	 */
+	public Paging getMyRecipePaging(Paging curPage, String search);
+	
+	/**
+	 * 
+	 * 검색조건에 따른 리스트 
+	 * @param paging - 페이징 객체
+	 * @param search - 검색어
+	 * @return
+	 */
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search);
+	
+	/**
+	 * 나만의 레시피 글 작성
+	 * @param session - 유저 정보 가져올거임
+	 * @param myRecipe - 제목,내용 있음
+	 * @param file
+	 */
+	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe,MultipartFile file);
 	
 }
 
