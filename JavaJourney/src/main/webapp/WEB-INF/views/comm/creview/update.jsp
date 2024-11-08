@@ -36,11 +36,51 @@ ${cafeRev.revContent }
 </label><br>
 <label>별점
 <select name="revsp">
-	<option value="5">★★★★★</option>
-	<option value="4">★★★★☆</option>
-	<option value="3">★★★☆☆</option>
-	<option value="2">★★☆☆☆</option>
-	<option value="1">★☆☆☆☆</option>
+	<c:choose>
+		<c:when test="${cafeRev.revsp eq 5 }">
+			<option value="5" selected="selected">★★★★★</option>
+		</c:when>
+		<c:otherwise>
+			<option value="5">★★★★★</option>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${cafeRev.revsp eq 4 }">
+			<option value="4" selected="selected">★★★★☆</option>
+		</c:when>
+		<c:otherwise>
+			<option value="4">★★★★☆</option>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${cafeRev.revsp eq 3 }">
+			<option value="3" selected="selected">★★★☆☆</option>
+		</c:when>
+		<c:otherwise>
+			<option value="3">★★★☆☆</option>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${cafeRev.revsp eq 2 }">
+			<option value="2" selected="selected">★★☆☆☆</option>
+		</c:when>
+		<c:otherwise>
+			<option value="2">★★☆☆☆</option>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${cafeRev.revsp eq 1 }">
+			<option value="1" selected="selected">★☆☆☆☆</option>
+		</c:when>
+		<c:otherwise>
+			<option value="1">★☆☆☆☆</option>
+		</c:otherwise>
+	</c:choose>
+	
 </select>
 </label>
 <button class="btn btn-primary">작성</button>

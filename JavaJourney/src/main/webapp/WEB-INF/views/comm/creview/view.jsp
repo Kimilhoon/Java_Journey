@@ -9,7 +9,15 @@
 
 <script>
 
-
+$(comm-update-btn).click(function() {
+	$.ajax {
+		type: "post"
+		, url: "./comm/update=revNo=${cafeRev.revNo }"
+		, data: {
+			
+		}
+	}
+})
 
 </script>
 
@@ -65,7 +73,15 @@
 </tr>
 <tr>
 	<td>댓글내용 : ${comm.cafeCommCont }</td>
-</tr>	
+</tr>
+
+<c:if test="${userId eq writerId }">
+
+<td>
+	<span><a href="./comm/update?revNo=${comm.cafeRevCommNo }">수정</a></span>
+	<span><a href="./comm/delete?revNo=${cafeRev.cafeRevCommNo }">삭제</a></span>
+</td>
+</c:if>
 
 </c:forEach>
 

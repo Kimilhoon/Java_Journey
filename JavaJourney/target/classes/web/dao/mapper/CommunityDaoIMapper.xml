@@ -227,6 +227,7 @@
 	<update id="updateCafeReviewByCafeNo" parameterType="CafeRev">
 		UPDATE CafeRev
 		SET revContent = #{revContent }
+			, revsp = #{revsp }
 		<where>
 			revNo = #{revNo }
 		</where>
