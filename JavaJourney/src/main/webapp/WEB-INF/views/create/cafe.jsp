@@ -33,7 +33,9 @@ $(function() {
     marker.setMap(map);
 
     // 우편번호 찾기 버튼 클릭
-    $("#btnPostcode").click(function() {
+    $("#btnPostcode").click(function(e) {
+    	e.preventDefault();
+    	
         // 우편번호 찾기창 초기화
         $("#postCode").val("");
         $("#cafeAdd1").val("");
@@ -69,10 +71,17 @@ $(function() {
         }).open(); //팝업창 열기 위한 open
     }); //$("#btnPostcode") end
     
-    $('#cafeInfo').summernote({ //섬머노트 설정
+    $('#cafeImgOriName').summernote({ //섬머노트 설정
     	width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
+        ]
+    }); // $('#cafeInfo') end
+    
+    $('#cafeInfo').summernote({ 
+    	width: 500, height: 200 
+        , toolbar: [
+            ['insert', ['picture']] 
         ]
     }); // $('#cafeInfo') end
     
@@ -144,8 +153,10 @@ $(function() {
 		<td><input type="text" id="busyTime" name="busyTime"  placeholder="예: 월-금 09:00 - 18:00"></td>		
 	</tr>	
 	<tr>
-		<td>카페사진 첨부파일</td>
-		<td><input type="text" id="imgNo" name="imgNo"></td>		
+		<td>카페 메인사진[이미지]]</td>
+		<td><textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
+		rows="4" cols="4"></textarea>
+		</td>		
 
 	</tr>
 	<tr>
@@ -162,10 +173,10 @@ $(function() {
    </td>
 	</tr>
 	<tr>
-		<td>카페 상세설명</td>
+		<td>카페 상세설명[이미지]</td>
 		<td>
 		<textarea id="cafeInfo" name="cafeInfo" class="form-control"
-		rows="4" cols="2"></textarea>
+		rows="4" cols="4"></textarea>
 		</td>		
 	</tr>
 	<tr>
@@ -175,9 +186,9 @@ $(function() {
 		<div id="postcodeWrap"> <!-- 우편닫기버튼기능 -->
 			<img alt="x" src="../resources/img/close.png" class="closeIcon">
 		</div>
-		<input type="text" id="postCode" placeholder="우편번호" readonly="readonly"><br>
-		<input type="text" id="cafeAdd1" placeholder="주소" readonly="readonly"><br>
-		<input type="text" id="cafeAdd2" placeholder="상세주소"><br>
+		<input type="text" id="postCode" name="postCode" placeholder="우편번호" readonly="readonly"><br>
+		<input type="text" id="cafeAdd1" name="cafeAdd1" placeholder="주소" readonly="readonly"><br>
+		<input type="text" id="cafeAdd2" name="cafeAdd2" placeholder="상세주소"><br>
 		</td>
 	</tr>
 

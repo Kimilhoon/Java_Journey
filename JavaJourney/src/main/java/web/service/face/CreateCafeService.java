@@ -10,9 +10,10 @@ public interface CreateCafeService {
 	/**
 	 * 협약 카페 등록
 	 * 
-	 * @param cafe
+	 * @param cafe 
+	 * @param cafeImg 
 	 */
-	public void insertCafe(Cafe cafe);
+	public void insertCafe(Cafe cafe, CafeImg cafeImg);
 
 	/**
 	 * CafeImg를 조회하여 전체 데이터 반환하기

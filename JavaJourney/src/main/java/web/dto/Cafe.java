@@ -15,5 +15,6 @@ public class Cafe {
 	private String cafeAdd1;
 	private String cafeAdd2;
 	private String businessNo;
+	private String cafeInfo;
 	
 }
