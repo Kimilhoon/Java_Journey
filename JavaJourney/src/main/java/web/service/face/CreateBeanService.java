@@ -14,10 +14,10 @@ public interface CreateBeanService {
 	 * DTO 중 cupNote - String cupNoteName
 	 * @param beanImg - String beanOriginName
 	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
-	 * @param cupNote - String cupNoteName
+	 * @param cupNotes - String cupNoteName
 	 * @return 
 	 */
-	public void insertBean(BeanImg beanImg, Bean bean, CupNote cupNote);
+	public void insertBean(BeanImg beanImg, Bean bean, List<Integer> cupNotes);
 	
 	/**
 	 * 원두 글 수정 로직

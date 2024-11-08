@@ -23,15 +23,15 @@ $(function() {
 	})
 	
 	$("#btnList").click(function() {
-		location.href="./all"
+		location.href="./all";
 	})
 	
 	$("#btnUpdate").click(function() {
-		location.href="/create/update?beanNo=${ beanInfo.beanNo }&&beanImgNo=${beanInfo.beanImgNo}"
+		location.href="/create/update?beanNo=${ beanInfo.beanNo }&&beanImgNo=${beanInfo.beanImgNo}";
 	})
 	
 	$("#btnDelete").click(function() {
-		location.href="/create/delete?beanNo=${ beanInfo.beanNo }"
+		location.href="/create/delete?beanNo=${ beanInfo.beanNo }";
 	})
 	
 	
