@@ -425,7 +425,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
-	
+
 }
 
 

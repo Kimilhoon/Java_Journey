@@ -58,11 +58,13 @@
 	
 	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
 	
-		SELECT * FROM caferevcomm
+		SELECT caferevcommno, revno, c.userno, cafecommcont , cafecommtag , cafecommdate, usernick
+		FROM caferevcomm c
+		JOIN MEMBER m ON c.userno = m.userno
 		<where>
 			AND revNo = #{revNo }
 		</where>
-		ORDER BY caferevcommno desc
+		ORDER BY caferevcommno
 		
 	</select>
 	
@@ -227,6 +229,7 @@
 	<update id="updateCafeReviewByCafeNo" parameterType="CafeRev">
 		UPDATE CafeRev
 		SET revContent = #{revContent }
+			, revsp = #{revsp }
 		<where>
 			revNo = #{revNo }
 		</where>
