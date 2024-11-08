@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CafeDao;
 import web.dto.Cafe;
+import web.dto.CafeRev;
 import web.service.face.CafeService;
 import web.util.Paging;
 
@@ -37,5 +38,7 @@ public class CafeServiceImpl implements CafeService {
 	public List<Cafe> getAllCafe() {
 		return dao.selectAll();
 	}
+	
+	
 	
 }
