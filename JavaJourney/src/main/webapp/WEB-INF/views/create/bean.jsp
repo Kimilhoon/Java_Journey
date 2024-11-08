@@ -17,9 +17,18 @@ $(function () {
 	});
 	
     $('#beanInfo').summernote({ //섬머노트 설정
-        height: 400  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+        height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+        , toolbar: [
+            ['insert', ['picture']] // 이미지 업로드 버튼만 추가
+        ]
       });
-    
+    $('#beanOriginName').summernote({ 
+    	width: 400, height: 200
+    	, toolbar: [
+            ['insert', ['picture']] // 이미지 업로드 버튼만 추가
+        ]
+      });
+   
     $("#btnBeanImg").click(function() {
         window.open("/create/selectimage", "popupWindow"
         		, "width=900,height=600");
@@ -35,28 +44,30 @@ $(function () {
 <form id="form" action="./bean" method="post" enctype="multipart/form-data">
 	<table class="table table-info">
 		<tr>
-			<td>원두이름</td>
-			<td><input type="text" id="beanName" name="beanName" value=""></td>
+			<td>
+			원두이름
+			</td>
+			<td>
+			<input type="text" id="beanName" name="beanName" value="Test1">
+			원두금액
+			<input type="text" id="beanPrice" name="beanPrice" value="1">
+			원두원산지
+			<input type="text" id="origin" name="origin" value="Test1">
+			사업자번호
+			<input type="text" id="businessNo" name="businessNo" value="1">
+			</td>
 		</tr>
 		<tr>
-			<td>원두원산지</td>
-			<td><input type="text" id="origin" name="origin" value=""></td>
 		</tr>
+		<!-- 원두이미지삽입 -->
 		<tr>
-			<td>원두이미지[TEST]</td>
-			<td><button id="btnBeanImg" type="button">[TEST 버튼]</button></td>
+			<td>원두이미지삽입</td>
+			<td>
+			<textarea id="beanOriginName" name="beanOriginName" class="form-control"
+			rows="4" cols="4"></textarea>
+			</td>
 		</tr>
-		<tr> 
-			<td><input type="text" id="beanImgNo" name="beanImgNo" readonly="readonly"></td>
-		</tr>
-		<tr>
-			<td>원두금액</td>
-			<td><input type="text" id="beanPrice" name="beanPrice" value=""></td>
-		</tr>
-		<tr>
-			<td>사업자번호</td>
-			<td><input type="text" id="businessNo" name="businessNo" value=""></td>
-		</tr>
+		<!-- 원두이미지삽입 -->
 		<tr>
 		<td>원두설명</td>
 		<td><textarea id="beanComm" name="beanComm" rows="3" style="width: 1000px;"></textarea></td>
