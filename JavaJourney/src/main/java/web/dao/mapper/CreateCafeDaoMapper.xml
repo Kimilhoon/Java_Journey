@@ -3,21 +3,36 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CreateCafeDao">
 
-	<insert id="write" parameterType="Cafe">
+	<insert id="insertCafeImg" parameterType="CafeImg">
+		<selectKey order="BEFORE" keyProperty="cafeImgNo" resultType="int">
+			select cafeImgNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO cafeimg(cafeImgNo, cafeImgOriName)
+		VALUES(#{cafeImgNo}, #{cafeImgOriName})	
+	</insert>
+
+	<select id="selectByLatest" resultType="int">
+		SELECT * from(
+		SELECT cafeImgNo FROM cafeimg
+		ORDER BY cafeImgNo DESC
+			)WHERE rownum = 1
+	</select>
+
+	<insert id="insertCafe" parameterType="Cafe">
 		<selectKey order="BEFORE" resultType="int" keyProperty="cafeNo">
 			SELECT cafeNo_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO CAFE (cafeNo, imgNo, cafeName, cafeComm, cafePhone
-		, busyTime, cafeLoc, cafeAdd1, cafeAdd2)
+		, busyTime, cafeLoc, cafeAdd1, cafeAdd2, cafeInfo)
 		VALUES (#{cafeNo}, #{imgNo}, #{cafeName}, #{cafeComm}, #{cafePhone}
-		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2})
+		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2}, #{cafeInfo})
 	</insert>
 	
-	<select id="selectAllImg" resultType="Cafe">
-		SELECT	cafeImgNo, cafeImgOriName, cafeImgStoName, cafeImgSize
-		FROM CafeImg
-		ORDER BY cafeImgNo
-	</select>
+<!-- 	<select id="selectAllImg" resultType="Cafe"> -->
+<!-- 		SELECT	cafeImgNo, cafeImgOriName, cafeImgStoName, cafeImgSize -->
+<!-- 		FROM CafeImg -->
+<!-- 		ORDER BY cafeImgNo -->
+<!-- 	</select> -->
 	
 	<update id="update" parameterType="Cafe">
 		UPDATE CAFE

@@ -14,5 +14,6 @@ public class MyRecipe {
 	private int myRipHit;
 	private Date myRipWriteDate;
 	private int myRipImgNo;
+	private String userNick;
 	
 } // class end
