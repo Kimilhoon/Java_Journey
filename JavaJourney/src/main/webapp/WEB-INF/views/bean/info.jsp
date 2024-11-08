@@ -8,6 +8,9 @@
 
 <script type="text/javascript">
 $(function() {
+
+/* 버튼 설정 */
+/* -------------------------------------------------------------------------------------------------------------- */
 	$("#wish").click(function() {
 		const currentText = $(this).text();
         
@@ -21,6 +24,23 @@ $(function() {
 	$("#sub").click(function() {
 		location.href="./bean/sub";
 	})
+
+/* 메뉴바 설정 */
+/* -------------------------------------------------------------------------------------------------------------- */
+	
+	$("#beanSaleBtn").click(function() {
+		location.href="#beanSale"
+	})
+	
+	$("#beanInformationBtn").click(function() {
+		location.href="#beanInformation"
+	})
+	
+	$("#beanReviewBtn").click(function() {
+		location.href="#beanReview"
+	})
+	
+/* 버튼들 설정 */
 	
 	$("#btnList").click(function() {
 		location.href="./all"
@@ -34,6 +54,20 @@ $(function() {
 		location.href="/create/delete?beanNo=${ beanInfo.beanNo }"
 	})
 	
+/* -------------------------------------------------------------------------------------------------------------- */
+	
+	// JavaScript 코드
+	window.addEventListener("scroll", function() {
+	    const menuTab = document.getElementById("#beanMenu");
+	    const stickyPoint = menuTab.offsetTop;  // 메뉴가 원래 위치한 지점
+
+	    if (window.pageYOffset > stickyPoint) {
+	        menuTab.classList.add("sticky");  // 스크롤 위치가 메뉴 지점을 지나면 sticky 클래스를 추가
+	    } else {
+	        menuTab.classList.remove("sticky");  // 스크롤 위치가 메뉴 지점 위로 올라가면 sticky 클래스를 제거
+	    }
+	});
+	
 	
 })
 </script>
@@ -42,6 +76,25 @@ $(function() {
 #wish, #sub{
 	width: 150px;
 }
+
+/* 기본 스타일 */
+/* #beanMenu { */
+/*     width: 100%; */
+/*     background-color: #333; */
+/*     color: white; */
+/*     padding: 10px; */
+/*     text-align: center; */
+/* } */
+
+/* 상단에 고정될 때의 스타일 */
+.sticky { 
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+}
+
 </style>
 
 <div class="container">
@@ -91,26 +144,36 @@ ${ beanInfo.beanOriginName }
 <!-- <button class="p-2 flex-fill">제품 리뷰</button> -->
 <!-- </div> -->
 
-<div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-  <label class="btn btn-outline-secondary" for="btnradio1">제품 상세 정보</label>
+<div id="beanMenu" class="btn-group w-100 nav" role="group" aria-label="Basic radio toggle button group" >
+	<input type="radio" class="btn-check" name="btnradio" id="beanSaleBtn" autocomplete="off" checked>
+	<label class="btn btn-outline-secondary" for="beanSaleBtn">제품 구매 안내</label>
+	
+	<input type="radio" class="btn-check" name="btnradio" id="beanInformationBtn" autocomplete="off">
+	<label class="btn btn-outline-secondary" for="beanInformationBtn">제품 상세 정보</label>
 
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-  <label class="btn btn-outline-secondary" for="btnradio2">제품 구매 안내</label>
+	<input type="radio" class="btn-check btn-secondary" name="btnradio" id="beanReviewBtn" autocomplete="off">
+	<label class="btn btn-outline-secondary" for="beanReviewBtn">제품 리뷰</label>
+</div>
 
-  <input type="radio" class="btn-check btn-secondary" name="btnradio" id="btnradio3" autocomplete="off">
-  <label class="btn btn-outline-secondary" for="btnradio3">제품 리뷰</label>
+
+<div id="beanSale">
+제품 구매 안내
 </div>
 
 <div id="beanInformation">
 ${ beanInfo.beanInfo }
 </div>
 
-<div id="btnGroup">
-<button type="button" id="btnList">목록</button>
+<div id="beanReview">
+제품 리뷰
+</div>
+
+<div id="btnGroup" class="text-center">
+<button type="button" id="btnList" class="btn btn-secondary">목록</button>
+
 <c:if test="${ userNick eq 'admin' }">
-<button type="button" id="btnUpdate">수정</button>
-<button type="button" id="btnDelete">삭제</button>
+<button type="button" id="btnUpdate" class="btn btn-warning">수정</button>
+<button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
 </c:if>
 </div>
 
