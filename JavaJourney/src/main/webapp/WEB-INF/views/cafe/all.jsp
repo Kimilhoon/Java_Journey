@@ -11,11 +11,14 @@
 		<h1><전체 카페></h1>
 	</div><!-- <h1> End -->
 
-<div>
-	<div class="mb-2">
-	<label for="location">지역 : </label>
-		<select id="location" name="location">
-			<option value="AllLocation">전체</option>
+<form action="./all" method="post">
+<div id="up" class="mb-4 d-flex flex-row align-items-center">
+
+	<div class="me-auto d-flex justify-content-start">
+	<label for="location" class="col-sm-4 col-form-label">지역 : </label>
+		<div>
+		<select id="location" name="location" class="form-select">
+			<option value="AllLocation" selected="disabled">전 체</option>
 			<option value="Gangnamgu">강남구</option>
 			<option value="Seochogu">서초구</option>
 			<option value="Songpagu">송파구</option>
@@ -23,19 +26,23 @@
 			<option value="Seodaemungu">서대문구</option>
 			<option value="Mapogu">마포구</option>
 		</select>
+		</div>
 	</div>
 </div>
+</form>
 		
-	<div class="row row-cols-1 row-cols-md-1 g-1 grid gap-1">
+		
+<!-- <div class="row row-cols-1 row-cols-md-1 g-1 grid gap-1"> -->
+<div class="row row-cols-1 row-cols-md-1 g-1 grid gap-1">
 	
 		<div class="card text-center" style="width: 20rem;">
 			<a href="./info"><img src="<c:url value='/resources/img/cafe/c01.jpg' />"
-			 class="card-img-top rounded mx-auto d-block" alt="${cafe.cafeName}"></a>
+			 class="card-img-top rounded mx-auto d-block" alt="${cafe.cafeName}">
 			<div class="card-body">
 				<p class="card-text fw-bolder fs-4">가타커피</p>
 				<p class="card-text fw-semibold fs-5">서울 송파구</p>
 				<p class="card-text fw-light fs-6">리뷰 : 111 | ★ 4.0</p>
-			</div>
+			</div></a>
 		</div>
 		
 		<div class="card text-center" style="width: 20rem;">

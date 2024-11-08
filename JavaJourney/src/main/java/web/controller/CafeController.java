@@ -38,10 +38,10 @@ public class CafeController {
 			@RequestParam(name = "curPage", defaultValue = "1")int curPage) {
 		log.info("/cafe/all [GET}");
 		
-		//전달파라미터 이용한 현재 페이징 객체 알아내기
-		Paging paging = service.getPaging(curPage);
-		//페이징 객체 Model값으로 전달
-		model.addAttribute("paging", paging);
+//		//전달파라미터 이용한 현재 페이징 객체 알아내기
+//		Paging paging = service.getPaging(curPage);
+//		//페이징 객체 Model값으로 전달
+//		model.addAttribute("paging", paging);
 				
 		//전체 페이지 조회
 		List<Cafe> AllCafeList = service.getAllCafe();
@@ -52,7 +52,14 @@ public class CafeController {
 	
 	
 	@GetMapping("/info")
-	public void CafeInfoForm(Cafe param) {
+	public void CafeInfoForm(Cafe cafe, Model model) {
+		log.info("/cafe/info [GET]");
+		
+		//서비스에서 카페 상세 정보를 조회
+		Cafe cafeInfo = service.getCafeInfo(cafe);
+		
+		//조회한 카페 정보를 모델에 추가
+		model.addAttribute("cafeInfo", cafeInfo);
 		
 	} // CafeInfoForm(Cafe param) end
 	

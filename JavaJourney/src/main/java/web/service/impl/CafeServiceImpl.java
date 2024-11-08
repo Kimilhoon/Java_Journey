@@ -38,7 +38,12 @@ public class CafeServiceImpl implements CafeService {
 	public List<Cafe> getAllCafe() {
 		return dao.selectAll();
 	}
-	
-	
+
+	@Override
+	public Cafe getCafeInfo(Cafe cafe) {
+		
+		return dao.selectByCafeNo(cafe);
+	}
 	
 }
+
