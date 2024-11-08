@@ -33,5 +33,23 @@ public interface CreateCafeDao {
 	 */
 	public void delete(Cafe cafe);
 
+	/**
+	 * DB에 이미지 문자열 삽입하면서 FK의 값도 부여하기
+	 * @param cafeImg
+	 */
+	public void insertCafeImg(CafeImg cafeImg);
+
+	/**
+	 * DB에서 방금 삽입한 이미지의 번호를 가져온다
+	 * @return
+	 */
+	public int selectByLatest();
+
+	/**
+	 * DTO에 담긴 Cafe, DB에 삽입하기
+	 * @param cafe
+	 */
+	public void insertCafe(Cafe cafe);
+
 
 }
