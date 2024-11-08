@@ -43,13 +43,15 @@
 	  });
 </script>
 
-<div class="bg-light mb-3" style="border-top: 1px solid #6f4e37">
-	<div class="d-flex justify-content-center">
+<div class="bg-light mt-3" style="border-top: 1px solid #6f4e37">
+	<div class="d-flex justify-content-start">
+		<pre>
 		제휴정보 : 487-86-00763
 		고객센터 : 1577-1577
 		주소 : 서울특별시 강남구 테헤란로 130 호산빌딩 5F, 6F
 		번호 : 1577-1577
 		Copyright © JavaJourney. All right Reserved. Created By 커피타조.
+		</pre>
 	</div>
 </div>
 
