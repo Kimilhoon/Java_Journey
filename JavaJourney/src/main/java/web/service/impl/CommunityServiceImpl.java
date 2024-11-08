@@ -1,5 +1,6 @@
 package web.service.impl;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +24,9 @@ import web.util.Paging;
 @Slf4j
 public class CommunityServiceImpl implements CommunityService {
 	
-	@Autowired
-	private CommunityDao dao;
+	@Autowired private CommunityDao dao;
 	
+
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
 	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
@@ -93,6 +94,11 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	@Override
 	public void dropFreeBoard(FreeBoard freeBoard) {
+		
+		List<FreeBoardComment> cList = dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
+		for(FreeBoardComment c:cList) {
+			dao.deleteFreeBoardCommentByFreeBoardCommentNo(c);
+		}
 		dao.deleteFreeBoardByFreeBoardNo(freeBoard);
 	}
 	@Override
@@ -129,6 +135,11 @@ public class CommunityServiceImpl implements CommunityService {
 			freeBoard.setFreeBoardCategory("원두");
 			
 		}
+		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null) {
+			freeBoard.setFreeBoardMapX("37.68023654904071");
+			freeBoard.setFreeBoardMapY("127.27331371310157");
+		}
+		
 		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
 		freeBoard.setUserNick(member.getUserNick());
 		freeBoard.setUserNo(member.getUserNo());
@@ -186,6 +197,8 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
+		log.info("param : {}", param);
+		
 		List<CafeRev> list = dao.selectCafeReview(param);
 		
 		return list;
@@ -241,7 +254,49 @@ public class CommunityServiceImpl implements CommunityService {
 		int res = dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
-	
+	@Override
+	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search) {
+		
+		//수정해야댐
+		
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		
+		if(category == null || "".equals(category)||"all".equals(category)) {
+			category = "N";
+		}else if(category.equals("서울")) {
+			category="서울";
+		}else if(category.equals("경기")) {
+			category="경기";
+		}else if(category.equals("인천")) {
+			category="인천";
+		}else if(category.equals("부산")) {
+			category="부산";
+		}else if(category.equals("제주")) {
+			category="제주";
+		}
+		
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		map.put("category", category);
+
+		int totalCnt = dao.getCafeReviewTotalCnt(map);
+		
+//		log.info("totalCNT{}",totalCnt);
+		
+//		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
+
+		log.info("paging : {}", paging);
+		
+		return paging;
+		
+	}
 	
 }
 

@@ -5,26 +5,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<c:import url="../../layout/header.jsp" />
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<style>
+<script>
 
 
-</style>
 
-</head>
-<body>
+</script>
 
 <h1>카페리뷰상세보기</h1>
 <br>
@@ -56,19 +43,62 @@
 <div id="bottom">
 	<i class="bi bi-share"></i>
 	
-	<c:if test="true">
-		<span><a href="./update?revNo=">수정</a></span>
-		<span><a href="./delete?revNo=">삭제</a></span>
+	<c:if test="${userId eq writerId }">
+		<span><a href="./update?revNo=${cafeRev.revNo }">수정</a></span>
+		<span><a href="./delete?revNo=${cafeRev.revNo }">삭제</a></span>
 	</c:if>
 
-<a href="./list"><button>목록</button></a>
-<a href="./view?revNo="><button>이전</button></a>
-<a href="./view?revNo="><button>다음</button></a>
 </div>
 
 
-</body>
-</html>
+
+<div id="comment">
+
+<table>
+
+<%-- <c:forEach var="comm" items="${crevcommList }"> --%>
+
+<tr>
+	<td>유저닉네임</td>
+	<td>작성일</td>
+</tr>
+<tr>
+	<td>댓글내용</td>
+</tr>	
+
+<%-- </c:forEach> --%>
+
+</table>
+
+<form action="./view" method="post">
+
+<label>
+<input type="text" name="comment">
+</label>
+<button class="btn btn-primary">댓글작성</button>
+
+
+</form>
+
+</div>
+
+<a href="./list"><button class="btn btn-light">목록</button></a>
+
+<a href="./view?revNo=${cafeRev.revNo - 1}"><button class="btn btn-light">이전</button></a>
+<a href="./view?revNo=${cafeRev.revNo + 1}"><button class="btn btn-light">다음</button></a>
+
+</div> <!-- content -->
+
+
+
+
+
+
+
+
+
+<c:import url="../../layout/footer.jsp" />
+
 
 
 

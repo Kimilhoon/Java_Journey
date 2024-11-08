@@ -1,5 +1,6 @@
 package web.dto;
 
+
 import lombok.Data;
 
 @Data
@@ -13,5 +14,8 @@ public class Bean {
 	private String beanInfo;
 	private int beanPrice;
 	private int businessNo;	
+	private String beanStoredName;
+	
+    private String beanOriginName;
 	
 }

@@ -54,5 +54,13 @@ public class BeanServiceImpl implements BeanService {
 		return dao.selectAll(paging);
 		
 	} // getAllBean() end
+
+
+	@Override
+	public Bean getBeanInfo(Bean param) {
+		
+		return dao.selectByBeanNo(param);
+		
+	} // getBeanInfo(Bean param) end
 	
 } // class end

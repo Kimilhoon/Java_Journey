@@ -10,7 +10,40 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+<!-- 본인인증 -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
 <script type="text/javascript">
+
+// IMP.init("{imp77683350}"); //고객사 식별코드
+// //IMP.certification(param, callback) 호출
+// IMP.certification(
+//   {
+//     // param
+//     channelKey: "channel-key-9937917d-f104-4bb7-822d-9681d7bb33c5",
+//     // 주문 번호
+//     merchant_uid: "ORD20180131-0000011",
+//     // 모바일환경에서 popup:false(기본값) 인 경우 필수
+//     m_redirect_url: "http://localhost:8088/member/join",
+//     // PC환경에서는 popup 파라미터가 무시되고 항상 true 로 적용됨
+//     popup: false,
+//   },
+//   function (rsp) {
+//     // callback
+//     if (rsp.success) {
+//         // 인증 성공 시 jQuery로 HTTP 요청
+//         jQuery.ajax({
+//           url: "./join",
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           data: { imp_uid: rsp.imp_uid },
+//         });
+//       } else {
+//         alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+//       }
+//     },
+//   );
+
 var idValidation = false; //형식 체크
 var pwValidation = false; 
 var nickValidation = false; 
@@ -114,10 +147,14 @@ $(function() {
 			return false;
 		}
 		
-		if( !userPw.value) {
-			alert("비밀번호를 입력하세요");
-			return false;
-		}
+// 		if( !userPw.value) {
+// 			alert("비밀번호를 입력하세요");
+// 			return false;
+// 		}
+// 		if( !userPwCheck.value) {
+// 			alert("비밀번호 확인을 입력하세요");
+// 			return false;
+// 		}
 		
 		if( !userNick.value ) {
 			alert("닉네임을 입력하세요");
@@ -160,6 +197,8 @@ $(function() {
 			alert("상세주소를 입력하세요");
 			return false;
 		}
+		
+// 		return true;
 		
 	}) //$("#joinForm form") end
 	
@@ -331,7 +370,7 @@ $(function() {
 
 <div>
 	<label for="userEmail">이메일
-		<input type="text" name="userEmail" id="userEmail" required="required">
+		<input type="email" name="userEmail" id="userEmail" required="required">
 	</label>
 </div>
 
@@ -370,6 +409,11 @@ $(function() {
 	<label for="businessNo">사업자 등록번호
 		<input type="text" name="businessNo" id="businessNo">
 	</label>
+</div>
+
+
+<div>
+	<input type="checkbox" name="check1" id="check1">
 </div>
 
 

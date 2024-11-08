@@ -1,5 +1,6 @@
 package web.controller;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import web.dto.Member;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
+
 @Controller
 @RequestMapping("/comm")
 @Slf4j
@@ -33,6 +35,7 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService service;
+
 	
 	//--------------------------------------------------------------------------------------
 		//동쥬니
@@ -145,15 +148,23 @@ public class CommunityController {
 				e.printStackTrace();
 			}
 		}
+		
+		
+		
+		
+		
 	
 	//--------------------------------------------------------------------------------------
 	//이루니
 	
 	@GetMapping("/creview/list")
-	public void cafeReviewForm(Model model, String category, String order, String search, Paging paging) {
+	public void cafeReviewForm(Model model, String category, String order, String search, Paging curPage) {
+		
+		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
 		
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("creviewList", creviewList);
 		
 	}
@@ -164,6 +175,8 @@ public class CommunityController {
 		//댓글 리스트
 		List<CafeRevComm> crevcommList = service.getCafeReviewCommentList(revNo);
 		
+//		log.info("revNo: {}", revNo);
+		
 		//카페 상세 정보
 		CafeRev cafeRev = service.getCafeReviewInfo(revNo);
 		
@@ -173,10 +186,17 @@ public class CommunityController {
 		//작성한 유저id
 		String writerId = service.getWriterId(cafeRev);
 		
+//		log.info("cafeRev: {}", cafeRev);
+		
 		model.addAttribute("crevcommList", crevcommList);
 		model.addAttribute("cafeRev", cafeRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);
+		
+	}
+	
+	@RequestMapping("/creview/comm")
+	public void cafeReviewComm(CafeRevComm comm, HttpSession session) {
 		
 	}
 	
@@ -186,6 +206,7 @@ public class CommunityController {
 		String cafeName = service.getCafeName(cafeNo);
 		
 		model.addAttribute("cafeName", cafeName);
+		model.addAttribute("cafeNo", cafeNo);
 		
 	}
 	
@@ -217,15 +238,14 @@ public class CommunityController {
 	
 	@PostMapping("/creview/update")
 	public String cafeReviewUpdateProc(CafeRev cafeRev) {
-		
+		log.info("dddd{}",cafeRev);
 		service.changeCafeReview(cafeRev);
 		
-		return "./view?revNo=" + cafeRev.getRevNo();
+		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
-	
+
 	
 }
-
 
 
 

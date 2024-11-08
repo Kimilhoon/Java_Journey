@@ -12,9 +12,9 @@ import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
 
+
 @Mapper
 public interface CommunityDao {
-
 	/**
 	 * db에 저장된 카페 리뷰 리스트 불러오기
 	 * 
@@ -85,6 +85,15 @@ public interface CommunityDao {
 	 * @return 업데이트 수행 결과
 	 */
 	public int updateCafeReviewByCafeNo(CafeRev cafeRev);
+	
+	/**
+	 * 카테고리와 검색어로 필터링된 카페리뷰의 수
+	 * 
+	 * @param map - 카테고리, 검색어 정보를 담은 객체
+	 * @return 필터링된 리뷰 갯수
+	 */
+	public int getCafeReviewTotalCnt(HashMap<String, String> map);
+
 
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -208,6 +217,7 @@ public interface CommunityDao {
 	 */
 	public int getFreeBoardRecCountByFreeBoardNo(FreeBoard freeBoard);
 	//자유게시판--------------------------------------------------------------------------------------
+
 
 
 

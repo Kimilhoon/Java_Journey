@@ -7,7 +7,6 @@
 	
 	<!-- DB접속 정보 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	 
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe "/>
 		<property name="username" value="coffee" />
@@ -70,7 +69,7 @@
 	<!-- 	-> Mapper XML의 namespace속성에서 사용한 인터페이스 위치 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 <!-- 		<property name="basePackage" value="dept.dao, login.dao" /> -->
-		<property name="basePackage" value="*.dao.face" />
+		<property name="basePackage" value="*.dao.face, *.*.dao" />
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
