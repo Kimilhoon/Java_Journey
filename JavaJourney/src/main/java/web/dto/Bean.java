@@ -1,6 +1,5 @@
 package web.dto;
 
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -15,5 +14,8 @@ public class Bean {
 	private String beanInfo;
 	private int beanPrice;
 	private int businessNo;	
+	private String beanStoredName;
+	
+    private String beanOriginName;
 	
 }

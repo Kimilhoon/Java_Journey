@@ -2,12 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CreateBeanDao">
-	<select id="selectAllimg" parameterType="BeanImg">
-		select beanimgno, beanoriginname
-		, beanstoredname, beanimgsize
-		from beanimg
-		order by beanimgno
+
+	<insert id="insertBeanImg" parameterType="BeanImg">
+		<selectKey order="BEFORE" keyProperty="beanImgNo" resultType="int">
+			select beanImg_seq.nextval from dual
+		</selectKey>
+		INSERT INTO beanImg(BEANIMGNO, BEANORIGINNAME)
+		VALUES(#{beanImgNo}, #{beanOriginName})
+	</insert>
+	
+	<select id="selectByLatest" resultType="int">
+		SELECT * from(
+		SELECT beanimgno FROM beanimg
+		ORDER BY beanimgno DESC
+			)WHERE rownum = 1
 	</select>
+	
 	<insert id="insertBeanData" parameterType="Bean">
 		<selectKey order="BEFORE" keyProperty="beanNo" resultType="int">
 			select bean_seq.nextval from dual
@@ -17,4 +27,28 @@
 		VALUES(#{beanNo}, #{beanImgNo}, #{beanName}, #{origin}, #{beanComm}
 		, #{beanInfo}, #{beanPrice}, #{businessNo})
 	</insert>
+	
+<!-- 	<update id="updateBeanData" parameterType="Bean"> -->
+<!-- 		UPDATE BEAN -->
+<!-- 		<set> -->
+<!-- 			BEANIMGNO = #{beanImgNo}, -->
+<!-- 			BEANNAME = #{beanName}, -->
+<!--  			ORIGIN = #{origin}, -->
+<!--  			BEANCOMM = #{beanComm}, -->
+<!--  			BEANINFO = #{beanInfo}, -->
+<!--  			BEANPRICE = #{beanPrice}, -->
+<!--  			BUSINESSNO = #{businessNo} -->
+<!-- 		</set> -->
+<!-- 		<where> -->
+<!-- 			BEANNO = #{beanNo} -->
+<!-- 		</where> -->
+<!-- 	</update> -->
+	
+<!-- 	<delete id="deleteByBeanNo" > -->
+<!-- 		DELETE TABLE BEAN -->
+<!-- 		<where> -->
+<!-- 			BEANNO = #{beanNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
+	
 </mapper>

@@ -79,9 +79,9 @@ $(function() {
 	<button id="btnLogin" class="btn btn-primary">로그인</button>
 </div>
 
-
-
 </form>
+
+
 
 </body>
 </html>

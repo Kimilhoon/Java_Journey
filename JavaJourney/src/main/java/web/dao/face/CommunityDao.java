@@ -87,6 +87,15 @@ public interface CommunityDao {
 	 * @return 업데이트 수행 결과
 	 */
 	public int updateCafeReviewByCafeNo(CafeRev cafeRev);
+	
+	/**
+	 * 카테고리와 검색어로 필터링된 카페리뷰의 수
+	 * 
+	 * @param map - 카테고리, 검색어 정보를 담은 객체
+	 * @return 필터링된 리뷰 갯수
+	 */
+	public int getCafeReviewTotalCnt(HashMap<String, String> map);
+
 
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -227,6 +236,7 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public List<Notice> selectNoticeListAll(HashMap<String, Object> map);
+
 
 
 
