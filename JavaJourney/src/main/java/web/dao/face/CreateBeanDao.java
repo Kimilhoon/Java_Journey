@@ -4,6 +4,7 @@ import java.util.List;
 
 import web.dto.Bean;
 import web.dto.BeanImg;
+import web.dto.CupNote;
 
 public interface CreateBeanDao {
 	
@@ -21,6 +22,12 @@ public interface CreateBeanDao {
 	public int selectByLatest();
 	
 	/**
+	 * cupNoteName를 DB에 삽입한다
+	 * @param cupNote
+	 */
+	public void insertCupNoteName(CupNote cupNote);
+	
+	/**
 	 * DTO에 담긴 Bean, DB에 삽입하기
 	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
 	 * @return 
@@ -35,10 +42,34 @@ public interface CreateBeanDao {
 	public Bean updateBeanData(Bean bean);
 	
 	/**
+	 * 수정데이터를 넘겨받아 이미지 DB 수정(PK번호는 그대로 유지)
+	 * @param beanImg
+	 */
+	public void updateBeanImg(BeanImg beanImg);
+	
+	/**
+	 * 수정데이터를 넘겨받아 이미지 DB 수정(PK번호는 그대로 유지)
+	 * @param cupNote
+	 */
+	public void updateCupNoteName(CupNote cupNote);
+	
+	/**
 	 * 넘겨받은 beanNo를 DB에 조건절로 주어서 행(데이터) 삭제
 	 * @param beanNo
 	 */
 	public void deleteByBeanNo(int beanNo);
+	
+	/**
+	 * 넘겨받은 beanImg를 DB에 조건절로 주어서 행(데이터) 삭제
+	 * @param beanImg
+	 */
+	public void deleteByBeanImgNo(int beanImg);
+	
+	/**
+	 * 넘겨받은 cupNoteNo를 DB에 조건절로 주어서 행(데이터) 삭제
+	 * @param cupNoteNo
+	 */
+	public void deleteByCupNoteNo(int cupNoteNo);
 
 	
 
