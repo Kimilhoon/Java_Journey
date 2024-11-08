@@ -70,10 +70,10 @@
 
 </table>
 
-<form action="./view" method="post">
+<form action="./comm?revNo=${cafeRev.revNo }" method="post">
 
 <label>
-<input type="text" name="comment">
+<input type="text" name="comm">
 </label>
 <button class="btn btn-primary">댓글작성</button>
 
