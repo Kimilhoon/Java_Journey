@@ -58,11 +58,13 @@
 	
 	<select id="selectCafeReviewCommentListByCafeReviewNo" resultType="CafeRevComm" parameterType="CafeRev">
 	
-		SELECT * FROM caferevcomm
+		SELECT caferevcommno, revno, c.userno, cafecommcont , cafecommtag , cafecommdate, usernick
+		FROM caferevcomm c
+		JOIN MEMBER m ON c.userno = m.userno
 		<where>
 			AND revNo = #{revNo }
 		</where>
-		ORDER BY caferevcommno desc
+		ORDER BY caferevcommno
 		
 	</select>
 	
@@ -296,6 +298,41 @@
 	<insert id="insertCafeReviewComm" parameterType="CafeRevComm">
 		INSERT INTO caferevcomm
 		VALUES ( cafeRevCommNo_seq.nextval, #{revNo }, #{userNo }, #{cafeCommCont }, null, sysdate )
+	</insert>
+	
+	<select id="getMyRecipeTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM myrecipe
+		<where>
+			<if test='search != "N" '>
+				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectMyRecipeListAll" parameterType="hashmap" resultType="MyRecipe">
+		SELECT MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO
+		FROM (
+			SELECT rownum r,a.* FROM(
+				SELECT * FROM MYRECIPE
+				WHERE upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
+				ORDER BY MYRIPNO DESC
+				)a
+			)
+		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<select id="selectMemberByUserNo" parameterType="int" resultType="Member">
+		SELECT * FROM MEMBER
+		WHERE userno = #{userNo}
+	</select>
+	
+	<select id="getMyRecipeNextVal" resultType="int">
+		SELECT myrecipe_seq.nextval as a from dual
+	</select>
+	
+	<insert id="insertMyRecipe" parameterType="MyRecipe">
+		INSERT INTO myrecipe (MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO)
+		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{mtRipContent},0,sysdate,#{myRipImgNo})
 	</insert>
 	
 </mapper>

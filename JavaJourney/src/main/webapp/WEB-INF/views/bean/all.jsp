@@ -65,7 +65,7 @@ $(function() {
       </a>
          <p>${bean.beanName}</p>
          <p>${bean.origin}</p>
-         <p>${bean.beanComm}</p>
+         <p>맛이요 | ${bean.cupNoteName}</p>
       </td>
    
       <c:if test="${status.index % 4 == 3 || status.last}">

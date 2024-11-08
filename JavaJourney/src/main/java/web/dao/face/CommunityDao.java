@@ -12,6 +12,7 @@ import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.MyRecipe;
 import web.dto.Notice;
 import web.util.Paging;
 
@@ -276,6 +277,39 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public Notice selectNoticeBtNoticeNo(Notice notice);
+	//나만의레시피 ------------------------------------------------------------------------------------------------
+	/**
+	 * 나만의 레시피 검색조건에 따른 글 수
+	 * @param map - 검색어
+	 * @return
+	 */
+	public int getMyRecipeTotalCnt(HashMap<String, String> map);
+	
+	/**
+	 * 검색조건에 따른 나만의 레시피 목록
+	 * @param map - 페이징, 검색어 있음
+	 * @return
+	 */
+	public List<MyRecipe> selectMyRecipeListAll(HashMap<String, Object> map);
+	
+	/**
+	 * 유저넘버로 멤버 객체 얻기
+	 * @param userNo
+	 * @return
+	 */
+	public Member selectMemberByUserNo(int userNo);
+	
+	/**
+	 * 나만의 레시피 번호 
+	 * @return - 나만의 레시피 시퀀스 값
+	 */
+	public int getMyRecipeNextVal();
+	
+	/**
+	 * 나만의 레시피 글 작성
+	 * @param myRecipe
+	 */
+	public void insertMyRecipe(MyRecipe myRecipe);
 
 
 

@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -24,6 +26,7 @@ import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.MyRecipe;
 import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
@@ -150,7 +153,7 @@ public class CommunityController {
 			}
 		}
 		
-		
+		// 공지사항 --------------------------------------------------------------------------
 		@GetMapping("/notice/list")
 		public void noticeList(Model model,Paging curPage,String search) {
 			Paging paging = service.getNoticePaging(curPage,search);
@@ -168,12 +171,39 @@ public class CommunityController {
 			model.addAttribute("notice",notice);
 			
 		}
-		
+		// FAQ --------------------------------------------------------------------------
 		@GetMapping("/faq/list")
 		public void fatList() {}
 		
+		// 나만의 레시피 --------------------------------------------------------------------------
+		
+		@GetMapping("/myrecipe/list")
+		public void myrecipe(Paging curPage, String search,Model model) {
+			Paging paging = service.getMyRecipePaging(curPage,search);
+			List<MyRecipe> myRecipeList = service.getMyRecipeList(paging,search);
+			model.addAttribute("myRecipeList", myRecipeList);
+			model.addAttribute("paging", paging);
+			model.addAttribute("search", search);
+			
+		}
+		
+		@GetMapping("myrecipe/write")
+		public void myRecipeForm(MyRecipe myRecipe) {}
+		
+		@PostMapping("myrecipe/write")
+		public String writeProc(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
+			log.info("{}",myRecipe);
+			log.info("{}",file.getOriginalFilename());
+//			service.uploadMyRecipe(session,myRecipe,file);
+			
+			return"redirect:./list";
+		}
 		
 	
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------
 	//이루니
 	
@@ -216,7 +246,6 @@ public class CommunityController {
 		} else {
 			model.addAttribute("isOwner", false);
 		}
-//		log.info("cafeRev: {}", cafeRev);
 		
 //		String commId = service.getCafeReviewCommentId();
 		

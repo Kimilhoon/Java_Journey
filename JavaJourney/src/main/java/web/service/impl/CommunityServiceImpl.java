@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
@@ -18,6 +19,7 @@ import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.MyRecipe;
 import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
@@ -200,7 +202,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("search", search);
-
+ 
 		int totalCnt = dao.getNoticeTotalCnt(map);
 		
 		log.info("totalCNT{}",totalCnt);
@@ -228,7 +230,67 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectNoticeBtNoticeNo(notice);
 	}
 	
+	//나만의 레시피 ------------------------------------------------------------------------------------
+	@Override
+	public Paging getMyRecipePaging(Paging curPage, String search) {
+		
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+
+		int totalCnt = dao.getMyRecipeTotalCnt(map);
+		
+		log.info("totalCNT{}",totalCnt);
+		
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+		
+		return paging;
+	}
 	
+	@Override
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<MyRecipe> myRecipeList = dao.selectMyRecipeListAll(map);
+		for(MyRecipe mr : myRecipeList) {
+			mr.setUserNick( (dao.selectMemberByUserNo(mr.getUserNo())).getUserNick() );
+		}
+		
+		
+		return myRecipeList;
+	}
+	
+	
+	@Override
+	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		myRecipe.setMyRipNo(dao.getMyRecipeNextVal());
+		myRecipe.setUserNo(member.getUserNo());
+		myRecipe.setUserNick(member.getUserNick());
+		if(myRecipe.getMyRipImgNo()==0) {
+			myRecipe.setMyRipImgNo(1);
+		}
+		dao.insertMyRecipe(myRecipe);
+		
+		if(file.isEmpty() || file.getSize()<=0) {
+			log.info("파일 이상");
+			return;
+		}
+		
+	}
+	
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
 	//=================== 이루니 ===================
 	@Override
 	public List<CafeRev> getCafeReviewList(String category, String order, String search, Paging paging) {
@@ -363,7 +425,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
-	
+
 }
 
 

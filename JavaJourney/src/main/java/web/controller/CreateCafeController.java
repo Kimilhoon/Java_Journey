@@ -25,18 +25,21 @@ public class CreateCafeController {
 	public void write() {}
 	
 	@PostMapping("/cafe")
-	public String writeProc(Cafe cafe) {
-		service.insertCafe(cafe);
+	public String writeProc(Cafe cafe, CafeImg cafeImg) {
+		log.info("cafe:{}", cafe);
+		log.info("cafeImg:{}", cafeImg);
 		
-		return "redirect:/manager/menu";
+		service.insertCafe(cafe, cafeImg);
+		
+		return "redirect:/cafe/all";
 	}
 	
-	@GetMapping("/selectCafeImg")
-	public void selectCafeImg(CafeImg cafeImg, Model model) {
-		List<CafeImg> imgList = service.selectAllImg();
-		
-		model.addAttribute("imgList", imgList);
-	}
+//	@GetMapping("/selectCafeImg")
+//	public void selectCafeImg(CafeImg cafeImg, Model model) {
+//		List<CafeImg> imgList = service.selectAllImg();
+//		
+//		model.addAttribute("imgList", imgList);
+//	}
 	
 	@GetMapping("/cafeUpdate")
 	public void update() {}

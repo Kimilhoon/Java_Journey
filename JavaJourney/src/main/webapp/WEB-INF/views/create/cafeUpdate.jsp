@@ -13,7 +13,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3f3cd365ec1ac0081d50ddb6e680b49d&libraries=services"></script>
-<!-- 썸머노트 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
  
@@ -33,9 +32,7 @@ $(function() {
     marker.setMap(map);
 
     // 우편번호 찾기 버튼 클릭
-    $("#btnPostcode").click(function(e) {
-    	e.preventDefault();
-    	
+    $("#btnPostcode").click(function() {
         // 우편번호 찾기창 초기화
         $("#postCode").val("");
         $("#cafeAdd1").val("");
@@ -71,17 +68,10 @@ $(function() {
         }).open(); //팝업창 열기 위한 open
     }); //$("#btnPostcode") end
     
-    $('#cafeImgOriName').summernote({ //섬머노트 설정
+    $('#cafeInfo').summernote({ //섬머노트 설정
     	width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
-        ]
-    }); // $('#cafeInfo') end
-    
-    $('#cafeInfo').summernote({ 
-    	width: 500, height: 200 
-        , toolbar: [
-            ['insert', ['picture']] 
         ]
     }); // $('#cafeInfo') end
     
@@ -89,7 +79,7 @@ $(function() {
 		location.href="/manager/menu";
 	}) //$("#btnManagerMenu") end
 	
-	$("#btnWrite").click(function() {
+	$("#btnUpdate").click(function() {
 		$(this).parents("form").submit();
 	});
     
@@ -153,10 +143,8 @@ $(function() {
 		<td><input type="text" id="busyTime" name="busyTime"  placeholder="예: 월-금 09:00 - 18:00"></td>		
 	</tr>	
 	<tr>
-		<td>카페 메인사진[이미지]]</td>
-		<td><textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
-		rows="4" cols="4"></textarea>
-		</td>		
+		<td>카페사진 첨부파일</td>
+		<td><input type="text" id="imgNo" name="imgNo"></td>		
 
 	</tr>
 	<tr>
@@ -173,10 +161,10 @@ $(function() {
    </td>
 	</tr>
 	<tr>
-		<td>카페 상세설명[이미지]</td>
+		<td>카페 상세설명</td>
 		<td>
 		<textarea id="cafeInfo" name="cafeInfo" class="form-control"
-		rows="4" cols="4"></textarea>
+		rows="4" cols="2"></textarea>
 		</td>		
 	</tr>
 	<tr>
@@ -186,24 +174,12 @@ $(function() {
 		<div id="postcodeWrap"> <!-- 우편닫기버튼기능 -->
 			<img alt="x" src="../resources/img/close.png" class="closeIcon">
 		</div>
-		<input type="text" id="postCode" name="postCode" placeholder="우편번호" readonly="readonly"><br>
-		<input type="text" id="cafeAdd1" name="cafeAdd1" placeholder="주소" readonly="readonly"><br>
-		<input type="text" id="cafeAdd2" name="cafeAdd2" placeholder="상세주소"><br>
+		<input type="text" id="postCode" placeholder="우편번호" readonly="readonly"><br>
+		<input type="text" id="cafeAdd1" placeholder="주소" readonly="readonly"><br>
+		<input type="text" id="cafeAdd2" placeholder="상세주소"><br>
 		</td>
 	</tr>
 
-
-<!-- 	<tr> -->
-<!-- 		<td>사장 아이디</td> -->
-<!-- 		<td> -->
-<!-- 			<input type="text" id="cafeId" name="cafeId"> -->
-<!-- 			<button id="idCheck" type="button">중복확인</button> -->
-<!-- 		</td>		 -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>사장 비밀번호</td> -->
-<!-- 		<td><input type="text" id="cafePw" name="cafePw"></td>		 -->
-<!-- 	</tr> -->
 
 </table>
 
@@ -211,7 +187,7 @@ $(function() {
 <div id="map" style="width:500px; height:400px;"></div>
 
 
-<button id="btnWrite">등록</button>
+<button id="btnUpdate">수정</button>
 
 </form>
 </div>
