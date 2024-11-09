@@ -47,11 +47,11 @@ $(function() {
 	})
 	
 	$("#btnUpdate").click(function() {
-		location.href="/create/update?beanNo=${ beanInfo.beanNo }&&beanImgNo=${beanInfo.beanImgNo}";
+		location.href="/create/beanupdate?beanNo=${beanInfo.beanNo}";
 	})
 	
 	$("#btnDelete").click(function() {
-		location.href="/create/delete?beanNo=${ beanInfo.beanNo }";
+		location.href="/create/beandelete?beanNo=${beanInfo.beanNo}";
 	})
 	
 /* -------------------------------------------------------------------------------------------------------------- */
