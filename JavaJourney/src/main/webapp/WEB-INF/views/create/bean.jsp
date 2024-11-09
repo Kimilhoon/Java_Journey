@@ -34,6 +34,22 @@ $(function () {
         window.open("/create/selectimage", "popupWindow"
         		, "width=900,height=600");
 	})
+	
+	$("#beanName").on("input", function() {
+		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
+	})
+
+	$("#origin").on("input", function() {
+		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
+	})
+
+	$("#beanPrice").on("input", function() {
+		$(this).val($(this).val().replace(/[A-Za-z가-힣!@#$%^&*()]/g, ''));
+	})
+
+	$("#businessNo").on("input", function() {
+		$(this).val($(this).val().replace(/[^0-9-]/g, ''));
+	})
     
 	$("#form").submit(function(e) {
 	    e.preventDefault();  // 폼이 실제로 전송되는 것을 방지하고
@@ -60,17 +76,17 @@ $(function () {
 <form id="form" action="./bean" method="post" enctype="multipart/form-data">
 	<table class="table table-info">
 		<tr>
-			<td>
+			<td class="mx-3">
 			원두이름
+			<input type="text" maxlength="10" id="beanName" name="beanName">
 			</td>
-			<td>
-			<input type="text" id="beanName" name="beanName">
-			원두금액
-			<input type="text" id="beanPrice" name="beanPrice">
+			<td class="mx-3">
 			원두원산지
-			<input type="text" id="origin" name="origin">
+			<input class="mx-3" type="text" maxlength="10" id="origin" name="origin">
+			원두금액
+			<input class="mx-3" type="number" min="1" max="100000" id="beanPrice" name="beanPrice">
 			사업자번호
-			<input type="text" id="businessNo" name="businessNo">
+			<input class="mx-3" type="text" id="businessNo" name="businessNo">
 			</td> 
 		</tr>
 		<tr>

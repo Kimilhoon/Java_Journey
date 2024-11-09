@@ -20,6 +20,19 @@ public class MypageController {
 	@Autowired
 	private MypageService service;
 	
+	//----------------------------------------------------------------------------
+	//jinjaeyoung
+	@GetMapping("/quizres")
+	public void quizresForm() {}
+	
+	@GetMapping("/subscribe")
+	public void subscribeForm() {}
+	
+	@GetMapping("/cancelsub")
+	public void cancelsubForm() {}
+	
+	@GetMapping("/like")
+	public void likeForm() {}
 	
 	
 	
@@ -50,9 +63,8 @@ public class MypageController {
 	
 	
 	
-	
-	
-	
+	//----------------------------------------------------------------------------
+
 	
 	
 	
