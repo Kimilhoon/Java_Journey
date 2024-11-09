@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,44 +32,45 @@ public class CreateBeanController {
 			Bean bean,
 			@RequestParam("cupNoteName") List<Integer> cupNotes
 			) {
-		log.info("insertbena : {}", bean);
-		log.info("insertbenaImg : {}", beanImg);
+		log.info("insertbean : {}", bean);
+		log.info("insertbeanImg : {}", beanImg);
 		log.info("insertcupNote : {}", cupNotes);
 		
 		service.insertBean(beanImg, bean, cupNotes);
 		return "redirect:/bean/all";
 	}
 	
-	@GetMapping("/update")
-	public void beanUpdateForm() {}
-
-	@PostMapping("/update")
-	public String beanUpdateProc(
-			BeanImg beanImg,
+	@GetMapping("/beanupdate")
+	public void beanUpdateForm(
 			Bean bean,
-			CupNote cupNote
+			Model model
 			) {
-		log.info("insertbena : {}", bean);
-		log.info("insertbenaImg : {}", beanImg);
-		log.info("insertcupNote : {}", cupNote);
+		log.info("benaNo : {}", bean.getBeanNo());
+		List<Bean> ListNo = service.selectBeanNo(bean.getBeanNo());
+		model.addAttribute("ListNo",ListNo);
+	}
+
+	@PostMapping("/beanupdate")
+	public String beanUpdateProc(
+			BeanImg BeanImg,
+			Bean bean,
+			@RequestParam("cupNoteName") List<Integer> cupNotes
+			) {
+		log.info("updateBeanImg : {}", BeanImg);
+		log.info("updatebena : {}", bean);
+		log.info("updatecupNote : {}", cupNotes);
 		
-		Bean updateBean = service.updateBean(beanImg, bean, cupNote);
-		log.info("updateBean-controller : {}", updateBean);
+		service.updateBean(BeanImg, bean, cupNotes);
 		
-		return "redirect:/bean/info?=" + updateBean.getBeanNo();
+		return "redirect:/bean/info?beanNo=" + bean.getBeanNo();
 	}
 	
-	@RequestMapping("/delete")
+	@GetMapping("/beandelete")
 	public String beanDeleteProc(
-			Bean bean,
-			BeanImg beanImg,
-			CupNote cupNote
+			Bean bean
 			) {
-		log.info("deleteBean : {}", bean.getBeanNo());
-		log.info("deleteBeanImg : {}", beanImg.getBeanImgNo());
-		log.info("deleteCupeNote : {}", cupNote.getCupNoteNo());
-		service.beanDelete(bean.getBeanNo()
-				, beanImg.getBeanImgNo(), cupNote.getCupNoteNo());
+		log.info("deleteBeanNo : {}", bean.getBeanNo());
+		service.beanDelete(bean.getBeanNo());
 		return "redirect:/bean/all";
 	}
 }

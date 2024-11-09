@@ -23,12 +23,6 @@ public interface CreateBeanDao {
 	public int selectByLatest();
 	
 	/**
-	 * cupNoteName를 DB에 삽입한다
-	 * @param cupNote
-	 */
-//	public void insertCupNoteName(CupNote cupNote);
-	
-	/**
 	 * DTO에 담긴 Bean, DB에 삽입하기
 	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
 	 * @return 
@@ -43,11 +37,11 @@ public interface CreateBeanDao {
 	public void insertBeanTaste(BeanTaste beanTaste);
 	
 	/**
-	 * DTO에 담긴 Bean, DB에 수정하기
-	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
-	 * @return 
+	 * BeanNo를 넘겨받아 DB에서 선택한 BeanNo와 BeanImgNo를 조회 및 반환
+	 * @param beanNo 
+	 * @return
 	 */
-	public Bean updateBeanData(Bean bean);
+	public List<Bean> selectByBeanNo(int beanNo);
 	
 	/**
 	 * 수정데이터를 넘겨받아 이미지 DB 수정(PK번호는 그대로 유지)
@@ -56,10 +50,18 @@ public interface CreateBeanDao {
 	public void updateBeanImg(BeanImg beanImg);
 	
 	/**
-	 * 수정데이터를 넘겨받아 이미지 DB 수정(PK번호는 그대로 유지)
-	 * @param cupNote
+	 * DTO에 담긴 Bean, DB에 수정하기
+	 * @param bean - beanName, origin, beanComm, beanPrice, businessNo
+	 * @return 
 	 */
-	public void updateCupNoteName(CupNote cupNote);
+	public void updateBeanData(Bean bean);
+	
+	/**
+	 * 원두의 수정된 맛을 update보다는
+	 * delete로 하여 다시 삽입해주는 방식으로 가기
+	 * @param beanNo
+	 */
+	public void deleteByBeanTasteNo(int beanNo);
 	
 	/**
 	 * 넘겨받은 beanNo를 DB에 조건절로 주어서 행(데이터) 삭제
@@ -72,15 +74,6 @@ public interface CreateBeanDao {
 	 * @param beanImg
 	 */
 	public void deleteByBeanImgNo(int beanImg);
-	
-	/**
-	 * 넘겨받은 cupNoteNo를 DB에 조건절로 주어서 행(데이터) 삭제
-	 * @param cupNoteNo
-	 */
-	public void deleteByCupNoteNo(int cupNoteNo);
-	
-
-	
 
 	
 	

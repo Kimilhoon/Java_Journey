@@ -31,11 +31,6 @@ public class CreateBeanServiceImpl implements CreateBeanService{
 
 		int selectedbeanImgNo = dao.selectByLatest();
 		log.info("selectedbeanImgNo : {}",selectedbeanImgNo);
-
-		
-		//삭제예정------------------------------------------
-//		dao.insertCupNoteName(cupNote);
-		//삭제예정------------------------------------------
 		
 		bean.setBeanImgNo(selectedbeanImgNo);
 		log.info("bean : {}",bean);
@@ -59,26 +54,43 @@ public class CreateBeanServiceImpl implements CreateBeanService{
 		}
 		
 	}
-
+	
 	@Override
-	public Bean updateBean(BeanImg beanImg, Bean bean, CupNote cupNote) {
-		log.info("updateBeanImg: {}",beanImg);
+	public List<Bean> selectBeanNo(int beanNo) {
+		return dao.selectByBeanNo(beanNo);
+	}
+	
+	@Override
+	public void updateBean(BeanImg beanImg, Bean bean, List<Integer> cupNote) {
+		log.info("beanImg : {}", beanImg);
 		dao.updateBeanImg(beanImg);
 		
-		log.info("updateCupNoteName : {}",cupNote);
-		dao.updateCupNoteName(cupNote);
-
 		log.info("updatebean: {}",bean);
-		return dao.updateBeanData(bean);	
+		dao.updateBeanData(bean);	
+
+		BeanTaste beanTaste = new BeanTaste(); 
+		beanTaste.setBeanNo(bean.getBeanNo());
+		dao.deleteByBeanTasteNo(beanTaste.getBeanNo());
+		
+		for (Integer cupNoteName : cupNote) {
+			beanTaste.setCupNoteNo(cupNoteName);
+			log.info("for each [] beanTaste : {}",beanTaste);
+			dao.insertBeanTaste(beanTaste);
+		}
+
 	}
 
 	@Override
-	public void beanDelete(int beanNo, int beanImg, int cupNoteNo) {
-		log.info("No: {}", beanNo); log.info("No: {}", beanImg); log.info("No: {}", cupNoteNo);
+	public void beanDelete(int beanNo) {
+		BeanTaste beanTaste = new BeanTaste();
+		beanTaste.setBeanNo(beanNo);
+		dao.deleteByBeanTasteNo(beanTaste.getBeanNo());
+		
 		dao.deleteByBeanNo(beanNo);
-		dao.deleteByBeanImgNo(beanImg);
-		dao.deleteByCupNoteNo(cupNoteNo);
-		log.info("deletecupNoteNo: {}", cupNoteNo);
+		
+		BeanImg beanImg = new BeanImg();
+		beanImg.setBeanImgNo(beanNo);
+		dao.deleteByBeanImgNo(beanImg.getBeanImgNo());
 	}
 
 
