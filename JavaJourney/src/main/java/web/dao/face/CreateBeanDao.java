@@ -4,6 +4,7 @@ import java.util.List;
 
 import web.dto.Bean;
 import web.dto.BeanImg;
+import web.dto.BeanTaste;
 import web.dto.CupNote;
 
 public interface CreateBeanDao {
@@ -25,7 +26,7 @@ public interface CreateBeanDao {
 	 * cupNoteName를 DB에 삽입한다
 	 * @param cupNote
 	 */
-	public void insertCupNoteName(CupNote cupNote);
+//	public void insertCupNoteName(CupNote cupNote);
 	
 	/**
 	 * DTO에 담긴 Bean, DB에 삽입하기
@@ -33,6 +34,13 @@ public interface CreateBeanDao {
 	 * @return 
 	 */
 	public void insertBeanData(Bean bean);
+	
+	/**
+	 * beanNo와 cupNoteNo를 받아서 beanTaste DB에 삽입하기
+	 * cupNoteNo는 한번 반복
+	 * @param beanTaste
+	 */
+	public void insertBeanTaste(BeanTaste beanTaste);
 	
 	/**
 	 * DTO에 담긴 Bean, DB에 수정하기
@@ -70,6 +78,7 @@ public interface CreateBeanDao {
 	 * @param cupNoteNo
 	 */
 	public void deleteByCupNoteNo(int cupNoteNo);
+	
 
 	
 

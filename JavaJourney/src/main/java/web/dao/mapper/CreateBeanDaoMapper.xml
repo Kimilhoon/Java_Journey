@@ -18,13 +18,13 @@
 			)WHERE rownum = 1
 	</select>
 	
-	<insert id="insertCupNoteName" parameterType="CupNote">
-		<selectKey order="BEFORE" keyProperty="cupNoteNo" resultType="int">
-			select cupnote_seq.nextval from dual
-		</selectKey>
-		INSERT INTO CUPNOTE(CUPNOTENO, CUPNOTENAME)
-		VALUES(#{cupNoteNo}, #{cupNoteName})
-	</insert>
+<!-- 	<insert id="insertCupNoteName" parameterType="CupNote"> -->
+<!-- 		<selectKey order="BEFORE" keyProperty="cupNoteNo" resultType="int"> -->
+<!-- 			select cupnote_seq.nextval from dual -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT INTO CUPNOTE(CUPNOTENO, CUPNOTENAME) -->
+<!-- 		VALUES(#{cupNoteNo}, #{cupNoteName}) -->
+<!-- 	</insert> -->
 	
 	<insert id="insertBeanData" parameterType="Bean">
 		<selectKey order="BEFORE" keyProperty="beanNo" resultType="int">
@@ -34,6 +34,11 @@
 		, BEANCOMM, BEANINFO, BEANPRICE, BUSINESSNO)
 		VALUES(#{beanNo}, #{beanImgNo}, #{beanName}, #{origin}, #{beanComm}
 		, #{beanInfo}, #{beanPrice}, #{businessNo})
+	</insert>
+	
+	<insert id="insertBeanTaste" parameterType="BeanTaste">
+		INSERT INTO BEANTASTE(BEANNO, CUPNOTENO)
+		VALUES(#{beanNo}, #{cupNoteNo})
 	</insert>
 	
 	<update id="updateBeanImg" parameterType="BeanImg">
