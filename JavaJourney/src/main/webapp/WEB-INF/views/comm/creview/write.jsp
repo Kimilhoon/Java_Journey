@@ -20,12 +20,10 @@ $.ajax({
 
 </script>
 
-
-<a href="./list"><button>목록</button></a>
-
 <form action="./write" method="post">
 
-<div id="write-area">
+<div id="write-area" class="text-center">
+
 <table>
 
 <tr>
@@ -59,7 +57,6 @@ $.ajax({
 </label>
 </td>
 </tr>
-<br>
 
 </table>
 
@@ -68,6 +65,7 @@ $.ajax({
 
 </form>
 
+<a href="./list"><button class="btn btn-primary">목록</button></a>
 
 
 

@@ -105,7 +105,19 @@ $(function() {
 
 <c:forEach var="list" items="${creviewList }">
 	<tr>
-	<td class="col-1" scope="row">${list.revNo }</td>
+		<td class="col-1" scope="row">
+		
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" /> 
+			<fmt:formatDate value="${list.revDate }" pattern="yyyyMMdd" var="wDate" /> 
+			<c:if test="${nowDate eq wDate }">
+				<span style="color: #fff; background: #fedcba; border-radius: 5px;
+				font-size: 14px; box-shadow: 1px 1px 3px #ddd">
+				&nbsp;New&nbsp;</span>
+			</c:if>
+			
+			&nbsp;${list.revNo }
+		</td>
 	<td class="col-1">${list.cafeLoc }</td>
 	<td class="col-5">
 		<a href="./view?revNo=${list.revNo }">
