@@ -28,7 +28,11 @@ public class BeanController {
 	
 
 	@GetMapping("/all")
-	public void AllBeanForm(Paging param, Model model) {
+	public void AllBeanForm(Paging param, Model model, 
+			@RequestParam(required = false) String cupnote, 
+			@RequestParam(required = false) String keyword) {
+		log.info("cupnote: {}", cupnote);
+		log.info("keyword: {}", keyword);
 		
 		// 전달파라미터를 이용해서 현재 페이징 객체 알아내기
 		Paging paging = service.getPaging( param );
@@ -39,22 +43,11 @@ public class BeanController {
 		List<Bean> list = service.getAllBean( paging );
 
 		model.addAttribute("list", list);
+
 		
 	} // AllBeanForm() end
 	
 	
-	@PostMapping("/all")
-	public void AllBeanFormProc(
-			@RequestParam(required = false) String cupnote, 
-			@RequestParam(required = false) String keyword
-			) {
-		
-		log.info("param1: {}", cupnote);
-		log.info("param2: {}", keyword);
-		
-	} // AllBeanFormProc() end
-	
-
 	@GetMapping("/info")
 	public void BeanInfoForm(Bean param, Model model) {
 		log.info("param: {}", param);
