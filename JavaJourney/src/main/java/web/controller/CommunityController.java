@@ -2,6 +2,8 @@ package web.controller;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -214,8 +215,13 @@ public class CommunityController {
 		
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(date);
+		
 		model.addAttribute("paging", paging);
 		model.addAttribute("creviewList", creviewList);
+		model.addAttribute("today", today);
 		
 	}
 	
