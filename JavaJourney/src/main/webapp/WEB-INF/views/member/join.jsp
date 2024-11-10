@@ -3,13 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
+<!-- 카카오지도 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 본인인증 -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
@@ -47,6 +43,7 @@
 var idValidation = false; //형식 체크
 var pwValidation = false; 
 var nickValidation = false; 
+var emailValidation = false;
 
 var idCheck = false; //중복체크
 var idDuplicate = false; 
@@ -128,6 +125,21 @@ $(function() {
             $("#pwCheckResult").text("비밀번호가 일치하지 않습니다.");
         }
     }); //$("#userPwCheck") end
+    
+    // 이메일 형식 검사
+    $("#userEmail").on("change", function() {
+        var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        var resultEmail = regexEmail.exec($("#userEmail").val());
+
+        if (resultEmail != null) {
+            $("#emailValidation").hide();
+            emailValidation = true;
+        } else {
+            $("#emailValidation").show();
+            $("#userEmail").focus();
+            emailValidation = false;
+        }
+    }); // $("#userEmail") end
 	
 	
 	//------------------------------------------------------
@@ -173,6 +185,10 @@ $(function() {
 			alert("이메일을 입력하세요");
 			return false;
 		}
+        if (!emailValidation) {
+            alert("이메일 형식이 올바르지 않습니다");
+            return false;
+        }
 		if( !userName.value ) {
 			alert("이름을 입력하세요");
 			return false;
@@ -189,16 +205,16 @@ $(function() {
 			alert("주소를 입력하세요");
 			return false;
 		}
-		if( !userAdd1.value ) {
-			alert("주소를 입력하세요");
-			return false;
-		}
 		if( !userAdd2.value ) {
 			alert("상세주소를 입력하세요");
 			return false;
 		}
 		
-// 		return true;
+	    if (document.querySelectorAll('.terms-checkbox:checked').length < 2) {  // 필수 항목이 모두 체크되지 않으면
+	        alert("모든 필수 약관에 동의하셔야 합니다");
+	        return false;
+	    }
+		
 		
 	}) //$("#joinForm form") end
 	
@@ -319,11 +335,157 @@ $(function() {
 		nickCheck = false;
 	}) //$("#userNick") end
 	
+	
+	
+	
+	
+	$("#postcodeWrap").css({
+	    left: (innerWidth / 2) - (500 / 2),
+	    top: (innerHeight / 2) - (500 / 2)
+		
+	})
+	
+	$("#btnPostcode").click(function(e) {
+// 		console.log("#btnPostcode click");
+		e.preventDefault();
+		
+		//------------------------
+		
+		//입력창 초기화
+		$("#userPostcode").val("");
+		$("#userAdd1").val("");
+		$("#userAdd2").val("");
+		
+		//--------------------------
+		
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+				
+	        	//우편번호
+	        	console.log( data.zonecode );
+	        	$("#userPostcode").val( data.zonecode );
+	        	
+	        	//-----------------------------------
+	        	
+	        	//주소
+	        	console.log( data.roadAddress ); // 도로명
+	        	console.log( data.jibunAddress ); // 지번	        	
+	        	
+	        	console.log( data.userSelectedType	 ); // 사용자 선택        	
+	        	
+	        	//사용자의 선택에 따른 주소 입력
+	        	if( data.userSelectedType =='R') { // 도로명 선택
+	        		$("#userAdd1").val(data.roadAddress)
+	        	} else if( data.userSelectedType =='J') { // 지번 선택
+	        		$("#userAdd1").val(data.jibunAddress)
+	        		
+	        	}
+	        	
+	        	//------------------------------------
+	        	
+	        	//상세 주소 입력 포커스
+	        	$("#userAdd2").focus();
+	        	
+	        	$("#postcodeWrap").hide();
+	        
+	        }
+	    
+// 	    }).open({});
+	    }).embed( postcodeWrap );
+		//----------------------------------
+		
+// 		$("#postcodeWrap").css("display", "block");
+		$("#postcodeWrap").toggle();
+		
+		$("#postcodeWrap .closeIcon").click(function() {
+			$(this).parent().hide();
+		})
+	
+	}) //$("#btnPostcode") end
+	
+
+	
+	
+	
 }) //$(function() end
 </script>
 
-</head>
-<body>
+<script type="text/javascript">
+	function showModal(modalId) {
+	    document.getElementById(modalId).style.display = 'block';
+	}
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+</script>
+
+<style type="text/css">
+	.modal {
+		display: none;
+		position: fixed;
+		background-color: white;
+		top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+        justify-content: center;
+        align-items: center;
+    }
+	.modal-content {
+		background-color: white;
+		margin: 15% auto;
+		padding: 20px;
+		width: 80%;
+		max-width: 500px;
+		position: relative;
+		max-height: 300px; /* 최대 높이를 10줄 정도로 설정 */
+        overflow-y: auto; /* 내용이 넘치면 세로 스크롤 */
+	}
+
+	.close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	
+</style>
+
+<style type="text/css">
+#postcodeWrap {
+/* 	position: relative; */
+	position: absolute;
+	
+	
+	width: 500px;
+	height: 500px;
+	
+	border: 1px solid #ccc;
+	
+	display: none;
+	
+}
+#postcodeWrap .closeIcon{
+
+	position: absolute;
+	
+	width: 30px;
+	z-index: 9999;
+	
+	top: 0.5px;
+	right: -38px;
+	
+	border: 1px solid skyblue;
+	padding: 3px;
+	
+	cursor: pointer;
+}
+
+
+</style>
+
 
 회원가입창
 <hr>
@@ -386,48 +548,153 @@ $(function() {
 	</label>
 </div>
 
-<div>
-	<label for="userPostcode">우편번호
-		<input type="text" name="userPostcode" id="userPostcode" required="required">
-	</label>
-</div>
 
-<div>
-	<label for="userAdd1">주소
-		<input type="text" name="userAdd1" id="userAdd1" required="required">
-	</label>
+주소
+<button id="btnPostcode">우편번호 찾기</button>
+<div id="postcodeWrap">
+	<img alt="x" src="../resources/img/close.png" class="closeIcon">
 </div>
+<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly"><br>
+<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly"><br>
+<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소"><br>
 
-<div>
-	<label for="userAdd2">상세주소
-		<input type="text" name="userAdd2" id="userAdd2" required="required">
-	</label>
-</div>
 
-[사업자 등록 시]
+<!-- <div> -->
+<!-- 	<label for="userPostcode">우편번호 -->
+<!-- 		<input type="text" name="userPostcode" id="userPostcode" required="required"> -->
+<!-- 	</label> -->
+<!-- </div> -->
+
+<!-- <div> -->
+<!-- 	<label for="userAdd1">주소 -->
+<!-- 		<input type="text" name="userAdd1" id="userAdd1" required="required"> -->
+<!-- 	</label> -->
+<!-- </div> -->
+
+<!-- <div> -->
+<!-- 	<label for="userAdd2">상세주소 -->
+<!-- 		<input type="text" name="userAdd2" id="userAdd2" required="required"> -->
+<!-- 	</label> -->
+<!-- </div> -->
+<br>
+
+[ 사업자 등록 시 ]
 <div>
 	<label for="businessNo">사업자 등록번호
 		<input type="text" name="businessNo" id="businessNo">
 	</label>
 </div>
+<br>
 
+[ 이용 약관 ]
+<br>
+<label>
+    <input type="checkbox" id="checkAll"> 모든 약관에 동의
+</label>
+<br>
+<label>
+    <input type="checkbox" class="terms-checkbox"> 이용 약관 (필수)
+    <button type="button" onclick="showModal('modal1')">보기</button>
+</label>
+<br>
+<label>
+	<input type="checkbox" class="terms-checkbox"> 개인정보 수집 및 이용 (필수)
+	<button type="button" onclick="showModal('modal2')">보기</button>
+</label>
 
 <div>
-	<input type="checkbox" name="check1" id="check1">
+	<button id="btnJoin" class="btn btn-primary" type="button">회원 가입</button>
 </div>
-
-
-<div>
-	<button id="btnJoin" class="btn btn-primary">회원 가입</button>
-</div>
-
-
 
 </form>
 </div> <!-- id="joinForm" -->
 
-</body>
-</html>
+
+
+<!-- 이용약관 모달 -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal1')">&times;</span> <!-- 모달닫기기능 -->
+        <h3>이용 약관</h3>
+        <hr>
+        <p style="white-space: pre-wrap;">제1조(목적) 이 약관은 업체 회사(전자상거래 사업자)가 운영하는 업체 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
+ 
+  ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
+ 
+제2조(정의)
+ 
+  ① “몰”이란 업체 회사가 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.
+ 
+  ② “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.
+ 
+  ③ ‘회원’이라 함은 “몰”에 회원등록을 한 자로서, 계속적으로 “몰”이 제공하는 서비스를 이용할 수 있는 자를 말합니다.
+ 
+  ④ ‘비회원’이라 함은 회원에 가입하지 않고 “몰”이 제공하는 서비스를 이용하는 자를 말합니다.
+ </p>
+    </div>
+</div>
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal2')">&times;</span>
+        <h3>개인정보 수집 및 이용</h3>
+        <hr>
+        <p style="white-space: pre-wrap;">개인정보처리방침
+
+[차례]
+1. 총칙
+2. 개인정보 수집에 대한 동의
+3. 개인정보의 수집 및 이용목적
+4. 수집하는 개인정보 항목
+5. 개인정보 자동수집 장치의 설치, 운영 및 그 거부에 관한 사항
+6. 목적 외 사용 및 제3자에 대한 제공
+7. 개인정보의 열람 및 정정
+8. 개인정보 수집, 이용, 제공에 대한 동의철회
+9. 개인정보의 보유 및 이용기간
+10. 개인정보의 파기절차 및 방법
+11. 아동의 개인정보 보호
+12. 개인정보 보호를 위한 기술적 대책
+13. 개인정보의 위탁처리
+14. 의겸수렴 및 불만처리
+15. 부 칙(시행일) 
+
+1. 총칙
+
+본 업체 사이트는 회원의 개인정보보호를 소중하게 생각하고, 회원의 개인정보를 보호하기 위하여 항상 최선을 다해 노력하고 있습니다. 
+1) 회사는 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」을 비롯한 모든 개인정보보호 관련 법률규정을 준수하고 있으며, 관련 법령에 의거한 개인정보처리방침을 정하여 이용자 권익 보호에 최선을 다하고 있습니다.
+2) 회사는 「개인정보처리방침」을 제정하여 이를 준수하고 있으며, 이를 인터넷사이트 및 모바일 어플리케이션에 공개하여 이용자가 언제나 용이하게 열람할 수 있도록 하고 있습니다.
+3) 회사는 「개인정보처리방침」을 통하여 귀하께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
+4) 회사는 「개인정보처리방침」을 홈페이지 첫 화면 하단에 공개함으로써 귀하께서 언제나 용이하게 보실 수 있도록 조치하고 있습니다.
+5) 회사는  「개인정보처리방침」을 개정하는 경우 웹사이트 공지사항(또는 개별공지)을 통하여 공지할 것입니다.
+</p>
+    </div>
+</div>
+
+<script>
+    // "모두 동의" 체크박스 클릭 시 전체 체크박스 상태 변경
+    document.getElementById('checkAll').addEventListener('change', function() {
+        const isChecked = this.checked;
+        document.querySelectorAll('.terms-checkbox').forEach(checkbox => checkbox.checked = isChecked);
+    });
+
+    // 개별 체크박스 클릭 시 "모두 동의" 체크박스 상태 업데이트
+    document.querySelectorAll('.terms-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const allChecked = document.querySelectorAll('.terms-checkbox:checked').length === document.querySelectorAll('.terms-checkbox').length;
+            document.getElementById('checkAll').checked = allChecked;
+        });
+    });
+    
+    // 모달 표시 함수
+    function showModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    }
+
+    // 모달 닫기 함수
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+</script>
+
 
 
 <c:import url="../layout/footer.jsp" />

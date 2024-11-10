@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.MyRecipe;
+import web.dto.Notice;
 import web.util.Paging;
 
 
@@ -206,6 +210,81 @@ public interface CommunityService {
 	 * @return 페이징 객체
 	 */
 	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search);
+
+	/**
+	 * 카페 리뷰 댓글을 단다
+	 * 
+	 * @param revNo - 댓글을 작성할 게시글 번호
+	 * @param comm - 댓글 내용
+	 * @param session - 유저 번호 갖고오기
+	 */
+	public void writeCafeReviewComm(CafeRev revNo, CafeRevComm comm, String userId);
+
+	/**
+	 * 유저의 사업자 등록번호 갖고오기
+	 * 
+	 * @param userId - 사업자 등록번호를 조회할 아이디
+	 * @return 사업자 등록번호
+	 */
+	public String getBusinessNoFromMember(String userId);
+
+	/**
+	 * 카페 리뷰 게시물의 해당하는 카페의 사업자 등록번호 갖고오기
+	 * 
+	 * @param revNo - 가져올 사업자 등록번호를 조회할 리뷰번호
+	 * @return 사업자 등록번호
+	 */
+	public String getBusinessNoFromCafeReviewNo(CafeRev revNo);
+	
+	/**
+	 * 조건에 따른 페이징 객체 얻기
+	 * 
+	 * @param curPage - 현재페이지
+	 * @param search - 검색어
+	 */
+	public Paging getNoticePaging(Paging curPage, String search);
+	
+	/**
+	 * 조건에 따른 공지사항 리스트 얻기
+	 * 
+	 * @param paging
+	 * @param search
+	 * @return
+	 */
+	public List<Notice> getNoticeList(Paging paging, String search);
+	
+	/**
+	 * 공지사항 번호로 공지사항 한개 조회
+	 * 
+	 * @param notice 공지사항 번호
+	 * @return
+	 */
+	public Notice getNotice(Notice notice);
+	
+	/**
+	 * 나만의 레시피 페이징
+	 * @param paging - curPage
+	 * @param search - 검색어
+	 * @return - 
+	 */
+	public Paging getMyRecipePaging(Paging curPage, String search);
+	
+	/**
+	 * 
+	 * 검색조건에 따른 리스트 
+	 * @param paging - 페이징 객체
+	 * @param search - 검색어
+	 * @return
+	 */
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search);
+	
+	/**
+	 * 나만의 레시피 글 작성
+	 * @param session - 유저 정보 가져올거임
+	 * @param myRecipe - 제목,내용 있음
+	 * @param file
+	 */
+	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe,MultipartFile file);
 	
 }
 

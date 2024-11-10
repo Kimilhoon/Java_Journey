@@ -36,7 +36,7 @@ $.ajax({
 
 <tr>
 <td>
-<label class="bordered"> <small>카페명</small> | ${cafeName}<input type="text" readonly="readonly"></label>
+<label class="bordered"> <small>카페명</small> | ${cafeName } </label>
 </td>
 
 <td>

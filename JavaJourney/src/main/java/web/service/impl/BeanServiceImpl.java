@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.BeanDao;
 import web.dto.Bean;
+import web.dto.BeanRev;
 import web.service.face.BeanService;
 import web.util.Paging;
 
@@ -62,5 +63,7 @@ public class BeanServiceImpl implements BeanService {
 		return dao.selectByBeanNo(param);
 		
 	} // getBeanInfo(Bean param) end
+	
+	
 	
 } // class end

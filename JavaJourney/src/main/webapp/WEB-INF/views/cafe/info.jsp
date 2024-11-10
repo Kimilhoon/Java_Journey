@@ -6,19 +6,15 @@
 
 <c:import url="../layout/header.jsp"/>
 
-<style type="text/css">
-
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.img-fluid {
-    max-width: 50%;
-    height: auto;
-}
-
-</style>
+<script type="text/javascript">
+$(function() {
+	$("#wish").click(function() {
+		const currentText = $(this).text();
+		
+		if (currentText == "찜 5")
+	})
+})
+</script>
 
 <div class="container">
 <!--     <div class="image-placeholder"> -->
@@ -44,27 +40,12 @@
 	            <!-- 각 별에 대해 라디오 버튼을 사용하여 클릭 이벤트 구현 -->
 	            <input type="radio" name="rating" value="5" id="star5">
   				<label for="star5"><i class="fas fa-star"></i></label>
-	            
-<!-- 	            <input type="radio" id="star5" name="rating" value="5"> -->
-<!-- 	            <label for="star5">★</label> -->
-	
-<!-- 	            <input type="radio" id="star4" name="rating" value="4"> -->
-<!-- 	            <label for="star4">★</label> -->
-	
-<!-- 	            <input type="radio" id="star3" name="rating" value="3"> -->
-<!-- 	            <label for="star3">★</label> -->
-	
-<!-- 	            <input type="radio" id="star2" name="rating" value="2"> -->
-<!-- 	            <label for="star2">★</label> -->
-	
-<!-- 	            <input type="radio" id="star1" name="rating" value="1"> -->
-<!-- 	            <label for="star1">★</label> -->
 	        </div>
 	    </div>
 	    
-        <div class="buttons">
-            <button class="button">💖 찜</button>
-            <button class="button">리뷰쓰기</button>
+        <div id="btn" class="d-flex justify-content-left align-self-end">
+            <button type="button" id="wish" class="btn btn-secondary btn-lg m-2">💖 찜</button>
+            <button type="button" id="rev" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
         </div>
     </div>
 
@@ -81,6 +62,13 @@
     </div>
 </div>
 
+	<div class="d-grid gap-2 col-6 mx-auto" >
+		<a href="./all"><button class="btn btn-primary" type="button">전체카페 보러가기</button></a>
+		<a href="./best"><button class="btn btn-primary" type="button">베스트카페 보러가기</button></a>
+	</div>
 
 
-<c:import url="../layout/footer.jsp"/>
+
+<%-- <c:import url="../layout/footer.jsp"/> --%>
+
+

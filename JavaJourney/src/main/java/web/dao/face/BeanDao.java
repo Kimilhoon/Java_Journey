@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
 import web.util.Paging;
 
 @Mapper
@@ -33,6 +34,8 @@ public interface BeanDao {
 	 * @return 원두 정보
 	 */
 	public Bean selectByBeanNo(Bean param);
+
+	
 	
 	
 } // interface end

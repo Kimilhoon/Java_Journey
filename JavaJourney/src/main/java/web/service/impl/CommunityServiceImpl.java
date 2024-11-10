@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
@@ -16,7 +17,10 @@ import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.MyRecipe;
+import web.dto.Notice;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -30,8 +34,8 @@ public class CommunityServiceImpl implements CommunityService {
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
 	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
-		log.info("{}",search);
-		log.info("{}",category);
+//		log.info("{}",search);
+//		log.info("{}",category);
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
@@ -96,6 +100,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public void dropFreeBoard(FreeBoard freeBoard) {
 		
 		List<FreeBoardComment> cList = dao.selectFreeBoardCommentByFreeBoardNo(freeBoard);
+		dao.deleteFreeBoardRecommendByFreeBoardNo(freeBoard);
 		for(FreeBoardComment c:cList) {
 			dao.deleteFreeBoardCommentByFreeBoardCommentNo(c);
 		}
@@ -135,8 +140,8 @@ public class CommunityServiceImpl implements CommunityService {
 			freeBoard.setFreeBoardCategory("원두");
 			
 		}
-		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null) {
-			freeBoard.setFreeBoardMapX("37.68023654904071");
+		if(freeBoard.getFreeBoardMapX() == null || freeBoard.getFreeBoardMapY()==null || "".equals(freeBoard.getFreeBoardMapX())) {
+			freeBoard.setFreeBoardMapX("123");
 			freeBoard.setFreeBoardMapY("127.27331371310157");
 		}
 		
@@ -183,10 +188,109 @@ public class CommunityServiceImpl implements CommunityService {
 	public int getFreeBoardRecCount(FreeBoard freeBoard) {
 		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
 	}
+	
+	//공지사항--------------------------------------------------------------------------------
+	
+	@Override
+	public Paging getNoticePaging(Paging curPage, String search) {
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+ 
+		int totalCnt = dao.getNoticeTotalCnt(map);
+		
+		log.info("totalCNT{}",totalCnt);
+		
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Notice> getNoticeList(Paging paging, String search) {
 
 	
-	//자유게시판--------------------------------------------------------------------------------
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<Notice> noticeList = dao.selectNoticeListAll(map);
+		
+		return noticeList;
+		
+	}
 	
+	@Override
+	public Notice getNotice(Notice notice) {
+		return dao.selectNoticeBtNoticeNo(notice);
+	}
+	
+	//나만의 레시피 ------------------------------------------------------------------------------------
+	@Override
+	public Paging getMyRecipePaging(Paging curPage, String search) {
+		
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+
+		int totalCnt = dao.getMyRecipeTotalCnt(map);
+		
+		log.info("totalCNT{}",totalCnt);
+		
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<MyRecipe> myRecipeList = dao.selectMyRecipeListAll(map);
+		for(MyRecipe mr : myRecipeList) {
+			mr.setUserNick( (dao.selectMemberByUserNo(mr.getUserNo())).getUserNick() );
+		}
+		
+		
+		return myRecipeList;
+	}
+	
+	
+	@Override
+	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		myRecipe.setMyRipNo(dao.getMyRecipeNextVal());
+		myRecipe.setUserNo(member.getUserNo());
+		myRecipe.setUserNick(member.getUserNick());
+		if(myRecipe.getMyRipImgNo()==0) {
+			myRecipe.setMyRipImgNo(1);
+		}
+		dao.insertMyRecipe(myRecipe);
+		
+		if(file.isEmpty() || file.getSize()<=0) {
+			log.info("파일 이상");
+			return;
+		}
+		
+	}
+	
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
 	//=================== 이루니 ===================
 	@Override
 	public List<CafeRev> getCafeReviewList(String category, String order, String search, Paging paging) {
@@ -298,6 +402,30 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 	
+	@Override
+	public void writeCafeReviewComm(CafeRev revNo, CafeRevComm comm, String userId) {
+		
+		int userNo = dao.selectUsernoByUserid(userId);
+		
+		comm.setRevNo(revNo.getRevNo());
+		comm.setUserNo(userNo);
+		
+		dao.insertCafeReviewComm(comm);
+		
+	}
+	
+	 @Override
+	public String getBusinessNoFromMember(String userId) {
+		 
+		return dao.selectBusinessNoByUserId(userId);
+	}
+	 
+	@Override
+	public String getBusinessNoFromCafeReviewNo(CafeRev revNo) {
+		
+		return dao.selectBusinessNoByCafeRevNo(revNo);
+	}
+
 }
 
 

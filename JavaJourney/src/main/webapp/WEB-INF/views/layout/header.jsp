@@ -15,7 +15,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="icon" type="image/png" href="/resources/favicon/JavaJourneyIcon.png">
-
 <!-- bootstrap 링크 End -->
 <!-- jquery 링크 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -24,32 +23,47 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
 <!-- summernote 링크 End-->
+<script type="text/javascript">
+$(function() {
+	$("#btnLogout").click(function() {
+		location.href="/member/logout;"
+	}) 
+})
+</script>
 </head>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-
 <body>
 <div class="d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<!-- <img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
-alt="로고" width="200" height="200" /> -->
-<img src="<c:url value='/resources/favicon/JavaJourneyIcon.png' />"
+<img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
 alt="로고" width="200" height="200" />
 </a>
 <!-- 로그인 및 기타 링크 -->
   <div class="d-flex align-items-center" style="width: 10%" id="loginLoc">
-    <div class="flex-shrink-0">
+ 	 <div class="flex-shrink-0 mx-3">
+  		<ul style="list-style:none">
+  		<c:if test="${isLogin }">
+  			<li hidden="hidden"></li>
+  			<li>아이디 : ${userId}</li>
+  			<li>닉네임 : ${userNick}</li>
+  			<li><button id="btnLogout">로그아웃</button></li>
+		</c:if>
+		<c:if test="${empty isLogin }">
+			<li><a href="/member/join" style="text-decoration: none; color: red;">회원가입</a></li>
+      		<li><a href="/member/login" style="text-decoration: none; color: red;">로그인</a></li>
+		</c:if>
+  		</ul>
+  	</div>
+    <div class="flex-shrink-0 mx-5">
       <ul style="list-style:none">
-      	<li><a href="/member/join" style="text-decoration: none; color: red;">회원가입</a></li>
-      	<li><a href="/member/login" style="text-decoration: none; color: red;">로그인</a></li>
-      	<li><a href="/create/cafe" style="text-decoration: none; color: red;">카페등록</a></li>
-      	<li><a href="/create/bean" style="text-decoration: none; color: red;">원두등록</a></li>
-      	<li><a href="/main" style="text-decoration: none; color: red;">메인</a></li>
+      	<c:if test="${userNick eq 'admin' }">
       	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
+      	</c:if>
       </ul>
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-center align-items-center" style="width: 100%; background-color: #6f4e37;">
+<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <div class="container d-flex justify-content-center align-items-center" style="max-width: 100%;">
     <!-- 네비게이션 메뉴 -->
     <nav class="navbar navbar-expand-lg">
@@ -97,10 +111,10 @@ alt="로고" width="200" height="200" />
               <li><a class="dropdown-item" href="/comm/creview/list">카페리뷰</a></li>
               <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
               <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
-              <li><a class="dropdown-item" href="/comm/recipe/list">나만의 레시피</a></li>
+              <li><a class="dropdown-item" href="/comm/myrecipe/list">나만의 레시피</a></li>
               <li><a class="dropdown-item" href="/comm/event">이벤트</a></li>
-              <li><a class="dropdown-item" href="/comm/notice">공지사항</a></li>
-              <li><a class="dropdown-item" href="/comm/faq">자주묻는 질문</a></li>
+              <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
+              <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">

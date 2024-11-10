@@ -13,6 +13,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3f3cd365ec1ac0081d50ddb6e680b49d&libraries=services"></script>
+<!-- 썸머노트 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
  
@@ -32,7 +33,9 @@ $(function() {
     marker.setMap(map);
 
     // 우편번호 찾기 버튼 클릭
-    $("#btnPostcode").click(function() {
+    $("#btnPostcode").click(function(e) {
+    	e.preventDefault();
+    	
         // 우편번호 찾기창 초기화
         $("#postCode").val("");
         $("#cafeAdd1").val("");
@@ -68,13 +71,27 @@ $(function() {
         }).open(); //팝업창 열기 위한 open
     }); //$("#btnPostcode") end
     
-    $('#cafeInfo').summernote({ //섬머노트 설정
+    $('#cafeImgOriName').summernote({ //섬머노트 설정
     	width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
         ]
     }); // $('#cafeInfo') end
     
+    $('#cafeInfo').summernote({ 
+    	width: 500, height: 200 
+        , toolbar: [
+            ['insert', ['picture']] 
+        ]
+    }); // $('#cafeInfo') end
+    
+	$("#btnManagerMenu").click(function () {
+		location.href="/manager/menu";
+	}) //$("#btnManagerMenu") end
+	
+	$("#btnWrite").click(function() {
+		$(this).parents("form").submit();
+	});
     
   }); //$(function() end
 </script>
@@ -114,7 +131,8 @@ $(function() {
 
 </style>
 
-
+<button id="btnManagerMenu">관리자메뉴로가기</button>
+<hr>
 <div>
 <form action="./cafe" method="post" enctype="multipart/form-data">
 <table>
@@ -135,28 +153,38 @@ $(function() {
 		<td><input type="text" id="busyTime" name="busyTime"  placeholder="예: 월-금 09:00 - 18:00"></td>		
 	</tr>	
 	<tr>
-		<td>카페사진 첨부파일</td>
-		<td><input type="text" id="imgNo" name="imgNo"></td>		
+		<td>카페 메인사진[이미지]]</td>
+		<td>
+		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
+		rows="4" cols="4"></textarea>
+		</td>		
 
 	</tr>
 	<tr>
 		<td>카페 지역</td>
 		<td>
 		<select id="category">
-	      <option hidden="none"></option>
-	      <option value="서울">서울</option>
-	      <option value="경기">경기</option>
-	      <option value="인천">인천</option>
-	      <option value="부산">부산</option>
-	      <option value="제주">제주</option>
+<!-- 	      <option hidden="none"></option> -->
+<!-- 	      <option value="서울">서울</option> -->
+<!-- 	      <option value="경기">경기</option> -->
+<!-- 	      <option value="인천">인천</option> -->
+<!-- 	      <option value="부산">부산</option> -->
+<!-- 	      <option value="제주">제주</option> -->
+			<option hidden="none"></option>
+			<option value="Gangnamgu">강남구</option>
+			<option value="Seochogu">서초구</option>
+			<option value="Songpagu">송파구</option>
+			<option value="jongrogu">종로구</option>
+			<option value="Seodaemungu">서대문구</option>
+			<option value="Mapogu">마포구</option>	      
   		 </select>
    </td>
 	</tr>
 	<tr>
-		<td>카페 상세설명</td>
+		<td>카페 상세설명[이미지]</td>
 		<td>
 		<textarea id="cafeInfo" name="cafeInfo" class="form-control"
-		rows="4" cols="2"></textarea>
+		rows="4" cols="4"></textarea>
 		</td>		
 	</tr>
 	<tr>
@@ -166,9 +194,9 @@ $(function() {
 		<div id="postcodeWrap"> <!-- 우편닫기버튼기능 -->
 			<img alt="x" src="../resources/img/close.png" class="closeIcon">
 		</div>
-		<input type="text" id="postCode" placeholder="우편번호" readonly="readonly"><br>
-		<input type="text" id="cafeAdd1" placeholder="주소" readonly="readonly"><br>
-		<input type="text" id="cafeAdd2" placeholder="상세주소"><br>
+		<input type="text" id="postCode" name="postCode" placeholder="우편번호" readonly="readonly"><br>
+		<input type="text" id="cafeAdd1" name="cafeAdd1" placeholder="주소" readonly="readonly"><br>
+		<input type="text" id="cafeAdd2" name="cafeAdd2" placeholder="상세주소"><br>
 		</td>
 	</tr>
 
@@ -191,9 +219,7 @@ $(function() {
 <div id="map" style="width:500px; height:400px;"></div>
 
 
-<div id="btnWrite">
-	<button>등록</button>
-</div>
+<button id="btnWrite">등록</button>
 
 </form>
 </div>

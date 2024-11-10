@@ -13,9 +13,14 @@ public class Bean {
 	private String beanComm;
 	private String beanInfo;
 	private int beanPrice;
-	private int businessNo;	
-	private String beanStoredName;
 	
+	private String businessNo;	
+	
+	//beanImg join
+	private String beanStoredName;
     private String beanOriginName;
+    
+    //cupNote join
+	private String cupNoteName;
 	
 }
