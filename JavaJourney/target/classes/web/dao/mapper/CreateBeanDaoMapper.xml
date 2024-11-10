@@ -18,14 +18,6 @@
 			)WHERE rownum = 1
 	</select>
 	
-	<insert id="insertCupNoteName" parameterType="CupNote">
-		<selectKey order="BEFORE" keyProperty="cupNoteNo" resultType="int">
-			select cupnote_seq.nextval from dual
-		</selectKey>
-		INSERT INTO CUPNOTE(CUPNOTENO, CUPNOTENAME)
-		VALUES(#{cupNoteNo}, #{cupNoteName})
-	</insert>
-	
 	<insert id="insertBeanData" parameterType="Bean">
 		<selectKey order="BEFORE" keyProperty="beanNo" resultType="int">
 			select bean_seq.nextval from dual
@@ -36,6 +28,18 @@
 		, #{beanInfo}, #{beanPrice}, #{businessNo})
 	</insert>
 	
+	<insert id="insertBeanTaste" parameterType="BeanTaste">
+		INSERT INTO BEANTASTE(BEANNO, CUPNOTENO)
+		VALUES(#{beanNo}, #{cupNoteNo})
+	</insert>
+	
+	<select id="selectByBeanNo" resultType="Bean" parameterType="int" >
+		SELECT BEANNO, BEANIMGNO FROM BEAN
+		<where>
+			BEANNO = #{beanNo}
+		</where>
+	</select>
+	
 	<update id="updateBeanImg" parameterType="BeanImg">
 		UPDATE BEANIMG
 		<set>
@@ -45,17 +49,7 @@
 			BEANIMGNO = #{beanImgNo}
 		</where>
 	</update>
-	
-	<update id="updateCupNoteName" parameterType="CupNote">
-		UPDATE CUPNOTE
-		<set>
-			CUPNOTENAME = #{cupNoteName}
-		</set>
-		<where>
-			CUPNOTENO = #{cupNoteNo}
-		</where>
-	</update>
-	
+
 	<update id="updateBeanData" parameterType="Bean">
 		UPDATE BEAN
 		<set>
@@ -71,24 +65,24 @@
 		</where>
 	</update>
 	
+	<delete id="deleteByBeanTasteNo" parameterType="int">
+		DELETE BEANTASTE
+		<where>
+			BEANNO = #{beanNo}
+		</where>
+	</delete>
+	
 	<delete id="deleteByBeanNo" parameterType="int">
-		DELETE TABLE BEAN
+		DELETE BEAN
 		<where>
 			BEANNO = #{beanNo}
 		</where>
 	</delete>
 	
 	<delete id="deleteByBeanImgNo" parameterType="int">
-		DELETE TABLE BEANIMG
+		DELETE BEANIMG
 		<where>
 			BEANIMGNO = #{beanImgNo}
-		</where>
-	</delete>
-	
-	<delete id="deleteByCupNoteNo" parameterType="int">
-		DELETE TABLE CUPNOTE
-		<where>
-			CUPNOTENO = #{cupNoteNo}
 		</where>
 	</delete>
 	
