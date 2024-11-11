@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: sbeei
-Build-Jdk: 11.0.0.1
+Built-By: iro_oni
+Build-Jdk: 11.0.24
 Created-By: Maven Integration for Eclipse
 
