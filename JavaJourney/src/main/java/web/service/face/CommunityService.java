@@ -329,6 +329,19 @@ public interface CommunityService {
 	 */
 	public void insertEvent(Event event);
 
+	/**
+	 * event 상세보기
+	 * @param event
+	 * @return 
+	 */
+	public Event eventInfoByeventNo(Event event);
+
+	/**
+	 * 이벤트 삭제
+	 * @param event
+	 */
+	public void eventDeleteByEventNo(Event event);
+
 
 	
 }

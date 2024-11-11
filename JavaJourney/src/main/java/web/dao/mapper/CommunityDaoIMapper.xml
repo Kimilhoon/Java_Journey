@@ -384,7 +384,20 @@
 		VALUES(#{eventNo}, #{eveOriName}, #{eveStart}, #{eveEnd}, #{eveImg})
 	</insert>
 	
+	<select id="selectByEventNo" resultType="Event" parameterType="Event">
+		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		FROM EVENT
+		<where>
+			EVENTNO = #{eventNo}
+		</where>
+	</select>
 	
+	<delete id="deleteEventByEventNo" parameterType="Event">
+		DELETE EVENT
+		<where>
+			EVENTNO = #{eventNo}
+		</where>
+	</delete>
 	
 </mapper>
 

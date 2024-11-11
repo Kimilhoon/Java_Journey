@@ -501,8 +501,15 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 	
+	@Override
+	public Event eventInfoByeventNo(Event event) {
+		return dao.selectByEventNo(event);
+	}
 	
-	
+	@Override
+	public void eventDeleteByEventNo(Event event) {
+		dao.deleteEventByEventNo(event);
+	}
 
 }
 

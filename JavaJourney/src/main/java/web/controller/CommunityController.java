@@ -341,7 +341,14 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/event/info")
-	public void eventInfoForm() {}
+	public void eventInfoForm(
+			Event event,
+			Model model
+			) {
+		log.info("event : {}", event);
+		Event eventView = service.eventInfoByeventNo(event);
+		model.addAttribute("eventView",eventView);
+	}
 	
 	@GetMapping("/event/write")
 	public void eventWriteForm() {}
@@ -366,8 +373,14 @@ public class CommunityController {
 		
 	}
 	
-	@PostMapping("/event/delete")
-	public void eventDelete() {}
+	@GetMapping("/event/delete")
+	public String eventDelete(
+			Event event
+			) {
+		log.info("event : {}", event);
+		service.eventDeleteByEventNo(event);
+		return "redirect:/comm/event/list";
+	}
 	
 	
 	

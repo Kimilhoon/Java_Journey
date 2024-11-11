@@ -10,8 +10,8 @@ $(function() {
 		location.href="/manager/menu";
 	})
 
-	$("#btnEventWrite").click(function () {
-		location.href="/comm/event/write";
+	$("#btnEventDelete").click(function () {
+		location.href="/comm/event/delete?eventNo=" + ${eventView.eventNo};
 	})
 	
 	$("#btnBack").click(function () {
@@ -19,43 +19,40 @@ $(function() {
 	});
 	
 	$(".custom-image img").css({
-        width: "200px",
-        height: "200px"
+        width: "600px",
+        height: "600px"
     });
-	
 })
 </script>
 <style type="text/css">
- .image-container { 
-         display: flex;/
-         gap: 100px; /* 이미지 간 간격  
-     } 
 </style>
 
 <h1>이벤트 목록</h1>
 
 <div>
 <button id="btnManagerMenu">관리자메뉴로가기</button>
-<button id="btnEventWrite">이벤트 등록</button>
+<button id="btnEventDelete">이벤트 삭제</button>
 <button id="btnBack">뒤로가기</button>
 </div>
 
-
 <div class="d-flex justify-content-center">
 <table>
-    <tr>
-        <c:forEach var="event" items="${eventList}">
-            <td style="text-align: center; padding: 10px;">
-                <!-- 이미지 표시, 크기 고정 -->
-                <div class="custom-image">
-                <a href="/comm/event/info">${event.eveImg}</a>
-                </div>
-                <div>${event.eveOriName}</div>
-                <div><fmt:formatDate value="${event.eveStart}" pattern="yyyy-MM-dd"/>
-                ~ <fmt:formatDate value="${event.eveEnd}" pattern="yyyy-MM-dd"/></div>
-            </td>
-        </c:forEach>
-    </tr>
+<thead>
+<tr>
+	<th><span style="margin-right: 205px;">제목</span>
+	<span>기간</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td><span style="margin-right: 180px;">${eventView.eveOriName }</span>
+	<fmt:formatDate value="${eventView.eveStart}" pattern="yyyy-MM-dd"/>
+  ~ <fmt:formatDate value="${eventView.eveEnd}" pattern="yyyy-MM-dd"/></td>
+</tr>
+</tbody>
+	<tr>
+		<td><div class="custom-image">${eventView.eveImg }</div></td>
+	</tr>
 </table>
 </div>
 

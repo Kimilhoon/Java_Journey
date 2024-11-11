@@ -391,6 +391,18 @@ public interface CommunityDao {
 	 * @param event
 	 */
 	public void insertEventData(Event event);
+	/**
+	 * 이벤트 상세정보 DB 조회
+	 * @param event
+	 * @return 
+	 */
+	public Event selectByEventNo(Event event);
+	
+	/**
+	 * 이벤트 번호로 이벤트 삭제
+	 * @param event
+	 */
+	public void deleteEventByEventNo(Event event);
 	
 
 

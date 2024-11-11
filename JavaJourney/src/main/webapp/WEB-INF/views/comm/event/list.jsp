@@ -31,21 +31,20 @@ $(function() {
         height: "200px"
     });
 	
-	$("#info").click(function () {
-		$.ajax({
-			type: "get"
-			,url: "/event/info?event=" + $("#eventNo").val()
-			,data: {eventNo: $("#eventNo").val()}
-			,dataType:"json"
-			,success: function(res) {
-				console.log("ajax 성공");	
-			}
-			,error: function () {
-				console.log("ajax 실패");	
-			}
-		})
-		
-	})
+// 	$("#info").click(function () {
+// 		$.ajax({
+// 			type: "get"
+// 			,url: "/event/info?event=" + $("#eventNo").val()
+// 			,data: {eventNo: $("#eventNo").val()}
+// 			,dataType:"json"
+// 			,success: function(res) {
+// 				console.log("ajax 성공");	
+// 			}
+// 			,error: function () {
+// 				console.log("ajax 실패");	
+// 			}
+// 		})
+// 	})
 	
 })
 </script>
@@ -73,13 +72,13 @@ $(function() {
             <input type="number" id="eventNo" 
             name="eventNo" value="${event.eventNo }" hidden="hidden"> 
                 <!-- 이미지 표시, 크기 고정 -->
-<!--                 <div id="info" class="custom-image"> -->
-<%--                 <a href="/comm/event/info?eventNo=${event.eventNo}">${event.eveImg}</a> --%>
-<!--                 </div> -->
-                <div id="info" class="custom-image"
-                 style="cursor: pointer;">
-                ${event.eveImg}
+                <div id="info" class="custom-image">
+                <a href="/comm/event/info?eventNo=${event.eventNo}">${event.eveImg}</a>
                 </div>
+<!--                 <div id="info" class="custom-image" -->
+<!--                  style="cursor: pointer;"> -->
+<%--                 ${event.eveImg} --%>
+<!--                 </div> -->
                 <div>${event.eveOriName}</div>
                 <div><fmt:formatDate value="${event.eveStart}" pattern="yyyy-MM-dd"/>
                 ~ <fmt:formatDate value="${event.eveEnd}" pattern="yyyy-MM-dd"/></div>
@@ -88,6 +87,6 @@ $(function() {
     </tr>
 </table>
 </div>
-
+<div id="result"></div>
 
 <c:import url="../../layout/footer.jsp" />
