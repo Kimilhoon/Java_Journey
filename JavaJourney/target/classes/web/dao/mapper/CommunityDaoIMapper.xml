@@ -43,15 +43,25 @@
 						<if test="search != null">
 							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
 						</if>
-						<if test="category != null">
+						<if test="category != null and category != '전체'">
 							AND cafeloc = #{category }
 						</if>
 			       	</where>
-			        ORDER BY revno DESC
+			       	<choose>
+			       		<when test='order == "recent"'>
+			       			ORDER BY revno DESC
+			       		</when>
+			       		<when test='order == "star"'>
+ 							ORDER BY revsp DESC, revno DESC
+			       		</when>
+			       		<otherwise>
+			       			ORDER BY revno DESC
+			       		</otherwise>
+			       	</choose>
 			    ) a
 			) 
 		<where>
-			AND r BETWEEN #{paging.startNo} AND #{paging.endNo}
+			AND r BETWEEN #{paging.startNo } AND #{paging.endNo }
 		</where>
 		
 	</select>
@@ -397,6 +407,26 @@
 		DELETE FROM MYRECIPEFILE
 		WHERE MYRIPNO = #{myRipNo}
 	</delete>
+	<select id="getCafeReviewCommentCnt" resultType="int" parameterType="cafeRev">
+		SELECT count(*) FROM caferevcomm
+		<where>
+			AND revno = #{revNo }
+		</where>
+	</select>
+	
+	<delete id="deleteCafeReviewCommByCafeNo" parameterType="cafeRev">
+		DELETE cafeRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getCafeRevNos" resultType="int">
+		SELECT revno
+		FROM caferev
+		ORDER BY revno
+	</select>
+	
 </mapper>
 
 

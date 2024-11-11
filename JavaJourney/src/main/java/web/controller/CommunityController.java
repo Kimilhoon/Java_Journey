@@ -2,10 +2,9 @@ package web.controller;
 
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -272,16 +271,14 @@ public class CommunityController {
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging curPage) {
 		
 		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
-		
+
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
-		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String today = sdf.format(date);
-		
+
 		model.addAttribute("paging", paging);
+		model.addAttribute("category", category);
+		model.addAttribute("order", order);
+		model.addAttribute("search", search);
 		model.addAttribute("creviewList", creviewList);
-		model.addAttribute("today", today);
 		
 	}
 	
@@ -312,6 +309,13 @@ public class CommunityController {
 		} else {
 			model.addAttribute("isOwner", false);
 		}
+
+        // 이전, 다음 게시글 revNo 조회
+        Map<String, Integer> prevNextRevNos = service.getPrevNextRevNos(revNo);
+
+        // 모델에 데이터 추가
+        model.addAttribute("prevRevNo", prevNextRevNos.get("prevRevNo"));
+        model.addAttribute("nextRevNo", prevNextRevNos.get("nextRevNo"));
 		
 //		String commId = service.getCafeReviewCommentId();
 		

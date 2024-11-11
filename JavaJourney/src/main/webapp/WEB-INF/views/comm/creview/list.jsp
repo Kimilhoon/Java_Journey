@@ -61,13 +61,60 @@ $(function() {
 <div id="category-list">
 카테고리
 	<select id="category">
-      <option hidden="none"></option>
-      <option value="all">전체</option>
-      <option value="서울">서울</option>
-      <option value="경기">경기</option>
-      <option value="인천">인천</option>
-      <option value="부산">부산</option>
-      <option value="제주">제주</option>
+		<c:choose>
+			<c:when test="${category eq '전체' }">
+				<option value="all" selected="selected">전체</option>
+			</c:when>
+			<c:otherwise>
+				<option value="all">전체</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '서울' }">
+				<option value="서울" selected="selected">서울</option>
+			</c:when>
+			<c:otherwise>
+				<option value="서울">서울</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '경기' }">
+				<option value="경기" selected="selected">경기</option>
+			</c:when>
+			<c:otherwise>
+				<option value="경기">경기</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '인천' }">
+				<option value="인천" selected="selected">인천</option>
+			</c:when>
+			<c:otherwise>
+				<option value="인천">인천</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '부산' }">
+				<option value="부산" selected="selected">부산</option>
+			</c:when>
+			<c:otherwise>
+				<option value="부산">부산</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '제주' }">
+				<option value="제주" selected="selected">제주</option>
+			</c:when>
+			<c:otherwise>
+				<option value="제주">제주</option>
+			</c:otherwise>
+		</c:choose>
+		
    </select>
 </div> <!-- category-list -->
 </div> <!-- col -->
@@ -123,6 +170,9 @@ $(function() {
 		<a href="./view?revNo=${list.revNo }">
 		${list.cafeName }
 		</a>
+		<c:if test="${list.cafeRevCommCount > 1 }">
+			[${list.cafeRevCommCount }]
+		</c:if>
 	</td>
 	<td class="col-2">${list.userNick }</td>
 	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
@@ -142,7 +192,7 @@ $(function() {
 
 
 
-<c:import url="../../layout/page.jsp" />
+<c:import url="../../layout/page_irooni.jsp" />
 
 <c:import url="../../layout/footer.jsp" />
 

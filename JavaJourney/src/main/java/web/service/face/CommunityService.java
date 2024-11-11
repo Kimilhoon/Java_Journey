@@ -1,6 +1,7 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -288,6 +289,10 @@ public interface CommunityService {
 	 * @param file
 	 */
 	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe,MultipartFile file);
+
+
+	public Map<String, Integer> getPrevNextRevNos(CafeRev revNo);
+
 	
 	/**
 	 * 나만의 레시피 상세

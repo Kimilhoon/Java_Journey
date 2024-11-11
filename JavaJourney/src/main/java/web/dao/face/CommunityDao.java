@@ -314,6 +314,7 @@ public interface CommunityDao {
 	public void insertMyRecipe(MyRecipe myRecipe);
 
 	/**
+<<<<<<< HEAD
 	 * 나만의 레시피 글 작성시 파일 업로드
 	 * @param myRecipeFile
 	 */
@@ -326,6 +327,29 @@ public interface CommunityDao {
 	 * @return - 조회된 한 행
 	 */
 	public MyRecipe selectMyRecipeByMyRecipeNo(MyRecipe myRecipe);
+	/**
+	 * 카페 리뷰 댓글 갯수 세기
+	 * 
+	 * @param c - 조회할 카페 리뷰
+	 * @return 카페 리뷰 갯수
+	 */
+	public int getCafeReviewCommentCnt(CafeRev c);
+
+	/**
+	 * 카페 리뷰 게시글 삭제 시 댓글 삭제
+	 * 
+	 * @param cafeRev - 댓글을 삭제할 게시글 번호
+	 */
+	public void deleteCafeReviewCommByCafeNo(CafeRev cafeRev);
+
+	/**
+	 * 	모든 카페 리뷰 번호 불러오기
+	 * 
+	 * @return 불러온 카페 리뷰 번호
+	 */
+	public List<Integer> getCafeRevNos();
+
+
 
 	
 	/**
