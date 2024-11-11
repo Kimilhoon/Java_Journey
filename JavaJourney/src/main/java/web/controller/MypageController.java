@@ -196,34 +196,11 @@ public class MypageController {
 		
 		return ResponseEntity.ok(checkNickResult);
 	}
+	
+	
+	@GetMapping("/myview")
+	public void view() {}
 		
-	
-	
-	
-//	@PostMapping("/myinfo")
-//	public void MyInfoForm(Member member, Model model, HttpSession session) {
-//		log.info("member:{}", member);
-//		member.setUserId((String)session.getAttribute("userId"));
-//		member.setUserNo((int)session.getAttribute("userNo"));
-//		
-//		model.addAttribute("member", member);
-//		
-//		log.info("member:{}", member);
-//		
-//	}
-	
-	
-//	@PostMapping("/myinfoUpdate")
-//	public void MyInfoUpdateForm(Member member, Model model, HttpSession session) {
-//		
-//		member = service.infoView(member);
-//		
-//		model.addAttribute("member", member);
-//	}
-	
-	
-	
-	
 	
 	
 	

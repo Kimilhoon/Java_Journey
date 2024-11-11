@@ -71,23 +71,6 @@ public class MypageServiceImpl implements MypageService {
 	
 	
 	//진주-----------------------------------
-//	@Override
-//	public Member infoView(Member member) {
-//		return dao.selectByUserNo(member);
-//	}
-
-
-//	@Override
-//	public Member getInfoByUserNo(Member userNo) {
-//		return dao.getInfoByUserNo(userNo);
-//	}
-
-
-//	@Override
-//	public Member getInfoByUserNo(int userNo) {
-//		return dao.getInfoByUserNo(userNo);
-//	}
-
 
 	@Override
 	public Member findByUserId(String userId) {

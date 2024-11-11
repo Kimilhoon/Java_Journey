@@ -49,17 +49,19 @@ public interface MypageService {
 	
 	//진주---------------------------------------
 	
+
 	/**
-	 * 기존 회원 정보 불러오기
-	 * @param member
+	 * 아이디로 회원정보 불러오기
+	 * @param userId
 	 * @return
 	 */
-//	public Member infoView(Member member);
-
-//	public Member getInfoByUserNo(int userNo);
-
 	public Member findByUserId(String userId);
 
+	/**
+	 * 유저번호로 회원정보 불러오기
+	 * @param userNo
+	 * @return
+	 */
 	public Member findByUserNo(Integer userNo);
 
 	/**
