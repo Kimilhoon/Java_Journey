@@ -1,15 +1,18 @@
 package web.service.face;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
@@ -286,6 +289,59 @@ public interface CommunityService {
 	 * @param file
 	 */
 	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe,MultipartFile file);
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------event
+	
+	/**
+	 * 이벤트 목록 전부 조회
+	 * @return
+	 */
+	public List<Event> selectByAll();
+
+	
+	/**
+	 * eveOriName, eveStart, eveEnd, eveImg를 전달받아서 DB에 삽입하기
+	 * @param event - eveOriName, eveStart, eveEnd, eveImg
+	 */
+	public void insertEvent(Event event);
+
+	/**
+	 * event 상세보기
+	 * @param event
+	 * @return 
+	 */
+	public Event eventInfoByeventNo(Event event);
+
+	/**
+	 * 이벤트 삭제
+	 * @param event
+	 */
+	public void eventDeleteByEventNo(Event event);
 
 
 	public Map<String, Integer> getPrevNextRevNos(CafeRev revNo);

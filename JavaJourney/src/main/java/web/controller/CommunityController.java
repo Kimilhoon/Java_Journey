@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
@@ -320,6 +321,76 @@ public class CommunityController {
 		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---이벤트-event(jjy)-----------------------------------------
+	@GetMapping("/event/list")
+	public void eventForm(
+			Model model,
+			Event event
+			) {
+		List<Event> eventList = service.selectByAll();
+		model.addAttribute("eventList",eventList);
+	}
+	
+	@GetMapping("/event/info")
+	public void eventInfoForm(
+			Event event,
+			Model model
+			) {
+		log.info("event : {}", event);
+		Event eventView = service.eventInfoByeventNo(event);
+		model.addAttribute("eventView",eventView);
+	}
+	
+	@GetMapping("/event/write")
+	public void eventWriteForm() {}
+
+	@PostMapping("/event/write")
+	public String eventWriteProc(
+			Event event
+			) {
+		log.info("insertevent : {}", event);
+		service.insertEvent(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	@GetMapping("/event/update")
+	public void eventUpdateForm() {}
+	
+	@PostMapping("/event/update")
+	public void eventUpdateProc(
+			Event event
+			) {
+		log.info("updateevent : {}", event);
+		
+	}
+	
+	@GetMapping("/event/delete")
+	public String eventDelete(
+			Event event
+			) {
+		log.info("event : {}", event);
+		service.eventDeleteByEventNo(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	
+	
+	
+	
+	
 	
 }
 
