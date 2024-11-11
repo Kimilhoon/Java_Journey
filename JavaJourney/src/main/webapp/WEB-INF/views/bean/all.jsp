@@ -3,14 +3,61 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!--  -->
+
 <c:import url="../layout/header.jsp" />
 
 <script type="text/javascript">
 $(function() {
+	$("#cupnote").on("change", function() {
+		
+		var cupnoteValue = $(this).val();
+// 		console.log($("#search").val());
+// 		console.log($("#category").val());
+		$.ajax({
+			url: "./all",
+			type: "get",
+			data:{
+				"cupnote":cupnoteValue
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove();
+				$("body").html(res); 
+			},
+			error: function() {
+				console.error("AJAX 요청에 실패했습니다.");
+			}
+			
+		});
+		
+	});
+	
 	$("#searchIcon").click(function() {
-		$(this).parents("form").submit();
-	})
+// 		console.log($("#search").val());
+// 		console.log($("#category").val());
+	
+		var keywordValue = $("#keyword").val();
+	
+		$.ajax({
+			url: "./all",
+			type: "get",
+			data:{
+				"keyword":keywordValue
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove();
+				$("body").html(res); 
+			},
+			error: function() {
+				console.error("AJAX 요청에 실패했습니다.");
+			}
+			
+		});
+		
+	});
 })
 </script>
 
@@ -20,18 +67,21 @@ $(function() {
 <h1> <전체 원두> </h1>
 </div>
 
-<form action="./all" method="post">
 <div id="up" class="mb-4 d-flex flex-row align-items-center">
 
 <div class="me-auto d-flex justify-content-start">
 <label for="cupnote" class="col-sm-4 col-form-label">맛과향</label>
 <div class="col-sm-10">
-<select id="cupnote" name="cupnote" class="form-select">
+<select id="cupnote" name="cupnote" class="form-select" >
 	<option value="" selected disabled>-- 선택하세요 --</option>
-	<option value="savory">고소미</option>
-	<option value="Fresh">상큼이</option>
-	<option value="Sweetness">달달이</option>
-	<option value="bitter">쌉쌀이</option>
+	<option value="1">새콤이</option>
+	<option value="2">달달이</option>
+	<option value="3">쌉쌀이</option>
+	<option value="4">고소미</option>
+	<option value="5">은은이</option>
+	<option value="6">향긋이</option>
+	<option value="7">진한이</option>
+	<option value="8">부드럽이</option>
 </select>
 </div>
 </div>
@@ -44,7 +94,6 @@ $(function() {
 </div>
 
 </div>
-</form>
 
 
 <div id="List">
@@ -57,8 +106,8 @@ $(function() {
       <tr>
    </c:if>
    
-      <td class="text-center">
-      <a href="./info?beanNo=${ bean.beanNo }" class="img-thumbnail">
+      <td class="text-center " style="flex-shrink: 0;">
+      <a href="./info?beanNo=${ bean.beanNo }">
 <%--           <img src="<c:url value='${bean.beanOriginName}' />" alt="${bean.beanName}" style="width: 100%;"> --%>
 			${bean.beanOriginName}
 <!--           <img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:import url="../layout/header.jsp" />
+<c:import url="../layout/header.jsp" />  
 
 <script type="text/javascript">
 $(function() {
@@ -41,35 +41,55 @@ $(function() {
 	})
 	
 /* 버튼들 설정 */
+/* -------------------------------------------------------------------------------------------------------------- */
 	
 	$("#btnList").click(function() {
 		location.href="./all";
 	})
 	
 	$("#btnUpdate").click(function() {
-		location.href="/create/update?beanNo=${ beanInfo.beanNo }&&beanImgNo=${beanInfo.beanImgNo}";
+		location.href="/create/beanupdate?beanNo=${beanInfo.beanNo}";
 	})
 	
 	$("#btnDelete").click(function() {
-		location.href="/create/delete?beanNo=${ beanInfo.beanNo }";
+		location.href="/create/beandelete?beanNo=${beanInfo.beanNo}";
 	})
 	
 /* -------------------------------------------------------------------------------------------------------------- */
 	
 	// JavaScript 코드
-	window.addEventListener("scroll", function() {
-	    const menuTab = document.getElementById("#beanMenu");
-	    const stickyPoint = menuTab.offsetTop;  // 메뉴가 원래 위치한 지점
+// 	window.addEventListener("scroll", function() {
+// 	    const menuTab = document.getElementById("#beanMenu");
+// 	    const stickyPoint = menuTab.offsetTop;  // 메뉴가 원래 위치한 지점
 
-	    if (window.pageYOffset > stickyPoint) {
-	        menuTab.classList.add("sticky");  // 스크롤 위치가 메뉴 지점을 지나면 sticky 클래스를 추가
-	    } else {
-	        menuTab.classList.remove("sticky");  // 스크롤 위치가 메뉴 지점 위로 올라가면 sticky 클래스를 제거
-	    }
-	});
+// 	    if (window.pageYOffset > stickyPoint) {
+// 	        menuTab.classList.add("sticky");  // 스크롤 위치가 메뉴 지점을 지나면 sticky 클래스를 추가
+// 	    } else {
+// 	        menuTab.classList.remove("sticky");  // 스크롤 위치가 메뉴 지점 위로 올라가면 sticky 클래스를 제거
+// 	    }
+// 	});
+	
+	$(document).ready(function() {
+		
+		var tapsTop = $("#beanMenu").offset().top; 
+		console.log(tapsTop)
+		
+		$(window).scroll(function() {
+		   
+			var window = $(this).scrollTop();
+		    
+			if(tapsTop <= window) {
+				$("#beanMenu").addClass("fixed");
+			}else{
+				$("#beanMenu").removeClass("fixed");
+			} // if(tapsTop <= window) end
+			
+		}) // $(window).scroll(function() end
+				
+	}) // $(document).ready(function() end
 	
 	
-})
+}) // $(function() end 
 </script>
 
 <style type="text/css">
@@ -77,23 +97,30 @@ $(function() {
 	width: 150px;
 }
 
+#beanMenu.fixed{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: white;
+}
+
 /* 기본 스타일 */
-/* #beanMenu { */
-/*     width: 100%; */
-/*     background-color: #333; */
-/*     color: white; */
-/*     padding: 10px; */
-/*     text-align: center; */
-/* } */
+/*  #beanMenu {  */
+/*    width: 100%;  */
+/*     color: white;  */
+/*    padding: 10px;  */
+/*      text-align: center;  */
+/* }  */
 
 /* 상단에 고정될 때의 스타일 */
-.sticky { 
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1000;
-}
+/* .sticky {  */
+/* 	position: fixed; */
+/* 	top: 0; */
+/* 	left: 0; */
+/* 	width: 100%; */
+/* 	z-index: 1000; */
+/* } */
 
 </style>
 
@@ -111,7 +138,7 @@ ${ beanInfo.beanOriginName }
 
 <div id="explain" class="p-2">
 <div>
-<h3>${ beanInfo.beanName }</h3>
+<h2>${ beanInfo.beanName }</h2>
 </div>
 
 <div class="mb-2">
@@ -124,10 +151,16 @@ ${ beanInfo.beanOriginName }
 </div>
 
 <div>
-<dl class="d-flex text-center">
-<dt>별점 : </dt>
-<dd> ★★★★★(5.0)</dd>
-</dl>
+<table class="table p-2">
+<tr>
+	<th>별점</th>
+	<td>★★★★★(5.0)</td>
+</tr>
+</table>
+<!-- <dl class="d-flex text-center"> -->
+<!-- <dt>별점 : </dt> -->
+<!-- <dd> ★★★★★(5.0)</dd> -->
+<!-- </dl> -->
 </div>
 
 <div id="btn" class="d-flex justify-content-center mt-auto">
@@ -156,16 +189,69 @@ ${ beanInfo.beanOriginName }
 </div>
 
 
-<div id="beanSale">
-제품 구매 안내
+<div id="beanSale" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div>
+<p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 구매 안내</p>
 </div>
 
-<div id="beanInformation">
+<div> 
+
+<table class="table table-borderless">
+<tr>
+	<th>식품의 유형</th>
+	<td>원두</td>
+</tr>
+<tr>
+	<th>유통원 및 소재지</th>
+	<td>(주)JavaJourney / 서울시 강남구 테헤란로 130 5층</td>
+</tr>
+<tr>
+	<th>유통기한</th>
+	<td>상품 상세설명 참조</td>
+</tr>
+<tr>
+	<th>제조연월일</th>
+	<td>주문 익일 오전 당일로스팅</td>
+</tr>
+<tr>
+	<th>용량</th>
+	<td>200g / 1Kg</td>
+</tr>
+<tr>
+	<th>영양성분</th>
+	<td>상품 상세설명 참조</td>
+</tr>
+<tr>
+	<th>보관방법</th>
+	<td>
+	직사광선을 피해 서늘한 곳에 보관해주세요
+	장시간 보관시 냉동상태로 보관 해주는 것이 좋습니다
+	</td>
+</tr>
+<tr>
+	<th>소비자안전을 위한 주의사항</th>
+	<td>카페인에 민감하신 분이나 15세 미만의 어린이는 음용을 삼가하시기 바랍니다.</td>
+</tr>
+<tr>
+	<th>제품문의 관련 전화번호</th>
+	<td>JavaJourney 고객센터 : 010-3227-5095</td>
+</tr>
+</table>
+
+</div>
+</div>
+
+<div id="beanInformation" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div>
+<p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 상제 정보</p>
+</div>
 ${ beanInfo.beanInfo }
 </div>
 
-<div id="beanReview">
-제품 리뷰
+<div id="beanReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div>
+<p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>
+</div>
 </div>
 
 <div id="btnGroup" class="text-center">
