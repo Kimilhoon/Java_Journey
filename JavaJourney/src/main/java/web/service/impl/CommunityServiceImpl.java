@@ -18,13 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.CupNote;
 import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
@@ -290,8 +293,8 @@ public class CommunityServiceImpl implements CommunityService {
 		}
 //		log.info("{}",myRecipe);
 //		log.info("{}",context.getRealPath("upload"));
-		
-		if(file.isEmpty() || file.getSize()<=0) {
+		dao.insertMyRecipe(myRecipe);
+		if(file==null || file.isEmpty() || file.getSize()<=0) {
 			log.info("파일 이상");
 			return;
 		}
@@ -326,7 +329,7 @@ public class CommunityServiceImpl implements CommunityService {
 		myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
 		myRecipeFile.setMyRipFileStoredName(storedName);
 		
-		dao.insertMyRecipe(myRecipe);
+		
 		dao.insertMyRecipeFile(myRecipeFile);
 
 		
@@ -334,7 +337,15 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public MyRecipe getMyRecipeInfo(MyRecipe myRecipe) {
-		return dao.selectMyRecipeByMyRecipeNo(myRecipe);
+		MyRecipe mr = dao.selectMyRecipeByMyRecipeNo(myRecipe);
+		
+		log.info("빈빈빈빈빈{}",mr);
+		String bean = dao.selectBeanByBeanNo(mr.getBeanNo());
+		mr.setBeanName(bean);
+		log.info("빈빈빈빈빈{}",bean);
+		
+		
+		return mr;
 	}
 
 	
@@ -387,6 +398,9 @@ public class CommunityServiceImpl implements CommunityService {
 		MyRecipeFile myRecipeFile = dao.selectMyRecipeFileByMyRipNo(myRecipe);
 		
 		if(myRecipeFile == null) {
+			if(file.getOriginalFilename().length()<1) {
+				return;
+			}
 			String storedPath = context.getRealPath("upload");
 			File upFolder = new File(context.getRealPath("upload"));
 			upFolder.mkdir();
@@ -419,6 +433,9 @@ public class CommunityServiceImpl implements CommunityService {
 			dao.insertMyRecipeFile(myRecipeFile);
 			
 		}else {
+			if(file.getOriginalFilename().length()<1) {
+				return;
+			}
 			dao.deleteMyRecipeFileByMyRipNo(myRecipe);
 			String storedPath = context.getRealPath("upload");
 			File upFolder = new File(context.getRealPath("upload"));
@@ -452,6 +469,25 @@ public class CommunityServiceImpl implements CommunityService {
 			dao.insertMyRecipeFile(myRecipeFile);
 			
 		}
+	}
+	@Override
+	public List<Grind> getGrindList() {
+		
+		return dao.selectGrindAll();
+	}
+	@Override
+	public List<Extraction> getExtractionList() {
+		
+		return dao.selectExtractionAll();
+	}
+	@Override
+	public List<Bean> getBeanList() {
+		
+		return dao.selectBeanAll();
+	}
+	@Override
+	public List<CupNote> getCupList(Bean bean) {
+		return dao.selectCupNoteByBeanNo(bean);
 	}
 	
 	//------------------------------------------------------------------------------

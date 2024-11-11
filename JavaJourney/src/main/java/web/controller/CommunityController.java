@@ -15,18 +15,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.CupNote;
 import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
@@ -198,16 +202,21 @@ public class CommunityController {
 			log.info("{}",member);
 			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
 			List<CupNote> clist = service.getCupNoteNameList();
+			List<Grind> glist = service.getGrindList();
+			List<Extraction> elist = service.getExtractionList();
+			List<Bean> blist = service.getBeanList();
 			
 			model.addAttribute("qList", list);
 			model.addAttribute("cList", clist);
+			model.addAttribute("gList", glist);
+			model.addAttribute("eList", elist);
+			model.addAttribute("bList", blist);
 			
 		}
 		
 		@PostMapping("/myrecipe/write")
 		public String writeProc(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
 			log.info("{}",myRecipe);
-			log.info("{}",file.getOriginalFilename());
 			service.uploadMyRecipe(session,myRecipe,file);
 			
 			return"redirect:./list";
@@ -240,9 +249,10 @@ public class CommunityController {
 		}
 		
 		@PostMapping("/myrecipe/update")
-		public void myRecipeUpdateProc( MyRecipe myRecipe, MultipartFile file) {
+		public String myRecipeUpdateProc(  MyRecipe myRecipe, MultipartFile file) {
+			log.info("레시피레시피레시피레시피{}",myRecipe);
 			service.changeMyRecipe(myRecipe,file);
-			
+			return "redirect:./list";
 		}
 		
 		@GetMapping("/myrecipe/download")
@@ -254,6 +264,22 @@ public class CommunityController {
 			return "downView";
 		}
 		
+		@GetMapping("/myrecipe/getcupnote")
+		public void getCup(Bean bean,HttpServletResponse resp) {
+			List<CupNote> cupList = service.getCupList(bean);
+			Gson gson = new Gson();
+			HashMap<String, List<CupNote>> map = new HashMap<String, List<CupNote>>();
+			map.put("cupList", cupList);
+			resp.setCharacterEncoding("utf-8");
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 		//이벤트---------------------------------------------------------------------------------------
 		

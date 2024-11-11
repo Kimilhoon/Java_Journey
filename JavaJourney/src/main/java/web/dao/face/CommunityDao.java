@@ -5,13 +5,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.CupNote;
 import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
@@ -313,6 +316,35 @@ public interface CommunityDao {
 	 * @param myRecipe
 	 */
 	public void insertMyRecipe(MyRecipe myRecipe);
+	
+	/**
+	 * 분쇄도 리스트
+	 * @return
+	 */
+	public List<Grind> selectGrindAll();
+	/**
+	 * 추출법 리스트
+	 * @return
+	 */
+	public List<Extraction> selectExtractionAll();
+	/**
+	 *bean 리스트
+	 * @return
+	 */
+	public List<Bean> selectBeanAll();
+	/**
+	 * 빈 넘버로 컵노트 리스트 가져오기
+	 * @param bean
+	 * @return
+	 */
+	public List<CupNote> selectCupNoteByBeanNo(Bean bean);
+	
+	/**
+	 * 빈 넘버로 빈 가져오기
+	 * @param myRecipe - 빈넘버 있음
+	 * @return
+	 */
+	public String selectBeanByBeanNo(int beanNo);
 	
 	
 	
