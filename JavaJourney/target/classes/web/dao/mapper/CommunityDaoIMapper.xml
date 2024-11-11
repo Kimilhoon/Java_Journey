@@ -407,6 +407,36 @@
 		DELETE FROM MYRECIPEFILE
 		WHERE MYRIPNO = #{myRipNo}
 	</delete>
+
+<!-- 	event -->
+	<select id="selectEventAllList" resultType="Event">
+		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		FROM EVENT
+		ORDER BY EVENTNO DESC
+	</select>
+
+	<insert id="insertEventData" parameterType="Event">
+		<selectKey order="BEFORE" keyProperty="eventNo" resultType="int"> 
+			SELECT EVENT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO EVENT(EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG)
+		VALUES(#{eventNo}, #{eveOriName}, #{eveStart}, #{eveEnd}, #{eveImg})
+	</insert>
+	
+	<select id="selectByEventNo" resultType="Event" parameterType="Event">
+		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		FROM EVENT
+		<where>
+			EVENTNO = #{eventNo}
+		</where>
+	</select>
+	
+	<delete id="deleteEventByEventNo" parameterType="Event">
+		DELETE EVENT
+		<where>
+			EVENTNO = #{eventNo}
+		</where>
+	</delete>
 	<select id="getCafeReviewCommentCnt" resultType="int" parameterType="cafeRev">
 		SELECT count(*) FROM caferevcomm
 		<where>

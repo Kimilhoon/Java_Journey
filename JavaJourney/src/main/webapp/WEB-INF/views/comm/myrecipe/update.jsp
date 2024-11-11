@@ -68,7 +68,7 @@ $(function() {
 		<c:when test="${fn:length(myRecipeView.myRipFileStoredName)>0}">
 		<div id="file">
 		파일 : 
-			<a href="./download?boardNo=${myRecipeView.myRipNo }">${myRecipeView.myRipFileOriginName}</a>
+			<a href="./download?myRipNo=${myRecipeView.myRipNo }">${myRecipeView.myRipFileOriginName}</a>
 			<button id="deleteFile" type="button">수정</button>
 		</div> 
 		<div id="newFile" style="display: none;">
