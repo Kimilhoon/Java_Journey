@@ -2,10 +2,9 @@ package web.controller;
 
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -215,7 +213,7 @@ public class CommunityController {
 		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
 
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
-		
+
 		model.addAttribute("paging", paging);
 		model.addAttribute("category", category);
 		model.addAttribute("order", order);
@@ -251,6 +249,13 @@ public class CommunityController {
 		} else {
 			model.addAttribute("isOwner", false);
 		}
+
+        // 이전, 다음 게시글 revNo 조회
+        Map<String, Integer> prevNextRevNos = service.getPrevNextRevNos(revNo);
+
+        // 모델에 데이터 추가
+        model.addAttribute("prevRevNo", prevNextRevNos.get("prevRevNo"));
+        model.addAttribute("nextRevNo", prevNextRevNos.get("nextRevNo"));
 		
 //		String commId = service.getCafeReviewCommentId();
 		

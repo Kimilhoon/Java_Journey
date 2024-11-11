@@ -170,6 +170,9 @@ $(function() {
 		<a href="./view?revNo=${list.revNo }">
 		${list.cafeName }
 		</a>
+		<c:if test="${list.cafeRevCommCount > 1 }">
+			[${list.cafeRevCommCount }]
+		</c:if>
 	</td>
 	<td class="col-2">${list.userNick }</td>
 	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
