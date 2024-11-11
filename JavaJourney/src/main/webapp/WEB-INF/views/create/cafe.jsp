@@ -76,7 +76,7 @@ $(function() {
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
         ]
-    }); // $('#cafeInfo') end
+    }); // $('#cafeImgOriName') end
     
     $('#cafeInfo').summernote({ 
     	width: 500, height: 200 
