@@ -23,11 +23,16 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
+import web.dto.QuizResult;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -187,17 +192,73 @@ public class CommunityController {
 			
 		}
 		
-		@GetMapping("myrecipe/write")
-		public void myRecipeForm(MyRecipe myRecipe) {}
+		@GetMapping("/myrecipe/write")
+		public void myRecipeForm(MyRecipe myRecipe,HttpSession session,Model model) {
+			Member member = service.getMemberByUserId((String)session.getAttribute("userId"));
+			log.info("{}",member);
+			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
+			List<CupNote> clist = service.getCupNoteNameList();
+			
+			model.addAttribute("qList", list);
+			model.addAttribute("cList", clist);
+			
+		}
 		
-		@PostMapping("myrecipe/write")
+		@PostMapping("/myrecipe/write")
 		public String writeProc(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
 			log.info("{}",myRecipe);
 			log.info("{}",file.getOriginalFilename());
-//			service.uploadMyRecipe(session,myRecipe,file);
+			service.uploadMyRecipe(session,myRecipe,file);
 			
 			return"redirect:./list";
 		}
+		
+		@GetMapping("/myrecipe/view")
+		public void myRipView(MyRecipe myRecipe, Model model,HttpSession session) {
+			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
+			model.addAttribute("myRecipeView", myRecipeView);
+			Member member = service.getMemberByUserNo(myRecipeView);
+			model.addAttribute("member", member);
+		}
+		
+		@GetMapping("/myrecipe/hit")
+		public void myRecipeHit(MyRecipe myRecipe) {
+			service.myRrcipeHitUp(myRecipe);
+		}
+		
+		@GetMapping("myrecipe/update")
+		public void myRecipeUpdate(MyRecipe myRecipe, Model model,HttpSession session) {
+			Member member = service.getMemberByUserId((String)session.getAttribute("userId"));
+			log.info("{}",member);
+			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
+			List<CupNote> clist = service.getCupNoteNameList();
+			
+			model.addAttribute("qList", list);
+			model.addAttribute("cList", clist);
+			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
+			model.addAttribute("myRecipeView", myRecipeView);
+		}
+		
+		@PostMapping("/myrecipe/update")
+		public void myRecipeUpdateProc( MyRecipe myRecipe, MultipartFile file) {
+			service.changeMyRecipe(myRecipe,file);
+			
+		}
+		
+		@GetMapping("/myrecipe/download")
+		public String myRecipeFileDownload(MyRecipe myRecipe, Model model) {
+			MyRecipeFile myRecipeFile = service.getMyRecipeFile(myRecipe);
+			
+			model.addAttribute("myRecipeFileDownload", myRecipeFile);
+			
+			return "downView";
+		}
+		
+		
+		//이벤트---------------------------------------------------------------------------------------
+		
+		@GetMapping("/event/event")
+		public void event() {}
 		
 	
 	//--------------------------------------------------------------------------------------
@@ -320,6 +381,76 @@ public class CommunityController {
 		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---이벤트-event(jjy)-----------------------------------------
+	@GetMapping("/event/list")
+	public void eventForm(
+			Model model,
+			Event event
+			) {
+		List<Event> eventList = service.selectByAll();
+		model.addAttribute("eventList",eventList);
+	}
+	
+	@GetMapping("/event/info")
+	public void eventInfoForm(
+			Event event,
+			Model model
+			) {
+		log.info("event : {}", event);
+		Event eventView = service.eventInfoByeventNo(event);
+		model.addAttribute("eventView",eventView);
+	}
+	
+	@GetMapping("/event/write")
+	public void eventWriteForm() {}
+
+	@PostMapping("/event/write")
+	public String eventWriteProc(
+			Event event
+			) {
+		log.info("insertevent : {}", event);
+		service.insertEvent(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	@GetMapping("/event/update")
+	public void eventUpdateForm() {}
+	
+	@PostMapping("/event/update")
+	public void eventUpdateProc(
+			Event event
+			) {
+		log.info("updateevent : {}", event);
+		
+	}
+	
+	@GetMapping("/event/delete")
+	public String eventDelete(
+			Event event
+			) {
+		log.info("event : {}", event);
+		service.eventDeleteByEventNo(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	
+	
+	
+	
+	
 	
 }
 

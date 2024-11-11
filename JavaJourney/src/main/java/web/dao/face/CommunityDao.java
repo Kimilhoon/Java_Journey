@@ -8,13 +8,16 @@ import org.apache.ibatis.annotations.Mapper;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
-import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
-import web.util.Paging;
+import web.dto.QuizResult;
 
 
 @Mapper
@@ -310,7 +313,114 @@ public interface CommunityDao {
 	 * @param myRecipe
 	 */
 	public void insertMyRecipe(MyRecipe myRecipe);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------event
+	
+	/**
+	 * 모든 이벤트 목록 DB 조회
+	 * @return
+	 */
+	public List<Event> selectEventAllList();
 
+	
+	/**
+	 * eveOriName, eveStart, eveEnd, eveImg를 전달받아서 DB에 삽입하기
+	 * @param event
+	 */
+	public void insertEventData(Event event);
+	/**
+	 * 이벤트 상세정보 DB 조회
+	 * @param event
+	 * @return 
+	 */
+	public Event selectByEventNo(Event event);
+	
+	/**
+	 * 이벤트 번호로 이벤트 삭제
+	 * @param event
+	 */
+	public void deleteEventByEventNo(Event event);
+	
+
+	/**
+<<<<<<< HEAD
+	 * 나만의 레시피 글 작성시 파일 업로드
+	 * @param myRecipeFile
+	 */
+	public void insertMyRecipeFile(MyRecipeFile myRecipeFile);
+	
+	/**
+	 * 나만의 레시피 조회
+	 * 
+	 * @param myRecipe - 나만의 레시피 글번호
+	 * @return - 조회된 한 행
+	 */
+	public MyRecipe selectMyRecipeByMyRecipeNo(MyRecipe myRecipe);
 	/**
 	 * 카페 리뷰 댓글 갯수 세기
 	 * 
@@ -335,10 +445,55 @@ public interface CommunityDao {
 
 
 
+	
+	/**
+	 * 유저의 취향 조사 결과 리스트 가져옴
+	 * 
+	 * @param member
+	 * @return
+	 */
+	public List<MemberQuizResult> selectMemberQuizResultByUserNo(Member member);
 
+	/**
+	 * 취향조사 결과 번호로 퀴즈번호,원두번호,컵노트번호,분쇄번호,추출번호
+	 * , 원두명 , cupnote이름 , 그라인드네임, 추출네임 얻기
+	 * @param mqr - 취향조사결과 번호 있음
+	 * @return - 위 정보가 담긴 리스트 한 번호당 3개씩 나옴 맛이 3개라서
+	 */
+	public List<QuizResult> selectQuizResultByMemberQuizResultNo(MemberQuizResult mqr);
 
+	/**
+	 * 컵노트 리스트 다 가져오기
+	 * @return
+	 */
+	public List<CupNote> selectCupNoteList();
 
-
+	/**
+	 * 조회수++
+	 * @param myRecipe
+	 */
+	public void updateMyRecipeHit(MyRecipe myRecipe);
+	
+	/**
+	 * 글 번호로 파일 가져오기
+	 * 
+	 * @param myRecipe - 글번호
+	 * @return
+	 */
+	public MyRecipeFile selectMyRecipeFileByMyRipNo(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 글 수정
+	 * @param myRecipe -  글 번호,제목,내용 있음
+	 */
+	public void updateMyRecipe(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 글 수정시 파일 있을 떄 삭제
+	 * 
+	 * @param myRecipe
+	 */
+	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe); 
 }
 
 

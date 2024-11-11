@@ -23,7 +23,7 @@
 	<li><a href="/comm/freeboard/list" style="text-decoration: none; color: black;">자유게시판</a></li>
 	<li><a href="/comm/recipe/list" style="text-decoration: none; color: black;">나만의레시피</a></li>
 	<li><a href="/comm/notice/list" style="text-decoration: none; color: black;">공지사항</a></li>
-	<li><a href="/comm/event" style="text-decoration: none; color: black;">이벤트</a></li>
+	<li><a href="/comm/event/list" style="text-decoration: none; color: black;">이벤트</a></li>
 	<li><a href="/comm/faq/list" style="text-decoration: none; color: black;">자주묻는질문</a></li>
 </ul>
 <ul class="fs-3 px-3" style="list-style:none; border:1px solid #ccc;">
