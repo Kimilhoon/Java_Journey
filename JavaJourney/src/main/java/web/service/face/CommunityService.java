@@ -21,6 +21,7 @@ import web.dto.FreeBoardComment;
 import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
@@ -432,7 +433,20 @@ public interface CommunityService {
 	 */
 	public void changeMyRecipe( MyRecipe myRecipe, MultipartFile file);
 	
+	/**
+	 * 나만의 레시피 댓글
+	 * @param myRecipeComment - 내용 있음
+	 * @param session - 유저 가져올거임
+	 */
+	public void joinMyRecipeComment(MyRecipeComment myRecipeComment,HttpSession session);
 	
+	/**
+	 * 나만의 레시피 댓글목록
+	 * 
+	 * @param myRecipe - 나만의레시피 글번호
+	 * @return
+	 */
+	public List<MyRecipeComment> getMyRecipeCommentList(MyRecipe myRecipe);
 	
 }
 

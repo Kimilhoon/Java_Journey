@@ -31,6 +31,7 @@ import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
@@ -489,6 +490,23 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<CupNote> getCupList(Bean bean) {
 		return dao.selectCupNoteByBeanNo(bean);
 	}
+	
+	@Override
+	public void joinMyRecipeComment(MyRecipeComment myRecipeComment, HttpSession session) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		
+		myRecipeComment.setUserNick(member.getUserNick());
+		myRecipeComment.setUserNo(member.getUserNo());
+		
+		dao.insertMyRecipeComment(myRecipeComment);
+		
+	}
+	
+	@Override
+	public List<MyRecipeComment> getMyRecipeCommentList(MyRecipe myRecipe) {
+		return dao.selectMyRecipeCommentListByMyRipNo(myRecipe);
+	}
+	
 	
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------

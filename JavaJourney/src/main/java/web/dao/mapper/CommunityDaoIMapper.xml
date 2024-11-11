@@ -484,6 +484,15 @@
 		WHERE BEANNO = #{beanNo}
 	</select>
 	
+	<insert id="insertMyRecipeComment" parameterType="MyRecipeComment">
+		INSERT INTO MYRECIPECOMMENT
+		VALUES (MYRECIPECOMMENT_SEQ.nextval,#{myRipNo},#{userNo},#{myRipCommCont},null,#{userNick},sysdate)
+	</insert>
+	
+	<select id="selectMyRecipeCommentListByMyRipNo" parameterType="MyRecipe" resultType="MyRecipeComment">
+		SELECT * FROM MYRECIPECOMMENT
+		WHERE MYRIPNO = #{myRipNo}
+	</select>
 </mapper>
 
 

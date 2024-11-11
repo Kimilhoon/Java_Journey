@@ -18,6 +18,7 @@ import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
@@ -526,6 +527,22 @@ public interface CommunityDao {
 	 * @param myRecipe
 	 */
 	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe); 
+	
+	/**
+	 * 나만의 레시피 댓글
+	 * 
+	 * @param myRecipeComment 내용, 유저 정보 있음
+	 */
+	public void insertMyRecipeComment(MyRecipeComment myRecipeComment);
+	
+	/**
+	 * 나만의 레시피 리스트 조회
+	 * 
+	 * @param myRecipe
+	 * @return
+	 */
+	public List<MyRecipeComment> selectMyRecipeCommentListByMyRipNo(MyRecipe myRecipe);
+	
 }
 
 

@@ -34,6 +34,7 @@ import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
@@ -228,6 +229,8 @@ public class CommunityController {
 			model.addAttribute("myRecipeView", myRecipeView);
 			Member member = service.getMemberByUserNo(myRecipeView);
 			model.addAttribute("member", member);
+			List<MyRecipeComment> commentList = service.getMyRecipeCommentList(myRecipe);
+			model.addAttribute("myRecipeCommentList", commentList);
 		}
 		
 		@GetMapping("/myrecipe/hit")
@@ -280,6 +283,13 @@ public class CommunityController {
 			
 			
 		}
+		
+		@GetMapping("/myrecipe/commentinsert")
+		public void myRecipeCommentInsert(MyRecipeComment myRecipeComment,HttpSession session) {
+			service.joinMyRecipeComment(myRecipeComment,session);
+		}
+		
+		
 		
 		//이벤트---------------------------------------------------------------------------------------
 		
