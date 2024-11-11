@@ -307,7 +307,7 @@ public class CommunityServiceImpl implements CommunityService {
 			c.setCafeRevCommCount(dao.getCafeReviewCommentCnt(c));
 		}
 		
-		log.info("param : {}", param);
+//		log.info("param : {}", param);
 		
 		return list;
 	}
