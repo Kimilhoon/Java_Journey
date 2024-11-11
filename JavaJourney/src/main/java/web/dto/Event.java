@@ -12,7 +12,7 @@ public class Event {
 	private int eventNo;
 	private String eveOriName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd") private Date eveStart;
-	@DateTimeFormat(pattern = "yyyy-MM-dd") private Date eveEnd;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") private Date eveEnd;
 	private String eveImg;
 	
 	

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.FreeBoardRecommend;
@@ -310,6 +311,87 @@ public interface CommunityDao {
 	 * @param myRecipe
 	 */
 	public void insertMyRecipe(MyRecipe myRecipe);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------event
+	
+	/**
+	 * 모든 이벤트 목록 DB 조회
+	 * @return
+	 */
+	public List<Event> selectEventAllList();
+
+	
+	/**
+	 * eveOriName, eveStart, eveEnd, eveImg를 전달받아서 DB에 삽입하기
+	 * @param event
+	 */
+	public void insertEventData(Event event);
+	
 
 
 

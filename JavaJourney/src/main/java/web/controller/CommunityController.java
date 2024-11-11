@@ -333,22 +333,39 @@ public class CommunityController {
 	//---이벤트-event(jjy)-----------------------------------------
 	@GetMapping("/event/list")
 	public void eventForm(
-			Model model) {
-		
-		
+			Model model,
+			Event event
+			) {
+		List<Event> eventList = service.selectByAll();
+		model.addAttribute("eventList",eventList);
 	}
-
+	
+	@GetMapping("/event/info")
+	public void eventInfoForm() {}
+	
 	@GetMapping("/event/write")
 	public void eventWriteForm() {}
 
 	@PostMapping("/event/write")
-	public void eventWriteProc(
+	public String eventWriteProc(
 			Event event
 			) {
-		log.info("event : {}", event);
+		log.info("insertevent : {}", event);
+		service.insertEvent(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	@GetMapping("/event/update")
+	public void eventUpdateForm() {}
+	
+	@PostMapping("/event/update")
+	public void eventUpdateProc(
+			Event event
+			) {
+		log.info("updateevent : {}", event);
 		
 	}
-
+	
 	@PostMapping("/event/delete")
 	public void eventDelete() {}
 	

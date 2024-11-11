@@ -45,7 +45,7 @@ $(function() {
 			시작
 			<input type="date" id="eveStart" name="eveStart">
 			종료
-			<input type="date" id="eveEnd" name="eveEnd">
+			<input type="datetime-local" id="eveEnd" name="eveEnd">
 		</tr>
 		<tr>
 			<td>이벤트이미지[이미지삽입]

@@ -15,6 +15,7 @@ import web.dao.face.CommunityDao;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.FreeBoardRecommend;
@@ -425,6 +426,83 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------event
+	
+	@Override
+	public List<Event> selectByAll() {
+		return dao.selectEventAllList();
+	}
+	
+	@Override
+	public void insertEvent(Event event) {
+		dao.insertEventData(event);
+		
+	}
+	
+	
+	
 
 }
 

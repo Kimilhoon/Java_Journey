@@ -335,6 +335,57 @@
 		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{mtRipContent},0,sysdate,#{myRipImgNo})
 	</insert>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+<!-- 	event -->
+	<select id="selectEventAllList" resultType="Event">
+		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		FROM EVENT
+		ORDER BY EVENTNO DESC
+	</select>
+
+	<insert id="insertEventData" parameterType="Event">
+		<selectKey order="BEFORE" keyProperty="eventNo" resultType="int"> 
+			SELECT EVENT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO EVENT(EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG)
+		VALUES(#{eventNo}, #{eveOriName}, #{eveStart}, #{eveEnd}, #{eveImg})
+	</insert>
+	
+	
+	
 </mapper>
 
 
