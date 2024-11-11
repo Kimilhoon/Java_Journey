@@ -1,14 +1,17 @@
 package web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import web.dto.BeanWish;
+import web.dto.CafeWish;
 import web.dto.Member;
 import web.service.face.MypageService;
 
@@ -32,7 +35,18 @@ public class MypageController {
 	public void cancelsubForm() {}
 	
 	@GetMapping("/like")
-	public void likeForm() {}
+	public void likeForm(
+			Model model,
+			Member member
+			) {
+		log.info("member : {}",member.getUserNo());
+		List<CafeWish> cafeWishNoList = service.selectByLikeCafe(member.getUserNo());
+		log.info("cafeWishNoList",cafeWishNoList);
+		List<BeanWish> beanWishList = service.selectByLikeBean(member.getUserNo());
+		model.addAttribute("cafeWishNoList",cafeWishNoList);
+		model.addAttribute("beanWishList",beanWishList);
+		
+	}
 	
 	
 	

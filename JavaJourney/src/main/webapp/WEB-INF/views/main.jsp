@@ -6,7 +6,7 @@
 
 <div class="container">
 
-
+${userNo }
 <div id="bestCafe">
 <!-- 이달의 베스트카페 -->
 <%-- ${cafeBestList } --%>
