@@ -113,7 +113,10 @@ $(comm-update-btn).click(function() {
 
 <a href="./list"><button class="btn btn-light">목록</button></a>
 
+<c:if test="${cafeRev.revNo > 1 }">
 <a href="./view?revNo=${cafeRev.revNo - 1}"><button class="btn btn-light">이전</button></a>
+</c:if>
+
 <a href="./view?revNo=${cafeRev.revNo + 1}"><button class="btn btn-light">다음</button></a>
 
 </div> <!-- content -->

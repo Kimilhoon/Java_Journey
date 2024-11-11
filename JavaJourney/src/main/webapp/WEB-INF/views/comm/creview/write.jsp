@@ -24,7 +24,7 @@ $.ajax({
 
 <div id="write-area" class="text-center">
 
-<table>
+<table class="table table-borderless text-center">
 
 <tr>
 <td>
@@ -61,11 +61,12 @@ $.ajax({
 </table>
 
 <button class="btn btn-primary">작성</button>
-</div>
+<a href="./list"><button type="button" class="btn btn-primary">목록</button></a>
+
+</div><!-- write-area -->
 
 </form>
 
-<a href="./list"><button class="btn btn-primary">목록</button></a>
 
 
 
