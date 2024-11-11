@@ -373,6 +373,86 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.updateMyRecipeHit(myRecipe);
 	}
 	
+	@Override
+	public MyRecipeFile getMyRecipeFile(MyRecipe myRecipe) {
+		MyRecipeFile myRecipeFile = dao.selectMyRecipeFileByMyRipNo(myRecipe);
+		
+		return myRecipeFile;
+	}
+	
+	@Override
+	public void changeMyRecipe(MyRecipe myRecipe, MultipartFile file) {
+		dao.updateMyRecipe(myRecipe);
+		MyRecipeFile myRecipeFile = dao.selectMyRecipeFileByMyRipNo(myRecipe);
+		
+		if(myRecipeFile == null) {
+			String storedPath = context.getRealPath("upload");
+			File upFolder = new File(context.getRealPath("upload"));
+			upFolder.mkdir();
+			//파일이 저장될 이름
+			String storedName = null;
+					
+			//파일을 저장시킬 객체
+			File dest = null;
+			do {
+				storedName = file.getOriginalFilename();
+				storedName += UUID.randomUUID().toString().split("-")[3];
+				dest = new File(upFolder,storedName);
+			}while(dest.exists()); 
+			
+			try {
+				// 업로드된 임시 파일을 upload폴더로 옮겨 실제 파일을 생성
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			myRecipe.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipe.setMyRipFileStoredName(storedName);
+			
+			myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
+			myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipeFile.setMyRipFileStoredName(storedName);
+			
+			dao.insertMyRecipeFile(myRecipeFile);
+			
+		}else {
+			dao.deleteMyRecipeFileByMyRipNo(myRecipe);
+			String storedPath = context.getRealPath("upload");
+			File upFolder = new File(context.getRealPath("upload"));
+			upFolder.mkdir();
+			//파일이 저장될 이름
+			String storedName = null;
+					
+			//파일을 저장시킬 객체
+			File dest = null;
+			do {
+				storedName = file.getOriginalFilename();
+				storedName += UUID.randomUUID().toString().split("-")[3];
+				dest = new File(upFolder,storedName);
+			}while(dest.exists()); 
+			
+			try {
+				// 업로드된 임시 파일을 upload폴더로 옮겨 실제 파일을 생성
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			myRecipe.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipe.setMyRipFileStoredName(storedName);
+			
+			myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
+			myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipeFile.setMyRipFileStoredName(storedName);
+			
+			dao.insertMyRecipeFile(myRecipeFile);
+			
+		}
+	}
+	
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------

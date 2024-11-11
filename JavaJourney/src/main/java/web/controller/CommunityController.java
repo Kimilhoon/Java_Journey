@@ -30,6 +30,7 @@ import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
 import web.service.face.CommunityService;
@@ -226,8 +227,31 @@ public class CommunityController {
 		}
 		
 		@GetMapping("myrecipe/update")
-		public void myRecipeUpdate(MyRecipe myRecipe) {
+		public void myRecipeUpdate(MyRecipe myRecipe, Model model,HttpSession session) {
+			Member member = service.getMemberByUserId((String)session.getAttribute("userId"));
+			log.info("{}",member);
+			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
+			List<CupNote> clist = service.getCupNoteNameList();
 			
+			model.addAttribute("qList", list);
+			model.addAttribute("cList", clist);
+			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
+			model.addAttribute("myRecipeView", myRecipeView);
+		}
+		
+		@PostMapping("/myrecipe/update")
+		public void myRecipeUpdateProc( MyRecipe myRecipe, MultipartFile file) {
+			service.changeMyRecipe(myRecipe,file);
+			
+		}
+		
+		@GetMapping("/myrecipe/download")
+		public String myRecipeFileDownload(MyRecipe myRecipe, Model model) {
+			MyRecipeFile myRecipeFile = service.getMyRecipeFile(myRecipe);
+			
+			model.addAttribute("myRecipeFileDownload", myRecipeFile);
+			
+			return "downView";
 		}
 		
 		

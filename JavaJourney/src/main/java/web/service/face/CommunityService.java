@@ -14,6 +14,7 @@ import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
 import web.util.Paging;
@@ -330,6 +331,21 @@ public interface CommunityService {
 	 * @param myRecipe
 	 */
 	public void myRrcipeHitUp(MyRecipe myRecipe);
+	
+	/**
+	 * 파일 얻어오기
+	 * @param myRecipe - 나만의 레시피 번호
+	 * @return
+	 */
+	public MyRecipeFile getMyRecipeFile(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 수정
+	 * 
+	 * @param myRecipe
+	 * @param file
+	 */
+	public void changeMyRecipe( MyRecipe myRecipe, MultipartFile file);
 	
 }
 

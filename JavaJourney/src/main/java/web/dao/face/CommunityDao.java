@@ -355,6 +355,27 @@ public interface CommunityDao {
 	 * @param myRecipe
 	 */
 	public void updateMyRecipeHit(MyRecipe myRecipe);
+	
+	/**
+	 * 글 번호로 파일 가져오기
+	 * 
+	 * @param myRecipe - 글번호
+	 * @return
+	 */
+	public MyRecipeFile selectMyRecipeFileByMyRipNo(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 글 수정
+	 * @param myRecipe -  글 번호,제목,내용 있음
+	 */
+	public void updateMyRecipe(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 글 수정시 파일 있을 떄 삭제
+	 * 
+	 * @param myRecipe
+	 */
+	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe); 
 }
 
 

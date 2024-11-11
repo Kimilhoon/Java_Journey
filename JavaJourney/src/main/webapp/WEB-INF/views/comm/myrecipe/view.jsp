@@ -19,9 +19,6 @@
 	<label>분쇄도:${myRecipeView.grindName }</label><br>
 	<label>맛:${myRecipeView.cupNoteName }</label><br>
 	
-	<c:forEach items="${cList }" var="cList">
-		<label>${cList.cupNoteName }<input type="checkbox" name="cupNoteNo" value="${cList.cupNoteName }" id="${cList.cupNoteName }"class="cupNote"></label>
-	</c:forEach>
 </div>
 <table>
 <thead>
@@ -46,7 +43,7 @@
 		<td>${member.userNick}</td>
 		<td>${myRecipeView.myRipHit}</td>
 		<td><fmt:formatDate value="${myRecipeView.myRipWriteDate }" pattern="yyyy년 MM월 dd일"/></td>
-		<td>${myRecipeView.myRipFileOriginName}</td>
+		<td><a href="./download?myRipNo=${myRecipeView.myRipNo }" >${myRecipeView.myRipFileOriginName}</a></td>
 	</tr>
 
 </tbody>

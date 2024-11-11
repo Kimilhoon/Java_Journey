@@ -380,6 +380,23 @@
 			myriphit = myriphit +1
 		WHERE myripno=#{myRipNo} 
 	</update>
+	
+	<select id="selectMyRecipeFileByMyRipNo" parameterType="MyRecipe" resultType="MyRecipeFile">
+		SELECT * FROM MYRECIPEFILE m 
+		WHERE MYRIPNO = #{myRipNo}
+	</select>
+	<update id="updateMyRecipe" parameterType="MyRecipe">
+		UPDATE MYRECIPE 
+		SET 
+			MYRIPTITLE = #{myRipTitle},
+			MYRIPCONTENT = #{myRipContent}
+		WHERE MYRIPNO = #{myRipNo}
+	</update>
+	
+	<delete id="deleteMyRecipeFileByMyRipNo" parameterType="MyRecipe">
+		DELETE FROM MYRECIPEFILE
+		WHERE MYRIPNO = #{myRipNo}
+	</delete>
 </mapper>
 
 
