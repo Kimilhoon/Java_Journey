@@ -3,6 +3,7 @@ package web.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +19,6 @@ import web.dto.CafeRevComm;
 import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
-import web.dto.FreeBoardRecommend;
 import web.dto.Member;
 import web.dto.MyRecipe;
 import web.dto.Notice;
@@ -302,9 +302,13 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
-		log.info("param : {}", param);
-		
 		List<CafeRev> list = dao.selectCafeReview(param);
+		
+		for(CafeRev c : list) {
+			c.setCafeRevCommCount(dao.getCafeReviewCommentCnt(c));
+		}
+		
+		log.info("param : {}", param);
 		
 		return list;
 	}
@@ -350,6 +354,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public void dropCafeReview(CafeRev cafeRev) {
 		
 		dao.deleteCafeReviewByCafeNo(cafeRev);
+		dao.deleteCafeReviewCommByCafeNo(cafeRev);
 		
 	}
 	
@@ -510,7 +515,41 @@ public class CommunityServiceImpl implements CommunityService {
 	public void eventDeleteByEventNo(Event event) {
 		dao.deleteEventByEventNo(event);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+   // 현재 revNo를 기준으로 이전 revNo와 다음 revNo를 가져오는 메서드
+    public Map<String, Integer> getPrevNextRevNos(CafeRev revNo) {
+        List<Integer> revNos = dao.getCafeRevNos();  // revNo 리스트 가져오기
+        Map<String, Integer> prevNextMap = new HashMap<>();
+        
+        int currentRevNo = revNo.getRevNo();
+        int currentIndex = revNos.indexOf(currentRevNo);
 
+        // 이전 revNo와 다음 revNo 계산
+        if (currentIndex > 0) {
+            prevNextMap.put("prevRevNo", revNos.get(currentIndex - 1));
+        } else {
+            prevNextMap.put("prevRevNo", null);  // 이전 게시글이 없을 경우 null
+        }
+
+        if (currentIndex < revNos.size() - 1) {
+            prevNextMap.put("nextRevNo", revNos.get(currentIndex + 1));
+        } else {
+            prevNextMap.put("nextRevNo", null);  // 다음 게시글이 없을 경우 null
+        }
+
+        return prevNextMap;
+    }
+	
+	
+	
+	
 }
 
 

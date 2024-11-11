@@ -2,6 +2,7 @@ package web.service.face;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -342,6 +343,8 @@ public interface CommunityService {
 	 */
 	public void eventDeleteByEventNo(Event event);
 
+
+	public Map<String, Integer> getPrevNextRevNos(CafeRev revNo);
 
 	
 }
