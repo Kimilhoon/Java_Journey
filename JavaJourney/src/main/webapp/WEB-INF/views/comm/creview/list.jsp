@@ -8,8 +8,6 @@
 <c:import url="../../layout/header.jsp" />
 
 <style>
-
-	
 	
 </style>
 
