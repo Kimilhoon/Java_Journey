@@ -303,9 +303,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		log.info("param : {}", param);
 		
-		List<CafeRev> list = dao.selectCafeReview(param);
-		
-		return list;
+		return dao.selectCafeReview(param);
 	}
 	
 	@Override
@@ -425,7 +423,12 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
-
+	
+	
+	
+	
+	
+	
 }
 
 

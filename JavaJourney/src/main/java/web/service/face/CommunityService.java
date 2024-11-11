@@ -285,6 +285,7 @@ public interface CommunityService {
 	 * @param file
 	 */
 	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe,MultipartFile file);
+
 	
 }
 

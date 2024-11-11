@@ -43,15 +43,25 @@
 						<if test="search != null">
 							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
 						</if>
-						<if test="category != null">
+						<if test="category != null and category != '전체'">
 							AND cafeloc = #{category }
 						</if>
 			       	</where>
-			        ORDER BY revno DESC
+			       	<choose>
+			       		<when test='order == "recent"'>
+			       			ORDER BY revno DESC
+			       		</when>
+			       		<when test='order == "star"'>
+ 							ORDER BY revsp DESC, revno DESC
+			       		</when>
+			       		<otherwise>
+			       			ORDER BY revno DESC
+			       		</otherwise>
+			       	</choose>
 			    ) a
 			) 
 		<where>
-			AND r BETWEEN #{paging.startNo} AND #{paging.endNo}
+			AND r BETWEEN #{paging.startNo } AND #{paging.endNo }
 		</where>
 		
 	</select>
