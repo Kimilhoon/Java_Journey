@@ -16,6 +16,7 @@ import web.dao.face.CommunityDao;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
@@ -430,6 +431,97 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---------------event
+	
+	@Override
+	public List<Event> selectByAll() {
+		return dao.selectEventAllList();
+	}
+	
+	@Override
+	public void insertEvent(Event event) {
+		dao.insertEventData(event);
+		
+	}
+	
+	@Override
+	public Event eventInfoByeventNo(Event event) {
+		return dao.selectByEventNo(event);
+	}
+	
+	@Override
+	public void eventDeleteByEventNo(Event event) {
+		dao.deleteEventByEventNo(event);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
    // 현재 revNo를 기준으로 이전 revNo와 다음 revNo를 가져오는 메서드
     public Map<String, Integer> getPrevNextRevNos(CafeRev revNo) {

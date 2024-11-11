@@ -42,8 +42,6 @@ public class CreateBeanServiceImpl implements CreateBeanService{
 		
 		BeanTaste beanTaste = new BeanTaste(); 
 		beanTaste.setBeanNo(bean.getBeanNo());
-//		beanTaste.setCupNoteNo(cupNote.get(0));
-//		beanTaste.setCupNoteNo(cupNote.get(1));
 		 
 		log.info("beanTaste : {}",beanTaste);
 		
