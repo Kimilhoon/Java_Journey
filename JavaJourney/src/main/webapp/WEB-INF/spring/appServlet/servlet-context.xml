@@ -72,7 +72,7 @@
 	</beans:bean>
 	
 	<!-- 파일 다운로드 뷰 객체를 스프링 빈으로 등록하기 -->
-<!-- 	<beans:bean id="downView" class="web.view.FileDownloadView" /> -->
+	<beans:bean id="downView" class="web.view.MyRecipeDownloadView" />
 	
    <!-- JacksonDatabind를 이용해 응답을 JSON으로 변환하는 뷰 객체 -->
    <!-- viewName : "jsonView" -->
