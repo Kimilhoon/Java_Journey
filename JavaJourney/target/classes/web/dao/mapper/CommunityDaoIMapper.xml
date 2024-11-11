@@ -345,7 +345,6 @@
 		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{mtRipContent},0,sysdate,#{myRipImgNo})
 	</insert>
 	
-<<<<<<< HEAD
 	
 	
 	
@@ -409,7 +408,7 @@
 			EVENTNO = #{eventNo}
 		</where>
 	</delete>
-=======
+	
 	<select id="getCafeReviewCommentCnt" resultType="int" parameterType="cafeRev">
 		SELECT count(*) FROM caferevcomm
 		<where>
@@ -429,7 +428,6 @@
 		FROM caferev
 		ORDER BY revno
 	</select>
->>>>>>> refs/remotes/origin/master
 	
 </mapper>
 
