@@ -11,15 +11,19 @@
 
 <script>
 
-$(comm-update-btn).click(function() {
-	$.ajax {
-		type: "post"
-		, url: "./comm/update=revNo=${cafeRev.revNo }"
-		, data: {
-			
-		}
-	}
-})
+function clip(){
+	
+	var url = '';
+	var textarea = document.createElement("textarea");
+	
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
 
 </script>
 
@@ -51,7 +55,7 @@ $(comm-update-btn).click(function() {
 </div> <!-- table -->
 
 <div id="bottom" class="d-flex justify-content-between align-items-center">
-    <i class="bi bi-share"></i>
+    <i class="bi bi-share" onclick="clip()" style="cursor: pointer"></i>
 
     <c:if test="${userId eq writerId }">
         <span>
@@ -89,12 +93,6 @@ $(comm-update-btn).click(function() {
 	<td colspan="2"><hr></td>
 </tr>
 
-<%-- <c:if test="${userId eq writerId }"> --%>
-<!-- <td> -->
-<%-- 	<span><a href="./comm/update?revNo=${comm.cafeRevCommNo }">수정</a></span> --%>
-<%-- 	<span><a href="./comm/delete?revNo=${cafeRev.cafeRevCommNo }">삭제</a></span> --%>
-<!-- </td> -->
-<%-- </c:if> --%>
 </c:forEach>
 
 </table>
@@ -113,18 +111,23 @@ $(comm-update-btn).click(function() {
 
 <a href="./list"><button class="btn btn-light">목록</button></a>
 
-<c:if test="${cafeRev.revNo > 1 }">
-<a href="./view?revNo=${cafeRev.revNo - 1}"><button class="btn btn-light">이전</button></a>
+<!-- 이전 게시글로 이동 -->
+<c:if test="${not empty prevRevNo}">
+    <a href="./view?revNo=${prevRevNo}" style="text-decoration: none;">
+        <button class="btn btn-light">이전</button>
+    </a>
 </c:if>
 
-<a href="./view?revNo=${cafeRev.revNo + 1}"><button class="btn btn-light">다음</button></a>
+<!-- 다음 게시글로 이동 -->
+<c:if test="${not empty nextRevNo}">
+    <a href="./view?revNo=${nextRevNo}" style="text-decoration: none;">
+        <button class="btn btn-light">다음</button>
+    </a>
+</c:if>
 
 </div> <!-- content -->
 
 </div> <!-- 여백 -->
-
-
-
 
 <c:import url="../../layout/footer.jsp" />
 

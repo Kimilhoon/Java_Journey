@@ -16,5 +16,6 @@ public class CafeRev {
 	private int revHit;
 	private Date revDate;
 	private int revsp;
+	private int cafeRevCommCount;
 	
 }

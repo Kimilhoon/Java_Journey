@@ -345,6 +345,26 @@
 		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{mtRipContent},0,sysdate,#{myRipImgNo})
 	</insert>
 	
+	<select id="getCafeReviewCommentCnt" resultType="int" parameterType="cafeRev">
+		SELECT count(*) FROM caferevcomm
+		<where>
+			AND revno = #{revNo }
+		</where>
+	</select>
+	
+	<delete id="deleteCafeReviewCommByCafeNo" parameterType="cafeRev">
+		DELETE cafeRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getCafeRevNos" resultType="int">
+		SELECT revno
+		FROM caferev
+		ORDER BY revno
+	</select>
+	
 </mapper>
 
 
