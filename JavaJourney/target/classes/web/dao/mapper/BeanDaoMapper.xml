@@ -5,34 +5,68 @@
     
 <mapper namespace="web.dao.face.BeanDao">
 	
-	<select id="selectCntAll" resultType="int">
-		SELECT count(*) FROM bean
+	<select id="selectCntAll" resultType="int" parameterType="hashmap">
+		SELECT count(*) 
+		FROM bean b
+		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+    	LEFT JOIN cupnote c ON bt.cupNoteNo = c.cupNoteNo
+		<where>
+			<if test='cupnote != "N"'>
+			AND		cupNoteName = #{ cupnote }
+			</if>
+			<if test='keyword != "N"'>
+			AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 
+			</if>
+		</where>
 	</select>
 	
-	<select id="selectAll" resultType="Bean" parameterType="web.util.Paging">
+	<select id="selectAll" resultType="Bean" parameterType="hashmap">
 		SELECT * FROM (
 			SELECT rowNum rNum, B.* FROM (
 				SELECT 
-						beanNo, i.beanImgNo, beanName, origin, 
-						beanComm, beanInfo, beanPrice, businessNo,
-						beanOriginname, beanStoredname, beanImgSize
-				FROM	bean b
-				INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+					b.beanNo, i.beanImgNo, beanName, origin, 
+					beanComm, beanInfo, beanPrice, businessNo,
+					beanOriginname, beanStoredname, beanImgSize,
+					c.cupNoteNo, c.cupNoteName,
+					(SELECT COUNT(bc.commNo) FROM beanrevComm bc WHERE bc.beanNo = b.beanNo) AS reviewCount
+<!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
+<!-- 						FROM ( -->
+<!-- 							SELECT DISTINCT c.cupNoteName -->
+<!-- 							FROM cupNote c -->
+<!-- 							INNER JOIN beanTaste bt ON c.cupNoteNo = bt.cupNoteNo -->
+<!-- 							WHERE bt.beanNo = b.beanNo -->
+<!-- 						) -->
+<!-- 					) AS cupNoteNames -->
+<!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
+				FROM bean b
+				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
+				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+				<where>
+				<if test='cupnote != "N"'>
+				AND		cupNoteName = #{ cupnote }
+				</if>
+				<if test='keyword != "N"'>
+				AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 
+				</if>
+				</where>
 				ORDER BY beanNo DESC
 			) B
 		) bean
-		WHERE rNum BETWEEN #{ startNo } AND #{ endNo }
+		WHERE rNum BETWEEN #{ paging.startNo } AND #{ paging.endNo }
 	</select>  
 	
 	<select id="selectByBeanNo" resultType="Bean" parameterType="Bean">
 		SELECT 
-				beanNo, i.beanImgNo, beanName, origin, 
+				b.beanNo, i.beanImgNo, beanName, origin, 
 				beanComm, beanInfo, beanPrice, businessNo,
-				beanOriginname, beanStoredname, beanImgSize
+				beanOriginname, beanStoredname, beanImgSize,
+				br.revStarPoint
 		FROM	bean b
+		LEFT JOIN beanRev br ON b.beanNo = br.beanNO
 		INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 		<where>
-		AND		beanNo = #{ beanNo }
+		AND		b.beanNo = #{ beanNo }
 		</where>
 	</select>
 	

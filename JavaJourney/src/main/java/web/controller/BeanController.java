@@ -35,15 +35,15 @@ public class BeanController {
 		log.info("keyword: {}", keyword);
 		
 		// 전달파라미터를 이용해서 현재 페이징 객체 알아내기
-		Paging paging = service.getPaging( param );
+		Paging paging = service.getPaging( param, cupnote, keyword );
 		log.info("paging : {}",paging);
 		
-		model.addAttribute("paging", paging);
-		
-		List<Bean> list = service.getAllBean( paging );
+		List<Bean> list = service.getAllBean( paging, cupnote, keyword );
 
 		model.addAttribute("list", list);
-
+		model.addAttribute("paging", paging);
+		model.addAttribute("cupnote", cupnote);
+		model.addAttribute("keyword", keyword);
 		
 	} // AllBeanForm() end
 	
@@ -58,5 +58,13 @@ public class BeanController {
 		model.addAttribute("beanInfo", beanInfo);
 		
 	} // BeanInfoForm(Bean param) end
+	
+	
+	@PostMapping("/info")
+	public void BeanInfoFormProc(int beanNo, int userNo) {
+		log.info("beanNo: {}", beanNo);
+		log.info("userNo: {}", userNo);
+
+	}
 	
 } // class end
