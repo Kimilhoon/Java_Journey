@@ -112,7 +112,7 @@ alt="로고" width="200" height="200" />
               <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
               <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
               <li><a class="dropdown-item" href="/comm/myrecipe/list">나만의 레시피</a></li>
-              <li><a class="dropdown-item" href="/comm/event/list">이벤트</a></li>
+              <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
               <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
               <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
             </ul>
