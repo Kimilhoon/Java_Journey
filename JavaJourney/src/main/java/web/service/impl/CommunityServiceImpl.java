@@ -600,66 +600,6 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//---------------event
 	
 	@Override
@@ -682,12 +622,6 @@ public class CommunityServiceImpl implements CommunityService {
 	public void eventDeleteByEventNo(Event event) {
 		dao.deleteEventByEventNo(event);
 	}
-	
-	
-	
-	
-	
-	
 	
 	
    // 현재 revNo를 기준으로 이전 revNo와 다음 revNo를 가져오는 메서드
