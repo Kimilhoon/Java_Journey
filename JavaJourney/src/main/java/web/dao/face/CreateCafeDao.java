@@ -14,13 +14,6 @@ public interface CreateCafeDao {
 	 */
 	public void write(Cafe cafe);
 
-//	/**
-//	 * DB에 접속하여 모든 CafeImg 조회하여 
-//	 * 전체 데이터 받아오기
-//	 * @return
-//	 */
-//	public List<CafeImg> selectAllImg();
-
 	/**
 	 * 협약 카페 글 수정 반영
 	 * @param cafe
