@@ -29,13 +29,13 @@ $(function() {
 <h1 style="color: #ccc">수정</h1>
 <a href="./list"><button class="btn btn-secondary">목록</button></a>
 
-<form action="./write" method="post" enctype="multipart/form-data" >
+<form action="./update?myRipNo=${myRecipeView.myRipNo }" method="post" enctype="multipart/form-data" >
 
 <div id="select_quiz" >
-	<label>원두이름:${myRecipeView.beanName }</label><br>
-	<label>추출법:${myRecipeView.extractionName }</label><br>
-	<label>분쇄도:${myRecipeView.grindName }</label><br>
-	<label>맛:${myRecipeView.cupNoteName }</label><br>
+	<label>원두이름:${myRecipeView.beanName }<input type="text" name="beanNo" value="${myRecipeView.beanNo }" style="display: none;"> </label><br>
+	<label>추출법:${myRecipeView.extractionName }<input type="text" name="extractionName" value="${myRecipeView.extractionName }" style="display: none;"></label><br>
+	<label>분쇄도:${myRecipeView.grindName }<input type="text" name="grindName" value="${myRecipeView.grindName }" style="display: none;"></label><br>
+	<label>맛:${myRecipeView.cupNoteName }<input type="text" name="cupNoteName" value="${myRecipeView.cupNoteName }" style="display: none;"></label><br>
 	
 </div>
 

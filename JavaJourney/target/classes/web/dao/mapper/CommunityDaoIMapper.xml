@@ -353,7 +353,7 @@
 	<select id="selectMyRecipeByMyRecipeNo" resultType="MyRecipe" parameterType="MyRecipe">
 		SELECT * FROM MYRECIPE m ,MYRECIPEFILE f
 		<where>
-			AND m.MYRIPNO = f.MYRIPNO
+			AND m.MYRIPNO = f.MYRIPNO(+)
 			AND m.MYRIPNO = #{myRipNo}
 		</where>
 	</select>
@@ -457,6 +457,42 @@
 		ORDER BY revno
 	</select>
 	
+	<select id="selectGrindAll" resultType="Grind">
+		SELECT * FROM GRIND
+		ORDER BY GRINDNO
+	</select>
+	
+	<select id="selectExtractionAll" resultType="Extraction">
+		SELECT * FROM EXTRACTION
+		ORDER BY EXTRACTIONNO
+	</select>
+	<select id="selectBeanAll" resultType="BEAN">
+		SELECT * FROM BEAN
+		ORDER BY BEANNO
+	</select>
+	
+	<select id="selectCupNoteByBeanNo" parameterType="Bean" resultType="CupNote">
+		SELECT c.CUPNOTENO,c.CUPNOTENAME FROM CUPNOTE c, BEAN b,BEANTASTE t
+		<where>
+			AND b.BEANNO =t.BEANNO 
+			AND c.cupnoteno = t.cupnoteno
+			AND b.BEANNO = #{beanNo}
+		</where>
+	</select>
+	<select id="selectBeanByBeanNo" parameterType="int" resultType="String">
+		SELECT beanName FROM BEAN 
+		WHERE BEANNO = #{beanNo}
+	</select>
+	
+	<insert id="insertMyRecipeComment" parameterType="MyRecipeComment">
+		INSERT INTO MYRECIPECOMMENT
+		VALUES (MYRECIPECOMMENT_SEQ.nextval,#{myRipNo},#{userNo},#{myRipCommCont},null,#{userNick},sysdate)
+	</insert>
+	
+	<select id="selectMyRecipeCommentListByMyRipNo" parameterType="MyRecipe" resultType="MyRecipeComment">
+		SELECT * FROM MYRECIPECOMMENT
+		WHERE MYRIPNO = #{myRipNo}
+	</select>
 </mapper>
 
 

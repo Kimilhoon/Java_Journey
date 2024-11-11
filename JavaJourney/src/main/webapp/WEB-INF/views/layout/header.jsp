@@ -23,6 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
 <!-- summernote 링크 End-->
+
 <script type="text/javascript">
 $(function() {
 	$("#btnLogout").click(function() {

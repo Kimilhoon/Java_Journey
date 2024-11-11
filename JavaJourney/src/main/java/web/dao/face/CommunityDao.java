@@ -5,16 +5,20 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
 import web.dto.CupNote;
 import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
 import web.dto.Notice;
 import web.dto.QuizResult;
@@ -314,6 +318,35 @@ public interface CommunityDao {
 	 */
 	public void insertMyRecipe(MyRecipe myRecipe);
 	
+	/**
+	 * 분쇄도 리스트
+	 * @return
+	 */
+	public List<Grind> selectGrindAll();
+	/**
+	 * 추출법 리스트
+	 * @return
+	 */
+	public List<Extraction> selectExtractionAll();
+	/**
+	 *bean 리스트
+	 * @return
+	 */
+	public List<Bean> selectBeanAll();
+	/**
+	 * 빈 넘버로 컵노트 리스트 가져오기
+	 * @param bean
+	 * @return
+	 */
+	public List<CupNote> selectCupNoteByBeanNo(Bean bean);
+	
+	/**
+	 * 빈 넘버로 빈 가져오기
+	 * @param myRecipe - 빈넘버 있음
+	 * @return
+	 */
+	public String selectBeanByBeanNo(int beanNo);
+	
 	
 	
 	
@@ -494,6 +527,22 @@ public interface CommunityDao {
 	 * @param myRecipe
 	 */
 	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe); 
+	
+	/**
+	 * 나만의 레시피 댓글
+	 * 
+	 * @param myRecipeComment 내용, 유저 정보 있음
+	 */
+	public void insertMyRecipeComment(MyRecipeComment myRecipeComment);
+	
+	/**
+	 * 나만의 레시피 리스트 조회
+	 * 
+	 * @param myRecipe
+	 * @return
+	 */
+	public List<MyRecipeComment> selectMyRecipeCommentListByMyRipNo(MyRecipe myRecipe);
+	
 }
 
 
