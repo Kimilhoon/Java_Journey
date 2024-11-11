@@ -12,6 +12,7 @@
 
 var pwValidation = false; //형식 체크
 var nickValidation = false; 
+var emailValidation = false;
 
 var userPw = false; //중복체크
 var pwCheck = false;
@@ -20,7 +21,21 @@ var nickDuplicate = false;
 
 $(function() {
 	
-	$("#pwValidation").hide();
+	$("#userNick").on("change",function(){
+		var regexNick = /^[a-zA-Z0-9가-힣]{5,10}$/;
+        var resultNick = regexNick.exec($("#userNick").val()); 
+        
+        if(resultNick != null){
+            $("#nickValidation").hide(); 
+            nickValidation = true;
+         }else{
+             $("#nickValidation").show();
+             $("#userNick").focus();
+             nickValidation = false;
+         }
+	}) //$("#userNick") end
+
+    $("#pwValidation").hide();
     $("#pwCheckResult").hide();
     
 	function validatePassword(character){
@@ -59,24 +74,8 @@ $(function() {
             $("#pwCheckResult").css("color", "red");
             $("#pwCheckResult").text("비밀번호가 일치하지 않습니다.");
         }
-    }); //$("#userPwCheck") end	
-
-    $("#nickValidation").hide();
+    }); //$("#userPwCheck") end
     
-	$("#userNick").on("change",function(){
-		var regexNick = /^[a-zA-Z0-9가-힣]{5,10}$/;
-        var resultNick = regexNick.exec($("#userNick").val()); 
-        
-        if(resultNick != null){
-            $("#nickValidation").hide(); 
-            nickValidation = true;
-         }else{
-             $("#nickValidation").show();
-             $("#userNick").focus();
-             nickValidation = false;
-         }
-	}) //$("#userNick") end
-	
     // 이메일 형식 검사
     $("#userEmail").on("change", function() {
         var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -90,17 +89,118 @@ $(function() {
             $("#userEmail").focus();
             emailValidation = false;
         }
-    }); // $("#userEmail") end
+    }); // $("#userEmail") end	
+   
     
+/* $("#joinForm form") */
+//----------------------------------------------------------------
+
+   	$("#joinForm form").submit(function() {
+  		
+  		if( !userNick.value ) {
+  			alert("닉네임을 입력하세요");
+  			return false;
+  		}
+  		if( !nickCheck ) {
+  			alert("닉네임을 중복체크하세요");
+  			return false;
+  		}
+  		if( nickDuplicate ) {
+  			alert("이미 존재하는 닉네임입니다");
+  			return false;
+  		}
+  		if( !userEmail.value ) {
+  			alert("이메일을 입력하세요");
+  			return false;
+  		}
+          if (!emailValidation) {
+              alert("이메일 형식이 올바르지 않습니다");
+              return false;
+          }
+  		if( !userPhone.value ) {
+  			alert("전화번호를 입력하세요");
+  			return false;
+  		}
+  		if( !userPostcode.value ) {
+  			alert("우편번호를 입력하세요");
+  			return false;
+  		}
+  		if( !userAdd1.value ) {
+  			alert("주소를 입력하세요");
+  			return false;
+  		}
+  		if( !userAdd2.value ) {
+  			alert("상세주소를 입력하세요");
+  			return false;
+  		}
+  		
+  	}) //$("#joinForm form") end    
+	
+  	
+/* ------------------------------------------------------------------- */	
+    $("#nickValidation").hide();
+
+	$("#userNickCheck").click(function() {
+		
+        if (!nickValidation) {
+            $("#nickValidation").show();
+            return false; 
+        }
+		
+		if( !userNick.value ) {
+			$("#userNickCheckMsg")
+			.css("color", "red")
+			.html("닉네임을 입력하세요");
+			
+			return false;
+		}
+		
+		$.ajax({
+			type: "get"
+			, url: "./checkNick"
+			, data: {
+				userNick: userNick.value
+			}
+			, dataType: "json"
+			, success: function( res ) {
+				
+				nickCheck = true;
+				nickDuplicate = res.duplicateNick;
+				
+				if( res.duplicateNick ) { 
+					$("#userNickCheckMsg")
+					.css("color", "red")
+					.html("이미 사용중인 닉네임입니다");
+				
+				} else { 
+					$("#userNickCheckMsg")
+					.css("color", "green")
+					.html("사용가능한 닉네임 입니다");
+				
+				}
+				
+			}
+			, error: function() {
+				
+				nickCheck = false;
+			}
+		})
+		
+	}) //$("#userNickCheck") end
+	
+	
 	$("#userNick").on("change input cut copy paste focus", function() {
 		$("#userNickCheckMsg")
 		.html("");
 		
 		//닉네임 중복체크 수행 상태 설정
 		nickCheck = false;
-	}) //$("#userNick") end
+	}) //$("#userNick") end    
+
 	
-	
+/* 주소 */	
+/* -------------------------------------------------------------- */	
+		
 	$("#postcodeWrap").css({
 	    left: (innerWidth / 2) - (500 / 2),
 	    top: (innerHeight / 2) - (500 / 2)
@@ -166,6 +266,7 @@ $(function() {
 	}) //$("#btnPostcode") end
 	
 	
+			
 }) //$(function() end
 </script>
 
@@ -205,7 +306,9 @@ $(function() {
 회원 정보 수정
 <hr>
 
-<form action="./join" method="post">
+<form action="./myinfoUpdate" method="post">
+
+<input type="hidden" name="userNo" value="${member.userNo }" readonly="readonly">
 
 <div>
 	<label for="userPw">새 비밀번호
@@ -226,7 +329,7 @@ $(function() {
 
 <div>
 	<label for="userNick">닉네임</label>
-	<input type="text" name="userNick" id="userNick" required="required" value="${userNick }">
+	<input type="text" name="userNick" id="userNick" required="required" value="${member.userNick }">
 	<button id="userNickCheck" type="button">중복확인</button>
 	<span id="userNickCheckMsg"></span>
 </div>
@@ -237,19 +340,19 @@ $(function() {
 
 <div>
 	<label for="userEmail">이메일
-		<input type="email" name="userEmail" id="userEmail" required="required">
+		<input type="email" name="userEmail" id="userEmail" required="required" value="${member.userEmail }">
 	</label>
 </div>
 
 <div>
 	<label for="userName">이름
-		<input type="text" name="userName" id="userName" required="required">
+		<input type="text" name="userName" id="userName" required="required" readonly="readonly" value="${member.userName }">
 	</label>
 </div>
 
 <div>
 	<label for="userPhone">전화번호
-		<input type="text" name="userPhone" id="userPhone" required="required">
+		<input type="text" name="userPhone" id="userPhone" required="required" value="${member.userPhone }">
 	</label>
 </div>
 
@@ -259,14 +362,13 @@ $(function() {
 <div id="postcodeWrap">
 	<img alt="x" src="../resources/img/close.png" class="closeIcon">
 </div>
-<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly"><br>
-<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly"><br>
-<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소"><br>
+<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly" value="${member.userPostcode }"><br>
+<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly" value="${member.userAdd1 }"><br>
+<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소" value="${member.userAdd2 }"><br>
 
 <br>
-<div>
-	<button id="btnUpdate">수정 하기</button>
-</div>
+<button id="btnUpdate">수정 하기</button>
+
 
 </form>
 

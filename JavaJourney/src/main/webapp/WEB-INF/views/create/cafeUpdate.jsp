@@ -71,6 +71,9 @@ $(function() {
         }).open(); //팝업창 열기 위한 open
     }); //$("#btnPostcode") end
 
+    
+//------------------------------------------------------------------------------
+
     $('#cafeImgOriName').summernote({ //섬머노트 설정
     	width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
@@ -89,9 +92,9 @@ $(function() {
 		location.href="/manager/menu";
 	}) //$("#btnManagerMenu") end
 	
-// 	$("#btnUpdate").click(function() {
-// 		$(this).parents("form").submit();
-// 	});
+	$("#btnUpdate").click(function() {
+		$(this).parents("form").submit();
+	});
     
   }); //$(function() end
 </script>
