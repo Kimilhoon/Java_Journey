@@ -317,8 +317,8 @@ public class CommunityServiceImpl implements CommunityService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		myRecipe.setOriginFileName(file.getOriginalFilename());
-		myRecipe.setStoredFileName(storedName);
+		myRecipe.setMyRipFileOriginName(file.getOriginalFilename());
+		myRecipe.setMyRipFileStoredName(storedName);
 		
 		MyRecipeFile myRecipeFile = new MyRecipeFile();
 		myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
@@ -367,6 +367,10 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public List<CupNote> getCupNoteNameList() {
 		return dao.selectCupNoteList();
+	}
+	@Override
+	public void myRrcipeHitUp(MyRecipe myRecipe) {
+		dao.updateMyRecipeHit(myRecipe);
 	}
 	
 	//------------------------------------------------------------------------------

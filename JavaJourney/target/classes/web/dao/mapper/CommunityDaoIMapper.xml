@@ -304,7 +304,7 @@
 		SELECT count(*) FROM myrecipe
 		<where>
 			<if test='search != "N" '>
-				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				AND upper(myriptitle) LIKE '%'||upper(#{search})||'%'
 			</if>
 		</where>
 	</select>
@@ -344,7 +344,7 @@
 		SELECT * FROM MYRECIPE m ,MYRECIPEFILE f
 		<where>
 			AND m.MYRIPNO = f.MYRIPNO
-			AND m.MYRIPNO = 45
+			AND m.MYRIPNO = #{myRipNo}
 		</where>
 	</select>
 
@@ -374,6 +374,12 @@
 		ORDER BY CUPNOTENO
 	</select>
 	
+	<update id="updateMyRecipeHit" parameterType="MyRecipe">
+		UPDATE myrecipe
+		SET
+			myriphit = myriphit +1
+		WHERE myripno=#{myRipNo} 
+	</update>
 </mapper>
 
 

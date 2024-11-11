@@ -213,11 +213,21 @@ public class CommunityController {
 		}
 		
 		@GetMapping("/myrecipe/view")
-		public void myRipView(MyRecipe myRecipe, Model model) {
+		public void myRipView(MyRecipe myRecipe, Model model,HttpSession session) {
 			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
 			model.addAttribute("myRecipeView", myRecipeView);
 			Member member = service.getMemberByUserNo(myRecipeView);
 			model.addAttribute("member", member);
+		}
+		
+		@GetMapping("/myrecipe/hit")
+		public void myRecipeHit(MyRecipe myRecipe) {
+			service.myRrcipeHitUp(myRecipe);
+		}
+		
+		@GetMapping("myrecipe/update")
+		public void myRecipeUpdate(MyRecipe myRecipe) {
+			
 		}
 		
 		

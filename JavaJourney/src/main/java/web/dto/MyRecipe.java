@@ -15,8 +15,8 @@ public class MyRecipe {
 	private Date myRipWriteDate;
 	private int myRipImgNo;
 	private String userNick;
-	private String originFileName;
-	private String storedFileName;
+	private String myRipFileOriginName;
+	private String myRipFileStoredName;
 	private int beanNo;
 	private String beanName;
 	private String extractionName;

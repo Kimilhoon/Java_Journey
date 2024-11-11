@@ -12,8 +12,22 @@
 	<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button>삭제</button></a>
 </c:if>
 <div>
+
+<div id="select_quiz" >
+	<label>원두이름:${myRecipeView.beanName }</label><br>
+	<label>추출법:${myRecipeView.extractionName }</label><br>
+	<label>분쇄도:${myRecipeView.grindName }</label><br>
+	<label>맛:${myRecipeView.cupNoteName }</label><br>
+	
+	<c:forEach items="${cList }" var="cList">
+		<label>${cList.cupNoteName }<input type="checkbox" name="cupNoteNo" value="${cList.cupNoteName }" id="${cList.cupNoteName }"class="cupNote"></label>
+	</c:forEach>
+</div>
 <table>
 <thead>
+
+
+
 	<tr>
 		<th>보드 넘버</th>
 		<th>보드 제목</th>
@@ -32,7 +46,7 @@
 		<td>${member.userNick}</td>
 		<td>${myRecipeView.myRipHit}</td>
 		<td><fmt:formatDate value="${myRecipeView.myRipWriteDate }" pattern="yyyy년 MM월 dd일"/></td>
-		<td>${myRecipeView.originFileName}</td>
+		<td>${myRecipeView.myRipFileOriginName}</td>
 	</tr>
 
 </tbody>

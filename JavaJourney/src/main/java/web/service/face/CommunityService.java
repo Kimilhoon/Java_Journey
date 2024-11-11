@@ -299,7 +299,7 @@ public interface CommunityService {
 	/**
 	 * 유저넘버로 멤버객체 얻기
 	 * 
-	 * @param myRecipe - 다 채워져있음 유저넘버 필수
+	 * @param 
 	 * @return
 	 */
 	public Member getMemberByUserNo(MyRecipe myRecipe);
@@ -324,6 +324,12 @@ public interface CommunityService {
 	 * @return
 	 */
 	public List<CupNote> getCupNoteNameList();
+	
+	/**
+	 * 나만의 게시판 조회수+1
+	 * @param myRecipe
+	 */
+	public void myRrcipeHitUp(MyRecipe myRecipe);
 	
 }
 

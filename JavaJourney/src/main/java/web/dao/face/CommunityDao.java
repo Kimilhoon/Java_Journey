@@ -350,6 +350,11 @@ public interface CommunityDao {
 	 */
 	public List<CupNote> selectCupNoteList();
 
+	/**
+	 * 조회수++
+	 * @param myRecipe
+	 */
+	public void updateMyRecipeHit(MyRecipe myRecipe);
 }
 
 
