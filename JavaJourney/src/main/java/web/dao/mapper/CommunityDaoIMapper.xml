@@ -331,11 +331,51 @@
 	</select>
 	
 	<insert id="insertMyRecipe" parameterType="MyRecipe">
-		INSERT INTO myrecipe (MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO)
-		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{mtRipContent},0,sysdate,#{myRipImgNo})
+		INSERT INTO myrecipe (MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO,beanNo,beanName,extractionName,grindName,cupNoteName)
+		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{myRipContent},0,sysdate,#{myRipImgNo},#{beanNo},#{beanName},#{extractionName},#{grindName},#{cupNoteName})
 	</insert>
 	
+	<insert id="insertMyRecipeFile" parameterType="MyRecipeFile">
+		INSERT INTO MyRecipeFile
+		VALUES (MyRecipeFile_seq.nextval,#{myRipNo},#{myRipFileOriginName},#{myRipFileStoredName})
+	</insert>
+	
+	<select id="selectMyRecipeByMyRecipeNo" resultType="MyRecipe" parameterType="MyRecipe">
+		SELECT * FROM MYRECIPE m ,MYRECIPEFILE f
+		<where>
+			AND m.MYRIPNO = f.MYRIPNO
+			AND m.MYRIPNO = 45
+		</where>
+	</select>
+
+	<select id="selectMemberQuizResultByUserNo" resultType="MemberQuizResult" parameterType="Member">
+		SELECT * FROM MEMBER m,MEMBERQUIZRESULT q
+		<where>
+			AND m.USERNO = q.USERNO 
+			AND m.USERNO = #{userNo}
+		</where>
+	</select>	
+	
+	<select id="selectQuizResultByMemberQuizResultNo" parameterType="MemberQuizResult" resultType="QuizResult">
+		SELECT b.BEANNO,b.BEANNAME,c.CUPNOTENO, c.CUPNOTENAME,g.GRINDNAME,e.EXTRACTIONNAME,m.QUIZRESULT FROM MEMBERQUIZRESULT m ,BEANTASTE t ,CUPNOTE c ,QUIZRESULT q,BEAN b,GRIND g,EXTRACTION e 
+		<where>
+			AND m.QUIZRESULT = q.QUIZRESULTNO 
+			AND q.BEANNO = b.BEANNO 
+			AND b.BEANNO = t.BEANNO
+			AND t.CUPNOTENO = c.CUPNOTENO 
+			AND q.GRIND =g.GRINDNO 
+			AND q.EXTRACTION = e.EXTRACTIONNO 
+			AND m.QUIZRESULT = #{quizResult}
+		</where>
+	</select>
+	
+	<select id="selectCupNoteList" resultType="CupNote">
+		SELECT * FROM CUPNOTE
+		ORDER BY CUPNOTENO
+	</select>
+	
 </mapper>
+
 
 
 

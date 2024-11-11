@@ -15,5 +15,12 @@ public class MyRecipe {
 	private Date myRipWriteDate;
 	private int myRipImgNo;
 	private String userNick;
+	private String originFileName;
+	private String storedFileName;
+	private int beanNo;
+	private String beanName;
+	private String extractionName;
+	private String grindName;
+	private String cupNoteName;
 	
 } // class end

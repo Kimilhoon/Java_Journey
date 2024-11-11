@@ -1,9 +1,14 @@
 package web.service.impl;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +20,16 @@ import web.dao.face.CommunityDao;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.FreeBoardRecommend;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
+import web.dto.QuizResult;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -29,6 +38,7 @@ import web.util.Paging;
 public class CommunityServiceImpl implements CommunityService {
 	
 	@Autowired private CommunityDao dao;
+	@Autowired private ServletContext context;
 	
 
 	//자유게시판--------------------------------------------------------------------------------
@@ -277,13 +287,86 @@ public class CommunityServiceImpl implements CommunityService {
 		if(myRecipe.getMyRipImgNo()==0) {
 			myRecipe.setMyRipImgNo(1);
 		}
-		dao.insertMyRecipe(myRecipe);
+//		log.info("{}",myRecipe);
+//		log.info("{}",context.getRealPath("upload"));
 		
 		if(file.isEmpty() || file.getSize()<=0) {
 			log.info("파일 이상");
 			return;
 		}
 		
+		String storedPath = context.getRealPath("upload");
+		File upFolder = new File(context.getRealPath("upload"));
+		upFolder.mkdir();
+		//파일이 저장될 이름
+		String storedName = null;
+				
+		//파일을 저장시킬 객체
+		File dest = null;
+		do {
+			storedName = file.getOriginalFilename();
+			storedName += UUID.randomUUID().toString().split("-")[3];
+			dest = new File(upFolder,storedName);
+		}while(dest.exists()); 
+		
+		try {
+			// 업로드된 임시 파일을 upload폴더로 옮겨 실제 파일을 생성
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		myRecipe.setOriginFileName(file.getOriginalFilename());
+		myRecipe.setStoredFileName(storedName);
+		
+		MyRecipeFile myRecipeFile = new MyRecipeFile();
+		myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
+		myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
+		myRecipeFile.setMyRipFileStoredName(storedName);
+		
+		dao.insertMyRecipe(myRecipe);
+		dao.insertMyRecipeFile(myRecipeFile);
+
+		
+	}
+	
+	@Override
+	public MyRecipe getMyRecipeInfo(MyRecipe myRecipe) {
+		return dao.selectMyRecipeByMyRecipeNo(myRecipe);
+	}
+
+	
+	@Override
+	public Member getMemberByUserNo(MyRecipe myRecipe) {
+		return dao.selectMemberByUserNo(myRecipe.getUserNo());
+	}
+	
+	@Override
+	public Member getMemberByUserId(String userId) {
+		return dao.selectMemberByUserID(userId);
+	}
+	
+	
+	@Override
+	public List<List<QuizResult>> getQuizResultByUserNo(Member member) {
+		
+		List<MemberQuizResult> mqrList = dao.selectMemberQuizResultByUserNo(member);
+		
+		List<List<QuizResult>> list = new ArrayList<List<QuizResult>>();
+		
+		
+		for(MemberQuizResult mqr : mqrList) {
+			List<QuizResult> qr = dao.selectQuizResultByMemberQuizResultNo(mqr);
+			list.add(qr);
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public List<CupNote> getCupNoteNameList() {
+		return dao.selectCupNoteList();
 	}
 	
 	//------------------------------------------------------------------------------

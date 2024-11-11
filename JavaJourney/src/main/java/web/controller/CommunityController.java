@@ -24,11 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.dto.Notice;
+import web.dto.QuizResult;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -188,16 +191,33 @@ public class CommunityController {
 			
 		}
 		
-		@GetMapping("myrecipe/write")
-		public void myRecipeForm(MyRecipe myRecipe) {}
+		@GetMapping("/myrecipe/write")
+		public void myRecipeForm(MyRecipe myRecipe,HttpSession session,Model model) {
+			Member member = service.getMemberByUserId((String)session.getAttribute("userId"));
+			log.info("{}",member);
+			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
+			List<CupNote> clist = service.getCupNoteNameList();
+			
+			model.addAttribute("qList", list);
+			model.addAttribute("cList", clist);
+			
+		}
 		
-		@PostMapping("myrecipe/write")
+		@PostMapping("/myrecipe/write")
 		public String writeProc(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
 			log.info("{}",myRecipe);
 			log.info("{}",file.getOriginalFilename());
-//			service.uploadMyRecipe(session,myRecipe,file);
+			service.uploadMyRecipe(session,myRecipe,file);
 			
 			return"redirect:./list";
+		}
+		
+		@GetMapping("/myrecipe/view")
+		public void myRipView(MyRecipe myRecipe, Model model) {
+			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
+			model.addAttribute("myRecipeView", myRecipeView);
+			Member member = service.getMemberByUserNo(myRecipeView);
+			model.addAttribute("member", member);
 		}
 		
 		
