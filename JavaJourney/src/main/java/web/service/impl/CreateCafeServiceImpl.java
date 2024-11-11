@@ -32,16 +32,21 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 		dao.insertCafe(cafe);
 	}
 
-	@Override
-	public List<CafeImg> selectAllImg() {
-		return dao.selectAllImg();
-	}
+//	@Override
+//	public Cafe view(Cafe cafe) {
+//		return dao.selectByCafeNo(cafe);
+//	}
 
+	@Override
+	public Cafe view(Cafe cafe, CafeImg cafeImg) {
+		return dao.selectByCafeNo(cafe);
+	}
+	
 	@Override
 	public void update(Cafe cafe) {
 		dao.update(cafe);
 	}
-
+	
 	@Override
 	public void delete(Cafe cafe) {
 		dao.delete(cafe);

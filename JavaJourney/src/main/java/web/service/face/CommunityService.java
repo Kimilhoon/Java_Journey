@@ -9,15 +9,22 @@ import javax.servlet.http.HttpSession;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
 import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.Grind;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
+import web.dto.QuizResult;
 import web.util.Paging;
 
 
@@ -289,6 +296,27 @@ public interface CommunityService {
 	 * @param file
 	 */
 	public void uploadMyRecipe(HttpSession session, MyRecipe myRecipe,MultipartFile file);
+	
+	/**
+	 * 분쇄도 리스트
+	 * @return
+	 */
+	public List<Grind> getGrindList();
+	/**
+	 * 추출법 리스트
+	 * @return
+	 */
+	public List<Extraction> getExtractionList();
+	/**
+	 *콩 리스트
+	 * @return
+	 */
+	public List<Bean> getBeanList();
+	/**
+	 * 빈 넘버로 컵노트 가져오기
+	 * @return
+	 */
+	public List<CupNote> getCupList(Bean bean);
 
 	
 	
@@ -346,6 +374,79 @@ public interface CommunityService {
 
 	public Map<String, Integer> getPrevNextRevNos(CafeRev revNo);
 
+	
+	/**
+	 * 나만의 레시피 상세
+	 * 
+	 * @param myRecipe - 나만의 게시피 글 번호
+	 * @return
+	 */
+	public MyRecipe getMyRecipeInfo(MyRecipe myRecipe);
+	
+	/**
+	 * 유저넘버로 멤버객체 얻기
+	 * 
+	 * @param 
+	 * @return
+	 */
+	public Member getMemberByUserNo(MyRecipe myRecipe);
+	
+	/**
+	 * Id로 유저 얻기
+	 * @param userNick
+	 * @return
+	 */
+	public Member getMemberByUserId(String userId);
+	
+	/**
+	 * 유저넘버에 해당하는 취향조가 결과의 내용물 반환
+	 * 
+	 * @param member - 유저넘버 있음
+	 * @return
+	 */
+	public List<List<QuizResult>> getQuizResultByUserNo(Member member);
+	
+	/**
+	 * 맛과향 다 가져와
+	 * @return
+	 */
+	public List<CupNote> getCupNoteNameList();
+	
+	/**
+	 * 나만의 게시판 조회수+1
+	 * @param myRecipe
+	 */
+	public void myRrcipeHitUp(MyRecipe myRecipe);
+	
+	/**
+	 * 파일 얻어오기
+	 * @param myRecipe - 나만의 레시피 번호
+	 * @return
+	 */
+	public MyRecipeFile getMyRecipeFile(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 수정
+	 * 
+	 * @param myRecipe
+	 * @param file
+	 */
+	public void changeMyRecipe( MyRecipe myRecipe, MultipartFile file);
+	
+	/**
+	 * 나만의 레시피 댓글
+	 * @param myRecipeComment - 내용 있음
+	 * @param session - 유저 가져올거임
+	 */
+	public void joinMyRecipeComment(MyRecipeComment myRecipeComment,HttpSession session);
+	
+	/**
+	 * 나만의 레시피 댓글목록
+	 * 
+	 * @param myRecipe - 나만의레시피 글번호
+	 * @return
+	 */
+	public List<MyRecipeComment> getMyRecipeCommentList(MyRecipe myRecipe);
 	
 }
 

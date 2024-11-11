@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Extraction {
 //
-	private int extractionno;
-	private String extractionname;
+	private int extractionNo;
+	private String extractionName;
 	
 }

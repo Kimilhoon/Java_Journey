@@ -29,6 +29,22 @@ $(function() {
 		});
 		
 	});
+	
+	$(".hit").click(function() {
+		
+		$.ajax({
+			url: "./hit?myRipNo="+$(this).parent().prev().prev().text(),
+			type: "get",
+			dataType: "",
+			success: function() {
+				
+			},
+			error: function() {
+				
+			}
+			
+		});
+	});
 })
 </script>
 
@@ -64,7 +80,7 @@ $(function() {
 			<c:if test="${nowDate eq wDate }">
 				<span>new</span>
 			</c:if>
-			<a href="./view?freeBoardNo=${myRecipeList.myRipNo}"class="hit" >
+			<a href="./view?myRipNo=${myRecipeList.myRipNo}"class="hit" >
 				${myRecipeList.myRipTitle}
 			</a>
 				[0]
