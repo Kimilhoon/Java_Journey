@@ -28,11 +28,16 @@
 		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2}, #{cafeInfo})
 	</insert>
 	
-<!-- 	<select id="selectAllImg" resultType="Cafe"> -->
-<!-- 		SELECT	cafeImgNo, cafeImgOriName, cafeImgStoName, cafeImgSize -->
-<!-- 		FROM CafeImg -->
-<!-- 		ORDER BY cafeImgNo -->
-<!-- 	</select> -->
+	
+	<select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
+		SELECT 
+		cafeNo, imgNo, cafeName, cafeComm, cafePhone
+		, busyTime, cafeLoc, cafeAdd1, cafeAdd2, cafeInfo
+		FROM CAFE
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</select>
 	
 	<update id="update" parameterType="Cafe">
 		UPDATE CAFE
@@ -57,4 +62,6 @@
 			cafeNo = #{cafeNo}
 		</where>
 	</delete>
+	
+	
 </mapper>
