@@ -603,7 +603,7 @@ $(function() {
 </label>
 
 <div>
-	<button id="btnJoin" class="btn btn-primary">회원 가입</button>
+	<button id="btnJoin" class="btn btn-primary" type="button">회원 가입</button>
 </div>
 
 </form>

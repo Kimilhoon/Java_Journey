@@ -34,22 +34,6 @@ $(function () {
         window.open("/create/selectimage", "popupWindow"
         		, "width=900,height=600");
 	})
-	
-	$("#beanName").on("input", function() {
-		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
-	})
-
-	$("#origin").on("input", function() {
-		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
-	})
-
-	$("#beanPrice").on("input", function() {
-		$(this).val($(this).val().replace(/[A-Za-z가-힣!@#$%^&*()]/g, ''));
-	})
-
-	$("#businessNo").on("input", function() {
-		$(this).val($(this).val().replace(/[^0-9-]/g, ''));
-	})
     
 	$("#form").submit(function(e) {
 	    e.preventDefault();  // 폼이 실제로 전송되는 것을 방지하고
@@ -73,20 +57,20 @@ $(function () {
 <button id="btnBack">뒤로가기</button>
 </div>
 	
-<form id="form" action="./bean" method="post" enctype="multipart/form-data">
+<form id="form" action="./beanupdate?beanNo=${ListNo[0].beanNo}&beanImgNo=${ListNo[0].beanImgNo}" method="post" enctype="multipart/form-data">
 	<table class="table table-info">
 		<tr>
-			<td class="mx-3">
+			<td>
 			원두이름
-			<input type="text" maxlength="10" id="beanName" name="beanName">
 			</td>
-			<td class="mx-3">
-			원두원산지
-			<input class="mx-3" type="text" maxlength="10" id="origin" name="origin">
+			<td>
+			<input type="text" id="beanName" name="beanName">
 			원두금액
-			<input class="mx-3" type="number" min="1" max="100000" id="beanPrice" name="beanPrice">
+			<input type="text" id="beanPrice" name="beanPrice">
+			원두원산지
+			<input type="text" id="origin" name="origin">
 			사업자번호
-			<input class="mx-3" type="text" id="businessNo" name="businessNo">
+			<input type="text" id="businessNo" name="businessNo">
 			</td> 
 		</tr>
 		<tr>
@@ -135,8 +119,8 @@ $(function () {
 			</td>
 		</tr>
 	</table>
-	<div id="btnWrite">
-	<button class="btn btn-primary">완료</button>
+	<div id="btnUpdate">
+	<button class="btn btn-primary">수정</button>
 	</div>
 </form>
 </div>

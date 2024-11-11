@@ -8,5 +8,7 @@
 </head>
 <body>
 
+<h1>찜목록</h1> 
+
 </body>
 </html>
