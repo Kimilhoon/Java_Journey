@@ -8,4 +8,82 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	
+	<select id="findByUserId" parameterType="String" resultType="Member">
+		SELECT 
+			userNo, userId, userPw, userNick, userEmail, userName
+	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+	 	FROM MEMBER
+	 	<where>
+	 		userId = #{userId}
+	 	</where>
+	</select>	
+	
+	<select id="findByUserNo" parameterType="int" resultType="Member">
+		SELECT 
+			userNo, userId, userPw, userNick, userEmail, userName
+	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+	 	FROM MEMBER
+	 	<where>
+	 		userNo = #{userNo}
+	 	</where>
+	</select>
+	
+	<update id="myinfoUpdate" parameterType="Member">
+		UPDATE MEMBER
+		<set>
+			, userPw = #{userPw}
+			, userNick = #{userNick}			
+			, userEmail = #{userEmail}			
+			, userPhone = #{userPhone}			
+			, userPostcode = #{userPostcode}			
+			, userAdd1 = #{userAdd1}			
+			, userAdd2 = #{userAdd2}			
+		</set>
+		<where>
+			userNo = #{userNo}
+		</where>		
+	</update>	
+	
+	<select id="selectByMemberNick" resultType="int" parameterType="Member">
+		SELECT count(*) cnt
+		FROM member
+		<where>
+			AND userNick = #{userNick}
+		</where>
+	</select>
+	
+	
 </mapper>

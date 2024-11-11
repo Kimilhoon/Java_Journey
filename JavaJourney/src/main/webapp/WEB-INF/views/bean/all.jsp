@@ -31,7 +31,7 @@ $(function() {
 			
 		});
 		
-	});
+	}); // $("#cupnote").on("change", function() end
 	
 	$("#searchIcon").click(function() {
 // 		console.log($("#search").val());
@@ -57,7 +57,48 @@ $(function() {
 			
 		});
 		
-	});
+	}); // $("#searchIcon").click(function() end
+	
+		
+	$("#keyword").keydown(function(event) {
+		
+		// 엔터 키 감지하기
+		if( event.keyCode == 13 ) {
+			event.preventDefault();
+			
+			var keyword = $("#keyword").val();
+			
+			$.ajax({
+		        url: './all',
+		        type: 'GET',
+		        data: { 
+		        	keyword: keyword 
+		        },
+		        dataType: "html",
+		        success: function(res) {
+					$("body").children().remove();
+					$("body").html(res); 
+				},
+				error: function() {
+					console.error("AJAX 요청에 실패했습니다.");
+				}
+					
+			});
+		}
+	}); // $("#keyword").keydown(function() end
+			
+	
+// 	function play() {
+// 		 $.ajax({
+// 	        url: './all',
+// 	        type: 'GET',
+// 	        data: { keyword: keyword },
+// 	        success: function(response) {
+// 	            console.log(response);
+// 	        }
+// 	    });
+// 	}		
+	
 })
 </script>
 
@@ -114,7 +155,8 @@ $(function() {
       </a>
          <p>${bean.beanName}</p>
          <p>${bean.origin}</p>
-         <p>맛이요 | ${bean.cupNoteName}</p>
+         <p>맛이요 | ${ bean.cupNoteName }</p>
+         <p>리뷰수 : ${ bean.reviewCount }</p>
       </td>
    
       <c:if test="${status.index % 4 == 3 || status.last}">

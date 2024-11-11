@@ -41,7 +41,7 @@
 	</logger>
 
 	<logger name="web.dao">
-		<level value="debug" />
+		<level value="trace" />
 	</logger>
 	
 	<logger name="web.manager.controller">

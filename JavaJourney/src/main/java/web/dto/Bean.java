@@ -23,4 +23,10 @@ public class Bean {
     //cupNote join
 	private String cupNoteName;
 	
+	// beanRev join
+	private int revStarPoint;
+	
+	// beanrevComm
+	private int reviewCount;
+	
 }
