@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.Event;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Member;
@@ -316,6 +317,46 @@ public class CommunityController {
 		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---이벤트-event(jjy)-----------------------------------------
+	@GetMapping("/event/list")
+	public void eventForm(
+			Model model) {
+		
+		
+	}
+
+	@GetMapping("/event/write")
+	public void eventWriteForm() {}
+
+	@PostMapping("/event/write")
+	public void eventWriteProc(
+			Event event
+			) {
+		log.info("event : {}", event);
+		
+	}
+
+	@PostMapping("/event/delete")
+	public void eventDelete() {}
+	
+	
+	
+	
+	
+	
 	
 }
 
