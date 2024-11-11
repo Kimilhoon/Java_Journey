@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -212,16 +213,14 @@ public class CommunityController {
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging curPage) {
 		
 		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
-		
+
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
 		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String today = sdf.format(date);
-		
 		model.addAttribute("paging", paging);
+		model.addAttribute("category", category);
+		model.addAttribute("order", order);
+		model.addAttribute("search", search);
 		model.addAttribute("creviewList", creviewList);
-		model.addAttribute("today", today);
 		
 	}
 	
