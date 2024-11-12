@@ -130,7 +130,9 @@ $("select[name=revsp] option[value=${cafeRev.revsp}]").prop("selected", true);
 <input type="text" name="revNo" value="${cafeRev.revNo }" hidden="none">
 
 <div id="write-area">
-<label>제목 ${cafeRev.cafeName}<input type="text" readonly="readonly"></label><br>
+
+<small>카페명</small> | <span class="cafe-name">&nbsp;&nbsp;${cafeRev.cafeName}</span>
+
 
 <label>별점
 <select name="revsp">
