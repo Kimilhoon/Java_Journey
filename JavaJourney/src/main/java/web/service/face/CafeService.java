@@ -15,18 +15,22 @@ public interface CafeService {
 	public List<Cafe> getBest();
 
 	/**
-	 * 패이징 객체 생성
-	 * 
-	 * @param curPage - 요청 정보 객체
-	 * @return 페이징 계산 완료된 Paging 객체
+	 * 페이지 객체 생성
+	 * @param param - 요청 정보 객체
+	 * @param location - 지역 카테고리 설정
+	 * @param keyword - 검색할 단어 
+	 * @return 페이징 계산 완료된 Paging객체
 	 */
-	public Paging getPaging(int curPage);
+	public Paging getPaging(Paging param, String location, String keyword);
 
 	/**
 	 * 전체 카페 조회
+	 * @param keyword - 검색할 단어
+	 * @param location - 지역 카테고리
+	 * @param paging - 검색&카테고리 필터링된 페이징 객체
 	 * @return - 조회된 카페
 	 */
-	public List<Cafe> getAllCafe();
+	public List<Cafe> getAllCafe(Paging paging, String location, String keyword);
 
 	/**
 	 * CafeNo 전달 받아 Cafe 상세내용 조회
@@ -35,5 +39,6 @@ public interface CafeService {
 	 * @return Cafe 상세 정보 
 	 */
 	public Cafe getCafeInfo(Cafe cafe);
+
 
 }

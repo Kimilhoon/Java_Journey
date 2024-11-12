@@ -1,5 +1,6 @@
 package web.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,76 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
-	public Paging getPaging(int curPage) {
+	public Paging getPaging(Paging param, String location, String keyword) {
+		
+		if( location == null || "".equals(location) ) {
+			location = "N";
+		} else if( location.equals("1") ) {
+			location = "강남구";
+		} else if( location.equals("2") ) {
+			location = "서초구";
+		} else if( location.equals("3") ) {
+			location = "송파구";
+		} else if( location.equals("4") ) {
+			location = "종로구";
+		} else if( location.equals("5") ) {
+			location = "서대문구";
+		} else if( location.equals("6") ) {
+			location = "마포구";
+		} // if( location == null || "".equals(location) ) end
+		
+		if( keyword == null || "".equals(keyword) ) {
+			keyword = "N";
+		} // if( keyword == null || "".equals(keyword) ) end
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("location", location);
+		map.put("keyword", keyword);
+		
 		//총 게시글 수 조회하기
-		int totalCount = dao.selectCntAll();
+		int totalCount = dao.selectCntAll(map);
+		log.info("totalCount: {}", totalCount);
 		
 		//페이징 계산하기
-		Paging paging = new Paging(curPage, totalCount);
+		param.setTotalPage(totalCount);
+		Paging paging = new Paging(param.getCurPage(), totalCount, 6, 5);
+		
+		log.info("paging: {}", paging);
 		
 		return paging;
 	}
 
 	@Override
-	public List<Cafe> getAllCafe() {
-		return dao.selectAll();
+	public List<Cafe> getAllCafe(Paging paging, String location, String keyword) {
+		
+		if( location == null || "".equals(location) ) {
+			location = "N";
+		} else if( location.equals("1") ) {
+			location = "강남구";
+		} else if( location.equals("2") ) {
+			location = "서초구";
+		} else if( location.equals("3") ) {
+			location = "송파구";
+		} else if( location.equals("4") ) {
+			location = "종로구";
+		} else if( location.equals("5") ) {
+			location = "서대문구";
+		} else if( location.equals("6") ) {
+			location = "마포구";
+		} // if( location == null || "".equals(location) ) end
+		
+		if( keyword == null || "".equals(keyword) ) {
+			keyword = "N";
+		} // if( keyword == null || "".equals(keyword) ) end
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("cupnote", location);
+		map.put("keyword", keyword);
+		
+		List<Cafe> AllCafeList = dao.selectAll(map);
+		
+		return AllCafeList;
 	}
 
 	@Override
@@ -44,6 +102,7 @@ public class CafeServiceImpl implements CafeService {
 		
 		return dao.selectByCafeNo(cafe);
 	}
+	
 	
 }
 

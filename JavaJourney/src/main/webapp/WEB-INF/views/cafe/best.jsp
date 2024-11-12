@@ -48,11 +48,13 @@
 
 
 </div><!-- container End -->
-<div class="row">
-	<div class="d-grid gap-2 col-6 mx-auto" >
-		<a class="btn btn-primary" href="./all" role="button">전체 카페</a>
-	</div>
+
+<div class="text-center">
+	<a class="btn btn-secondary" href="./all" role="button">전체 카페</a>
 </div>
+
+
+
 
 
 <c:import url="../layout/footer.jsp"/>
