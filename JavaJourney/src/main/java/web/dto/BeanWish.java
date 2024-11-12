@@ -22,5 +22,10 @@ public class BeanWish {
 	
 	//beanImg join
     private String beanOriginName;
+    
+    // 찜하자
+//    private String add;
+//    private String remove;
+    private String action;
 
 }
