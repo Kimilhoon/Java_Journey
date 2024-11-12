@@ -23,35 +23,50 @@ $(function() {
 			// 현재 버튼의 텍스트 가져오기
 			const currentText = $(this).text();
 	        
-			// 텍스트에 따라 변경
-	        if (currentText === "찜 ♡") {
-	            $(this).text("찜 ♥");
-	        } else {
-	            $(this).text("찜 ♡");
-	        }
-		
 	     	// 데이터 객체 생성
-			var wishdata = { 
-					beanNo : ${ beanInfo.beanNo },
-					userNo : ${ userNo }
-			};
+			var beanNo = ${ beanInfo.beanNo }
+			var userNo = ${ userNo }
+
+			// 버튼 클릭 시 텍스트 변경 (찜 상태 토글)
+	        if (currentText === "찜 ♡") {
+	            $(this).text("찜 ♥");  // 찜을 추가
+	            sendWishData(beanNo, userNo, 'add');  // 데이터 추가 요청
+	            
+	        } else {
+	            $(this).text("찜 ♡");  // 찜을 취소
+	            sendWishData(beanNo, userNo, 'remove');  // 데이터 삭제 요청
+	            
+	        }
 			
-			// AJAX 요청 보내기
-			$.ajax({
-				url: './info',
-				type: 'post',
-				data: wishdata,
-				dataType: "html",
-				success: function(res) {
-					console.log('찜 상태가 변경되었습니다.');
-					console.log(res);
-				},
-				error: function() {
-					console.error("AJAX 요청에 실패했습니다.");
-				}
-			});
-	
-		}); // $("#wish").click(function() end
+	    }); // $("#wish").click(function() end
+			
+	    function sendWishData(beanNo, userNo, action) {
+	    	
+	        $.ajax({
+	            url: './info',  // 요청 URL
+	            type: 'POST',
+	            contentType: 'application/json',  // JSON 형식
+	            data: JSON.stringify({ 
+	                beanNo: beanNo,
+	                userNo: userNo,
+	                action: action  // 'add' 또는 'remove'
+	            }),
+	            dataType: "json",  // 서버에서 JSON 응답을 받을 때
+	            success: function(response) {
+	                if (action === 'add') {
+	                    console.log('찜 상태가 추가되었습니다.');
+	                    
+	                } else if (action === 'remove') {
+	                    console.log('찜 상태가 취소되었습니다.');
+	                    
+	                }
+	            },
+	            error: function() {
+	                console.error("AJAX 요청에 실패했습니다.");
+	            }
+	        })
+	    };
+
 	}); // $(document).ready() end
 			
 /* 메뉴바 설정 */

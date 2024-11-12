@@ -5,9 +5,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import web.dto.BeanRev;
 import web.dto.BeanWish;
+import web.dto.CafeRev;
 import web.dto.CafeWish;
+import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MyRecipe;
 
 public interface MypageService {
 
@@ -97,6 +101,34 @@ public interface MypageService {
 	 */
 	public List<BeanWish> selectByLikeBean(int userNo);
 	
+	/**
+	 * 유저번호에 해당하는 카페리뷰 리스트 가져오기
+	 * @param userNo
+	 * @return
+	 */
+	public List<CafeRev> selectCafeRevByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 원두리뷰 리스트 가져오기
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanRev> selectBeanRevByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 자유게시판 리스트 가져오기
+	 * @param userNo
+	 * @return
+	 */
+	public List<FreeBoard> selectFreeBoardByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 나만의레시피 리스트 가져오기
+	 * @param userNo
+	 * @return
+	 */
+	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+
 	
 	
 	

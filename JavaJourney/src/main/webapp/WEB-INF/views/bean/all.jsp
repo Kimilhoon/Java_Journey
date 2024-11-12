@@ -128,7 +128,7 @@ $(function() {
 </div>
 
 <div id="search" class="p-2 d-flex justify-content-between">
-<input type="text" id="keyword" name="keyword" class="bi bi-search">
+<input type="text" id="keyword" name="keyword" class="form-control">
 <span id="searchIcon">
 	<i class="bi bi-search"></i>
 </span>

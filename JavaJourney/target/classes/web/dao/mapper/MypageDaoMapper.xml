@@ -36,6 +36,7 @@
 	
 	
 	
+
 	
 	
 	
@@ -113,4 +114,61 @@
 	</select>
 	
 	
+	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
+<!-- 		SELECT  -->
+<!-- 			revNo, cafeNo, userNo, revContent, revDate -->
+<!-- 		FROM CafeRev -->
+<!-- 		<where> -->
+<!-- 			userNo = #{userNo} -->
+<!-- 		</where> -->
+<!-- 		ORDER BY revNo DESC -->
+	    SELECT 
+			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revHit, r.revDate, r.revsp
+			 , c.imgNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, c.cafeLoc
+			 , c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo
+	    FROM 
+	        CafeRev r
+	    JOIN 
+	        Cafe c ON r.cafeNo = c.cafeNo
+	    WHERE userNo = #{userNo}
+	    ORDER BY 
+	        r.revDate DESC
+	</select>	
+
+	<select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
+<!-- 		SELECT  -->
+<!-- 			revNo, beanNo, subNo, userNo, revCont, revHit, revDate, revStarPoint -->
+<!-- 		FROM BeanRev -->
+<!-- 		<where> -->
+<!-- 			userNo = #{userNo} -->
+<!-- 		</where> -->
+<!-- 		ORDER BY revNo DESC -->
+		SELECT
+			r.revNo, r.beanNo, r.subNo, r.userNo, r.revCont, r.revDate
+			, b.beanNo, b.beanName
+		FROM BeanRev r
+		JOIN BEAN b ON r.beanNo = b.beanNo
+		WHERE userNo = #{userNo}
+		ORDER BY r.revDate DESC
+	</select>	
+	
+	<select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
+		SELECT 
+			freeBoardNo, userNo, freeBoardCategory, freeBoardTitle, freeBoardWriteDate
+		FROM FreeBoard
+		<where>
+			userNo = #{userNo}
+		</where>
+		ORDER BY freeBoardNo DESC
+	</select>		
+	
+	<select id="selectMyRecipeByUserNo" resultType="MyRecipe" parameterType="int">
+		SELECT 
+			myRipNo, userNo, myRipTitle, myRipContent, myRipHit, myRipWriteDate
+		FROM MyRecipe
+		<where>
+			userNo = #{userNo}
+		</where>
+		ORDER BY myRipNo DESC
+	</select>
 </mapper>

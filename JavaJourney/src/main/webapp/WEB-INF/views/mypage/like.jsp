@@ -44,7 +44,7 @@ $(function () {
 });
 </script>
 <style type="text/css">
-a{
+/* a{
 	cursor: pointer;
 	text-decoration: none; /* 기본밑줄제거 */
 	color: #333;	/* 기본 텍스트 색상 */
@@ -59,7 +59,7 @@ a:active{
 	color: #0056b3; /* 클릭할 떄 텍스트 색상 */
 	background-color: #e0e0e0; /* 클릭할 떄 배경색 변화 */
 	font-weight: bold; /* 클릭할 때 텍스트를 진하게 */
-}
+} */
 </style>
 <h1>찜목록</h1> 
 

@@ -1,9 +1,11 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import web.dto.Bean;
-import web.dto.BeanRev;
+import web.dto.BeanWish;
+import web.dto.Member;
 import web.util.Paging;
 
 public interface BeanService {
@@ -28,6 +30,8 @@ public interface BeanService {
 	 */
 	public List<Bean> getAllBean(Paging paging, String cupnote, String keyword);
 
+	// /bean/all
+	// --------------------------------------------------------------------------------------
 
 	/**
 	 * BeanNo를 전달 받아 bean 조회
@@ -37,6 +41,43 @@ public interface BeanService {
 	 */
 	public Bean getBeanInfo(Bean param);
 
+
+	/**
+	 * 유저 아이디를 통해 유저 넘버를 찾는다
+	 * 
+	 * @param userId - 전달 받은 유저 아이다
+	 * @return 유저 넘버
+	 */
+	public Member selectUserNoByUserId(String userId);
+
+
+	/**
+	 * 유저, 원두 번호 조회해서 찜 추가
+	 * 
+	 * @param beanNo
+	 * @param userNo
+	 */
+	public void addWish(Map<String, Integer> params);
+
+
+	/**
+	 * 유저, 원두 번호 조회해서 찜 삭제
+	 * 
+	 * @param beanNo
+	 * @param userNo
+	 */
+	public void removeWish(Map<String, Integer> params);
+
+
+	/**
+	 * 빈넘버와 유저아이디에 찜 추가
+	 * 
+	 * @param beanNo - 전달받은 원두, 유저 번호
+	 */
+//	public void insertWish(BeanWish beanWish);
+
+	// /bean/info
+	// --------------------------------------------------------------------------------------
 	
 	
 } // interface end

@@ -237,55 +237,6 @@ button.btn-light:hover {
 
 <script>
 
-function openModal() {
-    document.getElementById("deleteModal").style.display = "flex";
-}
-
-function closeModal() {
-    document.getElementById("deleteModal").style.display = "none";
-}
-
-function backgroundCloseModal(event) {
-    // 클릭한 요소가 모달의 배경(`modal`)인지 확인하여 모달 닫기
-    if (event.target.id === "deleteModal") {
-        closeModal();
-    }
-}
-
-function comm() {
-    $(".comm-delete").click(function() {
-        openModal(); // 삭제 모달 열기
-    });
-
-    // 모달 내 삭제 확인 버튼 클릭 시 처리
-    $("#confirmDelete").click(function() {
-        console.log("댓글이 삭제되었습니다.");
-        closeModal(); // 모달 닫기
-        
-        $(funciton() {
-        	
-        	$.ajax({
-        		type: "get"
-        		, url: "./comm/delete"
-        		, data: {
-        			caferevcommno : ${comm.caferevcommno }
-        		}
-        		, success: function(res) {
-        			
-        		}
-        		
-        	});
-        	
-        });
-        
-    });
-}
-
-// 페이지 로드 후 comm 함수 호출
-$(document).ready(function() {
-    comm();
-});
-
 
 function clip(){
 	
@@ -305,27 +256,6 @@ function clip(){
 
 <h1>카페리뷰상세보기</h1>
 <br>
-
-<!-- 삭제 확인 모달 -->
-<div id="deleteModal" class="modal" tabindex="-1" onclick="backgroundCloseModal(event)">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">삭제 확인</h5>
-                <button type="button" class="btn-close" onclick="closeModal()"></button>
-            </div>
-            <div class="modal-body">
-                <p>댓글을 삭제하겠습니까?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeModal()">취소</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">삭제</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 <div id="content">
 
@@ -386,7 +316,8 @@ function clip(){
 		<c:if test="${comm.userNick eq userNick }">
 			<span class="comm-update"><small>수정</small></span>
 			|
-			<span class="comm-delete"><small>삭제</small>&nbsp;&nbsp;&nbsp;</span>
+			<a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }"><span class="comm-delete"><small>삭제</small></span></a>
+			&nbsp;&nbsp;&nbsp;
 		</c:if>
 		
 		<fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
