@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.BeanRev;
 import web.dto.BeanWish;
@@ -216,22 +218,7 @@ public class MypageController {
 		
 		return ResponseEntity.ok(checkNickResult);
 	}
-	
-	
-//	@GetMapping("/myview")
-//	public String view(Model model, HttpSession session, Member member) {
-//        // 세션에서 userNo 가져오기
-//        Integer userNo = (Integer) session.getAttribute("userNo");
-//        if (userNo == null) {
-//            return "redirect:/member/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
-//        }	
-//        // 사용자 번호로 해당 사용자의 리뷰 조회
-//        List<CafeRev> myCafeReviews = service.findByUserNo(member.getUserNo());
-//        model.addAttribute("reviews", myCafeReviews);
-//
-//        return "my-cafe-reviews"; // 사용자 리뷰 페이지 템플릿 이름
-//    	}        
-//	}
+
 		
 	@GetMapping("/myview")
 	public void view(Model model, HttpSession session, Member member, String category) {
@@ -277,7 +264,34 @@ public class MypageController {
             map.put("data", rev);
             myView.add(map);
         }
-		
+
+        
+        // 날짜 기준으로 정렬 //지피티출신입니다
+        Collections.sort(myView, new Comparator<Map<String, Object>>() {
+            @Override
+            public int compare(Map<String, Object> map1, Map<String, Object> map2) {
+                Date date1 = getDate(map1.get("data"));
+                Date date2 = getDate(map2.get("data"));
+                return date2.compareTo(date1);  // 최신 글이 먼저 오도록 내림차순 정렬
+            }
+
+            private Date getDate(Object obj) {
+            	
+                if (obj instanceof CafeRev) {
+                    return ((CafeRev) obj).getRevDate();
+                    
+                } else if (obj instanceof BeanRev) {
+                    return ((BeanRev) obj).getRevDate();
+                    
+                } else if (obj instanceof FreeBoard) {
+                    return ((FreeBoard) obj).getFreeBoardWriteDate();
+                    
+                } else if (obj instanceof MyRecipe) {
+                    return ((MyRecipe) obj).getMyRipWriteDate();
+                }
+                return null;
+            }
+        });		
         
         model.addAttribute("myView", myView);
         model.addAttribute("count", myView.size());  // 게시글 수
