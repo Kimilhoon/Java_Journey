@@ -289,7 +289,53 @@ public class CommunityController {
 			service.joinMyRecipeComment(myRecipeComment,session);
 		}
 		
+		@GetMapping("/myrecipe/commentdelete")
+		public void myRecipeCommentDelete(MyRecipeComment myRecipeComment) {
+			service.dropMyRecipeComment(myRecipeComment);
+		}
 		
+		@GetMapping("/myrecipe/reccheck")
+		public void myRecipeRecCheck(MyRecipe myRecipe, HttpSession session,HttpServletResponse resp) {
+			boolean isRec = service.myRecipeRecommendCheck(myRecipe,session);
+			int recCount = service.getMyRecipeRecommendCount(myRecipe);
+			Gson gson = new Gson();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("isRec", isRec);
+			map.put("recCount", recCount);
+			resp.setCharacterEncoding("utf-8");
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		@GetMapping("/myrecipe/recommend")
+		public void myRecipeRecommend(MyRecipe myRecipe, HttpSession session,HttpServletResponse resp) {
+			boolean isRec = service.myRecipeRecommend(myRecipe,session);
+			int recCount = service.getMyRecipeRecommendCount(myRecipe);
+			Gson gson = new Gson();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("isRec", isRec);
+			map.put("recCount", recCount);
+			resp.setCharacterEncoding("utf-8");
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		@GetMapping("/myrecipe/delete")
+		public String myRecipeDelete(MyRecipe myRecipe) {
+		
+			service.dropMyRecipe(myRecipe);
+			
+			return "redirect:./list";
+		}
 		
 		//이벤트---------------------------------------------------------------------------------------
 		

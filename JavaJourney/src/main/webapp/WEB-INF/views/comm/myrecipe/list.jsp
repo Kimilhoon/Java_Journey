@@ -21,6 +21,8 @@ $(function() {
 // 				console.log(res);
 				$("body").children().remove();
 				$("body").html(res); 
+// 				location.href=location.href;
+				 new bootstrap.Tooltip(document.body, { selector: '[data-bs-toggle="tooltip"]' });
 			},
 			error: function() {
 				
@@ -71,7 +73,7 @@ $(function() {
 	<c:forEach var="myRecipeList" items="${myRecipeList }">
 	<tr>
 		<td>${myRecipeList.myRipNo}</td>
-		<td>0</td>
+		<td>${myRecipeList.myRipRecommendCount}</td>
 		<td>
 		
 			<jsp:useBean id="now" class="java.util.Date" />
@@ -83,7 +85,7 @@ $(function() {
 			<a href="./view?myRipNo=${myRecipeList.myRipNo}"class="hit" >
 				${myRecipeList.myRipTitle}
 			</a>
-				[0]
+				[${myRecipeList.myRipCommentCount}]
 		</td>
 		
 		<td>${myRecipeList.userNick}</td>
