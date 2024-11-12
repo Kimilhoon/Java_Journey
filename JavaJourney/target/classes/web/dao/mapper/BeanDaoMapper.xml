@@ -5,19 +5,22 @@
     
 <mapper namespace="web.dao.face.BeanDao">
 	
-<!-- 	<select id="selectBeanTop" resultType="Bean"> -->
-<!-- 		SELECT *  -->
-<!-- 		FROM ( -->
-<!-- 			SELECT  -->
-<!-- 				b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo, -->
-<!-- 				beanOriginname, beanStoredname, beanImgSize, -->
-<!-- 				(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount -->
-<!-- 			FROM bean b -->
-<!-- 			LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo -->
-<!-- 		)  -->
-<!-- 		WHERE ROWNUM <= 3 -->
-<!-- 		ORDER BY reviewCount DESC -->
-<!-- 	</select> -->
+	<select id="selectBeanTop" resultType="Bean">
+		SELECT * FROM (
+			SELECT rowNum rNum, B.* FROM (
+				SELECT 
+					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo,
+					beanOriginname, beanStoredname, beanImgSize, bs.gram,
+					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount,
+					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint
+				FROM bean b
+				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo
+				ORDER BY reviewCount DESC
+			) B
+		)
+		WHERE rNum &lt;= 3
+	</select>
 	
 	<!-- /bean/all -->
 	<!-- ====================================================================================================== -->
@@ -25,8 +28,10 @@
 	<select id="selectCntAll" resultType="int" parameterType="hashmap">
 		SELECT count(*)
 		FROM bean b
+		<if test='cupnote != null and cupnote != "N"'>
 		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
     	LEFT JOIN cupnote c ON bt.cupNoteNo = c.cupNoteNo
+    	</if>
 		<where>
 			<if test='cupnote != null and cupnote != "N"'>
 			AND		c.cupNoteName = #{ cupnote }
@@ -57,7 +62,9 @@
 <!-- 					) AS cupNoteNames -->
 <!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
 				FROM bean b
+				<if test='cupnote != "N"'>
 				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+				</if>
 <!-- 				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo -->
 				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				<where>

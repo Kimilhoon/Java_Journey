@@ -176,22 +176,21 @@ $(function() {
 </div>
 
 <div id="commbean" class="d-flex mb-3">
-<div id="image" style="flex-shrink: 0;" class="img-thumbnail">
+<div id="image" style="flex-shrink: 0; width: 400px; height: 550px; object-fit: container;" class="img-thumbnail" >
 ${ beanInfo.beanOriginName }
-<%-- <img src="<c:url value='${ beanInfo.beanOriginName }'/>" alt="${beanInfo.beanName}" class="img-thumbnail" style="width: 400px; height: 400px; object-fit: contain;"/> --%>
 </div>
 
 <div id="explain" class="p-2">
 <div>
-<h2>${ beanInfo.beanName }</h2>
+<p class="fw-bold fs-1">${ beanInfo.beanName }</p>
 </div>
 
 <div class="mb-2">
-<span>${ beanInfo.origin }</span>
+<p>${ beanInfo.origin }</p>
 </div>
 
 <div>
-<span>${ beanInfo.beanComm }</span>
+<p style="height: 300px;">${ beanInfo.beanComm }</p>
 <!-- <p>다아한 탱산뎌언인은 헐즛구에해의 로렘입숨 테스트 데이터 잘 보고 갑니다 ㅎㅎ 넘 ㅜ좋으네여 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를. </p> -->
 </div>
 

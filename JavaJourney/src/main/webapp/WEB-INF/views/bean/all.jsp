@@ -143,33 +143,31 @@ $(function() {
 <tbody>
 
 <c:forEach var="bean" items="${ list }" varStatus="status">
-   <c:if test="${status.index % 4 == 0}">
-      <tr>
-   </c:if>
+	<c:if test="${status.index % 4 == 0}">
+		<tr>
+	</c:if>
    
-      <td class="text-center " style="flex-shrink: 0;">
-      <a href="./info?beanNo=${ bean.beanNo }">
-<%--           <img src="<c:url value='${bean.beanOriginName}' />" alt="${bean.beanName}" style="width: 100%;"> --%>
+	<td class="text-center " style="flex-shrink: 0;">
+		<a href="./info?beanNo=${ bean.beanNo }">
 			${bean.beanOriginName}
-<!--           <img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->
-      </a>
-         <p>${bean.beanName}</p>
-         <p>${bean.origin}</p>
-         <p>맛이요 | ${ bean.cupNoteName }</p>
-         <p>리뷰 : ${ bean.reviewCount }</p>
-      </td>
+		</a>
+			<p>${bean.beanName}</p>
+			<p>${bean.origin}</p>
+			<p>맛이요 | ${ bean.cupNoteName }</p>
+			<p>리뷰 : ${ bean.reviewCount }</p>
+	</td>
    
-      <c:if test="${status.index % 4 == 3 || status.last}">
-         </tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
-      </c:if>	
+		<c:if test="${status.index % 4 == 3 || status.last}">
+		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
+		</c:if>	
 </c:forEach>
 
 <!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
 <c:if test="${fn:length(list) % 4 != 0}">
-   <c:forEach begin="1" end="${4 - (fn:length(list) % 4)}"> 
-      <td></td>
-   </c:forEach>
-   </tr>
+	<c:forEach begin="1" end="${4 - (fn:length(list) % 4)}"> 
+		<td></td>
+	</c:forEach>
+</tr>
 </c:if>
 
 
