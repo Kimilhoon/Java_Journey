@@ -552,6 +552,13 @@
 		WHERE myripno = #{myRipNo}
 	</select>
 	
+	<delete id="deleteCafeReviewCommByCafeRevCommNo" parameterType="CafeRevComm">
+		DELETE caferevcomm
+		<where>
+			AND caferevcommno = #{cafeRevCommNo }
+		</where>
+	</delete>
+	
 </mapper>
 
 

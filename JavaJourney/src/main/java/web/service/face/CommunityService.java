@@ -496,6 +496,13 @@ public interface CommunityService {
 	 * @param myRecipe - 나만의 레시피 글 번호
 	 */
 	public void dropMyRecipe(MyRecipe myRecipe);
+
+	/**
+	 * 댓글 삭제
+	 * 
+	 * @param caferevcommno - 삭제할 댓글 번호
+	 */
+	public void dropCafeReviewComment(CafeRevComm caferevcommno);
 	
 	
 }
