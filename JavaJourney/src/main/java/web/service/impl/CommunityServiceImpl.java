@@ -503,7 +503,7 @@ public class CommunityServiceImpl implements CommunityService {
 		if(myRecipeComment.getMyRipCommNickTag()==null) {
 			myRecipeComment.setMyRipCommNickTag("N");
 		}
-		
+		 
 		dao.insertMyRecipeComment(myRecipeComment);
 		
 	}
@@ -723,6 +723,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
 	
+    @Override
+    public String getwriterNick(String writerId) {
+    	
+    	return dao.selectUserNickByUserId(writerId);
+    }
 	
 	//---------------event
 	
@@ -772,7 +777,7 @@ public class CommunityServiceImpl implements CommunityService {
         return prevNextMap;
     }
 	
-	
+
 	
 	
 }

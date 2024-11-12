@@ -432,6 +432,14 @@ public interface CommunityService {
 	 * @param file
 	 */
 	public void changeMyRecipe( MyRecipe myRecipe, MultipartFile file);
+
+	/**
+	 * 작성자아이디에 맞는 닉네임을 불러온다
+	 * 
+	 * @param writerId - 닉네임을 조회할 아이디
+	 * @return 작성자 닉네임
+	 */
+	public String getwriterNick(String writerId);
 	
 	/**
 	 * 나만의 레시피 댓글

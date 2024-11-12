@@ -457,6 +457,14 @@
 		ORDER BY revno
 	</select>
 	
+	<select id="selectUserNickByUserId" resultType="string" parameterType="string">
+		SELECT usernick
+		FROM member
+		<where>
+			userid = #{writerId }
+		</where>
+	</select>
+	
 	<select id="selectGrindAll" resultType="Grind">
 		SELECT * FROM GRIND
 		ORDER BY GRINDNO
@@ -543,7 +551,6 @@
 		SELECT count(*) FROM MYRECIPECOMMENT
 		WHERE myripno = #{myRipNo}
 	</select>
-	
 	
 </mapper>
 

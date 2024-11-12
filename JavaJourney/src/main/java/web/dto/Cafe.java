@@ -17,4 +17,7 @@ public class Cafe {
 	private String businessNo;
 	private String cafeInfo;
 	
+	//조인CafeWish
+	private int userNo;
+	
 }
