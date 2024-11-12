@@ -334,6 +334,9 @@ public class CommunityController {
 		//작성한 유저id
 		String writerId = service.getWriterId(cafeRev);
 		
+		//작성자 닉네임 불러오기
+		String writerNick = service.getwriterNick(writerId);
+		
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
 		
@@ -360,6 +363,7 @@ public class CommunityController {
 		model.addAttribute("cafeRev", cafeRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);
+		model.addAttribute("writerNick", writerNick);
 		
 	}
 	

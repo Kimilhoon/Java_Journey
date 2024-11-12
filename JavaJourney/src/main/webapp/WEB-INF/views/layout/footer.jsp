@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- footer내용 -->
+
 <script>
   (function() {
     var w = window;
@@ -144,6 +145,13 @@
 		Copyright © JavaJourney. All right Reserved. Created By 커피타조.
 		</pre>
 	</div>
+
+<!-- <div class="footer-icons"> -->
+<!--     <a href="http://www.youtube.com"><i class="bi bi-youtube icon" style="color: red; font-size: 2.5em;"></i></a> -->
+<!--     <a href="http://www.instagram.com"><i class="bi bi-instagram" style="font-size:2.5em;"></i></a> -->
+<!--     <a href="http://www.facebook.com"><i class="bi bi-facebook icon" style="color: blue; font-size: 2.5em;"></i></a> -->
+<!-- </div> -->
+
 </div>
 
 </body>

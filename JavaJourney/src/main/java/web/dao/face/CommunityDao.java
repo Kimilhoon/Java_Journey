@@ -128,6 +128,12 @@ public interface CommunityDao {
 	 */
 	public void insertCafeReviewComm(CafeRevComm comm);
 
+	/**
+	 * 
+	 * @param writerId
+	 * @return
+	 */
+	public String selectUserNickByUserId(String writerId); 
 
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -526,8 +532,9 @@ public interface CommunityDao {
 	 * 
 	 * @param myRecipe
 	 */
-	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe); 
-	
+	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe);
+
+
 	/**
 	 * 나만의 레시피 댓글
 	 * 
