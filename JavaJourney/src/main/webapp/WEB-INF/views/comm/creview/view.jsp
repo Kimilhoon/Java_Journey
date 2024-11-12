@@ -98,6 +98,7 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-content: center;
 }
 
 #comment table {
@@ -122,7 +123,7 @@ h1 {
 /* 댓글 작성 부분 */
 form label {
     width: 100%;
-    display: flex;
+    display: block;
 }
 
 form input[type="text"] {
@@ -131,8 +132,7 @@ form input[type="text"] {
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
-    margin: 0 auto;
-    align-content: center;
+    margin-right: 10px;
 }
 
 form button {
@@ -150,8 +150,6 @@ form button:hover {
 
 /* 페이지 네비게이션 버튼 (목록, 이전, 다음) */
 button.btn-light {
-	display: flex;
-	margin: 0 auto;
     padding: 10px 20px;
     background-color: #f8f9fa;
     border: 1px solid #ddd;
@@ -201,12 +199,93 @@ button.btn-light:hover {
     }
 }
 	
+/* 모달 기본 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-dialog {
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+	
+.comm-update {
+	cursor: pointer;
+	color: #ccc;
+}
+	
+.comm-delete {
+	cursor: pointer;
+	color: #c88;
+}
 	
 </style>
 
 <div style="padding-left: 200px; padding-right: 200px;">
 
 <script>
+
+function openModal() {
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("deleteModal").style.display = "none";
+}
+
+function backgroundCloseModal(event) {
+    // 클릭한 요소가 모달의 배경(`modal`)인지 확인하여 모달 닫기
+    if (event.target.id === "deleteModal") {
+        closeModal();
+    }
+}
+
+function comm() {
+    $(".comm-delete").click(function() {
+        openModal(); // 삭제 모달 열기
+    });
+
+    // 모달 내 삭제 확인 버튼 클릭 시 처리
+    $("#confirmDelete").click(function() {
+        console.log("댓글이 삭제되었습니다.");
+        closeModal(); // 모달 닫기
+        
+        $(funciton() {
+        	
+        	$.ajax({
+        		type: "get"
+        		, url: "./comm/delete"
+        		, data: {
+        			caferevcommno : ${comm.caferevcommno }
+        		}
+        		, success: function(res) {
+        			
+        		}
+        		
+        	});
+        	
+        });
+        
+    });
+}
+
+// 페이지 로드 후 comm 함수 호출
+$(document).ready(function() {
+    comm();
+});
+
 
 function clip(){
 	
@@ -226,6 +305,27 @@ function clip(){
 
 <h1>카페리뷰상세보기</h1>
 <br>
+
+<!-- 삭제 확인 모달 -->
+<div id="deleteModal" class="modal" tabindex="-1" onclick="backgroundCloseModal(event)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제 확인</h5>
+                <button type="button" class="btn-close" onclick="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <p>댓글을 삭제하겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">취소</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div id="content">
 
@@ -280,8 +380,17 @@ function clip(){
 <c:forEach var="comm" items="${crevcommList }">
 
 <tr class="fw-light">
-	<td><small>${comm.userNick }</small></td>
-	<td class="text-end"><small><fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/></small></td>
+	<td>${comm.userNick }</td>
+	<td class="text-end">
+	
+		<c:if test="${comm.userNick eq userNick }">
+			<span class="comm-update"><small>수정</small></span>
+			|
+			<span class="comm-delete"><small>삭제</small>&nbsp;&nbsp;&nbsp;</span>
+		</c:if>
+		
+		<fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
+	</td>
 </tr>
 <tr class="fw-normal">
 	<td colspan="2">${comm.cafeCommCont }</td>
