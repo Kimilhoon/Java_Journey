@@ -2,6 +2,7 @@ package web.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.BeanDao;
 import web.dto.Bean;
-import web.dto.BeanRev;
+import web.dto.BeanWish;
+import web.dto.Member;
 import web.service.face.BeanService;
 import web.util.Paging;
 
@@ -19,6 +21,9 @@ public class BeanServiceImpl implements BeanService {
 	
 	@Autowired private BeanDao dao;
 	
+	// /bean/all
+	// --------------------------------------------------------------------------------------
+
 	@Override
 	public Paging getPaging(Paging param, String cupnote, String keyword) {
 		
@@ -117,6 +122,8 @@ public class BeanServiceImpl implements BeanService {
 		
 	} // getAllBean() end
 
+	// /bean/all
+	// --------------------------------------------------------------------------------------
 
 	@Override
 	public Bean getBeanInfo(Bean param) {
@@ -124,7 +131,34 @@ public class BeanServiceImpl implements BeanService {
 		return dao.selectByBeanNo(param);
 		
 	} // getBeanInfo(Bean param) end
+
+
+	@Override
+	public Member selectUserNoByUserId(String userId) {
+		return dao.selectByUserId(userId);
+	} // selectUserNoByUserId(String userId) end
+
+
+	@Override
+	public void addWish(Map<String, Integer> params) {
+		dao.addWish(params);
+	}
+
+
+	@Override
+	public void removeWish(Map<String, Integer> params) {
+		dao.removeWish(params);
+	}
+
+
+//	@Override
+//	public void insertWish(BeanWish beanWish) {
+//		log.info("Inserting wish: {}", beanWish);
+//		dao.insertWish(beanWish);
+//	} // updateWish(int beanNo, String userId) end
 	
+	// /bean/info
+	// --------------------------------------------------------------------------------------
 	
 	
 } // class end

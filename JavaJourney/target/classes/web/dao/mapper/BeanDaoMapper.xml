@@ -6,19 +6,20 @@
 <mapper namespace="web.dao.face.BeanDao">
 	
 	<select id="selectCntAll" resultType="int" parameterType="hashmap">
-		SELECT count(*) 
+		SELECT count(*)
 		FROM bean b
 		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
     	LEFT JOIN cupnote c ON bt.cupNoteNo = c.cupNoteNo
 		<where>
-			<if test='cupnote != "N"'>
-			AND		cupNoteName = #{ cupnote }
+			<if test='cupnote != null and cupnote != "N"'>
+			AND		c.cupNoteName = #{ cupnote }
 			</if>
-			<if test='keyword != "N"'>
-			AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 
+			<if test='keyword != null and keyword != "N"'>
+			AND		upper(b.beanName) LIKE '%'||upper(#{keyword})||'%' 
 			</if>
 		</where>
 	</select>
+	
 	
 	<select id="selectAll" resultType="Bean" parameterType="hashmap">
 		SELECT * FROM (
@@ -27,7 +28,7 @@
 					b.beanNo, i.beanImgNo, beanName, origin, 
 					beanComm, beanInfo, beanPrice, businessNo,
 					beanOriginname, beanStoredname, beanImgSize,
-					c.cupNoteNo, c.cupNoteName,
+<!-- 					c.cupNoteNo, c.cupNoteName, -->
 					(SELECT COUNT(bc.commNo) FROM beanrevComm bc WHERE bc.beanNo = b.beanNo) AS reviewCount
 <!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
 <!-- 						FROM ( -->
@@ -40,7 +41,7 @@
 <!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
 				FROM bean b
 				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
-				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
+<!-- 				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo -->
 				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				<where>
 				<if test='cupnote != "N"'>
@@ -56,6 +57,9 @@
 		WHERE rNum BETWEEN #{ paging.startNo } AND #{ paging.endNo }
 	</select>  
 	
+	<!-- /bean/all -->
+	<!-- ====================================================================================================== -->
+	
 	<select id="selectByBeanNo" resultType="Bean" parameterType="Bean">
 		SELECT 
 				b.beanNo, i.beanImgNo, beanName, origin, 
@@ -69,5 +73,40 @@
 		AND		b.beanNo = #{ beanNo }
 		</where>
 	</select>
+	
+	<select id="selectByUserId" parameterType="String" resultType="Member">
+		SELECT	userNo
+		FROM	member
+		<where>
+		AND		userId = #{ userId }
+		</where>
+	</select>
+
+<!-- 	<insert id="insertWish" parameterType="BeanWish"> -->
+<!-- 		<selectKey order="BEFORE" resultType="int" keyProperty="beanWishNo"> -->
+<!-- 			SELECT beanWishNo_seq.nextval FROM dual -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT INTO beanWish( beanWishNo, beanNo, userNo ) -->
+<!-- 		VALUES ( #{ beanWishNo }, #{ beanNo }, #{ userNo } ) -->
+<!-- 	</insert> -->
+
+	<insert id="addWish" parameterType="map">
+		<selectKey order="BEFORE" resultType="int" keyProperty="beanWishNo">
+			SELECT beanWishNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO beanWish( beanWishNo, beanNo, userNo )
+		VALUES ( #{ beanWishNo }, #{ beanNo }, #{ userNo } )
+	</insert>
+	
+	<delete id="removeWish" parameterType="map">
+		DELETE 	beanWish
+		<where>
+		AND		beanNo = #{ beanNo }
+		AND		userNo = #{ userNo }
+		</where>
+	</delete>
+
+	<!-- /bean/info -->
+	<!-- ====================================================================================================== -->
 	
 </mapper>
