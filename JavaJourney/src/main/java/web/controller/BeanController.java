@@ -31,9 +31,11 @@ public class BeanController {
 	@Autowired private BeanService service;
 	
 	@GetMapping("/best")
-	public void BestBeanForm() {
+	public void BestBeanForm(Model model) {
 		
 		List<Bean> list = service.getBeanTop();
+		
+		model.addAttribute("list", list);
 		
 	} // BestBeanForm() end
 	

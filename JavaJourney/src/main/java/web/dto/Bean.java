@@ -25,8 +25,9 @@ public class Bean {
 	
 	// beanRev join
 	private int revStarPoint;
-	
-	// beanrevComm
 	private int reviewCount;
+	private int avgRevStarPoint;
 	
+	// beanSub join
+	private int gram;
 }
