@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,20 +44,17 @@ public class MypageController {
 	@GetMapping("/like")
 	public void likeForm(
 			Model model,
-			Member member
+			Member member,
+			@RequestParam(required = false) String searchText
 			) {
 		log.info("member : {}",member.getUserNo());
-		List<CafeWish> cafeWishNoList = service.selectByLikeCafe(member.getUserNo());
-		log.info("cafeWishNoList",cafeWishNoList);
+		log.info("searchText : {}",searchText);
+		List<CafeWish> cafeWishNoList = service.selectByLikeCafe(member.getUserNo(),searchText);
+//		log.info("cafeWishNoList",cafeWishNoList);
 		List<BeanWish> beanWishList = service.selectByLikeBean(member.getUserNo());
 		model.addAttribute("cafeWishNoList",cafeWishNoList);
 		model.addAttribute("beanWishList",beanWishList);
-		
 	}
-	
-	
-	
-	
 	
 	
 	

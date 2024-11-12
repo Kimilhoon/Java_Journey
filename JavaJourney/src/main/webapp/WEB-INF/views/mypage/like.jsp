@@ -2,47 +2,114 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp"/>
+<script type="text/javascript">
+var userNo = "${cafeWishNoList[0].userNo}";
+$(function () {
+	
+	$("#all").click(function () {
+		$(".cafetb").show();
+		$(".beantb").show();
+	})
+	
+	$("#cafe").click(function () {
+		$(".cafetb").show();
+		$(".beantb").hide();
+	})
 
+	$("#bean").click(function () {
+		$(".cafetb").hide();
+		$(".beantb").show();
+	})
+	
+	$(".custom-image img").css({
+        width: "200px",
+        height: "200px"
+    });
+	
+	$(document).ready(function () {
+	$("#btnSearch").click(function () {
+		var searchText = $("#searchText").val().toLowerCase();
+		$("#contentall .cafetb, #contentall .beantb").each(function () {
+			var rowText = $(this).text().toLowerCase();
+			if(rowText.includes(searchText)) {
+				$(this).show();
+			} else {
+				$(this).hide();
+			}
+		})
+	});
+		
+  });
+	
+});
+</script>
+<style type="text/css">
+a{
+	cursor: pointer;
+	text-decoration: none; /* 기본밑줄제거 */
+	color: #333;	/* 기본 텍스트 색상 */
+	transition: color 0.3s ease, background-color 0.3 ease; /* 부드러운 전환 효과 */
+}
+a:hover{
+	color: #007bff; /* 마우스 오버시 텍스트 색상 변화 */
+	text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+	background-color: #f0f0f0; /* 배경 색상 변경으로 클릭 효과 */
+}
+a:active{
+	color: #0056b3; /* 클릭할 떄 텍스트 색상 */
+	background-color: #e0e0e0; /* 클릭할 떄 배경색 변화 */
+	font-weight: bold; /* 클릭할 때 텍스트를 진하게 */
+}
+</style>
 <h1>찜목록</h1> 
 
 <div class="col-6 d-flext flex-column">
 <div id="order-list" class="mb-2">
-<a href="#">전체보기</a>
+<a id="all">전체보기</a>
 &nbsp;|&nbsp;
-<a href="#">카페</a>
+<a id="cafe">카페</a>
 &nbsp;|&nbsp;
-<a href="#">원두</a>
+<a id="bean">원두</a>
 </div> <!-- order-list -->
 </div>
 
 <div class="container mt-5">
-<form class="d-flex justify-content-end" action="">
+<div class="d-flex justify-content-end">
 	<div class="col-2">
-	<input class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
+	<input id="searchText"class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
 	</div>
 	<span style="margin-right: 5px;"></span>
-	<button class="btn btn-primary" type="submit">검색</button>
-</form>
+	<button id="btnSearch" class="btn btn-primary">검색</button>
+</div>
 </div>
 
-
-
 <div class="container">
-<table>
-<c:forEach var="cafe" items="${cafeWishNoList }">
-<tr>
-	<td>${cafe.cafeInfo }</td>
-	<td>${cafe.cafeName }</td>
-</tr>
-</c:forEach>
-</table>
-<table>
-<c:forEach var="bean" items="${beanWishList }">
-<tr>
-	<td>${bean.beanOriginName }</td>
-	<td>${bean.beanName }</td>
-</tr>
-</c:forEach>
+<table id="contentall">
+    <c:forEach var="cafe" items="${cafeWishNoList}" varStatus="status">
+        <c:if test="${status.index % 3 == 0}">
+            <tr>
+        </c:if>
+
+        <!-- Cafe 리스트의 항목 -->
+        	<td class="cafetb">
+        	<div class="custom-image">
+        	<p>${cafe.cafeInfo}</p>
+        	<p>${cafe.cafeName}</p>
+        	</div>
+        	</td>
+		
+        <!-- Bean 리스트의 항목을 동일 인덱스로 출력 -->
+        <c:set var="bean" value="${beanWishList[status.index]}"/>
+        	<td class="beantb">
+        	<div class="custom-image">
+        	<p>${bean.beanOriginName}</p>
+        	<p>${bean.beanName}</p>
+        	</div>
+        	</td>
+        <c:if test="${status.index % 3 == 2 || status.last}">
+            </tr>
+        </c:if>
+    </c:forEach>
 </table>
 </div>
 

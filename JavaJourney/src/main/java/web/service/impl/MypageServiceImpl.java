@@ -108,12 +108,13 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<CafeWish> selectByLikeCafe(int userNo) {
-		return dao.selectByUserLikeCafe(userNo);
+	public List<CafeWish> selectByLikeCafe(int userNo, String searchText) {
+		return dao.selectByUserLikeCafe(userNo, searchText);
 	}
 	
 	@Override
 	public List<BeanWish> selectByLikeBean(int userNo) {
 		return dao.selectByUserLikeBean(userNo);
 	}
+	
 }

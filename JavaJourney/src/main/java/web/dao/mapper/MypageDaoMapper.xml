@@ -12,6 +12,9 @@
 		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
 		<where>
 			USERNO = #{userNo}
+			<if test='searchText != "N"'>
+				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%'
+			</if>
 		</where>
 	</select>
 	
@@ -25,6 +28,9 @@
 		INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
 		<where>
 			USERNO = #{userNo}
+<!-- 			<if test='searchText != "N"'> -->
+<!-- 				upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
+<!-- 			</if> -->
 		</where>
 	</select>
 	
