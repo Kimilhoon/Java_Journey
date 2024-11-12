@@ -56,7 +56,8 @@ $(function() {
 	$("#btnJoin").click(function() {	
 		$(this).parents("form").submit();
 	});	
-	//-------------------------------------------------------	
+	
+/* -------------------------------------------------------------- */	
 	$("#userId").on("change",function(){
 		var regexId = /^[a-z0-9]{5,15}$/;
         var resultId = regexId.exec($("#userId").val()); 
@@ -141,8 +142,11 @@ $(function() {
         }
     }); // $("#userEmail") end
 	
-	
-	//------------------------------------------------------
+    
+
+/* $("#joinForm form") */
+//----------------------------------------------------------------
+
  	$("#joinForm form").submit(function() {
 		
 		if( !userId.value ) {
@@ -215,9 +219,10 @@ $(function() {
 	        return false;
 	    }
 		
-		
 	}) //$("#joinForm form") end
 	
+	
+/* ------------------------------------------------------------------- */	
     $("#idValidation").hide();
     $("#nickValidation").hide();
     
@@ -336,8 +341,8 @@ $(function() {
 	}) //$("#userNick") end
 	
 	
-	
-	
+/* 주소 */	
+/* -------------------------------------------------------------- */	
 	
 	$("#postcodeWrap").css({
 	    left: (innerWidth / 2) - (500 / 2),
@@ -419,6 +424,7 @@ $(function() {
     }
 </script>
 
+<!-- 이용약관 모달 -->
 <style type="text/css">
 	.modal {
 		display: none;
@@ -453,6 +459,7 @@ $(function() {
 	
 </style>
 
+<!-- 주소 -->
 <style type="text/css">
 #postcodeWrap {
 /* 	position: relative; */

@@ -11,20 +11,49 @@ $(function() {
 
 /* 버튼 설정 */
 /* -------------------------------------------------------------------------------------------------------------- */
-	$("#wish").click(function() {
-		const currentText = $(this).text();
-        
-        if (currentText === "찜 ♡") {
-            $(this).text("찜 ♥");
-        } else {
-            $(this).text("찜 ♡");
-        }
-	});
 	
 	$("#sub").click(function() {
 		location.href="./bean/sub";
 	})
 
+	$(document).ready(function() {
+	
+		$("#wish").click(function() {
+			
+			// 현재 버튼의 텍스트 가져오기
+			const currentText = $(this).text();
+	        
+			// 텍스트에 따라 변경
+	        if (currentText === "찜 ♡") {
+	            $(this).text("찜 ♥");
+	        } else {
+	            $(this).text("찜 ♡");
+	        }
+		
+	     	// 데이터 객체 생성
+			var wishdata = { 
+					beanNo : ${ beanInfo.beanNo },
+					userNo : ${ userNo }
+			};
+			
+			// AJAX 요청 보내기
+			$.ajax({
+				url: './info',
+				type: 'post',
+				data: wishdata,
+				dataType: "html",
+				success: function(res) {
+					console.log('찜 상태가 변경되었습니다.');
+					console.log(res);
+				},
+				error: function() {
+					console.error("AJAX 요청에 실패했습니다.");
+				}
+			});
+	
+		}); // $("#wish").click(function() end
+	}); // $(document).ready() end
+			
 /* 메뉴바 설정 */
 /* -------------------------------------------------------------------------------------------------------------- */
 	
@@ -45,15 +74,15 @@ $(function() {
 	
 	$("#btnList").click(function() {
 		location.href="./all";
-	})
+	});
 	
 	$("#btnUpdate").click(function() {
 		location.href="/create/beanupdate?beanNo=${beanInfo.beanNo}";
-	})
+	});
 	
 	$("#btnDelete").click(function() {
 		location.href="/create/beandelete?beanNo=${beanInfo.beanNo}";
-	})
+	});
 	
 /* -------------------------------------------------------------------------------------------------------------- */
 	
@@ -84,9 +113,9 @@ $(function() {
 				$("#beanMenu").removeClass("fixed");
 			} // if(tapsTop <= window) end
 			
-		}) // $(window).scroll(function() end
+		}); // $(window).scroll(function() end
 				
-	}) // $(document).ready(function() end
+	}); // $(document).ready(function() end
 	
 	
 }) // $(function() end 
@@ -154,7 +183,21 @@ ${ beanInfo.beanOriginName }
 <table class="table p-2">
 <tr>
 	<th>별점</th>
-	<td>★★★★★(5.0)</td>
+	<c:if test="${ beanInfo.revStarPoint == 1 }">
+	<td>★(<c:out value="${beanInfo.revStarPoint}" />)</td>
+	</c:if>
+	<c:if test="${ beanInfo.revStarPoint == 2 }">
+	<td>★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
+	</c:if>
+	<c:if test="${ beanInfo.revStarPoint == 3 }">
+	<td>★★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
+	</c:if>
+	<c:if test="${ beanInfo.revStarPoint == 4 }">
+	<td>★★★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
+	</c:if>
+	<c:if test="${ beanInfo.revStarPoint == 5 }">
+	<td>★★★★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
+	</c:if>
 </tr>
 </table>
 <!-- <dl class="d-flex text-center"> -->

@@ -23,6 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
 <!-- summernote 링크 End-->
+
 <script type="text/javascript">
 $(function() {
 	$("#btnLogout").click(function() {
@@ -123,10 +124,14 @@ alt="로고" width="200" height="200" />
             </a>
             <ul class="dropdown-menu bg-light">
               <li><a class="dropdown-item" href="/mypage/myinfo">회원 정보 수정</a></li>
+              <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
+              <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo }">구독 정보</a></li>
+              <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo }">찜 목록</a></li>
+              <li><a class="dropdown-item" href="/mypage/likeview">작성글 확인</a></li>
               <li><a class="dropdown-item" href="/mypage/quizres">내 취향 결과</a></li>
               <li><a class="dropdown-item" href="/mypage/subscribe">구독 정보</a></li>
               <li><a class="dropdown-item" href="/mypage/like">찜 목록</a></li>
-              <li><a class="dropdown-item" href="/mypage/likeview">작성글 확인</a></li>
+              <li><a class="dropdown-item" href="/mypage/myview">작성글 확인</a></li>
             </ul>
           </li>
         </ul>

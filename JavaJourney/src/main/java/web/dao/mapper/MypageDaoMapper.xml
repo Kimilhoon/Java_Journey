@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.MypageDao">
+	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
+		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
+		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
+		CAFEADD2, CAFEINFO
+		FROM CAFEWISH C1
+		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
+		<where>
+			USERNO = #{userNo}
+		</where>
+	</select>
 	
+	<select id="selectByUserLikeBean" resultType="BeanWish" parameterType="int">
+		SELECT BEANWISHNO, B1.BEANNO, B1.USERNO,
+		B2.BEANNO, B2.BEANIMGNO, B2.BEANNAME, B2.ORIGIN,
+		B2.BEANCOMM, B2.BEANINFO, B2.BEANPRICE, B2.BUSINESSNO,
+		B3.BEANIMGNO, B3.BEANORIGINNAME 
+		FROM BEANWISH B1
+		INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
+		INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
+		<where>
+			USERNO = #{userNo}
+		</where>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	
+	<select id="findByUserId" parameterType="String" resultType="Member">
+		SELECT 
+			userNo, userId, userPw, userNick, userEmail, userName
+	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+	 	FROM MEMBER
+	 	<where>
+	 		userId = #{userId}
+	 	</where>
+	</select>	
+	
+	<select id="findByUserNo" parameterType="int" resultType="Member">
+		SELECT 
+			userNo, userId, userPw, userNick, userEmail, userName
+	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+	 	FROM MEMBER
+	 	<where>
+	 		userNo = #{userNo}
+	 	</where>
+	</select>
+	
+	<update id="myinfoUpdate" parameterType="Member">
+		UPDATE MEMBER
+		<set>
+			, userPw = #{userPw}
+			, userNick = #{userNick}			
+			, userEmail = #{userEmail}			
+			, userPhone = #{userPhone}			
+			, userPostcode = #{userPostcode}			
+			, userAdd1 = #{userAdd1}			
+			, userAdd2 = #{userAdd2}			
+		</set>
+		<where>
+			userNo = #{userNo}
+		</where>		
+	</update>	
+	
+	<select id="selectByMemberNick" resultType="int" parameterType="Member">
+		SELECT count(*) cnt
+		FROM member
+		<where>
+			AND userNick = #{userNick}
+		</where>
+	</select>
 	
 	
 </mapper>

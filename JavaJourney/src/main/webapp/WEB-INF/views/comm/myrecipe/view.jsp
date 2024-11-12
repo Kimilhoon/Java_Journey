@@ -5,6 +5,37 @@
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 <!-- 내용 -->
+
+<script type="text/javascript">
+$(function() {
+	
+	$("#btn_writeComment").click(function() {
+		console.log($("#comment").val());
+		
+		
+		$.ajax({
+			url: "./commentinsert?myRipNo="+${myRecipeView.myRipNo },
+			type: "get",
+			data:{
+				
+				"myRipCommCont":$("#comment").val()
+			},
+			success: function() {
+				location.href=location.href
+			},
+			error: function() {
+				location.href=location.href
+				
+			}
+			
+		});
+	});
+	
+
+	
+})
+</script>
+
 <h1>뷰</h1>
 <a href="./list"><button>목록</button></a>
 <c:if test="${member.userNick eq userNick}">
@@ -68,14 +99,14 @@
 	</tr>
 </thead>
 <tbody>
-	<c:forEach var="freeBoardComment" items="${freeBoardCommentList }">
+	<c:forEach var="myRecipeComment" items="${myRecipeCommentList }">
 	<tr>
-		<td class="cno">${freeBoardComment.commentContent}</td>
-		<td>${freeBoardComment.userNick}</td>
-		<td><fmt:formatDate value="${freeBoardComment.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
-		<td style="display: none;">${freeBoardComment.commentNo }</td>
+		<td class="cno">${myRecipeComment.myRipCommCont}</td>
+		<td>${myRecipeComment.userNick}</td>
+		<td><fmt:formatDate value="${myRecipeComment.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
+		<td style="display: none;">${myRecipeComment.myRipCommNo }</td>
 		<td>
-			<c:if test="${ freeBoardComment.userNick eq userNick}">
+			<c:if test="${ myRecipeComment.userNick eq userNick}">
 				<button class="btn_cDelete">삭제</button>
 			</c:if>
 		</td>
