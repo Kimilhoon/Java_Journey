@@ -20,6 +20,7 @@ import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
+import web.dto.MyRecipeRecommend;
 import web.dto.Notice;
 import web.dto.QuizResult;
 
@@ -128,6 +129,20 @@ public interface CommunityDao {
 	 */
 	public void insertCafeReviewComm(CafeRevComm comm);
 
+	/**
+	 * 유저 닉네임 불러오기
+	 * 
+	 * @param writerId - 닉네임을 불러올 아이디
+	 * @return 해당 아이디의 닉네임
+	 */
+	public String selectUserNickByUserId(String writerId); 
+	
+	/**
+	 * 카페리뷰댓글 삭제
+	 * 
+	 * @param caferevcommno - 삭제할 카페 리뷰번호
+	 */
+	public void deleteCafeReviewCommByCafeRevCommNo(CafeRevComm cafeRevCommNo);
 
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -441,7 +456,6 @@ public interface CommunityDao {
 	
 
 	/**
-<<<<<<< HEAD
 	 * 나만의 레시피 글 작성시 파일 업로드
 	 * @param myRecipeFile
 	 */
@@ -526,8 +540,9 @@ public interface CommunityDao {
 	 * 
 	 * @param myRecipe
 	 */
-	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe); 
-	
+	public void deleteMyRecipeFileByMyRipNo(MyRecipe myRecipe);
+
+
 	/**
 	 * 나만의 레시피 댓글
 	 * 
@@ -543,7 +558,64 @@ public interface CommunityDao {
 	 */
 	public List<MyRecipeComment> selectMyRecipeCommentListByMyRipNo(MyRecipe myRecipe);
 	
+	
+	/**
+	 * 나만의 레시피 댓글 삭제
+	 * 
+	 * @param myRecipeComment - 댓글 번호
+	 */
+	public void deleteMyRecipeComment(MyRecipeComment myRecipeComment);
+	
+	/**
+	 * 나만의 레시피 추천 확인
+	 * 
+	 * @param myRecipeRecommend
+	 * @return
+	 */
+	public int myRecipeRecCnt(MyRecipeRecommend myRecipeRecommend);
+	
+	
+	/**
+	 * 나만의 레시피 추천 수
+	 * 
+	 * @param myRecipe - 글번호
+	 * @return
+	 */
+	public int selectMyRecipeRecommendCountByMyRipNo(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의레시피 추천 삽입,삭제
+	 * 
+	 * @param myRecipeRecommend
+	 */
+	public void deleteMyRecipeRecommendByMyRipNoUserNo(MyRecipeRecommend myRecipeRecommend);
+	public void insertMyRecipeRecommendByMyRipNoUserNo(MyRecipeRecommend myRecipeRecommend);
+	
+	/**
+	 * 나만의 레시피 추천 삭제
+	 * 
+	 * @param myRecipe - 나만의 레시피 글 번호
+	 */
+	public void deleteMyRecipeRecommendByMyRipNo(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 글 삭제
+	 * 
+	 * 
+	 * @param myRecipe - 글번호
+	 */
+	public void deleteMyRecipByMyRipNo(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 게시판 댓글 수
+	 * 
+	 * @param myRecipe
+	 * @return
+	 */
+	public int selectMyRecipeCommentCountByMyRipNo(MyRecipe myRecipe);
+	
 }
+
 
 
 

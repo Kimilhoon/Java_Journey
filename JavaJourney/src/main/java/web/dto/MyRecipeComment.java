@@ -14,5 +14,6 @@ public class MyRecipeComment {
 	private int myRipCommTag;
 	private String userNick;
 	private Date commentDate;
+	private String myRipCommNickTag;
 	
 } // class end

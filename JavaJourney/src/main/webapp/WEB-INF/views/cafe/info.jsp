@@ -12,33 +12,51 @@ $(function() {
 	$("#sub").click(function() {
 		location.href="./cafe/sub";
 	})
-	$("#wish").click(function() {
-		const currentText = $(this).text();
-		
-		if (currentText === "찜 ♡") {
-            $(this).text("찜 ♥");
-        } else {
-            $(this).text("찜 ♡");
-        }
-		var wishdata = {
-				cafeNo : ${cafeInfo.cafeNo },
-				userNo : ${userNo }
+	
+	$(document).ready(function() {
+		$("#wish").click(function() {
+			const currentText = $(this).text();
+			
+			var cafeNo = cafeNo : ${cafe.cafeNo },
+			var cafeNo = userNo : ${userNo }
+			
+			if (currentText === "찜 ♡") {
+	            $(this).text("찜 ♥"); //찜 추가
+	            sendWishData(cafeNo, userNo, 'add');
+	            
+	        } else {
+	            $(this).text("찜 ♡"); //찜 취소
+	            sendWishData(cafeNo, userNo, 'remove');
+	        }
+			
 		};
 		
-		//Ajax 요청 보내기
-		$.ajax({
-			url: './info',
-			type: 'post',
-			data: wishdata,
-			dataType: "html",
-			success: function(res) {
-				console.log('찜 상태가 변경되었습니다.');
-				console.log(res);
-			},
-			error: function() {
-				console.error("AJAX 요청에 실패했습니다.");
-			}
-		});
+		function sendWishData(beanNo, userNo, action) {
+	    	
+	        $.ajax({
+	            url: './info',  // 요청 URL
+	            type: 'POST',
+	            contentType: 'application/json',  // JSON 형식
+	            data: JSON.stringify({ 
+	                cafeNo: cafeNo,
+	                userNo: userNo,
+	                action: action  // 'add' 또는 'remove'
+	            }),
+	            dataType: "json",  // 서버에서 JSON 응답을 받을 때
+	            success: function(response) {
+	                if (action === 'add') {
+	                    console.log('찜 상태가 추가되었습니다.');
+	                    
+	                } else if (action === 'remove') {
+	                    console.log('찜 상태가 취소되었습니다.');
+	                    
+	                }
+	            },
+	            error: function() {
+	                console.error("AJAX 요청에 실패했습니다.");
+	            }
+	        })
+	    };
 	});
 	/* 메뉴바 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
@@ -47,8 +65,8 @@ $(function() {
 // 			location.href="#cafe"
 // 		})
 		
-// 		$("#cafeInfoBtn").click(function() {
-// 			location.href="#cafeInformation"
+// 		$("#cafeBtn").click(function() {
+// 			location.href="#cafermation"
 // 		})
 		
 // 		$("#cafeReviewBtn").click(function() {
@@ -58,16 +76,16 @@ $(function() {
 	/* 버튼들 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
 		
-// 		$("#btnList").click(function() {
-// 			location.href="./all";
-// 		});
+		$("#btnList").click(function() {
+			location.href="./all";
+		});
 		
 // 		$("#btnUpdate").click(function() {
-// 			location.href="/create/cafeupdate?cafeNo=${cafeInfo.cafeNo}";
+// 			location.href="/create/cafeupdate?cafeNo=${cafe.cafeNo}";
 // 		});
 		
 // 		$("#btnDelete").click(function() {
-// 			location.href="/create/cafedelete?cafeNo=${cafeInfo.cafeNo}";
+// 			location.href="/create/cafedelete?cafeNo=${cafe.cafeNo}";
 // 		});
 		
 	/* -------------------------------------------------------------------------------------------------------------- */
@@ -121,34 +139,34 @@ $(function() {
 
 <!-- <div id="commCafe" class="d-flex mb-3"> -->
 <!-- 	<div id="img" style="flex-shrink: 0;" class="img-thumbnail"> -->
-<%-- 		<img src="/resources/img/cafe/c01.jpg" class="img-fluid" alt="${cafeInfo.cafeNo }"> --%>
+<%-- 		<img src="/resources/img/cafe/c01.jpg" class="img-fluid" alt="${cafe.cafeNo }"> --%>
 <!-- 	</div> -->
 
 <div id="commCafe" class="clearfix">
-  <img src="/resources/img/cafe/c01.jpg" class="col-md-6 float-md-start mb-3 ms-md-3" alt="${cafeInfo.cafeNo }">
+  <img src="/resources/img/cafe/c01.jpg" class="col-md-6 float-md-start mb-3 ms-md-3" alt="${cafe.cafeNo }">
   <p>대충 카페 분위기에 대한 설명임...</p>
 
 
 	<div id="explain p-2">
 	<div>
-	<h2>${ cafeInfo.cafeName }</h2>
+	<h2>${ cafe.cafeName }</h2>
 	</div>
 	
 	<div class="mb-2">
-	<h2>${ cafeInfo.cafeLoc }</h2>
+	<h2>${ cafe.cafeLoc }</h2>
 	</div>
 	
 	<div class="mb-2">
-	<h3>${ cafeInfo.busyTime }</h3>
+	<h3>${ cafe.busyTime }</h3>
 	</div>
 	
 	<div class="mb-2">
-	<span>${ cafeInfo.cafeComm }</span>
+	<span>${ cafe.cafeComm }</span>
 	</div>
  </div>
 
 <!-- <div> -->
-<%-- <span>${ cafeInfo.cafeComm }</span> --%>
+<%-- <span>${ cafe.cafeComm }</span> --%>
 <!-- <p> 대충 카페 분위기에 대한 설명임...</p> -->
 <!-- </div> -->
 
@@ -158,28 +176,28 @@ $(function() {
 <!-- <dd>★★★★★(5.0)</dd> -->
 <!-- </dl> -->
 <!-- </div> -->
-<div>
-<table class="table p-2">
-<tr>
-	<th>별점</th>
-	<c:if test="${ cafeInfo.revStarPoint == 1 }">
-	<td>★(<c:out value="${cafeInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ cafeInfo.revStarPoint == 2 }">
-	<td>★★(<c:out value="${cafeInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ cafeInfo.revStarPoint == 3 }">
-	<td>★★★(<c:out value="${cafeInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ cafeInfo.revStarPoint == 4 }">
-	<td>★★★★(<c:out value="${cafeInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ cafeInfo.revStarPoint == 5 }">
-	<td>★★★★★(<c:out value="${cafeInfo.revStarPoint}" />)</td>
-	</c:if>
-</tr>
-</table>
-</div>
+<!-- <div> -->
+<!-- <table class="table p-2"> -->
+<!-- <tr> -->
+<!-- 	<th>별점</th> -->
+<%-- 	<c:if test="${ cafe.revStarPoint == 1 }"> --%>
+<%-- 	<td>★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${ cafe.revStarPoint == 2 }"> --%>
+<%-- 	<td>★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${ cafe.revStarPoint == 3 }"> --%>
+<%-- 	<td>★★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${ cafe.revStarPoint == 4 }"> --%>
+<%-- 	<td>★★★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${ cafe.revStarPoint == 5 }"> --%>
+<%-- 	<td>★★★★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
+<%-- 	</c:if> --%>
+<!-- </tr> -->
+<!-- </table> -->
+<!-- </div> -->
 	
 	<div id="btn" class="d-flex justify-content-center align-self-end">
 		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
@@ -188,8 +206,8 @@ $(function() {
 </div> <!-- commCafe End -->
 
 <div class="btn-group w-100 nav" role="group" aria-label="Basic radio toggle button group">
-	<input type="radio" class="btn-check" name="btnradio" id="cafeInfoBtn" autocomplete="off" checked>
-	<label class="btn btn-outline-secondary" for="cafeInfoBtn">상세정보</label>
+	<input type="radio" class="btn-check" name="btnradio" id="cafeBtn" autocomplete="off" checked>
+	<label class="btn btn-outline-secondary" for="cafeBtn">상세정보</label>
 	        
 	<input type="radio" class="btn-check" name="btnradio" id="cafeLocBtn" autocomplete="off">
 	<label class="btn btn-outline-secondary" for="cafeLocBtn">위치정보</label>
@@ -198,23 +216,34 @@ $(function() {
 	<label class="btn btn-outline-secondary" for="cafeReviewBtn">카페리뷰</label>
 </div>
 
-<div id="cafeInfomation" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-<div>
-<p class="text-bg-secondary p-3 text-center mb-3 w-100">상세정보</p>
-</div>
-${ cafeInfo.cafeInfo }
+<div id="cafemation" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+	<div>
+		<p class="text-bg-secondary p-3 text-center mb-3 w-100">상세정보</p>
+	</div>
+	<div>
+		${ cafe.cafeInfo }
+		<p>카페 안내문구 및 사진 출력</p>
+	</div>
 </div>
 
 <div id="cafeLocation" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-<div>
-<p class="text-bg-secondary p-3 text-center mb-3 w-100">위치정보</p>
-</div>
+	<div>
+		<p class="text-bg-secondary p-3 text-center mb-3 w-100">위치정보</p>
+	</div>
+
+	<div>
+		${cafe.cafeLoc }
+		<p>지도 API로 표시해줄 예정임.</p>
+	</div>
 </div>
 
 <div id="cafeReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-<div>
-<p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>
-</div>
+	<div>
+		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페리뷰</p>
+	</div>
+	<div>
+		<p>리뷰 내용 끌어와서 보여주기</p>
+	</div>
 </div>
 
 

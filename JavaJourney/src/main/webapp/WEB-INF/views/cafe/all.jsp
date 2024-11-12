@@ -6,17 +6,113 @@
 
 <c:import url="../layout/header.jsp"/>
 
+<script type="text/javascript">
+$(function() {
+	$("#cupnote").on("change", function() {
+		
+		var cupnoteValue = $(this).val();
+// 		console.log($("#search").val());
+// 		console.log($("#category").val());
+		$.ajax({
+			url: "./all",
+			type: "get",
+			data:{
+				"cupnote":cupnoteValue
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove();
+				$("body").html(res); 
+			},
+			error: function() {
+				console.error("AJAX 요청에 실패했습니다.");
+			}
+			
+		});
+		
+	}); // $("#cupnote").on("change", function() end
+	
+	$("#searchIcon").click(function() {
+// 		console.log($("#search").val());
+// 		console.log($("#category").val());
+	
+		var keywordValue = $("#keyword").val();
+	
+		$.ajax({
+			url: "./all",
+			type: "get",
+			data:{
+				"keyword":keywordValue
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove();
+				$("body").html(res); 
+			},
+			error: function() {
+				console.error("AJAX 요청에 실패했습니다.");
+			}
+			
+		});
+		
+	}); // $("#searchIcon").click(function() end
+	
+		
+	$("#keyword").keydown(function(event) {
+		
+		// 엔터 키 감지하기
+		if( event.keyCode == 13 ) {
+			event.preventDefault();
+			
+			var keyword = $("#keyword").val();
+			
+			$.ajax({
+		        url: './all',
+		        type: 'GET',
+		        data: { 
+		        	keyword: keyword 
+		        },
+		        dataType: "html",
+		        success: function(res) {
+					$("body").children().remove();
+					$("body").html(res); 
+				},
+				error: function() {
+					console.error("AJAX 요청에 실패했습니다.");
+				}
+					
+			});
+		}
+	}); // $("#keyword").keydown(function() end
+			
+	
+// 	function play() {
+// 		 $.ajax({
+// 	        url: './all',
+// 	        type: 'GET',
+// 	        data: { keyword: keyword },
+// 	        success: function(response) {
+// 	            console.log(response);
+// 	        }
+// 	    });
+// 	}		
+	
+})
+</script>
+
 <div class="container-lg position-relative">
-	<div class="text-center position-relative">
+	
+	<div class="text-center m-5">
 		<h1><전체 카페></h1>
 	</div><!-- <h1> End -->
 
-<form action="./all" method="post">
 <div id="up" class="mb-4 d-flex flex-row align-items-center">
 
 	<div class="me-auto d-flex justify-content-start">
 	<label for="location" class="col-sm-4 col-form-label">지역 : </label>
-		<div>
+		<div class="col-sm-10">
 		<select id="location" name="location" class="form-select">
 			<option value="AllLocation" selected="disabled">전 체</option>
 			<option value="Gangnamgu">강남구</option>
@@ -28,12 +124,17 @@
 		</select>
 		</div>
 	</div>
-</div>
-</form>
-		
-		
-<!-- <div class="row row-cols-1 row-cols-md-1 g-1 grid gap-1"> -->
-<div class="row row-cols-1 row-cols-md-1 g-1 grid gap-1">
+	
+	<div id="search" class="p-2 d-flex justify-content-between">
+		<input type="text" id="keyword" name="keyword" class="form-control">
+		<span id="searchIcon">
+			<i class="bi bi-search"></i>
+		</span>
+	</div>
+	
+</div> <!-- id="up" End -->
+
+	<div class="row row-cols-1 row-cols-md-1 g-1 grid gap-1">
 	
 		<div class="card text-center" style="width: 20rem;">
 			<a href="./info"><img src="<c:url value='/resources/img/cafe/c01.jpg' />"
@@ -142,6 +243,7 @@
 </div><!-- container End -->
 
 
-<%-- <c:import url="../layout/page.jsp"/> --%>
+<c:import url="../layout/page.jsp"/>
+
 
 <c:import url="../layout/footer.jsp"/>

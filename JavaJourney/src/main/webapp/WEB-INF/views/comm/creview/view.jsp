@@ -9,8 +9,12 @@
 
 <style>
 
+#write-btn-div {
+	display: flex;
+}
+
 #write-btn {
-	align-items: flex-end;
+	margin: 0 auto;
 }
 	
 /* 전체적인 레이아웃 여백 */
@@ -94,6 +98,7 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-content: center;
 }
 
 #comment table {
@@ -194,12 +199,44 @@ button.btn-light:hover {
     }
 }
 	
+/* 모달 기본 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-dialog {
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+	
+.comm-update {
+	cursor: pointer;
+	color: #ccc;
+}
+	
+.comm-delete {
+	cursor: pointer;
+	color: #c88;
+}
 	
 </style>
 
 <div style="padding-left: 200px; padding-right: 200px;">
 
 <script>
+
 
 function clip(){
 	
@@ -228,7 +265,7 @@ function clip(){
 		<td>카페명</td>
 		<td colspan="3">${cafeRev.cafeName }</td>
 		<td>작성자</td>
-		<td colspan="2">${writerId }</td>
+		<td colspan="2">${writerNick }</td>
 	</tr>
 	<tr>
 		<td>지역</td>
@@ -273,8 +310,18 @@ function clip(){
 <c:forEach var="comm" items="${crevcommList }">
 
 <tr class="fw-light">
-	<td><small>${comm.userNick }</small></td>
-	<td class="text-end"><small><fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/></small></td>
+	<td>${comm.userNick }</td>
+	<td class="text-end">
+	
+		<c:if test="${comm.userNick eq userNick }">
+			<span class="comm-update"><small>수정</small></span>
+			|
+			<a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }"><span class="comm-delete"><small>삭제</small></span></a>
+			&nbsp;&nbsp;&nbsp;
+		</c:if>
+		
+		<fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
+	</td>
 </tr>
 <tr class="fw-normal">
 	<td colspan="2">${comm.cafeCommCont }</td>
@@ -293,7 +340,9 @@ function clip(){
 <input type="text" name="cafeCommCont">
 </label>
 <br>
+<div id="write-btn-div">
 <button id="write-btn" class="btn btn-primary">댓글작성</button>
+</div>
 
 </form>
 

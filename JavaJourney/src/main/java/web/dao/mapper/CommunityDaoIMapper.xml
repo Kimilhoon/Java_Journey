@@ -457,6 +457,14 @@
 		ORDER BY revno
 	</select>
 	
+	<select id="selectUserNickByUserId" resultType="string" parameterType="string">
+		SELECT usernick
+		FROM member
+		<where>
+			userid = #{writerId }
+		</where>
+	</select>
+	
 	<select id="selectGrindAll" resultType="Grind">
 		SELECT * FROM GRIND
 		ORDER BY GRINDNO
@@ -486,13 +494,71 @@
 	
 	<insert id="insertMyRecipeComment" parameterType="MyRecipeComment">
 		INSERT INTO MYRECIPECOMMENT
-		VALUES (MYRECIPECOMMENT_SEQ.nextval,#{myRipNo},#{userNo},#{myRipCommCont},null,#{userNick},sysdate)
+		VALUES (MYRECIPECOMMENT_SEQ.nextval,#{myRipNo},#{userNo},#{myRipCommCont},#{myRipCommTag},#{userNick},sysdate,#{myRipCommNickTag})
 	</insert>
 	
 	<select id="selectMyRecipeCommentListByMyRipNo" parameterType="MyRecipe" resultType="MyRecipeComment">
 		SELECT * FROM MYRECIPECOMMENT
 		WHERE MYRIPNO = #{myRipNo}
 	</select>
+	
+	<select id="deleteMyRecipeComment" parameterType="MyRecipeComment">
+		DELETE FROM MYRECIPECOMMENT
+		WHERE myRipCommNo = #{myRipCommNo}
+	</select>
+	
+	<select id="myRecipeRecCnt" parameterType="MyRecipeRecommend" resultType="int">
+		SELECT count(*) FROM MYRECIPERECOMMEND
+		<where>
+			AND myRipNo = #{myRipNo}
+			AND userNo = #{userNo}
+		</where>
+	</select>
+	
+	<select id="selectMyRecipeRecommendCountByMyRipNo" parameterType="MyRecipe" resultType="int">
+		SELECT count(*) FROM MYRECIPERECOMMEND
+		<where>
+			AND myRipNo = #{myRipNo}
+		</where>
+	</select>
+	
+	<delete id="deleteMyRecipeRecommendByMyRipNoUserNo" parameterType="MyRecipeRecommend">
+		DELETE FROM MYRECIPERECOMMEND
+		<where>
+			AND myRipNo = #{myRipNo}
+			AND userNo = #{userNo}
+		</where>
+	</delete>
+	
+	<insert id="insertMyRecipeRecommendByMyRipNoUserNo" parameterType="MyRecipeRecommend">
+		INSERT INTO MYRECIPERECOMMEND
+		VALUES(#{myRipNo},#{userNo})
+	</insert>
+	
+	<delete id="deleteMyRecipeRecommendByMyRipNo" parameterType="MyRecipeRecommend">
+		DELETE FROM MYRECIPERECOMMEND
+		<where>
+			AND myRipNo = #{myRipNo}
+		</where>
+	</delete>
+	
+	<delete id="deleteMyRecipByMyRipNo" parameterType="MyRecipe">
+		DELETE FROM MYRECIPE
+		WHERE myripno = #{myRipNo}
+	</delete>
+	
+	<select id="selectMyRecipeCommentCountByMyRipNo" parameterType="MyRecipe" resultType="int">
+		SELECT count(*) FROM MYRECIPECOMMENT
+		WHERE myripno = #{myRipNo}
+	</select>
+	
+	<delete id="deleteCafeReviewCommByCafeRevCommNo" parameterType="CafeRevComm">
+		DELETE caferevcomm
+		<where>
+			AND caferevcommno = #{cafeRevCommNo }
+		</where>
+	</delete>
+	
 </mapper>
 
 

@@ -48,6 +48,9 @@
 
 
 </div><!-- container End -->
+<div>
+	<br>
+</div>
 
 <div class="text-center">
 	<a class="btn btn-secondary" href="./all" role="button">전체 카페</a>
