@@ -9,8 +9,12 @@
 
 <style>
 
+#write-btn-div {
+	display: flex;
+}
+
 #write-btn {
-	align-items: flex-end;
+	margin: 0 auto;
 }
 	
 /* 전체적인 레이아웃 여백 */
@@ -118,7 +122,7 @@ h1 {
 /* 댓글 작성 부분 */
 form label {
     width: 100%;
-    display: block;
+    display: flex;
 }
 
 form input[type="text"] {
@@ -127,7 +131,8 @@ form input[type="text"] {
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
-    margin-right: 10px;
+    margin: 0 auto;
+    align-content: center;
 }
 
 form button {
@@ -145,6 +150,8 @@ form button:hover {
 
 /* 페이지 네비게이션 버튼 (목록, 이전, 다음) */
 button.btn-light {
+	display: flex;
+	margin: 0 auto;
     padding: 10px 20px;
     background-color: #f8f9fa;
     border: 1px solid #ddd;
@@ -228,7 +235,7 @@ function clip(){
 		<td>카페명</td>
 		<td colspan="3">${cafeRev.cafeName }</td>
 		<td>작성자</td>
-		<td colspan="2">${writerId }</td>
+		<td colspan="2">${writerNick }</td>
 	</tr>
 	<tr>
 		<td>지역</td>
@@ -293,7 +300,9 @@ function clip(){
 <input type="text" name="cafeCommCont">
 </label>
 <br>
+<div id="write-btn-div">
 <button id="write-btn" class="btn btn-primary">댓글작성</button>
+</div>
 
 </form>
 

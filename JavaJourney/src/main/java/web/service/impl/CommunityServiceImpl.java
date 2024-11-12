@@ -599,6 +599,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
 	
+    @Override
+    public String getwriterNick(String writerId) {
+    	
+    	return dao.selectUserNickByUserId(writerId);
+    }
 	
 	//---------------event
 	
@@ -648,7 +653,7 @@ public class CommunityServiceImpl implements CommunityService {
         return prevNextMap;
     }
 	
-	
+
 	
 	
 }

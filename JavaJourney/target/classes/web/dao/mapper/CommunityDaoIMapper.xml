@@ -457,6 +457,14 @@
 		ORDER BY revno
 	</select>
 	
+	<select id="selectUserNickByUserId" resultType="string" parameterType="string">
+		SELECT usernick
+		FROM member
+		<where>
+			userid = #{writerId }
+		</where>
+	</select>
+	
 </mapper>
 
 
