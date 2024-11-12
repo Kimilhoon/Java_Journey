@@ -91,14 +91,6 @@ h1 {
     text-decoration: underline;
 }
 
-/* 댓글 영역 */
-#comment {
-    margin-top: 30px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 #comment table {
     width: 100%;
@@ -122,7 +114,7 @@ h1 {
 /* 댓글 작성 부분 */
 form label {
     width: 100%;
-    display: flex;
+    display: block;
 }
 
 form input[type="text"] {
@@ -131,8 +123,7 @@ form input[type="text"] {
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
-    margin: 0 auto;
-    align-content: center;
+    margin-right: 10px;
 }
 
 form button {
@@ -150,8 +141,6 @@ form button:hover {
 
 /* 페이지 네비게이션 버튼 (목록, 이전, 다음) */
 button.btn-light {
-	display: flex;
-	margin: 0 auto;
     padding: 10px 20px;
     background-color: #f8f9fa;
     border: 1px solid #ddd;
@@ -201,12 +190,59 @@ button.btn-light:hover {
     }
 }
 	
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-dialog {
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+	
+.comm-update {
+	cursor: pointer;
+	color: #ccc;
+}
+	
+.comm-delete {
+	cursor: pointer;
+	color: #c88;
+}
 	
 </style>
 
 <div style="padding-left: 200px; padding-right: 200px;">
 
 <script>
+
+//모달 열기
+function openEditModal(commentNo, content) {
+    document.getElementById("cafeRevCommNo").value = commentNo;
+    document.getElementById("updatedComment").value = content;
+    document.getElementById("editCommentModal").style.display = "flex";
+}
+
+// 모달 닫기
+function closeModal() {
+    document.getElementById("editCommentModal").style.display = "none";
+}
+
+// 수정 폼 제출
+function submitEditForm() {
+    document.getElementById("editCommentForm").submit();
+}
 
 function clip(){
 	
@@ -223,6 +259,31 @@ function clip(){
 }
 
 </script>
+
+
+<!-- 댓글 수정 모달 -->
+<div class="modal" id="editCommentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">댓글 수정</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editCommentForm" method="post" action="./comm/update">
+                    <input type="hidden" name="revNo" value="${cafeRev.revNo}">
+                    <input type="hidden" name="cafeRevCommNo" id="cafeRevCommNo">
+                    <label for="updatedComment">수정할 댓글 내용</label>
+                    <input type="text" class="form-control" id="updatedComment" name="cafeCommCont" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
+                <button type="submit" class="btn btn-primary" onclick="submitEditForm()">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <h1>카페리뷰상세보기</h1>
 <br>
@@ -262,14 +323,9 @@ function clip(){
     </c:if>
 </div> <!-- bottom -->
 
-
-</div> <!-- 여백 -->
-
 <br>
 
 <div style="padding-left: 50px; padding-right: 50px;">
-
-<div id="comment">
 
 <table>
 
@@ -280,8 +336,21 @@ function clip(){
 <c:forEach var="comm" items="${crevcommList }">
 
 <tr class="fw-light">
-	<td><small>${comm.userNick }</small></td>
-	<td class="text-end"><small><fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/></small></td>
+	<td>${comm.userNick }</td>
+	<td class="text-end">
+	
+	<c:if test="${comm.userNick eq userNick}">
+	    <span class="comm-update" onclick="openEditModal('${comm.cafeRevCommNo}', '${comm.cafeCommCont}')">
+	        <small>수정</small>
+	    </span> |
+	    <a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }">
+	        <span><small>삭제</small></span>
+	    </a>
+	    &nbsp;&nbsp;&nbsp;
+	</c:if>
+		
+		<fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
+	</td>
 </tr>
 <tr class="fw-normal">
 	<td colspan="2">${comm.cafeCommCont }</td>
@@ -292,7 +361,7 @@ function clip(){
 
 </c:forEach>
 
-</table>
+</table >
 
 <form action="./comm?revNo=${cafeRev.revNo }" method="post">
 
@@ -327,6 +396,9 @@ function clip(){
 </div> <!-- content -->
 
 </div> <!-- 여백 -->
+
+
+
 
 <c:import url="../../layout/footer.jsp" />
 

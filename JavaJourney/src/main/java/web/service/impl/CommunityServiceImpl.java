@@ -133,9 +133,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
-		freeBoardComment.setFreeBoardNo(freeBoard.getFreeBoardNo());
-		
+	public void joinFreeBoardComment(FreeBoardComment freeBoardComment, HttpSession session) {
 		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
 		freeBoardComment.setUserNo(member.getUserNo());
 		freeBoardComment.setUserNick(member.getUserNick());
@@ -203,6 +201,11 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public int getFreeBoardRecCount(FreeBoard freeBoard) {
 		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
+	}
+	
+	@Override
+	public void changeFreeBoardComment(FreeBoardComment freeBoardComment) {
+		dao.updateFreeBoardCommentByCommentNo(freeBoardComment);
 	}
 	
 	//공지사항--------------------------------------------------------------------------------

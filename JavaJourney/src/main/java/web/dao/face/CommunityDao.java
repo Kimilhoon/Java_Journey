@@ -199,6 +199,13 @@ public interface CommunityDao {
 	public void insertFreeBoardComment(FreeBoardComment freeBoardComment);
 	
 	/**
+	 * 자유게시판 댓글 수정
+	 * 
+	 * @param freeBoardComment
+	 */
+	public void updateFreeBoardCommentByCommentNo(FreeBoardComment freeBoardComment);
+	
+	/**
 	 * 유저아이디로 멤버 객체 받기
 	 * 
 	 * @param userId
