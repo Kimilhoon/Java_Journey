@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import web.dto.BeanRev;
 import web.dto.BeanWish;
+import web.dto.CafeRev;
 import web.dto.CafeWish;
+import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MyRecipe;
 
 @Mapper
 public interface MypageDao {
@@ -89,6 +93,34 @@ public interface MypageDao {
 	 * @return
 	 */
 	List<BeanWish> selectByUserLikeBean(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 카페리뷰글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<CafeRev> selectCafeRevByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 원두리뷰글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanRev> selectBeanRevByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 자유게시판글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<FreeBoard> selectFreeBoardByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 나만의레시피 글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
 	
 	
 	
