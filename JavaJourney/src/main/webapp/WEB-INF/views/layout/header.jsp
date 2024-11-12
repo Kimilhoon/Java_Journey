@@ -75,7 +75,7 @@ alt="로고" width="200" height="200" />
               브랜드
             </a>
             <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/brand">브랜드소개</a></li>
+              <li><a class="dropdown-item" href="/brand/info">브랜드소개</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">

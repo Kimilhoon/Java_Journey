@@ -77,6 +77,7 @@ $(function() {
 	</div>
 </div>
 
+<div class="text-center">
     <div class="btn-group mx-auto" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
   		<label class="btn btn-outline-primary" for="btnradio1">상세정보</label>
@@ -87,6 +88,7 @@ $(function() {
 		<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
 		<label class="btn btn-outline-primary" for="btnradio3">카페리뷰</label>
     </div>
+</div>
 
     <!-- 탭에 따라 보여질 내용 영역 -->
     <div class="tab-content">
