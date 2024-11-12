@@ -23,6 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
 <!-- summernote 링크 End-->
+
 <script type="text/javascript">
 $(function() {
 	$("#btnLogout").click(function() {
@@ -56,10 +57,9 @@ alt="로고" width="200" height="200" />
   	</div>
     <div class="flex-shrink-0 mx-5">
       <ul style="list-style:none">
-      	<li><a href="/create/cafe" style="text-decoration: none; color: red;">카페등록</a></li>
-      	<li><a href="/create/bean" style="text-decoration: none; color: red;">원두등록</a></li>
-      	<li><a href="/main" style="text-decoration: none; color: red;">메인</a></li>
+      	<c:if test="${userNick eq 'admin' }">
       	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
+      	</c:if>
       </ul>
     </div>
   </div>
@@ -113,7 +113,7 @@ alt="로고" width="200" height="200" />
               <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
               <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
               <li><a class="dropdown-item" href="/comm/myrecipe/list">나만의 레시피</a></li>
-              <li><a class="dropdown-item" href="/comm/event">이벤트</a></li>
+              <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
               <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
               <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
             </ul>
@@ -124,10 +124,14 @@ alt="로고" width="200" height="200" />
             </a>
             <ul class="dropdown-menu bg-light">
               <li><a class="dropdown-item" href="/mypage/myinfo">회원 정보 수정</a></li>
-              <li><a class="dropdown-item" href="/mypage/quizers">내 취향 결과</a></li>
+              <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
+              <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo }">구독 정보</a></li>
+              <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo }">찜 목록</a></li>
+              <li><a class="dropdown-item" href="/mypage/likeview">작성글 확인</a></li>
+              <li><a class="dropdown-item" href="/mypage/quizres">내 취향 결과</a></li>
               <li><a class="dropdown-item" href="/mypage/subscribe">구독 정보</a></li>
               <li><a class="dropdown-item" href="/mypage/like">찜 목록</a></li>
-              <li><a class="dropdown-item" href="/mypage/likeview">작성글 확인</a></li>
+              <li><a class="dropdown-item" href="/mypage/myview">작성글 확인</a></li>
             </ul>
           </li>
         </ul>

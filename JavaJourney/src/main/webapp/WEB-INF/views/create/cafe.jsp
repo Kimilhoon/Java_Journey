@@ -76,7 +76,7 @@ $(function() {
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
         ]
-    }); // $('#cafeInfo') end
+    }); // $('#cafeImgOriName') end
     
     $('#cafeInfo').summernote({ 
     	width: 500, height: 200 
@@ -154,7 +154,8 @@ $(function() {
 	</tr>	
 	<tr>
 		<td>카페 메인사진[이미지]]</td>
-		<td><textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
+		<td>
+		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
 		rows="4" cols="4"></textarea>
 		</td>		
 
@@ -163,12 +164,19 @@ $(function() {
 		<td>카페 지역</td>
 		<td>
 		<select id="category">
-	      <option hidden="none"></option>
-	      <option value="서울">서울</option>
-	      <option value="경기">경기</option>
-	      <option value="인천">인천</option>
-	      <option value="부산">부산</option>
-	      <option value="제주">제주</option>
+<!-- 	      <option hidden="none"></option> -->
+<!-- 	      <option value="서울">서울</option> -->
+<!-- 	      <option value="경기">경기</option> -->
+<!-- 	      <option value="인천">인천</option> -->
+<!-- 	      <option value="부산">부산</option> -->
+<!-- 	      <option value="제주">제주</option> -->
+			<option hidden="none"></option>
+			<option value="Gangnamgu">강남구</option>
+			<option value="Seochogu">서초구</option>
+			<option value="Songpagu">송파구</option>
+			<option value="jongrogu">종로구</option>
+			<option value="Seodaemungu">서대문구</option>
+			<option value="Mapogu">마포구</option>	      
   		 </select>
    </td>
 	</tr>

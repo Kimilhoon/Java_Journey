@@ -4,6 +4,7 @@ package web.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,14 +21,23 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
+import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
+import web.dto.Grind;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
+import web.dto.QuizResult;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -187,17 +197,104 @@ public class CommunityController {
 			
 		}
 		
-		@GetMapping("myrecipe/write")
-		public void myRecipeForm(MyRecipe myRecipe) {}
+		@GetMapping("/myrecipe/write")
+		public void myRecipeForm(MyRecipe myRecipe,HttpSession session,Model model) {
+			Member member = service.getMemberByUserId((String)session.getAttribute("userId"));
+			log.info("{}",member);
+			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
+			List<CupNote> clist = service.getCupNoteNameList();
+			List<Grind> glist = service.getGrindList();
+			List<Extraction> elist = service.getExtractionList();
+			List<Bean> blist = service.getBeanList();
+			
+			model.addAttribute("qList", list);
+			model.addAttribute("cList", clist);
+			model.addAttribute("gList", glist);
+			model.addAttribute("eList", elist);
+			model.addAttribute("bList", blist);
+			
+		}
 		
-		@PostMapping("myrecipe/write")
+		@PostMapping("/myrecipe/write")
 		public String writeProc(HttpSession session, MyRecipe myRecipe, MultipartFile file) {
 			log.info("{}",myRecipe);
-			log.info("{}",file.getOriginalFilename());
-//			service.uploadMyRecipe(session,myRecipe,file);
+			service.uploadMyRecipe(session,myRecipe,file);
 			
 			return"redirect:./list";
 		}
+		
+		@GetMapping("/myrecipe/view")
+		public void myRipView(MyRecipe myRecipe, Model model,HttpSession session) {
+			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
+			model.addAttribute("myRecipeView", myRecipeView);
+			Member member = service.getMemberByUserNo(myRecipeView);
+			model.addAttribute("member", member);
+			List<MyRecipeComment> commentList = service.getMyRecipeCommentList(myRecipe);
+			model.addAttribute("myRecipeCommentList", commentList);
+		}
+		
+		@GetMapping("/myrecipe/hit")
+		public void myRecipeHit(MyRecipe myRecipe) {
+			service.myRrcipeHitUp(myRecipe);
+		}
+		
+		@GetMapping("myrecipe/update")
+		public void myRecipeUpdate(MyRecipe myRecipe, Model model,HttpSession session) {
+			Member member = service.getMemberByUserId((String)session.getAttribute("userId"));
+			log.info("{}",member);
+			List<List<QuizResult>> list = service.getQuizResultByUserNo(member);
+			List<CupNote> clist = service.getCupNoteNameList();
+			
+			model.addAttribute("qList", list);
+			model.addAttribute("cList", clist);
+			MyRecipe myRecipeView = service.getMyRecipeInfo(myRecipe);
+			model.addAttribute("myRecipeView", myRecipeView);
+		}
+		
+		@PostMapping("/myrecipe/update")
+		public String myRecipeUpdateProc(  MyRecipe myRecipe, MultipartFile file) {
+			log.info("레시피레시피레시피레시피{}",myRecipe);
+			service.changeMyRecipe(myRecipe,file);
+			return "redirect:./list";
+		}
+		
+		@GetMapping("/myrecipe/download")
+		public String myRecipeFileDownload(MyRecipe myRecipe, Model model) {
+			MyRecipeFile myRecipeFile = service.getMyRecipeFile(myRecipe);
+			
+			model.addAttribute("myRecipeFileDownload", myRecipeFile);
+			
+			return "downView";
+		}
+		
+		@GetMapping("/myrecipe/getcupnote")
+		public void getCup(Bean bean,HttpServletResponse resp) {
+			List<CupNote> cupList = service.getCupList(bean);
+			Gson gson = new Gson();
+			HashMap<String, List<CupNote>> map = new HashMap<String, List<CupNote>>();
+			map.put("cupList", cupList);
+			resp.setCharacterEncoding("utf-8");
+			try {
+				resp.getWriter().append(gson.toJson(map));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		@GetMapping("/myrecipe/commentinsert")
+		public void myRecipeCommentInsert(MyRecipeComment myRecipeComment,HttpSession session) {
+			service.joinMyRecipeComment(myRecipeComment,session);
+		}
+		
+		
+		
+		//이벤트---------------------------------------------------------------------------------------
+		
+		@GetMapping("/event/event")
+		public void event() {}
 		
 	
 	//--------------------------------------------------------------------------------------
@@ -211,10 +308,13 @@ public class CommunityController {
 	public void cafeReviewForm(Model model, String category, String order, String search, Paging curPage) {
 		
 		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
-		
+
 		List<CafeRev> creviewList = service.getCafeReviewList(category, order, search, paging);
-		
+
 		model.addAttribute("paging", paging);
+		model.addAttribute("category", category);
+		model.addAttribute("order", order);
+		model.addAttribute("search", search);
 		model.addAttribute("creviewList", creviewList);
 		
 	}
@@ -246,6 +346,13 @@ public class CommunityController {
 		} else {
 			model.addAttribute("isOwner", false);
 		}
+
+        // 이전, 다음 게시글 revNo 조회
+        Map<String, Integer> prevNextRevNos = service.getPrevNextRevNos(revNo);
+
+        // 모델에 데이터 추가
+        model.addAttribute("prevRevNo", prevNextRevNos.get("prevRevNo"));
+        model.addAttribute("nextRevNo", prevNextRevNos.get("nextRevNo"));
 		
 //		String commId = service.getCafeReviewCommentId();
 		
@@ -310,6 +417,76 @@ public class CommunityController {
 		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//---이벤트-event(jjy)-----------------------------------------
+	@GetMapping("/event/list")
+	public void eventForm(
+			Model model,
+			Event event
+			) {
+		List<Event> eventList = service.selectByAll();
+		model.addAttribute("eventList",eventList);
+	}
+	
+	@GetMapping("/event/info")
+	public void eventInfoForm(
+			Event event,
+			Model model
+			) {
+		log.info("event : {}", event);
+		Event eventView = service.eventInfoByeventNo(event);
+		model.addAttribute("eventView",eventView);
+	}
+	
+	@GetMapping("/event/write")
+	public void eventWriteForm() {}
+
+	@PostMapping("/event/write")
+	public String eventWriteProc(
+			Event event
+			) {
+		log.info("insertevent : {}", event);
+		service.insertEvent(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	@GetMapping("/event/update")
+	public void eventUpdateForm() {}
+	
+	@PostMapping("/event/update")
+	public void eventUpdateProc(
+			Event event
+			) {
+		log.info("updateevent : {}", event);
+		
+	}
+	
+	@GetMapping("/event/delete")
+	public String eventDelete(
+			Event event
+			) {
+		log.info("event : {}", event);
+		service.eventDeleteByEventNo(event);
+		return "redirect:/comm/event/list";
+	}
+	
+	
+	
+	
+	
+	
 	
 }
 

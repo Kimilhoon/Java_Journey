@@ -3,29 +3,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header --->
 <c:import url="../layout/header.jsp"/>
-
 <!-- 관리자 메뉴 모음 -->
-<div class="container">
+<div class="container d-flex justify-content-center">
 <!-- 카페 -->
-<a href="/cafe/all">전체카페</a>
-<a href="/comm/creview/list">카페리뷰</a>
+<div class="d-flex align-items-center" style="width: 900px; height: 300px;">
+<ul class="fs-3 px-3" style="list-style:none; border:1px solid #ccc;">
+	<li><a href="/create/cafe" style="text-decoration: none; color: black;">카페등록</a></li>
+	<li><a href="/cafe/all" style="text-decoration: none; color: black;">전체카페</a></li>
+	<li><a href="/comm/creview/list" style="text-decoration: none; color: black;">카페리뷰</a></li>
+</ul>
+<ul class="fs-3 px-3" style="list-style:none; border:1px solid #ccc;">
 <!-- 원두 -->
-<a href="/create/bean">원두등록</a>
-<a href="/create/all">전체원두</a>
-<a href="/comm/breview/list">원두리뷰</a>
-<!-- 자게 -->
-<a href="/comm/freeboard/list">자유게시판</a>
-<!-- 나만의레시피 -->
-<a href="/comm/freeboard/list">나만의레시피</a>
-<!-- 공지 -->
-<a href="/comm/notice">공지사항</a>
-<a href="/comm/event">이벤트</a>
-<a href="/comm/faq">자주묻는질문</a>
+	<li><a href="/create/bean" style="text-decoration: none; color: black;">원두등록</a></li>
+	<li><a href="/bean/all" style="text-decoration: none; color: black;">전체원두</a></li>
+	<li><a href="/comm/breview/list" style="text-decoration: none; color: black;">원두리뷰</a></li>
+</ul>
+<ul class="fs-3 px-3" style="list-style:none; border:1px solid #ccc;">
+<!-- 자게, 나만의레시피, 공지 -->
+	<li><a href="/comm/freeboard/list" style="text-decoration: none; color: black;">자유게시판</a></li>
+	<li><a href="/comm/recipe/list" style="text-decoration: none; color: black;">나만의레시피</a></li>
+	<li><a href="/comm/notice/list" style="text-decoration: none; color: black;">공지사항</a></li>
+	<li><a href="/comm/event/list" style="text-decoration: none; color: black;">이벤트</a></li>
+	<li><a href="/comm/faq/list" style="text-decoration: none; color: black;">자주묻는질문</a></li>
+</ul>
+<ul class="fs-3 px-3" style="list-style:none; border:1px solid #ccc;">
 <!-- 유저관리  -->
-<a href="/manager/user">유저관리</a>
-<a href="/manager/subuser">구독관리</a>
+	<li><a href="/manager/user" style="text-decoration: none; color: black;">유저관리</a></li>
+	<li><a href="/manager/subuser" style="text-decoration: none; color: black;">구독관리</a></li>
+</ul>
 </div>
-
-
+</div>
 <!-- footer -->
 <c:import url="../layout/footer.jsp"/>

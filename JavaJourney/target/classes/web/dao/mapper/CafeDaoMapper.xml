@@ -5,43 +5,43 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.CafeDao">
-	<select id="selectBest" resultType="Cafe">
-		SELECT 
-			cafeNo, cafeName, cafeLoc 
-		FROM cafe
-		<where>
-			AND cafeNo = #{cafeNo }
-		</where>
-	</select>
-	
-<!-- 	<select id="selectAll" resultType="Cafe"> -->
-<!-- 		SELECT -->
-<!-- 			cafeNo, imgNo, cafeName, cafeComm, cafePhone,  -->
-<!-- 			busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo -->
-<!-- 		FROM cafe -->
-<!-- 		ORDER BY cafeNo -->
-<!-- 	</select> -->
-	
-	<select id="selectAll" resultType="Cafe" parameterType="web.util.Paging">
-		SELECT * FROM (
-			SELECT rowNum rNum, C.* FROM (
-				SELECT
-					cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
-					busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
-					cafeImgOriName, cafeImgStoName, cafeImgSize
-				FROM cafe c
-				INNER JOIN cafeimg i ON c.imgNo = i.cafeImgNo
-			ORDER BY cafeNo DESC
-			) C
-		) cafe
-		WHERE rNum BETWEEN #{ startNo } AND #{ endNo }
-	</select>
-		
-	<select id="selectCntAll" resultType="int">
+   <select id="selectBest" resultType="Cafe">
+      SELECT 
+         cafeNo, cafeName, cafeLoc 
+      FROM cafe
+      <where>
+         AND cafeNo = #{cafeNo }
+      </where>
+   </select>
+   
+<!--    <select id="selectAll" resultType="Cafe"> -->
+<!--       SELECT -->
+<!--          cafeNo, imgNo, cafeName, cafeComm, cafePhone,  -->
+<!--          busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo -->
+<!--       FROM cafe -->
+<!--       ORDER BY cafeNo -->
+<!--    </select> -->
+
+   <select id="selectAll" resultType="Cafe" parameterType="web.util.Paging">
+      SELECT * FROM (
+         SELECT rowNum rNum, C.* FROM (
+            SELECT
+               cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
+               busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
+               cafeImgOriName, cafeImgStoName, cafeImgSize
+            FROM cafe c
+            INNER JOIN cafeimg i ON c.imgNo = i.cafeImgNo
+            ORDER BY cafeNo DESC
+         ) C
+      ) cafe
+      WHERE rNum BETWEEN #{ startNo } AND #{ endNo }
+   </select>
+   
+   <select id="selectCntAll" resultType="int">
         SELECT COUNT(*) FROM cafe
     </select>
     
-	<!-- 카페 번호로 카페 정보를 조회하는 SQL문 -->
+   <!-- 카페 번호로 카페 정보를 조회하는 SQL문 -->
 <!--     <select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe"> -->
 <!--         SELECT  -->
 <!--             cafeNo, cafeName, cafeLoc   -->
@@ -51,17 +51,17 @@
 <!--            AND cafeNo = #{cafeNo } -->
 <!--         </where>  -->
 <!--     </select> -->
-	
-	<select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
-		SELECT
-			cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
-			busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
-			cafeImgOriName, cafeImgStoName, cafeImgSize            
-		FROM cafe c
-		INNER JOIN cafeimg i ON c.imgNo = i.cafeImgNo
-		<where>
-			AND cafeNo = #{cafeNo }
-		</where> 
-	</select>
-	
+
+   <select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
+      SELECT
+         cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
+         busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
+         cafeImgOriName, cafeImgStoName, cafeImgSize            
+      FROM cafe c
+      INNER JOIN cafeimg i ON c.imgNo = i.cafeImgNo
+        <where>
+           AND cafeNo = #{cafeNo }
+        </where> 
+    </select>
+   
 </mapper>

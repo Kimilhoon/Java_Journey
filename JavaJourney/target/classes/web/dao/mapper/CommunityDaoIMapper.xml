@@ -43,15 +43,25 @@
 						<if test="search != null">
 							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
 						</if>
-						<if test="category != null">
+						<if test="category != null and category != '전체'">
 							AND cafeloc = #{category }
 						</if>
 			       	</where>
-			        ORDER BY revno DESC
+			       	<choose>
+			       		<when test='order == "recent"'>
+			       			ORDER BY revno DESC
+			       		</when>
+			       		<when test='order == "star"'>
+ 							ORDER BY revsp DESC, revno DESC
+			       		</when>
+			       		<otherwise>
+			       			ORDER BY revno DESC
+			       		</otherwise>
+			       	</choose>
 			    ) a
 			) 
 		<where>
-			AND r BETWEEN #{paging.startNo} AND #{paging.endNo}
+			AND r BETWEEN #{paging.startNo } AND #{paging.endNo }
 		</where>
 		
 	</select>
@@ -304,7 +314,7 @@
 		SELECT count(*) FROM myrecipe
 		<where>
 			<if test='search != "N" '>
-				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				AND upper(myriptitle) LIKE '%'||upper(#{search})||'%'
 			</if>
 		</where>
 	</select>
@@ -331,11 +341,160 @@
 	</select>
 	
 	<insert id="insertMyRecipe" parameterType="MyRecipe">
-		INSERT INTO myrecipe (MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO)
-		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{mtRipContent},0,sysdate,#{myRipImgNo})
+		INSERT INTO myrecipe (MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO,beanNo,beanName,extractionName,grindName,cupNoteName)
+		VALUES (#{myRipNo},#{userNo},#{myRipTitle},#{myRipContent},0,sysdate,#{myRipImgNo},#{beanNo},#{beanName},#{extractionName},#{grindName},#{cupNoteName})
 	</insert>
 	
+	<insert id="insertMyRecipeFile" parameterType="MyRecipeFile">
+		INSERT INTO MyRecipeFile
+		VALUES (MyRecipeFile_seq.nextval,#{myRipNo},#{myRipFileOriginName},#{myRipFileStoredName})
+	</insert>
+	
+	<select id="selectMyRecipeByMyRecipeNo" resultType="MyRecipe" parameterType="MyRecipe">
+		SELECT * FROM MYRECIPE m ,MYRECIPEFILE f
+		<where>
+			AND m.MYRIPNO = f.MYRIPNO(+)
+			AND m.MYRIPNO = #{myRipNo}
+		</where>
+	</select>
+
+	<select id="selectMemberQuizResultByUserNo" resultType="MemberQuizResult" parameterType="Member">
+		SELECT * FROM MEMBER m,MEMBERQUIZRESULT q
+		<where>
+			AND m.USERNO = q.USERNO 
+			AND m.USERNO = #{userNo}
+		</where>
+	</select>	
+	
+	<select id="selectQuizResultByMemberQuizResultNo" parameterType="MemberQuizResult" resultType="QuizResult">
+		SELECT b.BEANNO,b.BEANNAME,c.CUPNOTENO, c.CUPNOTENAME,g.GRINDNAME,e.EXTRACTIONNAME,m.QUIZRESULT FROM MEMBERQUIZRESULT m ,BEANTASTE t ,CUPNOTE c ,QUIZRESULT q,BEAN b,GRIND g,EXTRACTION e 
+		<where>
+			AND m.QUIZRESULT = q.QUIZRESULTNO 
+			AND q.BEANNO = b.BEANNO 
+			AND b.BEANNO = t.BEANNO
+			AND t.CUPNOTENO = c.CUPNOTENO 
+			AND q.GRIND =g.GRINDNO 
+			AND q.EXTRACTION = e.EXTRACTIONNO 
+			AND m.QUIZRESULT = #{quizResult}
+		</where>
+	</select>
+	
+	<select id="selectCupNoteList" resultType="CupNote">
+		SELECT * FROM CUPNOTE
+		ORDER BY CUPNOTENO
+	</select>
+	
+	<update id="updateMyRecipeHit" parameterType="MyRecipe">
+		UPDATE myrecipe
+		SET
+			myriphit = myriphit +1
+		WHERE myripno=#{myRipNo} 
+	</update>
+	
+	<select id="selectMyRecipeFileByMyRipNo" parameterType="MyRecipe" resultType="MyRecipeFile">
+		SELECT * FROM MYRECIPEFILE m 
+		WHERE MYRIPNO = #{myRipNo}
+	</select>
+	<update id="updateMyRecipe" parameterType="MyRecipe">
+		UPDATE MYRECIPE 
+		SET 
+			MYRIPTITLE = #{myRipTitle},
+			MYRIPCONTENT = #{myRipContent}
+		WHERE MYRIPNO = #{myRipNo}
+	</update>
+	
+	<delete id="deleteMyRecipeFileByMyRipNo" parameterType="MyRecipe">
+		DELETE FROM MYRECIPEFILE
+		WHERE MYRIPNO = #{myRipNo}
+	</delete>
+
+<!-- 	event -->
+	<select id="selectEventAllList" resultType="Event">
+		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		FROM EVENT
+		ORDER BY EVENTNO DESC
+	</select>
+
+	<insert id="insertEventData" parameterType="Event">
+		<selectKey order="BEFORE" keyProperty="eventNo" resultType="int"> 
+			SELECT EVENT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO EVENT(EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG)
+		VALUES(#{eventNo}, #{eveOriName}, #{eveStart}, #{eveEnd}, #{eveImg})
+	</insert>
+	
+	<select id="selectByEventNo" resultType="Event" parameterType="Event">
+		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		FROM EVENT
+		<where>
+			EVENTNO = #{eventNo}
+		</where>
+	</select>
+	
+	<delete id="deleteEventByEventNo" parameterType="Event">
+		DELETE EVENT
+		<where>
+			EVENTNO = #{eventNo}
+		</where>
+	</delete>
+	<select id="getCafeReviewCommentCnt" resultType="int" parameterType="cafeRev">
+		SELECT count(*) FROM caferevcomm
+		<where>
+			AND revno = #{revNo }
+		</where>
+	</select>
+	
+	<delete id="deleteCafeReviewCommByCafeNo" parameterType="cafeRev">
+		DELETE cafeRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getCafeRevNos" resultType="int">
+		SELECT revno
+		FROM caferev
+		ORDER BY revno
+	</select>
+	
+	<select id="selectGrindAll" resultType="Grind">
+		SELECT * FROM GRIND
+		ORDER BY GRINDNO
+	</select>
+	
+	<select id="selectExtractionAll" resultType="Extraction">
+		SELECT * FROM EXTRACTION
+		ORDER BY EXTRACTIONNO
+	</select>
+	<select id="selectBeanAll" resultType="BEAN">
+		SELECT * FROM BEAN
+		ORDER BY BEANNO
+	</select>
+	
+	<select id="selectCupNoteByBeanNo" parameterType="Bean" resultType="CupNote">
+		SELECT c.CUPNOTENO,c.CUPNOTENAME FROM CUPNOTE c, BEAN b,BEANTASTE t
+		<where>
+			AND b.BEANNO =t.BEANNO 
+			AND c.cupnoteno = t.cupnoteno
+			AND b.BEANNO = #{beanNo}
+		</where>
+	</select>
+	<select id="selectBeanByBeanNo" parameterType="int" resultType="String">
+		SELECT beanName FROM BEAN 
+		WHERE BEANNO = #{beanNo}
+	</select>
+	
+	<insert id="insertMyRecipeComment" parameterType="MyRecipeComment">
+		INSERT INTO MYRECIPECOMMENT
+		VALUES (MYRECIPECOMMENT_SEQ.nextval,#{myRipNo},#{userNo},#{myRipCommCont},null,#{userNick},sysdate)
+	</insert>
+	
+	<select id="selectMyRecipeCommentListByMyRipNo" parameterType="MyRecipe" resultType="MyRecipeComment">
+		SELECT * FROM MYRECIPECOMMENT
+		WHERE MYRIPNO = #{myRipNo}
+	</select>
 </mapper>
+
 
 
 

@@ -16,10 +16,12 @@ public interface CreateCafeService {
 	public void insertCafe(Cafe cafe, CafeImg cafeImg);
 
 	/**
-	 * CafeImg를 조회하여 전체 데이터 반환하기
+	 * 게시글 상세보기
+	 * @param cafe
+	 * @param cafeImg 
 	 * @return
 	 */
-	public List<CafeImg> selectAllImg();
+	public Cafe view(Cafe cafe, CafeImg cafeImg);
 
 	/**
 	 * 협약 카페 글 수정

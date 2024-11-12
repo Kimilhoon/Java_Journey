@@ -1,9 +1,15 @@
 package web.service.impl;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +18,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
+import web.dto.Bean;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
+import web.dto.CupNote;
+import web.dto.Event;
+import web.dto.Extraction;
 import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
-import web.dto.FreeBoardRecommend;
+import web.dto.Grind;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
+import web.dto.MyRecipeComment;
+import web.dto.MyRecipeFile;
 import web.dto.Notice;
+import web.dto.QuizResult;
 import web.service.face.CommunityService;
 import web.util.Paging;
 
@@ -29,6 +43,7 @@ import web.util.Paging;
 public class CommunityServiceImpl implements CommunityService {
 	
 	@Autowired private CommunityDao dao;
+	@Autowired private ServletContext context;
 	
 
 	//자유게시판--------------------------------------------------------------------------------
@@ -277,14 +292,221 @@ public class CommunityServiceImpl implements CommunityService {
 		if(myRecipe.getMyRipImgNo()==0) {
 			myRecipe.setMyRipImgNo(1);
 		}
+//		log.info("{}",myRecipe);
+//		log.info("{}",context.getRealPath("upload"));
 		dao.insertMyRecipe(myRecipe);
-		
-		if(file.isEmpty() || file.getSize()<=0) {
+		if(file==null || file.isEmpty() || file.getSize()<=0) {
 			log.info("파일 이상");
 			return;
 		}
 		
+		String storedPath = context.getRealPath("upload");
+		File upFolder = new File(context.getRealPath("upload"));
+		upFolder.mkdir();
+		//파일이 저장될 이름
+		String storedName = null;
+				
+		//파일을 저장시킬 객체
+		File dest = null;
+		do {
+			storedName = file.getOriginalFilename();
+			storedName += UUID.randomUUID().toString().split("-")[3];
+			dest = new File(upFolder,storedName);
+		}while(dest.exists()); 
+		
+		try {
+			// 업로드된 임시 파일을 upload폴더로 옮겨 실제 파일을 생성
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		myRecipe.setMyRipFileOriginName(file.getOriginalFilename());
+		myRecipe.setMyRipFileStoredName(storedName);
+		
+		MyRecipeFile myRecipeFile = new MyRecipeFile();
+		myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
+		myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
+		myRecipeFile.setMyRipFileStoredName(storedName);
+		
+		
+		dao.insertMyRecipeFile(myRecipeFile);
+
+		
 	}
+	
+	@Override
+	public MyRecipe getMyRecipeInfo(MyRecipe myRecipe) {
+		MyRecipe mr = dao.selectMyRecipeByMyRecipeNo(myRecipe);
+		
+		log.info("빈빈빈빈빈{}",mr);
+		String bean = dao.selectBeanByBeanNo(mr.getBeanNo());
+		mr.setBeanName(bean);
+		log.info("빈빈빈빈빈{}",bean);
+		
+		
+		return mr;
+	}
+
+	
+	@Override
+	public Member getMemberByUserNo(MyRecipe myRecipe) {
+		return dao.selectMemberByUserNo(myRecipe.getUserNo());
+	}
+	
+	@Override
+	public Member getMemberByUserId(String userId) {
+		return dao.selectMemberByUserID(userId);
+	}
+	
+	
+	@Override
+	public List<List<QuizResult>> getQuizResultByUserNo(Member member) {
+		
+		List<MemberQuizResult> mqrList = dao.selectMemberQuizResultByUserNo(member);
+		
+		List<List<QuizResult>> list = new ArrayList<List<QuizResult>>();
+		
+		
+		for(MemberQuizResult mqr : mqrList) {
+			List<QuizResult> qr = dao.selectQuizResultByMemberQuizResultNo(mqr);
+			list.add(qr);
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public List<CupNote> getCupNoteNameList() {
+		return dao.selectCupNoteList();
+	}
+	@Override
+	public void myRrcipeHitUp(MyRecipe myRecipe) {
+		dao.updateMyRecipeHit(myRecipe);
+	}
+	
+	@Override
+	public MyRecipeFile getMyRecipeFile(MyRecipe myRecipe) {
+		MyRecipeFile myRecipeFile = dao.selectMyRecipeFileByMyRipNo(myRecipe);
+		
+		return myRecipeFile;
+	}
+	
+	@Override
+	public void changeMyRecipe(MyRecipe myRecipe, MultipartFile file) {
+		dao.updateMyRecipe(myRecipe);
+		MyRecipeFile myRecipeFile = dao.selectMyRecipeFileByMyRipNo(myRecipe);
+		
+		if(myRecipeFile == null) {
+			if(file.getOriginalFilename().length()<1) {
+				return;
+			}
+			String storedPath = context.getRealPath("upload");
+			File upFolder = new File(context.getRealPath("upload"));
+			upFolder.mkdir();
+			//파일이 저장될 이름
+			String storedName = null;
+					
+			//파일을 저장시킬 객체
+			File dest = null;
+			do {
+				storedName = file.getOriginalFilename();
+				storedName += UUID.randomUUID().toString().split("-")[3];
+				dest = new File(upFolder,storedName);
+			}while(dest.exists()); 
+			
+			try {
+				// 업로드된 임시 파일을 upload폴더로 옮겨 실제 파일을 생성
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			myRecipe.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipe.setMyRipFileStoredName(storedName);
+			
+			myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
+			myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipeFile.setMyRipFileStoredName(storedName);
+			
+			dao.insertMyRecipeFile(myRecipeFile);
+			
+		}else {
+			if(file.getOriginalFilename().length()<1) {
+				return;
+			}
+			dao.deleteMyRecipeFileByMyRipNo(myRecipe);
+			String storedPath = context.getRealPath("upload");
+			File upFolder = new File(context.getRealPath("upload"));
+			upFolder.mkdir();
+			//파일이 저장될 이름
+			String storedName = null;
+					
+			//파일을 저장시킬 객체
+			File dest = null;
+			do {
+				storedName = file.getOriginalFilename();
+				storedName += UUID.randomUUID().toString().split("-")[3];
+				dest = new File(upFolder,storedName);
+			}while(dest.exists()); 
+			
+			try {
+				// 업로드된 임시 파일을 upload폴더로 옮겨 실제 파일을 생성
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			myRecipe.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipe.setMyRipFileStoredName(storedName);
+			
+			myRecipeFile.setMyRipNo(myRecipe.getMyRipNo());
+			myRecipeFile.setMyRipFileOriginName(file.getOriginalFilename());
+			myRecipeFile.setMyRipFileStoredName(storedName);
+			
+			dao.insertMyRecipeFile(myRecipeFile);
+			
+		}
+	}
+	@Override
+	public List<Grind> getGrindList() {
+		
+		return dao.selectGrindAll();
+	}
+	@Override
+	public List<Extraction> getExtractionList() {
+		
+		return dao.selectExtractionAll();
+	}
+	@Override
+	public List<Bean> getBeanList() {
+		
+		return dao.selectBeanAll();
+	}
+	@Override
+	public List<CupNote> getCupList(Bean bean) {
+		return dao.selectCupNoteByBeanNo(bean);
+	}
+	
+	@Override
+	public void joinMyRecipeComment(MyRecipeComment myRecipeComment, HttpSession session) {
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		
+		myRecipeComment.setUserNick(member.getUserNick());
+		myRecipeComment.setUserNo(member.getUserNo());
+		
+		dao.insertMyRecipeComment(myRecipeComment);
+		
+	}
+	
+	@Override
+	public List<MyRecipeComment> getMyRecipeCommentList(MyRecipe myRecipe) {
+		return dao.selectMyRecipeCommentListByMyRipNo(myRecipe);
+	}
+	
 	
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
@@ -301,9 +523,13 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
-		log.info("param : {}", param);
-		
 		List<CafeRev> list = dao.selectCafeReview(param);
+		
+		for(CafeRev c : list) {
+			c.setCafeRevCommCount(dao.getCafeReviewCommentCnt(c));
+		}
+		
+//		log.info("param : {}", param);
 		
 		return list;
 	}
@@ -349,6 +575,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public void dropCafeReview(CafeRev cafeRev) {
 		
 		dao.deleteCafeReviewByCafeNo(cafeRev);
+		dao.deleteCafeReviewCommByCafeNo(cafeRev);
 		
 	}
 	
@@ -425,7 +652,59 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dao.selectBusinessNoByCafeRevNo(revNo);
 	}
+	
+	
+	//---------------event
+	
+	@Override
+	public List<Event> selectByAll() {
+		return dao.selectEventAllList();
+	}
+	
+	@Override
+	public void insertEvent(Event event) {
+		dao.insertEventData(event);
+		
+	}
+	
+	@Override
+	public Event eventInfoByeventNo(Event event) {
+		return dao.selectByEventNo(event);
+	}
+	
+	@Override
+	public void eventDeleteByEventNo(Event event) {
+		dao.deleteEventByEventNo(event);
+	}
+	
+	
+   // 현재 revNo를 기준으로 이전 revNo와 다음 revNo를 가져오는 메서드
+    public Map<String, Integer> getPrevNextRevNos(CafeRev revNo) {
+        List<Integer> revNos = dao.getCafeRevNos();  // revNo 리스트 가져오기
+        Map<String, Integer> prevNextMap = new HashMap<>();
+        
+        int currentRevNo = revNo.getRevNo();
+        int currentIndex = revNos.indexOf(currentRevNo);
 
+        // 이전 revNo와 다음 revNo 계산
+        if (currentIndex > 0) {
+            prevNextMap.put("prevRevNo", revNos.get(currentIndex - 1));
+        } else {
+            prevNextMap.put("prevRevNo", null);  // 이전 게시글이 없을 경우 null
+        }
+
+        if (currentIndex < revNos.size() - 1) {
+            prevNextMap.put("nextRevNo", revNos.get(currentIndex + 1));
+        } else {
+            prevNextMap.put("nextRevNo", null);  // 다음 게시글이 없을 경우 null
+        }
+
+        return prevNextMap;
+    }
+	
+	
+	
+	
 }
 
 
