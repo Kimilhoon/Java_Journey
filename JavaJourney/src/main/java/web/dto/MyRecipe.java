@@ -22,5 +22,7 @@ public class MyRecipe {
 	private String extractionName;
 	private String grindName;
 	private String cupNoteName;
+	private int myRipCommentCount;
+	private int myRipRecommendCount;
 	
 } // class end

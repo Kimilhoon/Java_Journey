@@ -33,6 +33,7 @@ import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
+import web.dto.MyRecipeRecommend;
 import web.dto.Notice;
 import web.dto.QuizResult;
 import web.service.face.CommunityService;
@@ -276,6 +277,8 @@ public class CommunityServiceImpl implements CommunityService {
 		List<MyRecipe> myRecipeList = dao.selectMyRecipeListAll(map);
 		for(MyRecipe mr : myRecipeList) {
 			mr.setUserNick( (dao.selectMemberByUserNo(mr.getUserNo())).getUserNick() );
+			mr.setMyRipCommentCount(dao.selectMyRecipeCommentCountByMyRipNo(mr));
+			mr.setMyRipRecommendCount(dao.selectMyRecipeRecommendCountByMyRipNo(mr));
 		}
 		
 		
@@ -497,7 +500,10 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		myRecipeComment.setUserNick(member.getUserNick());
 		myRecipeComment.setUserNo(member.getUserNo());
-		
+		if(myRecipeComment.getMyRipCommNickTag()==null) {
+			myRecipeComment.setMyRipCommNickTag("N");
+		}
+		 
 		dao.insertMyRecipeComment(myRecipeComment);
 		
 	}
@@ -505,6 +511,70 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public List<MyRecipeComment> getMyRecipeCommentList(MyRecipe myRecipe) {
 		return dao.selectMyRecipeCommentListByMyRipNo(myRecipe);
+	}
+	
+	@Override
+	public void dropMyRecipeComment(MyRecipeComment myRecipeComment) {
+		dao.deleteMyRecipeComment(myRecipeComment);
+	}
+	
+	@Override
+	public boolean myRecipeRecommendCheck(MyRecipe myRecipe, HttpSession session) {
+
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		MyRecipeRecommend myRecipeRecommend = new MyRecipeRecommend();
+		myRecipeRecommend.setMyRipNo(myRecipe.getMyRipNo());
+		myRecipeRecommend.setUserNo(member.getUserNo());
+		int res = dao.myRecipeRecCnt(myRecipeRecommend);
+		
+		if(res>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	@Override
+	public boolean myRecipeRecommend(MyRecipe myRecipe, HttpSession session) {
+		
+		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
+		MyRecipeRecommend myRecipeRecommend = new MyRecipeRecommend();
+		myRecipeRecommend.setMyRipNo(myRecipe.getMyRipNo());
+		myRecipeRecommend.setUserNo(member.getUserNo());
+		int res = dao.myRecipeRecCnt(myRecipeRecommend);
+		
+		if(res>0) {
+			dao.deleteMyRecipeRecommendByMyRipNoUserNo(myRecipeRecommend);
+			return false;
+		}else {
+			dao.insertMyRecipeRecommendByMyRipNoUserNo(myRecipeRecommend);
+			return true;
+		}
+	}
+	
+	@Override
+	public int getMyRecipeRecommendCount(MyRecipe myRecipe) {
+		return dao.selectMyRecipeRecommendCountByMyRipNo(myRecipe);
+	}
+	
+	
+	@Override
+	public void dropMyRecipe(MyRecipe myRecipe) {
+		MyRecipeFile myRecipeFile = dao.selectMyRecipeFileByMyRipNo(myRecipe);
+		if(myRecipeFile != null) {
+			String storedPath = context.getRealPath("upload");
+			File delFile = new File(storedPath + "/"+myRecipeFile.getMyRipFileStoredName());
+			if(delFile.exists()) {
+				delFile.delete();
+			}
+		}
+		List<MyRecipeComment> cList = dao.selectMyRecipeCommentListByMyRipNo(myRecipe);
+		for(MyRecipeComment mrc : cList) {
+			dao.deleteMyRecipeComment(mrc);
+		}
+		dao.deleteMyRecipeFileByMyRipNo(myRecipe);
+		dao.deleteMyRecipeRecommendByMyRipNo(myRecipe);
+		dao.deleteMyRecipByMyRipNo(myRecipe);
+		
 	}
 	
 	
