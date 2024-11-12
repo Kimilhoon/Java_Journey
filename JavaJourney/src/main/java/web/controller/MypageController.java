@@ -2,6 +2,7 @@ package web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -240,49 +241,47 @@ public class MypageController {
         List<FreeBoard> freeboard = service.selectFreeBoardByUserNo(member.getUserNo());
         List<MyRecipe> myRecipe = service.selectMyRecipeByUserNo(member.getUserNo());
        
-        List<Object> myView = new ArrayList<Object>();
-        myView.addAll(cafeReview);
-        myView.addAll(beanReview);
-        myView.addAll(freeboard);
-        myView.addAll(myRecipe);
+//        List<Object> myView = new ArrayList<Object>();
+//        myView.addAll(cafeReview);
+//        myView.addAll(beanReview);
+//        myView.addAll(freeboard);
+//        myView.addAll(myRecipe);
+        
+        List<Map<String, Object>> myView = new ArrayList<>();
 
-//        // 카테고리별로 필터링
-//        List<Object> filteredReviews = new ArrayList<>();
-//        for (Object view : myView) {
-//            if ("all".equals(category)) {
-//                filteredReviews.add(view); // 전체
-//            } else {
-//                // 카테고리별 필터링 (카테고리명을 기준으로 필터링)
-//                if (view instanceof CafeRev && "카페 리뷰".equals(category)) {
-//                    filteredReviews.add(view);
-//                } else if (view instanceof BeanRev && "원두 리뷰".equals(category)) {
-//                    filteredReviews.add(view);
-//                } else if (view instanceof FreeBoard && "자유게시판".equals(category)) {
-//                    filteredReviews.add(view);
-//                } else if (view instanceof MyRecipe && "나만의 레시피".equals(category)) {
-//                    filteredReviews.add(view);
-//                }
-//            }
-//        }
-//        
-//        // 작성일 기준으로 정렬 (내림차순)
-//        filteredReviews.sort((rev1, rev2) -> {
-//            Date date1 = (rev1 instanceof CafeRev) ? ((CafeRev) rev1).getRevDate() :
-//                        (rev1 instanceof BeanRev) ? ((BeanRev) rev1).getRevDate() :
-//                        (rev1 instanceof FreeBoard) ? ((FreeBoard) rev1).getFreeBoardWriteDate() :
-//                        ((MyRecipe) rev1).getMyRipWriteDate();
-//
-//            Date date2 = (rev2 instanceof CafeRev) ? ((CafeRev) rev2).getRevDate() :
-//                        (rev2 instanceof BeanRev) ? ((BeanRev) rev2).getRevDate() :
-//                        (rev2 instanceof FreeBoard) ? ((FreeBoard) rev2).getFreeBoardWriteDate() :
-//                        ((MyRecipe) rev2).getMyRipWriteDate();
-//
-//            return date2.compareTo(date1); // 내림차순
-//        });
-   
+        // 각 객체를 구분하고 'type' 필드를 추가하여 리스트에 넣음
+        for (CafeRev rev : cafeReview) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "CafeRev");
+            map.put("data", rev);
+            myView.add(map);
+        }
+
+        for (BeanRev rev : beanReview) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "BeanRev");
+            map.put("data", rev);
+            myView.add(map);
+        }
+
+        for (FreeBoard rev : freeboard) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "FreeBoard");
+            map.put("data", rev);
+            myView.add(map);
+        }
+
+        for (MyRecipe rev : myRecipe) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "MyRecipe");
+            map.put("data", rev);
+            myView.add(map);
+        }
+		
         
         model.addAttribute("myView", myView);
         model.addAttribute("count", myView.size());  // 게시글 수
+        model.addAttribute("category", category);	
 	}	
 	
 	
@@ -291,78 +290,6 @@ public class MypageController {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
