@@ -456,6 +456,48 @@ public interface CommunityService {
 	 */
 	public List<MyRecipeComment> getMyRecipeCommentList(MyRecipe myRecipe);
 	
+	/**
+	 * 나만의 레시피 댓글 삭제
+	 * 
+	 * @param myRecipeComment 댓글 번호
+	 */
+	public void dropMyRecipeComment(MyRecipeComment myRecipeComment);
+	
+	/**
+	 * 나만의 레시피 추천 확인
+	 * 
+	 * @param myRecipe - 나만의 레시피 번호
+	 * @param session - 유저 번호
+	 * @return
+	 */
+	public boolean myRecipeRecommendCheck(MyRecipe myRecipe, HttpSession session);
+	
+	/**
+	 * 나만의 레시피 추천 수 
+	 * 
+	 * @param myRecipe - 글번호
+	 * @return
+	 */
+	public int getMyRecipeRecommendCount(MyRecipe myRecipe);
+	
+	/**
+	 * 나만의 레시피 추천하기
+	 * 
+	 * @param myRecipe
+	 * @param session
+	 * @return
+	 */
+	public boolean myRecipeRecommend(MyRecipe myRecipe, HttpSession session);
+	
+	/**
+	 * 나만의 레시피 글 삭제
+	 * 파일,댓글,추천 같이 삭제해야됨
+	 * 
+	 * @param myRecipe - 나만의 레시피 글 번호
+	 */
+	public void dropMyRecipe(MyRecipe myRecipe);
+	
+	
 }
 
 
