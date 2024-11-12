@@ -130,11 +130,19 @@ public interface CommunityDao {
 	public void insertCafeReviewComm(CafeRevComm comm);
 
 	/**
+	 * 유저 닉네임 불러오기
 	 * 
-	 * @param writerId
-	 * @return
+	 * @param writerId - 닉네임을 불러올 아이디
+	 * @return 해당 아이디의 닉네임
 	 */
 	public String selectUserNickByUserId(String writerId); 
+	
+	/**
+	 * 카페리뷰댓글 삭제
+	 * 
+	 * @param caferevcommno - 삭제할 카페 리뷰번호
+	 */
+	public void deleteCafeReviewCommByCafeRevCommNo(CafeRevComm cafeRevCommNo);
 
 	
 	//자유게시판--------------------------------------------------------------------------------------
@@ -448,7 +456,6 @@ public interface CommunityDao {
 	
 
 	/**
-<<<<<<< HEAD
 	 * 나만의 레시피 글 작성시 파일 업로드
 	 * @param myRecipeFile
 	 */

@@ -424,20 +424,12 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/creview/comm/delete")
-	public String cafeReviewCommdelete(CafeRevComm caferevcommno) {
+	public String cafeReviewCommdelete(CafeRevComm cafeRevCommNo, CafeRev revNo) {
 		
-		log.info("ㅇㄹ머ㅣ엄ㄹㅇ러ㅓㅣ멀아러ㅣㅁㅇ러미알: {}", caferevcommno);
-		
-	    try {
-	    	
-	    	service.dropCafeReviewComment(caferevcommno);
-	    	
-	        return "{\"result\":\"success\"}";  // JSON 형식으로 성공 응답 반환
+    	service.dropCafeReviewComment(cafeRevCommNo);
+	    
+    	return "redirect: ../view?revNo=" + revNo.getRevNo();
 	        
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return "{\"result\":\"fail\"}";  // 실패 시 응답
-	    }
 	}
 	
 	@GetMapping("/creview/write")
