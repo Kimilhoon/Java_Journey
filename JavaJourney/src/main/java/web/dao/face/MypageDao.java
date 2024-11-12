@@ -3,6 +3,7 @@ package web.dao.face;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import web.dto.BeanRev;
 import web.dto.BeanWish;
@@ -81,11 +82,11 @@ public interface MypageDao {
 	public int selectByMemberNick(Member checkNickParam);
 	
 	/**
-	 * 유저가 찜한 카페 DB에서 조회하기
+	 * 유저가 찜한 카페 DB에서 조회하기(+검색어가 있다면 && 조회)
 	 * @param userNo 
 	 * @return
 	 */
-	List<CafeWish> selectByUserLikeCafe(int userNo);
+	List<CafeWish> selectByUserLikeCafe(@Param("userNo") int userNo,@Param("searchText") String searchText);
 	
 	/**
 	 * 유저가 찜한 원두 DB에서 조회하기
@@ -121,6 +122,7 @@ public interface MypageDao {
 	 * @return
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+	
 	
 	
 	

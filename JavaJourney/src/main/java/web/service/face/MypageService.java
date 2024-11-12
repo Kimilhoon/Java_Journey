@@ -1,15 +1,15 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import web.dto.BeanRev;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
-
-import java.util.Map;
-
 import web.dto.Member;
 import web.dto.MyRecipe;
 
@@ -87,20 +87,20 @@ public interface MypageService {
 	public Map<String, Object> checkNick(Member checkNickParam);
 	
 	/**
-	 * 내가 찜한 카페 목록 조회하기
-	 * @param i 
-	 * @param i 
+	 * 내가 찜한 카페 목록 조회하기(+검색어가 있다면 && 로 조회)
+	 * @param userNo
+	 * @param searchText 
 	 * @return
 	 */
-	List<CafeWish> selectByLikeCafe(int userNo);
+	public List<CafeWish> selectByLikeCafe(@Param("userNo") int userNo, @Param("searchText") String searchText);
 	
 	/**
 	 * 내가찜한 원두 목록 조회하기
 	 * @param userNo
 	 * @return
 	 */
-	List<BeanWish> selectByLikeBean(int userNo);
-
+	public List<BeanWish> selectByLikeBean(int userNo);
+	
 	/**
 	 * 유저번호에 해당하는 카페리뷰 리스트 가져오기
 	 * @param userNo
