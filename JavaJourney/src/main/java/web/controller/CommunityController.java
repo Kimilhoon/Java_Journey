@@ -546,7 +546,7 @@ public class CommunityController {
 //		String commId = service.getCafeReviewCommentId();
 		
 		model.addAttribute("brevcommList", brevcommList);
-		model.addAttribute("cafeRev", cafeRev);
+		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);
 		model.addAttribute("writerNick", writerNick);
@@ -617,7 +617,7 @@ public class CommunityController {
 	@PostMapping("/breview/update")
 	public String beanReviewUpdateProc(BeanRev beanRev) {
 //		log.info("dddd{}",cafeRev);
-		service.changeCafeReview(beanRev);
+		service.changeBeanReview(beanRev);
 		
 		return "redirect: ./view?revNo=" + beanRev.getRevNo();
 	}
