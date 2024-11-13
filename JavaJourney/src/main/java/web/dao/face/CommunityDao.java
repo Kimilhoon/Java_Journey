@@ -380,67 +380,6 @@ public interface CommunityDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//---------------event
 	
 	/**
@@ -503,8 +442,6 @@ public interface CommunityDao {
 	 * @return 불러온 카페 리뷰 번호
 	 */
 	public List<Integer> getCafeRevNos();
-
-
 
 	
 	/**

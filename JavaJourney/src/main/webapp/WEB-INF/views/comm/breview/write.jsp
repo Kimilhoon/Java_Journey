@@ -2,10 +2,20 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
 <style>
+
+.btn{
+   background: transparent;
+   border: 1px solid #6f4e37;
+   color: black;
+}
+.btn:hover{
+   background: #6f4e37;
+   color: white;
+}
 
 /* 전체적인 레이아웃 */
 #write-area {
@@ -30,6 +40,8 @@
     justify-content: space-between; /* 양쪽 끝에 배치 */
     align-items: center; /* 수직 정렬 */
     padding-bottom: 10px;
+    margin-top: 10px;
+    margin: 0 auto;
     border-bottom: 1px solid #ddd;
 }
 
@@ -48,6 +60,7 @@ small {
 
 /* 별점 셀 스타일 */
 select {
+	display: flex;
     font-size: 1em;
     padding: 5px;
     border-radius: 4px;
@@ -69,7 +82,7 @@ textarea.form-control {
 }
 
 /* 버튼 스타일 */
-button {
+form button {
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 1.1em;
@@ -81,12 +94,12 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+form button:hover {
     background-color: #0056b3; /* 버튼 hover 시 색상 변경 */
 }
 
 /* 목록 버튼을 우측 정렬 */
-a button {
+form a button {
     margin-left: 10px;
 }
 
@@ -96,10 +109,10 @@ td, button {
     padding-right: 20px;
 }
 
-
 </style>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
     $('#summernote').summernote({
         width: 1000,
@@ -113,6 +126,7 @@ $(document).ready(function() {
         }
     });
 });
+
 	
 $.ajax({
     url: '/save',
@@ -121,92 +135,80 @@ $.ajax({
     data: JSON.stringify({ content: $('#summernote').val() })
 });
 
-$("select[name=revsp] option[value=${cafeRev.revsp}]").prop("selected", true);
+$(document).ready(function() {
+    // Summernote가 비어있는지 확인하는 함수
+    function hasContent() {
+        return !$('#summernote').summernote('isEmpty');
+    }
+
+    // 페이지를 벗어날 때 경고창 표시
+    function beforeUnloadHandler(e) {
+        if (hasContent()) {  // Summernote에 내용이 있을 경우
+            e.preventDefault();
+            e.returnValue = ''; // 브라우저에 따라 메시지를 표시하기 위한 설정
+        }
+    }
+
+    // beforeunload 이벤트 등록
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+
+    // submit 버튼 클릭 시 beforeunload 이벤트를 일시적으로 제거
+    $('form').on('submit', function() {
+        window.removeEventListener('beforeunload', beforeUnloadHandler);
+    });
+});
 
 </script>
 
-<form action="./update" method="post">
+<form action="./write" method="post">
 
-<input type="text" name="revNo" value="${cafeRev.revNo }" hidden="none">
+<input type="text" name="cafeNo" value="${cafeNo.cafeNo }" hidden="none">
 
 <div id="write-area">
 
-<small>카페명</small> | <span class="cafe-name">&nbsp;&nbsp;${cafeRev.cafeName}</span>
+<table class="table table-borderless">
 
+<tr>
+</tr>
 
+<tr>
+<td class="text-center">
+<small>카페명</small> | <span class="cafe-name">&nbsp;&nbsp;${cafeName}</span>
+</td>
+
+<td class="text-center">
 <label>별점
 <select name="revsp">
-	<c:choose>
-		<c:when test="${cafeRev.revsp eq 5 }">
-			<option value="5" selected="selected">★★★★★</option>
-		</c:when>
-		<c:otherwise>
-			<option value="5">★★★★★</option>
-		</c:otherwise>
-	</c:choose>
-	
-	<c:choose>
-		<c:when test="${cafeRev.revsp eq 4 }">
-			<option value="4" selected="selected">★★★★☆</option>
-		</c:when>
-		<c:otherwise>
-			<option value="4">★★★★☆</option>
-		</c:otherwise>
-	</c:choose>
-	
-	<c:choose>
-		<c:when test="${cafeRev.revsp eq 3 }">
-			<option value="3" selected="selected">★★★☆☆</option>
-		</c:when>
-		<c:otherwise>
-			<option value="3">★★★☆☆</option>
-		</c:otherwise>
-	</c:choose>
-	
-	<c:choose>
-		<c:when test="${cafeRev.revsp eq 2 }">
-			<option value="2" selected="selected">★★☆☆☆</option>
-		</c:when>
-		<c:otherwise>
-			<option value="2">★★☆☆☆</option>
-		</c:otherwise>
-	</c:choose>
-	
-	<c:choose>
-		<c:when test="${cafeRev.revsp eq 1 }">
-			<option value="1" selected="selected">★☆☆☆☆</option>
-		</c:when>
-		<c:otherwise>
-			<option value="1">★☆☆☆☆</option>
-		</c:otherwise>
-	</c:choose>
-	
+	<option value="5">★★★★★</option>
+	<option value="4">★★★★☆</option>
+	<option value="3">★★★☆☆</option>
+	<option value="2">★★☆☆☆</option>
+	<option value="1">★☆☆☆☆</option>
 </select>
 </label>
+</td>
+</tr>
 
+<tr>
+<td colspan="2" class='text-center'>
 <label>
-<textarea id="summernote" name="revContent" rows="30" cols="50" name="content" required="required" class="form-control">
-${cafeRev.revContent }
-</textarea>
+<textarea id="summernote" name="revContent" required="required" class="form-control"></textarea>
 </label>
+</td>
+</tr>
 
-<br>
+</table>
 
-<button class="btn btn-primary">수정</button>
-<a href="./list"><button type="button" class="btn btn-primary">취소</button></a>
+<button class="btn btn-primary">작성</button>
+<a href="./list"><button type="button" class="btn btn-primary">목록</button></a>
 
-</div>
+</div><!-- write-area -->
 
 </form>
 
-
-
-
-
-
-
-
 <c:import url="../../layout/footer.jsp" />
+
+
 
 
 
