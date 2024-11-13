@@ -201,7 +201,7 @@ $(function() {
 	
 	<div id="btn" class="d-flex justify-content-center align-self-end">
 		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
-		<button type="button" id="sub" class="btn btn-secondary btn-lg m-2">구독</button>
+		<button type="button" id="sub" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
 	</div>
 </div> <!-- commCafe End -->
 
