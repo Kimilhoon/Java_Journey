@@ -175,6 +175,11 @@
 		WHERE commentno = #{commentNo}
 	</delete>
 	
+	<delete id="deleteFreeBoardCommentByFreeBoardCommTag" parameterType="FreeBoardComment">
+		DELETE FROM FREEBOARDCOMMENT
+		WHERE freeBoardCommTag = #{commentNo}
+	</delete>
+	
 	<select id="selectFreeBoardCommentCnt" parameterType="FreeBoard">
 		SELECT count(*) FROM freeboardcomment
 		WHERE freeboardno = #{freeBoardNo}

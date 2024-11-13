@@ -161,9 +161,13 @@ public class CommunityController {
 			}
 		}
 		
-		@GetMapping("/freeboard/commentupdate")
-		public void freeBoardCommentUpdate(FreeBoardComment freeBoardComment) {
+		@PostMapping("/freeboard/commentupdate")
+		public String freeBoardCommentUpdate(FreeBoardComment freeBoardComment) {
+			
 			service.changeFreeBoardComment(freeBoardComment);
+			
+			return "redirect: ./view?freeBoardNo="+freeBoardComment.getFreeBoardNo();
+
 		}
 		
 		// 공지사항 --------------------------------------------------------------------------

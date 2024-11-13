@@ -63,24 +63,27 @@ $(function() {
 	width: 300px;
 	float: right;
 }
-
+a {
+	color: #6f4e37;
+}
+	
 
 </style>
 <div class="container" >
 
 <div id="searchbox" class="d-flex justify-content-end align-items-center mb-3">
-<input type="text" id="search" class="form-control me-2 col-6" placeholder="검색어를 입력하세요"><button id="btn_search" class="btn "><i class="bi bi-search"></i></button>
+<input type="text" id="search" class="form-control me-2 col-6" placeholder="검색어를 입력하세요."><button id="btn_search" class="btn "><i class="bi bi-search"></i></button>
 </div>
 <table class="table text-center">
 <thead>
 	<tr>
-		<th>보드 넘버</th>
+		<th>글번호</th>
 		<th></th>
-		<th>보드 제목</th>
+		<th>제목</th>
 		<th>작성자</th>
-		<th>보드 조회수</th>
+		<th>조회수</th>
 		<th>추천수</th>
-		<th>보드 작성일</th>
+		<th>작성일</th>
 	</tr>
 </thead>
 <tbody>
@@ -164,7 +167,7 @@ $(function() {
 		</li>
 	</c:if>
 </ul>
-</div>
+</div><!-- 페이징 -->
 
 </div>
 

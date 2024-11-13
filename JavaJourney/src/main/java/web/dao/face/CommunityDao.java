@@ -229,6 +229,12 @@ public interface CommunityDao {
 	public void deleteFreeBoardCommentByFreeBoardCommentNo(FreeBoardComment freeBoardComment);
 	
 	/**
+	 * 태그 번호로 댓글 삭제
+	 * @param freeBoardComment
+	 */
+	public void deleteFreeBoardCommentByFreeBoardCommTag(FreeBoardComment freeBoardComment);
+	
+	/**
 	 * 각 보드의 댓글 수 얻기
 	 * @param freeBoard - 보드전체 리스트 조회 결과
 	 * @return 각 보드 댓글 수
