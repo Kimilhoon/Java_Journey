@@ -397,6 +397,8 @@ public class CommunityController {
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
 		
+		if( userBN == null )	userBN = "0";
+		
 		//해당 리뷰의 해당하는 카페의 사업자번호
 		String cafeBN = service.getBusinessNoFromCafeReviewNo(revNo);
 		
@@ -497,15 +499,17 @@ public class CommunityController {
 	@GetMapping("/breview/list")
 	public void beanReviewForm(Model model, String category, String order, String search, Paging curPage) {
 		
-		Paging paging = service.getCafeReviewPaging(curPage, category, order, search);
+		Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
 
-		List<BeanRev> breviewList = service.getBeanReviewList(category, order, search, paging);
-
+		List<List<BeanRev>> breviewList = service.getBeanReviewList(category, order, search, paging);
+		
 		model.addAttribute("paging", paging);
 		model.addAttribute("category", category);
 		model.addAttribute("order", order);
 		model.addAttribute("search", search);
 		model.addAttribute("breviewList", breviewList);
+		
+		log.info("breviewList: {}", breviewList);
 		
 	}
 	

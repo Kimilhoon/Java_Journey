@@ -17,6 +17,7 @@ public class BeanRev {
 	private int revHit;
 	private Date revDate;
 	private int revStarPoint;
+	private int beanRevCommCount;
 	
 	// 조인
 	private String userNick;

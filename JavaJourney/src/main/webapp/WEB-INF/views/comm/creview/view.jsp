@@ -362,7 +362,7 @@ function clip(){
 <div id="bottom" class="d-flex justify-content-between align-items-center">
     <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37;"></i>
 
-    <c:if test="${userId eq writerId }">
+    <c:if test="${ (userId eq writerId) or (userNick eq 'admin') }">
         <span>
             <a href="./update?revNo=${cafeRev.revNo }" style="color: #6f4e37">수정</a>
             <a href="./delete?revNo=${cafeRev.revNo }" style="color: #6f4e37">삭제</a>
@@ -386,7 +386,7 @@ function clip(){
 	<td>${comm.userNick }</td>
 	<td class="text-end">
 	
-	<c:if test="${comm.userNick eq userNick}">
+	<c:if test="${ (comm.userNick eq userNick) or (userNick eq 'admin') }">
 	    <span class="comm-update" onclick="openEditModal('${comm.cafeRevCommNo}', '${comm.cafeCommCont}')" style="color: #6f4e37;">
 	        <small>수정</small>
 	    </span>
@@ -413,7 +413,7 @@ function clip(){
 
 </table >
 
-<c:if test="${cafeBN eq userBN }">
+<c:if test="${ (cafeBN eq userBN) or (userNick eq 'admin') or (userNick eq writerNick) }">
 
 	<form action="./comm?revNo=${cafeRev.revNo }" method="post">
 	
@@ -432,8 +432,8 @@ function clip(){
 </div>
 
 <!-- 이전 게시글로 이동 -->
-<c:if test="${not empty prevRevNo}">
-    <a href="./view?revNo=${prevRevNo}" style="text-decoration: none;">
+<c:if test="${not empty prevRevNo }">
+    <a href="./view?revNo=${prevRevNo }" style="text-decoration: none;">
         <button class="btn btn-light"><i class="bi bi-caret-left-fill"></i></button>
     </a>
 </c:if>
@@ -441,8 +441,8 @@ function clip(){
 <a href="./list"><button class="btn btn-light"><i class="bi bi-list"></i></button></a>
 
 <!-- 다음 게시글로 이동 -->
-<c:if test="${not empty nextRevNo}">
-    <a href="./view?revNo=${nextRevNo}" style="text-decoration: none;">
+<c:if test="${not empty nextRevNo }">
+    <a href="./view?revNo=${nextRevNo }" style="text-decoration: none;">
         <button class="btn btn-light"><i class="bi bi-caret-right-fill"></i></button>
     </a>
 </c:if>
