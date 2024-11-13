@@ -133,9 +133,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public void joinFreeBoardComment(FreeBoard freeBoard, FreeBoardComment freeBoardComment, HttpSession session) {
-		freeBoardComment.setFreeBoardNo(freeBoard.getFreeBoardNo());
-		
+	public void joinFreeBoardComment(FreeBoardComment freeBoardComment, HttpSession session) {
 		Member member = dao.selectMemberByUserID((String)session.getAttribute("userId"));
 		freeBoardComment.setUserNo(member.getUserNo());
 		freeBoardComment.setUserNick(member.getUserNick());
@@ -203,6 +201,11 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public int getFreeBoardRecCount(FreeBoard freeBoard) {
 		return dao.getFreeBoardRecCountByFreeBoardNo(freeBoard);
+	}
+	
+	@Override
+	public void changeFreeBoardComment(FreeBoardComment freeBoardComment) {
+		dao.updateFreeBoardCommentByCommentNo(freeBoardComment);
 	}
 	
 	//공지사항--------------------------------------------------------------------------------
@@ -516,6 +519,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void dropMyRecipeComment(MyRecipeComment myRecipeComment) {
 		dao.deleteMyRecipeComment(myRecipeComment);
+		dao.deleteMyRecipeReply(myRecipeComment);
 	}
 	
 	@Override
@@ -576,6 +580,12 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.deleteMyRecipByMyRipNo(myRecipe);
 		
 	}
+	
+	@Override
+	public void changeMyRecipeComment(MyRecipeComment myRecipeComment) {
+		dao.updateMyRecipeCommentByCommentNo(myRecipeComment);
+	}
+	
 	
 	
 	//------------------------------------------------------------------------------
@@ -781,6 +791,12 @@ public class CommunityServiceImpl implements CommunityService {
     public void dropCafeReviewComment(CafeRevComm cafeRevCommNo) {
     	
     	dao.deleteCafeReviewCommByCafeRevCommNo(cafeRevCommNo);
+    }
+    
+    @Override
+    public void changeCafeReviewComment(CafeRevComm cafeRevComm) {
+    	
+    	dao.updateCafeReviewComm(cafeRevComm);
     }
 
 	

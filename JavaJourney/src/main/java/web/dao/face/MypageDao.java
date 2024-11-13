@@ -13,6 +13,7 @@ import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.util.Paging;
 
 @Mapper
 public interface MypageDao {
@@ -124,13 +125,13 @@ public interface MypageDao {
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
 
-
 	/**
-	 * 카테고리와 검색어로 필터링된 내가쓴글 리스트 수
-	 * @param map
-	 * @return
+	 * 회원번호에 해당하는 회원 지우기
+	 * @param member
 	 */
-	public int getMyViewTotalCnt(HashMap<String, String> map);
+	public void deleteMemberByUserNo(Integer userNo);
+
+
 	
 	
 	

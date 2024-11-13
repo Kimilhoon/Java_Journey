@@ -162,8 +162,8 @@
 	</insert>
 	
 	<insert id="insertFreeBoardComment" parameterType="FreeBoardComment">
-		INSERT INTO FREEBOARDCOMMENT f (commentNO,freeboardno,usernick,commentcontent,userno)
-		VALUES (freeboardcomment_seq.nextval,#{freeBoardNo},#{userNick},#{commentContent},#{userNo})
+		INSERT INTO FREEBOARDCOMMENT f (commentNO,freeboardno,freeboardcommtag,usernick,commentcontent,userno,freeboardcommnicktag)
+		VALUES (freeboardcomment_seq.nextval,#{freeBoardNo},#{freeBoardCommTag},#{userNick},#{commentContent},#{userNo},#{freeBoardCommNickTag})
 	</insert>
 	<select id="selectMemberByUserID">
 		SELECT * FROM MEMBER
@@ -507,6 +507,11 @@
 		WHERE myRipCommNo = #{myRipCommNo}
 	</select>
 	
+	<select id="deleteMyRecipeReply" parameterType="MyRecipeComment">
+		DELETE FROM MYRECIPECOMMENT
+		WHERE myRipCommTag = #{myRipCommNo}
+	</select>
+	
 	<select id="myRecipeRecCnt" parameterType="MyRecipeRecommend" resultType="int">
 		SELECT count(*) FROM MYRECIPERECOMMEND
 		<where>
@@ -552,12 +557,34 @@
 		WHERE myripno = #{myRipNo}
 	</select>
 	
+	<update id="updateFreeBoardCommentByCommentNo" parameterType="FreeBoardComment">
+		UPDATE FREEBOARDCOMMENT
+		SET
+			commentcontent = #{commentContent}
+		WHERE commentNo = #{commentNo}
+	</update>
+	
+	<update id="updateMyRecipeCommentByCommentNo" parameterType="MyRecipeComment">
+		UPDATE MYRECIPECOMMENT
+		SET 
+			myripcommcont = #{myRipCommCont}
+		WHERE myripcommno = #{myRipCommNo}
+	</update>
+	
 	<delete id="deleteCafeReviewCommByCafeRevCommNo" parameterType="CafeRevComm">
 		DELETE caferevcomm
 		<where>
 			AND caferevcommno = #{cafeRevCommNo }
 		</where>
 	</delete>
+	
+	<update id="updateCafeReviewComm" parameterType="CafeRevComm">
+		UPDATE caferevcomm
+		SET cafecommcont = #{cafeCommCont }
+		<where>
+			caferevcommno = #{cafeRevCommNo }
+		</where>
+	</update>
 	
 </mapper>
 

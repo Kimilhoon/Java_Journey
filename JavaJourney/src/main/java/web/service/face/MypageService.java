@@ -131,13 +131,11 @@ public interface MypageService {
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
 
 	/**
-	 * 조건에 따른 페이징 객체 생성
-	 * @param curPage - 현재페이지 정보
-	 * @param category
-	 * @param search 
-	 * @return
+	 * 세션에서 가져온 userNo에 맞는 회원 삭제
+	 * @param userNo
 	 */
-	public Paging getMyViewPaging(Paging curPage, String category, String search);
+	public void leaveMember(Integer userNo);
+
 
 	
 	

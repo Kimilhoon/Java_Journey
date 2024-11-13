@@ -217,6 +217,17 @@ public class MypageController {
 		
 		return ResponseEntity.ok(checkNickResult);
 	}
+	
+	@RequestMapping("/out")
+	public String out(Member member, HttpSession session) {
+		
+		Integer userNo = (Integer) session.getAttribute("userNo");
+		service.leaveMember(userNo);
+		
+		session.invalidate();
+		
+		return "redirect:/main"; 
+	}
 
 		
 	@GetMapping("/myview")
@@ -224,7 +235,7 @@ public class MypageController {
 			, HttpSession session
 			, Member member
 			, @RequestParam(defaultValue = "전체") String category
-			, Paging curPage
+			, Paging param
 			, String search) {
 		
 		
@@ -232,7 +243,7 @@ public class MypageController {
         Integer userNo = (Integer) session.getAttribute("userNo");
         
         //페이징
-        Paging paging = service.getMyViewPaging(curPage, category, search);
+//        Paging paging = service.getMyViewPaging(param);
         
         
         List<Map<String, Object>> myView = new ArrayList<>();
@@ -316,10 +327,13 @@ public class MypageController {
             map.put("rownum", myView.size() - i);
         }
         
+   
+        
+//        model.addAttribute("paging", paging);
         model.addAttribute("userNo", userNo);
-        model.addAttribute("paging", paging);
         model.addAttribute("myView", myView);
         model.addAttribute("category", category);	
+        model.addAttribute("search", search);	
 	}	
 	
 	

@@ -29,10 +29,19 @@ function filterByCategory() {
 }
 </script>
 
+<div class="d-flex justify-content-end">
+	<div class="col-2">
+	<input id="searchText"class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
+	</div>
+	<span style="margin-right: 10px;"></span>
+	<button id="btnSearch" class="btn btn-primary">검색</button>
+</div>
+
+
 <table>
 <tr>
 	<th class="col-1" scope="col">글번호</th>
-	<th class="col-1" scope="col">테마</th>
+	<th class="col-1" scope="col">카테고리</th>
 	<th class="col-1" scope="col">제목</th>
 	<th class="col-1" scope="col">작성일</th>
 </tr>

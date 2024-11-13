@@ -113,6 +113,6 @@ a:active{
 </table>
 </div>
 
-
-
+<div>
 <c:import url="../layout/footer.jsp"/>
+</div>
