@@ -504,6 +504,12 @@ public interface CommunityService {
 	 */
 	public void dropMyRecipe(MyRecipe myRecipe);
 	
+	/**
+	 * 나만의 레시피 댓글 수정
+	 * @param myRecipeComment - 댓글 번호, 댓글 내용 
+	 */
+	public void changeMyRecipeComment(MyRecipeComment myRecipeComment);
+	
 	
 }
 

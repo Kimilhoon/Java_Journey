@@ -507,6 +507,11 @@
 		WHERE myRipCommNo = #{myRipCommNo}
 	</select>
 	
+	<select id="deleteMyRecipeReply" parameterType="MyRecipeComment">
+		DELETE FROM MYRECIPECOMMENT
+		WHERE myRipCommTag = #{myRipCommNo}
+	</select>
+	
 	<select id="myRecipeRecCnt" parameterType="MyRecipeRecommend" resultType="int">
 		SELECT count(*) FROM MYRECIPERECOMMEND
 		<where>
@@ -558,6 +563,14 @@
 			commentcontent = #{commentContent}
 		WHERE commentNo = #{commentNo}
 	</update>
+	
+	<update id="updateMyRecipeCommentByCommentNo" parameterType="MyRecipeComment">
+		UPDATE MYRECIPECOMMENT
+		SET 
+			myripcommcont = #{myRipCommCont}
+		WHERE myripcommno = #{myRipCommNo}
+	</update>
+	
 	
 </mapper>
 

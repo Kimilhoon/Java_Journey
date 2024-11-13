@@ -73,8 +73,9 @@ $(function() {
 	
 	$(".btn_cDelete").click(function() {
 		
+		
 		$.ajax({
-			url: "./commentdelete?myRipCommNo="+$(this).parent().prev().prev().prev().text(),
+			url: "./commentdelete?myRipCommNo="+$(this).next().text(),
 			type: "get",
 			success: function() {
 				location.href=location.href
@@ -87,21 +88,24 @@ $(function() {
 		});
 	});
 	
+
+	
 	$(".btn_reply").click(function() {
 	
 		var content = '<tr>'
-		content += '<td colspan="3"<div class="input-group mb-3">><input type="text" class="reply_input form-control" >';
-		content += '<button onclick="testsubmit(this)" class="input-group-text btn btn-outline-primary">작성</button><button class="input-group-text btn btn-outline-primary"onclick="cancelreplysubmit(this)">취소</button></div></td>';
+		content += '<td colspan="3"><div class="input-group mb-3"><input type="text" class="reply_input form-control" >';
+		content += '<button onclick="replysubmit(this)" class="input-group-text btn ">작성</button><button class="input-group-text btn "onclick="cancelreplysubmit(this)">취소</button></div></td>';
 		content += '</tr>';
 		
 		$(this).parent().parent().after(content);	
+		$(this).css("display","none");
 		
 	});
 	$(".btn_reply_reply").click(function() {
 	
 		var content = '<tr>'
 		content += '<td colspan="3"><div class="input-group mb-3"><input type="text" class="reply_input form-control" >';
-		content += '<button onclick="replysubmit(this)" class="input-group-text btn btn-outline-primary">작성</button><button class="input-group-text btn btn-outline-primary"onclick="cancelreplysubmit(this)">취소</button></div></td>';
+		content += '<button onclick="replyreplysubmit(this)" class="input-group-text btn ">작성</button><button class="input-group-text btn "onclick="cancelreplysubmit(this)">취소</button></div></td>';
 		content += '</tr>';
 		$(this).parent().parent().after(content);	
 		$(this).css("display","none");
@@ -111,25 +115,50 @@ $(function() {
 	
 	
 	
+	
+	
+	
+	
 })//j
+
+//모달 열기
+function openEditModal(commentNo, content) {
+  document.getElementById("myRipCommNo").value = commentNo;
+  document.getElementById("updatedComment").value = content;
+  document.getElementById("editCommentModal").style.display = "flex";
+}
+
+//모달 닫기
+function closeModal() {
+  document.getElementById("editCommentModal").style.display = "none";
+}
+
+//수정 폼 제출
+function submitEditForm() {
+  document.getElementById("editCommentForm").submit();
+}
 
 function cancelreplysubmit(e) {
 	
 	$(e).parent().css("display","none");
 	$(".btn_reply_reply").css("display","");
+	$(".btn_reply").css("display","");
 }
 
-function testsubmit(e) { // 기본 댓글에 답글 달 경우
+function replysubmit(e) { // 기본 댓글에 답글 달 경우
 // 	console.log("답글 작성");	
 // 	console.log($(e).parent().prev().children().first().val());	//답글 내용
 // 	console.log($(e).parent().parent().prev().children().first().next().text());//원댓글 작성자 닉
 // 	console.log($(e).parent().parent().prev().children().first().next().next().next().text());	//원댓글 번호
 	
-	var myRipCommCont = $(e).parent().prev().children().first().val();
-	var myRipCommTag = $(e).parent().parent().prev().children().first().next().next().next().text()
-	var myRipCommNickTag = $(e).parent().parent().prev().children().first().next().text()
+	var myRipCommCont = $(e).prev().val();
+	var myRipCommTag =$(e).parent().parent().parent().prev().prev().children().first().next().text();
+	var myRipCommNickTag = $(e).parent().parent().parent().prev().prev().children().first().text();
 	
-		
+// 	console.log(myRipCommCont);
+// 	console.log(myRipCommTag);
+// 	console.log(myRipCommNickTag);
+	
 		
 		$.ajax({
 			url: "./commentinsert?myRipNo="+${myRecipeView.myRipNo },
@@ -152,11 +181,17 @@ function testsubmit(e) { // 기본 댓글에 답글 달 경우
 	
 	
 } 
-function replysubmit(e) { // 답글에 답글 달 경우
+function replyreplysubmit(e) { // 답글에 답글 달 경우
 	
-	var myRipCommCont = $(e).parent().prev().children().first().val();
-	var myRipCommTag = $(e).parent().parent().parent().children().first().children().first().next().next().next().text()
-	var myRipCommNickTag = $(e).parent().parent().prev().children().first().next().next().next().text()
+	var myRipCommCont = $(e).prev().val();
+	var myRipCommTag =$(e).parent().parent().parent().prev().prev().children().first().next().text();
+	var myRipCommNickTag = $(e).parent().parent().parent().prev().prev().children().first().text();
+	
+		
+// 	console.log(myRipCommCont);
+// 	console.log(myRipCommTag);
+// 	console.log(myRipCommNickTag);
+	
 	
 		
 		
@@ -183,13 +218,26 @@ function replysubmit(e) { // 답글에 답글 달 경우
 } 
 </script>
 <style>
-
+input:focus, select:focus {
+    outline: none;  /* 기본 파란색 테두리 제거 */
+    box-shadow: 0 0 5px #6f4e37;  /* 원하는 색상으로 그림자 설정 */
+    border-color: #6f4e37;  /* 테두리 색상 변경 (선택 사항) */
+}
 #write-btn-div {
 	display: flex;
 }
 
 #write-btn {
 	margin: 0 auto;
+}
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+.btn:hover{
+	background: #6f4e37;
+	color: white;
 }
 	
 /* 전체적인 레이아웃 여백 */
@@ -267,14 +315,7 @@ h1 {
 }
 
 /* 댓글 영역 */
-#comment {
-/*     margin-top: 30px; */
-	height: 100px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+
 
 #comment table {
     width: 100%;
@@ -376,10 +417,63 @@ button.btn-light:hover {
     }
 }
 	
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-dialog {
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+	
+.comm-update {
+	cursor: pointer;
+	color: #ccc;
+}
+	
+.comm-delete {
+	cursor: pointer;
+	color: #c88;
+}
+a {
+	color: #6f4e37;
+}
 	
 </style>
 
-
+<div class="modal" id="editCommentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">댓글 수정</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editCommentForm" method="post" action="./commentupdate">
+                    <input type="hidden" name="myRipNo" value="${myRecipeView.myRipNo}">
+                    <input type="hidden" name="myRipCommNo" id="myRipCommNo">
+                    <label for="updatedComment">수정할 댓글 내용</label>
+                    <input type="text" class="form-control" id="updatedComment" name="myRipCommCont" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn " onclick="closeModal()">닫기</button>
+                <button type="submit" class="btn " onclick="submitEditForm()">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -444,14 +538,14 @@ function clip(){
 
 <div id="bottom" >
 	<div style="display: inline-block; float: left; vertical-align: middle;">
-	    <i class="bi bi-share" onclick="clip()" style="cursor: pointer; margin-right: 15px;"></i>
-	    <button id="btn_rec" class="btn btn-outline-primary">☆추천</button>
+	        <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37; margin-right: 15px;"></i>
+	    <button id="btn_rec" class="btn ">☆추천</button>
 	</div>
     <div style="display: inline-block; float: right;">
-	<a href="./list"><button class="btn btn-outline-primary">목록</button></a>
+	<a href="./list"><button class="btn "><small>목록</small></button></a>
     <c:if test="${member.userNick eq userNick}">
-	<a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn btn-outline-primary">수정</button></a>
-	<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn btn-outline-primary">삭제</button></a>
+	<a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>수정</small></button></a>
+	<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>삭제</small></button></a>
 	</c:if>
     </div>
 </div> <!-- bottom -->
@@ -465,53 +559,65 @@ function clip(){
 	
 	<c:forEach var="myRecipeComment" items="${myRecipeCommentList }">
 	<c:if test="${myRecipeComment.myRipCommTag eq 0}">
+	
 	<tr class="fw-light">
 		<td>${myRecipeComment.userNick}</td>
+		<td style="display: none;">${myRecipeComment.myRipCommNo}</td>
 		<td></td>
 		<td class="text-end">
 			<c:if test="${ myRecipeComment.userNick eq userNick}">
-				<button class="btn_cUpdate" style=" border: 0;  background-color: transparent;">수정</button>|
-				<button class="btn_cDelete" style=" border: 0;  background-color: transparent;">삭제</button>
+				<button class="btn_cUpdate" style=" border: 0;  background-color: transparent;" onclick="openEditModal('${myRecipeComment.myRipCommNo}', '${myRecipeComment.myRipCommCont}')"><small>수정</small></button>|
+				<button class="btn_cDelete" style=" border: 0;  background-color: transparent;"><small>삭제</small></button>
+				<div style="display: none;">${myRecipeComment.myRipCommNo}</div>
 			</c:if>
 		<fmt:formatDate value="${myRecipeComment.commentDate }" pattern="yyyy년 MM월 dd일"/>
 		</td>
 	</tr>
+	
 	<tr class="fw-normal">
 		<td colspan="2">${myRecipeComment.myRipCommCont }</td>
 		<td class="text-end">
-			<button  class="btn_reply_reply btn btn-outline-primary">답글달기</button>
+			<button  class="btn_reply btn ">답글달기</button>
 		</td>
 	</tr>
+	
 	<tr>
 		<td colspan="3"><hr></td>
 	</tr>
+	
 	</c:if>
 	
 		<c:forEach var="reply" items="${myRecipeCommentList }">
 		<c:if test="${myRecipeComment.myRipCommNo eq reply.myRipCommTag }">		
+		
 		<tr class="fw-light">
-			<td>➥</td>
+			<td style="display: none;">${reply.userNick}</td>
+			<td style="display: none;">${myRecipeComment.myRipCommNo}</td>
+			<td style="font-size: x-large;">ㄴ</td>
 			<td>${reply.userNick} ⭢ ${reply.myRipCommNickTag}</td>
 			<td class="text-end">
 				<c:if test="${ reply.userNick eq userNick}">
-					<button class="btn_cUpdate" style=" border: 0;  background-color: transparent;">수정</button>|
-					<button class="btn_cDelete" style=" border: 0;  background-color: transparent;">삭제</button>
+					<button class="btn_cUpdate_reply" style=" border: 0;  background-color: transparent;" onclick="openEditModal('${reply.myRipCommNo}', '${reply.myRipCommCont}')"><small>수정</small></button>|
+					<button class="btn_cDelete" style=" border: 0;  background-color: transparent;"><small>삭제</small></button>
+					<div style="display: none;">${reply.myRipCommNo}</div>
 				</c:if>
 			<fmt:formatDate value="${reply.commentDate }" pattern="yyyy년 MM월 dd일"/>
 			</td>
 		</tr>
+		
 		<tr class="fw-normal">
 			<td></td>
 			<td colspan="1">${reply.myRipCommCont }</td>
 			<td class="text-end">
-				<button  class="btn_reply_reply btn btn-outline-primary">답글달기</button>
+				<button  class="btn_reply_reply btn ">답글달기</button>
 			</td>
 		</tr>
+		
 		<tr>
 			<td colspan="3"><hr></td>
 		</tr>
-		</c:if>
 		
+		</c:if>
 		</c:forEach>
 	
 	</c:forEach>
@@ -519,8 +625,8 @@ function clip(){
 </div>
 
 <div class="input-group mb-3">
-<textarea   class="form-control" aria-label="With textarea"></textarea>
-<button id="btn_writeComment"  class="input-group-text btn btn-outline-primary">댓글작성</button>
+<textarea  id="comment" class="form-control" aria-label="With textarea"></textarea>
+<button id="btn_writeComment"  class="input-group-text btn ">댓글작성</button>
 </div>
 
 </div><!-- content -->

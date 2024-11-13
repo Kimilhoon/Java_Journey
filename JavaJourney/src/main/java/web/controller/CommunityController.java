@@ -298,6 +298,12 @@ public class CommunityController {
 		public void myRecipeCommentDelete(MyRecipeComment myRecipeComment) {
 			service.dropMyRecipeComment(myRecipeComment);
 		}
+		@PostMapping("/myrecipe/commentupdate")
+		public String myRecipeCommentUpdate(MyRecipeComment myRecipeComment) {
+			service.changeMyRecipeComment(myRecipeComment);
+			
+			return "redirect: ./view?myRipNo="+myRecipeComment.getMyRipNo();
+		}
 		
 		@GetMapping("/myrecipe/reccheck")
 		public void myRecipeRecCheck(MyRecipe myRecipe, HttpSession session,HttpServletResponse resp) {

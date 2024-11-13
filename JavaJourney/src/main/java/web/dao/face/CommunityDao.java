@@ -361,6 +361,13 @@ public interface CommunityDao {
 	 */
 	public String selectBeanByBeanNo(int beanNo);
 	
+	/**
+	 * 나만의 레시피 댓글 수정
+	 * 
+	 * @param myRecipeComment - 댓글내용, 번호 있음
+	 */
+	public void updateMyRecipeCommentByCommentNo(MyRecipeComment myRecipeComment);
+	
 	
 	
 	
@@ -455,7 +462,6 @@ public interface CommunityDao {
 	
 
 	/**
-<<<<<<< HEAD
 	 * 나만의 레시피 글 작성시 파일 업로드
 	 * @param myRecipeFile
 	 */
@@ -565,6 +571,13 @@ public interface CommunityDao {
 	 * @param myRecipeComment - 댓글 번호
 	 */
 	public void deleteMyRecipeComment(MyRecipeComment myRecipeComment);
+	
+	/**
+	 * 나만의 레시피 답글 삭제
+	 * 
+	 * @param myRecipeComment - 댓글 번호
+	 */
+	public void deleteMyRecipeReply(MyRecipeComment myRecipeComment);
 	
 	/**
 	 * 나만의 레시피 추천 확인

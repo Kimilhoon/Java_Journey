@@ -519,6 +519,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void dropMyRecipeComment(MyRecipeComment myRecipeComment) {
 		dao.deleteMyRecipeComment(myRecipeComment);
+		dao.deleteMyRecipeReply(myRecipeComment);
 	}
 	
 	@Override
@@ -579,6 +580,12 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.deleteMyRecipByMyRipNo(myRecipe);
 		
 	}
+	
+	@Override
+	public void changeMyRecipeComment(MyRecipeComment myRecipeComment) {
+		dao.updateMyRecipeCommentByCommentNo(myRecipeComment);
+	}
+	
 	
 	
 	//------------------------------------------------------------------------------

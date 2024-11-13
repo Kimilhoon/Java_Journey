@@ -49,6 +49,16 @@ $(function() {
 })
 </script>
 <style>
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
+
 #search{
 	width: 300px;
 	float: right;
@@ -59,7 +69,7 @@ $(function() {
 <div class="container" >
 
 <div id="searchbox" class="d-flex justify-content-end align-items-center mb-3">
-<input type="text" id="search" class="form-control me-2 col-6" placeholder="검색어를 입력하세요"><button id="btn_search" class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
+<input type="text" id="search" class="form-control me-2 col-6" placeholder="검색어를 입력하세요"><button id="btn_search" class="btn "><i class="bi bi-search"></i></button>
 </div>
 <table class="table text-center">
 <thead>
@@ -103,7 +113,7 @@ $(function() {
 	</c:forEach>
 </tbody>
 </table>
-<a href="./write"><button class="btn btn-primary ms-2">작성</button></a>
+<a href="./write"><button class="btn  ms-2">작성</button></a>
 <div>
 <%-- 	<a href="./list?curPage=${paging.curPage-1  }&search=${search}&category=${category}">이전</a> --%>
 <%-- 	<a href="./list?curPage=${paging.curPage+1  }&search=${search}&category=${category}">다음</a> --%>
@@ -112,14 +122,14 @@ $(function() {
 	<!-- 첫 페이지로 이동 -->
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-item">
-			<a class="page-link" href="./list">&larr; 처음</a>
+			<a class="page-link" href="./list" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
 		</li>
 	</c:if>
 
 	<!-- 이전 페이징 리스트로 이동 -->
 	<c:if test="${paging.startPage ne 1 }">
 	<li class="page-item">
-		<a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }&search=${search}&category=${category}">&laquo;</a>
+		<a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }&search=${search}&category=${category}" style=" color: black; border: 1px solid #ebddcc;">&laquo;</a>
 	</li>
 	</c:if>
 
@@ -127,14 +137,14 @@ $(function() {
 	<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
 	
 		<c:if test="${paging.curPage eq i }">
-			<li class="page-item active">
-				<a class="page-link" href="./list?curPage=${i }&search=${search}&category=${category}">${i }</a>
+			<li class="page-item active" >
+				<a class="page-link" href="./list?curPage=${i }&search=${search}&category=${category}" style="background:#6f4e37; color: white; border: 1px solid #6f4e37;">${i }</a>
 			</li>
 		</c:if>
 		
 		<c:if test="${paging.curPage ne i }">
 			<li class="page-item">
-				<a class="page-link" href="./list?curPage=${i }&search=${search}&category=${category}">${i }</a>
+				<a class="page-link" href="./list?curPage=${i }&search=${search}&category=${category}" style=" color: black; border: 1px solid #ebddcc;">${i }</a>
 			</li>
 		</c:if>
 		
@@ -143,14 +153,14 @@ $(function() {
 	<!-- 다음 페이징 리스트로 이동 -->
 	<c:if test="${paging.endPage ne paging.totalPage }">
 	<li class="page-item">
-		<a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }&search=${search}&category=${category}">&raquo;</a>
+		<a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }&search=${search}&category=${category}" style=" color: black; border: 1px solid #ebddcc;">&raquo;</a>
 	</li>
 	</c:if>
 
 	<!-- 마지막 페이지로 이동 -->
 	<c:if test="${paging.curPage ne paging.totalPage }">
 		<li class="page-item">
-			<a class="page-link" href="./list?curPage=${paging.totalPage }&search=${search}&category=${category}">&rarr; 마지막</a>
+			<a class="page-link" href="./list?curPage=${paging.totalPage }&search=${search}&category=${category}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&rarr; 마지막</a>
 		</li>
 	</c:if>
 </ul>
