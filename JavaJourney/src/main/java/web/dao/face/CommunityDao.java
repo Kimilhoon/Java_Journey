@@ -613,6 +613,13 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public int selectMyRecipeCommentCountByMyRipNo(MyRecipe myRecipe);
+
+	/**
+	 * 카페 리뷰 댓글 수정
+	 * 
+	 * @param cafeRevComm - 수정할 리뷰 번호와 리뷰 본문
+	 */
+	public void updateCafeReviewComm(CafeRevComm cafeRevComm);
 	
 }
 
