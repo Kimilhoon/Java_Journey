@@ -1,5 +1,6 @@
 package web.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +13,7 @@ import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.util.Paging;
 
 @Mapper
 public interface MypageDao {
@@ -122,6 +124,14 @@ public interface MypageDao {
 	 * @return
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+
+	/**
+	 * 회원번호에 해당하는 회원 지우기
+	 * @param member
+	 */
+	public void deleteMemberByUserNo(Integer userNo);
+
+
 	
 	
 	
