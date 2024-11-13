@@ -28,6 +28,7 @@ import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.service.face.MypageService;
 
@@ -42,7 +43,13 @@ public class MypageController {
 	//----------------------------------------------------------------------------
 	//jinjaeyoung
 	@GetMapping("/quizres")
-	public void quizresForm() {}
+	public void quizresForm(
+			MemberQuizResult memberQuizResult,
+			Model model
+			) {
+//		List<MemberQuizResult> result = service.selectByUserNoQuizeResult();
+//		model.addAttribute("result",result);
+	}
 	
 	@GetMapping("/subscribe")
 	public void subscribeForm() {}
