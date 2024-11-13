@@ -14,7 +14,7 @@ $(function() {
 /* -------------------------------------------------------------------------------------------------------------- */
 	
 	$("#sub").click(function() {
-		location.href="./bean/sub";
+		location.href="./sub?beanNo=${beanInfo.beanNo}";
 	})
 
 	$(document).ready(function() {
@@ -133,6 +133,13 @@ $(function() {
 				
 	}); // $(document).ready(function() end
 	
+	$(".custom-image img").css({
+		width: "400px",
+		height: "560px",
+        objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
+        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
+		 
+	});
 	
 }) // $(function() end 
 </script>
@@ -142,13 +149,30 @@ $(function() {
 	width: 150px;
 }
 
+#imageDiv{
+	 width: 399px; 
+	 height: 559px;
+}
+
 #beanMenu.fixed{
 	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100%;
 	background: white;
+	
 }
+
+#beanComm p{
+	width: 840px;
+	height: 300px;
+}
+
+.custom-imgae{
+	margin-right: 5px;
+}
+
+
 
 /* 기본 스타일 */
 /*  #beanMenu {  */
@@ -175,27 +199,35 @@ $(function() {
 <h1>원두 상세보기</h1>
 </div>
 
-<div id="commbean" class="d-flex mb-3">
-<div id="image" style="flex-shrink: 0; width: 400px; height: 550px; object-fit: container;" class="img-thumbnail" >
-${ beanInfo.beanOriginName }
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./best">best</a></li>
+		<li class="breadcrumb-item"><a href="./all">bean</a></li>
+		<li class="breadcrumb-item active" aria-current="page">info</li>
+	</ol>
+</nav>
+
+<div id="commbean" class="d-flex mb-3 grid gap-0 column-gap-5">
+<div id="imageDiv" style="flex-shrink: 0;">
+<div class="custom-image">${ beanInfo.beanOriginName }</div>
 </div>
 
 <div id="explain" class="p-2">
-<div>
+<div id="beanName">
 <p class="fw-bold fs-1">${ beanInfo.beanName }</p>
 </div>
 
-<div class="mb-2">
-<p>${ beanInfo.origin }</p>
+<div id="origin" class="mb-2">
+<p class="fw-bold fs-4">${ beanInfo.origin }</p>
 </div>
 
-<div>
-<p style="height: 300px;">${ beanInfo.beanComm }</p>
+<div id="beanComm">
+<p>${ beanInfo.beanComm }</p>
 <!-- <p>다아한 탱산뎌언인은 헐즛구에해의 로렘입숨 테스트 데이터 잘 보고 갑니다 ㅎㅎ 넘 ㅜ좋으네여 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를. </p> -->
 </div>
 
-<div>
-<table class="table p-2 text-center">
+<div id="starPoint">
+<table class="table table-borderless p-2 text-center">
 <tr>
 	<th>별점</th>
 	<td>
@@ -212,14 +244,14 @@ ${ beanInfo.beanOriginName }
 <!-- <dt>별점 : </dt> -->
 <!-- <dd> ★★★★★(5.0)</dd> -->
 <!-- </dl> -->
-</div>
+</div> <!-- <div id="starPoint"> -->
 
 <div id="btn" class="d-flex justify-content-center mt-auto">
 <button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
 <button type="button" id="sub" class="btn btn-secondary btn-lg m-2">구독</button>
 </div>
 
-</div>
+</div> <!-- <div id="explain" class="p-2"> -->
 </div> <!-- <div id="commbean" class="d-flex"> -->
 
 <!-- <div id="buttons" class="d-flex "> -->
@@ -307,7 +339,11 @@ ${ beanInfo.beanInfo }
 <c:forEach var="beanRev" items="${ list }">
 <tr>
 	<td class="text-center" style="width: 10%">${ beanRev.userNick }</td>
-	<td style="width: 60%">${ beanRev.revCont }</td>
+	<td style="width: 60%">
+		<a href="../comm/breview/view?revNo=${ beanRev.revNo }" class="link-dark link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+		${ beanRev.revCont }
+		</a>
+	</td>
 	<td class="text-center"  style="width: 15%">
 	<fmt:formatDate value="${ beanRev.revDate }" pattern="yyyy년 MM월 dd일" />
 	</td>

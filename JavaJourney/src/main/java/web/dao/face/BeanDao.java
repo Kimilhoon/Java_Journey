@@ -21,8 +21,16 @@ public interface BeanDao {
 	 * @return 베스트 원두
 	 */
 	public List<Bean> selectBeanTop();
+
 	
-	// /bean/all
+	/**
+	 * 총 원두 수 조회하기
+	 * 
+	 * @return 총 원두 수
+	 */
+	public Bean selectBeanCount();
+	
+	// /bean/best
 	// --------------------------------------------------------------------------------------
 
 	/**

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,13 @@ public class BeanController {
 		
 		List<Bean> list = service.getBeanTop();
 		
+		log.info("listbean: {}", list);
+		
 		model.addAttribute("list", list);
+		
+		Bean count = service.getBeanCount();
+		
+		model.addAttribute("count", count);
 		
 	} // BestBeanForm() end
 	
@@ -72,7 +79,7 @@ public class BeanController {
 //		log.info("param: {}", param);
 		Bean beanInfo = service.getBeanInfo( param );
 		
-//		log.info("beanInfo: {}", beanInfo);
+		log.info("beanInfo: {}", beanInfo);
 		
 		model.addAttribute("beanInfo", beanInfo);
 		
@@ -134,6 +141,18 @@ public class BeanController {
 	} // BeanInfoFormProc end
 
 	// /bean/info
+	// --------------------------------------------------------------------------------------
+	
+	@GetMapping("/sub")
+	public void BeanSub(Bean param, Model model) {
+		Bean bean = service.getBeanInfo(param);
+		log.info("bean: {}", bean);
+		
+		model.addAttribute("bean", bean);
+		
+	} // BeanSub(Bean param, Model model) end
+	
+	// /bean/sub
 	// --------------------------------------------------------------------------------------
 	
 } // class end
