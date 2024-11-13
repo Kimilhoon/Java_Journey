@@ -121,8 +121,8 @@ public class CommunityController {
 		
 		
 		@GetMapping("/freeboard/commentinsert")
-		public void freeBoardCommentInsert(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session) {
-			service.joinFreeBoardComment(freeBoard,freeBoardComment,session);
+		public void freeBoardCommentInsert(FreeBoardComment freeBoardComment, HttpSession session) {
+			service.joinFreeBoardComment(freeBoardComment,session);
 			
 		}
 		
@@ -161,6 +161,11 @@ public class CommunityController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		@GetMapping("/freeboard/commentupdate")
+		public void freeBoardCommentUpdate(FreeBoardComment freeBoardComment) {
+			service.changeFreeBoardComment(freeBoardComment);
 		}
 		
 		// 공지사항 --------------------------------------------------------------------------
@@ -255,7 +260,7 @@ public class CommunityController {
 		public String myRecipeUpdateProc(  MyRecipe myRecipe, MultipartFile file) {
 			log.info("레시피레시피레시피레시피{}",myRecipe);
 			service.changeMyRecipe(myRecipe,file);
-			return "redirect:./list";
+			return "redirect:./view?myRipNo="+myRecipe.getMyRipNo();
 		}
 		
 		@GetMapping("/myrecipe/download")
@@ -292,6 +297,12 @@ public class CommunityController {
 		@GetMapping("/myrecipe/commentdelete")
 		public void myRecipeCommentDelete(MyRecipeComment myRecipeComment) {
 			service.dropMyRecipeComment(myRecipeComment);
+		}
+		@PostMapping("/myrecipe/commentupdate")
+		public String myRecipeCommentUpdate(MyRecipeComment myRecipeComment) {
+			service.changeMyRecipeComment(myRecipeComment);
+			
+			return "redirect: ./view?myRipNo="+myRecipeComment.getMyRipNo();
 		}
 		
 		@GetMapping("/myrecipe/reccheck")
@@ -610,11 +621,6 @@ public class CommunityController {
 		
 		return "redirect: ./view?revNo=" + beanRev.getRevNo();
 	}
-	
-	
-	
-	
-	
 	
 	
 	

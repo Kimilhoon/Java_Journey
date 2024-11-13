@@ -159,13 +159,20 @@ public interface CommunityService {
 	 * @param freeBoardComment - 댓글 내용
 	 * @param session - 유저
 	 */
-	public void joinFreeBoardComment(FreeBoard freeBoard,FreeBoardComment freeBoardComment, HttpSession session);
+	public void joinFreeBoardComment(FreeBoardComment freeBoardComment, HttpSession session);
 	
 	/**
 	 * 댓글번호로 댓글 삭제
 	 * @param freeBoardComment - 댓글번호 있는 객체
 	 */
 	public void dropFreeBoardComment(FreeBoardComment freeBoardComment);
+	
+	/**
+	 * 자유게시판 댓글 수정
+	 * 
+	 * @param freeBoardComment - 내용,글번호
+	 */
+	public void changeFreeBoardComment(FreeBoardComment freeBoardComment);
 	
 	/**
 	 * 보드 인서트
@@ -510,6 +517,12 @@ public interface CommunityService {
 	 * @param cafeRevCommCont - 수정할 댓글 내용
 	 */
 	public void changeCafeReviewComment(CafeRevComm cafeRevComm);
+	
+	/**
+	 * 나만의 레시피 댓글 수정
+	 * @param myRecipeComment - 댓글 번호, 댓글 내용 
+	 */
+	public void changeMyRecipeComment(MyRecipeComment myRecipeComment);
 	
 	
 }

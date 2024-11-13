@@ -11,8 +11,9 @@ public class FreeBoardComment {
 	private int freeBoardNo;
 	private int userNo;
 	private String commentContent;
-	private int commentTag;
 	private String userNick;
 	private Date commentDate;
+	private String freeBoardCommNickTag;
+	private int freeBoardCommTag;
 	
 } // class end 
