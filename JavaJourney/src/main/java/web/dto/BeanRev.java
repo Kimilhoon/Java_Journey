@@ -8,6 +8,9 @@ public class BeanRev {
 //	
 	private int revNo;
 	private int beanNo;
+	private String beanName;
+	private int cupNoteNo;
+	private String cupNoteName;
 	private int subNo;
 	private int userNo;
 	private String revCont;

@@ -207,6 +207,13 @@ public interface CommunityDao {
 	public void insertFreeBoardComment(FreeBoardComment freeBoardComment);
 	
 	/**
+	 * 자유게시판 댓글 수정
+	 * 
+	 * @param freeBoardComment
+	 */
+	public void updateFreeBoardCommentByCommentNo(FreeBoardComment freeBoardComment);
+	
+	/**
 	 * 유저아이디로 멤버 객체 받기
 	 * 
 	 * @param userId
@@ -362,66 +369,12 @@ public interface CommunityDao {
 	 */
 	public String selectBeanByBeanNo(int beanNo);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * 나만의 레시피 댓글 수정
+	 * 
+	 * @param myRecipeComment - 댓글내용, 번호 있음
+	 */
+	public void updateMyRecipeCommentByCommentNo(MyRecipeComment myRecipeComment);
 	
 	
 	
@@ -489,8 +442,6 @@ public interface CommunityDao {
 	 * @return 불러온 카페 리뷰 번호
 	 */
 	public List<Integer> getCafeRevNos();
-
-
 
 	
 	/**
@@ -567,6 +518,13 @@ public interface CommunityDao {
 	public void deleteMyRecipeComment(MyRecipeComment myRecipeComment);
 	
 	/**
+	 * 나만의 레시피 답글 삭제
+	 * 
+	 * @param myRecipeComment - 댓글 번호
+	 */
+	public void deleteMyRecipeReply(MyRecipeComment myRecipeComment);
+	
+	/**
 	 * 나만의 레시피 추천 확인
 	 * 
 	 * @param myRecipeRecommend
@@ -613,6 +571,13 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public int selectMyRecipeCommentCountByMyRipNo(MyRecipe myRecipe);
+
+	/**
+	 * 카페 리뷰 댓글 수정
+	 * 
+	 * @param cafeRevComm - 수정할 리뷰 번호와 리뷰 본문
+	 */
+	public void updateCafeReviewComm(CafeRevComm cafeRevComm);
 	
 }
 
