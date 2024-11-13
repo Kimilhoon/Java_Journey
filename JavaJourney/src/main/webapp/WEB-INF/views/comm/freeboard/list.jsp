@@ -138,7 +138,7 @@ a {
 </div>
 <div >
 <!-- <a href="./list"><button class="btn">목록</button></a> -->
-<a href="./write"><button class="btn">작성</button></a>
+<a href="./write"><button class="btn">글쓰기</button></a>
 </div>
 
 <div>

@@ -116,7 +116,7 @@ a {
 	</c:forEach>
 </tbody>
 </table>
-<a href="./write"><button class="btn  ms-2">작성</button></a>
+<a href="./write"><button class="btn  ms-2">글쓰기</button></a>
 <div>
 <%-- 	<a href="./list?curPage=${paging.curPage-1  }&search=${search}&category=${category}">이전</a> --%>
 <%-- 	<a href="./list?curPage=${paging.curPage+1  }&search=${search}&category=${category}">다음</a> --%>
