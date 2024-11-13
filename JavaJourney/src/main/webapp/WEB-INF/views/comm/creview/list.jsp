@@ -8,7 +8,27 @@
 <c:import url="../../layout/header.jsp" />
 
 <style>
-	
+
+input:focus {
+    outline: none;  /* 기본 파란색 테두리 제거 */
+    box-shadow: 0 0 5px #6f4e37;  /* 원하는 색상으로 그림자 설정 */
+    border-color: #6f4e37;  /* 테두리 색상 변경 (선택 사항) */
+}
+
+a {
+	color: #6f4e37;
+}
+
+.btn{
+   background: transparent;
+   border: 1px solid #6f4e37;
+   color: black;
+}
+.btn:hover{
+   background: #6f4e37;
+   color: white;
+}
+
 </style>
 
 <script type="text/javascript">

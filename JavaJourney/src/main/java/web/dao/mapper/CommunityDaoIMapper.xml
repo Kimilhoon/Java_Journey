@@ -571,6 +571,20 @@
 		WHERE myripcommno = #{myRipCommNo}
 	</update>
 	
+	<delete id="deleteCafeReviewCommByCafeRevCommNo" parameterType="CafeRevComm">
+		DELETE caferevcomm
+		<where>
+			AND caferevcommno = #{cafeRevCommNo }
+		</where>
+	</delete>
+	
+	<update id="updateCafeReviewComm" parameterType="CafeRevComm">
+		UPDATE caferevcomm
+		SET cafecommcont = #{cafeCommCont }
+		<where>
+			caferevcommno = #{cafeRevCommNo }
+		</where>
+	</update>
 	
 </mapper>
 

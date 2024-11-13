@@ -503,6 +503,20 @@ public interface CommunityService {
 	 * @param myRecipe - 나만의 레시피 글 번호
 	 */
 	public void dropMyRecipe(MyRecipe myRecipe);
+
+	/**
+	 * 댓글 삭제
+	 * 
+	 * @param caferevcommno - 삭제할 댓글 번호
+	 */
+	public void dropCafeReviewComment(CafeRevComm caferevcommno);
+
+	/**
+	 * 카페 리뷰 댓글 수정
+	 * 
+	 * @param cafeRevCommCont - 수정할 댓글 내용
+	 */
+	public void changeCafeReviewComment(CafeRevComm cafeRevComm);
 	
 	/**
 	 * 나만의 레시피 댓글 수정

@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -32,7 +31,6 @@ import web.dto.FreeBoard;
 import web.dto.FreeBoardComment;
 import web.dto.Grind;
 import web.dto.Member;
-import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.dto.MyRecipeComment;
 import web.dto.MyRecipeFile;
@@ -400,13 +398,9 @@ public class CommunityController {
 		//해당 리뷰의 해당하는 카페의 사업자번호
 		String cafeBN = service.getBusinessNoFromCafeReviewNo(revNo);
 		
-		//로그인한 유저와 카페의 사업자번호가 일치하면 소유자 트루, 아님 폴스 반환
-		if( userBN == cafeBN ) {
-			model.addAttribute("isOwner", true);
-		} else {
-			model.addAttribute("isOwner", false);
-		}
-
+		model.addAttribute("userBN", userBN);
+		model.addAttribute("cafeBN", cafeBN);
+		
         // 이전, 다음 게시글 revNo 조회
         Map<String, Integer> prevNextRevNos = service.getPrevNextRevNos(revNo);
 
@@ -432,6 +426,21 @@ public class CommunityController {
 		service.writeCafeReviewComm(revNo, cafeCommCont, userId);
 		
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
+	}
+	
+	@RequestMapping("/creview/comm/update")
+	public void cafeReviewCommUpdate(CafeRevComm cafeRevComm) {
+		
+    	service.changeCafeReviewComment(cafeRevComm);
+    	
+	}
+	
+	@RequestMapping("/creview/comm/delete")
+	public String cafeReviewCommDelete(CafeRevComm cafeRevCommNo, CafeRev revNo) {
+		
+		service.dropCafeReviewComment(cafeRevCommNo);
+		
+		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
 	
 	@GetMapping("/creview/write")

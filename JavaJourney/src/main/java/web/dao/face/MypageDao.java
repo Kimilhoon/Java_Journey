@@ -3,10 +3,15 @@ package web.dao.face;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import web.dto.BeanRev;
 import web.dto.BeanWish;
+import web.dto.CafeRev;
 import web.dto.CafeWish;
+import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MyRecipe;
 
 @Mapper
 public interface MypageDao {
@@ -77,11 +82,11 @@ public interface MypageDao {
 	public int selectByMemberNick(Member checkNickParam);
 	
 	/**
-	 * 유저가 찜한 카페 DB에서 조회하기
+	 * 유저가 찜한 카페 DB에서 조회하기(+검색어가 있다면 && 조회)
 	 * @param userNo 
 	 * @return
 	 */
-	List<CafeWish> selectByUserLikeCafe(int userNo);
+	List<CafeWish> selectByUserLikeCafe(@Param("userNo") int userNo,@Param("searchText") String searchText);
 	
 	/**
 	 * 유저가 찜한 원두 DB에서 조회하기
@@ -89,6 +94,35 @@ public interface MypageDao {
 	 * @return
 	 */
 	List<BeanWish> selectByUserLikeBean(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 카페리뷰글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<CafeRev> selectCafeRevByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 원두리뷰글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanRev> selectBeanRevByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 자유게시판글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<FreeBoard> selectFreeBoardByUserNo(int userNo);
+
+	/**
+	 * 유저번호에 해당하는 나만의레시피 글 보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+	
 	
 	
 	

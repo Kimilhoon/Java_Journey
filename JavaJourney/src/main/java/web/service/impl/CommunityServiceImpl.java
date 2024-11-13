@@ -787,6 +787,17 @@ public class CommunityServiceImpl implements CommunityService {
         return prevNextMap;
     }
 	
+    @Override
+    public void dropCafeReviewComment(CafeRevComm cafeRevCommNo) {
+    	
+    	dao.deleteCafeReviewCommByCafeRevCommNo(cafeRevCommNo);
+    }
+    
+    @Override
+    public void changeCafeReviewComment(CafeRevComm cafeRevComm) {
+    	
+    	dao.updateCafeReviewComm(cafeRevComm);
+    }
 
 	
 	
