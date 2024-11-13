@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <!-- footer내용 -->
 
+<style>
+a {
+	color: #6f4e37;
+}
+</style>
+
 <script>
   (function() {
     var w = window;

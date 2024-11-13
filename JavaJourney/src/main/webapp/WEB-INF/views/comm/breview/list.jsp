@@ -78,47 +78,47 @@ $(function() {
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '서울' }">
-				<option value="서울" selected="selected">서울</option>
+			<c:when test="${category eq '새콤' }">
+				<option value="새콤" selected="selected">새콤</option>
 			</c:when>
 			<c:otherwise>
-				<option value="서울">서울</option>
+				<option value="새콤">새콤</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '경기' }">
-				<option value="경기" selected="selected">경기</option>
+			<c:when test="${category eq '달콤' }">
+				<option value="달콤" selected="selected">달콤</option>
 			</c:when>
 			<c:otherwise>
-				<option value="경기">경기</option>
+				<option value="달콤">달콤</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '인천' }">
-				<option value="인천" selected="selected">인천</option>
+			<c:when test="${category eq '쌉쌀' }">
+				<option value="쌉쌀" selected="selected">쌉쌀</option>
 			</c:when>
 			<c:otherwise>
-				<option value="인천">인천</option>
+				<option value="쌉쌀">쌉쌀</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '부산' }">
-				<option value="부산" selected="selected">부산</option>
+			<c:when test="${category eq '고소' }">
+				<option value="고소" selected="selected">고소</option>
 			</c:when>
 			<c:otherwise>
-				<option value="부산">부산</option>
+				<option value="고소">고소</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '제주' }">
-				<option value="제주" selected="selected">제주</option>
+			<c:when test="${category eq '은은한' }">
+				<option value="은은한" selected="selected">은은한</option>
 			</c:when>
 			<c:otherwise>
-				<option value="제주">제주</option>
+				<option value="은은한">은은한</option>
 			</c:otherwise>
 		</c:choose>
 		
@@ -150,7 +150,7 @@ $(function() {
 <table class="table text-center">
 <tr>
 	<th class="col-1" scope="col">글번호</th>
-	<th class="col-1" scope="col">지역</th>
+	<th class="col-1" scope="col">맛과 향</th>
 	<th class="col-1" scope="col"></th>
 	<th class="col-4" scope="col">카페이름</th>
 	<th class="col-2" scope="col">작성자</th>
@@ -158,37 +158,52 @@ $(function() {
 	<th class="col-1" scope="col">별점</th>
 </tr>
 
-<c:forEach var="list" items="${creviewList }">
-	<tr>
-		<td class="col-1" scope="row">
-		
-			<jsp:useBean id="now" class="java.util.Date" />
-			<fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" /> 
-			<fmt:formatDate value="${list.revDate }" pattern="yyyyMMdd" var="wDate" /> 
+<c:forEach var="bList" items="${breviewList }">
+    <c:set var="cupNoteNames" value="" />
+    <c:forEach items="${bList }" var="list" varStatus="status">
+        <c:if test="${status.first }">
+            <tr>
+                <td class="col-1" scope="row">
+                    <jsp:useBean id="now" class="java.util.Date" />
+                    <fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" />
+                    <fmt:formatDate value="${list.revDate }" pattern="yyyyMMdd" var="wDate" />
+                    ${list.revNo }
+                </td>
+                <td class="col-1">
+        </c:if>
 
-			${list.revNo }
-		</td>
-	<td class="col-1">${list.cafeLoc }</td>
-	<td class="col-1">
-		<c:if test="${nowDate eq wDate }">
-			<span style="color: #fff; background: #fedcba; border-radius: 5px;
-			font-size: 14px; box-shadow: 1px 1px 3px #ddd">
-			&nbsp;New&nbsp;</span>
-		</c:if>
-	</td>
-	<td class="col-4">
-		<a href="./view?revNo=${list.revNo }">
-			${list.cafeName}
-		</a>
-		<c:if test="${list.cafeRevCommCount >= 1 }">
-			&nbsp;[${list.cafeRevCommCount }]
-		</c:if>
-	</td>
-	<td class="col-2">${list.userNick }</td>
-	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
-	<td class="col-1">${list.revsp }</td>
-	</tr>
+        <!-- Append unique cupNoteNames with comma if not already in the list -->
+        <c:if test="${not fn:contains(cupNoteNames, list.cupNoteName) }">
+            <c:set var="cupNoteNames" value="${cupNoteNames }${status.first ? '' : ', ' }${list.cupNoteName }" />
+        </c:if>
+
+        <c:if test="${status.last }">
+            ${cupNoteNames }
+                </td>
+                <td class="col-1">
+                    <c:if test="${nowDate eq wDate }">
+                        <span style="color: #fff; background: #fedcba; border-radius: 5px;
+                        font-size: 14px; box-shadow: 1px 1px 3px #ddd">
+                        &nbsp;New&nbsp;</span>
+                    </c:if>
+                </td>
+                <td class="col-4">
+                    <a href="./view?revNo=${list.revNo }">
+                        ${list.beanName }
+                    </a>
+                    <c:if test="${list.beanRevCommCount >= 1 }">
+                        &nbsp;[${list.beanRevCommCount }]
+                    </c:if>
+                </td>
+                <td class="col-2">${list.userNick }</td>
+                <td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
+                <td class="col-1">${list.revStarPoint }</td>
+            </tr>
+        </c:if>
+    </c:forEach>
 </c:forEach>
+
+
 
 </table>
 

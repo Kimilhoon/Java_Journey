@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -578,6 +579,30 @@ public interface CommunityDao {
 	 * @param cafeRevComm - 수정할 리뷰 번호와 리뷰 본문
 	 */
 	public void updateCafeReviewComm(CafeRevComm cafeRevComm);
+
+	/**
+	 * 원두 리뷰 리스트
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public List<BeanRev> selectBeanReview(HashMap<String, Object> param);
+
+	/**
+	 * 원두 리뷰 댓글 갯수 파악하기
+	 * 
+	 * @param b
+	 * @return
+	 */
+	public int getBeanReviewCommentCnt(BeanRev b);
+
+	/**
+	 * 원두리뷰전체갯수 갖고오기
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public int getBeanReviewTotalCnt(HashMap<String, String> map);
 	
 }
 

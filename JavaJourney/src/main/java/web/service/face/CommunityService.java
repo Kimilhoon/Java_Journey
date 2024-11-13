@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -523,6 +524,28 @@ public interface CommunityService {
 	 * @param myRecipeComment - 댓글 번호, 댓글 내용 
 	 */
 	public void changeMyRecipeComment(MyRecipeComment myRecipeComment);
+
+	/**
+	 * 원두 리뷰 리스트 불러오기
+	 * 
+	 * @param category
+	 * @param order
+	 * @param search
+	 * @param paging
+	 * @return
+	 */
+	public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging);
+
+	/**
+	 * 원두 리뷰 페이징
+	 * 
+	 * @param curPage
+	 * @param category
+	 * @param order
+	 * @param search
+	 * @return
+	 */
+	public Paging getBeanReviewPaging(Paging curPage, String category, String order, String search);
 	
 	
 }

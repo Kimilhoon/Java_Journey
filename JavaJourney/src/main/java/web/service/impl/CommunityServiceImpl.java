@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
 import web.dto.Bean;
+import web.dto.BeanRev;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -668,8 +669,6 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search) {
 		
-		//수정해야댐
-		
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
@@ -703,7 +702,7 @@ public class CommunityServiceImpl implements CommunityService {
 //		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
 	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
 
-		log.info("paging : {}", paging);
+//		log.info("paging : {}", paging);
 		
 		return paging;
 		
@@ -799,8 +798,75 @@ public class CommunityServiceImpl implements CommunityService {
     	dao.updateCafeReviewComm(cafeRevComm);
     }
 
+	//----------------------------------------------------------------------------
+    //    [ 원두 ]
+    //----------------------------------------------------------------------------
+    
+    @Override
+    public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging) {
+    	
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("category", category);
+		param.put("order", order);
+		param.put("search", search);
+		param.put("paging", paging);
+		
+		List<BeanRev> bList = dao.selectBeanReview(param);
+		
+		List<List<BeanRev>> list = new ArrayList<>();
+		
+		list.add(bList);
+		
+		for(BeanRev b : bList) {
+			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
+		}
+		
+		return list;
+		
+    }
 	
-	
+    @Override
+    public Paging getBeanReviewPaging(Paging curPage, String category, String order, String search) {
+    
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		
+		if(category == null || "".equals(category)||"all".equals(category)) {
+			category = "N";
+		}else if(category.equals("새콤")) {
+			category="새콤";
+		}else if(category.equals("달콤")) {
+			category="달콤";
+		}else if(category.equals("쌉쌀")) {
+			category="쌉쌀";
+		}else if(category.equals("고소")) {
+			category="고소";
+		}else if(category.equals("은은한")) {
+			category="은은한";
+		}
+		
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		map.put("category", category);
+
+		int totalCnt = dao.getBeanReviewTotalCnt(map);
+		
+//		log.info("totalCNT{}",totalCnt);
+		
+//		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
+
+//		log.info("paging : {}", paging);
+		
+		return paging;
+    
+    }
+    
 }
 
 
