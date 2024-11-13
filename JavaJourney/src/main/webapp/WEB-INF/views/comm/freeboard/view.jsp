@@ -52,7 +52,7 @@ $(function() {
 	$(".btn_cDelete").click(function() {
 		
 		$.ajax({
-			url: "./commentdelete?commentNo="+$(this).parent().prev().text(),
+			url: "./commentdelete?commentNo="+$(this).parent().prev().prev().prev().text(),
 			type: "get",
 			success: function() {
 				location.href=location.href
@@ -98,7 +98,99 @@ $(function() {
 	
 	
 	
-})
+	$(".btn_reply").click(function() {
+	
+		var content = '<tr>'
+		content += '<td colspan="2"><input type="text" class="reply_input"></td>';
+		content += '<td><button onclick="testsubmit(this)">작성</button></td>';
+		content += '</tr>';
+		
+		$(this).parent().parent().after(content);	
+		
+	});
+	$(".btn_reply_reply").click(function() {
+	
+		var content = '<tr>'
+		content += '<td colspan="2"><input type="text" class="reply_input"></td>';
+		content += '<td><button onclick="replysubmit(this)">작성</button></td>';
+		content += '</tr>';
+		
+		$(this).parent().parent().after(content);	
+		
+	});
+	
+	$(".btn_cUpdate").click(function() {
+		
+// 		console.log($(this).parent().parent().children().first().text());
+	})
+	
+	
+	
+})//jquery
+function testsubmit(e) { // 기본 댓글에 답글 달 경우
+	console.log("답글 작성");	
+	console.log($(e).parent().prev().children().first().val());	//답글 내용
+	console.log($(e).parent().parent().prev().children().first().next().text());//원댓글 작성자 닉
+	console.log($(e).parent().parent().prev().children().first().next().next().next().text());	//원댓글 번호
+	
+	var commentContent = $(e).parent().prev().children().first().val();
+	var freeBoardCommTag = $(e).parent().parent().prev().children().first().next().next().next().text()
+	var freeBoardCommNickTag = $(e).parent().parent().prev().children().first().next().text()
+	
+		
+		
+		$.ajax({
+			url: "./commentinsert?freeBoardNo="+${freeBoardView.freeBoardNo },
+			type: "get",
+			data:{
+				
+				"commentContent":commentContent,
+				"freeBoardCommTag":freeBoardCommTag,
+				"freeBoardCommNickTag":freeBoardCommNickTag
+			},
+			success: function() {
+				location.href=location.href
+			},
+			error: function() {
+				location.href=location.href
+				
+			}
+			
+		});
+	
+	
+} 
+function replysubmit(e) { // 답글에 답글 달 경우
+	
+	var commentContent = $(e).parent().prev().children().first().val();
+	var freeBoardCommTag = $(e).parent().parent().parent().children().first().children().first().next().next().next().text()
+	var freeBoardCommNickTag = $(e).parent().parent().prev().children().first().next().next().next().text()
+	
+		console.log(commentContent);
+		console.log(freeBoardCommTag);
+		console.log(freeBoardCommNickTag);
+		
+		$.ajax({
+			url: "./commentinsert?freeBoardNo="+${freeBoardView.freeBoardNo },
+			type: "get",
+			data:{
+				
+				"commentContent":commentContent,
+				"freeBoardCommTag":freeBoardCommTag,
+				"freeBoardCommNickTag":freeBoardCommNickTag
+			},
+			success: function() {
+				location.href=location.href
+			},
+			error: function() {
+				location.href=location.href
+				
+			}
+			
+		});
+	
+	
+} 
 </script>
 </head>
 <body>
@@ -118,6 +210,9 @@ $(function() {
 		<th>보드 작성자</th>
 		<th>보드 조회수</th>
 		<th>보드 작성일</th>
+		<th></th>
+		<th></th>
+		<th></th>
 	</tr>
 </thead>
 <tbody>
@@ -154,25 +249,65 @@ $(function() {
 		<th>댓글 작성자</th>
 		<th>댓글 작성일</th>
 		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
 	</tr>
 </thead>
 <tbody>
 	<c:forEach var="freeBoardComment" items="${freeBoardCommentList }">
-	<tr>
-		<td class="cno">${freeBoardComment.commentContent}</td>
-		<td>${freeBoardComment.userNick}</td>
-		<td><fmt:formatDate value="${freeBoardComment.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
-		<td style="display: none;">${freeBoardComment.commentNo }</td>
-		<td>
-			<c:if test="${ freeBoardComment.userNick eq userNick}">
-				<button class="btn_cDelete">삭제</button>
-			</c:if>
-		</td>
-	</tr>
+	<div class="comment_reply_wrap">
+		<c:if test="${freeBoardComment.freeBoardCommTag eq 0}">
+		<tr>
+			<td class="cno">${freeBoardComment.commentContent}</td>
+			<td>${freeBoardComment.userNick}</td>
+			<td><fmt:formatDate value="${freeBoardComment.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
+			<td style="display: none;">${freeBoardComment.commentNo }</td>
+			<td></td>
+			<td>
+				<c:if test="${ freeBoardComment.userNick eq userNick}">
+					<button class="btn_cUpdate">수정</button>
+				</c:if>
+			</td>
+			<td>
+				<c:if test="${ freeBoardComment.userNick eq userNick}">
+					<button class="btn_cDelete">삭제</button>
+				</c:if>
+			</td>
+			<td><button class="btn_reply">답글달기</button></td>
+			<td></td>
+		</tr>
+		</c:if>
+			<c:forEach var="reply" items="${freeBoardCommentList }">
+				<c:if test="${freeBoardComment.commentNo eq reply.freeBoardCommTag}">
+				<tr>
+					<td>➥</td>
+					<td>@${reply.freeBoardCommNickTag}</td>
+					<td class="cno">${reply.commentContent}</td>
+					<td>${reply.userNick}</td>
+					<td><fmt:formatDate value="${reply.commentDate }" pattern="yyyy년 MM월 dd일"/></td>
+					<td style="display: none;">${reply.commentNo }</td>
+					<td></td>
+					<td>
+						<c:if test="${ reply.userNick eq userNick}">
+							<button class="btn_cUpdate">수정</button>
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${ reply.userNick eq userNick}">
+							<button class="btn_cDelete">삭제</button>
+						</c:if>
+					</td>
+					<td><button class="btn_reply_reply">답글달기</button></td>
+				</tr>
+				</c:if>
+			</c:forEach>
+	</div>
 	</c:forEach>
 </tbody>
 </table>
 
 </div>
-</body>
-</html>
+<c:import url="/WEB-INF/views/layout/footer.jsp"/>

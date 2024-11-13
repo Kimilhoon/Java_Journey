@@ -143,6 +143,10 @@ form input[type="text"] {
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
+<<<<<<< HEAD
+    margin-right: 10px;
+=======
+>>>>>>> refs/remotes/origin/master
 }
 
 form button {
@@ -407,7 +411,7 @@ function clip(){
 
 </c:forEach>
 
-</table>
+</table >
 
 <c:if test="${cafeBN eq userBN }">
 
