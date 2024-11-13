@@ -9,6 +9,26 @@
 
 <style>
 
+input:focus, select:focus {
+    outline: none;  /* 기본 파란색 테두리 제거 */
+    box-shadow: 0 0 5px #6f4e37;  /* 원하는 색상으로 그림자 설정 */
+    border-color: #6f4e37;  /* 테두리 색상 변경 (선택 사항) */
+}
+
+.btn{
+   background: transparent;
+   border: 1px solid #6f4e37;
+   color: black;
+}
+.btn:hover{
+   background: #6f4e37;
+   color: white;
+}
+
+a {
+	color: #6f4e37;
+}
+
 #write-btn-div {
 	display: flex;
 }
@@ -222,7 +242,7 @@ button.btn-light:hover {
 	
 </style>
 
-<div style="padding-left: 200px; padding-right: 200px;">
+<div style="padding-left: 100px; padding-right: 100px; margin-bottom: 100px;">
 
 <script>
 
@@ -240,7 +260,30 @@ function closeModal() {
 
 // 수정 폼 제출
 function submitEditForm() {
-    document.getElementById("editCommentForm").submit();
+	
+	var content = $("#updatedComment").val();
+	
+		$.ajax({
+			type: "post"
+			, url: "./comm/update"
+			, data: {
+				cafeCommCont: content,
+				cafeRevCommNo: $("#cafeRevCommNo").val()
+				
+			}
+			, success: function( res ) {
+					
+				location.href = "./view?revNo=" + ${cafeRev.revNo };
+				
+			}
+			, error: function( res ) {
+				
+				location.href = "./view?revNo=" + ${cafeRev.revNo };
+				
+			}
+			
+		});
+		
 }
 
 function clip(){
@@ -268,16 +311,13 @@ function clip(){
                 <h4 class="modal-title">댓글 수정</h4>
             </div>
             <div class="modal-body">
-                <form id="editCommentForm" method="post" action="./comm/update">
-                    <input type="hidden" name="revNo" value="${cafeRev.revNo}">
-                    <input type="hidden" name="cafeRevCommNo" id="cafeRevCommNo">
-                    <label for="updatedComment">수정할 댓글 내용</label>
-                    <input type="text" class="form-control" id="updatedComment" name="cafeCommCont" required>
-                </form>
+               <input type="hidden" name="cafeRevCommNo" id="cafeRevCommNo">
+               <label for="updatedComment">수정할 댓글 내용</label>
+               <input type="text" class="form-control" id="updatedComment" name="cafeCommCont" required>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
-                <button type="submit" class="btn btn-primary" onclick="submitEditForm()">저장</button>
+                <button type="submit" class="btn btn-primary" onclick="submitEditForm()">수정</button>
             </div>
         </div>
     </div>
@@ -293,7 +333,11 @@ function clip(){
 <table class="table table-bordered">
 	<tr>
 		<td>카페명</td>
-		<td colspan="3">${cafeRev.cafeName }</td>
+		<td colspan="3">
+		<a href="/cafe/info?cafeNo=${cafeRev.cafeNo }">
+			${cafeRev.cafeName }
+		</a>
+		</td>
 		<td>작성자</td>
 		<td colspan="2">${writerNick }</td>
 	</tr>
@@ -312,12 +356,12 @@ function clip(){
 </div> <!-- table -->
 
 <div id="bottom" class="d-flex justify-content-between align-items-center">
-    <i class="bi bi-share" onclick="clip()" style="cursor: pointer"></i>
+    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37;"></i>
 
     <c:if test="${userId eq writerId }">
         <span>
-            <a href="./update?revNo=${cafeRev.revNo }">수정</a>
-            <a href="./delete?revNo=${cafeRev.revNo }">삭제</a>
+            <a href="./update?revNo=${cafeRev.revNo }" style="color: #6f4e37">수정</a>
+            <a href="./delete?revNo=${cafeRev.revNo }" style="color: #6f4e37">삭제</a>
         </span>
     </c:if>
 </div> <!-- bottom -->
@@ -339,12 +383,15 @@ function clip(){
 	<td class="text-end">
 	
 	<c:if test="${comm.userNick eq userNick}">
-	    <span class="comm-update" onclick="openEditModal('${comm.cafeRevCommNo}', '${comm.cafeCommCont}')">
+	    <span class="comm-update" onclick="openEditModal('${comm.cafeRevCommNo}', '${comm.cafeCommCont}')" style="color: #6f4e37;">
 	        <small>수정</small>
-	    </span> |
-	    <a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }">
-	        <span><small>삭제</small></span>
+	    </span>
+	    	<span style="color: #D8D8D8"> | </span>
+	    <span>
+	    <a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }" style="text-decoration: none; color: #6f4e37">
+	        <small>삭제</small>
 	    </a>
+	    </span>
 	    &nbsp;&nbsp;&nbsp;
 	</c:if>
 		
@@ -362,17 +409,21 @@ function clip(){
 
 </table>
 
-<form action="./comm?revNo=${cafeRev.revNo }" method="post">
+<c:if test="${cafeBN eq userBN }">
 
-<div id="write-btn-div">
+	<form action="./comm?revNo=${cafeRev.revNo }" method="post">
+	
+	<div id="write-btn-div">
+	
+	<label>
+	<input type="text" name="cafeCommCont">
+	</label>
+	<button id="write-btn" class="btn btn-primary">댓글작성</button>
+	</div>
+	
+	</form>
 
-<label>
-<input type="text" name="cafeCommCont">
-</label>
-<button id="write-btn" class="btn btn-primary">댓글작성</button>
-</div>
-
-</form>
+</c:if>
 
 </div>
 

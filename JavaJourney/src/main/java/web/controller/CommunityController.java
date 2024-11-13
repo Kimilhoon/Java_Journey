@@ -387,13 +387,9 @@ public class CommunityController {
 		//해당 리뷰의 해당하는 카페의 사업자번호
 		String cafeBN = service.getBusinessNoFromCafeReviewNo(revNo);
 		
-		//로그인한 유저와 카페의 사업자번호가 일치하면 소유자 트루, 아님 폴스 반환
-		if( userBN == cafeBN ) {
-			model.addAttribute("isOwner", true);
-		} else {
-			model.addAttribute("isOwner", false);
-		}
-
+		model.addAttribute("userBN", userBN);
+		model.addAttribute("cafeBN", cafeBN);
+		
         // 이전, 다음 게시글 revNo 조회
         Map<String, Integer> prevNextRevNos = service.getPrevNextRevNos(revNo);
 
@@ -421,21 +417,19 @@ public class CommunityController {
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
 	
+	@RequestMapping("/creview/comm/update")
+	public void cafeReviewCommUpdate(CafeRevComm cafeRevComm) {
+		
+    	service.changeCafeReviewComment(cafeRevComm);
+    	
+	}
+	
 	@RequestMapping("/creview/comm/delete")
-	public String cafeReviewCommdelete(CafeRevComm cafeRevCommNo, CafeRev revNo) {
+	public String cafeReviewCommDelete(CafeRevComm cafeRevCommNo, CafeRev revNo) {
 		
-		log.info("ㅇㄹ머ㅣ엄ㄹㅇ러ㅓㅣ멀아러ㅣㅁㅇ러미알: {}", cafeRevCommNo);
+		service.dropCafeReviewComment(cafeRevCommNo);
 		
-	    try {
-	    	service.dropCafeReviewComment(cafeRevCommNo);
-	    	
-	    	return "{\"result\":\"success\"}";  // JSON 형식으로 성공 응답 반환
-	    	
-	    } catch(Exception e) {
-	    	service.dropCafeReviewComment(cafeRevCommNo);
-	    	
-	    }
-	    return "redirect: ../view?revNo=" + revNo.getRevNo();
+		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
 	
 	@GetMapping("/creview/write")

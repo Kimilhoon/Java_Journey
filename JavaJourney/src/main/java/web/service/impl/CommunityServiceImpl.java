@@ -782,6 +782,12 @@ public class CommunityServiceImpl implements CommunityService {
     	
     	dao.deleteCafeReviewCommByCafeRevCommNo(cafeRevCommNo);
     }
+    
+    @Override
+    public void changeCafeReviewComment(CafeRevComm cafeRevComm) {
+    	
+    	dao.updateCafeReviewComm(cafeRevComm);
+    }
 
 	
 	
