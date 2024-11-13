@@ -7,11 +7,23 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.BeanWish;
 import web.dto.Member;
 
 @Mapper
 public interface BeanDao {
+	
+	/**
+	 * 베스트 3 원두 가져오기
+	 * 
+	 * @return 베스트 원두
+	 */
+	public List<Bean> selectBeanTop();
+	
+	// /bean/all
+	// --------------------------------------------------------------------------------------
 
 	/**
 	 * 총 게시글 수 조회
@@ -29,7 +41,7 @@ public interface BeanDao {
 	 * @return 필터링된 bean 리스트
 	 */
 	public List<Bean> selectAll(HashMap<String, Object> map);
-
+	
 	// /bean/all
 	// --------------------------------------------------------------------------------------
 
@@ -40,6 +52,14 @@ public interface BeanDao {
 	 * @return 원두 정보
 	 */
 	public Bean selectByBeanNo(Bean param);
+	
+	/**
+	 * 원두 번호를 전달 받아 원두 별점 평균 구하기
+	 * 
+	 * @param param - 원두 번호
+	 * @return 원두 평균 별점
+	 */
+	public BeanRev selectStarPoint(Bean param);
 
 
 	/**
@@ -49,6 +69,14 @@ public interface BeanDao {
 	 * @return 유저 넘버
 	 */
 	public Member selectByUserId(String userId);
+	
+	
+	/**
+	 * 모든 원두 리뷰 조회
+	 * 
+	 * @return 조회한 내용
+	 */
+	public List<BeanRev> selectAllRev(Bean param);
 
 
 	/**

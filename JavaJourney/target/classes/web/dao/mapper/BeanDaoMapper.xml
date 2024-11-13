@@ -5,11 +5,33 @@
     
 <mapper namespace="web.dao.face.BeanDao">
 	
+	<select id="selectBeanTop" resultType="Bean">
+		SELECT * FROM (
+			SELECT rowNum rNum, B.* FROM (
+				SELECT 
+					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo,
+					beanOriginname, beanStoredname, beanImgSize, bs.gram,
+					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount,
+					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint
+				FROM bean b
+				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo
+				ORDER BY reviewCount DESC
+			) B
+		)
+		WHERE rNum &lt;= 3
+	</select>
+	
+	<!-- /bean/all -->
+	<!-- ====================================================================================================== -->
+
 	<select id="selectCntAll" resultType="int" parameterType="hashmap">
 		SELECT count(*)
 		FROM bean b
+		<if test='cupnote != null and cupnote != "N"'>
 		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
     	LEFT JOIN cupnote c ON bt.cupNoteNo = c.cupNoteNo
+    	</if>
 		<where>
 			<if test='cupnote != null and cupnote != "N"'>
 			AND		c.cupNoteName = #{ cupnote }
@@ -29,7 +51,7 @@
 					beanComm, beanInfo, beanPrice, businessNo,
 					beanOriginname, beanStoredname, beanImgSize,
 <!-- 					c.cupNoteNo, c.cupNoteName, -->
-					(SELECT COUNT(bc.commNo) FROM beanrevComm bc WHERE bc.beanNo = b.beanNo) AS reviewCount
+					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount
 <!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
 <!-- 						FROM ( -->
 <!-- 							SELECT DISTINCT c.cupNoteName -->
@@ -40,7 +62,9 @@
 <!-- 					) AS cupNoteNames -->
 <!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
 				FROM bean b
+				<if test='cupnote != "N"'>
 				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+				</if>
 <!-- 				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo -->
 				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				<where>
@@ -64,14 +88,21 @@
 		SELECT 
 				b.beanNo, i.beanImgNo, beanName, origin, 
 				beanComm, beanInfo, beanPrice, businessNo,
-				beanOriginname, beanStoredname, beanImgSize,
-				br.revStarPoint
+				beanOriginname, beanStoredname, beanImgSize
 		FROM	bean b
-		LEFT JOIN beanRev br ON b.beanNo = br.beanNO
 		INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 		<where>
 		AND		b.beanNo = #{ beanNo }
 		</where>
+	</select>
+	
+	<select id="selectStarPoint" parameterType="Bean" resultType="BeanRev">
+		SELECT TRUNC(avg (revStarPoint) ) AS avgRevStarPoint, beanNo
+		FROM	beanRev
+		<where>
+		AND		beanNo = #{ beanNo }
+		</where>
+		GROUP BY beanNo
 	</select>
 	
 	<select id="selectByUserId" parameterType="String" resultType="Member">
@@ -79,6 +110,18 @@
 		FROM	member
 		<where>
 		AND		userId = #{ userId }
+		</where>
+	</select>
+	
+	<select id="selectAllRev" resultType="BeanRev" parameterType="Bean">
+		SELECT
+			revNo, b.beanNo, b.subNo, b.userNo, revCont, 
+			revHit, revDate, revStarPoint,
+			m.userNick
+		FROM beanRev b
+		LEFT JOIN member m ON b.userNo = m.userNo
+		<where>
+		AND		beanNo = ${ beanNo }
 		</where>
 	</select>
 

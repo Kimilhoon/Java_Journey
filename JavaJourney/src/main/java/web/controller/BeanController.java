@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
+import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
@@ -29,7 +31,12 @@ public class BeanController {
 	@Autowired private BeanService service;
 	
 	@GetMapping("/best")
-	public void BestBeanForm() {
+	public void BestBeanForm(Model model) {
+		
+		List<Bean> list = service.getBeanTop();
+		
+		model.addAttribute("list", list);
+		
 	} // BestBeanForm() end
 	
 	// /bean/best
@@ -39,15 +46,15 @@ public class BeanController {
 	public void AllBeanForm(Paging param, Model model, 
 			@RequestParam(required = false) String cupnote, 
 			@RequestParam(required = false) String keyword) {
-		log.info("cupnote: {}", cupnote);
-		log.info("keyword: {}", keyword);
+//		log.info("cupnote: {}", cupnote);
+//		log.info("keyword: {}", keyword);
 		
 		// 전달파라미터를 이용해서 현재 페이징 객체 알아내기
 		Paging paging = service.getPaging( param, cupnote, keyword );
-		log.info("paging : {}",paging);
+//		log.info("paging : {}",paging);
 		
 		List<Bean> list = service.getAllBean( paging, cupnote, keyword );
-		
+//		log.info("list: {}", list);
 
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
@@ -62,12 +69,18 @@ public class BeanController {
 	@GetMapping("/info")
 	public void BeanInfoForm(Bean param, Model model,
 			@SessionAttribute(value = "userId", required = false) String userId) {
-		log.info("param: {}", param);
+//		log.info("param: {}", param);
 		Bean beanInfo = service.getBeanInfo( param );
 		
-		log.info("beanInfo: {}", beanInfo);
+//		log.info("beanInfo: {}", beanInfo);
 		
 		model.addAttribute("beanInfo", beanInfo);
+		
+		// 평균 별점 구하기
+		BeanRev sp = service.getStarPoint(param);
+//		log.info("sp: {}", sp);
+		
+		model.addAttribute("starPoint", sp);
 		
 		if (userId == null) {
 	        // 세션에 userId가 없을 때 처리
@@ -76,8 +89,15 @@ public class BeanController {
 	    } // if (userId == null) end
 		
 		Member userNo = service.selectUserNoByUserId(userId);
-		log.info("userNo: {}", userNo.getUserNo());
+//		log.info("userNo: {}", userNo.getUserNo());
 		model.addAttribute("userNo", userNo.getUserNo());
+		
+		// 리뷰 보여주기
+		List<BeanRev> list = service.selectAllRev(param);
+		
+		log.info("list: {}", list);
+		
+		model.addAttribute("list", list);
 		
 	} // BeanInfoForm(Bean param) end
 	

@@ -14,5 +14,11 @@ public class BeanRev {
 	private int revHit;
 	private Date revDate;
 	private int revStarPoint;
+	
+	// 조인
+	private String userNick;
+	
+	// 별졈 평균
+	private int avgRevStarPoint;
 
 }

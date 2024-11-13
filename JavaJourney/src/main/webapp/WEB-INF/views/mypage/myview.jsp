@@ -58,7 +58,7 @@
 		</c:choose>			
 	</select>
 
-</div>
+</div> <!-- category-list -->
 
 <table>
 <tr>
@@ -67,14 +67,58 @@
 	<th class="col-1" scope="col">제목</th>
 	<th class="col-1" scope="col">작성일</th>
 </tr>
-<tr>
-	<td>카페</td>
-	<td>원두</td>
-</tr>
 
+<c:forEach var="myView" items="${myView}" varStatus="status">
+<tr>
+    <td>${status.index + 1}</td> <!-- 글번호 출력 -->
+ 
+    <td>테마 추후 추가</td>
+  
+    <td> <!-- 제목 -->
+        <c:choose>
+            <c:when test="${myView.type == 'CafeRev'}">
+               <a href="/comm/creview/view?revNo=${myView.data.revNo}">
+              	${myView.data.cafeName}
+                </a>
+            </c:when>
+            <c:when test="${myView.type == 'BeanRev'}">
+                <a href="/comm/breview/view?revNo=${myView.data.revNo}">
+                ${myView.data.beanName}
+                </a>
+            </c:when>
+            <c:when test="${myView.type == 'FreeBoard'}">
+                <a href="/comm/freeboard/view?freeBoardNo=${myView.data.freeBoardNo}">
+                ${myView.data.freeBoardTitle}
+                </a>
+            </c:when>
+            <c:when test="${myView.type == 'MyRecipe'}">
+            	<a href="/comm/myrecipe/view?myRipNo=${myView.data.myRipNo}">
+               	${myView.data.myRipTitle} 
+                </a>
+            </c:when>
+        </c:choose>
+    </td>
+   
+    <td> <!-- 작성일 출력 -->
+        <c:choose>
+            <c:when test="${myView.type == 'CafeRev'}">
+                <fmt:formatDate value="${myView.data.revDate}" pattern="yyyy-MM-dd"/>
+            </c:when>
+            <c:when test="${myView.type == 'BeanRev'}">
+                 <fmt:formatDate value="${myView.data.revDate}" pattern="yyyy-MM-dd"/>            
+            </c:when>
+            <c:when test="${myView.type == 'FreeBoard'}">
+                <fmt:formatDate value="${myView.data.freeBoardWriteDate}" pattern="yyyy-MM-dd"/>
+            </c:when>
+            <c:when test="${myView.type == 'MyRecipe'}">
+                <fmt:formatDate value="${myView.data.myRipWriteDate}" pattern="yyyy-MM-dd"/>
+            </c:when>
+        </c:choose>  		
+    </td>
+</tr>
+</c:forEach>
 
 </table>
-
 
 
 

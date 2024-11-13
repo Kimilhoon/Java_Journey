@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.MypageDao;
+import web.dto.BeanRev;
 import web.dto.BeanWish;
+import web.dto.CafeRev;
 import web.dto.CafeWish;
+import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MyRecipe;
 import web.service.face.MypageService;
 
 @Service
@@ -108,12 +112,36 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<CafeWish> selectByLikeCafe(int userNo) {
-		return dao.selectByUserLikeCafe(userNo);
+	public List<CafeWish> selectByLikeCafe(int userNo, String searchText) {
+		return dao.selectByUserLikeCafe(userNo, searchText);
 	}
 	
 	@Override
 	public List<BeanWish> selectByLikeBean(int userNo) {
 		return dao.selectByUserLikeBean(userNo);
 	}
+
+	@Override
+	public List<CafeRev> selectCafeRevByUserNo(int userNo) {
+		return dao.selectCafeRevByUserNo(userNo);
+	}
+
+
+	@Override
+	public List<BeanRev> selectBeanRevByUserNo(int userNo) {
+		return dao.selectBeanRevByUserNo(userNo);
+	}
+
+
+	@Override
+	public List<FreeBoard> selectFreeBoardByUserNo(int userNo) {
+		return dao.selectFreeBoardByUserNo(userNo);
+	}
+
+
+	@Override
+	public List<MyRecipe> selectMyRecipeByUserNo(int userNo) {
+		return dao.selectMyRecipeByUserNo(userNo);
+	}
+
 }
