@@ -12,6 +12,7 @@ import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.util.Paging;
 
 public interface MypageService {
 
@@ -128,6 +129,15 @@ public interface MypageService {
 	 * @return
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+
+	/**
+	 * 조건에 따른 페이징 객체 생성
+	 * @param curPage - 현재페이지 정보
+	 * @param category
+	 * @param search 
+	 * @return
+	 */
+	public Paging getMyViewPaging(Paging curPage, String category, String search);
 
 	
 	

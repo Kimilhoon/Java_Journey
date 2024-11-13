@@ -171,4 +171,13 @@
 		</where>
 		ORDER BY myRipNo DESC
 	</select>
+	
+	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM FREEBOARD
+		<where>
+			<if test='category != "N" '>
+				AND category = #{category}
+			</if>
+		</where>
+	</select>
 </mapper>

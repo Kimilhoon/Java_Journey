@@ -1,5 +1,6 @@
 package web.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -122,6 +123,14 @@ public interface MypageDao {
 	 * @return
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+
+
+	/**
+	 * 카테고리와 검색어로 필터링된 내가쓴글 리스트 수
+	 * @param map
+	 * @return
+	 */
+	public int getMyViewTotalCnt(HashMap<String, String> map);
 	
 	
 	

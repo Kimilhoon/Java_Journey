@@ -5,60 +5,29 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="../layout/header.jsp" />
 
+
 <h1>< 작성 글 확인 ></h1>
 <hr>
 
 
 <div id="category-list">
-카테고리
-	<select id="category">
-		<c:choose>
-			<c:when test="${category eq '전체' }">
-				<option value="all" selected="selected">전체</option>
-			</c:when>
-			<c:otherwise>
-				<option value="all">전체</option>
-			</c:otherwise>		
-		</c:choose>
-		
-		<c:choose>
-			<c:when test="${category eq '카페 리뷰' }">
-				<option value="카페 리뷰" selected="selected">카페 리뷰</option>
-			</c:when>
-			<c:otherwise>
-				<option value="카페 리뷰">카페 리뷰</option>
-			</c:otherwise>		
-		</c:choose>
-		
-		<c:choose>
-			<c:when test="${category eq '원두 리뷰' }">
-				<option value="원두 리뷰" selected="selected">원두 리뷰</option>
-			</c:when>
-			<c:otherwise>
-				<option value="원두 리뷰">원두 리뷰</option>
-			</c:otherwise>		
-		</c:choose>	
-		
-		<c:choose>
-			<c:when test="${category eq '자유게시판' }">
-				<option value="자유게시판" selected="selected">자유게시판</option>
-			</c:when>
-			<c:otherwise>
-				<option value="자유게시판">자유게시판</option>
-			</c:otherwise>		
-		</c:choose>
-	
-		<c:choose>
-			<c:when test="${category eq '나만의 레시피' }">
-				<option value="나만의 레시피" selected="selected">나만의 레시피</option>
-			</c:when>
-			<c:otherwise>
-				<option value="나만의 레시피">나만의 레시피</option>
-			</c:otherwise>		
-		</c:choose>			
-	</select>
+    <label>카테고리</label>
+    <select id="category" onchange="filterByCategory()">
+        <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
+        <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
+        <option value="원두리뷰" ${category == '원두리뷰' ? 'selected' : ''}>원두리뷰</option>
+        <option value="자유게시판" ${category == '자유게시판' ? 'selected' : ''}>자유게시판</option>
+        <option value="나만의레시피" ${category == '나만의레시피' ? 'selected' : ''}>나만의레시피</option>
+    </select>
+</div>
 
-</div> <!-- category-list -->
+<script>
+function filterByCategory() {
+    const selectedCategory = document.getElementById("category").value;
+    location.href = "/mypage/myview?userNo=" + ${userNo} + "&category=" + encodeURIComponent(selectedCategory);
+
+}
+</script>
 
 <table>
 <tr>
@@ -70,9 +39,24 @@
 
 <c:forEach var="myView" items="${myView}" varStatus="status">
 <tr>
-    <td>${status.index + 1}</td> <!-- 글번호 출력 -->
+    <td>${myView.rownum}</td> <!-- 글번호 출력 -->
  
-    <td>테마 추후 추가</td>
+    <td> <!-- 카테고리 -->
+        <c:choose>
+            <c:when test="${myView.type == 'CafeRev'}">
+              	카페리뷰
+            </c:when>
+            <c:when test="${myView.type == 'BeanRev'}">
+                원두리뷰
+            </c:when>
+            <c:when test="${myView.type == 'FreeBoard'}">
+               	자유게시판
+            </c:when>
+            <c:when test="${myView.type == 'MyRecipe'}">
+               	나만의레시피
+            </c:when>
+        </c:choose>		
+	</td>
   
     <td> <!-- 제목 -->
         <c:choose>
