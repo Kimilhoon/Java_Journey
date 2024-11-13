@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.Cafe;
 import web.service.face.BeanService;
@@ -31,10 +32,11 @@ public class MainController {
 //		log.info("cafeBestList : {}",cafeBestList);
 		
 //		List<BeanRev> beanBestList = beanservice.getBest();
+		List<Bean> list = beanservice.getBeanTop();
 //		log.info("beanBestList : {}",beanBestList);
 		
 //		model.addAttribute("cafeBestList",cafeBestList);
-//		model.addAttribute("beanBestList",beanBestList);
+		model.addAttribute("list", list);
 		
 	}
 	
