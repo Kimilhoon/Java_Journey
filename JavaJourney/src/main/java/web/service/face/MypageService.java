@@ -12,6 +12,7 @@ import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
 import web.dto.MyRecipe;
+import web.util.Paging;
 
 public interface MypageService {
 
@@ -128,6 +129,13 @@ public interface MypageService {
 	 * @return
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
+
+	/**
+	 * 세션에서 가져온 userNo에 맞는 회원 삭제
+	 * @param userNo
+	 */
+	public void leaveMember(Integer userNo);
+
 
 	
 	
