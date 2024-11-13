@@ -5,4 +5,14 @@
 
 <h1>나의 취향결과</h1> 
 
+
+<div class="container">
+	취향결과 1
+</div>
+
+
+
+
+
+
 <c:import url="../layout/footer.jsp"/>
