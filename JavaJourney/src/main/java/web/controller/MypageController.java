@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -259,6 +260,14 @@ public class MypageController {
         if ("카페리뷰".equals(category) || "전체".equals(category)) {
             List<CafeRev> cafeReview = service.selectCafeRevByUserNo(member.getUserNo());
             
+            // 검색어가 있으면 필터링  // trim=앞뒤공백제거, isEmpty=비어있는지확인
+            if (search != null && !search.trim().isEmpty()) {
+                cafeReview = cafeReview.stream() //stream=리스트에서 스트림 생성. 데이터의 흐름 처리. 하나씩 데이터를 꺼내어 차례대로 작업할 수 있게 해줌
+                                       .filter(rev -> rev.getCafeName().contains(search)) 
+                                       		// rev=카페리뷰객체하나. getCafeName()=카페이름 가져오기 contains=가져온이름에서 검색어 포함되어있는지확인
+                                       .collect(Collectors.toList());
+                							// 스트림에서 처리된 데이터를 리스트로 변환
+            }            
 	        for (CafeRev rev : cafeReview) {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("type", "CafeRev");
@@ -269,7 +278,13 @@ public class MypageController {
         
         if ("원두리뷰".equals(category) || "전체".equals(category)) {
             List<BeanRev> beanReview = service.selectBeanRevByUserNo(member.getUserNo());
-     
+ 
+            // 검색어가 있으면 필터링
+            if (search != null && !search.trim().isEmpty()) {
+                beanReview = beanReview.stream()
+                                       .filter(rev -> rev.getBeanName().contains(search)) // 제목 필터링 (원두 이름)
+                                       .collect(Collectors.toList());
+            }            
 	        for (BeanRev rev : beanReview) {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("type", "BeanRev");
@@ -280,7 +295,13 @@ public class MypageController {
         
         if ("자유게시판".equals(category) || "전체".equals(category)) {
             List<FreeBoard> freeboard = service.selectFreeBoardByUserNo(member.getUserNo());
-     
+          
+            // 검색어가 있으면 필터링
+            if (search != null && !search.trim().isEmpty()) {
+                freeboard = freeboard.stream()
+                                     .filter(rev -> rev.getFreeBoardTitle().contains(search)) // 제목 필터링 (게시글 제목)
+                                     .collect(Collectors.toList());
+            }    
 	        for (FreeBoard rev : freeboard) {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("type", "FreeBoard");
@@ -291,7 +312,13 @@ public class MypageController {
         
         if ("나만의레시피".equals(category) || "전체".equals(category)) {
             List<MyRecipe> myRecipe = service.selectMyRecipeByUserNo(member.getUserNo());
-
+           
+            // 검색어가 있으면 필터링
+            if (search != null && !search.trim().isEmpty()) {
+                myRecipe = myRecipe.stream()
+                                   .filter(rev -> rev.getMyRipTitle().contains(search)) // 제목 필터링 (레시피 제목)
+                                   .collect(Collectors.toList());
+            }
 	        for (MyRecipe rev : myRecipe) {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("type", "MyRecipe");
