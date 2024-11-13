@@ -14,6 +14,8 @@ public class Bean {
 	private String beanInfo;
 	private int beanPrice;
 	
+	private int beanCount;
+	
 	private String businessNo;	
 	
 	//beanImg join
