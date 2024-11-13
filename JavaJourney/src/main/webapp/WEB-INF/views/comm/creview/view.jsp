@@ -14,7 +14,7 @@
 }
 
 #write-btn {
-	margin: 0 auto;
+	width: 100px;
 }
 	
 /* 전체적인 레이아웃 여백 */
@@ -91,15 +91,6 @@ h1 {
     text-decoration: underline;
 }
 
-/* 댓글 영역 */
-#comment {
-    margin-top: 30px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    align-content: center;
-}
 
 #comment table {
     width: 100%;
@@ -127,12 +118,11 @@ form label {
 }
 
 form input[type="text"] {
-    width: calc(100% - 40px);
+    width: calc(100% - 20px);
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
-    margin-right: 10px;
 }
 
 form button {
@@ -199,7 +189,6 @@ button.btn-light:hover {
     }
 }
 	
-/* 모달 기본 스타일 */
 .modal {
     display: none;
     position: fixed;
@@ -237,6 +226,22 @@ button.btn-light:hover {
 
 <script>
 
+//모달 열기
+function openEditModal(commentNo, content) {
+    document.getElementById("cafeRevCommNo").value = commentNo;
+    document.getElementById("updatedComment").value = content;
+    document.getElementById("editCommentModal").style.display = "flex";
+}
+
+// 모달 닫기
+function closeModal() {
+    document.getElementById("editCommentModal").style.display = "none";
+}
+
+// 수정 폼 제출
+function submitEditForm() {
+    document.getElementById("editCommentForm").submit();
+}
 
 function clip(){
 	
@@ -253,6 +258,31 @@ function clip(){
 }
 
 </script>
+
+
+<!-- 댓글 수정 모달 -->
+<div class="modal" id="editCommentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">댓글 수정</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editCommentForm" method="post" action="./comm/update">
+                    <input type="hidden" name="revNo" value="${cafeRev.revNo}">
+                    <input type="hidden" name="cafeRevCommNo" id="cafeRevCommNo">
+                    <label for="updatedComment">수정할 댓글 내용</label>
+                    <input type="text" class="form-control" id="updatedComment" name="cafeCommCont" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
+                <button type="submit" class="btn btn-primary" onclick="submitEditForm()">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <h1>카페리뷰상세보기</h1>
 <br>
@@ -292,16 +322,11 @@ function clip(){
     </c:if>
 </div> <!-- bottom -->
 
-
-</div> <!-- 여백 -->
-
 <br>
 
 <div style="padding-left: 50px; padding-right: 50px;">
 
-<div id="comment">
-
-<table>
+<table style="width: -webkit-fill-available;">
 
 <tr>
 	<td colspan="2"><hr></td>
@@ -309,16 +334,19 @@ function clip(){
 
 <c:forEach var="comm" items="${crevcommList }">
 
-<tr class="fw-light">
+<tr class="fw-light ">
 	<td>${comm.userNick }</td>
 	<td class="text-end">
 	
-		<c:if test="${comm.userNick eq userNick }">
-			<span class="comm-update"><small>수정</small></span>
-			|
-			<a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }"><span class="comm-delete"><small>삭제</small></span></a>
-			&nbsp;&nbsp;&nbsp;
-		</c:if>
+	<c:if test="${comm.userNick eq userNick}">
+	    <span class="comm-update" onclick="openEditModal('${comm.cafeRevCommNo}', '${comm.cafeCommCont}')">
+	        <small>수정</small>
+	    </span> |
+	    <a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }">
+	        <span><small>삭제</small></span>
+	    </a>
+	    &nbsp;&nbsp;&nbsp;
+	</c:if>
 		
 		<fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
 	</td>
@@ -336,11 +364,11 @@ function clip(){
 
 <form action="./comm?revNo=${cafeRev.revNo }" method="post">
 
+<div id="write-btn-div">
+
 <label>
 <input type="text" name="cafeCommCont">
 </label>
-<br>
-<div id="write-btn-div">
 <button id="write-btn" class="btn btn-primary">댓글작성</button>
 </div>
 
@@ -367,6 +395,9 @@ function clip(){
 </div> <!-- content -->
 
 </div> <!-- 여백 -->
+
+
+
 
 <c:import url="../../layout/footer.jsp" />
 
