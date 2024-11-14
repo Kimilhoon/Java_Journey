@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
+import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -399,6 +401,8 @@ public class CommunityController {
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
 		
+		if( userBN == null )	userBN = "0";
+		
 		//해당 리뷰의 해당하는 카페의 사업자번호
 		String cafeBN = service.getBusinessNoFromCafeReviewNo(revNo);
 		
@@ -490,20 +494,155 @@ public class CommunityController {
 		
 		return "redirect: ./view?revNo=" + cafeRev.getRevNo();
 	}
+	
 
+	//--------------------------------------------------------------------------------------
+	//		[ 원두 ]
+	//--------------------------------------------------------------------------------------
+
+	@GetMapping("/breview/list")
+	public void beanReviewForm(Model model, String category, String order, String search, Paging curPage) {
+		
+		Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+
+		List<List<BeanRev>> breviewList = service.getBeanReviewList(category, order, search, paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("category", category);
+		model.addAttribute("order", order);
+		model.addAttribute("search", search);
+		model.addAttribute("breviewList", breviewList);
+		
+		log.info("breviewList: {}", breviewList);
+		
+	}
+	
+	@GetMapping("/breview/view")
+	public void beanReviewView(Model model, HttpSession session, BeanRev revNo) {
+		
+		//댓글 리스트
+		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
+		
+		//원두 상세 정보
+		List<List<BeanRev>> beanRev = service.getBeanReviewInfo(revNo);
+		
+		log.info("beanRev: {}", beanRev);
+		
+		//로그인한 유저id
+		String userId = (String) session.getAttribute("userId");	
+		
+		//작성한 유저id
+		String writerId = service.getWriterId(beanRev);
+		
+		//작성자 닉네임 불러오기
+		String writerNick = service.getwriterNick(writerId);
+		
+		//로그인한 유저의 사업자번호
+		String userBN = service.getBusinessNoFromMember(userId);
+		
+		//해당 리뷰의 해당하는 카페의 사업자번호
+		String beanBN = service.getBusinessNoFromBeanReviewNo(revNo);
+		
+		model.addAttribute("userBN", userBN);
+		model.addAttribute("beanBN", beanBN);
+		
+        // 이전, 다음 게시글 revNo 조회
+        Map<String, Integer> prevNextRevNos = service.getPrevNextRevNos(revNo);
+
+        // 모델에 데이터 추가
+        model.addAttribute("prevRevNo", prevNextRevNos.get("prevRevNo"));
+        model.addAttribute("nextRevNo", prevNextRevNos.get("nextRevNo"));
+		
+//		String commId = service.getCafeReviewCommentId();
+		
+		model.addAttribute("brevcommList", brevcommList);
+		model.addAttribute("beanRev", beanRev);
+		model.addAttribute("userId", userId);
+		model.addAttribute("writerId", writerId);
+		model.addAttribute("writerNick", writerNick);
+		
+	}
+	
+	@RequestMapping("/breview/comm")
+	public String beanReviewComm(Model model, CafeRev revNo, BeanRevComm commCont, HttpSession session) {
+		
+		String userId = (String) session.getAttribute("userId");
+		
+		service.writeBeanReviewComm(revNo, commCont, userId);
+		
+		return "redirect: ./view?revNo=" + revNo.getRevNo();
+	}
+	
+	@RequestMapping("/breview/comm/update")
+	public void beanReviewCommUpdate(BeanRevComm commCont) {
+		
+    	service.changeBeanReviewComment(commCont);
+    	
+	}
+	
+	@RequestMapping("/breview/comm/delete")
+	public String beanReviewCommDelete(BeanRevComm commNo, CafeRev revNo) {
+		
+		service.dropBeanReviewComment(commNo);
+		
+		return "redirect: ../view?revNo=" + revNo.getRevNo();
+	}
+	
+	@GetMapping("/breview/write")
+	public void beanReviewWrite(Model model, Bean beanNo) {
+		
+		String beanName = service.getBeanName(beanNo);
+		
+		model.addAttribute("beanName", beanName);
+		model.addAttribute("beanNo", beanNo);
+		
+	}
+	
+	@PostMapping("/breview/write")
+	public String beanReviewWriteProc(BeanRev beanRev, HttpSession session) {
+		
+		String userId = (String) session.getAttribute("userId");
+		int userNo = service.getUserNo(userId);
+		beanRev.setUserNo(userNo);
+		service.joinBeanReview(beanRev);
+		
+		return "redirect: ./list";
+	}
+	
+	@RequestMapping("/breview/delete")
+	public String beanReviewDelete(BeanRev beanRev) {
+		
+		service.dropBeanReview(beanRev);
+			
+		return "redirect: ./list";
+	}
+	
+	@GetMapping("/breview/update")
+	public void beanReviewUpdate(Model model, BeanRev beanNo) {
+		BeanRev BeanRev = service.getBeanReviewInfo(beanNo);
+		
+		model.addAttribute("BeanRev", BeanRev);
+	}
+	
+	@PostMapping("/breview/update")
+	public String beanReviewUpdateProc(BeanRev beanRev) {
+//		log.info("dddd{}",cafeRev);
+		service.changeBeanReview(beanRev);
+		
+		return "redirect: ./view?revNo=" + beanRev.getRevNo();
+	}
 	
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+
 	//---이벤트-event(jjy)-----------------------------------------
 	@GetMapping("/event/list")
 	public void eventForm(
@@ -557,7 +696,7 @@ public class CommunityController {
 	}
 	
 	
-	
+
 	
 	
 	

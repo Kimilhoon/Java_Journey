@@ -18,6 +18,14 @@ public interface BeanService {
 	 * @return - 베스트 원두
 	 */
 	public List<Bean> getBeanTop();
+
+	
+	/**
+	 * 총 원두 수 조회하기
+	 * 
+	 * @return 총 원두의 수
+	 */
+	public Bean getBeanCount();
 	
 	// /bean/all
 	// --------------------------------------------------------------------------------------

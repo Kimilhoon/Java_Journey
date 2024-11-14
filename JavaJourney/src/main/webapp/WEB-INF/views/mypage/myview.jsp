@@ -5,74 +5,94 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="../layout/header.jsp" />
 
+
 <h1>< 작성 글 확인 ></h1>
 <hr>
 
-
 <div id="category-list">
-카테고리
-	<select id="category">
-		<c:choose>
-			<c:when test="${category eq '전체' }">
-				<option value="all" selected="selected">전체</option>
-			</c:when>
-			<c:otherwise>
-				<option value="all">전체</option>
-			</c:otherwise>		
-		</c:choose>
-		
-		<c:choose>
-			<c:when test="${category eq '카페 리뷰' }">
-				<option value="카페 리뷰" selected="selected">카페 리뷰</option>
-			</c:when>
-			<c:otherwise>
-				<option value="카페 리뷰">카페 리뷰</option>
-			</c:otherwise>		
-		</c:choose>
-		
-		<c:choose>
-			<c:when test="${category eq '원두 리뷰' }">
-				<option value="원두 리뷰" selected="selected">원두 리뷰</option>
-			</c:when>
-			<c:otherwise>
-				<option value="원두 리뷰">원두 리뷰</option>
-			</c:otherwise>		
-		</c:choose>	
-		
-		<c:choose>
-			<c:when test="${category eq '자유게시판' }">
-				<option value="자유게시판" selected="selected">자유게시판</option>
-			</c:when>
-			<c:otherwise>
-				<option value="자유게시판">자유게시판</option>
-			</c:otherwise>		
-		</c:choose>
-	
-		<c:choose>
-			<c:when test="${category eq '나만의 레시피' }">
-				<option value="나만의 레시피" selected="selected">나만의 레시피</option>
-			</c:when>
-			<c:otherwise>
-				<option value="나만의 레시피">나만의 레시피</option>
-			</c:otherwise>		
-		</c:choose>			
-	</select>
+    <label>카테고리</label>
+    <select id="category" onchange="filterByCategory()">
+        <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
+        <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
+        <option value="원두리뷰" ${category == '원두리뷰' ? 'selected' : ''}>원두리뷰</option>
+        <option value="자유게시판" ${category == '자유게시판' ? 'selected' : ''}>자유게시판</option>
+        <option value="나만의레시피" ${category == '나만의레시피' ? 'selected' : ''}>나만의레시피</option>
+    </select>
+</div>
 
-</div> <!-- category-list -->
+<!-- <script>
+function filterByCategory() {
+    const selectedCategory = document.getElementById("category").value;
+    location.href = "/mypage/myview?userNo=" + ${userNo} + "&category=" + encodeURIComponent(selectedCategory);
+
+}
+</script> -->
+
+
+<div class="d-flex justify-content-end"> <!-- 오른쪽 끝 정렬이라는 뜻 -->
+    <div class="col-2">
+        <input id="searchText" class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
+    </div>
+    <button id="btnSearch" class="btn btn-primary">검색</button>
+</div>
+<script>
+
+function filterByCategory() {
+    const selectedCategory = document.getElementById("category").value || '전체';  // 카테고리가 선택되지 않으면 기본값 '전체'
+    const searchText = document.getElementById("searchText").value;  // 검색어를 가져옴
+    const currentSearch = searchText ? "&search=" + encodeURIComponent(searchText) : "";  // 검색어가 있을 때만 추가
+    location.href = "/mypage/myview?userNo=" + ${userNo} + "&category=" + encodeURIComponent(selectedCategory) + currentSearch;
+}
+
+// 검색 버튼 클릭 이벤트 처리
+document.getElementById("btnSearch").onclick = function() {
+    filterByCategory(); // 카테고리와 검색어를 함께 처리
+};
+
+//Enter key 이벤트로 검색 처리
+document.getElementById("searchText").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        filterByCategory();  // Enter 키를 누르면 검색 실행
+    }
+});
+
+// 페이지 로드 시, 카테고리 값이 없을 경우 '전체'로 처리
+onload = function() {
+    const category = document.getElementById("category").value || '전체';
+    document.getElementById("category").value = category;
+};
+</script>
+
+
 
 <table>
 <tr>
 	<th class="col-1" scope="col">글번호</th>
-	<th class="col-1" scope="col">테마</th>
+	<th class="col-1" scope="col">카테고리</th>
 	<th class="col-1" scope="col">제목</th>
 	<th class="col-1" scope="col">작성일</th>
 </tr>
 
 <c:forEach var="myView" items="${myView}" varStatus="status">
 <tr>
-    <td>${status.index + 1}</td> <!-- 글번호 출력 -->
+    <td>${myView.rownum}</td> <!-- 글번호 출력 -->
  
-    <td>테마 추후 추가</td>
+    <td> <!-- 카테고리 -->
+        <c:choose>
+            <c:when test="${myView.type == 'CafeRev'}">
+              	카페리뷰
+            </c:when>
+            <c:when test="${myView.type == 'BeanRev'}">
+                원두리뷰
+            </c:when>
+            <c:when test="${myView.type == 'FreeBoard'}">
+               	자유게시판
+            </c:when>
+            <c:when test="${myView.type == 'MyRecipe'}">
+               	나만의레시피
+            </c:when>
+        </c:choose>		
+	</td>
   
     <td> <!-- 제목 -->
         <c:choose>
@@ -80,21 +100,25 @@
                <a href="/comm/creview/view?revNo=${myView.data.revNo}">
               	${myView.data.cafeName}
                 </a>
+<%--                 [${myView.data.cafeRevCommentCount}] --%>
             </c:when>
             <c:when test="${myView.type == 'BeanRev'}">
                 <a href="/comm/breview/view?revNo=${myView.data.revNo}">
                 ${myView.data.beanName}
                 </a>
+<%--                 [${myView.data.beanRevCommentCount}]  --%>
             </c:when>
             <c:when test="${myView.type == 'FreeBoard'}">
                 <a href="/comm/freeboard/view?freeBoardNo=${myView.data.freeBoardNo}">
                 ${myView.data.freeBoardTitle}
                 </a>
+<%--                 [${myView.data.freeBoardCommentCount}]  --%>
             </c:when>
             <c:when test="${myView.type == 'MyRecipe'}">
             	<a href="/comm/myrecipe/view?myRipNo=${myView.data.myRipNo}">
                	${myView.data.myRipTitle} 
                 </a>
+<%--                 [${myView.data.myRecipeCommentCount}] --%>
             </c:when>
         </c:choose>
     </td>

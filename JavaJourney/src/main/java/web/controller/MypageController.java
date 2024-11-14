@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,8 +29,10 @@ import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.service.face.MypageService;
+import web.util.Paging;
 
 @Controller
 @RequestMapping("/mypage")
@@ -42,7 +45,13 @@ public class MypageController {
 	//----------------------------------------------------------------------------
 	//jinjaeyoung
 	@GetMapping("/quizres")
-	public void quizresForm() {}
+	public void quizresForm(
+			MemberQuizResult memberQuizResult,
+			Model model
+			) {
+//		List<MemberQuizResult> result = service.selectByUserNoQuizeResult();
+//		model.addAttribute("result",result);
+	}
 	
 	@GetMapping("/subscribe")
 	public void subscribeForm() {}
@@ -216,51 +225,108 @@ public class MypageController {
 		
 		return ResponseEntity.ok(checkNickResult);
 	}
+	
+	@RequestMapping("/out")
+	public String out(Member member, HttpSession session) {
+		
+		Integer userNo = (Integer) session.getAttribute("userNo");
+		service.leaveMember(userNo);
+		
+		session.invalidate();
+		
+		return "redirect:/main"; 
+	}
 
 		
 	@GetMapping("/myview")
-	public void view(Model model, HttpSession session, Member member, String category) {
+	public void view(Model model
+			, HttpSession session
+			, Member member
+			, @RequestParam(defaultValue = "전체") String category
+			, Paging paging
+			, String search) {
 		
-        List<CafeRev> cafeReview = service.selectCafeRevByUserNo(member.getUserNo());
-        List<BeanRev> beanReview = service.selectBeanRevByUserNo(member.getUserNo());
-        List<FreeBoard> freeboard = service.selectFreeBoardByUserNo(member.getUserNo());
-        List<MyRecipe> myRecipe = service.selectMyRecipeByUserNo(member.getUserNo());
-       
-//        List<Object> myView = new ArrayList<Object>();
-//        myView.addAll(cafeReview);
-//        myView.addAll(beanReview);
-//        myView.addAll(freeboard);
-//        myView.addAll(myRecipe);
+		
+        // 세션에서 userNo 가져오기
+        Integer userNo = (Integer) session.getAttribute("userNo");
+        
+        //페이징
+//        Paging paging = service.getMyViewPaging(paging);
+        
+        
+        
         
         List<Map<String, Object>> myView = new ArrayList<>();
 
         // 각 객체를 구분하고 'type' 필드를 추가하여 리스트에 넣음
-        for (CafeRev rev : cafeReview) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("type", "CafeRev");
-            map.put("data", rev);
-            myView.add(map);
+        if ("카페리뷰".equals(category) || "전체".equals(category)) {
+            List<CafeRev> cafeReview = service.selectCafeRevByUserNo(member.getUserNo());
+            
+            // 검색어가 있으면 필터링  // trim=앞뒤공백제거, isEmpty=비어있는지확인
+            if (search != null && !search.trim().isEmpty()) {
+                cafeReview = cafeReview.stream() //stream=리스트에서 스트림 생성. 데이터의 흐름 처리. 하나씩 데이터를 꺼내어 차례대로 작업할 수 있게 해줌
+                                       .filter(rev -> rev.getCafeName().contains(search)) 
+                                       		// rev=카페리뷰객체하나. getCafeName()=카페이름 가져오기 contains=가져온이름에서 검색어 포함되어있는지확인
+                                       .collect(Collectors.toList());
+                							// 스트림에서 처리된 데이터를 리스트로 변환
+            }            
+	        for (CafeRev rev : cafeReview) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("type", "CafeRev");
+	            map.put("data", rev);
+	            myView.add(map);
+	        }
         }
-
-        for (BeanRev rev : beanReview) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("type", "BeanRev");
-            map.put("data", rev);
-            myView.add(map);
+        
+        if ("원두리뷰".equals(category) || "전체".equals(category)) {
+            List<BeanRev> beanReview = service.selectBeanRevByUserNo(member.getUserNo());
+ 
+            // 검색어가 있으면 필터링
+            if (search != null && !search.trim().isEmpty()) {
+                beanReview = beanReview.stream()
+                                       .filter(rev -> rev.getBeanName().contains(search)) // 제목 필터링 (원두 이름)
+                                       .collect(Collectors.toList());
+            }            
+	        for (BeanRev rev : beanReview) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("type", "BeanRev");
+	            map.put("data", rev);
+	            myView.add(map);
+	        }
         }
-
-        for (FreeBoard rev : freeboard) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("type", "FreeBoard");
-            map.put("data", rev);
-            myView.add(map);
+        
+        if ("자유게시판".equals(category) || "전체".equals(category)) {
+            List<FreeBoard> freeboard = service.selectFreeBoardByUserNo(member.getUserNo());
+          
+            // 검색어가 있으면 필터링
+            if (search != null && !search.trim().isEmpty()) {
+                freeboard = freeboard.stream()
+                                     .filter(rev -> rev.getFreeBoardTitle().contains(search)) // 제목 필터링 (게시글 제목)
+                                     .collect(Collectors.toList());
+            }    
+	        for (FreeBoard rev : freeboard) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("type", "FreeBoard");
+	            map.put("data", rev);
+	            myView.add(map);
+	        }
         }
-
-        for (MyRecipe rev : myRecipe) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("type", "MyRecipe");
-            map.put("data", rev);
-            myView.add(map);
+        
+        if ("나만의레시피".equals(category) || "전체".equals(category)) {
+            List<MyRecipe> myRecipe = service.selectMyRecipeByUserNo(member.getUserNo());
+           
+            // 검색어가 있으면 필터링
+            if (search != null && !search.trim().isEmpty()) {
+                myRecipe = myRecipe.stream()
+                                   .filter(rev -> rev.getMyRipTitle().contains(search)) // 제목 필터링 (레시피 제목)
+                                   .collect(Collectors.toList());
+            }
+	        for (MyRecipe rev : myRecipe) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("type", "MyRecipe");
+	            map.put("data", rev);
+	            myView.add(map);
+	        }
         }
 
         
@@ -289,11 +355,21 @@ public class MypageController {
                 }
                 return null;
             }
-        });		
+        });	
         
+        //rownum역순으로 줘서 글번호 출력하기
+        for (int i = 0; i < myView.size(); i++) {
+            Map<String, Object> map = myView.get(i);
+            map.put("rownum", myView.size() - i);
+        }
+        
+   
+        
+//        model.addAttribute("paging", paging);
+        model.addAttribute("userNo", userNo);
         model.addAttribute("myView", myView);
-        model.addAttribute("count", myView.size());  // 게시글 수
         model.addAttribute("category", category);	
+        model.addAttribute("search", search);	
 	}	
 	
 	

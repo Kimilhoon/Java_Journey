@@ -29,7 +29,13 @@ public class BeanServiceImpl implements BeanService {
 		return dao.selectBeanTop();
 	} // getBeanTop() end
 
-	// /bean/all
+	
+	@Override
+	public Bean getBeanCount() {
+		return dao.selectBeanCount();
+	} // getBeanCount() end
+
+	// /bean/best
 	// --------------------------------------------------------------------------------------
 
 	@Override

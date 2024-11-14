@@ -22,7 +22,11 @@
 		WHERE rNum &lt;= 3
 	</select>
 	
-	<!-- /bean/all -->
+	<select id="selectBeanCount" resultType="Bean">
+		SELECT count(beanNo) as beanCount FROM bean
+	</select>
+	
+	<!-- /bean/best -->
 	<!-- ====================================================================================================== -->
 
 	<select id="selectCntAll" resultType="int" parameterType="hashmap">
@@ -30,7 +34,7 @@
 		FROM bean b
 		<if test='cupnote != null and cupnote != "N"'>
 		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
-    	LEFT JOIN cupnote c ON bt.cupNoteNo = c.cupNoteNo
+    	LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
     	</if>
 		<where>
 			<if test='cupnote != null and cupnote != "N"'>
@@ -50,7 +54,9 @@
 					b.beanNo, i.beanImgNo, beanName, origin, 
 					beanComm, beanInfo, beanPrice, businessNo,
 					beanOriginname, beanStoredname, beanImgSize,
-<!-- 					c.cupNoteNo, c.cupNoteName, -->
+					<if test='cupnote != "N"'>
+					c.cupNoteNo, c.cupNoteName,
+					</if>
 					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount
 <!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
 <!-- 						FROM ( -->
@@ -64,12 +70,12 @@
 				FROM bean b
 				<if test='cupnote != "N"'>
 				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
 				</if>
-<!-- 				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo -->
 				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				<where>
 				<if test='cupnote != "N"'>
-				AND		cupNoteName = #{ cupnote }
+				AND		c.cupNoteName = #{ cupnote }
 				</if>
 				<if test='keyword != "N"'>
 				AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 

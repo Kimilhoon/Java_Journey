@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
 import web.dto.Bean;
+import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -667,13 +669,11 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void changeCafeReview(CafeRev cafeRev) {
 		
-		int res = dao.updateCafeReviewByCafeNo(cafeRev);
+		dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
 	@Override
 	public Paging getCafeReviewPaging(Paging curPage, String category, String order, String search) {
-		
-		//수정해야댐
 		
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
@@ -708,7 +708,7 @@ public class CommunityServiceImpl implements CommunityService {
 //		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
 	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
 
-		log.info("paging : {}", paging);
+//		log.info("paging : {}", paging);
 		
 		return paging;
 		
@@ -804,8 +804,139 @@ public class CommunityServiceImpl implements CommunityService {
     	dao.updateCafeReviewComm(cafeRevComm);
     }
 
+	//----------------------------------------------------------------------------
+    //    [ 원두 ]
+    //----------------------------------------------------------------------------
+    
+    @Override
+    public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging) {
+    	
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("category", category);
+		param.put("order", order);
+		param.put("search", search);
+		param.put("paging", paging);
+		
+		List<BeanRev> bList = dao.selectBeanReview(param);
+		
+		List<List<BeanRev>> list = new ArrayList<>();
+		
+		list.add(bList);
+		
+		for(BeanRev b : bList) {
+			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
+		}
+		
+		return list;
+		
+    }
 	
-	
+    @Override
+    public Paging getBeanReviewPaging(Paging curPage, String category, String order, String search) {
+    
+		if(curPage.getCurPage()==0) {
+			curPage.setCurPage(1);
+		}
+		
+		if(category == null || "".equals(category)||"all".equals(category)) {
+			category = "N";
+		}else if(category.equals("새콤")) {
+			category="새콤";
+		}else if(category.equals("달콤")) {
+			category="달콤";
+		}else if(category.equals("쌉쌀")) {
+			category="쌉쌀";
+		}else if(category.equals("고소")) {
+			category="고소";
+		}else if(category.equals("은은한")) {
+			category="은은한";
+		}
+		
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		map.put("category", category);
+
+		int totalCnt = dao.getBeanReviewTotalCnt(map);
+		
+//		log.info("totalCNT{}",totalCnt);
+		
+//		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
+	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
+
+//		log.info("paging : {}", paging);
+		
+		return paging;
+    
+    }
+    
+     @Override
+    public List<BeanRevComm> getBeanReviewCommentList(BeanRev revNo) {
+    	 
+    	return dao.selectBeanReviewCommentList(revNo);
+    }
+    
+    @Override
+    public List<List<BeanRev>> getBeanReviewInfo(BeanRev revNo) {
+    	
+		List<BeanRev> bList = dao.selectBeanReviewInfo(revNo);
+		
+		List<List<BeanRev>> list = new ArrayList<>();
+		
+		list.add(bList);
+		
+		for(BeanRev b : bList) {
+			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
+		}
+    	
+		return list;
+    }
+    
+    @Override
+    public String getWriterId(BeanRev beanRev) {
+    	
+    	return dao.selectWriterIdByBeanRev(beanRev);
+    }
+    
+    public Map<String, Integer> getPrevNextRevNos(BeanRev revNo) {
+        List<Integer> revNos = dao.getBeanRevNos();  // revNo 리스트 가져오기
+        Map<String, Integer> prevNextMap = new HashMap<>();
+        
+        int currentRevNo = revNo.getRevNo();
+        int currentIndex = revNos.indexOf(currentRevNo);
+
+        // 이전 revNo와 다음 revNo 계산
+        if (currentIndex > 0) {
+            prevNextMap.put("prevRevNo", revNos.get(currentIndex - 1));
+        } else {
+            prevNextMap.put("prevRevNo", null);  // 이전 게시글이 없을 경우 null
+        }
+
+        if (currentIndex < revNos.size() - 1) {
+            prevNextMap.put("nextRevNo", revNos.get(currentIndex + 1));
+        } else {
+            prevNextMap.put("nextRevNo", null);  // 다음 게시글이 없을 경우 null
+        }
+
+        return prevNextMap;
+    }
+    
+    @Override
+    public String getBusinessNoFromBeanReviewNo(BeanRev revNo) {
+    	
+    	return dao.selectBusinessNoByBeanRevNo(revNo);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 

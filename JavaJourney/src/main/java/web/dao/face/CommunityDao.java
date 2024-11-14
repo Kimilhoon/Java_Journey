@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -386,67 +388,6 @@ public interface CommunityDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//---------------event
 	
 	/**
@@ -509,8 +450,6 @@ public interface CommunityDao {
 	 * @return 불러온 카페 리뷰 번호
 	 */
 	public List<Integer> getCafeRevNos();
-
-
 
 	
 	/**
@@ -647,6 +586,69 @@ public interface CommunityDao {
 	 * @param cafeRevComm - 수정할 리뷰 번호와 리뷰 본문
 	 */
 	public void updateCafeReviewComm(CafeRevComm cafeRevComm);
+
+	/**
+	 * 원두 리뷰 리스트
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public List<BeanRev> selectBeanReview(HashMap<String, Object> param);
+
+	/**
+	 * 원두 리뷰 댓글 갯수 파악하기
+	 * 
+	 * @param b
+	 * @return
+	 */
+	public int getBeanReviewCommentCnt(BeanRev b);
+
+	/**
+	 * 원두리뷰전체갯수 갖고오기
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public int getBeanReviewTotalCnt(HashMap<String, String> map);
+
+	/**
+	 * 원두 리뷰 댓글 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public List<BeanRevComm> selectBeanReviewCommentList(BeanRev revNo);
+
+	/**
+	 * 원두 리뷰 상세보기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public List<BeanRev> selectBeanReviewInfo(BeanRev revNo);
+
+	/**
+	 * 원두 리뷰를 작성한 유저의 아이디 정보 갖고오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public String selectWriterIdByBeanRev(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 갯수 갖고오기
+	 * 
+	 * @return
+	 */
+	public List<Integer> getBeanRevNos();
+
+	/**
+	 * 원두리뷰게시글의 사업자번호 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public String selectBusinessNoByBeanRevNo(BeanRev revNo);
 	
 }
 
