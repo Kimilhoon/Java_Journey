@@ -60,8 +60,8 @@ public class MypageController {
 			Model model
 			) {
 		log.info("beanSub UserNo : {}",beanSub.getUserNo());
-//		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo());
-//		model.addAllAttributes("beanSubList",beanSubList);
+		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo());
+		model.addAttribute("beanSubList",beanSubList);
 	}
 	
 	@GetMapping("/cancelsub")

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+
+	<!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.MypageDao">
+
 	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
 		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
 		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
@@ -55,8 +56,32 @@
 		</where> 
 	</select>
 	
-	
-	
+<!-- 	<select id="selectMyBeanSubResult" resultType="BeanSub"> -->
+<!-- 		SELECT -->
+<!-- 			SUBNO, USERNO, BEANNO, GRAM, PRICE, -->
+<!-- 			GRIND, SUBSTARTDATE, SUBENDDATE, SUBTIME, NONSUB -->
+<!-- 			FROM BEANSUB -->
+<!-- 			<where> -->
+<!-- 				USERNO = #{userNo} -->
+<!-- 			</where> -->
+<!-- 			ORDER BY SUBNO -->
+<!-- 	</select> -->
+	<select id="selectMyBeanSubResult" resultType="BeanSub">
+		SELECT
+			b1.SUBNO, b1.USERNO,
+			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
+			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
+			b2.BEANNAME,
+			b3.BEANORIGINNAME 
+			FROM BEANSUB b1, BEAN b2, BEANIMG b3
+			<where>
+				AND b1.BEANNO = b2.BEANNO
+				AND b2.BEANIMGNO = b3.BEANIMGNO 
+				AND USERNO = #{userNo}
+			</where>
+			ORDER BY SUBNO
+	</select>
+
 	
 	
 	
@@ -182,7 +207,6 @@
 		ORDER BY myRipNo DESC
 	</select>
 	
-
 
 
 

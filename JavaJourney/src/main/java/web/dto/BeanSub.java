@@ -16,5 +16,14 @@ public class BeanSub {
 	private Date subEndDate;
 	private String subTime;
 	private String nonSub;
+	
+	//조인 Bean
+//	private int beanNo;
+	private String beanName;
+	
+	
+	//조인 BeanImg
+	private String beanOriginName;
+
 
 }
