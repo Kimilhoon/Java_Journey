@@ -37,7 +37,12 @@ public class MypageServiceImpl implements MypageService {
 		return dao.selectMyBeanSubResult(userNo);
 	}
 	
-	
+	@Override
+	public void subCancelBySubNo(List<Integer> subNo) {
+		for(Integer No : subNo) {
+			dao.subCancel(No);
+		}
+	}
 	
 	
 	

@@ -146,6 +146,12 @@ public interface MypageDao {
 	 * @return
 	 */
 	public List<BeanSub> selectMyBeanSubResult(int userNo);
+	
+	/**
+	 * 구독정보에서 구독번호를 넘겨받아 구독원두를 취소하기
+	 * @param no
+	 */
+	public void subCancel(Integer No);
 
 
 
