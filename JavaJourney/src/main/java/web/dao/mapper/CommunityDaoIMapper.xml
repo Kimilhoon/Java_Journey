@@ -587,7 +587,11 @@
 		</where>
 	</update>
 	
-		<select id="selectBeanReview" resultType="BeanRev" parameterType="hashmap">
+	
+	
+	
+	
+	<select id="selectBeanReview" resultType="BeanRev" parameterType="hashmap">
 		
 		SELECT * 
 		FROM (
@@ -649,8 +653,49 @@
 		</where>
 	</select>
 	
+	<select id="selectBeanReviewCommentList" parameterType="BeanRev" resultType="BeanRevComm">
+		SELECT commno, revno, b.userno, commcont, commtag, commdate, usernick
+		FROM beanrevcomm b
+		JOIN MEMBER m ON b.userno = m.userno
+		<where>
+			AND revNo = #{revNo }
+		</where>
+		ORDER BY commno
+	</select>
 	
+	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
+		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname, cupnotename
+		FROM beanrev br
+		JOIN bean b ON br.beanno = b.beanno
+		JOIN beantaste bt ON b.beanno = bt.beanno
+		JOIN cupnote c ON c.cupnoteno = bt.cupnoteno
+		<where>
+			AND revno = #{revNo }
+		</where>
+	</select>
 	
+	<select id="selectWriterIdByBeanRev" parameterType="BeanRev" resultType="string">
+		SELECT userid
+		FROM BEANREV b, MEMBER m
+		<where>
+			AND b.USERNO = m.USERNO 
+			AND revno = #{revNo }
+		</where>
+	</select>
+	
+	<select id="getBeanRevNos" resultType="int">
+		SELECT revno
+		FROM beanrev
+		ORDER BY revno
+	</select>
+	
+	<select id="selectBusinessNoByBeanRevNo" resultType="string" parameterType="beanRev">
+		SELECT businessNo FROM bean b
+		JOIN beanrev br ON b.beanno = br.beanno
+		<where>
+			br.revno = #{revNo }
+		</where>
+	</select>
 	
 	
 	

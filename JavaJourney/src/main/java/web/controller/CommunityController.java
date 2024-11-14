@@ -519,14 +519,16 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
-		//카페 상세 정보
-		CafeRev beanRev = service.getBeanReviewInfo(revNo);
+		//원두 상세 정보
+		List<List<BeanRev>> beanRev = service.getBeanReviewInfo(revNo);
+		
+		log.info("beanRev: {}", beanRev);
 		
 		//로그인한 유저id
 		String userId = (String) session.getAttribute("userId");	
 		
 		//작성한 유저id
-		String writerId = service.getWriterId(cafeRev);
+		String writerId = service.getWriterId(beanRev);
 		
 		//작성자 닉네임 불러오기
 		String writerNick = service.getwriterNick(writerId);
