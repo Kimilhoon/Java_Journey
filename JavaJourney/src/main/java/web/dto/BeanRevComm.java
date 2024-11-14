@@ -16,4 +16,9 @@ public class BeanRevComm {
 	private int commTag;
 	private Date commDate;
 	
+	// 조인
+	private String userNick;
+	
+	private int revStarPoint;
+	
 }

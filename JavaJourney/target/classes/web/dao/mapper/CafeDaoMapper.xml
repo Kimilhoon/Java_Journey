@@ -5,7 +5,113 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.CafeDao">
+   <select id="selectBest" resultType="Cafe">
+      SELECT * FROM (
+      	SELECT rowNum AS rNum, C.* 
+      	FROM (
+      		SELECT
+				c.cafeNo, i.cafeImgNo, c.cafeName, c.cafeComm, c.cafePhone, 
+                c.busyTime, c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo,
+                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize,
+				(SELECT COUNT(cr.revNo) FROM cafeRev cr WHERE cr.cafeNo = c.cafeNo) AS reviewCount,
+				(SELECT TRUNC( avg(cr.revsp)) FROM cafeRev cr WHERE cr.cafeNo = c.cafeNo ) AS avgRevStarPoint
+			FROM cafe c
+			INNER JOIN cafeImg i ON c.imgNo = i.cafeImgNo
+			ORDER BY reviewCount DESC
+      		) C
+      )
+      WHERE rNum &lt;= 3
+   </select>
+   
+   <select id="selectCafeCount" resultType="Cafe">
+   	SELECT count(cafeNo) as cafeCount FROM cafe
+   </select>
+   
+<!--    <select id="selectAll" resultType="Cafe"> -->
+<!--       SELECT -->
+<!--          cafeNo, imgNo, cafeName, cafeComm, cafePhone,  -->
+<!--          busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo -->
+<!--       FROM cafe -->
+<!--       ORDER BY cafeNo -->
+<!--    </select> -->
+
+   <select id="selectAll" resultType="Cafe" parameterType="web.util.Paging">
+      SELECT * FROM (
+         SELECT rowNum rNum, C.* 
+         FROM (
+            SELECT
+               cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
+               busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
+               cafeImgOriName, cafeImgStoName, cafeImgSize
+            FROM cafe c
+            INNER JOIN cafeImg i ON c.imgNo = i.cafeImgNo
+            ORDER BY cafeNo DESC
+         ) C
+      ) cafe
+      WHERE rNum BETWEEN #{ startNo } AND #{ endNo }
+   </select>
+   
+   <select id="selectCntAll" resultType="int" parameterType="hashmap">
+        SELECT COUNT(*) FROM cafe c
+    </select>
+    
+
+   <select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
+      SELECT
+         cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
+         busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
+         cafeImgOriName, cafeImgStoName, cafeImgSize            
+      FROM cafe c
+      INNER JOIN cafeimg i ON c.imgNo = i.cafeImgNo
+        <where>
+           AND cafeNo = #{cafeNo }
+        </where> 
+    </select>
+    
+    <select id="selectStarPoint" parameterType="Cafe" resultType="CafeRev">
+    	SELECT TRUNC(avg (revsp) ) AS avgRevStarPoint, cafeNo
+		FROM	cafeRev
+		<where>
+		AND		cafeNo = #{ cafeNo }
+		</where>
+		GROUP BY cafeNo
+    </select>
+   
+	<select id="selectByUserId" parameterType="String" resultType="Member">
+		SELECT	userNo
+		FROM	member
+		<where>
+		AND		userId = #{ userId }
+		</where>
+	</select>   
+
+	<select id="selectAllRev" resultType="cafeRev" parameterType="cafe">
+		SELECT
+			revNo, c.cafeNo, c.cafeName, c.userNo, revContent, 
+			revHit, revDate, revsp,
+			m.userNick
+		FROM cafeRev c
+		LEFT JOIN member m ON c.userNo = m.userNo
+		<where>
+		AND		cafeNo = ${ cafeNo }
+		</where>
+	</select>
+
+	<insert id="addWish" parameterType="map">
+		<selectKey order="BEFORE" resultType="int" keyProperty="cafeWishNo">
+			SELECT cafeWishNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO cafeWish( cafeWishNo, cafeNo, userNo )
+		VALUES ( #{ cafeWishNo }, #{ cafeNo }, #{ userNo } )
+	</insert>
 	
-	
-	
+	<delete id="removeWish" parameterType="map">
+		DELETE 	cafeWish
+		<where>
+		AND		cafeNo = #{ cafeNo }
+		AND		userNo = #{ userNo }
+		</where>
+	</delete>
+
+   
 </mapper>

@@ -147,7 +147,7 @@ public class Paging {
 		}
 		// 화면에 보여질 글 수 기본값 10개
 		if(listCount == 0) {
-			setListCount(8);
+			setListCount(10);
 		}
 		// 화면에 보여질 페이지 목록 수 기본값 10개
 		if(pageCount == 0) {
@@ -179,7 +179,7 @@ public class Paging {
 		
 		//-------------------------------------------------
 
-		// 화면세 보이는 게시글의 시작, 끝번호 계산
+		// 화면에 보이는 게시글의 시작, 끝번호 계산
 		startNo = (curPage-1)*listCount+1; 
 		endNo = curPage * listCount;
 		
