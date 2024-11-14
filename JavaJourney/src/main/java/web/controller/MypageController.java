@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import edu.emory.mathcs.backport.java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
@@ -49,12 +49,20 @@ public class MypageController {
 			MemberQuizResult memberQuizResult,
 			Model model
 			) {
-//		List<MemberQuizResult> result = service.selectByUserNoQuizeResult();
-//		model.addAttribute("result",result);
+//		log.info("memberQuizResult UserNo : {}",memberQuizResult.getUserNo());
+		List<MemberQuizResult> MyQuizResult = service.selectByUserNoQuizeResult(memberQuizResult.getUserNo());
+		model.addAttribute("MyQuizResult",MyQuizResult);
 	}
 	
 	@GetMapping("/subscribe")
-	public void subscribeForm() {}
+	public void subscribeForm(
+			BeanSub beanSub,
+			Model model
+			) {
+		log.info("beanSub UserNo : {}",beanSub.getUserNo());
+		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo());
+		model.addAttribute("beanSubList",beanSubList);
+	}
 	
 	@GetMapping("/cancelsub")
 	public void cancelsubForm() {}

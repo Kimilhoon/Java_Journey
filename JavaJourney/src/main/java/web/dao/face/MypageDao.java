@@ -7,11 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.util.Paging;
 
@@ -130,6 +132,20 @@ public interface MypageDao {
 	 * @param member
 	 */
 	public void deleteMemberByUserNo(Integer userNo);
+	
+	/**
+	 * 나의 취향결과 DB에서 조회하기
+	 * @param userNo 
+	 * @return
+	 */
+	public List<MemberQuizResult> selectMyQuizeResult(int userNo);
+	
+	/**
+	 * 나의 구독정보를 DB에서 조회하기
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanSub> selectMyBeanSubResult(int userNo);
 
 
 

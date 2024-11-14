@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.MypageDao;
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.service.face.MypageService;
 import web.util.Paging;
@@ -25,8 +27,15 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired private MypageDao dao;
 
+	@Override
+	public List<MemberQuizResult> selectByUserNoQuizeResult(int userNo) {
+		return dao.selectMyQuizeResult(userNo);
+	}
 	
-	
+	@Override
+	public List<BeanSub> selectMyBeanSub(int userNo) {
+		return dao.selectMyBeanSubResult(userNo);
+	}
 	
 	
 	
