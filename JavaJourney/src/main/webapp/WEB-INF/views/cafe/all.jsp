@@ -8,9 +8,10 @@
 
 <script type="text/javascript">
 $(function() {
-	$("#location").on("change", function() {
+// 	$("#location").on("change", function() {
+	$("#location").change(function() {
 		
-		var cupnoteValue = $(this).val();
+		var locationValue = $(this).val();
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
 		$.ajax({
@@ -100,8 +101,8 @@ $(function() {
 // 	}		
 	
 	$(".custom-image img").css({
-		width: "400px",
-		height: "500px",
+		width: "320px",
+		height: "200px",
         objectFit: "cover",		// 이미지가 썸네일 크기에 맞도록 설정
         borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
     });
@@ -120,11 +121,11 @@ img{
 	transition: all 0.3s linear; /* 애니메이션 효과를 부여해줌 */
 }
 
-.custom-image{
-	width: 400px;
-	height: 500px;
-	margin: 0px auto;
-	overflow: hidden;
+.custom-image {
+	width: 320px;
+	height: 200px;
+  	margin: 0px auto;
+  	overflow: hidden;
 	border-radius: 8px;
 }
 
@@ -137,7 +138,11 @@ img{
 <div class="container-lg position-relative">
 	
 	<div class="text-center m-5">
-		<h1><전체 카페></h1>
+		<h1>
+		<a href="./all" class="link-offset-2 link-offset-3-hover link-underline-secondary link-underline-opacity-0 link-underline-opacity-75-hover">
+			<전체 카페>
+		</a> 
+		</h1>
 	</div><!-- <h1> End -->
 	
 <nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -153,17 +158,24 @@ img{
 	<label for="location" class="col-sm-4 col-form-label">지역 : </label>
 		<div class="col-sm-10">
 		<select id="location" name="location" class="form-select">
-			<option value="AllLocation" selected disabled>-- 전 체 --</option>
-			<option value="Gangnamgu">강남구</option>
-			<option value="Seochogu">서초구</option>
-			<option value="Songpagu">송파구</option>
-			<option value="jongrogu">종로구</option>
-			<option value="Seodaemungu">서대문구</option>
-			<option value="Mapogu">마포구</option>
+			<option value="" selected disabled>-- 전 체 --</option>
+			<option value="1">강남구</option>
+			<option value="2">서초구</option>
+			<option value="3">송파구</option>
+			<option value="4">종로구</option>
+			<option value="5">서대문구</option>
+			<option value="6">마포구</option>
 		</select>
 		</div>
 	</div>
 	
+	<div id="search" class="p-2 d-flex justify-content-between">
+		<input type="text" id="keyword" name="keyword" class="form-control">
+		<span id="searchIcon">
+			<i class="bi bi-search"></i>
+		</span>
+	</div>
+
 </div> <!-- id="up" End -->
 
 <div id="AllcafeList">
@@ -176,10 +188,11 @@ img{
 		<tr>
 	</c:if>
 	
-	<td class="text-center" style="flex-shrink: 0; width: 18rem;">
+	<td class="text-center" style="flex-shrink: 0;">
 		<a href="./info?cafeNo=${cafe.cafeNo }">
-			<img alt="${cafe.cafeName }" src="/resources/img/cafe/${cafe.cafeImgOriName }">
-<%-- 			${cafe.cafeImgOriName } --%>
+<%-- 		<img alt="${cafe.cafeName}" src="< --%>
+<%-- 		 c:url value='${cafe.cafeImgOriName}' />"> --%>
+			<div class="custom-image">${cafe.cafeImgOriName }</div>
 		</a>
 			<p class="fw-bolder fs-4">${cafe.cafeName }</p>
 			<p class="fw-semibold fs-5">${cafe.cafeLoc }</p>
@@ -193,6 +206,7 @@ img{
 
 <!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
 <c:if test="${fn:length(AllCafeList) % 4 != 0 }">
+<tr>
 	<c:forEach begin="1" end="${4 - (fn:length(AllCafeList) % 4) }">
 		<td></td>
 	</c:forEach>

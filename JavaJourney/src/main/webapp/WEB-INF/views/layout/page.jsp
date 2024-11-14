@@ -10,7 +10,7 @@
 	<!-- 첫 페이지로 이동 -->
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-item">
-			<a class="page-link" href="./cafe/all">&larr; 처음</a>
+			<a class="page-link" href="../cafe/all?curPage=${paging.startPage }">&larr; 처음</a>
 		</li>
 	</c:if>
 
@@ -48,7 +48,7 @@
 	<!-- 마지막 페이지로 이동 -->
 	<c:if test="${paging.curPage ne paging.totalPage }">
 		<li class="page-item">
-			<a class="page-link" href="../cafe/all?curPage=${paging.totalPage }">&rarr; 마지막</a>
+			<a class="page-link" href="../cafe/all?curPage=${paging.endPage }">&rarr; 마지막</a>
 		</li>
 	</c:if>
 </ul>
