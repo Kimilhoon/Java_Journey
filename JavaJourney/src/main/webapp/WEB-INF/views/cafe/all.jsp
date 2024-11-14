@@ -64,7 +64,7 @@
 				<p class="card-text">리뷰 : 85 | ★ 5.0</p>
 			</div>
 		</div>
-		
+
 		<div class="card text-center" style="width: 20rem;">
 			<img src="<c:url value='/resources/img/cafe/c04.jpg' />"
 			 class="card-img-top rounded mx-auto d-block" alt="${cafe.cafeName}">

@@ -146,6 +146,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void dropFreeBoardComment(FreeBoardComment freeBoardComment) {
 		dao.deleteFreeBoardCommentByFreeBoardCommentNo(freeBoardComment);
+		dao.deleteFreeBoardCommentByFreeBoardCommTag(freeBoardComment);
 	}
 	
 	@Override
@@ -170,6 +171,10 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void changeFreeBoard(FreeBoard freeBoard) {
+		if(freeBoard.getFreeBoardMapX()==null || "".equals(freeBoard.getFreeBoardMapX())) {
+			freeBoard.setFreeBoardMapX("123");
+			freeBoard.setFreeBoardMapY("123");
+		}
 		dao.updateFreeBoardByFreeBoardNo(freeBoard);
 	}
 	

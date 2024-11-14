@@ -5,10 +5,10 @@
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8fbebe3028eb8e4ca3a2c1633eec190&libraries=services"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	  $('#summernote').summernote();
-	});
 $(function() {
+	  $('#summernote').summernote({
+		  
+	  });
 	
 	$("#update").click(function() {
 		$.ajax({
@@ -31,6 +31,10 @@ $(function() {
 			
 		});
 	})
+	$("#x").text(${freeBoardView.freeBoardMapX});
+	$("#y").text(${freeBoardView.freeBoardMapY});
+	
+	
 	var container = document.getElementById('dmap'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
 		center: new kakao.maps.LatLng(${freeBoardView.freeBoardMapX }, ${freeBoardView.freeBoardMapY }), //지도의 중심좌표.
@@ -40,9 +44,8 @@ $(function() {
 	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	
 	$("#map_update").click(function() {
-		$("#dmap").css('display','none');
-		
-		$("#api_all_wrap").css("display","");
+		$("#dmap").toggle();
+		$("#api_all_wrap").toggle();
 		
 		var markers = [];
 		
@@ -210,6 +213,10 @@ $(function() {
 		        $("#x").text(lat);
 		        $("#y").text(lng);
 		        $("#choose").css("display","");
+		        var moveLatLon = new kakao.maps.LatLng(lat, lng);
+	            map.setCenter(moveLatLon);
+	            map.setLevel(3);
+	            marker.setPosition(moveLatLon);
 		        
 		    });
 		    
@@ -285,7 +292,7 @@ $(function() {
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;height:500px; margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -318,47 +325,129 @@ $(function() {
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+
+#content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.container{
+	display: inline-block;
+	width: -webkit-fill-available;
+	margin: 0 auto;
+}
+
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
+
+
+
+
+
 </style>
+<div id="content">
+<div class="container">
+<table class="table table-bordered">
+<tr>
+	<td>카테고리 | ${freeBoardView.freeBoardCategory }</td>
+</tr>
+<tr>
+	<td colspan="4">
+		<input type="text"class="form-control" value="${freeBoardView.freeBoardTitle }" name="freeBoardTitle" id="t">
+	</td>
+</tr>
+<tr>
+	<td colspan="4">
+		<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control">${freeBoardView.freeBoardContent }</textarea>
+	</td>
+</tr>
+<c:choose>
+	<c:when test='${freeBoardView.freeBoardMapX ne "123" }'>
+	<tr>
+	<td colspan="4">
+	
+		<div>
+			<div id="dmap" style="width: -webkit-fill-available; height:500px;"></div>
+		</div>
+		<div id="api_all_wrap" style="display: none;">
+			<div class="map_wrap" >
+			    <div id="map" style="width: -webkit-fill-available; height: 500px;position:relative;overflow:hidden;"></div>
+			    <div id="menu_wrap" class="bg_white">
+			        <div class="option">
+			            <div>
+		                    키워드 : <input type="text" value="" id="keyword" size="15"> 
+		                    <button id="api_search" class="btn"><small>검색하기</small></button> 
+			            </div>
+			        </div>
+			        <hr>
+			        <ul id="placesList"></ul>
+			        <div id="pagination"></div>
+			    </div>
+			</div>
+		</div>
+	</td>
+	</tr>
+	</c:when>
+	<c:otherwise>
+	<tr id="api_all_wrap" style="display: none;">
+	<td colspan="4">
+	
+		<div style="display: none;">
+			<div id="dmap" style="width: -webkit-fill-available; height:500px;"></div>
+		</div>
+		<div >
+			<div class="map_wrap" >
+			    <div id="map" style="width: -webkit-fill-available; height: 500px;position:relative;overflow:hidden;"></div>
+			    <div id="menu_wrap" class="bg_white">
+			        <div class="option">
+			            <div>
+		                    키워드 : <input type="text" value="" id="keyword" size="15"> 
+		                    <button id="api_search" class="btn"><small>검색하기</small></button> 
+			            </div>
+			        </div>
+			        <hr>
+			        <ul id="placesList"></ul>
+			        <div id="pagination"></div>
+			    </div>
+			</div>
+		</div>
+	</td>
+	</tr>
+	</c:otherwise>
+</c:choose>	
+<tr>
+	<td>
+		<button id="map_update" class="btn">지도 수정</button>
+	</td>
+</tr>
+<tr id="choose" style="display: none;">
+	<td>
+		<div >
+		선택결과<br>
+		좌표: 
+		<span id="x"></span>,<span id="y"></span>
+		</div>
+	</td>
+</tr>
+</table>
+<div style="float: right;">
+	<button id="update" class="btn">수정</button>
+	<a href="./view?freeBoardNo=${freeBoardView.freeBoardNo }"><button type="button" class="btn">취소</button></a>
+</div>
 
-</head>
-<body>
-<a href="./view?freeBoardNo=${freeBoardView.freeBoardNo }"><button>취소</button></a>
-<div>
-<label>제목<input type="text" value="${freeBoardView.freeBoardTitle }" name="freeBoardTitle" id="t"></label>
-<label>내용<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control" >${freeBoardView.freeBoardContent }</textarea></label>
-<c:if test="${not empty freeBoardView.freeBoardMapX }">
-<div>
-	<div id="dmap" style="width:500px; height:400px;"></div>
-</div>
-</c:if>
-<div id="api_all_wrap" style="display: none;">
-
-<div class="map_wrap" >
-    <div id="map" style="width: 500px; height: 400px;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                    키워드 : <input type="text" value="" id="keyword" size="15"> 
-                    <button id="api_search">검색하기</button> 
-                </form>
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
-<div id="clickLatlng" ></div>
-<div id="choose" style="display: none;">
-선택결과<br>
-좌표: 
-<span id="x"></span>,<span id="y"></span>
-</div>
-
-</div>
-<button id="map_update">지도 수정</button>
-<button id="update">수정</button>
-</div>
-</body>
-</html>
+</div><!-- container -->
+</div><!-- content -->
+<c:import url="/WEB-INF/views/layout/footer.jsp"/>
