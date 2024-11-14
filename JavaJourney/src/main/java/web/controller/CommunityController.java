@@ -163,9 +163,13 @@ public class CommunityController {
 			}
 		}
 		
-		@GetMapping("/freeboard/commentupdate")
-		public void freeBoardCommentUpdate(FreeBoardComment freeBoardComment) {
+		@PostMapping("/freeboard/commentupdate")
+		public String freeBoardCommentUpdate(FreeBoardComment freeBoardComment) {
+			
 			service.changeFreeBoardComment(freeBoardComment);
+			
+			return "redirect: ./view?freeBoardNo="+freeBoardComment.getFreeBoardNo();
+
 		}
 		
 		// 공지사항 --------------------------------------------------------------------------
@@ -519,14 +523,18 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
-		//카페 상세 정보
-		CafeRev beanRev = service.getBeanReviewInfo(revNo);
+		//원두 상세 정보
+		BeanRev beanRev = service.getBeanReviewInfo(revNo);
+		
+//		log.info("beanRev: {}", beanRev);
+		
+		List<BeanRev> taste = service.getBeanTasteList(beanRev);
 		
 		//로그인한 유저id
 		String userId = (String) session.getAttribute("userId");	
 		
 		//작성한 유저id
-		String writerId = service.getWriterId(cafeRev);
+		String writerId = service.getWriterId(beanRev);
 		
 		//작성자 닉네임 불러오기
 		String writerNick = service.getwriterNick(writerId);
@@ -550,6 +558,7 @@ public class CommunityController {
 //		String commId = service.getCafeReviewCommentId();
 		
 		model.addAttribute("brevcommList", brevcommList);
+		model.addAttribute("taste", taste);
 		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);

@@ -511,11 +511,6 @@ a {
 	<tr id="boardContent">
 		<td colspan="8">${myRecipeView.myRipContent}</td>
 	</tr>
-
-
-<tbody>
-
-</tbody>
 </table>
 </div> <!-- table -->
 <script>
@@ -538,15 +533,15 @@ function clip(){
 
 <div id="bottom" >
 	<div style="display: inline-block; float: left; vertical-align: middle;">
-	        <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37; margin-right: 15px;"></i>
+	    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37; margin-right: 15px;"></i>
 	    <button id="btn_rec" class="btn ">☆추천</button>
 	</div>
     <div style="display: inline-block; float: right;">
-	<a href="./list"><button class="btn "><small>목록</small></button></a>
-    <c:if test="${member.userNick eq userNick}">
-	<a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>수정</small></button></a>
-	<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>삭제</small></button></a>
-	</c:if>
+		<a href="./list"><button class="btn "><small>목록</small></button></a>
+	    <c:if test="${member.userNick eq userNick}">
+			<a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>수정</small></button></a>
+			<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>삭제</small></button></a>
+		</c:if>
     </div>
 </div> <!-- bottom -->
 
