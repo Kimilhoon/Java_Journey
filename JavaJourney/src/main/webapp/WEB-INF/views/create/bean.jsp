@@ -77,11 +77,11 @@ $(function () {
 		<tr>
 			<td class="mx-3">
 			원두이름
-			<input type="text" maxlength="10" id="beanName" name="beanName">
+			<input type="text" maxlength="50" id="beanName" name="beanName">
 			</td>
 			<td class="mx-3">
 			원두원산지
-			<input class="mx-3" type="text" maxlength="10" id="origin" name="origin">
+			<input class="mx-3" type="text" maxlength="30" id="origin" name="origin">
 			원두금액
 			<input class="mx-3" type="number" min="1" max="100000" id="beanPrice" name="beanPrice">
 			사업자번호

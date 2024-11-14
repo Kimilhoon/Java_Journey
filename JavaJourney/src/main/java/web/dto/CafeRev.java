@@ -18,4 +18,6 @@ public class CafeRev {
 	private int revsp;
 	private int cafeRevCommCount;
 	
+	private int avgRevStarPoint;
+	
 }

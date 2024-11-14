@@ -21,6 +21,15 @@ public class CafeWish {
 	private String cafeAdd2;
 	private String businessNo;
 	private String cafeInfo;
+	
+	//찜누르기
+	private String Action;
+
+}
+	
+	
+	
+	
 		
 	
-}
+

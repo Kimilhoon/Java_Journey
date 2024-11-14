@@ -2,6 +2,7 @@ package web.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CafeDao;
 import web.dto.Cafe;
 import web.dto.CafeRev;
+import web.dto.Member;
 import web.service.face.CafeService;
 import web.util.Paging;
 
@@ -88,8 +90,9 @@ public class CafeServiceImpl implements CafeService {
 		} // if( keyword == null || "".equals(keyword) ) end
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("paging", paging);
-		map.put("cupnote", location);
+		map.put("startNo", paging.getStartNo());
+		map.put("endNo", paging.getEndNo());
+		map.put("location", location);
 		map.put("keyword", keyword);
 		
 		List<Cafe> AllCafeList = dao.selectAll(map);
@@ -101,6 +104,31 @@ public class CafeServiceImpl implements CafeService {
 	public Cafe getCafeInfo(Cafe cafe) {
 		
 		return dao.selectByCafeNo(cafe);
+	}
+
+	@Override
+	public CafeRev getStarPoint(Cafe cafe) {
+		return dao.selectStarPoint(cafe);
+	}
+
+	@Override
+	public Member selectUserNoByUserId(String userId) {
+		return dao.selectByUserId(userId);
+	}
+
+	@Override
+	public List<CafeRev> selectAllRev(Cafe cafe) {
+		return dao.selectAllRev(cafe);
+	}
+
+	@Override
+	public void addWish(Map<String, Integer> params) {
+		dao.addWish(params);
+	}
+
+	@Override
+	public void removeWish(Map<String, Integer> params) {
+		dao.removeWish(params);
 	}
 	
 	

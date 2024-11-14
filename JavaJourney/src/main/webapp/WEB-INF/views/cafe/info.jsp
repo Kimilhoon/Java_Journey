@@ -9,29 +9,33 @@
 <script type="text/javascript">
 $(function() {
 	
-	$("#sub").click(function() {
-		location.href="./cafe/sub";
-	})
+// 	$("#").click(function() {
+// 		location.href="./cafe/";
+// 	})
 	
 	$(document).ready(function() {
 		$("#wish").click(function() {
+			
+			//현재 버튼의 텍스트 가져오기
 			const currentText = $(this).text();
 			
-			var cafeNo = cafeNo : ${cafe.cafeNo },
+			//데이터 객체 생성
+			var cafeNo = cafeNo : ${cafeInfo.cafeNo },
 			var cafeNo = userNo : ${userNo }
 			
+			//버트 클릭 시 텍스트 변경(찜 상태 토글)
 			if (currentText === "찜 ♡") {
 	            $(this).text("찜 ♥"); //찜 추가
-	            sendWishData(cafeNo, userNo, 'add');
+	            sendWishData(cafeNo, userNo, 'add'); //데이터 추가 요청
 	            
 	        } else {
 	            $(this).text("찜 ♡"); //찜 취소
-	            sendWishData(cafeNo, userNo, 'remove');
+	            sendWishData(cafeNo, userNo, 'remove'); //데이터 삭제 요청
 	        }
 			
 		};
 		
-		function sendWishData(beanNo, userNo, action) {
+		function sendWishData(cafeNo, userNo, action) {
 	    	
 	        $.ajax({
 	            url: './info',  // 요청 URL
@@ -60,34 +64,30 @@ $(function() {
 	});
 	/* 메뉴바 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
+
+		$("#cafeInfoBtn").click(function() {
+			location.href="#cafeInfomation"
+		})
 		
-// 		$("#cafeBtn").click(function() {
-// 			location.href="#cafe"
-// 		})
+		$("#cafeLocBtn").click(function() {
+			location.href="#cafeLoc"
+		})
 		
-// 		$("#cafeBtn").click(function() {
-// 			location.href="#cafermation"
-// 		})
+		$("#cafeRevBtn").click(function() {
+			location.href="#cafeReview"
+		})
 		
-// 		$("#cafeReviewBtn").click(function() {
-// 			location.href="#cafeReview"
-// 		})
-		
-	/* 버튼들 설정 */
+	/* 버튼 경로 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
 		
-		$("#btnList").click(function() {
+		$("#btnAll").click(function() {
 			location.href="./all";
 		});
 		
-// 		$("#btnUpdate").click(function() {
-// 			location.href="/create/cafeupdate?cafeNo=${cafe.cafeNo}";
-// 		});
-		
-// 		$("#btnDelete").click(function() {
-// 			location.href="/create/cafedelete?cafeNo=${cafe.cafeNo}";
-// 		});
-		
+		$("#btnBest").click(function() {
+			location.href="./best";
+		});
+	
 	/* -------------------------------------------------------------------------------------------------------------- */
 		
 		// JavaScript 코드
@@ -121,8 +121,7 @@ $(function() {
 					
 		}); // $(document).ready(function() end
 		
-		
-	}) // $(function() end 
+}) // $(function() end 
 </script>
 
 <style type="text/css">
@@ -143,25 +142,27 @@ $(function() {
 <!-- 	</div> -->
 
 <div id="commCafe" class="clearfix">
-  <img src="/resources/img/cafe/c01.jpg" class="col-md-6 float-md-start mb-3 ms-md-3" alt="${cafe.cafeNo }">
-  <p>대충 카페 분위기에 대한 설명임...</p>
+<%--   <img src="/resources/img/cafe/c01.jpg" class="col-md-6 float-md-start mb-3 ms-md-3" alt="${cafe.cafeNo }"> --%>
+<!--   <p>대충 카페 분위기에 대한 설명임...</p> -->
+<div id="image" style="flex-shrink: 0; width: 400px; height: 550px; object-fit: container;" class="img-thumbnail" >
+${ cafeInfo.cafeOriginName }
 
 
 	<div id="explain p-2">
 	<div>
-	<h2>${ cafe.cafeName }</h2>
+	<p class="fw-bold fs-1">${ cafeInfo.cafeName }</p>
 	</div>
 	
 	<div class="mb-2">
-	<h2>${ cafe.cafeLoc }</h2>
+	<p>${ cafeInfo.cafeLoc }</p>
 	</div>
 	
 	<div class="mb-2">
-	<h3>${ cafe.busyTime }</h3>
+	<p>${ cafeInfo.busyTime }</p>
 	</div>
 	
 	<div class="mb-2">
-	<span>${ cafe.cafeComm }</span>
+	<p style="height: 300px;">${ cafeInfo.cafeComm }</p>
 	</div>
  </div>
 
@@ -199,66 +200,83 @@ $(function() {
 <!-- </table> -->
 <!-- </div> -->
 	
+</div> <!-- commCafe End -->
+
 	<div id="btn" class="d-flex justify-content-center align-self-end">
 		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
 		<button type="button" id="sub" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
 	</div>
-</div> <!-- commCafe End -->
 
-<div class="btn-group w-100 nav" role="group" aria-label="Basic radio toggle button group">
-	<input type="radio" class="btn-check" name="btnradio" id="cafeBtn" autocomplete="off" checked>
-	<label class="btn btn-outline-secondary" for="cafeBtn">상세정보</label>
+<div id="cafeMenu" class="btn-group w-100 nav" role="group" aria-label="Basic radio toggle button group">
+	<input type="radio" class="btn-check" name="btnradio" id="cafeInfoBtn" autocomplete="off" checked>
+	<label class="btn btn-outline-secondary" for="cafeBtn">카페 상세 안내</label>
 	        
 	<input type="radio" class="btn-check" name="btnradio" id="cafeLocBtn" autocomplete="off">
-	<label class="btn btn-outline-secondary" for="cafeLocBtn">위치정보</label>
+	<label class="btn btn-outline-secondary" for="cafeLocBtn">카페 위치 정보</label>
 		
-	<input type="radio" class="btn-check" name="btnradio" id="cafeReviewBtn" autocomplete="off">
-	<label class="btn btn-outline-secondary" for="cafeReviewBtn">카페리뷰</label>
+	<input type="radio" class="btn-check" name="btnradio" id="cafeRevBtn" autocomplete="off">
+	<label class="btn btn-outline-secondary" for="cafeReviewBtn">카페 리뷰</label>
 </div>
 
-<div id="cafemation" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div id="cafeInfo" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
-		<p class="text-bg-secondary p-3 text-center mb-3 w-100">상세정보</p>
+		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 상세 정보</p>
 	</div>
-	<div>
-		${ cafe.cafeInfo }
+	<div class="text-center">
+		${ cafeInfo.cafeInfo }
 		<p>카페 안내문구 및 사진 출력</p>
 	</div>
 </div>
 
-<div id="cafeLocation" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div id="cafeLoc" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
-		<p class="text-bg-secondary p-3 text-center mb-3 w-100">위치정보</p>
+		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 위치 정보</p>
 	</div>
 
-	<div>
-		${cafe.cafeLoc }
+	<div class="text-center">
+		${cafeInfo.cafeLoc }
 		<p>지도 API로 표시해줄 예정임.</p>
 	</div>
 </div>
 
-<div id="cafeReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div id="cafeRev" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
-		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페리뷰</p>
+		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 리뷰</p>
 	</div>
-	<div>
-		<p>리뷰 내용 끌어와서 보여주기</p>
-	</div>
+	
+	<table class="table" style="width: 100%">
+	<c:forEach var="cafeRev" items="${ AllCafeList }">
+	<tr>
+		<td class="text-center" style="width: 10%">${ cafeRev.userNick }</td>
+		<td style="width: 60%">${ cafeRev.revCont }</td>
+		<td class="text-center"  style="width: 15%">
+		<fmt:formatDate value="${ cafeRev.revDate }" pattern="yyyy년 MM월 dd일" />
+		</td>
+		<td class="text-center"  style="width: 15%">
+		    <c:forEach var="star" begin="1" end="${ cafeRev.revStarPoint != null ? cafeRev.revStarPoint : 0 }">
+		        ★
+		    </c:forEach>
+		    <c:if test="${ cafeRev.revStarPoint != null }">
+		        (<c:out value="${ cafeRev.revStarPoint }" />)
+		    </c:if>
+		</td>
+	</tr>
+	</c:forEach>
+	</table>
 </div>
 
-
-
-
-
+</div><!-- id="commCafe" class="clearfix" End -->
 
 </div><!-- container End -->
 
-	<div class="text-center">
-		<a class="btn btn-secondary" href="./all" role="button">전체 카페</a>
-		<a class="btn btn-secondary" href="./best" role="button">베스트 카페</a>
-<!-- 		<a href="./all"><button class="btn btn-secondary" type="button">전체카페 보러가기</button></a> -->
-<!-- 		<a href="./best"><button class="btn btn-secondary" type="button">베스트카페 보러가기</button></a> -->
-	</div>
+<div id="btnGroup" class="text-center">
+<!-- <button type="button" id="btnAll" class="btn btn-secondary">전체 카페</button> -->
+<!-- <button type="button" id="btnBest" class="btn btn-secondary">베스트 카페</button> -->
+<!-- 		<a class="btn btn-secondary" href="./all" role="button">전체 카페</a> -->
+<!-- 		<a class="btn btn-secondary" href="./best" role="button">베스트 카페</a> -->
+	<a href="./all"><button id="btnAll" class="btn btn-secondary" type="button">전체 카페</button></a>
+	<a href="./best"><button id="btnBest" class="btn btn-secondary" type="button">베스트 카페</button></a>
+</div>
 
 
 

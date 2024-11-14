@@ -4,12 +4,24 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Bean;
+import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.util.Paging;
 
 public interface BeanService {
 	
+	/**
+	 * 베스트 원두 가져오기
+	 * 
+	 * @return - 베스트 원두
+	 */
+	public List<Bean> getBeanTop();
+	
+	// /bean/all
+	// --------------------------------------------------------------------------------------
+
 	/**
 	 * 페이징 객체 생성
 	 * @param param - 요청 정보 객체 
@@ -30,9 +42,6 @@ public interface BeanService {
 	 */
 	public List<Bean> getAllBean(Paging paging, String cupnote, String keyword);
 
-	// /bean/all
-	// --------------------------------------------------------------------------------------
-
 	/**
 	 * BeanNo를 전달 받아 bean 조회
 	 * 
@@ -40,6 +49,15 @@ public interface BeanService {
 	 * @return 원두 정보
 	 */
 	public Bean getBeanInfo(Bean param);
+	
+	
+	/**
+	 * 원두 번호를 전달 받아 평균 별점 구하기
+	 * 
+	 * @param param - 전달받은 원두 번호
+	 * @return 원두 별점 평균
+	 */
+	public BeanRev getStarPoint(Bean param);
 
 
 	/**
@@ -49,6 +67,15 @@ public interface BeanService {
 	 * @return 유저 넘버
 	 */
 	public Member selectUserNoByUserId(String userId);
+	
+	
+	/**
+	 * 모든 원두 리뷰 조회하기
+	 * @param param 
+	 * 
+	 * @return 원두 리뷰 내용
+	 */
+	public List<BeanRev> selectAllRev(Bean param);
 
 
 	/**

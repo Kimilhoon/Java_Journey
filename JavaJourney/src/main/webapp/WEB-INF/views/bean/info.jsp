@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="../layout/header.jsp" />  
 
@@ -175,44 +176,36 @@ $(function() {
 </div>
 
 <div id="commbean" class="d-flex mb-3">
-<div id="image" style="flex-shrink: 0;" class="img-thumbnail">
+<div id="image" style="flex-shrink: 0; width: 400px; height: 550px; object-fit: container;" class="img-thumbnail" >
 ${ beanInfo.beanOriginName }
-<%-- <img src="<c:url value='${ beanInfo.beanOriginName }'/>" alt="${beanInfo.beanName}" class="img-thumbnail" style="width: 400px; height: 400px; object-fit: contain;"/> --%>
 </div>
 
 <div id="explain" class="p-2">
 <div>
-<h2>${ beanInfo.beanName }</h2>
+<p class="fw-bold fs-1">${ beanInfo.beanName }</p>
 </div>
 
 <div class="mb-2">
-<span>${ beanInfo.origin }</span>
+<p>${ beanInfo.origin }</p>
 </div>
 
 <div>
-<span>${ beanInfo.beanComm }</span>
+<p style="height: 300px;">${ beanInfo.beanComm }</p>
 <!-- <p>다아한 탱산뎌언인은 헐즛구에해의 로렘입숨 테스트 데이터 잘 보고 갑니다 ㅎㅎ 넘 ㅜ좋으네여 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를. </p> -->
 </div>
 
 <div>
-<table class="table p-2">
+<table class="table p-2 text-center">
 <tr>
 	<th>별점</th>
-	<c:if test="${ beanInfo.revStarPoint == 1 }">
-	<td>★(<c:out value="${beanInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ beanInfo.revStarPoint == 2 }">
-	<td>★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ beanInfo.revStarPoint == 3 }">
-	<td>★★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ beanInfo.revStarPoint == 4 }">
-	<td>★★★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
-	</c:if>
-	<c:if test="${ beanInfo.revStarPoint == 5 }">
-	<td>★★★★★(<c:out value="${beanInfo.revStarPoint}" />)</td>
-	</c:if>
+	<td>
+    <c:forEach var="star" begin="1" end="${starPoint.avgRevStarPoint != null ? starPoint.avgRevStarPoint : 0}">
+        ★
+    </c:forEach>
+    <c:if test="${starPoint.avgRevStarPoint != null}">
+        ( <c:out value="${starPoint.avgRevStarPoint}" /> )
+    </c:if>
+</td>
 </tr>
 </table>
 <!-- <dl class="d-flex text-center"> -->
@@ -310,6 +303,25 @@ ${ beanInfo.beanInfo }
 <div>
 <p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>
 </div>
+<table class="table" style="width: 100%">
+<c:forEach var="beanRev" items="${ list }">
+<tr>
+	<td class="text-center" style="width: 10%">${ beanRev.userNick }</td>
+	<td style="width: 60%">${ beanRev.revCont }</td>
+	<td class="text-center"  style="width: 15%">
+	<fmt:formatDate value="${ beanRev.revDate }" pattern="yyyy년 MM월 dd일" />
+	</td>
+	<td class="text-center"  style="width: 15%">
+	    <c:forEach var="star" begin="1" end="${ beanRev.revStarPoint != null ? beanRev.revStarPoint : 0 }">
+	        ★
+	    </c:forEach>
+	    <c:if test="${ beanRev.revStarPoint != null }">
+	        (<c:out value="${ beanRev.revStarPoint }" />)
+	    </c:if>
+	</td>
+</tr>
+</c:forEach>
+</table>
 </div>
 
 <div id="btnGroup" class="text-center">
