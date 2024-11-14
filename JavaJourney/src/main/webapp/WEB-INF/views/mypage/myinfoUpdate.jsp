@@ -316,13 +316,74 @@ $(function() {
 	cursor: pointer;
 }
 
-
 </style>
 
-회원 정보 수정
+<style type="text/css">
+.info-form {
+    width: 100%;
+    max-width: 400px;  /* 폼의 최대 너비 설정 */
+    margin: 0 auto;    /* 수평 중앙 정렬 */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-form div {
+    margin-bottom: 15px;
+}
+
+.info-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.info-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.info-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.info-form button:hover {
+    background-color: #5a3e2f;
+}
+
+#btnOut {
+    background: none;        /* 배경 제거 */
+    border: none;            /* 테두리 제거 */
+    color: #6f4e37;          /* 텍스트 색상 */
+    font-size: 14px;         /* 글자 크기 */
+    text-decoration: underline; /* 밑줄 추가 */
+    cursor: pointer;        /* 커서 스타일 변경 */
+    margin-left: auto;       /* 오른쪽으로 이동 */
+    display: block;          /* 블록 요소로 만들어 margin 적용 */
+    padding: 0;              /* 여백 제거 */
+}
+
+#btnOut:hover {
+    color: #5a3e2f;          /* 호버시 색상 변경 */
+    text-decoration: none;   /* 호버 시 밑줄 제거 */
+}
+</style>
+
+<h2 style="text-align: center; font-weight: bold;">회원 정보 수정</h2>
 <hr>
 
-<form action="./myinfoUpdate" method="post">
+<form action="./myinfoUpdate" method="post" class="info-form">
 
 <input type="hidden" name="userNo" value="${member.userNo }" readonly="readonly">
 
@@ -373,7 +434,7 @@ $(function() {
 </div>
 
 
-주소
+<label>주소</label>
 <button id="btnPostcode">우편번호 찾기</button>
 <div id="postcodeWrap">
 	<img alt="x" src="../resources/img/close.png" class="closeIcon">
@@ -384,9 +445,9 @@ $(function() {
 
 <br>
 <button id="btnUpdate">수정하기</button>
-<button id="btnOut" type="button">탈퇴하기</button>
 
 </form>
+<button id="btnOut" type="button">|탈퇴하기|</button>
 
 
 <c:import url="../layout/footer.jsp" />

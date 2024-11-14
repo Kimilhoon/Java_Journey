@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -228,6 +230,12 @@ public interface CommunityDao {
 	 * @param freeBoardComment - 댓글번호 있음
 	 */
 	public void deleteFreeBoardCommentByFreeBoardCommentNo(FreeBoardComment freeBoardComment);
+	
+	/**
+	 * 태그 번호로 댓글 삭제
+	 * @param freeBoardComment
+	 */
+	public void deleteFreeBoardCommentByFreeBoardCommTag(FreeBoardComment freeBoardComment);
 	
 	/**
 	 * 각 보드의 댓글 수 얻기
@@ -603,6 +611,84 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public int getBeanReviewTotalCnt(HashMap<String, String> map);
+
+	/**
+	 * 원두 리뷰 댓글 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public List<BeanRevComm> selectBeanReviewCommentList(BeanRev revNo);
+
+	/**
+	 * 원두 리뷰 상세보기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public BeanRev selectBeanReviewInfo(BeanRev revNo);
+
+	/**
+	 * 원두 리뷰를 작성한 유저의 아이디 정보 갖고오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public String selectWriterIdByBeanRev(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 갯수 갖고오기
+	 * 
+	 * @return
+	 */
+	public List<Integer> getBeanRevNos();
+
+	/**
+	 * 원두리뷰게시글의 사업자번호 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public String selectBusinessNoByBeanRevNo(BeanRev revNo);
+
+	/**
+	 * 원두의 맛과 향 이름 불러오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public List<BeanRev> selectBeanTasteName(BeanRev beanRev);
+
+	/**
+	 * 원두번호로 원두이름 조회하기
+	 * 
+	 * @param beanNo
+	 * @return
+	 */
+	public String selectBeanNameByBeanNo(int beanNo);
+
+	/**
+	 * 원두 리뷰 작성
+	 * 
+	 * @param beanRev
+	 */
+	public void insertBeanReview(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 삭제 및 해당 리뷰 댓글 삭제
+	 * 
+	 * @param beanRev
+	 */
+	public void deleteBeanReviewByBeanNo(BeanRev beanRev);
+	public void deleteBeanReviewCommByBeanNo(BeanRev beanRev);
+
+	/**
+	 * 구독번호로 원두 번호 갖고오기
+	 * 
+	 * @param subNo
+	 * @return
+	 */
+	public Integer getBeanNoBySubNo(Integer subNo);
 	
 }
 

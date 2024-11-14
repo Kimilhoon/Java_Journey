@@ -36,7 +36,7 @@ $(function() {
 <body>
 <div class="d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
+<img src="<c:url value='/resources/img/coffeeLogo.png' />"
 alt="로고" width="200" height="200" />
 </a>
 <!-- 로그인 및 기타 링크 -->
@@ -75,7 +75,7 @@ alt="로고" width="200" height="200" />
               브랜드
             </a>
             <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/brand">브랜드소개</a></li>
+              <li><a class="dropdown-item" href="/brand/info">브랜드소개</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">

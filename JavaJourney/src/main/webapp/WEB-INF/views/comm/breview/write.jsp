@@ -46,10 +46,11 @@
 }
 
 /* 카페명 스타일 */
-.cafe-name {
-    font-size: 2em;
-    font-weight: bold;
-    color: #333; /* 글자 색상 */
+.bean-name {
+    display: inline-block; /* 추가된 스타일 */
+    font-size: 1.3em;
+    color: #333;
+    margin-top: 10px;
 }
 
 /* 작은 글씨 크기 */
@@ -162,7 +163,8 @@ $(document).ready(function() {
 
 <form action="./write" method="post">
 
-<input type="text" name="cafeNo" value="${cafeNo.cafeNo }" hidden="none">
+<input type="hidden" name="beanNo" value="${beanNo }">
+<input type="hidden" name="subNo" value="${subNo.subNo }">
 
 <div id="write-area">
 
@@ -173,12 +175,12 @@ $(document).ready(function() {
 
 <tr>
 <td class="text-center">
-<small>카페명</small> | <span class="cafe-name">&nbsp;&nbsp;${cafeName}</span>
+<small>원두명</small> | <span class="bean-name">&nbsp;&nbsp;${beanName }</span>
 </td>
 
 <td class="text-center">
 <label>별점
-<select name="revsp">
+<select name="revStarPoint">
 	<option value="5">★★★★★</option>
 	<option value="4">★★★★☆</option>
 	<option value="3">★★★☆☆</option>
@@ -192,7 +194,7 @@ $(document).ready(function() {
 <tr>
 <td colspan="2" class='text-center'>
 <label>
-<textarea id="summernote" name="revContent" required="required" class="form-control"></textarea>
+<textarea id="summernote" name="revCont" required="required" class="form-control"></textarea>
 </label>
 </td>
 </tr>

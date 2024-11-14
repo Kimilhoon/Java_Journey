@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -145,6 +147,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void dropFreeBoardComment(FreeBoardComment freeBoardComment) {
 		dao.deleteFreeBoardCommentByFreeBoardCommentNo(freeBoardComment);
+		dao.deleteFreeBoardCommentByFreeBoardCommTag(freeBoardComment);
 	}
 	
 	@Override
@@ -169,6 +172,10 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void changeFreeBoard(FreeBoard freeBoard) {
+		if(freeBoard.getFreeBoardMapX()==null || "".equals(freeBoard.getFreeBoardMapX())) {
+			freeBoard.setFreeBoardMapX("123");
+			freeBoard.setFreeBoardMapY("123");
+		}
 		dao.updateFreeBoardByFreeBoardNo(freeBoard);
 	}
 	
@@ -663,7 +670,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void changeCafeReview(CafeRev cafeRev) {
 		
-		int res = dao.updateCafeReviewByCafeNo(cafeRev);
+		dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
 	@Override
@@ -803,7 +810,7 @@ public class CommunityServiceImpl implements CommunityService {
     //----------------------------------------------------------------------------
     
     @Override
-    public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging) {
+    public List<BeanRev> getBeanReviewList(String category, String order, String search, Paging paging) {
     	
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
@@ -811,13 +818,9 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
-		List<BeanRev> bList = dao.selectBeanReview(param);
+		List<BeanRev> list = dao.selectBeanReview(param);
 		
-		List<List<BeanRev>> list = new ArrayList<>();
-		
-		list.add(bList);
-		
-		for(BeanRev b : bList) {
+		for(BeanRev b : list) {
 			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
 		}
 		
@@ -866,6 +869,88 @@ public class CommunityServiceImpl implements CommunityService {
 		return paging;
     
     }
+    
+     @Override
+    public List<BeanRevComm> getBeanReviewCommentList(BeanRev revNo) {
+    	 
+    	return dao.selectBeanReviewCommentList(revNo);
+    }
+    
+    @Override
+    public BeanRev getBeanReviewInfo(BeanRev revNo) {
+    	
+		return dao.selectBeanReviewInfo(revNo);
+    }
+    
+    @Override
+    public String getWriterId(BeanRev beanRev) {
+    	
+    	return dao.selectWriterIdByBeanRev(beanRev);
+    }
+    
+    public Map<String, Integer> getPrevNextRevNos(BeanRev revNo) {
+        List<Integer> revNos = dao.getBeanRevNos();  // revNo 리스트 가져오기
+        Map<String, Integer> prevNextMap = new HashMap<>();
+        
+        int currentRevNo = revNo.getRevNo();
+        int currentIndex = revNos.indexOf(currentRevNo);
+
+        // 이전 revNo와 다음 revNo 계산
+        if (currentIndex > 0) {
+            prevNextMap.put("prevRevNo", revNos.get(currentIndex - 1));
+        } else {
+            prevNextMap.put("prevRevNo", null);  // 이전 게시글이 없을 경우 null
+        }
+
+        if (currentIndex < revNos.size() - 1) {
+            prevNextMap.put("nextRevNo", revNos.get(currentIndex + 1));
+        } else {
+            prevNextMap.put("nextRevNo", null);  // 다음 게시글이 없을 경우 null
+        }
+
+        return prevNextMap;
+    }
+    
+    @Override
+    public String getBusinessNoFromBeanReviewNo(BeanRev revNo) {
+    	
+    	return dao.selectBusinessNoByBeanRevNo(revNo);
+    }
+    
+    @Override
+    public List<BeanRev> getBeanTasteList(BeanRev beanRev) {
+    	
+    	return dao.selectBeanTasteName(beanRev);
+    	
+    }
+    
+    @Override
+    public String getBeanName(int beanNo) {
+    	
+    	return dao.selectBeanNameByBeanNo(beanNo);
+    }
+    
+    @Override
+    public void joinBeanReview(BeanRev beanRev) {
+    	
+    	dao.insertBeanReview(beanRev);
+    }
+    
+    @Override
+    public void dropBeanReview(BeanRev beanRev) {
+    	
+		dao.deleteBeanReviewByBeanNo(beanRev);
+		dao.deleteBeanReviewCommByBeanNo(beanRev);
+    	
+    }
+    
+    @Override
+    public Integer getBeanNo(Integer subNo) {
+    	
+    	return dao.getBeanNoBySubNo(subNo);
+    }
+    
+    
     
 }
 

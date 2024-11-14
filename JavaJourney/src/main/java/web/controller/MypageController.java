@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import edu.emory.mathcs.backport.java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
@@ -49,12 +49,20 @@ public class MypageController {
 			MemberQuizResult memberQuizResult,
 			Model model
 			) {
-//		List<MemberQuizResult> result = service.selectByUserNoQuizeResult();
-//		model.addAttribute("result",result);
+//		log.info("memberQuizResult UserNo : {}",memberQuizResult.getUserNo());
+		List<MemberQuizResult> MyQuizResult = service.selectByUserNoQuizeResult(memberQuizResult.getUserNo());
+		model.addAttribute("MyQuizResult",MyQuizResult);
 	}
 	
 	@GetMapping("/subscribe")
-	public void subscribeForm() {}
+	public void subscribeForm(
+			BeanSub beanSub,
+			Model model
+			) {
+		log.info("beanSub UserNo : {}",beanSub.getUserNo());
+		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo());
+		model.addAttribute("beanSubList",beanSubList);
+	}
 	
 	@GetMapping("/cancelsub")
 	public void cancelsubForm() {}
@@ -243,19 +251,23 @@ public class MypageController {
 			, HttpSession session
 			, Member member
 			, @RequestParam(defaultValue = "전체") String category
-			, Paging param
+			, Paging curPage
 			, String search) {
 		
 		
         // 세션에서 userNo 가져오기
         Integer userNo = (Integer) session.getAttribute("userNo");
-        
-        //페이징
-//        Paging paging = service.getMyViewPaging(param);
+ 
+      
         
         
         List<Map<String, Object>> myView = new ArrayList<>();
+        
+        
+       
+        
 
+        
         // 각 객체를 구분하고 'type' 필드를 추가하여 리스트에 넣음
         if ("카페리뷰".equals(category) || "전체".equals(category)) {
             List<CafeRev> cafeReview = service.selectCafeRevByUserNo(member.getUserNo());
@@ -328,6 +340,7 @@ public class MypageController {
         }
 
         
+        
         // 날짜 기준으로 정렬 //지피티출신입니다
         Collections.sort(myView, new Comparator<Map<String, Object>>() {
             @Override
@@ -355,19 +368,56 @@ public class MypageController {
             }
         });	
         
+        
+        
         //rownum역순으로 줘서 글번호 출력하기
         for (int i = 0; i < myView.size(); i++) {
             Map<String, Object> map = myView.get(i);
             map.put("rownum", myView.size() - i);
         }
         
-   
         
-//        model.addAttribute("paging", paging);
+        // 페이징 처리
+        int pageSize = 10; //한 페이지당 10개
+        int totalCount = myView.size(); //총 게시글 수 = myView크기만큼
+        int totalPage = (int) Math.ceil((double) totalCount / pageSize); 
+        // ex)데이터53개/페이지10개 = 5.3페이지가 필요 -> ceil로 반올림. 6페이지 나옴
+
+        // 현재 페이지 (기본값 1)
+        int currentPage = curPage != null ? curPage.getCurPage() : 1;
+        // 현재페이지가 null이 아닌게 맞다면 curPage.getCurPage(). null이라면 1페이지
+
+        // 페이지별 시작/끝 글번호 계산
+        int startIndex = (currentPage - 1) * pageSize;
+        //만약 currentPage = 3이고, pageSize = 10이라면, (3 - 1) * 10 = 2 * 10 = 20번째 글부터 시작
+        int endIndex = Math.min(startIndex + pageSize, totalCount);
+        //Math.min()은 두 값 중 더 작은 값을 반환(총게시글수 넘지않도록)
+        
+        // 해당 페이지에 맞는 데이터만 가져오기
+        List<Map<String, Object>> paginatedList = myView.subList(startIndex, endIndex);
+        //myView 리스트에서 startIndex부터 endIndex까지 가져오기
+        
+        
+        // 페이지네이션 정보 계산 (현재 페이지, 시작 페이지, 끝 페이지)
+        int startPage = Math.max(1, currentPage - 4);
+        //최소1페이지시작. 
+        int endPage = Math.min(totalPage, currentPage + 4);
+        //끝페이지가 전체페이지수 넘지 않도록. 
+
+        Paging paging = new Paging(currentPage, totalPage, startPage, endPage);
+        //계산된 페이지네이션 정보를 Paging 객체로 생성
+       
+        model.addAttribute("myView", paginatedList); // 페이징된 데이터만 전달
+        
+        
+        
+        model.addAttribute("paging", paging);
         model.addAttribute("userNo", userNo);
-        model.addAttribute("myView", myView);
+//        model.addAttribute("myView", myView);
         model.addAttribute("category", category);	
-        model.addAttribute("search", search);	
+        model.addAttribute("search", search);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPage", totalPage);
 	}	
 	
 	

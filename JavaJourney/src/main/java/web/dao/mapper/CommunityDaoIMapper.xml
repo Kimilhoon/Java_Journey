@@ -175,6 +175,11 @@
 		WHERE commentno = #{commentNo}
 	</delete>
 	
+	<delete id="deleteFreeBoardCommentByFreeBoardCommTag" parameterType="FreeBoardComment">
+		DELETE FROM FREEBOARDCOMMENT
+		WHERE freeBoardCommTag = #{commentNo}
+	</delete>
+	
 	<select id="selectFreeBoardCommentCnt" parameterType="FreeBoard">
 		SELECT count(*) FROM freeboardcomment
 		WHERE freeboardno = #{freeBoardNo}
@@ -587,7 +592,11 @@
 		</where>
 	</update>
 	
-		<select id="selectBeanReview" resultType="BeanRev" parameterType="hashmap">
+	
+	
+	
+	
+	<select id="selectBeanReview" resultType="BeanRev" parameterType="hashmap">
 		
 		SELECT * 
 		FROM (
@@ -649,12 +658,90 @@
 		</where>
 	</select>
 	
+	<select id="selectBeanReviewCommentList" parameterType="BeanRev" resultType="BeanRevComm">
+		SELECT commno, revno, b.userno, commcont, commtag, commdate, usernick
+		FROM beanrevcomm b
+		JOIN MEMBER m ON b.userno = m.userno
+		<where>
+			AND revNo = #{revNo }
+		</where>
+		ORDER BY commno
+	</select>
 	
+	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
+		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname
+		FROM beanrev br
+		JOIN bean b ON br.beanno = b.beanno
+		<where>
+			AND revno = #{revNo }
+		</where>
+	</select>
 	
+	<select id="selectWriterIdByBeanRev" parameterType="BeanRev" resultType="string">
+		SELECT userid
+		FROM BEANREV b, MEMBER m
+		<where>
+			AND b.USERNO = m.USERNO 
+			AND revno = #{revNo }
+		</where>
+	</select>
 	
+	<select id="getBeanRevNos" resultType="int">
+		SELECT revno
+		FROM beanrev
+		ORDER BY revno
+	</select>
 	
+	<select id="selectBusinessNoByBeanRevNo" resultType="string" parameterType="beanRev">
+		SELECT businessNo FROM bean b
+		JOIN beanrev br ON b.beanno = br.beanno
+		<where>
+			br.revno = #{revNo }
+		</where>
+	</select>
 	
+	<select id="selectBeanTasteName" resultType="BeanRev" parameterType="BeanRev">
+		SELECT cupnotename
+		FROM cupnote cn
+		JOIN beantaste bt ON cn.cupnoteno = bt.cupnoteno
+		<where>
+			bt.beanno = #{beanNo }
+		</where>
+	</select>
 	
+	<select id="selectBeanNameByBeanNo" resultType="string" parameterType="int">
+		SELECT beanName
+		FROM bean
+		<where>
+			AND beanno = #{beanNo }
+		</where>
+	</select>
+	
+	<insert id="insertBeanReview" parameterType="BeanRev" >
+		INSERT INTO beanrev (revNo, beanNo, subNo, userNo, revCont, revHit, revDate, revstarpoint)
+		VALUES ( revNo_seq.nextval , #{beanNo }, #{subNo }, #{userNo }, #{revCont }, 0, sysdate, #{revStarPoint } )
+	</insert>
+	
+	<delete id="deleteBeanReviewByBeanNo" parameterType="beanRev">
+		DELETE beanRev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<delete id="deleteBeanReviewCommByBeanNo" parameterType="beanRev">
+		DELETE beanRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getBeanNoBySubNo" resultType="Integer" parameterType="Integer">
+		SELECT beanno FROM beansub
+		<where>
+			AND subNo = #{subNo }
+		</where>
+	</select>
 	
 </mapper>
 

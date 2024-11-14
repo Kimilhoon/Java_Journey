@@ -6,11 +6,13 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.util.Paging;
 
@@ -135,6 +137,32 @@ public interface MypageService {
 	 * @param userNo
 	 */
 	public void leaveMember(Integer userNo);
+	
+	/**
+	 * 세션에서 가져온 userNo에 맞는 회원의 취향결과보기
+	 * @param userNo 
+	 * @return
+	 */
+	public List<MemberQuizResult> selectByUserNoQuizeResult(int userNo);
+	
+	/**
+	 * 세션에서 가져온 userNo에 맞는 회원의 구독정보보기
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanSub> selectMyBeanSub(int userNo);
+
+	/**
+	 * 내가 작성한글 페이징
+	 * @param curPage - 현재페이지정보
+	 * @param category - 카테고리
+	 * @param search - 검색어
+	 * @return
+	 */
+//	public Paging getMyViewPaging(Paging curPage, String category, String search);
+
+//	public List<Map<String, Object>> getAll(Paging paging, String category, String search);
+
 
 
 	

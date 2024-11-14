@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.MypageDao;
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.CafeRev;
 import web.dto.CafeWish;
 import web.dto.FreeBoard;
 import web.dto.Member;
+import web.dto.MemberQuizResult;
 import web.dto.MyRecipe;
 import web.service.face.MypageService;
 import web.util.Paging;
@@ -25,8 +27,15 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired private MypageDao dao;
 
+	@Override
+	public List<MemberQuizResult> selectByUserNoQuizeResult(int userNo) {
+		return dao.selectMyQuizeResult(userNo);
+	}
 	
-	
+	@Override
+	public List<BeanSub> selectMyBeanSub(int userNo) {
+		return dao.selectMyBeanSubResult(userNo);
+	}
 	
 	
 	
@@ -151,6 +160,79 @@ public class MypageServiceImpl implements MypageService {
 		dao.deleteMemberByUserNo(userNo);
 		
 	}
+
+
+//	@Override
+//	public Paging getMyViewPaging(Paging curPage, String category, String search) {
+//		
+//		if(curPage.getCurPage()==0) { //페이지설정 되지 않았을때 1번페이지 보여줌
+//			curPage.setCurPage(1);
+//		}
+//		
+//		if(category == null || "".equals(category)||"전체".equals(category)) { //카테고리 null, 빈문자열, all일 경우 N으로 설정
+//			category = "N";
+//		}else if(category.equals("카페리뷰")) {
+//			category="카페리뷰";
+//		}else if(category.equals("원두리뷰")) {
+//			category="원두리뷰";
+//		}else if(category.equals("자유게시판")) {
+//			category="자유게시판";
+//		}else if(category.equals("나만의레시피")) {
+//			category="나만의레시피";
+//		}
+//		
+//		if(search == null || "".equals(search)) { //검색어 null, 빈문자열일 경우 N으로 설정
+//			search = "N";
+//		}
+//		
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("search", search);
+//		map.put("category", category);
+//		
+//		//전체 게시글 수 구하기
+//		int totalCnt = dao.getMyViewTotalCnt(map);
+//		log.info("totalCount: {}", totalCnt);
+//		
+//		curPage.setTotalCount(totalCnt);
+//		
+//		
+//	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, 10, 10);
+//	    //curPage.getCurPage():현재페이지번호, totalCnt:전체게시글수, curPage.getListCount():한페이지에표시할게시글수, curPage.getPageCount():한페이지에보여줄페이지번호수
+//	    log.info("paging : {}", paging);
+//	    
+//		return paging;
+//	}
+//
+//	@Override
+//	public List<Map<String, Object>> getAll(Paging paging, String category, String search) {
+//		
+//		if(category == null || "".equals(category)||"전체".equals(category)) { //카테고리 null, 빈문자열, all일 경우 N으로 설정
+//			category = "N";
+//		}else if(category.equals("카페리뷰")) {
+//			category="카페리뷰";
+//		}else if(category.equals("원두리뷰")) {
+//			category="원두리뷰";
+//		}else if(category.equals("자유게시판")) {
+//			category="자유게시판";
+//		}else if(category.equals("나만의레시피")) {
+//			category="나만의레시피";
+//		}
+//		
+//		if(search == null || "".equals(search)) { //검색어 null, 빈문자열일 경우 N으로 설정
+//			search = "N";
+//		}
+//		
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("paging", paging);
+//		map.put("search", search);
+//		map.put("category", category);
+//		
+//		List<Map<String, Object>> list = dao.selectAll(map);
+//		
+//		return list;
+//	}
+
+
 
 
 
