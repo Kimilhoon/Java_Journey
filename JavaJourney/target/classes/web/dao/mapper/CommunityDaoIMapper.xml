@@ -709,9 +709,39 @@
 		</where>
 	</select>
 	
+	<select id="selectBeanNameByBeanNo" resultType="string" parameterType="int">
+		SELECT beanName
+		FROM bean
+		<where>
+			AND beanno = #{beanNo }
+		</where>
+	</select>
 	
+	<insert id="insertBeanReview" parameterType="BeanRev" >
+		INSERT INTO beanrev (revNo, beanNo, subNo, userNo, revCont, revHit, revDate, revstarpoint)
+		VALUES ( revNo_seq.nextval , #{beanNo }, #{subNo }, #{userNo }, #{revCont }, 0, sysdate, #{revStarPoint } )
+	</insert>
 	
+	<delete id="deleteBeanReviewByBeanNo" parameterType="beanRev">
+		DELETE beanRev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
 	
+	<delete id="deleteBeanReviewCommByBeanNo" parameterType="beanRev">
+		DELETE beanRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getBeanNoBySubNo" resultType="Integer" parameterType="Integer">
+		SELECT beanno FROM beansub
+		<where>
+			AND subNo = #{subNo }
+		</where>
+	</select>
 	
 </mapper>
 
