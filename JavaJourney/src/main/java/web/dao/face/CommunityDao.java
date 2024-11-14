@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -657,6 +658,37 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public List<BeanRev> selectBeanTasteName(BeanRev beanRev);
+
+	/**
+	 * 원두번호로 원두이름 조회하기
+	 * 
+	 * @param beanNo
+	 * @return
+	 */
+	public String selectBeanNameByBeanNo(int beanNo);
+
+	/**
+	 * 원두 리뷰 작성
+	 * 
+	 * @param beanRev
+	 */
+	public void insertBeanReview(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 삭제 및 해당 리뷰 댓글 삭제
+	 * 
+	 * @param beanRev
+	 */
+	public void deleteBeanReviewByBeanNo(BeanRev beanRev);
+	public void deleteBeanReviewCommByBeanNo(BeanRev beanRev);
+
+	/**
+	 * 구독번호로 원두 번호 갖고오기
+	 * 
+	 * @param subNo
+	 * @return
+	 */
+	public Integer getBeanNoBySubNo(Integer subNo);
 	
 }
 

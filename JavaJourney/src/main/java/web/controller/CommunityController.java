@@ -2,7 +2,10 @@ package web.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -503,19 +507,57 @@ public class CommunityController {
 	@GetMapping("/breview/list")
 	public void beanReviewForm(Model model, String category, String order, String search, Paging curPage) {
 		
-		Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+	    Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+	    
+	    List<BeanRev> rawBreviewList = service.getBeanReviewList(category, order, search, paging);
 
-		List<List<BeanRev>> breviewList = service.getBeanReviewList(category, order, search, paging);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("category", category);
-		model.addAttribute("order", order);
-		model.addAttribute("search", search);
-		model.addAttribute("breviewList", breviewList);
-		
-		log.info("breviewList: {}", breviewList);
-		
+	    // Map을 사용하여 글번호로 그룹화하면서 맛과 향을 중복 없이 병합
+	    Map<Integer, BeanRev> uniqueBreviewMap = new LinkedHashMap<>();
+	    
+	    for (BeanRev review : rawBreviewList) {
+	        uniqueBreviewMap.computeIfAbsent(review.getRevNo(), key -> {
+	            review.setCupNoteNames(new HashSet<>()); // 맛과 향 Set 초기화
+	            return review;
+	        }).getCupNoteNames().add(review.getCupNoteName()); // 중복되지 않는 맛과 향만 추가
+	    }
+
+	    List<BeanRev> breviewList = new ArrayList<>(uniqueBreviewMap.values());
+	    model.addAttribute("paging", paging);
+	    model.addAttribute("category", category);
+	    model.addAttribute("order", order);
+	    model.addAttribute("search", search);
+	    model.addAttribute("breviewList", breviewList);
 	}
+
+	
+//	@GetMapping("/breview/list")
+//	public void beanReviewForm(Model model, String category, String order, String search, Paging curPage) {
+//		
+//		Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+//
+//		List<BeanRev> breviewList = service.getBeanReviewList(category, order, search, paging);
+//		
+//	    // Map을 사용하여 글번호로 그룹화하면서 맛과 향을 중복 없이 병합
+//	    Map<Integer, BeanRev> uniqueBreviewMap = new LinkedHashMap<>();
+//	    
+//	    for (BeanRev review : breviewList) {
+//	        uniqueBreviewMap.computeIfAbsent(review.getRevNo(), key -> {
+//	            review.setCupNoteNames(new HashSet<>()); // 맛과 향 Set 초기화
+//	            return review;
+//	        }).getCupNoteNames().add(review.getCupNoteName()); // 중복되지 않는 맛과 향만 추가
+//	    }
+//
+//	    List<BeanRev> breviewList = new ArrayList<>(uniqueBreviewMap.values());
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("category", category);
+//		model.addAttribute("order", order);
+//		model.addAttribute("search", search);
+//		model.addAttribute("breviewList", breviewList);
+//		
+//		log.info("breviewList: {}", breviewList);
+//		
+//	}
 	
 	@GetMapping("/breview/view")
 	public void beanReviewView(Model model, HttpSession session, BeanRev revNo) {
@@ -592,21 +634,33 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/breview/write")
-	public void beanReviewWrite(Model model, Bean beanNo) {
+	public void beanReviewWrite(Model model, BeanSub subNo) {
 		
+//		log.info("subNo : {}", subNo);
+		
+		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		String beanName = service.getBeanName(beanNo);
 		
 		model.addAttribute("beanName", beanName);
 		model.addAttribute("beanNo", beanNo);
+		model.addAttribute("subNo", subNo);
 		
 	}
 	
 	@PostMapping("/breview/write")
-	public String beanReviewWriteProc(BeanRev beanRev, HttpSession session) {
+	public String beanReviewWriteProc(BeanRev beanRev, BeanSub subNo, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
 		int userNo = service.getUserNo(userId);
+		Integer beanNo = service.getBeanNo(subNo.getSubNo());
+		
+		log.info("userNo : {}", userNo);
+		log.info("beanNo : {}", beanNo);
+		
+		beanRev.setBeanNo(beanNo);
 		beanRev.setUserNo(userNo);
+		beanRev.setSubNo(subNo.getSubNo());
+		
 		service.joinBeanReview(beanRev);
 		
 		return "redirect: ./list";
