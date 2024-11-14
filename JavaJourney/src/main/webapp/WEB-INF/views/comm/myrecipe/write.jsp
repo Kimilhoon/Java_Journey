@@ -29,6 +29,11 @@ $(function() {
 		$("#"+c3).prop("checked",true);
 		$("#"+c4).prop("checked",true);
 		$("#"+c5).prop("checked",true);
+		
+		$("input:checkbox[name='cupNoteNo']").prev().css("background","");
+		$("input:checkbox[name='cupNoteNo']").prev().css("color","black");
+		$("input:checkbox[name='cupNoteNo']:checked").prev().css("background","#6f4e37");
+		$("input:checkbox[name='cupNoteNo']:checked").prev().css("color","white");
 	});
 	
 	$(".cupNote").click(function() {
@@ -115,6 +120,11 @@ $(function() {
 				$("#"+res.cupList[0].cupNoteName).prop("checked",true);
 				$("#"+res.cupList[1].cupNoteName).prop("checked",true);
 				$("#"+res.cupList[2].cupNoteName).prop("checked",true);
+				$("input:checkbox[name='cupNoteNo']").prev().css("background","");
+				$("input:checkbox[name='cupNoteNo']").prev().css("color","black");
+				$("input:checkbox[name='cupNoteNo']:checked").prev().css("background","#6f4e37");
+				$("input:checkbox[name='cupNoteNo']:checked").prev().css("color","white");
+				
 			},
 			error: function() {
 				
@@ -218,14 +228,14 @@ table{
 
 <select id="select_result"  class="form-select" style="display: none;">
 	<c:forEach items="${qList }" var="list">
-	<option class="op">
-	<c:forEach items="${list }" var="qrList" varStatus="status">
-	<c:if test="${status.first}">
-	${qrList.beanName },${qrList.extractionName },${qrList.grindName }
-	</c:if>
-	,${qrList.cupNoteName }
-	</c:forEach>
-	</option>
+		<option class="op">
+			<c:forEach items="${list }" var="qrList" varStatus="status">
+				<c:if test="${status.first}">
+				${qrList.beanName },${qrList.extractionName },${qrList.grindName }
+				</c:if>
+				,${qrList.cupNoteName }
+			</c:forEach>
+		</option>
 	</c:forEach>
 </select>
 
@@ -287,6 +297,7 @@ table{
 	</td>
 </tr>
 </table>
+
 <div style="float: right;">
 <a href="./list"><button class="btn " type="button"><small>목록</small></button></a>
 <button class="btn " id="write" type="button"><small>글쓰기</small></button>

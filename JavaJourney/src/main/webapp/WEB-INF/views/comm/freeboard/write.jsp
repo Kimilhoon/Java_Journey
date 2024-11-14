@@ -6,15 +6,18 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8fbebe3028eb8e4ca3a2c1633eec190&libraries=services"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	  $('#summernote').summernote();
+	  $('#summernote').summernote({
+		  placeholder:"내용을 입력하세요."
+	  });
+	  
 	});
 	
 $(function() {
 	
 	$("#write").click(function() {
-		console.log($("#t").val());
-		console.log($("input:radio[name=freeBoardCategory]:checked").val());
-		console.log($("#summernote").val());
+// 		console.log($("#t").val());
+// 		console.log($("input:radio[name=freeBoardCategory]:checked").val());
+// 		console.log($("#summernote").val());
 		$.ajax({
 			url: "./write",
 			type: "post",
@@ -39,7 +42,7 @@ $(function() {
 
 	$("#add_map").click(function() {
 		
-		$("#api_all_wrap").css("display","");
+		$("#api_all_wrap").toggle();
 		
 	var markers = [];
 	
@@ -57,6 +60,18 @@ $(function() {
 	
 	// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 	var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 키워드로 장소를 검색합니다
 	
@@ -177,7 +192,7 @@ $(function() {
 	
 	    el.innerHTML = itemStr;
 	    el.className = 'item';
-		console.log(places);
+// 		console.log(places);
 	    return el;
 	}
 	
@@ -199,6 +214,27 @@ $(function() {
 	    marker.setMap(map); // 지도 위에 마커를 표출합니다
 	    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 	
+// 	    var geocoder = new kakao.maps.services.Geocoder();
+//         geocoder.addressSearch(data.roadAddress, function(result, status) {
+//             if (status === kakao.maps.services.Status.OK) {
+//                 var lat = result[0].y;
+//                 var lon = result[0].x;
+
+//                 // 지도 중심 이동
+//                 map.setCenter(moveLatLon);
+//                 marker.setPosition(moveLatLon);
+//             }
+//         });
+// 	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+// 	    mapOption = {
+// 	        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+// 	        level: 3 // 지도의 확대 레벨
+// 	    };  
+	
+// 		// 지도를 생성합니다    
+// 		var map = new kakao.maps.Map(mapContainer, mapOption); 
+	    
+	    
 	    
 	    kakao.maps.event.addListener(marker, 'click', function() {
 	        var lat = position.getLat();
@@ -207,6 +243,10 @@ $(function() {
 	        $("#x").text(lat);
 	        $("#y").text(lng);
 	        $("#choose").css("display","");
+            var moveLatLon = new kakao.maps.LatLng(lat, lng);
+            map.setCenter(moveLatLon);
+            map.setLevel(3);
+            marker.setPosition(moveLatLon);
 	        
 	    });
 	    
@@ -276,13 +316,14 @@ $(function() {
 		
 	})
 	
+	
 })
 </script>
 <style>
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap, .map_wrap * {margin:0 auto;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:0;left:0px;bottom:0;width:250px; height:500px; margin:0 auto;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -297,47 +338,109 @@ $(function() {
 #placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
 #placesList .info .tel {color:#009900;}
 #placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
+ #placesList .item .marker_1 {background-position: 0 -10px;} 
+ #placesList .item .marker_2 {background-position: 0 -56px;} 
+ #placesList .item .marker_3 {background-position: 0 -102px} 
+ #placesList .item .marker_4 {background-position: 0 -148px;} 
+ #placesList .item .marker_5 {background-position: 0 -194px;} 
+ #placesList .item .marker_6 {background-position: 0 -240px;} 
+ #placesList .item .marker_7 {background-position: 0 -286px;} 
+ #placesList .item .marker_8 {background-position: 0 -332px;} 
+ #placesList .item .marker_9 {background-position: 0 -378px;} 
+ #placesList .item .marker_10 {background-position: 0 -423px;} 
+ #placesList .item .marker_11 {background-position: 0 -470px;} 
+ #placesList .item .marker_12 {background-position: 0 -516px;} 
+ #placesList .item .marker_13 {background-position: 0 -562px;} 
+ #placesList .item .marker_14 {background-position: 0 -608px;} 
+ #placesList .item .marker_15 {background-position: 0 -654px;} 
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+#content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.container{
+	display: inline-block;
+	width: -webkit-fill-available;
+	margin: 0 auto;
+}
+
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
+
 </style>
 <body>
-<a href="./list"><button>목록</button></a>
+
 
 <!-- <form action="./write" method="post" accept-charset="utf-8"> -->
+<div id="content">
+<div class="container">
+<table  class="table table-bordered">
+<tr>
+	
+	<td>
+		카테고리
+	<input type="radio" name="freeBoardCategory" value="bean" checked="checked" class="form-check-input">원두
+	<input type="radio" name="freeBoardCategory" value="cafe" class="form-check-input">카페
+	</td>
+	<td>
+	</td>
+	<td>
+	</td>
+</tr>
+<tr>
+	
+	<td colspan="3">
+		<input type="text" name="freeBoardTitle" required="required" id="t" class="form-control" placeholder="제목을 입력하세요.">
+	</td>
+</tr>
 
-<label>제목<input type="text" name="freeBoardTitle" id="t"></label>
-<br>
-<label>카테고리<input type="radio" name="freeBoardCategory" value="bean" checked="checked">원두<input type="radio" name="freeBoardCategory" value="cafe">카페</label>
-<br>
-<label>내용<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control" ></textarea></label>
-<br>
-<button id="add_map">지도추가</button>
+<tr>
+	
+	<td colspan="3">
+	<textarea id="summernote" rows="15" cols="50" name="freeBoardContent" required="required" class="form-control" ></textarea>
+	</td>
+</tr>
+
+<tr>
+	
+	<td colspan="3">
+		<input type="file" name="file" class="form-control" id="file">
+	</td>
+</tr>
+
+<tr>
+	<td colspan="3">
+		<button id="add_map" class="btn">지도추가</button>
+	</td>
+</tr>
+<tr>
+<td colspan="3">
 <div id="api_all_wrap" style="display: none;">
 
 <div class="map_wrap" >
-    <div id="map" style="width: 500px; height: 400px;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:-webkit-fill-available;height: 500px; position:relative;overflow:hidden;"></div>
 
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
                     키워드 : <input type="text" value="" id="keyword" size="15"> 
-                    <button id="api_search">검색하기</button> 
+                    <button id="api_search" class="btn"><small>검색하기</small></button> 
                 </form>
             </div>
         </div>
@@ -347,6 +450,7 @@ $(function() {
     </div>
 </div>
 <div id="clickLatlng" ></div>
+
 <div id="choose" style="display: none;">
 선택결과<br>
 좌표: 
@@ -354,9 +458,17 @@ $(function() {
 </div>
 
 </div>
-<br>
-<button id="write">작성</button>
-<!-- </form> -->
 
-</body>
-</html>
+</td>
+</tr>
+</table>
+
+<div style="float: right;">
+	<a href="./list"><button class="btn">목록</button></a>
+	<button id="write" class="btn">작성</button>
+</div>
+<!-- </form> -->
+</div><!-- container -->
+
+</div><!-- content -->
+<c:import url="/WEB-INF/views/layout/footer.jsp"/>
