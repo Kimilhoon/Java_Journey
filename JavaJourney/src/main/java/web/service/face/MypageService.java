@@ -136,6 +136,15 @@ public interface MypageService {
 	 */
 	public void leaveMember(Integer userNo);
 
+	/**
+	 * 내가 작성한글 페이징
+	 * @param curPage - 현재페이지정보
+	 * @param category - 카테고리
+	 * @param search - 검색어
+	 * @return
+	 */
+	public Paging getMyViewPaging(Paging curPage, String category, String search);
+
 
 
 	

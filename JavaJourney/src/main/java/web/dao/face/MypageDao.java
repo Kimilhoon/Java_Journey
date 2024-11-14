@@ -131,6 +131,13 @@ public interface MypageDao {
 	 */
 	public void deleteMemberByUserNo(Integer userNo);
 
+	/**
+	 * 카테고리와 검색어로 필터링된 게시글 수
+	 * @param map - 카테고리, 검색어 정보를 담은 객체
+	 * @return 필터링된 게시글 수
+	 */
+	public int getMyViewTotalCnt(HashMap<String, String> map);
+
 
 
 	

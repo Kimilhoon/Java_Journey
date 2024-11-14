@@ -243,21 +243,22 @@ public class MypageController {
 			, HttpSession session
 			, Member member
 			, @RequestParam(defaultValue = "전체") String category
-			, Paging paging
+			, Paging curPage
 			, String search) {
 		
 		
         // 세션에서 userNo 가져오기
         Integer userNo = (Integer) session.getAttribute("userNo");
-        
+ 
         //페이징
-//        Paging paging = service.getMyViewPaging(paging);
-        
-        
+        Paging paging = service.getMyViewPaging(curPage, category, search);
+      
         
         
         List<Map<String, Object>> myView = new ArrayList<>();
+        
 
+        
         // 각 객체를 구분하고 'type' 필드를 추가하여 리스트에 넣음
         if ("카페리뷰".equals(category) || "전체".equals(category)) {
             List<CafeRev> cafeReview = service.selectCafeRevByUserNo(member.getUserNo());
@@ -330,6 +331,24 @@ public class MypageController {
         }
 
         
+        
+
+//     // 데이터 필터링 이후 페이징 적용
+//        int startIdx = (paging.getCurPage() - 1) * paging.getListCount();
+//        int endIdx = Math.min(startIdx + paging.getListCount(), myView.size());
+//
+//        // 페이징 범위 내의 데이터만 리스트에 추가
+//        List<Map<String, Object>> paginatedMyView = myView.subList(startIdx, endIdx);
+
+        // 페이징된 데이터만 사용
+        int startIdx = (paging.getCurPage() - 1) * paging.getListCount();
+        int endIdx = Math.min(startIdx + paging.getListCount(), myView.size());
+        List<Map<String, Object>> paginatedMyView = myView.subList(startIdx, endIdx);
+       
+        
+        
+        
+        
         // 날짜 기준으로 정렬 //지피티출신입니다
         Collections.sort(myView, new Comparator<Map<String, Object>>() {
             @Override
@@ -365,7 +384,7 @@ public class MypageController {
         
    
         
-//        model.addAttribute("paging", paging);
+        model.addAttribute("paging", paging);
         model.addAttribute("userNo", userNo);
         model.addAttribute("myView", myView);
         model.addAttribute("category", category);	
