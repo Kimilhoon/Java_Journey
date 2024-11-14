@@ -21,7 +21,6 @@ $(function () {
 }
 </style>
 <div class="container" style="width: 330px;">
-<%-- ${userNo } --%>
 <div id="bestBean">
     <!-- 이달의 베스트원두 -->
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
