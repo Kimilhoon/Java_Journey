@@ -524,9 +524,11 @@ public class CommunityController {
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
 		//원두 상세 정보
-		List<List<BeanRev>> beanRev = service.getBeanReviewInfo(revNo);
+		BeanRev beanRev = service.getBeanReviewInfo(revNo);
 		
-		log.info("beanRev: {}", beanRev);
+//		log.info("beanRev: {}", beanRev);
+		
+		List<BeanRev> taste = service.getBeanTasteList(beanRev);
 		
 		//로그인한 유저id
 		String userId = (String) session.getAttribute("userId");	
@@ -556,6 +558,7 @@ public class CommunityController {
 //		String commId = service.getCafeReviewCommentId();
 		
 		model.addAttribute("brevcommList", brevcommList);
+		model.addAttribute("taste", taste);
 		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
 		model.addAttribute("writerId", writerId);

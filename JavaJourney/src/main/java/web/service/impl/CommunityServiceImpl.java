@@ -880,19 +880,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
     
     @Override
-    public List<List<BeanRev>> getBeanReviewInfo(BeanRev revNo) {
+    public BeanRev getBeanReviewInfo(BeanRev revNo) {
     	
-		List<BeanRev> bList = dao.selectBeanReviewInfo(revNo);
-		
-		List<List<BeanRev>> list = new ArrayList<>();
-		
-		list.add(bList);
-		
-		for(BeanRev b : bList) {
-			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
-		}
-    	
-		return list;
+		return dao.selectBeanReviewInfo(revNo);
     }
     
     @Override
@@ -930,6 +920,12 @@ public class CommunityServiceImpl implements CommunityService {
     	return dao.selectBusinessNoByBeanRevNo(revNo);
     }
     
+    @Override
+    public List<BeanRev> getBeanTasteList(BeanRev beanRev) {
+    	
+    	return dao.selectBeanTasteName(beanRev);
+    	
+    }
     
     
     

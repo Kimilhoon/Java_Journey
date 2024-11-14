@@ -347,7 +347,12 @@ function clip(){
 	</tr>
 	<tr>
 		<td>맛과 향</td>
-		<td>${beanRev.cupNoteName }</td>
+		<td>
+			<c:forEach var="taste" items="${taste }" varStatus="status">
+				${taste.cupNoteName }
+				<c:if test="${status.first }">, </c:if>
+			</c:forEach>
+		</td>
 		<td>별점</td>
 		<td>${beanRev.revStarPoint }</td>
 		<td>작성일</td>

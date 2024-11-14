@@ -625,7 +625,7 @@ public interface CommunityDao {
 	 * @param revNo
 	 * @return
 	 */
-	public List<BeanRev> selectBeanReviewInfo(BeanRev revNo);
+	public BeanRev selectBeanReviewInfo(BeanRev revNo);
 
 	/**
 	 * 원두 리뷰를 작성한 유저의 아이디 정보 갖고오기
@@ -649,6 +649,14 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public String selectBusinessNoByBeanRevNo(BeanRev revNo);
+
+	/**
+	 * 원두의 맛과 향 이름 불러오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public List<BeanRev> selectBeanTasteName(BeanRev beanRev);
 	
 }
 
