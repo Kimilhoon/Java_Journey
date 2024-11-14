@@ -58,7 +58,7 @@ alt="로고" width="200" height="200" />
     <div class="flex-shrink-0 mx-5">
       <ul style="list-style:none">
       	<c:if test="${userNick eq 'admin' }">
-      	<li><a href="/manager/menu2" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
+      	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
       	</c:if>
       </ul>
     </div>
