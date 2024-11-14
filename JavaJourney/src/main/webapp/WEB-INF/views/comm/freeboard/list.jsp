@@ -4,10 +4,10 @@
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
-<script type="text/javascript">
+<script  type="text/javascript">
 $(function() {
 	
-	$(".hit").click(function() {
+	$(document).on("click", ".hit", function() {
 		
 		$.ajax({
 			url: "./hit?freeBoardNo="+$(this).parent().prev().prev().prev().text(),
@@ -22,9 +22,11 @@ $(function() {
 			
 		});
 	});
-	$("#btn_search").click(function() {
+	$(document).on("click", "#btn_search", function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
+
+// 		location.href="./list?search="+$("#search").val()+"&category="+$("#category").val();
 		$.ajax({
 			url: "./list",
 			type: "get",
@@ -34,18 +36,38 @@ $(function() {
 			},
 			dataType: "html",
 			success: function(res) {
-// 				console.log(res);
-				$("body").children().remove();
-				$("body").html(res); 
+				console.log(res);
+				const c = $("<div>").html(res).find("#plz").html();
+				console.log(c);
+				
+				$("#plz").children().remove();
+				$("#plz").html(c); 
+	            // 현재 페이지의 #content에 새 콘텐츠 삽입
+// 	            $("body").html(newContent);
 			},
 			error: function() {
-				
+				alert("tq");
 			}
 			
 		});
 		
 	});
 	
+	$("#category").change(function() {
+		location.href="./list?search=${search}&category="+$("#category").val();
+	})
+	
+	
+	
+	$("#W").click(function() {
+		
+	})
+	$("#R").click(function() {
+		
+	})
+	$("#C").click(function() {
+		
+	})
 	
 	
 })
@@ -72,22 +94,32 @@ a {
 	
 
 </style>
-<div class="container" >
+<div id="plz" >
+<div class="container">
 <div id="order_search_wrap">
 <div id="order" style="float: left;">
 <a href="./list" id="W">최근리뷰순</a>
+<span>|</span>
 <a href="./list" id="R">추천순</a>
+<span>|</span>
 <a href="./list" id="C">댓글많은순</a>
-</div> <!-- order-list -->
-<div id="search_div">
-	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
-	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
-	<select id="category" class="form-select" style="width: 80px; float: right; display: inline-block;">
+<br>
+	<select id="category" class="form-select" style="width: 80px; float: left; display: inline-block;">
+		<option value="all">-선택-</option>
 		<option value="all">전체</option>
 		<option value="cafe">카페</option>
 		<option value="bean">원두</option>
 	</select>
-	
+</div> <!-- order-list -->
+<div id="search_div">
+	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+	<select id="search_order" class="form-select" style="width: 80px; float: right; display: inline-block;">
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+		<option value="titlecontent">제목 + 내용</option>
+		<option value="writer">작성자</option>
+	</select>
 </div>
 </div>
 
@@ -191,5 +223,6 @@ a {
 </ul>
 </div><!-- 페이징 -->
 
+</div>
 </div><!-- container -->
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

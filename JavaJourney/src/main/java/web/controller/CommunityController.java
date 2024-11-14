@@ -65,8 +65,6 @@ public class CommunityController {
 			model.addAttribute("search", search);
 			model.addAttribute("category", category);
 			
-			
-			
 		}
 		@GetMapping("/freeboard/view")
 		public void freeBoardView(Model model, FreeBoard freeBoard, HttpSession session) {
@@ -532,10 +530,10 @@ public class CommunityController {
 		String userId = (String) session.getAttribute("userId");	
 		
 		//작성한 유저id
-		String writerId = service.getWriterId(beanRev);
+//		String writerId = service.getWriterId(beanRev);
 		
 		//작성자 닉네임 불러오기
-		String writerNick = service.getwriterNick(writerId);
+//		String writerNick = service.getwriterNick(writerId);
 		
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
@@ -558,8 +556,8 @@ public class CommunityController {
 		model.addAttribute("brevcommList", brevcommList);
 		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
-		model.addAttribute("writerId", writerId);
-		model.addAttribute("writerNick", writerNick);
+//		model.addAttribute("writerId", writerId);
+//		model.addAttribute("writerNick", writerNick);
 		
 	}
 	
@@ -568,7 +566,7 @@ public class CommunityController {
 		
 		String userId = (String) session.getAttribute("userId");
 		
-		service.writeBeanReviewComm(revNo, commCont, userId);
+//		service.writeBeanReviewComm(revNo, commCont, userId);
 		
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
@@ -576,14 +574,14 @@ public class CommunityController {
 	@RequestMapping("/breview/comm/update")
 	public void beanReviewCommUpdate(BeanRevComm commCont) {
 		
-    	service.changeBeanReviewComment(commCont);
+//    	service.changeBeanReviewComment(commCont);
     	
 	}
 	
 	@RequestMapping("/breview/comm/delete")
 	public String beanReviewCommDelete(BeanRevComm commNo, CafeRev revNo) {
 		
-		service.dropBeanReviewComment(commNo);
+//		service.dropBeanReviewComment(commNo);
 		
 		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
@@ -591,9 +589,9 @@ public class CommunityController {
 	@GetMapping("/breview/write")
 	public void beanReviewWrite(Model model, Bean beanNo) {
 		
-		String beanName = service.getBeanName(beanNo);
+//		String beanName = service.getBeanName(beanNo);
 		
-		model.addAttribute("beanName", beanName);
+//		model.addAttribute("beanName", beanName);
 		model.addAttribute("beanNo", beanNo);
 		
 	}
@@ -604,7 +602,7 @@ public class CommunityController {
 		String userId = (String) session.getAttribute("userId");
 		int userNo = service.getUserNo(userId);
 		beanRev.setUserNo(userNo);
-		service.joinBeanReview(beanRev);
+//		service.joinBeanReview(beanRev);
 		
 		return "redirect: ./list";
 	}
@@ -612,22 +610,22 @@ public class CommunityController {
 	@RequestMapping("/breview/delete")
 	public String beanReviewDelete(BeanRev beanRev) {
 		
-		service.dropBeanReview(beanRev);
+//		service.dropBeanReview(beanRev);
 			
 		return "redirect: ./list";
 	}
 	
 	@GetMapping("/breview/update")
 	public void beanReviewUpdate(Model model, BeanRev beanNo) {
-		BeanRev BeanRev = service.getBeanReviewInfo(beanNo);
+//		BeanRev BeanRev = service.getBeanReviewInfo(beanNo);
 		
-		model.addAttribute("BeanRev", BeanRev);
+//		model.addAttribute("BeanRev", BeanRev);
 	}
 	
 	@PostMapping("/breview/update")
 	public String beanReviewUpdateProc(BeanRev beanRev) {
 //		log.info("dddd{}",cafeRev);
-		service.changeBeanReview(beanRev);
+//		service.changeBeanReview(beanRev);
 		
 		return "redirect: ./view?revNo=" + beanRev.getRevNo();
 	}
