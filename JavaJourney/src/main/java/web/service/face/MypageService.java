@@ -137,6 +137,7 @@ public interface MypageService {
 	public void leaveMember(Integer userNo);
 
 
+
 	
 	
 	

@@ -494,11 +494,75 @@ $(function() {
 </style>
 
 
-회원가입창
+<style type="text/css">
+#joinForm {
+    width: 100%;
+    max-width: 400px;  /* 폼의 최대 너비 설정 */
+    margin: 0 auto;    /* 수평 중앙 정렬 */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#joinForm div {
+    margin-bottom: 15px;
+}
+
+#joinForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#joinForm input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#joinForm button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#joinForm button:hover {
+    background-color: #5a3e2f;
+}
+
+#btnOut {
+    background: none;        /* 배경 제거 */
+    border: none;            /* 테두리 제거 */
+    color: #6f4e37;          /* 텍스트 색상 */
+    font-size: 14px;         /* 글자 크기 */
+    text-decoration: underline; /* 밑줄 추가 */
+    cursor: pointer;        /* 커서 스타일 변경 */
+    margin-left: auto;       /* 오른쪽으로 이동 */
+    display: block;          /* 블록 요소로 만들어 margin 적용 */
+    padding: 0;              /* 여백 제거 */
+}
+
+#btnOut:hover {
+    color: #5a3e2f;          /* 호버시 색상 변경 */
+    text-decoration: none;   /* 호버 시 밑줄 제거 */
+    
+    
+}
+</style>
+
+<h2 style="text-align: center; font-weight: bold;">회원가입</h2>
 <hr>
 
 <div id="joinForm">
-<form action="./join" method="post">
+<form action="./join" method="post" id="joinForm">
 
 <div class="idSection">
 	<label for="userId">아이디</label>
@@ -556,7 +620,7 @@ $(function() {
 </div>
 
 
-주소
+<label>주소</label>
 <button id="btnPostcode">우편번호 찾기</button>
 <div id="postcodeWrap">
 	<img alt="x" src="../resources/img/close.png" class="closeIcon">
@@ -585,26 +649,26 @@ $(function() {
 <!-- </div> -->
 <br>
 
-[ 사업자 등록 시 ]
+
 <div>
 	<label for="businessNo">사업자 등록번호
-		<input type="text" name="businessNo" id="businessNo">
+		<input type="text" name="businessNo" id="businessNo" placeholder="(선택) 사업자 등록 시">
 	</label>
 </div>
 <br>
 
-[ 이용 약관 ]
+<label style="font-size: 18px">[ 이용 약관 ]</label>
 <br>
-<label>
+<label class="agree">
     <input type="checkbox" id="checkAll"> 모든 약관에 동의
 </label>
 <br>
-<label>
+<label class="agree">
     <input type="checkbox" class="terms-checkbox"> 이용 약관 (필수)
     <button type="button" onclick="showModal('modal1')">보기</button>
 </label>
 <br>
-<label>
+<label class="agree">
 	<input type="checkbox" class="terms-checkbox"> 개인정보 수집 및 이용 (필수)
 	<button type="button" onclick="showModal('modal2')">보기</button>
 </label>
