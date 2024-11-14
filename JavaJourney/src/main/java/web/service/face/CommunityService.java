@@ -563,7 +563,7 @@ public interface CommunityService {
 	 * @param revNo
 	 * @return
 	 */
-	public List<List<BeanRev>> getBeanReviewInfo(BeanRev revNo);
+	public BeanRev getBeanReviewInfo(BeanRev revNo);
 
 
 	/**
@@ -589,6 +589,14 @@ public interface CommunityService {
 	 * @return
 	 */
 	public String getBusinessNoFromBeanReviewNo(BeanRev revNo);
+
+	/**
+	 * 원두의 맛과 향 리스트 갖고오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public List<BeanRev> getBeanTasteList(BeanRev beanRev);
 	
 	
 }

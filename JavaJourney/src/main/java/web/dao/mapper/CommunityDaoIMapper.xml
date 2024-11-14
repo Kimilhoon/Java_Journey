@@ -669,11 +669,9 @@
 	</select>
 	
 	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
-		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname, cupnotename
+		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname
 		FROM beanrev br
 		JOIN bean b ON br.beanno = b.beanno
-		JOIN beantaste bt ON b.beanno = bt.beanno
-		JOIN cupnote c ON c.cupnoteno = bt.cupnoteno
 		<where>
 			AND revno = #{revNo }
 		</where>
@@ -699,6 +697,15 @@
 		JOIN beanrev br ON b.beanno = br.beanno
 		<where>
 			br.revno = #{revNo }
+		</where>
+	</select>
+	
+	<select id="selectBeanTasteName" resultType="BeanRev" parameterType="BeanRev">
+		SELECT cupnotename
+		FROM cupnote cn
+		JOIN beantaste bt ON cn.cupnoteno = bt.cupnoteno
+		<where>
+			bt.beanno = #{beanNo }
 		</where>
 	</select>
 	
