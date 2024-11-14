@@ -173,7 +173,7 @@ body {
  		<a href="/cafe/best" style="height: 100%;" >
 			<div class="box1 bestcafe">
 			    <div class="imgbox cafebox">
-			       	<img src="<c:url value='/resources/img/welcome/bestcafe.jpg'/>" alt="베스트카페이미지" width="50%" height="100%" />
+			       	<img src="<c:url value='/resources/img/welcome/bestCafe.jpg'/>" alt="베스트카페이미지" width="50%" height="100%" />
 			       	<div class="overlay-text">이달의 카페</div> <!-- 추가된 텍스트 -->
 			    </div>
 			</div>
@@ -181,7 +181,7 @@ body {
    		<a href="/bean/best"  style="height: 100%;">
 			<div class="box1 bestbean">
 			    <div class="imgbox beanbox">
-			       	<img src="<c:url value='/resources/img/welcome/bestbean.jpg'/>" alt="베스트원두이미지" width="50%" height="100%" />
+			       	<img src="<c:url value='/resources/img/welcome/bestBean.jpg'/>" alt="베스트원두이미지" width="50%" height="100%" />
 			       	<div class="overlay-text">취향 조사</div> <!-- 추가된 텍스트 -->
 			    </div>
 			</div>
@@ -191,7 +191,7 @@ body {
     <article class="item">
     <a href="/main" class="logo-image">
 		<div class="img">
-			<img src="<c:url value='/resources/img/KakaoTalk_20241114_124312445.png' />" alt="로고" width="240px" height="240px" class="logo" />
+			<img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="240px" height="240px" class="logo" />
 		</div>
 		<div class="more">
 			<p>
