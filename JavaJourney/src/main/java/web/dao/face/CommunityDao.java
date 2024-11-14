@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -603,6 +604,45 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public int getBeanReviewTotalCnt(HashMap<String, String> map);
+
+	/**
+	 * 원두 리뷰 댓글 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public List<BeanRevComm> selectBeanReviewCommentList(BeanRev revNo);
+
+	/**
+	 * 원두 리뷰 상세보기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public List<BeanRev> selectBeanReviewInfo(BeanRev revNo);
+
+	/**
+	 * 원두 리뷰를 작성한 유저의 아이디 정보 갖고오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public String selectWriterIdByBeanRev(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 갯수 갖고오기
+	 * 
+	 * @return
+	 */
+	public List<Integer> getBeanRevNos();
+
+	/**
+	 * 원두리뷰게시글의 사업자번호 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public String selectBusinessNoByBeanRevNo(BeanRev revNo);
 	
 }
 

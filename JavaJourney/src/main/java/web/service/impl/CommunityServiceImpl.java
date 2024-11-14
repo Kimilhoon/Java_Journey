@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CommunityDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -663,7 +664,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void changeCafeReview(CafeRev cafeRev) {
 		
-		int res = dao.updateCafeReviewByCafeNo(cafeRev);
+		dao.updateCafeReviewByCafeNo(cafeRev);
 	}
 	
 	@Override
@@ -866,6 +867,70 @@ public class CommunityServiceImpl implements CommunityService {
 		return paging;
     
     }
+    
+     @Override
+    public List<BeanRevComm> getBeanReviewCommentList(BeanRev revNo) {
+    	 
+    	return dao.selectBeanReviewCommentList(revNo);
+    }
+    
+    @Override
+    public List<List<BeanRev>> getBeanReviewInfo(BeanRev revNo) {
+    	
+		List<BeanRev> bList = dao.selectBeanReviewInfo(revNo);
+		
+		List<List<BeanRev>> list = new ArrayList<>();
+		
+		list.add(bList);
+		
+		for(BeanRev b : bList) {
+			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
+		}
+    	
+		return list;
+    }
+    
+    @Override
+    public String getWriterId(BeanRev beanRev) {
+    	
+    	return dao.selectWriterIdByBeanRev(beanRev);
+    }
+    
+    public Map<String, Integer> getPrevNextRevNos(BeanRev revNo) {
+        List<Integer> revNos = dao.getBeanRevNos();  // revNo 리스트 가져오기
+        Map<String, Integer> prevNextMap = new HashMap<>();
+        
+        int currentRevNo = revNo.getRevNo();
+        int currentIndex = revNos.indexOf(currentRevNo);
+
+        // 이전 revNo와 다음 revNo 계산
+        if (currentIndex > 0) {
+            prevNextMap.put("prevRevNo", revNos.get(currentIndex - 1));
+        } else {
+            prevNextMap.put("prevRevNo", null);  // 이전 게시글이 없을 경우 null
+        }
+
+        if (currentIndex < revNos.size() - 1) {
+            prevNextMap.put("nextRevNo", revNos.get(currentIndex + 1));
+        } else {
+            prevNextMap.put("nextRevNo", null);  // 다음 게시글이 없을 경우 null
+        }
+
+        return prevNextMap;
+    }
+    
+    @Override
+    public String getBusinessNoFromBeanReviewNo(BeanRev revNo) {
+    	
+    	return dao.selectBusinessNoByBeanRevNo(revNo);
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }
 
