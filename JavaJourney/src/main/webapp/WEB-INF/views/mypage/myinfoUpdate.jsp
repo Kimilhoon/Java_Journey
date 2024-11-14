@@ -195,8 +195,22 @@ $(function() {
 		
 		//닉네임 중복체크 수행 상태 설정
 		nickCheck = false;
-	}) //$("#userNick") end    
+	}) //$("#userNick") end 
 
+	
+	
+/* 회원탈퇴 */	
+/* -------------------------------------------------------------- */	
+	$("#btnOut").click(function() {
+        const realOut = confirm("정말 탈퇴하시겠습니까?");
+       
+        if (realOut) {
+            // "예"를 선택한 경우 탈퇴 요청 전송
+            location.href = "<c:url value='/mypage/out'/>"; // 회원 탈퇴 요청 URL
+        }
+	})
+	
+	
 	
 /* 주소 */	
 /* -------------------------------------------------------------- */	
@@ -269,6 +283,8 @@ $(function() {
 			
 }) //$(function() end
 </script>
+
+
 
 <style type="text/css">
 #postcodeWrap {
@@ -367,9 +383,10 @@ $(function() {
 <input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소" value="${member.userAdd2 }"><br>
 
 <br>
-<button id="btnUpdate">수정 하기</button>
-
+<button id="btnUpdate">수정하기</button>
+<button id="btnOut" type="button">탈퇴하기</button>
 
 </form>
+
 
 <c:import url="../layout/footer.jsp" />

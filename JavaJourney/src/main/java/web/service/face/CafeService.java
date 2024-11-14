@@ -17,6 +17,13 @@ public interface CafeService {
 	public List<Cafe> getBest();
 
 	/**
+	 * 총 카페 수 조회하기
+	 * 
+	 * @return 총 카페 수
+	 */
+	public Cafe getCafeCount();
+
+	/**
 	 * 페이지 객체 생성
 	 * @param param - 요청 정보 객체
 	 * @param location - 지역 카테고리 설정
@@ -76,6 +83,7 @@ public interface CafeService {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
+
 
 
 

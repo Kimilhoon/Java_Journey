@@ -23,6 +23,10 @@
       WHERE rNum &lt;= 3
    </select>
    
+   <select id="selectCafeCount" resultType="Cafe">
+   	SELECT count(cafeNo) as cafeCount FROM cafe
+   </select>
+   
 <!--    <select id="selectAll" resultType="Cafe"> -->
 <!--       SELECT -->
 <!--          cafeNo, imgNo, cafeName, cafeComm, cafePhone,  -->
@@ -83,7 +87,7 @@
 
 	<select id="selectAllRev" resultType="cafeRev" parameterType="cafe">
 		SELECT
-			revNo, c.cafeNo, c.subNo, c.userNo, revCont, 
+			revNo, c.cafeNo, c.cafeName, c.userNo, revContent, 
 			revHit, revDate, revsp,
 			m.userNick
 		FROM cafeRev c

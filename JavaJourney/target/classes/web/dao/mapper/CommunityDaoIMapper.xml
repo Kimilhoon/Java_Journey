@@ -162,8 +162,8 @@
 	</insert>
 	
 	<insert id="insertFreeBoardComment" parameterType="FreeBoardComment">
-		INSERT INTO FREEBOARDCOMMENT f (commentNO,freeboardno,usernick,commentcontent,userno)
-		VALUES (freeboardcomment_seq.nextval,#{freeBoardNo},#{userNick},#{commentContent},#{userNo})
+		INSERT INTO FREEBOARDCOMMENT f (commentNO,freeboardno,freeboardcommtag,usernick,commentcontent,userno,freeboardcommnicktag)
+		VALUES (freeboardcomment_seq.nextval,#{freeBoardNo},#{freeBoardCommTag},#{userNick},#{commentContent},#{userNo},#{freeBoardCommNickTag})
 	</insert>
 	<select id="selectMemberByUserID">
 		SELECT * FROM MEMBER
@@ -437,6 +437,7 @@
 			EVENTNO = #{eventNo}
 		</where>
 	</delete>
+	
 	<select id="getCafeReviewCommentCnt" resultType="int" parameterType="cafeRev">
 		SELECT count(*) FROM caferevcomm
 		<where>
@@ -507,6 +508,11 @@
 		WHERE myRipCommNo = #{myRipCommNo}
 	</select>
 	
+	<select id="deleteMyRecipeReply" parameterType="MyRecipeComment">
+		DELETE FROM MYRECIPECOMMENT
+		WHERE myRipCommTag = #{myRipCommNo}
+	</select>
+	
 	<select id="myRecipeRecCnt" parameterType="MyRecipeRecommend" resultType="int">
 		SELECT count(*) FROM MYRECIPERECOMMEND
 		<where>
@@ -552,12 +558,103 @@
 		WHERE myripno = #{myRipNo}
 	</select>
 	
+	<update id="updateFreeBoardCommentByCommentNo" parameterType="FreeBoardComment">
+		UPDATE FREEBOARDCOMMENT
+		SET
+			commentcontent = #{commentContent}
+		WHERE commentNo = #{commentNo}
+	</update>
+	
+	<update id="updateMyRecipeCommentByCommentNo" parameterType="MyRecipeComment">
+		UPDATE MYRECIPECOMMENT
+		SET 
+			myripcommcont = #{myRipCommCont}
+		WHERE myripcommno = #{myRipCommNo}
+	</update>
+	
 	<delete id="deleteCafeReviewCommByCafeRevCommNo" parameterType="CafeRevComm">
 		DELETE caferevcomm
 		<where>
 			AND caferevcommno = #{cafeRevCommNo }
 		</where>
 	</delete>
+	
+	<update id="updateCafeReviewComm" parameterType="CafeRevComm">
+		UPDATE caferevcomm
+		SET cafecommcont = #{cafeCommCont }
+		<where>
+			caferevcommno = #{cafeRevCommNo }
+		</where>
+	</update>
+	
+		<select id="selectBeanReview" resultType="BeanRev" parameterType="hashmap">
+		
+		SELECT * 
+		FROM (
+		    SELECT rownum r, a.* 
+		    FROM (
+		        SELECT revno, br.beanno, br.userno, usernick, revcont, revhit, revdate, revstarpoint, beanname, cupnotename
+		        FROM beanRev br
+		        JOIN bean b ON br.beanno = b.beanno
+		        JOIN MEMBER m ON m.userno = br.userno
+		        JOIN beantaste bt ON br.beanno = bt.beanno
+		        JOIN cupnote cn ON cn.cupnoteno = bt.cupnoteno
+			       	<where>
+						<if test="search != null">
+							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+						</if>
+						<if test="category != null and category != '전체'">
+							AND cupnotename = #{category }
+						</if>
+			       	</where>
+			       	<choose>
+			       		<when test='order == "recent"'>
+			       			ORDER BY revno DESC
+			       		</when>
+			       		<when test='order == "star"'>
+ 							ORDER BY revsp DESC, revno DESC
+			       		</when>
+			       		<otherwise>
+			       			ORDER BY revno DESC
+			       		</otherwise>
+			       	</choose>
+			    ) a
+			) 
+		<where>
+			AND r BETWEEN #{paging.startNo } AND #{paging.endNo }
+		</where>
+		
+	</select>
+	
+	<select id="getBeanReviewCommentCnt" resultType="int" parameterType="beanRev">
+		SELECT count(*) FROM beanrevcomm
+		<where>
+			AND revno = #{revNo }
+		</where>
+	</select>
+		
+	<select id="getBeanReviewTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM beanrev br
+        JOIN bean b ON br.beanno = b.beanno
+        JOIN MEMBER m ON m.userno = br.userno
+        JOIN beantaste bt ON br.beanno = bt.beanno
+        JOIN cupnote cn ON cn.cupnoteno = bt.cupnoteno
+   		<where>
+			<if test='category != "N" '>
+				AND cupnotename = #{category }
+			</if>
+			<if test='search != "N" '>
+				AND upper(beanname) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
 

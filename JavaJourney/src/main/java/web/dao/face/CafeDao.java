@@ -20,6 +20,13 @@ public interface CafeDao {
 	 * @return Best3 카페 조회
 	 */
 	public List<Cafe> selectBest();
+	
+	/**
+	 * 총 카페 수 조회하기
+	 * 
+	 * @return 총 카페 수
+	 */
+	public Cafe selectCafeCount();
 
 	/**
 	 * 전체 게시글 수 조회하기
@@ -76,6 +83,7 @@ public interface CafeDao {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
+
 
 
 

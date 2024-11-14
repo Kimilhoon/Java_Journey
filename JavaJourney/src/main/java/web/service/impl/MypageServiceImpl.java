@@ -17,6 +17,7 @@ import web.dto.FreeBoard;
 import web.dto.Member;
 import web.dto.MyRecipe;
 import web.service.face.MypageService;
+import web.util.Paging;
 
 @Service
 @Slf4j
@@ -143,5 +144,14 @@ public class MypageServiceImpl implements MypageService {
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo) {
 		return dao.selectMyRecipeByUserNo(userNo);
 	}
+
+
+	@Override
+	public void leaveMember(Integer userNo) {
+		dao.deleteMemberByUserNo(userNo);
+		
+	}
+
+
 
 }

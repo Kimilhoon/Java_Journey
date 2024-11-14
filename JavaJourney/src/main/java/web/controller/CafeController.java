@@ -39,7 +39,9 @@ public class CafeController {
 		//찜 추천 Best 3 카페 보여주기
 		List<Cafe> BestCafeList = service.getBest();
 		model.addAttribute("BestCafeList", BestCafeList);
-
+		
+		Cafe count = service.getCafeCount();
+		model.addAttribute("count", count);
 		
 	} // BestCafeForm() end
 

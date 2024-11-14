@@ -8,11 +8,7 @@
 
 <script type="text/javascript">
 $(function() {
-	
-// 	$("#").click(function() {
-// 		location.href="./cafe/";
-// 	})
-	
+
 	$(document).ready(function() {
 		$("#wish").click(function() {
 			
@@ -87,20 +83,16 @@ $(function() {
 		$("#btnBest").click(function() {
 			location.href="./best";
 		});
+		
+		$("#review").click(function() {
+			location.href="/comm/creview/write";
+		});
+		
+		
+		
 	
 	/* -------------------------------------------------------------------------------------------------------------- */
 		
-		// JavaScript 코드
-//	 	window.addEventListener("scroll", function() {
-//	 	    const menuTab = document.getElementById("#cafeMenu");
-//	 	    const stickyPoint = menuTab.offsetTop;  // 메뉴가 원래 위치한 지점
-
-//	 	    if (window.pageYOffset > stickyPoint) {
-//	 	        menuTab.classList.add("sticky");  // 스크롤 위치가 메뉴 지점을 지나면 sticky 클래스를 추가
-//	 	    } else {
-//	 	        menuTab.classList.remove("sticky");  // 스크롤 위치가 메뉴 지점 위로 올라가면 sticky 클래스를 제거
-//	 	    }
-//	 	});
 		
 		$(document).ready(function() {
 			
@@ -120,6 +112,14 @@ $(function() {
 			}); // $(window).scroll(function() end
 					
 		}); // $(document).ready(function() end
+				
+		$(".custom-image img").css({
+			width: "400px",
+			height: "560px",
+	        objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
+	        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
+			 
+		});
 		
 }) // $(function() end 
 </script>
@@ -128,6 +128,29 @@ $(function() {
 #wish, #sub{
 	width: 150px;
 }
+
+#imageDiv{
+	 width: 399px; 
+	 height: 559px;
+}
+
+#beanMenu.fixed{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: white;
+}
+
+#beanComm p{
+	width: 840px;
+	height: 300px;
+}
+
+.custom-imgae{
+	margin-right: 5px;
+}
+
 </style>
 
 <div class="container">
@@ -136,95 +159,82 @@ $(function() {
 <h1>카페 상세보기</h1>
 </div>
 
-<!-- <div id="commCafe" class="d-flex mb-3"> -->
-<!-- 	<div id="img" style="flex-shrink: 0;" class="img-thumbnail"> -->
-<%-- 		<img src="/resources/img/cafe/c01.jpg" class="img-fluid" alt="${cafe.cafeNo }"> --%>
-<!-- 	</div> -->
+<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./best">best</a></li>
+		<li class="breadcrumb-item"><a href="./all">cafe</a></li>
+		<li class="breadcrumb-item active" aria-current="page">info</li>
+	</ol>
+</nav>
 
-<div id="commCafe" class="clearfix">
-<%--   <img src="/resources/img/cafe/c01.jpg" class="col-md-6 float-md-start mb-3 ms-md-3" alt="${cafe.cafeNo }"> --%>
-<!--   <p>대충 카페 분위기에 대한 설명임...</p> -->
-<div id="image" style="flex-shrink: 0; width: 400px; height: 550px; object-fit: container;" class="img-thumbnail" >
-${ cafeInfo.cafeOriginName }
-
-
-	<div id="explain p-2">
-	<div>
-	<p class="fw-bold fs-1">${ cafeInfo.cafeName }</p>
-	</div>
-	
-	<div class="mb-2">
-	<p>${ cafeInfo.cafeLoc }</p>
-	</div>
-	
-	<div class="mb-2">
-	<p>${ cafeInfo.busyTime }</p>
-	</div>
-	
-	<div class="mb-2">
-	<p style="height: 300px;">${ cafeInfo.cafeComm }</p>
-	</div>
+<div id="commCafe" class="d-flex mb-3 grid gap-0 column-gap-5">
+<div id="imageDiv" style="flex-shrink: 0;" >
+<div class="custom-image">${ cafeInfo.cafeOriginName }</div>
  </div>
 
-<!-- <div> -->
-<%-- <span>${ cafe.cafeComm }</span> --%>
-<!-- <p> 대충 카페 분위기에 대한 설명임...</p> -->
-<!-- </div> -->
+<div id="explain p-2">
+<div id="cafeName">
+<p class="fw-bold fs-1">${ cafeInfo.cafeName }</p>
+</div>
 
-<!-- <div> -->
-<!-- <dl class="d-flex text-center"> -->
-<!-- <dt>별점</dt> -->
-<!-- <dd>★★★★★(5.0)</dd> -->
-<!-- </dl> -->
-<!-- </div> -->
-<!-- <div> -->
-<!-- <table class="table p-2"> -->
-<!-- <tr> -->
-<!-- 	<th>별점</th> -->
-<%-- 	<c:if test="${ cafe.revStarPoint == 1 }"> --%>
-<%-- 	<td>★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${ cafe.revStarPoint == 2 }"> --%>
-<%-- 	<td>★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${ cafe.revStarPoint == 3 }"> --%>
-<%-- 	<td>★★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${ cafe.revStarPoint == 4 }"> --%>
-<%-- 	<td>★★★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${ cafe.revStarPoint == 5 }"> --%>
-<%-- 	<td>★★★★★(<c:out value="${cafe.revStarPoint}" />)</td> --%>
-<%-- 	</c:if> --%>
-<!-- </tr> -->
-<!-- </table> -->
-<!-- </div> -->
-	
-</div> <!-- commCafe End -->
+<div id="cafeAdd1" class="mb-2">
+<%-- <pclass="fw-bold fs-4">${ cafeInfo.cafeLoc }</p> --%>
+<pclass="fw-bold fs-4">${ cafeInfo.cafeAdd1 }</p>
+</div>
+
+<div id="busytime" class="mb-2">
+<p>${ cafeInfo.busyTime }</p>
+</div>
+
+<div id="cafeComm" class="mb-2">
+<p>${ cafeInfo.cafeComm }</p>
+<!-- <p> 대충 카페 분위기에 대한 설명임...</p> -->
+</div>
+
+<div id="starPoint">
+<table class="table table-borderless p-2 text-center">
+<tr>
+	<th>별점</th>
+	<td>
+    <c:forEach var="star" begin="1" end="${starPoint.avgRevStarPoint != null ? starPoint.avgRevStarPoint : 0}">
+        ★
+    </c:forEach>
+    <c:if test="${starPoint.avgRevStarPoint != null}">
+        ( <c:out value="${starPoint.avgRevStarPoint}" /> )
+    </c:if>
+</td>
+</tr>
+</table>
+</div> <!-- id="starPoint" End -->
 
 	<div id="btn" class="d-flex justify-content-center align-self-end">
 		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
-		<button type="button" id="sub" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
+<!-- 		<a href="/comm/creview/write"> -->
+			<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
+<!-- 		</a> -->
 	</div>
+	
+</div> <!-- explain p-2 End -->
+</div> <!-- commCafe End -->
 
 <div id="cafeMenu" class="btn-group w-100 nav" role="group" aria-label="Basic radio toggle button group">
 	<input type="radio" class="btn-check" name="btnradio" id="cafeInfoBtn" autocomplete="off" checked>
-	<label class="btn btn-outline-secondary" for="cafeBtn">카페 상세 안내</label>
+	<label class="btn btn-outline-secondary" for="cafeInfoBtn">카페 상세 안내</label>
 	        
 	<input type="radio" class="btn-check" name="btnradio" id="cafeLocBtn" autocomplete="off">
 	<label class="btn btn-outline-secondary" for="cafeLocBtn">카페 위치 정보</label>
 		
 	<input type="radio" class="btn-check" name="btnradio" id="cafeRevBtn" autocomplete="off">
-	<label class="btn btn-outline-secondary" for="cafeReviewBtn">카페 리뷰</label>
+	<label class="btn btn-outline-secondary" for="cafeRevBtn">카페 리뷰</label>
 </div>
 
-<div id="cafeInfo" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div id="cafeInfo" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
 		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 상세 정보</p>
 	</div>
 	<div class="text-center">
 		${ cafeInfo.cafeInfo }
-		<p>카페 안내문구 및 사진 출력</p>
+		<p>해당 카페의 기본적인 편의제공 요소 및 어필하고자 하는 장점 등 소개</p>
 	</div>
 </div>
 
@@ -234,8 +244,8 @@ ${ cafeInfo.cafeOriginName }
 	</div>
 
 	<div class="text-center">
-		${cafeInfo.cafeLoc }
-		<p>지도 API로 표시해줄 예정임.</p>
+		${cafeInfo.cafeAdd1 }, ${cafeInfo.cafeAdd2 }  
+		<p>API 활용하여 지도 표시???</p>
 	</div>
 </div>
 
@@ -248,16 +258,16 @@ ${ cafeInfo.cafeOriginName }
 	<c:forEach var="cafeRev" items="${ AllCafeList }">
 	<tr>
 		<td class="text-center" style="width: 10%">${ cafeRev.userNick }</td>
-		<td style="width: 60%">${ cafeRev.revCont }</td>
+		<td style="width: 60%">${ cafeRev.revContent }</td>
 		<td class="text-center"  style="width: 15%">
 		<fmt:formatDate value="${ cafeRev.revDate }" pattern="yyyy년 MM월 dd일" />
 		</td>
 		<td class="text-center"  style="width: 15%">
-		    <c:forEach var="star" begin="1" end="${ cafeRev.revStarPoint != null ? cafeRev.revStarPoint : 0 }">
+		    <c:forEach var="star" begin="1" end="${ cafeRev.revsp != null ? cafeRev.revsp : 0 }">
 		        ★
 		    </c:forEach>
-		    <c:if test="${ cafeRev.revStarPoint != null }">
-		        (<c:out value="${ cafeRev.revStarPoint }" />)
+		    <c:if test="${ cafeRev.revsp != null }">
+		        (<c:out value="${ cafeRev.revsp }" />)
 		    </c:if>
 		</td>
 	</tr>
@@ -270,12 +280,12 @@ ${ cafeInfo.cafeOriginName }
 </div><!-- container End -->
 
 <div id="btnGroup" class="text-center">
-<!-- <button type="button" id="btnAll" class="btn btn-secondary">전체 카페</button> -->
-<!-- <button type="button" id="btnBest" class="btn btn-secondary">베스트 카페</button> -->
+<button type="button" id="btnAll" class="btn btn-secondary">전체 카페</button>
+<button type="button" id="btnBest" class="btn btn-secondary">베스트 카페</button>
 <!-- 		<a class="btn btn-secondary" href="./all" role="button">전체 카페</a> -->
 <!-- 		<a class="btn btn-secondary" href="./best" role="button">베스트 카페</a> -->
-	<a href="./all"><button id="btnAll" class="btn btn-secondary" type="button">전체 카페</button></a>
-	<a href="./best"><button id="btnBest" class="btn btn-secondary" type="button">베스트 카페</button></a>
+<!-- 	<a href="./all"><button id="btnAll" class="btn btn-secondary" type="button">전체 카페</button></a> -->
+<!-- 	<a href="./best"><button id="btnBest" class="btn btn-secondary" type="button">베스트 카페</button></a> -->
 </div>
 
 

@@ -25,6 +25,11 @@ public class CafeServiceImpl implements CafeService {
 	public List<Cafe> getBest() {
 		return dao.selectBest();
 	}
+	
+	@Override
+	public Cafe getCafeCount() {
+		return dao.selectCafeCount();
+	}
 
 	@Override
 	public Paging getPaging(Paging param, String location, String keyword) {
@@ -130,6 +135,7 @@ public class CafeServiceImpl implements CafeService {
 	public void removeWish(Map<String, Integer> params) {
 		dao.removeWish(params);
 	}
+
 	
 	
 }
