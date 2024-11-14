@@ -132,6 +132,7 @@ public interface MypageDao {
 	public void deleteMemberByUserNo(Integer userNo);
 
 
+
 	
 	
 	
