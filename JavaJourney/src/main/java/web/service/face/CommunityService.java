@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanRevComm;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -546,6 +547,56 @@ public interface CommunityService {
 	 * @return
 	 */
 	public Paging getBeanReviewPaging(Paging curPage, String category, String order, String search);
+
+	/**
+	 * 원두 리뷰 댓글 리스트 갖고오긔
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public List<BeanRevComm> getBeanReviewCommentList(BeanRev revNo);
+
+
+	/**
+	 * 원두 리뷰 정보 불러오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public BeanRev getBeanReviewInfo(BeanRev revNo);
+
+
+	/**
+	 * 리뷰 작성한 유저의 아이디 갖고오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public String getWriterId(BeanRev beanRev);
+
+	/**
+	 * 이전/다음 리뷰 갯수 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public Map<String, Integer> getPrevNextRevNos(BeanRev revNo);
+
+	/**
+	 * 게시글에 해당하는 원두의 사업자 번호 갖고오기
+	 * 
+	 * @param revNo
+	 * @return
+	 */
+	public String getBusinessNoFromBeanReviewNo(BeanRev revNo);
+
+	/**
+	 * 원두의 맛과 향 리스트 갖고오기
+	 * 
+	 * @param beanRev
+	 * @return
+	 */
+	public List<BeanRev> getBeanTasteList(BeanRev beanRev);
 	
 	
 }

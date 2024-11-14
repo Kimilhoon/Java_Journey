@@ -9,7 +9,6 @@
 <h1>< 작성 글 확인 ></h1>
 <hr>
 
-
 <div id="category-list">
     <label>카테고리</label>
     <select id="category" onchange="filterByCategory()">
@@ -49,6 +48,13 @@ function filterByCategory() {
 document.getElementById("btnSearch").onclick = function() {
     filterByCategory(); // 카테고리와 검색어를 함께 처리
 };
+
+//Enter key 이벤트로 검색 처리
+document.getElementById("searchText").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        filterByCategory();  // Enter 키를 누르면 검색 실행
+    }
+});
 
 // 페이지 로드 시, 카테고리 값이 없을 경우 '전체'로 처리
 onload = function() {

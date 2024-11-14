@@ -148,6 +148,7 @@ public interface MypageDao {
 	public List<BeanSub> selectMyBeanSubResult(int userNo);
 
 
+
 	
 	
 	

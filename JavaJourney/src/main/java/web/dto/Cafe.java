@@ -20,4 +20,17 @@ public class Cafe {
 	//조인CafeWish
 	private int userNo;
 	
+	private String cafeRev;
+	
+	//cafeImg join
+	private String cafeStoredName;
+    private String cafeOriginName;
+	private String cafeImgOriName;
+	
+	// cafeRev join
+	private int revsp;
+	private int reviewCount;
+	private int avgRevStarPoint;
+	
+	
 }
