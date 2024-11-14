@@ -243,7 +243,7 @@ public class MypageController {
 			, HttpSession session
 			, Member member
 			, @RequestParam(defaultValue = "전체") String category
-			, Paging param
+			, Paging paging
 			, String search) {
 		
 		
@@ -251,7 +251,9 @@ public class MypageController {
         Integer userNo = (Integer) session.getAttribute("userNo");
         
         //페이징
-//        Paging paging = service.getMyViewPaging(param);
+//        Paging paging = service.getMyViewPaging(paging);
+        
+        
         
         
         List<Map<String, Object>> myView = new ArrayList<>();

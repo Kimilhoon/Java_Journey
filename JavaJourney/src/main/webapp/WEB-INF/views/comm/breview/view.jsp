@@ -252,7 +252,7 @@ button.btn-light:hover {
 
 //모달 열기
 function openEditModal(commentNo, content) {
-    document.getElementById("cafeRevCommNo").value = commentNo;
+    document.getElementById("beanRevCommNo").value = commentNo;
     document.getElementById("updatedComment").value = content;
     document.getElementById("editCommentModal").style.display = "flex";
 }
@@ -271,18 +271,18 @@ function submitEditForm() {
 			type: "post"
 			, url: "./comm/update"
 			, data: {
-				cafeCommCont: content,
-				cafeRevCommNo: $("#cafeRevCommNo").val()
+				beanCommCont: content,
+				beanRevCommNo: $("#beanRevCommNo").val()
 				
 			}
 			, success: function( res ) {
 					
-				location.href = "./view?revNo=" + ${cafeRev.revNo };
+				location.href = "./view?revNo=" + ${beanRev.revNo };
 				
 			}
 			, error: function( res ) {
 				
-				location.href = "./view?revNo=" + ${cafeRev.revNo };
+				location.href = "./view?revNo=" + ${beanRev.revNo };
 				
 			}
 			
@@ -315,9 +315,9 @@ function clip(){
                 <h4 class="modal-title">댓글 수정</h4>
             </div>
             <div class="modal-body">
-               <input type="hidden" name="cafeRevCommNo" id="cafeRevCommNo">
+               <input type="hidden" name="beanRevCommNo" id="beanRevCommNo">
                <label for="updatedComment">수정할 댓글 내용</label>
-               <input type="text" class="form-control" id="updatedComment" name="cafeCommCont" required>
+               <input type="text" class="form-control" id="updatedComment" name="beanCommCont" required>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
@@ -336,25 +336,25 @@ function clip(){
 <div id="table">
 <table class="table table-bordered">
 	<tr>
-		<td>카페명</td>
+		<td>원두명</td>
 		<td colspan="3">
-		<a href="/cafe/info?cafeNo=${cafeRev.cafeNo }">
-			${cafeRev.cafeName }
+		<a href="/bean/info?beanNo=${beanRev.beanNo }">
+			${beanRev.beanName }
 		</a>
 		</td>
 		<td>작성자</td>
 		<td colspan="2">${writerNick }</td>
 	</tr>
 	<tr>
-		<td>지역</td>
-		<td>${cafeRev.cafeLoc }</td>
+		<td>맛과 향</td>
+		<td>${beanRev.cupNoteName }</td>
 		<td>별점</td>
-		<td>${cafeRev.revsp }</td>
+		<td>${beanRev.revStarPoint }</td>
 		<td>작성일</td>
-		<td><fmt:formatDate value="${cafeRev.revDate }" pattern="yyyy-MM-dd" /></td>
+		<td><fmt:formatDate value="${beanRev.revDate }" pattern="yyyy-MM-dd" /></td>
 	</tr>
 	<tr id="revContent">
-		<td colspan="9">${cafeRev.revContent }</td>
+		<td colspan="9">${beanRev.revCont }</td>
 	</tr>
 </table>
 </div> <!-- table -->
@@ -364,8 +364,8 @@ function clip(){
 
     <c:if test="${ (userId eq writerId) or (userNick eq 'admin') }">
         <span>
-            <a href="./update?revNo=${cafeRev.revNo }" style="color: #6f4e37">수정</a>
-            <a href="./delete?revNo=${cafeRev.revNo }" style="color: #6f4e37">삭제</a>
+            <a href="./update?revNo=${beanRev.revNo }" style="color: #6f4e37">수정</a>
+            <a href="./delete?revNo=${beanRev.revNo }" style="color: #6f4e37">삭제</a>
         </span>
     </c:if>
 </div> <!-- bottom -->
@@ -380,30 +380,30 @@ function clip(){
 	<td colspan="2"><hr></td>
 </tr>
 
-<c:forEach var="comm" items="${crevcommList }">
+<c:forEach var="comm" items="${brevcommList }">
 
 <tr class="fw-light ">
 	<td>${comm.userNick }</td>
 	<td class="text-end">
 	
 	<c:if test="${ (comm.userNick eq userNick) or (userNick eq 'admin') }">
-	    <span class="comm-update" onclick="openEditModal('${comm.cafeRevCommNo}', '${comm.cafeCommCont}')" style="color: #6f4e37;">
+	    <span class="comm-update" onclick="openEditModal('${comm.beanRevCommNo}', '${comm.beanCommCont}')" style="color: #6f4e37;">
 	        <small>수정</small>
 	    </span>
 	    	<span style="color: #D8D8D8"> | </span>
 	    <span>
-	    <a href="./comm/delete?revNo=${cafeRev.revNo }&cafeRevCommNo=${comm.cafeRevCommNo }" style="text-decoration: none; color: #6f4e37">
+	    <a href="./comm/delete?revNo=${beanRev.revNo }&beanRevCommNo=${comm.beanRevCommNo }" style="text-decoration: none; color: #6f4e37">
 	        <small>삭제</small>
 	    </a>
 	    </span>
 	    &nbsp;&nbsp;&nbsp;
 	</c:if>
 		
-		<fmt:formatDate value="${comm.cafeCommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
+		<fmt:formatDate value="${comm.CommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
 	</td>
 </tr>
 <tr class="fw-normal">
-	<td colspan="2">${comm.cafeCommCont }</td>
+	<td colspan="2">${comm.CommCont }</td>
 </tr>
 <tr>
 	<td colspan="2"><hr></td>
@@ -413,14 +413,14 @@ function clip(){
 
 </table >
 
-<c:if test="${ (cafeBN eq userBN) or (userNick eq 'admin') or (userNick eq writerNick) }">
+<c:if test="${ (beanBN eq userBN) or (userNick eq 'admin') or (userNick eq writerNick) }">
 
-	<form action="./comm?revNo=${cafeRev.revNo }" method="post">
+	<form action="./comm?revNo=${beanRev.revNo }" method="post">
 	
 	<div id="write-btn-div">
 	
 	<label>
-	<input type="text" name="cafeCommCont">
+	<input type="text" name="commCont">
 	</label>
 	<button id="write-btn" class="btn btn-primary">댓글작성</button>
 	</div>

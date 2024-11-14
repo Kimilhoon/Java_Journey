@@ -36,7 +36,7 @@ $(function() {
 <body>
 <div class="d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<img src="<c:url value='/resources/img/coffeeLogo.jpg' />"
+<img src="<c:url value='/resources/img/coffeeLogo.png' />"
 alt="로고" width="200" height="200" />
 </a>
 <!-- 로그인 및 기타 링크 -->
