@@ -212,6 +212,31 @@
 		ORDER BY myRipNo DESC
 	</select>
 	
+	
+	
+	
+<!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM ( -->
+<!-- 			SELECT c.cafename  -->
+<!-- 			FROM CAFEREV cr  -->
+<!-- 			JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
+<!-- 			WHERE cr.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT b.beanname -->
+<!-- 			FROM BEANREV br -->
+<!-- 			JOIN BEAN b ON b.BEANNO = br.BEANNO -->
+<!-- 			WHERE br.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT FREEBOARDTITLE -->
+<!-- 			FROM FREEBOARD -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT MYRIPTITLE -->
+<!-- 			FROM MYRECIPE -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 		) -->
+<!-- 	</select> -->
 
 
 

@@ -148,61 +148,45 @@ $(function() {
 
 <div class="container" id="center">
 
-	<table class="table text-center">
+<table class="table text-center">
+	<tr>
+		<th class="col-1" scope="col">글번호</th>
+		<th class="col-1" scope="col">맛과 향</th>
+		<th class="col-1" scope="col"></th>
+		<th class="col-4" scope="col">카페이름</th>
+		<th class="col-2" scope="col">작성자</th>
+		<th class="col-2" scope="col">작성일</th>
+		<th class="col-1" scope="col">별점</th>
+	</tr>
+
+	<c:forEach var="list" items="${breviewList}">
 		<tr>
-			<th class="col-1" scope="col">글번호</th>
-			<th class="col-1" scope="col">맛과 향</th>
-			<th class="col-1" scope="col"></th>
-			<th class="col-4" scope="col">카페이름</th>
-			<th class="col-2" scope="col">작성자</th>
-			<th class="col-2" scope="col">작성일</th>
-			<th class="col-1" scope="col">별점</th>
+			<td class="col-1">${list.revNo}</td>
+			<td class="col-1">
+				<c:forEach var="note" items="${list.cupNoteNames}" varStatus="status">
+					${note}<c:if test="${!status.last}">, </c:if>
+				</c:forEach>
+			</td>
+			<td class="col-1">
+				<c:if test="${nowDate eq wDate}">
+					<span style="color: #fff; background: #fedcba; border-radius: 5px; font-size: 14px; box-shadow: 1px 1px 3px #ddd">
+						&nbsp;New&nbsp;
+					</span>
+				</c:if>
+			</td>
+			<td class="col-4">
+				<a href="./view?revNo=${list.revNo}">${list.beanName}</a>
+				<c:if test="${list.beanRevCommCount >= 1}">
+					&nbsp;[${list.beanRevCommCount}]
+				</c:if>
+			</td>
+			<td class="col-2">${list.userNick}</td>
+			<td class="col-2"><fmt:formatDate value="${list.revDate}" pattern="yyyy-MM-dd" /></td>
+			<td class="col-1">${list.revStarPoint}</td>
 		</tr>
+	</c:forEach>
+</table>
 
-		<c:forEach var="bList" items="${breviewList }">
-			<c:set var="cupNoteNames" value="" />
-			<c:forEach items="${bList }" var="list" varStatus="status">
-				<c:if test="${status.first }">
-					<tr>
-						<td class="col-1" scope="row"><jsp:useBean id="now"
-								class="java.util.Date" /> <fmt:formatDate value="${now }"
-								pattern="yyyyMMdd" var="nowDate" /> <fmt:formatDate
-								value="${list.revDate }" pattern="yyyyMMdd" var="wDate" />
-							${list.revNo }</td>
-						<td class="col-1">
-				</c:if>
-
-				<!-- Append unique cupNoteNames with comma if not already in the list -->
-				<c:if test="${not fn:contains(cupNoteNames, list.cupNoteName) }">
-					<c:set var="cupNoteNames"
-						value="${cupNoteNames }${status.first ? '' : ', ' }${list.cupNoteName }" />
-				</c:if>
-
-				<c:if test="${status.last }">
-            ${cupNoteNames }
-                </td>
-					<td class="col-1"><c:if test="${nowDate eq wDate }">
-							<span style="color: #fff; background: #fedcba; border-radius: 5px; font-size: 14px; box-shadow: 1px 1px 3px #ddd">
-								&nbsp;New&nbsp;
-							</span>
-						</c:if>
-					</td>
-					<td class="col-4"><a href="./view?revNo=${list.revNo }">
-							${list.beanName } </a> <c:if test="${list.beanRevCommCount >= 1 }">
-                        &nbsp;[${list.beanRevCommCount }]
-                    </c:if></td>
-					<td class="col-2">${list.userNick }</td>
-					<td class="col-2"><fmt:formatDate value="${list.revDate }"
-							pattern="yyyy-MM-dd" /></td>
-					<td class="col-1">${list.revStarPoint }</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-		</c:forEach>
-
-
-
-	</table>
 
 
 	<div class="col-1">

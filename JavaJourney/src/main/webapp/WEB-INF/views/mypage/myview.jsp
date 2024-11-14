@@ -9,6 +9,8 @@
 <h1>< 작성 글 확인 ></h1>
 <hr>
 
+
+
 <div id="category-list">
     <label>카테고리</label>
     <select id="category" onchange="filterByCategory()">
@@ -144,6 +146,53 @@ onload = function() {
 
 </table>
 
+<!-- 페이징 처리 -->
+<%-- <div class="pagination">
+    <c:if test="${paging.curPage > 1}">
+        <a href="/mypage/myview?userNo=1&curPage=${paging.curPage - 1}" class="prev">Prev</a>
+    </c:if>
 
+    <!-- 페이지 번호 출력 -->
+    <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+        <c:if test="${i == paging.curPage}">
+            <span class="current">${i}</span>
+        </c:if>
+        <c:if test="${i != paging.curPage}">
+            <a href="/mypage/myview?userNo=1&curPage=${i}" class="page">${i}</a>
+        </c:if>
+    </c:forEach>
+
+    <c:if test="${paging.curPage < paging.endPage}">
+        <a href="/mypage/myview?userNo=1&curPage=${paging.curPage + 1}" class="next">Next </a>
+    </c:if>
+</div> --%>
+
+
+<!-- 페이징 처리 -->
+<div class="pagination">
+    <c:if test="${paging.curPage > 1}">
+        <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${paging.curPage - 1}" class="prev">Prev</a>
+    </c:if>
+
+    <!-- 페이지 번호 출력 -->
+    <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+        <c:if test="${i == paging.curPage}">
+            <span class="current">${i}</span>
+        </c:if>
+        <c:if test="${i != paging.curPage}">
+            <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${i}" class="page">${i}</a>
+        </c:if>
+    </c:forEach>
+
+    <c:if test="${paging.curPage < paging.endPage}">
+        <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${paging.curPage + 1}" class="next">Next</a>
+    </c:if>
+</div>
+
+<div>
+
+<%-- <c:import url="./paging.jsp"/> --%>
+
+</div>
 
 <c:import url="../layout/footer.jsp" />

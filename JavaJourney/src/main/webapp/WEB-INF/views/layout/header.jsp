@@ -101,7 +101,7 @@ alt="로고" width="200" height="200" />
               취향조사
             </a>
             <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/quiz/quiz">취향 원두 찾기</a></li>
+              <li><a class="dropdown-item" href="/quiz/quiz1">취향 원두 찾기</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">

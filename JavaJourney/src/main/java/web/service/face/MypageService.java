@@ -158,6 +158,17 @@ public interface MypageService {
 	 */
 	public void subCancelBySubNo(List<Integer> subNo);
 
+	/**
+	 * 내가 작성한글 페이징
+	 * @param curPage - 현재페이지정보
+	 * @param category - 카테고리
+	 * @param search - 검색어
+	 * @return
+	 */
+//	public Paging getMyViewPaging(Paging curPage, String category, String search);
+
+//	public List<Map<String, Object>> getAll(Paging paging, String category, String search);
+
 
 
 	
