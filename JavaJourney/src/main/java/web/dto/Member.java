@@ -18,4 +18,9 @@ public class Member {
 	private String businessNo;
 	private int socialNo;
 	
+	// bean join
+	private int beanNo;
+	private String beanName;
+	
+	
 } // class end

@@ -32,4 +32,15 @@ public class Bean {
 	
 	// beanSub join
 	private int gram;
+	
+	// member join
+	private int userNo;
+	private String userId;
+	private String userNick;
+	private String userEmail;
+	private String userName;
+	private String userPhone;
+	private String userPostcode;
+	private String userAdd1;
+	private String userAdd2;
 }

@@ -1,14 +1,15 @@
 package web.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanRev;
-import web.dto.BeanRevComm;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
@@ -68,6 +68,7 @@ public class BeanController {
 		model.addAttribute("cupnote", cupnote);
 		model.addAttribute("keyword", keyword);
 		
+		
 	} // AllBeanForm() end
 	
 	// /bean/all
@@ -76,7 +77,7 @@ public class BeanController {
 	@GetMapping("/info")
 	public void BeanInfoForm(Bean param, Model model,
 			@SessionAttribute(value = "userId", required = false) String userId) {
-//		log.info("param: {}", param);
+		log.info("param: {}", param);
 		Bean beanInfo = service.getBeanInfo( param );
 		
 		log.info("beanInfo: {}", beanInfo);
@@ -96,7 +97,7 @@ public class BeanController {
 	    } // if (userId == null) end
 		
 		Member userNo = service.selectUserNoByUserId(userId);
-//		log.info("userNo: {}", userNo.getUserNo());
+		log.info("userNo: {}", userNo.getUserNo());
 		model.addAttribute("userNo", userNo.getUserNo());
 		
 		// 리뷰 보여주기
@@ -144,13 +145,46 @@ public class BeanController {
 	// --------------------------------------------------------------------------------------
 	
 	@GetMapping("/sub")
-	public void BeanSub(Bean param, Model model) {
+	public void BeanSub(Bean param, 
+			@SessionAttribute(value = "userId", required = false) String userId, 
+			Model model) {
+	    
 		Bean bean = service.getBeanInfo(param);
 		log.info("bean: {}", bean);
+
+		Map<String, Object> params = new HashMap<String, Object>();
+	    
+		params.put("beanNo", param.getBeanNo());
+		params.put("userId", userId);
+	    
+		List<Map<String, Object>> member = service.getBeanMember(params);
 		
+		// 각 Map에서 userNo 값을 int로 변환
+		for (Map<String, Object> memberMap : member) {
+		    Object userNoObject = memberMap.get("USERNO");
+
+		    // userNo가 BigDecimal 또는 String일 경우 변환
+		    if (userNoObject instanceof BigDecimal) {
+		        memberMap.put("userNo", ((BigDecimal) userNoObject).intValue());
+		    } else if (userNoObject instanceof String) {
+		        try {
+		            memberMap.put("userNo", Integer.parseInt((String) userNoObject));
+		        } catch (NumberFormatException e) {
+		            log.error("userNo 값이 숫자가 아닙니다: " + userNoObject);
+		        }
+		    }
+		}
+		
+		log.info("member: {}", member);
+	    
 		model.addAttribute("bean", bean);
-		
+		model.addAttribute("member", member);
+	    
+		String randomUUID = UUID.randomUUID().toString();
+		model.addAttribute("randomUUID", randomUUID);
+	    
 	} // BeanSub(Bean param, Model model) end
+	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
