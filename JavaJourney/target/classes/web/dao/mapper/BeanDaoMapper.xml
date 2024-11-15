@@ -178,6 +178,14 @@
 		</where>
 	</select>
 	
+	<insert id="beanSubscribe" parameterType="BeanSub">
+		<selectKey order="BEFORE" resultType="int" keyProperty="subNo">
+			SELECT beanWishNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO beanSub ( subno, userno, beanno, gram, price, grind, substartdate, subenddate, subtime, nonsub )
+		VALUES ()
+	</insert>
+	
 	<!-- /bean/sub -->
 	<!-- ====================================================================================================== -->
 	

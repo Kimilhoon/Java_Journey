@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
@@ -162,7 +163,15 @@ public class BeanController {
 	    
 	} // BeanSub(Bean param, Model model) end
 
-	
+	@PostMapping("/payment/complete")
+	public String BeanSub(@RequestBody BeanSub beanSub) {
+		
+		log.info("BeanSub: {}", beanSub);
+		
+		service.beanSubscribe(beanSub);
+		
+		return "redirect:./sub/succ";
+	}
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
