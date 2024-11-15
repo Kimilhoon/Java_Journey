@@ -762,6 +762,11 @@
 		where commno = #{commNo }
 	</delete>
 	
+	<update id="updateBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		UPDATE beanrevcomm
+		SET commcont = #{commCont }
+		WHERE commno = #{commNo }
+	</update>
 	
 	
 	

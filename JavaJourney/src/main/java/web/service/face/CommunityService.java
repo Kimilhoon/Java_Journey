@@ -651,6 +651,13 @@ public interface CommunityService {
 	 * @param commNo
 	 */
 	public void dropBeanReviewComment(BeanRevComm commNo);
+
+	/**
+	 * 원두리뷰댓글수정
+	 * 
+	 * @param commCont
+	 */
+	public void changeBeanReviewComment(BeanRevComm beanRevComm);
 	
 	
 }

@@ -565,7 +565,7 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
-		log.info("brevcommList: {}", brevcommList);
+//		log.info("brevcommList: {}", brevcommList);
 		
 		//원두 상세 정보
 		BeanRev beanRev = service.getBeanReviewInfo(revNo);
@@ -621,9 +621,10 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/breview/comm/update")
-	public void beanReviewCommUpdate(BeanRevComm commCont) {
+	public void beanReviewCommUpdate(BeanRevComm beanRevComm) {
 		
-    	service.changeBeanReviewComment(commCont);
+		log.info("beanRevComm: {}", beanRevComm);
+    	service.changeBeanReviewComment(beanRevComm);
     	
 	}
 	
