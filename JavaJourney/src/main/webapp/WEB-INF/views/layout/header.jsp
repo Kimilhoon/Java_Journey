@@ -38,7 +38,7 @@ $(function() {
 	position: flex;
     height: 100px;
     width: 100px;
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 20px;
 }
 
