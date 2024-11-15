@@ -2,6 +2,7 @@ package web.dao.face;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -146,6 +147,20 @@ public interface MypageDao {
 	 * @return
 	 */
 	public List<BeanSub> selectMyBeanSubResult(int userNo);
+
+	/**
+	 * 카테고리와 검색어로 필터링된 게시글 수
+	 * @param map - 카테고리, 검색어 정보를 담은 객체
+	 * @return 필터링된 게시글 수
+	 */
+//	public int getMyViewTotalCnt(HashMap<String, String> map);
+
+	/**
+	 * 필터링된 bean 리스트
+	 * @param map
+	 * @return
+	 */
+//	public List<Map<String, Object>> selectAll(HashMap<String, Object> map);
 
 
 
