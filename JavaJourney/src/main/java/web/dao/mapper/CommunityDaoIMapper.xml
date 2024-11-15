@@ -636,7 +636,7 @@
 		        JOIN cupnote cn ON cn.cupnoteno = bt.cupnoteno
 			       	<where>
 						<if test="search != null">
-							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+							AND upper(beanname) LIKE '%'||upper(#{search})||'%'
 						</if>
 						<if test="category != null and category != '전체'">
 							AND cupnotename = #{category }
@@ -647,7 +647,7 @@
 			       			ORDER BY revno DESC
 			       		</when>
 			       		<when test='order == "star"'>
- 							ORDER BY revsp DESC, revno DESC
+ 							ORDER BY revstarpoint DESC, revno DESC
 			       		</when>
 			       		<otherwise>
 			       			ORDER BY revno DESC

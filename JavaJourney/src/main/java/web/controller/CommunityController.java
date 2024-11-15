@@ -578,10 +578,10 @@ public class CommunityController {
 		String userId = (String) session.getAttribute("userId");	
 		
 		//작성한 유저id
-//		String writerId = service.getWriterId(beanRev);
+		String writerId = service.getWriterId(beanRev);
 		
 		//작성자 닉네임 불러오기
-//		String writerNick = service.getwriterNick(writerId);
+		String writerNick = service.getwriterNick(writerId);
 		
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
@@ -605,8 +605,8 @@ public class CommunityController {
 		model.addAttribute("taste", taste);
 		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
-//		model.addAttribute("writerId", writerId);
-//		model.addAttribute("writerNick", writerNick);
+		model.addAttribute("writerId", writerId);
+		model.addAttribute("writerNick", writerNick);
 		
 	}
 	
