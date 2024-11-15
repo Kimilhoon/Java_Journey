@@ -171,7 +171,9 @@ public class MypageController {
 
         if (userNo != null) {
             model.addAttribute("userNo", userNo); // userNo를 모델에 추가
-        }      
+        } else {
+        	return "redirect:/member/login";
+        }
        
         // DB에서 기존 사용자 정보 가져오기
         Member member = service.findByUserNo(userNo);
@@ -247,7 +249,7 @@ public class MypageController {
 
 		
 	@GetMapping("/myview")
-	public void view(Model model
+	public String view(Model model
 			, HttpSession session
 			, Member member
 			, @RequestParam(defaultValue = "전체") String category
@@ -258,12 +260,15 @@ public class MypageController {
         // 세션에서 userNo 가져오기
         Integer userNo = (Integer) session.getAttribute("userNo");
  
-      
+        if(userNo == null) {
+        	return "redirect:/member/login";
+        } else {
+//        	return "mypage/myview?userNo="+userNo;
+        	
+        }
         
         List<Map<String, Object>> myView = new ArrayList<>();
         
-        
-
         
         // 각 객체를 구분하고 'type' 필드를 추가하여 리스트에 넣음
         if ("카페리뷰".equals(category) || "전체".equals(category)) {
@@ -459,6 +464,7 @@ public class MypageController {
         
         log.info("page:{}",page);
         
+        return "mypage/myview?userNo="+userNo;
 	}	
 	
 	
