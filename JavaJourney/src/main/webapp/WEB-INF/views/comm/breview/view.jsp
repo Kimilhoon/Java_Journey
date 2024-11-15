@@ -268,8 +268,8 @@ function submitEditForm() {
 			type: "post"
 			, url: "./comm/update"
 			, data: {
-				beanCommCont: content,
-				beanRevCommNo: $("#beanRevCommNo").val()
+				commCont: content,
+				commNo: $("#beanRevCommNo").val()
 				
 			}
 			, success: function( res ) {
@@ -312,13 +312,13 @@ function clip(){
                 <h4 class="modal-title">댓글 수정</h4>
             </div>
             <div class="modal-body">
-               <input type="hidden" name="beanRevCommNo" id="beanRevCommNo">
+               <input type="hidden" name="commNo" id="beanRevCommNo">
                <label for="updatedComment">수정할 댓글 내용</label>
-               <input type="text" class="form-control" id="updatedComment" name="beanCommCont" required>
+               <input type="text" class="form-control" id="updatedComment" name="commCont" required>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
                 <button type="submit" class="btn btn-primary" onclick="submitEditForm()">수정</button>
+                <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
             </div>
         </div>
     </div>
