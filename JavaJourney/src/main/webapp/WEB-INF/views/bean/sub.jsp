@@ -151,9 +151,9 @@ async function requestPayment() {
 		// 오류 발생
 		return "./sub/fail";
 	}
-
+ 
 	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
-	const notified = await fetch(`${'http://localhost:8088/bean/sub/?beanNo=${ beanNo }'}/payment/complete`, {
+	const notified = await fetch(`${'http://localhost:8088/bean/sub/?beanNo=${beanNo}'}/payment/complete`, {
 	method: "POST",
 	headers: { "Content-Type": "application/json" },
 	// paymentId와 주문 정보를 서버에 전달합니다
@@ -167,7 +167,7 @@ async function requestPayment() {
 		email: email,
 		addressLine1: addressLine1,
 		addressLine2: addressLine2,
-		zipcode: zipcode
+		zipcode: zipcode 
     }),
   });
 

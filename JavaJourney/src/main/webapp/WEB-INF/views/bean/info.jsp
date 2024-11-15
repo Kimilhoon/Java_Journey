@@ -330,7 +330,7 @@ $(function() {
 </div>
 ${ beanInfo.beanInfo }
 </div>
-
+ 
 <div id="beanReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 <div>
 <p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>

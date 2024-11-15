@@ -6,6 +6,7 @@ import java.util.Map;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.util.Paging;
@@ -122,7 +123,7 @@ public interface BeanService {
 	 */
 	public Bean getBeanByBeanNo(Bean param);
 
-
+ 
 	/**
 	 * 유저 아이디로 멤버 정보 불러오기
 	 * 
@@ -130,6 +131,14 @@ public interface BeanService {
 	 * @return 불러올 멤버 정보
 	 */
 	public Member getMemberByUserId(String userId);
+
+
+	/**
+	 * 전달 받은 구독 정보로 정보 삽입하기
+	 * 
+	 * @param beanSub - 구독정보
+	 */
+	public void beanSubscribe(BeanSub beanSub);
 
 	
 	

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 
@@ -123,7 +124,7 @@ public interface BeanDao {
 	 */
 	public Bean selectBeanByBeanNo(Bean param);
 
-
+ 
 	/**
 	 * 유저 아이디로 유저 정보 조회
 	 * 
@@ -131,6 +132,18 @@ public interface BeanDao {
 	 * @return 유저 정보
 	 */
 	public Member selectMemberByUserId(String userId);
+
+
+	/**
+	 * 전달 받은 구독 정보로 정보 삽입하기
+	 * 
+	 * @param beanSub - 구독정보
+	 */
+	public void beanSubscribe(BeanSub beanSub);
+
+
+
+
 
 	
 
