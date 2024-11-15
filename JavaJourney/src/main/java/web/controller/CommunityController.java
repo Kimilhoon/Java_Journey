@@ -659,8 +659,8 @@ public class CommunityController {
 		int userNo = service.getUserNo(userId);
 		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		
-		log.info("userNo : {}", userNo);
-		log.info("beanNo : {}", beanNo);
+//		log.info("userNo : {}", userNo);
+//		log.info("beanNo : {}", beanNo);
 		
 		beanRev.setBeanNo(beanNo);
 		beanRev.setUserNo(userNo);
