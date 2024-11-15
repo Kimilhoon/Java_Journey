@@ -950,6 +950,31 @@ public class CommunityServiceImpl implements CommunityService {
     	return dao.getBeanNoBySubNo(subNo);
     }
     
+    @Override
+    public void changeBeanReview(BeanRev beanRev) {
+    	
+    	dao.updateBeanReviewByBeanNo(beanRev);
+    }
+    
+    @Override
+    public void writeBeanReviewComm(BeanRev revNo, BeanRevComm commCont, String userId) {
+    	
+		int userNo = dao.selectUsernoByUserid(userId);
+		
+		commCont.setRevNo(revNo.getRevNo());
+		commCont.setUserNo(userNo);
+		
+		dao.insertBeanReviewComm(commCont);
+    	
+    }
+    
+    @Override
+    public void dropBeanReviewComment(BeanRevComm commNo) {
+    	
+    	dao.deleteBeanReviewCommByCommNo(commNo);
+    }
+    
+    
     
     
 }

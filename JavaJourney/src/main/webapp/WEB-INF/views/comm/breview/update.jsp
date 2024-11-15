@@ -237,7 +237,7 @@ $(document).ready(function() {
 <tr>
 <td colspan="2" class='text-center'>
 <label>
-<textarea id="summernote" name="revContent" required="required" class="form-control">
+<textarea id="summernote" name="revCont" required="required" class="form-control">
 ${beanRev.revCont }
 </textarea>
 </label>

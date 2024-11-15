@@ -143,10 +143,7 @@ form input[type="text"] {
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
-<<<<<<< HEAD
     margin-right: 10px;
-=======
->>>>>>> refs/remotes/origin/master
 }
 
 form button {
@@ -392,23 +389,23 @@ function clip(){
 	<td class="text-end">
 	
 	<c:if test="${ (comm.userNick eq userNick) or (userNick eq 'admin') }">
-	    <span class="comm-update" onclick="openEditModal('${comm.beanRevCommNo}', '${comm.beanCommCont}')" style="color: #6f4e37;">
+	    <span class="comm-update" onclick="openEditModal('${comm.commNo }', '${comm.commCont }')" style="color: #6f4e37;">
 	        <small>수정</small>
 	    </span>
 	    	<span style="color: #D8D8D8"> | </span>
 	    <span>
-	    <a href="./comm/delete?revNo=${beanRev.revNo }&beanRevCommNo=${comm.beanRevCommNo }" style="text-decoration: none; color: #6f4e37">
+	    <a href="./comm/delete?revNo=${beanRev.revNo }&beanRevCommNo=${comm.commNo }" style="text-decoration: none; color: #6f4e37">
 	        <small>삭제</small>
 	    </a>
 	    </span>
 	    &nbsp;&nbsp;&nbsp;
 	</c:if>
 		
-		<fmt:formatDate value="${comm.CommDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
+		<fmt:formatDate value="${comm.commDate }" pattern="yyyy년 MM월 dd일 hh:mm:ss"/>
 	</td>
 </tr>
 <tr class="fw-normal">
-	<td colspan="2">${comm.CommCont }</td>
+	<td colspan="2">${comm.commCont }</td>
 </tr>
 <tr>
 	<td colspan="2"><hr></td>

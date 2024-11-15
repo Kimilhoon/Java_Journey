@@ -628,6 +628,29 @@ public interface CommunityService {
 	 * @return
 	 */
 	public Integer getBeanNo(Integer subNo);
+
+	/**
+	 * 원두 리뷰 수정
+	 * 
+	 * @param beanRev
+	 */
+	public void changeBeanReview(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 댓글달기
+	 * 
+	 * @param revNo
+	 * @param commCont
+	 * @param userId
+	 */
+	public void writeBeanReviewComm(BeanRev revNo, BeanRevComm commCont, String userId);
+
+	/**
+	 * 원두 리뷰 댓글 삭제
+	 * 
+	 * @param commNo
+	 */
+	public void dropBeanReviewComment(BeanRevComm commNo);
 	
 	
 }

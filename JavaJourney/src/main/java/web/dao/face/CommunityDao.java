@@ -690,6 +690,27 @@ public interface CommunityDao {
 	 */
 	public Integer getBeanNoBySubNo(Integer subNo);
 	
+	/**
+	 * 원두 리뷰 수정하기
+	 * 
+	 * @param beanRev
+	 */
+	public void updateBeanReviewByBeanNo(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 댓글 인서트!
+	 * 
+	 * @param commCont
+	 */
+	public void insertBeanReviewComm(BeanRevComm commCont);
+
+	/**
+	 * 원두 댓글 지우기
+	 * 
+	 * @param commNo
+	 */
+	public void deleteBeanReviewCommByCommNo(BeanRevComm commNo);
+	
 }
 
 

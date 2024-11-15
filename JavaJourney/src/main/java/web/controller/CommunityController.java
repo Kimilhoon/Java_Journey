@@ -609,7 +609,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/breview/comm")
-	public String beanReviewComm(Model model, CafeRev revNo, BeanRevComm commCont, HttpSession session) {
+	public String beanReviewComm(Model model, BeanRev revNo, BeanRevComm commCont, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
 		
@@ -626,7 +626,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/breview/comm/delete")
-	public String beanReviewCommDelete(BeanRevComm commNo, CafeRev revNo) {
+	public String beanReviewCommDelete(BeanRevComm commNo, BeanRev revNo) {
 		
 		service.dropBeanReviewComment(commNo);
 		
@@ -678,14 +678,16 @@ public class CommunityController {
 	public void beanReviewUpdate(Model model, BeanRev revNo) {
 		BeanRev beanRev = service.getBeanReviewInfo(revNo);
 		
-		log.info("beanRev: {}", beanRev);
+//		log.info("beanRev: {}", beanRev);
 		
 		model.addAttribute("beanRev", beanRev);
 	}
 	
 	@PostMapping("/breview/update")
 	public String beanReviewUpdateProc(BeanRev beanRev) {
-//		log.info("dddd{}",cafeRev);
+		
+		log.info("beanRev: {}", beanRev);
+		
 		service.changeBeanReview(beanRev);
 		
 		return "redirect: ./view?revNo=" + beanRev.getRevNo();

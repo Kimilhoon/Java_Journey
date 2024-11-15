@@ -743,6 +743,30 @@
 		</where>
 	</select>
 	
+	<update id="updateBeanReviewByBeanNo" parameterType="BeanRev">
+		UPDATE BeanRev
+		SET revCont = #{revCont }
+			, revstarpoint = #{revStarPoint }
+		<where>
+			revNo = #{revNo }
+		</where>
+	</update>
+	
+	<insert id="insertBeanReviewComm" parameterType="BeanRevComm">
+		INSERT INTO beanrevcomm
+		VALUES ( beanrevcomm_seq.nextval, #{revNo }, #{userNo }, #{commCont }, null, sysdate )
+	</insert>
+	
+	<delete id="deleteBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		DELETE beanrevcomm
+		<where>
+			commno = #{commNo }
+		</where>
+	</delete>
+	
+	
+	
+	
 </mapper>
 
 
