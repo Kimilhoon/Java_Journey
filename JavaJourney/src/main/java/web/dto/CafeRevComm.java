@@ -13,5 +13,11 @@ public class CafeRevComm {
 	private int cafeCommTag;
 	private Date cafeCommDate;
 	private String userNick;
+	
+	//리뷰 조인
+	private int revsp;
+	//별점
+	private int avgRevStarPoint;
+	
 
 }
