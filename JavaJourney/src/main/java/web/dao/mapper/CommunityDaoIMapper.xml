@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="web.dao.face.CommunityDao">
 
@@ -271,6 +271,39 @@
 			)
 		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
+	
+	<insert id="insertNoticeByTitleContent" parameterType="Notice">
+		<selectKey order="BEFORE" keyProperty="noticeNo" resultType="int">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE(NOTICENO, TITLE, CONTENT, WIRTEDATE)
+		VALUES(#{noticeNo},#{title},#{content}, sysdate)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM caferev cr

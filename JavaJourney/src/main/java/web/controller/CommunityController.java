@@ -194,6 +194,48 @@ public class CommunityController {
 			model.addAttribute("notice",notice);
 			
 		}
+		
+		@GetMapping("/notice/write")
+		public void noticeWriteForm() {}
+		
+		@PostMapping("/notice/write")
+		public String noticeWriteProc(
+				Notice notice
+				) {
+			log.info("notice : {}",notice);
+			service.insertNotice(notice);
+			return "redirect:/comm/notice/list";
+		}
+		
+		@GetMapping("/notice/update")
+		public void noticeUpdateForm(
+				Notice notice,
+				Model model
+				) {
+			log.info("updateNotice : {}",notice);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// FAQ --------------------------------------------------------------------------
 		@GetMapping("/faq/list")
 		public void fatList() {}
