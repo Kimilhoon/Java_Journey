@@ -166,7 +166,7 @@
 		AND		beanNo = #{ beanNo }
 		</where>
 	</select>
-	
+	 
 	<select id="selectMemberByUserId" parameterType="String" resultType="Member">
 		SELECT
 				userno, userid, userpw, usernick, 

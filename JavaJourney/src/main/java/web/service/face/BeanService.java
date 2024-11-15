@@ -123,7 +123,7 @@ public interface BeanService {
 	 */
 	public Bean getBeanByBeanNo(Bean param);
 
-
+ 
 	/**
 	 * 유저 아이디로 멤버 정보 불러오기
 	 * 

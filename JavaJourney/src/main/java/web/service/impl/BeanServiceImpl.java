@@ -188,7 +188,7 @@ public class BeanServiceImpl implements BeanService {
 	// /bean/info
 	// --------------------------------------------------------------------------------------
 	
-	
+	 
 	@Override
 	public Bean getBeanByBeanNo(Bean param) {
 		return dao.selectBeanByBeanNo(param);

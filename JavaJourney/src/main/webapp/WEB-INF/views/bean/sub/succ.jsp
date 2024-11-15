@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 $(function() {
-
+ 
 $("#QuizBtn").click(function() {
 
 	// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)

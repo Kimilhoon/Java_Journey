@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="../layout/header.jsp" />
-
+ 
 
 <script type="text/javascript">
 $(function() {

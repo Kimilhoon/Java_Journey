@@ -124,7 +124,7 @@ public interface BeanDao {
 	 */
 	public Bean selectBeanByBeanNo(Bean param);
 
-
+ 
 	/**
 	 * 유저 아이디로 유저 정보 조회
 	 * 

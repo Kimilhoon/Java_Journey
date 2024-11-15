@@ -138,7 +138,7 @@ public class BeanController {
 		} else if ("remove".equals(beanWish.getAction())) {
 	        service.removeWish(params);
 	    }
-	
+	 
 	} // BeanInfoFormProc end
 
 	// /bean/info
