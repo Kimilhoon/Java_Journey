@@ -38,7 +38,7 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 //	}
 
 	@Override
-	public Cafe view(Cafe cafe, CafeImg cafeImg) {
+	public Cafe view(Cafe cafe) {
 		return dao.selectByCafeNo(cafe);
 	}
 	

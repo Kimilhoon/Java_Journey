@@ -64,8 +64,14 @@ public class MypageController {
 		model.addAttribute("beanSubList",beanSubList);
 	}
 	
-	@GetMapping("/cancelsub")
-	public void cancelsubForm() {}
+	@PostMapping("/cancelsub")
+	@ResponseBody
+	public void cancelsubForm(
+			@RequestParam("subNo") List<Integer> subNo
+			) {
+		log.info("subNo : {}",subNo);
+		service.subCancelBySubNo(subNo);
+	}
 	
 	@GetMapping("/like")
 	public void likeForm(

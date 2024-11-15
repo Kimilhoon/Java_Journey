@@ -151,6 +151,12 @@ public interface MypageService {
 	 * @return
 	 */
 	public List<BeanSub> selectMyBeanSub(int userNo);
+	
+	/**
+	 * Ajax로 전달받은 subNo <Integer> 배열로 구독 취소하기
+	 * @param subNo
+	 */
+	public void subCancelBySubNo(List<Integer> subNo);
 
 	/**
 	 * 내가 작성한글 페이징

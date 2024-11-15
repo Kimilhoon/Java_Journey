@@ -38,7 +38,7 @@ $(function() {
 	position: flex;
     height: 100px;
     width: 100px;
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 20px;
 }
 
@@ -151,7 +151,7 @@ $(function() {
   	<c:if test="${userNick eq 'admin' }">
 	    <div class="flex-shrink-0 mt-4 loginLoc">
 	      <ul style="list-style:none">
-	      	<li><a href="/manager/menu2" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
+	      	<li><a href="/manager/menu" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>

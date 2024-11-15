@@ -180,23 +180,25 @@ $(function() {
 	<tr>
 		<td>카페 메인사진[이미지]]</td>
 		<td>
-		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control" rows="4" cols="4">${cafeImg.cafeImgOriName}</textarea>
+		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control" rows="4" cols="4">${cafe.cafeImgOriName}</textarea>
 		</td>		
 
 	</tr>
+	
 	<tr>
 		<td>카페 지역</td>
 		<td>
-		<select id="category">
+		<select id="category" name="cafeLoc">
 	      <option hidden="none"></option>
-	      <option value="서울">서울</option>
-	      <option value="경기">경기</option>
-	      <option value="인천">인천</option>
-	      <option value="부산">부산</option>
-	      <option value="제주">제주</option>  
+	      <option value="서울" ${cafe.cafeLoc == '서울' ? 'selected' : ''}>서울</option>
+	      <option value="경기" ${cafe.cafeLoc == '경기' ? 'selected' : ''}>경기</option>
+	      <option value="인천" ${cafe.cafeLoc == '인천' ? 'selected' : ''}>인천</option>
+	      <option value="부산" ${cafe.cafeLoc == '부산' ? 'selected' : ''}>부산</option>
+	      <option value="제주" ${cafe.cafeLoc == '제주' ? 'selected' : ''}>제주</option>  
   		 </select>
-   </td>
+  		</td>
 	</tr>
+	
 	<tr>
 		<td>카페 상세설명</td>
 		<td>

@@ -82,7 +82,12 @@
 			ORDER BY SUBNO
 	</select>
 
-	
+	<delete id="subCancel" parameterType="Integer">
+		DELETE BEANSUB
+		<where>
+			subNo = #{No}
+		</where>
+	</delete>
 	
 	
 	
@@ -162,9 +167,8 @@
 	
 	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
 	    SELECT 
-			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revHit, r.revDate, r.revsp
-			 , c.imgNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, c.cafeLoc
-			 , c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo
+			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revDate
+			 , c.cafeName, c.cafeComm
 	    FROM 
 	        CafeRev r
 	    JOIN 
@@ -178,14 +182,14 @@
 
 	<select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
 		SELECT
-			r.revNo, r.beanNo, r.subNo, r.userNo, r.revCont, r.revDate
+			br.revNo, br.beanNo, br.subNo, br.userNo, br.revCont, br.revDate
 			, b.beanNo, b.beanName
-		FROM BeanRev r
-		JOIN BEAN b ON r.beanNo = b.beanNo
+		FROM BeanRev br
+		JOIN BEAN b ON br.beanNo = b.beanNo
 		<where>
 		userNo = #{userNo}
 		</where> 
-		ORDER BY r.revDate DESC
+		ORDER BY br.revDate DESC
 	</select>	
 	
 	<select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
