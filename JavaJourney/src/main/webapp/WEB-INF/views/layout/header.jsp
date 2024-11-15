@@ -101,7 +101,7 @@ alt="로고" width="200" height="200" />
               취향조사
             </a>
             <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/quiz/quiz">취향 원두 찾기</a></li>
+              <li><a class="dropdown-item" href="/quiz/quiz1">취향 원두 찾기</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown mx-2 px-1">
@@ -127,7 +127,7 @@ alt="로고" width="200" height="200" />
               <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
               <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo }">구독 정보</a></li>
               <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo }">찜 목록</a></li>
-              <li><a class="dropdown-item" href="/mypage/myview?userNo=${sessionScope.userNo }">작성글 확인</a></li>
+              <li><a class="dropdown-item" href="/mypage/myview?userNo=${sessionScope.userNo }&curPage=1">작성글 확인</a></li>
               <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
             </ul>
           </li>
