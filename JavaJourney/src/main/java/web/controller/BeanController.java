@@ -145,43 +145,44 @@ public class BeanController {
 	// --------------------------------------------------------------------------------------
 	
 	@GetMapping("/sub")
-	public void BeanSub(Bean param, 
+	public void BeanSub(Bean bean, 
 			@SessionAttribute(value = "userId", required = false) String userId, 
 			Model model) {
 	    
-		Bean bean = service.getBeanInfo(param);
 		log.info("bean: {}", bean);
+		log.info("userId: {}", userId);
+//		Bean bean = service.getBeanInfo(param);
 
-		Map<String, Object> params = new HashMap<String, Object>();
-	    
-		params.put("beanNo", param.getBeanNo());
-		params.put("userId", userId);
-	    
-		List<Map<String, Object>> member = service.getBeanMember(params);
-		
-		// 각 Map에서 userNo 값을 int로 변환
-		for (Map<String, Object> memberMap : member) {
-		    Object userNoObject = memberMap.get("USERNO");
-
-		    // userNo가 BigDecimal 또는 String일 경우 변환
-		    if (userNoObject instanceof BigDecimal) {
-		        memberMap.put("userNo", ((BigDecimal) userNoObject).intValue());
-		    } else if (userNoObject instanceof String) {
-		        try {
-		            memberMap.put("userNo", Integer.parseInt((String) userNoObject));
-		        } catch (NumberFormatException e) {
-		            log.error("userNo 값이 숫자가 아닙니다: " + userNoObject);
-		        }
-		    }
-		}
-		
-		log.info("member: {}", member);
-	    
-		model.addAttribute("bean", bean);
-		model.addAttribute("member", member);
-	    
-		String randomUUID = UUID.randomUUID().toString();
-		model.addAttribute("randomUUID", randomUUID);
+//		Map<String, Object> params = new HashMap<String, Object>();
+//	    
+//		params.put("beanNo", param.getBeanNo());
+//		params.put("userId", userId);
+//	    
+//		List<Map<String, Object>> member = service.getBeanMember(params);
+//		
+//		// 각 Map에서 userNo 값을 int로 변환
+//		for (Map<String, Object> memberMap : member) {
+//		    Object userNoObject = memberMap.get("USERNO");
+//
+//		    // userNo가 BigDecimal 또는 String일 경우 변환
+//		    if (userNoObject instanceof BigDecimal) {
+//		        memberMap.put("userNo", ((BigDecimal) userNoObject).intValue());
+//		    } else if (userNoObject instanceof String) {
+//		        try {
+//		            memberMap.put("userNo", Integer.parseInt((String) userNoObject));
+//		        } catch (NumberFormatException e) {
+//		            log.error("userNo 값이 숫자가 아닙니다: " + userNoObject);
+//		        }
+//		    }
+//		}
+//		
+//		log.info("member: {}", member);
+//	    
+//		model.addAttribute("bean", bean);
+//		model.addAttribute("member", member);
+//	    
+//		String randomUUID = UUID.randomUUID().toString();
+//		model.addAttribute("randomUUID", randomUUID);
 	    
 	} // BeanSub(Bean param, Model model) end
 	
