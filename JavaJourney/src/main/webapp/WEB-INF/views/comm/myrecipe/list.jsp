@@ -7,7 +7,7 @@
 $(function() {
 
 	
-	$("#btn_search").click(function() {
+	$(document).on("click", "#btn_search", function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
 		$.ajax({
@@ -31,7 +31,7 @@ $(function() {
 		
 	});
 	
-	$(".hit").click(function() {
+	$(document).on("click", ".hit", function() {
 		
 		$.ajax({
 			url: "./hit?myRipNo="+$(this).parent().prev().prev().text(),

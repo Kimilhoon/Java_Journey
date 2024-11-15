@@ -59,17 +59,17 @@ public class CommunityController {
 		//동쥬니
 		
 		@GetMapping("/freeboard/list")
-		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
-			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category);
+		public void freeBoardListForm(Model model,Paging curPage,String search,String category,String order,String searchType) {
+			Paging paging = service.getFreeBoardPaging(curPage,search,category,order,searchType);
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category,order,searchType);
 			
 			
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
 			model.addAttribute("category", category);
-			
-			
+			model.addAttribute("order", order);
+			model.addAttribute("searchType", searchType);
 			
 		}
 		@GetMapping("/freeboard/view")
@@ -578,10 +578,10 @@ public class CommunityController {
 		String userId = (String) session.getAttribute("userId");	
 		
 		//작성한 유저id
-		String writerId = service.getWriterId(beanRev);
+//		String writerId = service.getWriterId(beanRev);
 		
 		//작성자 닉네임 불러오기
-		String writerNick = service.getwriterNick(writerId);
+//		String writerNick = service.getwriterNick(writerId);
 		
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
@@ -605,8 +605,8 @@ public class CommunityController {
 		model.addAttribute("taste", taste);
 		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
-		model.addAttribute("writerId", writerId);
-		model.addAttribute("writerNick", writerNick);
+//		model.addAttribute("writerId", writerId);
+//		model.addAttribute("writerNick", writerNick);
 		
 	}
 	
@@ -615,7 +615,7 @@ public class CommunityController {
 		
 		String userId = (String) session.getAttribute("userId");
 		
-		service.writeBeanReviewComm(revNo, commCont, userId);
+//		service.writeBeanReviewComm(revNo, commCont, userId);
 		
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
@@ -623,7 +623,7 @@ public class CommunityController {
 	@RequestMapping("/breview/comm/update")
 	public void beanReviewCommUpdate(BeanRevComm commCont) {
 		
-    	service.changeBeanReviewComment(commCont);
+//    	service.changeBeanReviewComment(commCont);
     	
 	}
 	
@@ -632,7 +632,7 @@ public class CommunityController {
 		
 		log.info("commNo: {}", commNo);
 		
-		service.dropBeanReviewComment(commNo);
+//		service.dropBeanReviewComment(commNo);
 		
 		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
@@ -645,7 +645,7 @@ public class CommunityController {
 		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		String beanName = service.getBeanName(beanNo);
 		
-		model.addAttribute("beanName", beanName);
+//		model.addAttribute("beanName", beanName);
 		model.addAttribute("beanNo", beanNo);
 		model.addAttribute("subNo", subNo);
 		
@@ -673,7 +673,7 @@ public class CommunityController {
 	@RequestMapping("/breview/delete")
 	public String beanReviewDelete(BeanRev beanRev) {
 		
-		service.dropBeanReview(beanRev);
+//		service.dropBeanReview(beanRev);
 			
 		return "redirect: ./list";
 	}
@@ -681,7 +681,6 @@ public class CommunityController {
 	@GetMapping("/breview/update")
 	public void beanReviewUpdate(Model model, BeanRev revNo) {
 		BeanRev beanRev = service.getBeanReviewInfo(revNo);
-		
 //		log.info("beanRev: {}", beanRev);
 		
 		model.addAttribute("beanRev", beanRev);
