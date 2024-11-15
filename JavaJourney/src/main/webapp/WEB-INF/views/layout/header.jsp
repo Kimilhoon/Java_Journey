@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    
 <!-- header내용 --->
 <!DOCTYPE html>
 <html>
@@ -47,15 +46,6 @@ $(function() {
     position: absolute;
     top: 10px;
     right: 10px;
-    cursor: pointer;
-}
-
-#welcomeNick {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #f3e9dc;
-    text-align: right;
 }
 
 /* 메뉴바 크기 및 텍스트 스타일 조정 */
@@ -145,7 +135,7 @@ $(function() {
  	 <div class="flex-shrink-0">
   		<c:if test="${isLogin }">
   			<div class="loginLoc">
-			<span id="btnLogout" style="color: #f3e9dc;"><small>로그아웃</small></span>
+			<span id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></span>
   			</div>
 		</c:if>
 		<c:if test="${empty isLogin }">
@@ -157,14 +147,14 @@ $(function() {
 		</c:if>
   	</div>
     <div class="flex-shrink-0 mx-5">
-      <ul style="list-style:none">
+      <ul style="list-style: none;">
       	<c:if test="${userNick eq 'admin' }">
       	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
       	</c:if>
   	<c:if test="${userNick eq 'admin' }">
-	    <div class="flex-shrink-0 mx-5">
+	    <div class="flex-shrink-0 loginLoc">
 	      <ul style="list-style:none">
-	      	<li><a href="/manager/menu2" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
+	      	<li><a href="/manager/menu2" style="text-decoration: none; color: yellow;"><br>관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>
@@ -247,76 +237,5 @@ $(function() {
       </ul>
     </div>
   </nav>
-</div>
-<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
-  <div class="container d-flex justify-content-center align-items-center" style="max-width: 100%;">
-    <!-- 네비게이션 메뉴 -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center">
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              브랜드
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/brand/info">브랜드소개</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/cafe/best" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              카페
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/cafe/best">이달의 카페</a></li>
-              <li><a class="dropdown-item" href="/cafe/all">전체 카페</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/bean/best" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              원두
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/bean/best">이달의 원두</a></li>
-              <li><a class="dropdown-item" href="/bean/all">전체 원두</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/quiz/quiz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              취향조사
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/quiz/quiz1">취향 원두 찾기</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/cafereview/list" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              커뮤니티
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/comm/creview/list">카페리뷰</a></li>
-              <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
-              <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
-              <li><a class="dropdown-item" href="/comm/myrecipe/list">나만의 레시피</a></li>
-              <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
-              <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
-              <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/mypage/myinfo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              마이페이지
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/mypage/myinfo">회원 정보 수정</a></li>
-              <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
-              <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo }">구독 정보</a></li>
-              <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo }">찜 목록</a></li>
-              <li><a class="dropdown-item" href="/mypage/myview?userNo=${sessionScope.userNo }&curPage=1">작성글 확인</a></li>
-              <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
 </div>
 </div>
