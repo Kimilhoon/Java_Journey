@@ -103,7 +103,15 @@
 				AND FREEBOARDCATEGORY = #{category}
 			</if>
 			<if test='search != "N" '>
+				<if test='searchType == "title"'>
 				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "content"'>
+				AND upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "titlecontent"'>
+				AND (upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%' OR upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%')
+				</if>
 			</if>
 		</where>
 	</select>
@@ -111,16 +119,34 @@
 	<select id="selectFreeBoardListAll" parameterType="hashmap" resultType="FreeBoard">
 		SELECT FREEBOARDNO,USERNO,FREEBOARDCATEGORY,FREEBOARDTITLE,FREEBOARDCONTENT,FREEBOARDHIT,FREEBOARDWRITEDATE,FREEIMGNO  
 		FROM (
-			SELECT rownum r,a.* FROM(
-				SELECT * FROM FREEBOARD 
-				WHERE upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
-				<if test='category != "N" '>
-					AND FREEBOARDCATEGORY = #{category}
+			SELECT rownum rnum,a.* FROM(
+				SELECT fb.*, (SELECT count(*) FROM FREEBOARDRECOMMEND b WHERE fb.FREEBOARDNO = b.freeboardno ) r,(SELECT count(*) FROM FREEBOARDCOMMENT fc WHERE fb.FREEBOARDNO = fc.freeboardno) c FROM FREEBOARD fb
+				<where>
+					<if test='searchType == "title"'>
+						AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "content"'>
+						AND upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "titlecontent"'>
+						AND (upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%' OR upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%')
+					</if>
+					<if test='category != "N" '>
+						AND FREEBOARDCATEGORY = #{category}
+					</if>
+				</where>
+				<if test='order == "W"'>
+					ORDER BY fb.FREEBOARDNO DESC
 				</if>
-				ORDER BY FREEBOARDNO DESC
+				<if test='order == "R"'>
+					ORDER BY R DESC,fb.FREEBOARDNO DESC
+				</if>
+				<if test='order == "C"'>
+					ORDER BY C DESC,fb.FREEBOARDNO DESC
+				</if>
 				)a
 			)
-		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
 	<select id="selectFreeBoardByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoard">
@@ -610,7 +636,7 @@
 		        JOIN cupnote cn ON cn.cupnoteno = bt.cupnoteno
 			       	<where>
 						<if test="search != null">
-							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+							AND upper(beanname) LIKE '%'||upper(#{search})||'%'
 						</if>
 						<if test="category != null and category != '전체'">
 							AND cupnotename = #{category }
@@ -621,7 +647,7 @@
 			       			ORDER BY revno DESC
 			       		</when>
 			       		<when test='order == "star"'>
- 							ORDER BY revsp DESC, revno DESC
+ 							ORDER BY revstarpoint DESC, revno DESC
 			       		</when>
 			       		<otherwise>
 			       			ORDER BY revno DESC
@@ -742,6 +768,33 @@
 			AND subNo = #{subNo }
 		</where>
 	</select>
+	
+	<update id="updateBeanReviewByBeanNo" parameterType="BeanRev">
+		UPDATE BeanRev
+		SET revCont = #{revCont }
+			, revstarpoint = #{revStarPoint }
+		<where>
+			revNo = #{revNo }
+		</where>
+	</update>
+	
+	<insert id="insertBeanReviewComm" parameterType="BeanRevComm">
+		INSERT INTO beanrevcomm
+		VALUES ( beanrevcomm_seq.nextval, #{revNo }, #{userNo }, #{commCont }, null, sysdate )
+	</insert>
+	
+	<delete id="deleteBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		DELETE BeanRevComm
+		where commno = #{commNo }
+	</delete>
+	
+	<update id="updateBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		UPDATE beanrevcomm
+		SET commcont = #{commCont }
+		WHERE commno = #{commNo }
+	</update>
+	
+	
 	
 </mapper>
 

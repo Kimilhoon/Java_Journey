@@ -6,18 +6,77 @@
 
 <c:import url="../layout/header.jsp"/>
 
+<!-- 카카오주소 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 카카오 지도 -->
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3f3cd365ec1ac0081d50ddb6e680b49d&libraries=services"></script>
+
 <script type="text/javascript">
 $(function() {
 
+    // 지도 초기화
+    var mapContainer = document.getElementById('map'),
+        mapOption = {
+            center: new kakao.maps.LatLng(37.5665, 126.9780),
+            level: 3
+        };
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var marker = new kakao.maps.Marker({
+        position: map.getCenter()
+    });
+    marker.setMap(map);
+
+    // 우편번호 찾기 버튼 클릭
+    $("#btnPostcode").click(function(e) {
+    	e.preventDefault();
+    	
+        // 우편번호 찾기창 초기화
+        $("#postCode").val("");
+        $("#cafeAdd1").val("");
+        $("#cafeAdd2").val("");
+
+        new daum.Postcode({
+            oncomplete: function(data) {
+                $("#postCode").val(data.zonecode);
+                if (data.userSelectedType === 'R') {
+                    $("#cafeAdd1").val(data.roadAddress);
+                } else {
+                    $("#cafeAdd1").val(data.jibunAddress);
+                }
+
+                // 상세주소 입력 포커스
+                $("#cafeAdd2").focus();
+                $("#postcodeWrap").hide();
+
+                // 주소로 지도 위치 갱신
+                var geocoder = new kakao.maps.services.Geocoder();
+                geocoder.addressSearch(data.roadAddress, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        var lat = result[0].y;
+                        var lon = result[0].x;
+                        var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+                        // 지도 중심 이동
+                        map.setCenter(moveLatLon);
+                        marker.setPosition(moveLatLon);
+                    }
+                });
+            }
+        }).open(); //팝업창 열기 위한 open
+    }); //$("#btnPostcode") end
+    
+//-----------------------------------------------------------------------------------
+	
 	$(document).ready(function() {
+		
 		$("#wish").click(function() {
 			
 			//현재 버튼의 텍스트 가져오기
 			const currentText = $(this).text();
 			
 			//데이터 객체 생성
-			var cafeNo = cafeNo : ${cafeInfo.cafeNo },
-			var cafeNo = userNo : ${userNo }
+			var cafeNo = ${cafeInfo.cafeNo }
+			var cafeNo = ${userNo }
 			
 			//버트 클릭 시 텍스트 변경(찜 상태 토글)
 			if (currentText === "찜 ♡") {
@@ -29,7 +88,7 @@ $(function() {
 	            sendWishData(cafeNo, userNo, 'remove'); //데이터 삭제 요청
 	        }
 			
-		};
+		}); // $("#wish").click(function() end
 		
 		function sendWishData(cafeNo, userNo, action) {
 	    	
@@ -55,14 +114,15 @@ $(function() {
 	            error: function() {
 	                console.error("AJAX 요청에 실패했습니다.");
 	            }
-	        })
-	    };
+	        });
+	    }
 	});
+
 	/* 메뉴바 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
 
 		$("#cafeInfoBtn").click(function() {
-			location.href="#cafeInfomation"
+			location.href="#cafeInfo"
 		})
 		
 		$("#cafeLocBtn").click(function() {
@@ -70,7 +130,7 @@ $(function() {
 		})
 		
 		$("#cafeRevBtn").click(function() {
-			location.href="#cafeReview"
+			location.href="#cafeRev"
 		})
 		
 	/* 버튼 경로 설정 */
@@ -88,9 +148,6 @@ $(function() {
 			location.href="/comm/creview/write";
 		});
 		
-		
-		
-	
 	/* -------------------------------------------------------------------------------------------------------------- */
 		
 		
@@ -114,8 +171,8 @@ $(function() {
 		}); // $(document).ready(function() end
 				
 		$(".custom-image img").css({
-			width: "400px",
-			height: "560px",
+			width: "500px",
+			height: "460px",
 	        objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
 	        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
 			 
@@ -125,7 +182,7 @@ $(function() {
 </script>
 
 <style type="text/css">
-#wish, #sub{
+#wish {
 	width: 150px;
 }
 
@@ -134,7 +191,7 @@ $(function() {
 	 height: 559px;
 }
 
-#beanMenu.fixed{
+#cafeMenu.fixed{
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -142,7 +199,7 @@ $(function() {
 	background: white;
 }
 
-#beanComm p{
+#cafeComm p{
 	width: 840px;
 	height: 300px;
 }
@@ -169,7 +226,7 @@ $(function() {
 
 <div id="commCafe" class="d-flex mb-3 grid gap-0 column-gap-5">
 <div id="imageDiv" style="flex-shrink: 0;" >
-<div class="custom-image">${ cafeInfo.cafeOriginName }</div>
+<div class="custom-image">${ cafeInfo.cafeImgOriName }</div>
  </div>
 
 <div id="explain p-2">
@@ -207,12 +264,10 @@ $(function() {
 </table>
 </div> <!-- id="starPoint" End -->
 
-	<div id="btn" class="d-flex justify-content-center align-self-end">
-		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
-<!-- 		<a href="/comm/creview/write"> -->
-			<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
-<!-- 		</a> -->
-	</div>
+<div id="btn" class="d-flex justify-content-center align-self-end">
+	<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
+	<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
+</div>
 	
 </div> <!-- explain p-2 End -->
 </div> <!-- commCafe End -->
@@ -244,7 +299,9 @@ $(function() {
 	</div>
 
 	<div class="text-center">
-		${cafeInfo.cafeAdd1 }, ${cafeInfo.cafeAdd2 }  
+		<div id="map" style="width:500px; height:400px;">
+		${cafeInfo.cafeAdd1 }, ${cafeInfo.cafeAdd2 }
+		</div>
 		<p>API 활용하여 지도 표시???</p>
 	</div>
 </div>

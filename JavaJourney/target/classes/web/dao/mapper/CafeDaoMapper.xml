@@ -52,7 +52,16 @@
    </select>
    
    <select id="selectCntAll" resultType="int" parameterType="hashmap">
-        SELECT COUNT(*) FROM cafe c
+        SELECT count(*) 
+        FROM cafe c
+        <where>
+        	<if test='cafeLoc != null and cafeLoc != "N"'>
+        	AND cafeLoc = #{ cafeLoc } 
+        	</if>
+        	<if test='keyword != null and keyword != "N"'>
+        	And upper(c.cafeName) LIKE '%' || upper(#{keyword}) || '%'
+        	</if>
+        </where>
     </select>
     
 
@@ -87,7 +96,7 @@
 
 	<select id="selectAllRev" resultType="cafeRev" parameterType="cafe">
 		SELECT
-			revNo, c.cafeNo, c.cafeName, c.userNo, revContent, 
+			revNo, c.cafeNo, c.userNo, revContent, 
 			revHit, revDate, revsp,
 			m.userNick
 		FROM cafeRev c

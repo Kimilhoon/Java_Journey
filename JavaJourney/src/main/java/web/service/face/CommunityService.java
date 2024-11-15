@@ -77,7 +77,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return - 필터링된 자유게시판 리스트
 	 */
-	public List<FreeBoard> getFreeBoardList(Paging paging , String search,String category);
+	public List<FreeBoard> getFreeBoardList(Paging paging , String search,String category,String order,String searchType);
 	
 	/**
 	 * 조건에 따른 페이징 객체 생성
@@ -86,7 +86,7 @@ public interface CommunityService {
 	 * @param category - 카테고리
 	 * @return - 조건에 따른 페이징 객체
 	 */
-	public Paging getFreeBoardPaging(Paging curPage, String search, String category);
+	public Paging getFreeBoardPaging(Paging curPage, String search, String category ,String order,String searchType);
 	
 	/**
 	 * 자유게시판 상세보기
@@ -628,6 +628,36 @@ public interface CommunityService {
 	 * @return
 	 */
 	public Integer getBeanNo(Integer subNo);
+
+	/**
+	 * 원두 리뷰 수정
+	 * 
+	 * @param beanRev
+	 */
+	public void changeBeanReview(BeanRev beanRev);
+
+	/**
+	 * 원두 리뷰 댓글달기
+	 * 
+	 * @param revNo
+	 * @param commCont
+	 * @param userId
+	 */
+	public void writeBeanReviewComm(BeanRev revNo, BeanRevComm commCont, String userId);
+
+	/**
+	 * 원두 리뷰 댓글 삭제
+	 * 
+	 * @param commNo
+	 */
+	public void dropBeanReviewComment(BeanRevComm commNo);
+
+	/**
+	 * 원두리뷰댓글수정
+	 * 
+	 * @param commCont
+	 */
+	public void changeBeanReviewComment(BeanRevComm beanRevComm);
 	
 	
 }

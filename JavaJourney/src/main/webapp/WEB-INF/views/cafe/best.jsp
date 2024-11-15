@@ -10,8 +10,8 @@
 $(function() {
 	
 	$(".custom-image img").css({
-		width: "400px",
-		height: "560px",
+		width: "370px",
+		height: "400px",
         objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
         borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
 		 
@@ -37,9 +37,9 @@ img{
 }
 
 .custom-image{
-	width: 400px;
-	height: 560px;	
-	margin: 0px auto;
+	width: 370px;
+	height: 400px;	
+	margin: 3px auto;
 	overflow: hidden;
 	border-radius: 8px;
 }
@@ -75,8 +75,8 @@ img{
 	
 	<td class="text-center" style="flex-shrink: 0;">
 		<a href="./info?cafeNo=${cafe.cafeNo }">
-			<img alt="${cafe.cafeName }" src="${cafe.cafeImgOriName }">
-<%-- 			<div class="custom-image">${cafe.cafeImgOriName }</div> --%>
+<%-- 			<img alt="${cafe.cafeName }" src="${cafe.cafeImgOriName }"> --%>
+			<div class="custom-image">${cafe.cafeImgOriName }</div>
 		</a>
 			<p class="fw-bolder fs-4">${cafe.cafeName }</p>
 			<p class="fw-semibold fs-5">${cafe.cafeLoc }</p>

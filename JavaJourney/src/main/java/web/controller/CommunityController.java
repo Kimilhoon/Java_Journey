@@ -59,17 +59,17 @@ public class CommunityController {
 		//동쥬니
 		
 		@GetMapping("/freeboard/list")
-		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
-			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category);
+		public void freeBoardListForm(Model model,Paging curPage,String search,String category,String order,String searchType) {
+			Paging paging = service.getFreeBoardPaging(curPage,search,category,order,searchType);
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category,order,searchType);
 			
 			
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
 			model.addAttribute("category", category);
-			
-			
+			model.addAttribute("order", order);
+			model.addAttribute("searchType", searchType);
 			
 		}
 		@GetMapping("/freeboard/view")
@@ -565,6 +565,8 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
+//		log.info("brevcommList: {}", brevcommList);
+		
 		//원두 상세 정보
 		BeanRev beanRev = service.getBeanReviewInfo(revNo);
 		
@@ -609,26 +611,29 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/breview/comm")
-	public String beanReviewComm(Model model, CafeRev revNo, BeanRevComm commCont, HttpSession session) {
+	public String beanReviewComm(Model model, BeanRev revNo, BeanRevComm commCont, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
 		
-		service.writeBeanReviewComm(revNo, commCont, userId);
+//		service.writeBeanReviewComm(revNo, commCont, userId);
 		
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
 	
 	@RequestMapping("/breview/comm/update")
-	public void beanReviewCommUpdate(BeanRevComm commCont) {
+	public void beanReviewCommUpdate(BeanRevComm beanRevComm) {
 		
-    	service.changeBeanReviewComment(commCont);
+//		log.info("beanRevComm: {}", beanRevComm);
+    	service.changeBeanReviewComment(beanRevComm);
     	
 	}
 	
 	@RequestMapping("/breview/comm/delete")
-	public String beanReviewCommDelete(BeanRevComm commNo, CafeRev revNo) {
+	public String beanReviewCommDelete(BeanRevComm commNo, BeanRev revNo) {
 		
-		service.dropBeanReviewComment(commNo);
+//		log.info("commNo: {}", commNo);
+		
+//		service.dropBeanReviewComment(commNo);
 		
 		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
@@ -641,7 +646,7 @@ public class CommunityController {
 		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		String beanName = service.getBeanName(beanNo);
 		
-		model.addAttribute("beanName", beanName);
+//		model.addAttribute("beanName", beanName);
 		model.addAttribute("beanNo", beanNo);
 		model.addAttribute("subNo", subNo);
 		
@@ -654,8 +659,8 @@ public class CommunityController {
 		int userNo = service.getUserNo(userId);
 		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		
-		log.info("userNo : {}", userNo);
-		log.info("beanNo : {}", beanNo);
+//		log.info("userNo : {}", userNo);
+//		log.info("beanNo : {}", beanNo);
 		
 		beanRev.setBeanNo(beanNo);
 		beanRev.setUserNo(userNo);
@@ -669,21 +674,24 @@ public class CommunityController {
 	@RequestMapping("/breview/delete")
 	public String beanReviewDelete(BeanRev beanRev) {
 		
-		service.dropBeanReview(beanRev);
+//		service.dropBeanReview(beanRev);
 			
 		return "redirect: ./list";
 	}
 	
 	@GetMapping("/breview/update")
-	public void beanReviewUpdate(Model model, BeanRev beanNo) {
-		BeanRev BeanRev = service.getBeanReviewInfo(beanNo);
+	public void beanReviewUpdate(Model model, BeanRev revNo) {
+		BeanRev beanRev = service.getBeanReviewInfo(revNo);
+//		log.info("beanRev: {}", beanRev);
 		
-		model.addAttribute("BeanRev", BeanRev);
+		model.addAttribute("beanRev", beanRev);
 	}
 	
 	@PostMapping("/breview/update")
 	public String beanReviewUpdateProc(BeanRev beanRev) {
-//		log.info("dddd{}",cafeRev);
+		
+		log.info("beanRev: {}", beanRev);
+		
 		service.changeBeanReview(beanRev);
 		
 		return "redirect: ./view?revNo=" + beanRev.getRevNo();
