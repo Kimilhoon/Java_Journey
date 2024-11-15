@@ -4,10 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%-- 디버깅용: reviews의 내용을 콘솔에 출력 --%>
+<c:out value="${reviews}" default="No reviews found" />
+
 <c:import url="../layout/header.jsp"/>
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <!-- 카카오주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3f3cd365ec1ac0081d50ddb6e680b49d&libraries=services"></script>
 
@@ -64,19 +71,21 @@ $(function() {
             }
         }).open(); //팝업창 열기 위한 open
     }); //$("#btnPostcode") end
+
     
-//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 	
-	$(document).ready(function() {
+		//데이터 객체 생성
+		var cafeNo = "${cafeInfo.cafeNo }";
+		var userNo = "${userNo }";
+
+// 	$(document).ready(function() {
 		
 		$("#wish").click(function() {
 			
 			//현재 버튼의 텍스트 가져오기
 			const currentText = $(this).text();
-			
-			//데이터 객체 생성
-			var cafeNo = ${cafeInfo.cafeNo }
-			var cafeNo = ${userNo }
 			
 			//버트 클릭 시 텍스트 변경(찜 상태 토글)
 			if (currentText === "찜 ♡") {
@@ -116,22 +125,22 @@ $(function() {
 	            }
 	        });
 	    }
-	});
-
+// 	}); // $(document).ready() End
+		
 	/* 메뉴바 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
 
 		$("#cafeInfoBtn").click(function() {
 			location.href="#cafeInfo"
-		})
+		});
 		
 		$("#cafeLocBtn").click(function() {
 			location.href="#cafeLoc"
-		})
+		});
 		
 		$("#cafeRevBtn").click(function() {
 			location.href="#cafeRev"
-		})
+		});
 		
 	/* 버튼 경로 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
@@ -145,22 +154,30 @@ $(function() {
 		});
 		
 		$("#review").click(function() {
-			location.href="/comm/creview/write";
+			location.href="/comm/creview/write?cafeNo=${cafeInfo.cafeNo }";
 		});
 		
+		$("#btnUpdate").click(function() {
+			location.href="/create/cafeupdate?cafeNo=${cafeInfo.cafeNo}";
+		});
+		
+		$("#btnDelete").click(function() {
+			location.href="/create/cafedelete?cafeNo=${cafeInfo.cafeNo}";
+		});
+	
 	/* -------------------------------------------------------------------------------------------------------------- */
 		
 		
-		$(document).ready(function() {
+// 		$(document).ready(function() {
 			
 			var tapsTop = $("#cafeMenu").offset().top; 
 			console.log(tapsTop)
 			
 			$(window).scroll(function() {
 			   
-				var window = $(this).scrollTop();
+				var windowTop = $(this).scrollTop();
 			    
-				if(tapsTop <= window) {
+				if(tapsTop <= windowTop) {
 					$("#cafeMenu").addClass("fixed");
 				}else{
 					$("#cafeMenu").removeClass("fixed");
@@ -168,20 +185,42 @@ $(function() {
 				
 			}); // $(window).scroll(function() end
 					
-		}); // $(document).ready(function() end
-				
+// 		}); // $(document).ready(function() end
+
 		$(".custom-image img").css({
-			width: "500px",
-			height: "460px",
-	        objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
+			width: "400px",
+			height: "360px",
+	        objectFit: "contain",		// 이미지가 썸네일 크기에 맞도록 설정
 	        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
 			 
 		});
-		
-}) // $(function() end 
+
+// 		$(document).ready(function() {
+// 		    $.ajax({
+// 		        url: '/comm/creview/list', // 서버에서 리뷰 목록을 가져오는 API 엔드포인트
+// 		        type: 'GET',
+// 		        data: { cafeNo: ${cafeInfo.cafeNo} }, // 해당 카페의 번호를 파라미터로 전달
+// 		        success: function(data) {
+// 		            // 서버에서 받은 리뷰 데이터를 이용하여 HTML 생성
+// 		            let html = '';
+// 		            data.forEach(cafeRev => {
+// 		                html += `
+// 		                    <tr>
+// 		                        <td>${cafeRev.userNick}</td>
+// 		                        <td>${cafeRev.revContent}</td>
+// 		                        </tr>
+// 		                `;
+// 		            });
+// 		            $('#reviewList').html(html);
+// 		        }
+// 		    });
+// 		}); // $(document).ready() : reviewList End
+				
+}); // $(function() end 
 </script>
 
 <style type="text/css">
+/* ID 이름에서 공백 제거 */
 #wish {
 	width: 150px;
 }
@@ -197,6 +236,12 @@ $(function() {
 	top: 0;
 	width: 100%;
 	background: white;
+	z-index: 9999;
+}
+
+.map-container {
+    position: relative; /* 또는 absolute */
+    z-index: 1; /* 낮은 z-index로 설정하여 상단 버튼이 지도 위로 오도록 함 */
 }
 
 #cafeComm p{
@@ -204,9 +249,10 @@ $(function() {
 	height: 300px;
 }
 
-.custom-imgae{
+.custom-image{
 	margin-right: 5px;
 }
+
 
 </style>
 
@@ -229,14 +275,13 @@ $(function() {
 <div class="custom-image">${ cafeInfo.cafeImgOriName }</div>
  </div>
 
-<div id="explain p-2">
+<div id="explain p-2" style="text-align: center;  margin: 0 auto;">
 <div id="cafeName">
 <p class="fw-bold fs-1">${ cafeInfo.cafeName }</p>
 </div>
 
 <div id="cafeAdd1" class="mb-2">
-<%-- <pclass="fw-bold fs-4">${ cafeInfo.cafeLoc }</p> --%>
-<pclass="fw-bold fs-4">${ cafeInfo.cafeAdd1 }</p>
+<p class="fw-bold fs-4">${ cafeInfo.cafeAdd1 }, ${ cafeInfo.cafeAdd2 }</p>
 </div>
 
 <div id="busytime" class="mb-2">
@@ -289,7 +334,7 @@ $(function() {
 	</div>
 	<div class="text-center">
 		${ cafeInfo.cafeInfo }
-		<p>해당 카페의 기본적인 편의제공 요소 및 어필하고자 하는 장점 등 소개</p>
+		<p>카페 안내문</p>
 	</div>
 </div>
 
@@ -298,21 +343,21 @@ $(function() {
 		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 위치 정보</p>
 	</div>
 
-	<div class="text-center">
-		<div id="map" style="width:500px; height:400px;">
-		${cafeInfo.cafeAdd1 }, ${cafeInfo.cafeAdd2 }
+	
+		<div class="map-container">
+			<div id="map" style="width:800px; height:400px; margin: 0 auto;"></div>
+			<p class="fw-bold fs-4 text-center">${ cafeInfo.cafeAdd1 }, ${ cafeInfo.cafeAdd2 }</p>
 		</div>
-		<p>API 활용하여 지도 표시???</p>
-	</div>
 </div>
 
 <div id="cafeRev" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
 		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 리뷰</p>
 	</div>
+<!-- 	<div id="reviewList"></div> -->
 	
 	<table class="table" style="width: 100%">
-	<c:forEach var="cafeRev" items="${ AllCafeList }">
+	<c:forEach var="cafeRev" items="${ list }">
 	<tr>
 		<td class="text-center" style="width: 10%">${ cafeRev.userNick }</td>
 		<td style="width: 60%">${ cafeRev.revContent }</td>
@@ -343,6 +388,11 @@ $(function() {
 <!-- 		<a class="btn btn-secondary" href="./best" role="button">베스트 카페</a> -->
 <!-- 	<a href="./all"><button id="btnAll" class="btn btn-secondary" type="button">전체 카페</button></a> -->
 <!-- 	<a href="./best"><button id="btnBest" class="btn btn-secondary" type="button">베스트 카페</button></a> -->
+
+<c:if test="${ userNick eq 'admin' }">
+<button type="button" id="btnUpdate" class="btn btn-warning">수정</button>
+<button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+</c:if>
 </div>
 
 
