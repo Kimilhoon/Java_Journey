@@ -167,7 +167,7 @@ async function requestPayment() {
 		email: email,
 		addressLine1: addressLine1,
 		addressLine2: addressLine2,
-		zipcode: zipcode
+		zipcode: zipcode 
     }),
   });
 
