@@ -14,16 +14,16 @@ table {
 	margin: 0 auto;
 	border: 1px solid #ccc;
 	border-collapse: collapse;
-	background-color: #e9e9e9;
+	background-color: #f5f5f5;
 }
 th{
-	padding : 5px 6px;
-	font-size: 26px;
+	padding : 5px 15px;
+	font-size: 24px;
 }
 td {
 	text-align: center;
 	padding : 13.5px 5px;
-	font-size: 24px;
+	font-size: 22px;
 }
 </style>
 </head>
