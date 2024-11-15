@@ -675,10 +675,12 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/breview/update")
-	public void beanReviewUpdate(Model model, BeanRev beanNo) {
-		BeanRev BeanRev = service.getBeanReviewInfo(beanNo);
+	public void beanReviewUpdate(Model model, BeanRev revNo) {
+		BeanRev beanRev = service.getBeanReviewInfo(revNo);
 		
-		model.addAttribute("BeanRev", BeanRev);
+		log.info("beanRev: {}", beanRev);
+		
+		model.addAttribute("beanRev", beanRev);
 	}
 	
 	@PostMapping("/breview/update")

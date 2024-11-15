@@ -328,7 +328,7 @@ function clip(){
 </div>
 
 
-<h1>카페리뷰상세보기</h1>
+<h1>원두리뷰상세보기</h1>
 <br>
 
 <div id="content">
