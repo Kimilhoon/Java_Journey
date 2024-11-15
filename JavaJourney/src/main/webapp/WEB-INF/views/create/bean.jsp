@@ -61,7 +61,17 @@ $(function () {
 	    // 실제 전송
 	    this.submit();
 	});
-	
+    
+    $("input[type='checkbox'][name='cupNoteName']").on("click", function() {
+        // 체크된 체크박스의 개수를 확인
+        let checkedCount = $("input[type='checkbox'][name='cupNoteName']:checked").length;
+
+        if (checkedCount > 2) {
+            // 2개 초과일 경우 체크를 해제하고 경고 메시지 표시
+            $(this).prop("checked", false);
+            alert("최대 2개까지만 선택할 수 있습니다.");
+        }
+    });
 })
 </script>
 
