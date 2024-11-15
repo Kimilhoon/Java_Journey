@@ -47,15 +47,6 @@ $(function() {
     position: absolute;
     top: 10px;
     right: 10px;
-    cursor: pointer;
-}
-
-#welcomeNick {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #f3e9dc;
-    text-align: right;
 }
 
 /* 메뉴바 크기 및 텍스트 스타일 조정 */
@@ -145,7 +136,7 @@ $(function() {
  	 <div class="flex-shrink-0">
   		<c:if test="${isLogin }">
   			<div class="loginLoc">
-			<span id="btnLogout" style="color: #f3e9dc;"><small>로그아웃</small></span>
+			<span id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></span>
   			</div>
 		</c:if>
 		<c:if test="${empty isLogin }">
@@ -158,9 +149,9 @@ $(function() {
   	</div>
   	
   	<c:if test="${userNick eq 'admin' }">
-	    <div class="flex-shrink-0 mx-5">
+	    <div class="flex-shrink-0 loginLoc">
 	      <ul style="list-style:none">
-	      	<li><a href="/manager/menu2" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
+	      	<li><a href="/manager/menu2" style="text-decoration: none; color: yellow;"><br>관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>
