@@ -72,17 +72,17 @@
 	</beans:bean>
 	
 	<!-- 파일 다운로드 뷰 객체를 스프링 빈으로 등록하기 -->
-<!-- 	<beans:bean id="downView" class="web.view.FileDownloadView" /> -->
+	<beans:bean id="downView" class="web.view.MyRecipeDownloadView" />
 	
    <!-- JacksonDatabind를 이용해 응답을 JSON으로 변환하는 뷰 객체 -->
    <!-- viewName : "jsonView" -->
    <!-- Model값: Model 객체 이용 -->
 	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 	
-	
 	<!-- MVC인식 -->
 <!-- 	<context:component-scan base-package="com.test.www, *.controller, *.service" /> -->
-	<context:component-scan base-package="*.controller, *.service, aop" />
+	<context:component-scan base-package="*.controller, *.service
+	, aop, web.manager.controller, web.manager.service" />
 	
 <!-- 	<context:component-scan base-package="web"> -->
 <!-- 		<context:exclude-filter type="regex" expression="*.dao" /> -->
@@ -92,7 +92,7 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	
 		<!-- 메모리에서 임시 파일을 처리할 수 있는 최대 사이즈 : 1MB -->
-		<beans:property name="maxInMemorySize" value="1048576"/>
+		<beans:property name="maxInMemorySize" value="10485760"/>
 		
 		<!-- 파일 업로드 최대 허용 사이즈 : 10MB --> <!-- 전체 파일 용량 -->
 		<beans:property name="maxUploadSize" value="10485760" />

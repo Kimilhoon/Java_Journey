@@ -6,26 +6,178 @@
 
 <c:import url="../layout/header.jsp" />
 
-<div class="container">
+<script type="text/javascript">
+$(function() {
+// 	$("#cupnote").on("change", function() {
+	$("#cupnote").change(function() {
+		
+		var cupnoteValue = $(this).val();
+// 		console.log($("#search").val());
+// 		console.log($("#category").val());
+		$.ajax({
+			url: "./all",
+			type: "get",
+			data:{
+				"cupnote":cupnoteValue
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove();
+				$("body").html(res); 
+			},
+			error: function() {
+				console.error("AJAX 요청에 실패했습니다.");
+			}
+			
+		});
+		
+	}); // $("#cupnote").on("change", function() end
+	
+	$("#searchIcon").click(function() {
+// 		console.log($("#search").val());
+// 		console.log($("#category").val());
+	
+		var keywordValue = $("#keyword").val();
+	
+		$.ajax({
+			url: "./all",
+			type: "get",
+			data:{
+				"keyword":keywordValue
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove();
+				$("body").html(res); 
+			},
+			error: function() {
+				console.error("AJAX 요청에 실패했습니다.");
+			}
+			
+		});
+		
+	}); // $("#searchIcon").click(function() end
+	
+		
+	$("#keyword").keydown(function(event) {
+		
+		// 엔터 키 감지하기
+		if( event.keyCode == 13 ) {
+			event.preventDefault();
+			
+			var keyword = $("#keyword").val();
+			
+			$.ajax({
+		        url: './all',
+		        type: 'GET',
+		        data: { 
+		        	keyword: keyword 
+		        },
+		        dataType: "html",
+		        success: function(res) {
+					$("body").children().remove();
+					$("body").html(res); 
+				},
+				error: function() {
+					console.error("AJAX 요청에 실패했습니다.");
+				}
+					
+			});
+		}
+	}); // $("#keyword").keydown(function() end
+			
+	
+// 	function play() {
+// 		 $.ajax({
+// 	        url: './all',
+// 	        type: 'GET',
+// 	        data: { keyword: keyword },
+// 	        success: function(response) {
+// 	            console.log(response);
+// 	        }
+// 	    });
+// 	}
+	
+	$(".custom-image img").css({
+		width: "400px",
+		height: "500px",
+        objectFit: "cover",		// 이미지가 썸네일 크기에 맞도록 설정
+        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
+    });
+	
+	
+})
+</script>
+<style type="text/css">
+.custom-container {
+    width: 1600px;
+    max-width: 100%; /* 뷰포트보다 크지 않도록 제한 */
+}
 
-<div class="text-center mb-5">
-<h1> <전체 원두> </h1>
+img{
+	max-width: 100%;
+	transition: all 0.3s linear; /* 애니메이션 효과를 부여해줌 */
+}
+
+.custom-image{
+	width: 400px;
+	height: 500px;
+	margin: 0px auto;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+.custom-image:hover img{
+	transform: scale(1.2);
+}
+
+</style>
+
+<div class="container custom-container" >
+
+<div class="text-center m-5">
+<h1> 
+<a href="./all" class="link-offset-2 link-offset-3-hover link-underline-secondary link-underline-opacity-0 link-underline-opacity-75-hover">
+<전체 원두>
+</a> 
+</h1>
 </div>
 
-<div class="mb-2">
-<label for="cupnote">
-맛과향 :
-</label>
-<select id="cupnote" name="cupnote">
-	<option value="savory">고소미</option>
-	<option value="Fresh">상큼이</option>
-	<option value="Sweetness">달달이</option>
-	<option value="bitter">쌉쌀이</option>
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./best">best</a></li>
+		<li class="breadcrumb-item active" aria-current="page">bean</li>
+	</ol>
+</nav>
+
+<div id="up" class="mb-4 d-flex flex-row align-items-center">
+
+<div class="me-auto d-flex justify-content-start">
+<label for="cupnote" class="col-sm-4 col-form-label">맛과향</label>
+<div class="col-sm-10">
+<select id="cupnote" name="cupnote" class="form-select" >
+	<option value="" selected disabled>-- 선택하세요 --</option>
+	<option value="1">새콤이</option>
+	<option value="2">달달이</option>
+	<option value="3">쌉쌀이</option>
+	<option value="4">고소미</option>
+	<option value="5">은은이</option>
+	<option value="6">향긋이</option>
+	<option value="7">진한이</option>
+	<option value="8">부드럽이</option>
 </select>
 </div>
+</div>
 
-<div>
-<input type="text" >
+<div id="search" class="p-2 d-flex justify-content-between">
+<input type="text" id="keyword" name="keyword" class="form-control">
+<span id="searchIcon">
+	<i class="bi bi-search"></i>
+</span>
+</div>
+
 </div>
 
 
@@ -38,19 +190,22 @@
 	<c:if test="${status.index % 4 == 0}">
 		<tr>
 	</c:if>
-	
-		<td class="text-center">
+   
+	<td class="text-center " style="flex-shrink: 0;">
 		<a href="./info?beanNo=${ bean.beanNo }">
-		    <img src="../resources/img/y.jpg" alt="${bean.beanName}" style="width: 70%;">
-		</a>	
+			<div class="custom-image">
+				${bean.beanOriginName}
+			</div>
+		</a>
 			<p>${bean.beanName}</p>
 			<p>${bean.origin}</p>
-			<p>${bean.beanComm}</p>
-		</td>
-	
+			<p>맛이요 | </p>
+			<p>리뷰 : ${ bean.reviewCount }</p>
+	</td>
+   
 		<c:if test="${status.index % 4 == 3 || status.last}">
-			</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
-		</c:if>
+		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
+		</c:if>	
 </c:forEach>
 
 <!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
@@ -58,18 +213,18 @@
 	<c:forEach begin="1" end="${4 - (fn:length(list) % 4)}"> 
 		<td></td>
 	</c:forEach>
-	</tr>
+</tr>
 </c:if>
 
 
 <%-- <c:forEach var="bean" items="${ list }"> --%>
 <!-- <tr class="d-inline"> -->
-<!-- 	<td style="width: 200px;"> -->
-<!-- 	<img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->
-<%-- 	<p>${ bean.beanNo }</p> --%>
-<%-- 	<p>${ bean.beanName }</p> --%>
-<%-- 	<p>${ bean.origin }</p> --%>
-<!-- 	</td> -->
+<!--    <td style="width: 200px;"> -->
+<!--    <img src="../resources/img/y.jpg" alt="윤하" style="width: 20%; height: 20%;"> -->
+<%--    <p>${ bean.beanNo }</p> --%>
+<%--    <p>${ bean.beanName }</p> --%>
+<%--    <p>${ bean.origin }</p> --%>
+<!--    </td> -->
 <!-- </tr> -->
 <%-- </c:forEach> --%>
 
@@ -81,6 +236,8 @@
 <c:import url="./paging.jsp"/>
 
 </div>
+
+<c:import url="../layout/footer.jsp" />
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package web.service.face;
 
+import java.util.List;
 import java.util.Map;
 
 import web.dto.Member;
@@ -37,15 +38,26 @@ public interface MemberService {
 
 	/**
 	 * 로그인 정보
-	 * 
 	 * @param member
 	 * @return
 	 */
 	public Member info(Member member);
 
+	/**
+	 * 아이디 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchId(Member member);
+
+	/**
+	 * 비밀번호 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchPw(Member member);
 
 
-	
 	
 	
 }

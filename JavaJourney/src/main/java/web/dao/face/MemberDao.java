@@ -45,6 +45,20 @@ public interface MemberDao {
 	 */
 	public Member selectByLogin(Member member);
 
+
+	/**
+	 * 아이디 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchId(Member member);
+
+	/**
+	 * 비밀번호 찾기
+	 * @param member
+	 * @return
+	 */
+	public String searchPw(Member member);
 	
 	
 }
