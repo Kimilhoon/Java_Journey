@@ -33,12 +33,19 @@
 <!-- 		</interceptor> -->
 <!-- 	</interceptors> -->
 	
-<!-- 	<interceptors> -->
-<!-- 		<interceptor> -->
-<!-- 			<mapping path="/interceptor/board/wirte" /> -->
-<!-- 			<beans:bean class="interceptor.interceptor.BoardInterceptor" /> -->
-<!-- 		</interceptor> -->
-<!-- 	</interceptors> -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/comm/freeboard/*" />
+			<mapping path="/comm/myrecipe/*" />
+			
+			<exclude-mapping path="/comm/freeboard/list"/>
+			<exclude-mapping path="/comm/freeboard/view"/>
+			<exclude-mapping path="/comm/myrecipe/list"/>
+			<exclude-mapping path="/comm/myrecipe/view"/>
+			
+			<beans:bean class="web.interceptor.LoginInterceptor" />
+		</interceptor>
+	</interceptors>
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
 <!-- 			<mapping path="/interceptor/board/**" /> -->
