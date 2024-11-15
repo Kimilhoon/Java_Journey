@@ -29,9 +29,9 @@
 	<!-- /bean/best -->
 	<!-- ====================================================================================================== -->
 
-	<select id="selectCntAll" resultType="int" parameterType="hashmap">
-		SELECT count(*)
-		FROM bean b
+	<select id="selectCntAll" parameterType="hashmap" resultType="int">
+		SELECT	count(*)
+		FROM	bean b
 		<if test='cupnote != null and cupnote != "N"'>
 		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
     	LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
@@ -47,7 +47,7 @@
 	</select>
 	
 	
-	<select id="selectAll" resultType="Bean" parameterType="hashmap">
+	<select id="selectAll" parameterType="hashmap" resultType="Bean">
 		SELECT * FROM (
 			SELECT rowNum rNum, B.* FROM (
 				SELECT 
@@ -90,7 +90,7 @@
 	<!-- /bean/all -->
 	<!-- ====================================================================================================== -->
 	
-	<select id="selectByBeanNo" resultType="Bean" parameterType="Bean">
+	<select id="selectByBeanNo" parameterType="Bean" resultType="Bean">
 		SELECT 
 				b.beanNo, i.beanImgNo, beanName, origin, 
 				beanComm, beanInfo, beanPrice, businessNo,
@@ -119,12 +119,12 @@
 		</where>
 	</select>
 	
-	<select id="selectAllRev" resultType="BeanRev" parameterType="Bean">
+	<select id="selectAllRev" parameterType="Bean" resultType="BeanRev">
 		SELECT
-			revNo, b.beanNo, b.subNo, b.userNo, revCont, 
-			revHit, revDate, revStarPoint,
-			m.userNick
-		FROM beanRev b
+				revNo, b.beanNo, b.subNo, b.userNo, revCont, 
+				revHit, revDate, revStarPoint,
+				m.userNick
+		FROM 	beanRev b
 		LEFT JOIN member m ON b.userNo = m.userNo
 		<where>
 		AND		beanNo = ${ beanNo }
@@ -156,6 +156,29 @@
 	</delete>
 
 	<!-- /bean/info -->
+	<!-- ====================================================================================================== -->
+
+	<select id="selectBeanByBeanNo" parameterType="Bean" resultType="Bean">
+		SELECT
+				beanno, beanname, origin, beanprice
+		FROM 	bean
+		<where>
+		AND		beanNo = #{ beanNo }
+		</where>
+	</select>
+	
+	<select id="selectMemberByUserId" parameterType="String" resultType="Member">
+		SELECT
+				userno, userid, userpw, usernick, 
+				useremail, username, userphone, 
+				userpostcode, useradd1, useradd2
+		FROM 	member
+		<where>
+		AND		userId = #{ userId }
+		</where>
+	</select>
+	
+	<!-- /bean/sub -->
 	<!-- ====================================================================================================== -->
 	
 </mapper>

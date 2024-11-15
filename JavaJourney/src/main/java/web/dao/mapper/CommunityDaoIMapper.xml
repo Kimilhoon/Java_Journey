@@ -103,7 +103,15 @@
 				AND FREEBOARDCATEGORY = #{category}
 			</if>
 			<if test='search != "N" '>
+				<if test='searchType == "title"'>
 				AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "content"'>
+				AND upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "titlecontent"'>
+				AND (upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%' OR upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%')
+				</if>
 			</if>
 		</where>
 	</select>
@@ -111,16 +119,34 @@
 	<select id="selectFreeBoardListAll" parameterType="hashmap" resultType="FreeBoard">
 		SELECT FREEBOARDNO,USERNO,FREEBOARDCATEGORY,FREEBOARDTITLE,FREEBOARDCONTENT,FREEBOARDHIT,FREEBOARDWRITEDATE,FREEIMGNO  
 		FROM (
-			SELECT rownum r,a.* FROM(
-				SELECT * FROM FREEBOARD 
-				WHERE upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
-				<if test='category != "N" '>
-					AND FREEBOARDCATEGORY = #{category}
+			SELECT rownum rnum,a.* FROM(
+				SELECT fb.*, (SELECT count(*) FROM FREEBOARDRECOMMEND b WHERE fb.FREEBOARDNO = b.freeboardno ) r,(SELECT count(*) FROM FREEBOARDCOMMENT fc WHERE fb.FREEBOARDNO = fc.freeboardno) c FROM FREEBOARD fb
+				<where>
+					<if test='searchType == "title"'>
+						AND upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "content"'>
+						AND upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "titlecontent"'>
+						AND (upper(FREEBOARDTITLE) LIKE '%'||upper(#{search})||'%' OR upper(FREEBOARDCONTENT) LIKE '%'||upper(#{search})||'%')
+					</if>
+					<if test='category != "N" '>
+						AND FREEBOARDCATEGORY = #{category}
+					</if>
+				</where>
+				<if test='order == "W"'>
+					ORDER BY fb.FREEBOARDNO DESC
 				</if>
-				ORDER BY FREEBOARDNO DESC
+				<if test='order == "R"'>
+					ORDER BY R DESC,fb.FREEBOARDNO DESC
+				</if>
+				<if test='order == "C"'>
+					ORDER BY C DESC,fb.FREEBOARDNO DESC
+				</if>
 				)a
 			)
-		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
 	<select id="selectFreeBoardByFreeBoardNo" parameterType="FreeBoard" resultType="FreeBoard">
@@ -669,11 +695,9 @@
 	</select>
 	
 	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
-		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname, cupnotename
+		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname
 		FROM beanrev br
 		JOIN bean b ON br.beanno = b.beanno
-		JOIN beantaste bt ON b.beanno = bt.beanno
-		JOIN cupnote c ON c.cupnoteno = bt.cupnoteno
 		<where>
 			AND revno = #{revNo }
 		</where>
@@ -702,7 +726,73 @@
 		</where>
 	</select>
 	
+	<select id="selectBeanTasteName" resultType="BeanRev" parameterType="BeanRev">
+		SELECT cupnotename
+		FROM cupnote cn
+		JOIN beantaste bt ON cn.cupnoteno = bt.cupnoteno
+		<where>
+			bt.beanno = #{beanNo }
+		</where>
+	</select>
 	
+	<select id="selectBeanNameByBeanNo" resultType="string" parameterType="int">
+		SELECT beanName
+		FROM bean
+		<where>
+			AND beanno = #{beanNo }
+		</where>
+	</select>
+	
+	<insert id="insertBeanReview" parameterType="BeanRev" >
+		INSERT INTO beanrev (revNo, beanNo, subNo, userNo, revCont, revHit, revDate, revstarpoint)
+		VALUES ( revNo_seq.nextval , #{beanNo }, #{subNo }, #{userNo }, #{revCont }, 0, sysdate, #{revStarPoint } )
+	</insert>
+	
+	<delete id="deleteBeanReviewByBeanNo" parameterType="beanRev">
+		DELETE beanRev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<delete id="deleteBeanReviewCommByBeanNo" parameterType="beanRev">
+		DELETE beanRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getBeanNoBySubNo" resultType="Integer" parameterType="Integer">
+		SELECT beanno FROM beansub
+		<where>
+			AND subNo = #{subNo }
+		</where>
+	</select>
+	
+	<update id="updateBeanReviewByBeanNo" parameterType="BeanRev">
+		UPDATE BeanRev
+		SET revCont = #{revCont }
+			, revstarpoint = #{revStarPoint }
+		<where>
+			revNo = #{revNo }
+		</where>
+	</update>
+	
+	<insert id="insertBeanReviewComm" parameterType="BeanRevComm">
+		INSERT INTO beanrevcomm
+		VALUES ( beanrevcomm_seq.nextval, #{revNo }, #{userNo }, #{commCont }, null, sysdate )
+	</insert>
+	
+	<delete id="deleteBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		DELETE BeanRevComm
+		where commno = #{commNo }
+	</delete>
+	
+	<update id="updateBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		UPDATE beanrevcomm
+		SET commcont = #{commCont }
+		WHERE commno = #{commNo }
+	</update>
 	
 	
 	

@@ -195,10 +195,6 @@ $(function() {
 
 <div class="container">
 
-<div class="text-center m-5">
-<h1>원두 상세보기</h1>
-</div>
-
 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="./best">best</a></li>
@@ -206,6 +202,10 @@ $(function() {
 		<li class="breadcrumb-item active" aria-current="page">info</li>
 	</ol>
 </nav>
+
+<div class="text-center m-5">
+<h1>원두 상세보기</h1>
+</div>
 
 <div id="commbean" class="d-flex mb-3 grid gap-0 column-gap-5">
 <div id="imageDiv" style="flex-shrink: 0;">
@@ -326,7 +326,7 @@ $(function() {
 
 <div id="beanInformation" class="text-center shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 <div>
-<p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 상제 정보</p>
+<p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 상세 정보</p>
 </div>
 ${ beanInfo.beanInfo }
 </div>

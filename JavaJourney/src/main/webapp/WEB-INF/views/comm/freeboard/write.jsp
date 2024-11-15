@@ -418,13 +418,6 @@ $(function() {
 </tr>
 
 <tr>
-	
-	<td colspan="3">
-		<input type="file" name="file" class="form-control" id="file">
-	</td>
-</tr>
-
-<tr>
 	<td colspan="3">
 		<button id="add_map" class="btn">지도추가</button>
 	</td>

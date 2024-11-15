@@ -2,7 +2,10 @@ package web.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -55,17 +59,17 @@ public class CommunityController {
 		//동쥬니
 		
 		@GetMapping("/freeboard/list")
-		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
-			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category);
+		public void freeBoardListForm(Model model,Paging curPage,String search,String category,String order,String searchType) {
+			Paging paging = service.getFreeBoardPaging(curPage,search,category,order,searchType);
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category,order,searchType);
 			
 			
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
 			model.addAttribute("category", category);
-			
-			
+			model.addAttribute("order", order);
+			model.addAttribute("searchType", searchType);
 			
 		}
 		@GetMapping("/freeboard/view")
@@ -503,19 +507,57 @@ public class CommunityController {
 	@GetMapping("/breview/list")
 	public void beanReviewForm(Model model, String category, String order, String search, Paging curPage) {
 		
-		Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+	    Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+	    
+	    List<BeanRev> rawBreviewList = service.getBeanReviewList(category, order, search, paging);
 
-		List<List<BeanRev>> breviewList = service.getBeanReviewList(category, order, search, paging);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("category", category);
-		model.addAttribute("order", order);
-		model.addAttribute("search", search);
-		model.addAttribute("breviewList", breviewList);
-		
-		log.info("breviewList: {}", breviewList);
-		
+	    // Map을 사용하여 글번호로 그룹화하면서 맛과 향을 중복 없이 병합
+	    Map<Integer, BeanRev> uniqueBreviewMap = new LinkedHashMap<>();
+	    
+	    for (BeanRev review : rawBreviewList) {
+	        uniqueBreviewMap.computeIfAbsent(review.getRevNo(), key -> {
+	            review.setCupNoteNames(new HashSet<>()); // 맛과 향 Set 초기화
+	            return review;
+	        }).getCupNoteNames().add(review.getCupNoteName()); // 중복되지 않는 맛과 향만 추가
+	    }
+
+	    List<BeanRev> breviewList = new ArrayList<>(uniqueBreviewMap.values());
+	    model.addAttribute("paging", paging);
+	    model.addAttribute("category", category);
+	    model.addAttribute("order", order);
+	    model.addAttribute("search", search);
+	    model.addAttribute("breviewList", breviewList);
 	}
+
+	
+//	@GetMapping("/breview/list")
+//	public void beanReviewForm(Model model, String category, String order, String search, Paging curPage) {
+//		
+//		Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
+//
+//		List<BeanRev> breviewList = service.getBeanReviewList(category, order, search, paging);
+//		
+//	    // Map을 사용하여 글번호로 그룹화하면서 맛과 향을 중복 없이 병합
+//	    Map<Integer, BeanRev> uniqueBreviewMap = new LinkedHashMap<>();
+//	    
+//	    for (BeanRev review : breviewList) {
+//	        uniqueBreviewMap.computeIfAbsent(review.getRevNo(), key -> {
+//	            review.setCupNoteNames(new HashSet<>()); // 맛과 향 Set 초기화
+//	            return review;
+//	        }).getCupNoteNames().add(review.getCupNoteName()); // 중복되지 않는 맛과 향만 추가
+//	    }
+//
+//	    List<BeanRev> breviewList = new ArrayList<>(uniqueBreviewMap.values());
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("category", category);
+//		model.addAttribute("order", order);
+//		model.addAttribute("search", search);
+//		model.addAttribute("breviewList", breviewList);
+//		
+//		log.info("breviewList: {}", breviewList);
+//		
+//	}
 	
 	@GetMapping("/breview/view")
 	public void beanReviewView(Model model, HttpSession session, BeanRev revNo) {
@@ -523,19 +565,23 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
-		//원두 상세 정보
-		List<List<BeanRev>> beanRev = service.getBeanReviewInfo(revNo);
+//		log.info("brevcommList: {}", brevcommList);
 		
-		log.info("beanRev: {}", beanRev);
+		//원두 상세 정보
+		BeanRev beanRev = service.getBeanReviewInfo(revNo);
+		
+//		log.info("beanRev: {}", beanRev);
+		
+		List<BeanRev> taste = service.getBeanTasteList(beanRev);
 		
 		//로그인한 유저id
 		String userId = (String) session.getAttribute("userId");	
 		
 		//작성한 유저id
-		String writerId = service.getWriterId(beanRev);
+//		String writerId = service.getWriterId(beanRev);
 		
 		//작성자 닉네임 불러오기
-		String writerNick = service.getwriterNick(writerId);
+//		String writerNick = service.getwriterNick(writerId);
 		
 		//로그인한 유저의 사업자번호
 		String userBN = service.getBusinessNoFromMember(userId);
@@ -556,54 +602,70 @@ public class CommunityController {
 //		String commId = service.getCafeReviewCommentId();
 		
 		model.addAttribute("brevcommList", brevcommList);
+		model.addAttribute("taste", taste);
 		model.addAttribute("beanRev", beanRev);
 		model.addAttribute("userId", userId);
-		model.addAttribute("writerId", writerId);
-		model.addAttribute("writerNick", writerNick);
+//		model.addAttribute("writerId", writerId);
+//		model.addAttribute("writerNick", writerNick);
 		
 	}
 	
 	@RequestMapping("/breview/comm")
-	public String beanReviewComm(Model model, CafeRev revNo, BeanRevComm commCont, HttpSession session) {
+	public String beanReviewComm(Model model, BeanRev revNo, BeanRevComm commCont, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
 		
-		service.writeBeanReviewComm(revNo, commCont, userId);
+//		service.writeBeanReviewComm(revNo, commCont, userId);
 		
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
 	
 	@RequestMapping("/breview/comm/update")
-	public void beanReviewCommUpdate(BeanRevComm commCont) {
+	public void beanReviewCommUpdate(BeanRevComm beanRevComm) {
 		
-    	service.changeBeanReviewComment(commCont);
+//		log.info("beanRevComm: {}", beanRevComm);
+    	service.changeBeanReviewComment(beanRevComm);
     	
 	}
 	
 	@RequestMapping("/breview/comm/delete")
-	public String beanReviewCommDelete(BeanRevComm commNo, CafeRev revNo) {
+	public String beanReviewCommDelete(BeanRevComm commNo, BeanRev revNo) {
 		
-		service.dropBeanReviewComment(commNo);
+//		log.info("commNo: {}", commNo);
+		
+//		service.dropBeanReviewComment(commNo);
 		
 		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
 	
 	@GetMapping("/breview/write")
-	public void beanReviewWrite(Model model, Bean beanNo) {
+	public void beanReviewWrite(Model model, BeanSub subNo) {
 		
+//		log.info("subNo : {}", subNo);
+		
+		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		String beanName = service.getBeanName(beanNo);
 		
-		model.addAttribute("beanName", beanName);
+//		model.addAttribute("beanName", beanName);
 		model.addAttribute("beanNo", beanNo);
+		model.addAttribute("subNo", subNo);
 		
 	}
 	
 	@PostMapping("/breview/write")
-	public String beanReviewWriteProc(BeanRev beanRev, HttpSession session) {
+	public String beanReviewWriteProc(BeanRev beanRev, BeanSub subNo, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
 		int userNo = service.getUserNo(userId);
+		Integer beanNo = service.getBeanNo(subNo.getSubNo());
+		
+//		log.info("userNo : {}", userNo);
+//		log.info("beanNo : {}", beanNo);
+		
+		beanRev.setBeanNo(beanNo);
 		beanRev.setUserNo(userNo);
+		beanRev.setSubNo(subNo.getSubNo());
+		
 		service.joinBeanReview(beanRev);
 		
 		return "redirect: ./list";
@@ -612,21 +674,24 @@ public class CommunityController {
 	@RequestMapping("/breview/delete")
 	public String beanReviewDelete(BeanRev beanRev) {
 		
-		service.dropBeanReview(beanRev);
+//		service.dropBeanReview(beanRev);
 			
 		return "redirect: ./list";
 	}
 	
 	@GetMapping("/breview/update")
-	public void beanReviewUpdate(Model model, BeanRev beanNo) {
-		BeanRev BeanRev = service.getBeanReviewInfo(beanNo);
+	public void beanReviewUpdate(Model model, BeanRev revNo) {
+		BeanRev beanRev = service.getBeanReviewInfo(revNo);
+//		log.info("beanRev: {}", beanRev);
 		
-		model.addAttribute("BeanRev", BeanRev);
+		model.addAttribute("beanRev", beanRev);
 	}
 	
 	@PostMapping("/breview/update")
 	public String beanReviewUpdateProc(BeanRev beanRev) {
-//		log.info("dddd{}",cafeRev);
+		
+		log.info("beanRev: {}", beanRev);
+		
 		service.changeBeanReview(beanRev);
 		
 		return "redirect: ./view?revNo=" + beanRev.getRevNo();

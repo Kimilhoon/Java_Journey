@@ -4,10 +4,12 @@
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
-<script type="text/javascript">
+<script  type="text/javascript">
 $(function() {
 	
-	$(".hit").click(function() {
+	
+	
+	$(document).on("click", ".hit", function() {
 		
 		$.ajax({
 			url: "./hit?freeBoardNo="+$(this).parent().prev().prev().prev().text(),
@@ -22,30 +24,44 @@ $(function() {
 			
 		});
 	});
-	$("#btn_search").click(function() {
+	$(document).on("click", "#btn_search", function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
+
+// 		location.href="./list?search="+$("#search").val()+"&category="+$("#category").val();
 		$.ajax({
 			url: "./list",
 			type: "get",
 			data:{
 				"search":$("#search").val(),
-				"category":$("#category").val()
+				"category":$("#category").val(),
+				"searchType":$("#searchType").val()
+				
 			},
 			dataType: "html",
 			success: function(res) {
 // 				console.log(res);
-				$("body").children().remove();
-				$("body").html(res); 
+				const c = $("<div>").html(res).find("#listtable").html();
+// 				console.log(c);
+				
+				$("#listtable").children().remove();
+				$("#listtable").html(c); 
+	            // 현재 페이지의 #content에 새 콘텐츠 삽입
+// 	            $("body").html(newContent);
 			},
 			error: function() {
-				
+				alert("tq");
 			}
 			
 		});
 		
 	});
 	
+	$("#category").change(function() {
+		location.href="./list?search=${search}&searchType=${searchType}&order=${order}&category="+$("#category").val();
+	})
+	
+
 	
 	
 })
@@ -72,27 +88,36 @@ a {
 	
 
 </style>
-<div class="container" >
+<div id="plz" >
+<div class="container">
 <div id="order_search_wrap">
 <div id="order" style="float: left;">
-<a href="./list" id="W">최근리뷰순</a>
-<a href="./list" id="R">추천순</a>
-<a href="./list" id="C">댓글많은순</a>
-</div> <!-- order-list -->
-<div id="search_div">
-	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
-	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
-	<select id="category" class="form-select" style="width: 80px; float: right; display: inline-block;">
+<a href="./list?search=${search}&searchType=${searchType}&category=${category}&order=W" id="W">최근리뷰순</a>
+<span>|</span>
+<a href="./list?search=${search}&searchType=${searchType}&category=${category}&order=R" id="R">추천순</a>
+<span>|</span>
+<a href="./list?search=${search}&searchType=${searchType}&category=${category}&order=C" id="C">댓글많은순</a>
+<br>
+	<select id="category" class="form-select" style="width: 100px; float: left; display: inline-block;">
+		<option value="N" >-선택-</option>
 		<option value="all">전체</option>
 		<option value="cafe">카페</option>
 		<option value="bean">원두</option>
 	</select>
-	
+</div> <!-- order-list -->
+<div id="search_div">
+	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+	<select id="searchType" class="form-select" style="width: 150px; float: right; display: inline-block;">
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+		<option value="titlecontent">제목 + 내용</option>
+	</select>
 </div>
 </div>
 
 <div>
-<table class="table text-center">
+<table class="table text-center" id="listtable">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -147,14 +172,14 @@ a {
 	<!-- 첫 페이지로 이동 -->
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-item">
-			<a class="page-link" href="./list" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
+			<a class="page-link" href="./list?search=${search}&searchType=${searchType}&category=${category}&order=${order}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
 		</li>
 	</c:if>
 
 	<!-- 이전 페이징 리스트로 이동 -->
 	<c:if test="${paging.startPage ne 1 }">
 	<li class="page-item">
-		<a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }&search=${search}&category=${category}" style=" color: black; border: 1px solid #ebddcc;">&laquo;</a>
+		<a class="page-link" href="./list?curPage=${paging.startPage - paging.pageCount }&search=${search}&searchType=${searchType}&category=${category}&order=${order}" style=" color: black; border: 1px solid #ebddcc;">&laquo;</a>
 	</li>
 	</c:if>
 
@@ -163,13 +188,13 @@ a {
 	
 		<c:if test="${paging.curPage eq i }">
 			<li class="page-item active" >
-				<a class="page-link" href="./list?curPage=${i }&search=${search}&category=${category}" style="background:#6f4e37; color: white; border: 1px solid #6f4e37;">${i }</a>
+				<a class="page-link" href="./list?curPage=${i }&search=${search}&searchType=${searchType}&category=${category}&order=${order}" style="background:#6f4e37; color: white; border: 1px solid #6f4e37;">${i }</a>
 			</li>
 		</c:if>
 		
 		<c:if test="${paging.curPage ne i }">
 			<li class="page-item">
-				<a class="page-link" href="./list?curPage=${i }&search=${search}&category=${category}" style=" color: black; border: 1px solid #ebddcc;">${i }</a>
+				<a class="page-link" href="./list?curPage=${i }&search=${search}&searchType=${searchType}&category=${category}&order=${order}" style=" color: black; border: 1px solid #ebddcc;">${i }</a>
 			</li>
 		</c:if>
 		
@@ -178,18 +203,19 @@ a {
 	<!-- 다음 페이징 리스트로 이동 -->
 	<c:if test="${paging.endPage ne paging.totalPage }">
 	<li class="page-item">
-		<a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }&search=${search}&category=${category}" style=" color: black; border: 1px solid #ebddcc;">&raquo;</a>
+		<a class="page-link" href="./list?curPage=${paging.startPage + paging.pageCount }&search=${search}&searchType=${searchType}&category=${category}&order=${order}" style=" color: black; border: 1px solid #ebddcc;">&raquo;</a>
 	</li>
 	</c:if>
 
 	<!-- 마지막 페이지로 이동 -->
 	<c:if test="${paging.curPage ne paging.totalPage }">
 		<li class="page-item">
-			<a class="page-link" href="./list?curPage=${paging.totalPage }&search=${search}&category=${category}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&rarr; 마지막</a>
+			<a class="page-link" href="./list?curPage=${paging.totalPage }&search=${search}&searchType=${searchType}&category=${category}&order=${order}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&rarr; 마지막</a>
 		</li>
 	</c:if>
 </ul>
 </div><!-- 페이징 -->
 
+</div>
 </div><!-- container -->
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

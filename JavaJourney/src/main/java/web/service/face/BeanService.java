@@ -110,9 +110,30 @@ public interface BeanService {
 	 * @param beanNo - 전달받은 원두, 유저 번호
 	 */
 //	public void insertWish(BeanWish beanWish);
-
+	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
 	
+	/**
+	 * 원두 정보 불러오기
+	 * 
+	 * @param param - 원두 번호
+	 * @return 원두 정보
+	 */
+	public Bean getBeanByBeanNo(Bean param);
+
+
+	/**
+	 * 유저 아이디로 멤버 정보 불러오기
+	 * 
+	 * @param userId - 유저아이디
+	 * @return 불러올 멤버 정보
+	 */
+	public Member getMemberByUserId(String userId);
+
+	
+	
+	// /bean/sub
+	// --------------------------------------------------------------------------------------
 	
 } // interface end

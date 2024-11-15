@@ -176,7 +176,8 @@ public class BeanServiceImpl implements BeanService {
 		dao.removeWish(params);
 	} // removeWish(Map<String, Integer> params) end
 
-
+	
+	
 //	@Override
 //	public void insertWish(BeanWish beanWish) {
 //		log.info("Inserting wish: {}", beanWish);
@@ -186,5 +187,20 @@ public class BeanServiceImpl implements BeanService {
 	// /bean/info
 	// --------------------------------------------------------------------------------------
 	
+	
+	@Override
+	public Bean getBeanByBeanNo(Bean param) {
+		return dao.selectBeanByBeanNo(param);
+	} // getBeanByBeanNo(Bean param) end
+
+
+	@Override
+	public Member getMemberByUserId(String userId) {
+		return dao.selectMemberByUserId(userId);
+	} // getMemberByUserId(String userId) end
+	
+	
+	// /bean/sub
+	// --------------------------------------------------------------------------------------
 	
 } // class end

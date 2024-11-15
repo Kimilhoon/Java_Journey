@@ -8,6 +8,8 @@
 
 <!-- 포트원 SDK -->
 <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+<!-- UUID 라이브러리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 
 <script type="text/javascript">
 $(function() {
@@ -54,6 +56,18 @@ $(document).ready(function() {
 	});
 }); // $(document).ready(function() end
 
+		
+//버튼 클릭 시 총 가격 계산 후 결제 요청 함수 호출
+$("#subBtn").on("click", function () {
+
+	 $(this).prop("disabled", true);
+	
+	calculateTotal(); // 총 가격 계산 및 표시
+	requestPayment(); // 결제 요청
+	
+});
+
+
 function calculateTotal() {
 	// 가격과 gram 가져오기
 	var price = parseInt($("#beanPrice").val());
@@ -64,7 +78,14 @@ function calculateTotal() {
 	
 	// 결과를 totalPrice 요소에 설정
 	$("#totalPrice").text(totalPrice);
-}
+	
+	// totalAmount 변수에 총합을 숫자 형식으로 저장
+// 	const totalAmount = totalPrice;  // totalPrice는 이미 숫자이므로 따로 parseInt 할 필요 없음
+    
+	// 결제 요청 함수에서 사용
+// 	requestPayment(totalAmount);
+	
+}; // function calculateTotal() end
 
 $("#beanGram").change(function() {
 	calculateTotal();
@@ -74,32 +95,84 @@ $("#CancelBtn").click(function() {
 	location.href="./info?beanNo=${ bean.beanNo }";
 });
 
-/* SDK 초기화 */
+/* SDK 초기화 */ 
 // IMP.init("imp72523611");
 
-function requestPayment() {
 
-const totalAmount = parseInt($("#totalPrice").text());
+async function requestPayment() {
+
+	const totalAmount = parseInt($("#totalPrice").text());
+	const paymentId = `payment-${randomUUID}`;
+	const orderName = "${ bean.beanName }";
+	const customerId = "${ member.userNo }";
+	const fullname = "${ member.userName }";
+	const phoneNumber = "${ member.userPhone }";
+	const email = "${ member.userEmail }";
+	const addressLine1 = "${ member.userAdd1 }";
+	const addressLine2 = "${ member.userAdd2 }";
+	const zipcode = "${ member.userPostcode }";
+	const beanNo = "${ bean.beanNo }";
 	
-PortOne.requestPayment({
-	// Store ID 설정
-	storeId: "store-be1fa1df-6baa-44e7-ba56-8e23cd18366d",
-	// 채널 키 설정
-	channelKey: "channel-key-d32cd8a0-4f15-4cb2-8d44-f88f29ec03e1",
-	paymentId: `payment-${crypto.randomUUID()}`,
-	orderName: "${ bean.beanName }",
-	totalAmount: totalAmount,
-	currency: "CURRENCY_KRW",
-	payMethod: "CARD",
-});
+	console.log(totalAmount)
+	console.log(paymentId)
+	console.log(orderName)
+	console.log(customerId)
+	console.log(fullname)
+	console.log(phoneNumber)
+	console.log(email)
+	console.log(addressLine1)
+	console.log(addressLine2)
+	console.log(zipcode)
+	
+	const response = PortOne.requestPayment({
+		// Store ID 설정
+		storeId: "store-be1fa1df-6baa-44e7-ba56-8e23cd18366d",
+		// 채널 키 설정
+		channelKey: "channel-key-67189232-0ce2-4acf-ab99-4a03ee845cb5",
+		paymentId: paymentId,
+		orderName: orderName,
+		totalAmount: 1000,
+		currency: "KRW",
+		payMethod: "CARD",
+		customer: {
+			customerId: customerId,
+			fullName: fullname,
+			phoneNumber: phoneNumber,
+			email: email,
+			address: {
+				addressLine1: addressLine1,
+				addressLine2: addressLine2
+			},
+			zipcode: zipcode
+		}
+	}); // const response = PortOne.requestPayment({ end
+		
+	if (response.code !== undefined) {
+		// 오류 발생
+		return "./sub/fail";
+	}
 
-};
+	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
+	const notified = await fetch(`${'http://localhost:8088/bean/sub/?beanNo=${ beanNo }'}/payment/complete`, {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	// paymentId와 주문 정보를 서버에 전달합니다
+	body: JSON.stringify({
+		paymentId: paymentId,
+		orderName: orderName,
+		totalAmount: 10000,
+		customerId: customerId,
+		fullName: fullname,
+		phoneNumber: phoneNumber,
+		email: email,
+		addressLine1: addressLine1,
+		addressLine2: addressLine2,
+		zipcode: zipcode
+    }),
+  });
 
-//버튼 클릭 시 총 가격 계산 후 결제 요청 함수 호출
-$("#subBtn").on("click", function () {
-	calculateTotal(); // 총 가격 계산 및 표시
-	requestPayment(); // 결제 요청
-});
+}; // function requestPayment() end
+
 
 }) // $(function() end
 
@@ -278,7 +351,7 @@ $("#subBtn").on("click", function () {
 <div id="buyGuide" class="d-flex justify-content-center">
 <p>
 *배송지는 회원가입시 등록한 주소로 배송됩니다.
-변경을 원하시면 <a href="./mypage/myinfo">마이페이지</a>에서 변경해주세요*
+변경을 원하시면 <a href="../mypage/myinfo">마이페이지</a>에서 변경해주세요*
 </p>
 </div> <!-- <div id="buyGuide" class="d-flex justify-content-center"> -->
 

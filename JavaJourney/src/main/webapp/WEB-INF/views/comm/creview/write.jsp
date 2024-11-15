@@ -47,9 +47,10 @@
 
 /* 카페명 스타일 */
 .cafe-name {
-    font-size: 2em;
-    font-weight: bold;
-    color: #333; /* 글자 색상 */
+    display: inline-block; /* 추가된 스타일 */
+    font-size: 1.3em;
+    color: #333;
+    margin-top: 10px;
 }
 
 /* 작은 글씨 크기 */
