@@ -321,8 +321,19 @@ public interface CommunityDao {
 	 * @param notice - title, content
 	 */
 	public void insertNoticeByTitleContent(Notice notice);
-
 	
+	/**
+	 * 수정한 공지사항 DB에 update하기
+	 * @param notice
+	 */
+	public void updateNotice(Notice notice);
+
+	/**
+	 * 공지사항 DB에서 delete하기
+	 * @param noticeNo
+	 */
+	public void deleteNotice(int noticeNo);
+
 	
 	//나만의레시피 ------------------------------------------------------------------------------------------------
 	/**
@@ -698,7 +709,6 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public Integer getBeanNoBySubNo(Integer subNo);
-
 	
 }
 

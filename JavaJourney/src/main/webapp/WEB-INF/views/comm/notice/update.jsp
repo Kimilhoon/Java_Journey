@@ -9,6 +9,10 @@ $(function() {
 		width: 1300, height: 300
 	});
 	
+	$("#btnBack").click(function name() {
+		history.back();
+	})
+	
 	$("#btnWrite").click(function () {
 		var title = $("#title").val().trim();
 		var contentIsEmpty = $('#content').summernote('isEmpty');
@@ -24,22 +28,25 @@ $(function() {
 </script>
 <h1 class=text-center>공지사항 등록</h1>
 <div class="container">
-<form id="form" action="/comm/notice/write" method="post">
+<div id="btn">
+<button id="btnBack">뒤로가기</button>
+</div>
+<form id="form" action="/comm/notice/update?noticeNo=${notice.noticeNo }" method="post">
 <table class="table table-info">
 <tr>
 	<td>
 	제목
-	<input type="text" id="title" name="title" style="width: 300px;">
+	<input type="text" id="title" name="title" value="${notice.title }" style="width: 300px;">
 	</td>
 </tr>
 <tr>
 	<td>
 	본문
-	<textarea id="content" name="content"></textarea>
+	<textarea id="content" name="content">${notice.content }</textarea>
 	</td>
 </tr>
 </table>
-<button id="btnWrite" type=button>완료</button>
+<button id="btnWrite" type=button>수정</button>
 </form>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

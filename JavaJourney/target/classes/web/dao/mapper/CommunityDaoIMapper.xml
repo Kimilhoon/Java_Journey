@@ -280,30 +280,23 @@
 		VALUES(#{noticeNo},#{title},#{content}, sysdate)
 	</insert>
 	
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		<set>
+			TITLE = #{title},
+			CONTENT = #{content}
+		</set>
+		<where>
+			NOTICENO = #{noticeNo}
+		</where>
+	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<delete id="deleteNotice" parameterType="Notice">
+		DELETE NOTICE
+		<where>
+			NOTICENO = #{noticeNo}
+		</where>
+	</delete>
 	
 	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM caferev cr

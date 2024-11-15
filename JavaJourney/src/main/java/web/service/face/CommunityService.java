@@ -289,6 +289,18 @@ public interface CommunityService {
 	public void insertNotice(Notice notice);
 	
 	/**
+	 * 공지사항 수정하기
+	 * @param notice
+	 */
+	public void updateNoticeByNoticeNo(Notice notice);
+	
+	/**
+	 * 공지사항 삭제하기
+	 * @param noticeNo
+	 */
+	public void deleteNoticeByNoticeNo(int noticeNo);
+
+	/**
 	 * 나만의 레시피 페이징
 	 * @param paging - curPage
 	 * @param search - 검색어
@@ -634,6 +646,12 @@ public interface CommunityService {
 	 * @return
 	 */
 	public Integer getBeanNo(Integer subNo);
+
+
+
+
+
+
 
 
 	

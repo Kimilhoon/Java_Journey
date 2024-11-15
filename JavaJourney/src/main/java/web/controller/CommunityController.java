@@ -212,30 +212,28 @@ public class CommunityController {
 				Notice notice,
 				Model model
 				) {
-			log.info("updateNotice : {}",notice);
+			log.info("updateNotice : {}",notice.getNoticeNo());
+			notice = service.getNotice(notice);
+			model.addAttribute("notice",notice);
 		}
 		
+		@PostMapping("/notice/update")
+		public String noticeUpdateProc(
+				Notice notice
+				) {
+			log.info("notice : {}",notice);
+			service.updateNoticeByNoticeNo(notice);
+			return "redirect:/comm/notice/view?noticeNo=" + notice.getNoticeNo();
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		@GetMapping("/notice/cancel")
+		public String noticeDelete(
+				Notice notice
+				) {
+			log.info("notice : {}",notice.getNoticeNo());
+			service.deleteNoticeByNoticeNo(notice.getNoticeNo());
+			return "redirect:/comm/notice/list";
+		}
 		// FAQ --------------------------------------------------------------------------
 		@GetMapping("/faq/list")
 		public void fatList() {}

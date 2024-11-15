@@ -9,6 +9,9 @@ $(function () {
 	$("#btnUpate").click(function name() {
 		location.href="/comm/notice/update?noticeNo=" + ${notice.noticeNo};
 	})
+	$("#btnCancle").click(function name() {
+		location.href="/comm/notice/cancel?noticeNo=" + ${notice.noticeNo};
+	})
 })
 </script>
 

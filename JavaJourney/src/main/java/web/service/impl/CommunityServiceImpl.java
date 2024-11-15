@@ -262,11 +262,15 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.insertNoticeByTitleContent(notice);
 	}	
 	
+	@Override
+	public void updateNoticeByNoticeNo(Notice notice) {
+		dao.updateNotice(notice);
+	}
 	
-	
-	
-	
-	
+	@Override
+	public void deleteNoticeByNoticeNo(int noticeNo) {
+		dao.deleteNotice(noticeNo);
+	}
 	
 	//나만의 레시피 ------------------------------------------------------------------------------------
 	@Override
