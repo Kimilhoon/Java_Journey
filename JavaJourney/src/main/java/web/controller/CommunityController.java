@@ -194,6 +194,46 @@ public class CommunityController {
 			model.addAttribute("notice",notice);
 			
 		}
+		
+		@GetMapping("/notice/write")
+		public void noticeWriteForm() {}
+		
+		@PostMapping("/notice/write")
+		public String noticeWriteProc(
+				Notice notice
+				) {
+			log.info("notice : {}",notice);
+			service.insertNotice(notice);
+			return "redirect:/comm/notice/list";
+		}
+		
+		@GetMapping("/notice/update")
+		public void noticeUpdateForm(
+				Notice notice,
+				Model model
+				) {
+			log.info("updateNotice : {}",notice.getNoticeNo());
+			notice = service.getNotice(notice);
+			model.addAttribute("notice",notice);
+		}
+		
+		@PostMapping("/notice/update")
+		public String noticeUpdateProc(
+				Notice notice
+				) {
+			log.info("notice : {}",notice);
+			service.updateNoticeByNoticeNo(notice);
+			return "redirect:/comm/notice/view?noticeNo=" + notice.getNoticeNo();
+		}
+		
+		@GetMapping("/notice/cancel")
+		public String noticeDelete(
+				Notice notice
+				) {
+			log.info("notice : {}",notice.getNoticeNo());
+			service.deleteNoticeByNoticeNo(notice.getNoticeNo());
+			return "redirect:/comm/notice/list";
+		}
 		// FAQ --------------------------------------------------------------------------
 		@GetMapping("/faq/list")
 		public void fatList() {}

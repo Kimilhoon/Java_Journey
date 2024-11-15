@@ -5,8 +5,6 @@
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 <script type="text/javascript">
 $(function() {
-
-	
 	$("#btn_search").click(function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
@@ -51,9 +49,6 @@ a {
 	color: #6f4e37;
 }
 </style>
-
-
-
 <div id="content">
 <div class="container">
 <div id="search_div">

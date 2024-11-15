@@ -82,7 +82,12 @@
 			ORDER BY SUBNO
 	</select>
 
-	
+	<delete id="subCancel" parameterType="Integer">
+		DELETE BEANSUB
+		<where>
+			subNo = #{No}
+		</where>
+	</delete>
 	
 	
 	

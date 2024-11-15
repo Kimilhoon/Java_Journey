@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- header -->
-<c:import url="./layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
 
 <script type="text/javascript">
 $(function () {

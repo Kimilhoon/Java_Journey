@@ -283,6 +283,24 @@ public interface CommunityService {
 	public Notice getNotice(Notice notice);
 	
 	/**
+	 * 공지사항 작성하기
+	 * @param notice title, content
+	 */
+	public void insertNotice(Notice notice);
+	
+	/**
+	 * 공지사항 수정하기
+	 * @param notice
+	 */
+	public void updateNoticeByNoticeNo(Notice notice);
+	
+	/**
+	 * 공지사항 삭제하기
+	 * @param noticeNo
+	 */
+	public void deleteNoticeByNoticeNo(int noticeNo);
+
+	/**
 	 * 나만의 레시피 페이징
 	 * @param paging - curPage
 	 * @param search - 검색어
