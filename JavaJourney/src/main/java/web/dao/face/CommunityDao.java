@@ -737,7 +737,7 @@ public interface CommunityDao {
 	 * @param beanRevComm
 	 */
 	public void updateBeanReviewCommByCommNo(BeanRevComm beanRevComm);
-	
+
 }
 
 
