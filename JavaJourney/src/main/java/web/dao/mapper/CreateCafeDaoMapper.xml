@@ -30,10 +30,9 @@
 	
 	
 	<select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
-		SELECT 
-		cafeNo, imgNo, cafeName, cafeComm, cafePhone
-		, busyTime, cafeLoc, cafeAdd1, cafeAdd2, cafeInfo
-		FROM CAFE
+		SELECT *
+		FROM CAFE c
+		JOIN CAFEIMG ci ON c.imgno = ci.cafeimgno
 		<where>
 			cafeNo = #{cafeNo}
 		</where>
@@ -53,9 +52,7 @@
 			cafeNo = #{cafeNo}
 		</where>
 	</update>
-	<!-- 질문. 주소는 지도로 찍는건데 update로 수정해줘야하는지
-		우편번호는 dto에 없는 id="postCode"로 해뒀는데 어떻게 해야하는지 -->
-		
+	
 	<delete id="delete">
 		DELETE Cafe
 		<where>

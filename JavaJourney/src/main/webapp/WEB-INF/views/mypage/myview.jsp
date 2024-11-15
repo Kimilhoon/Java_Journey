@@ -6,13 +6,10 @@
 <c:import url="../layout/header.jsp" />
 
 
-<h1>< 작성 글 확인 ></h1>
-<hr>
 
 
-
-<div id="category-list">
-    <label>카테고리</label>
+<div id="category-list" class="container col-12">
+    <label>카테고리 </label>
     <select id="category" onchange="filterByCategory()">
         <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
         <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
@@ -59,8 +56,8 @@ onload = function() {
 </script>
 
 
-
-<table>
+<div class="container col-12">
+<table class="table text-center" >
 <tr>
 	<th class="col-1" scope="col">글번호</th>
 	<th class="col-1" scope="col">카테고리</th>
@@ -78,9 +75,9 @@ onload = function() {
 
 <c:forEach var="myView" items="${myView}" varStatus="status">
 <tr>
-    <td>${myView.rownum}</td> <!-- 글번호 출력 -->
+    <td class="col-1" scope="row">${myView.rownum}</td> <!-- 글번호 출력 -->
  
-    <td> <!-- 카테고리 -->
+    <td class="col-1"> <!-- 카테고리 -->
         <c:choose>
             <c:when test="${myView.type == 'CafeRev'}">
               	카페리뷰
@@ -97,7 +94,7 @@ onload = function() {
         </c:choose>		
 	</td>
   
-    <td> <!-- 제목 -->
+    <td class="col-4"> <!-- 제목 -->
         <c:choose>
             <c:when test="${myView.type == 'CafeRev'}">
                <a href="/comm/creview/view?revNo=${myView.data.revNo}">
@@ -126,7 +123,7 @@ onload = function() {
         </c:choose>
     </td>
    
-    <td> <!-- 작성일 출력 -->
+    <td class="col-1"> <!-- 작성일 출력 -->
         <c:choose>
             <c:when test="${myView.type == 'CafeRev'}">
                 <fmt:formatDate value="${myView.data.revDate}" pattern="yyyy-MM-dd"/>
@@ -146,13 +143,14 @@ onload = function() {
 </c:forEach>
 
 </table>
+</div>
 
 
 
 <!-- 페이징 처리 -->
-<div class="pagination">
-    <c:if test="${paging.curPage > 1}">
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.startPage}&category=${category}&search=${search}" class="start"><<</a>
+<div class="pagination justify-content-center" >
+    <c:if test="${paging.curPage > 1}" >
+        <a href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" class="start"><<</a>
         <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 1}&category=${category}&search=${search}" class="prev">이전</a>
     </c:if>
 
@@ -162,7 +160,7 @@ onload = function() {
             <span class="current">${i}</span>
         </c:if>
         <c:if test="${i != paging.curPage}">
-            <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${i}" class="page">${i}</a>
+            <a href="/mypage/myview?userNo=${userNo}&curPage=${i}&category=${category}&search=${search}" class="page">${i}</a>
         </c:if>
     </c:forEach>
 

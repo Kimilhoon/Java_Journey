@@ -141,8 +141,12 @@ $(function() {
       <td><input type="text" id="cafeName" name="cafeName"></td>      
    </tr>
    <tr>
+      <td>사업자번호</td>
+      <td><input type="text" id="businessNo" name="businessNo"></td>      
+   </tr>   
+   <tr>
       <td>카페 정보</td>
-      <td><textarea id="cafeComm" name="cafeComm" rows="5" cols="22"></textarea></td>      
+      <td><textarea id="cafeComm" name="cafeComm" rows="5" cols="22" placeholder="간단한 정보를 입력하세요"></textarea></td>      
    </tr>
    <tr>
       <td>카페 전화번호</td>
@@ -159,11 +163,12 @@ $(function() {
       rows="4" cols="4"></textarea>
       </td>      
 
-   </tr>
+	</tr>
+
    <tr>
       <td>카페 지역</td>
       <td>
-      <select id="category">
+      <select id="category" name="cafeLoc">
          <option hidden="none"></option>
          <option value="서울">서울</option>
          <option value="경기">경기</option>
@@ -177,9 +182,10 @@ $(function() {
 <!--          <option value="jongrogu">종로구</option> -->
 <!--          <option value="Seodaemungu">서대문구</option> -->
 <!--          <option value="Mapogu">마포구</option>          -->
-         </select>
-   </td>
+        </select>
+        </td>
    </tr>
+   
    <tr>
       <td>카페 상세설명[이미지]</td>
       <td>
