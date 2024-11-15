@@ -995,6 +995,12 @@ public class CommunityServiceImpl implements CommunityService {
     	dao.deleteBeanReviewCommByCommNo(commNo);
     }
     
+    @Override
+    public void changeBeanReviewComment(BeanRevComm beanRevComm) {
+    	
+		dao.updateBeanReviewCommByCommNo(beanRevComm);
+    }
+    
     
     
     

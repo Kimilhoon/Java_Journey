@@ -565,7 +565,7 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
-		log.info("brevcommList: {}", brevcommList);
+//		log.info("brevcommList: {}", brevcommList);
 		
 		//원두 상세 정보
 		BeanRev beanRev = service.getBeanReviewInfo(revNo);
@@ -621,16 +621,17 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/breview/comm/update")
-	public void beanReviewCommUpdate(BeanRevComm commCont) {
+	public void beanReviewCommUpdate(BeanRevComm beanRevComm) {
 		
-//    	service.changeBeanReviewComment(commCont);
+//		log.info("beanRevComm: {}", beanRevComm);
+    	service.changeBeanReviewComment(beanRevComm);
     	
 	}
 	
 	@RequestMapping("/breview/comm/delete")
 	public String beanReviewCommDelete(BeanRevComm commNo, BeanRev revNo) {
 		
-		log.info("commNo: {}", commNo);
+//		log.info("commNo: {}", commNo);
 		
 //		service.dropBeanReviewComment(commNo);
 		
@@ -658,8 +659,8 @@ public class CommunityController {
 		int userNo = service.getUserNo(userId);
 		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		
-		log.info("userNo : {}", userNo);
-		log.info("beanNo : {}", beanNo);
+//		log.info("userNo : {}", userNo);
+//		log.info("beanNo : {}", beanNo);
 		
 		beanRev.setBeanNo(beanNo);
 		beanRev.setUserNo(userNo);

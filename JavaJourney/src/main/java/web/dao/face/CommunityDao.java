@@ -710,6 +710,13 @@ public interface CommunityDao {
 	 * @param commNo
 	 */
 	public void deleteBeanReviewCommByCommNo(BeanRevComm commNo);
+
+	/**
+	 * 원두 댓글 수정
+	 * 
+	 * @param beanRevComm
+	 */
+	public void updateBeanReviewCommByCommNo(BeanRevComm beanRevComm);
 	
 }
 
