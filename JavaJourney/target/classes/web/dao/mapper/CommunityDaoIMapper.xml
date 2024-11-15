@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="web.dao.face.CommunityDao">
 
@@ -297,6 +297,32 @@
 			)
 		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
+	
+	<insert id="insertNoticeByTitleContent" parameterType="Notice">
+		<selectKey order="BEFORE" keyProperty="noticeNo" resultType="int">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE(NOTICENO, TITLE, CONTENT, WIRTEDATE)
+		VALUES(#{noticeNo},#{title},#{content}, sysdate)
+	</insert>
+	
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		<set>
+			TITLE = #{title},
+			CONTENT = #{content}
+		</set>
+		<where>
+			NOTICENO = #{noticeNo}
+		</where>
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Notice">
+		DELETE NOTICE
+		<where>
+			NOTICENO = #{noticeNo}
+		</where>
+	</delete>
 	
 	<select id="getCafeReviewTotalCnt" parameterType="hashmap" resultType="int">
 		SELECT count(*) FROM caferev cr
@@ -636,7 +662,7 @@
 		        JOIN cupnote cn ON cn.cupnoteno = bt.cupnoteno
 			       	<where>
 						<if test="search != null">
-							AND upper(cafename) LIKE '%'||upper(#{search})||'%'
+							AND upper(beanname) LIKE '%'||upper(#{search})||'%'
 						</if>
 						<if test="category != null and category != '전체'">
 							AND cupnotename = #{category }
@@ -647,7 +673,7 @@
 			       			ORDER BY revno DESC
 			       		</when>
 			       		<when test='order == "star"'>
- 							ORDER BY revsp DESC, revno DESC
+ 							ORDER BY revstarpoint DESC, revno DESC
 			       		</when>
 			       		<otherwise>
 			       			ORDER BY revno DESC
@@ -793,8 +819,6 @@
 		SET commcont = #{commCont }
 		WHERE commno = #{commNo }
 	</update>
-	
-	
 	
 </mapper>
 

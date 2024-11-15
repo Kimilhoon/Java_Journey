@@ -6,13 +6,10 @@
 <c:import url="../layout/header.jsp" />
 
 
-<h1>< 작성 글 확인 ></h1>
-<hr>
 
 
-
-<div id="category-list">
-    <label>카테고리</label>
+<div id="category-list" class="container col-12">
+    <label>카테고리 </label>
     <select id="category" onchange="filterByCategory()">
         <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
         <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
@@ -22,13 +19,6 @@
     </select>
 </div>
 
-<!-- <script>
-function filterByCategory() {
-    const selectedCategory = document.getElementById("category").value;
-    location.href = "/mypage/myview?userNo=" + ${userNo} + "&category=" + encodeURIComponent(selectedCategory);
-
-}
-</script> -->
 
 
 <div class="d-flex justify-content-end"> <!-- 오른쪽 끝 정렬이라는 뜻 -->
@@ -43,7 +33,7 @@ function filterByCategory() {
     const selectedCategory = document.getElementById("category").value || '전체';  // 카테고리가 선택되지 않으면 기본값 '전체'
     const searchText = document.getElementById("searchText").value;  // 검색어를 가져옴
     const currentSearch = searchText ? "&search=" + encodeURIComponent(searchText) : "";  // 검색어가 있을 때만 추가
-    location.href = "/mypage/myview?userNo=" + ${userNo} + "&category=" + encodeURIComponent(selectedCategory) + currentSearch;
+    location.href = "/mypage/myview?userNo=" + ${userNo} +"&curPage=1" + "&category=" + encodeURIComponent(selectedCategory) + currentSearch;
 }
 
 // 검색 버튼 클릭 이벤트 처리
@@ -66,8 +56,8 @@ onload = function() {
 </script>
 
 
-
-<table>
+<div class="container col-12">
+<table class="table text-center" >
 <tr>
 	<th class="col-1" scope="col">글번호</th>
 	<th class="col-1" scope="col">카테고리</th>
@@ -75,11 +65,19 @@ onload = function() {
 	<th class="col-1" scope="col">작성일</th>
 </tr>
 
+<c:if test="${empty myView}">
+<tr>
+<td>
+    <p>검색 결과가 없습니다.</p>
+</td>
+</tr>
+</c:if>
+
 <c:forEach var="myView" items="${myView}" varStatus="status">
 <tr>
-    <td>${myView.rownum}</td> <!-- 글번호 출력 -->
+    <td class="col-1" scope="row">${myView.rownum}</td> <!-- 글번호 출력 -->
  
-    <td> <!-- 카테고리 -->
+    <td class="col-1"> <!-- 카테고리 -->
         <c:choose>
             <c:when test="${myView.type == 'CafeRev'}">
               	카페리뷰
@@ -96,7 +94,7 @@ onload = function() {
         </c:choose>		
 	</td>
   
-    <td> <!-- 제목 -->
+    <td class="col-4"> <!-- 제목 -->
         <c:choose>
             <c:when test="${myView.type == 'CafeRev'}">
                <a href="/comm/creview/view?revNo=${myView.data.revNo}">
@@ -125,7 +123,7 @@ onload = function() {
         </c:choose>
     </td>
    
-    <td> <!-- 작성일 출력 -->
+    <td class="col-1"> <!-- 작성일 출력 -->
         <c:choose>
             <c:when test="${myView.type == 'CafeRev'}">
                 <fmt:formatDate value="${myView.data.revDate}" pattern="yyyy-MM-dd"/>
@@ -145,11 +143,15 @@ onload = function() {
 </c:forEach>
 
 </table>
+</div>
+
+
 
 <!-- 페이징 처리 -->
-<%-- <div class="pagination">
-    <c:if test="${paging.curPage > 1}">
-        <a href="/mypage/myview?userNo=1&curPage=${paging.curPage - 1}" class="prev">Prev</a>
+<div class="pagination justify-content-center" >
+    <c:if test="${paging.curPage > 1}" >
+        <a href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" class="start"><<</a>
+        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 1}&category=${category}&search=${search}" class="prev">이전</a>
     </c:if>
 
     <!-- 페이지 번호 출력 -->
@@ -158,41 +160,15 @@ onload = function() {
             <span class="current">${i}</span>
         </c:if>
         <c:if test="${i != paging.curPage}">
-            <a href="/mypage/myview?userNo=1&curPage=${i}" class="page">${i}</a>
+            <a href="/mypage/myview?userNo=${userNo}&curPage=${i}&category=${category}&search=${search}" class="page">${i}</a>
         </c:if>
     </c:forEach>
 
-    <c:if test="${paging.curPage < paging.endPage}">
-        <a href="/mypage/myview?userNo=1&curPage=${paging.curPage + 1}" class="next">Next </a>
-    </c:if>
-</div> --%>
-
-
-<!-- 페이징 처리 -->
-<div class="pagination">
-    <c:if test="${paging.curPage > 1}">
-        <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${paging.curPage - 1}" class="prev">Prev</a>
-    </c:if>
-
-    <!-- 페이지 번호 출력 -->
-    <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-        <c:if test="${i == paging.curPage}">
-            <span class="current">${i}</span>
-        </c:if>
-        <c:if test="${i != paging.curPage}">
-            <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${i}" class="page">${i}</a>
-        </c:if>
-    </c:forEach>
-
-    <c:if test="${paging.curPage < paging.endPage}">
-        <a href="/mypage/myview?userNo=${userNo}&category=${category}&search=${search}&curPage=${paging.curPage + 1}" class="next">Next</a>
+    <c:if test="${paging.curPage < paging.totalPage}">
+        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 1}&category=${category}&search=${search}" class="next">다음</a>
+        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" class="next">>></a>
     </c:if>
 </div>
 
-<div>
-
-<%-- <c:import url="./paging.jsp"/> --%>
-
-</div>
 
 <c:import url="../layout/footer.jsp" />

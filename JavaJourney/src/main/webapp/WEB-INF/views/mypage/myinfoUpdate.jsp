@@ -4,7 +4,7 @@
 <c:import url="../layout/header.jsp" />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<!-- 카카오지도 -->
+<!-- 카카오주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
