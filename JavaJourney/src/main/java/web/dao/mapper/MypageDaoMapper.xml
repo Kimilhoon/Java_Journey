@@ -187,7 +187,9 @@
 			, b.beanNo, b.beanName
 		FROM BeanRev r
 		JOIN BEAN b ON r.beanNo = b.beanNo
-		WHERE userNo = #{userNo}
+		<where>
+		userNo = #{userNo}
+		</where> 
 		ORDER BY r.revDate DESC
 	</select>	
 	
@@ -197,7 +199,6 @@
 		FROM FreeBoard
 		<where>
 			userNo = #{userNo}
-		
 		</where>
 		ORDER BY freeBoardNo DESC
 	</select>		

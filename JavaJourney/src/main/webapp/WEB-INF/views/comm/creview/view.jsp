@@ -143,10 +143,7 @@ form input[type="text"] {
     border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 1em;
-<<<<<<< HEAD
     margin-right: 10px;
-=======
->>>>>>> refs/remotes/origin/master
 }
 
 form button {
@@ -320,8 +317,8 @@ function clip(){
                <input type="text" class="form-control" id="updatedComment" name="cafeCommCont" required>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
                 <button type="submit" class="btn btn-primary" onclick="submitEditForm()">수정</button>
+                <button type="button" class="btn btn-default" onclick="closeModal()">닫기</button>
             </div>
         </div>
     </div>

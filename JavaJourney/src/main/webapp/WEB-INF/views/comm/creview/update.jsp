@@ -46,7 +46,7 @@
 }
 
 /* 카페명 스타일 */
-.cafe-name {
+.bean-name {
     display: inline-block; /* 추가된 스타일 */
     font-size: 1.3em;
     color: #333;
@@ -164,7 +164,7 @@ $(document).ready(function() {
 
 <form action="./update" method="post">
 
-<input type="text" name="revNo" value="${cafeRev.revNo }" hidden="none">
+<input type="hidden" name="revNo" value="${beanRev.revNo }">
 
 <div id="write-area">
 
@@ -175,15 +175,15 @@ $(document).ready(function() {
 
 <tr>
 <td class="text-center">
-<small>카페명</small> | <span class="cafe-name">&nbsp;&nbsp;${cafeRev.cafeName }</span>
+<small>원두명</small> | <span class="bean-name">&nbsp;&nbsp;${beanRev.beanName }</span>
 </td>
 
 <td class="text-center">
 
 <label>별점
-<select name="revsp">
+<select name="revStarPoint">
 	<c:choose>
-		<c:when test="${cafeRev.revsp eq 5 }">
+		<c:when test="${beanRev.revStarPoint eq 5 }">
 			<option value="5" selected="selected">★★★★★</option>
 		</c:when>
 		<c:otherwise>
@@ -192,7 +192,7 @@ $(document).ready(function() {
 	</c:choose>
 	
 	<c:choose>
-		<c:when test="${cafeRev.revsp eq 4 }">
+		<c:when test="${beanRev.revStarPoint eq 4 }">
 			<option value="4" selected="selected">★★★★☆</option>
 		</c:when>
 		<c:otherwise>
@@ -201,7 +201,7 @@ $(document).ready(function() {
 	</c:choose>
 	
 	<c:choose>
-		<c:when test="${cafeRev.revsp eq 3 }">
+		<c:when test="${beanRev.revStarPoint eq 3 }">
 			<option value="3" selected="selected">★★★☆☆</option>
 		</c:when>
 		<c:otherwise>
@@ -210,7 +210,7 @@ $(document).ready(function() {
 	</c:choose>
 	
 	<c:choose>
-		<c:when test="${cafeRev.revsp eq 2 }">
+		<c:when test="${beanRev.revStarPoint eq 2 }">
 			<option value="2" selected="selected">★★☆☆☆</option>
 		</c:when>
 		<c:otherwise>
@@ -219,7 +219,7 @@ $(document).ready(function() {
 	</c:choose>
 	
 	<c:choose>
-		<c:when test="${cafeRev.revsp eq 1 }">
+		<c:when test="${beanRev.revStarPoint eq 1 }">
 			<option value="1" selected="selected">★☆☆☆☆</option>
 		</c:when>
 		<c:otherwise>
@@ -238,7 +238,7 @@ $(document).ready(function() {
 <td colspan="2" class='text-center'>
 <label>
 <textarea id="summernote" name="revContent" required="required" class="form-control">
-${cafeRev.revContent }
+${beanRev.revCont }
 </textarea>
 </label>
 </td>

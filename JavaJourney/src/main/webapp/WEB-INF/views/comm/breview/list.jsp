@@ -168,6 +168,11 @@ $(function() {
 				</c:forEach>
 			</td>
 			<td class="col-1">
+			
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" /> 
+			<fmt:formatDate value="${list.revDate }" pattern="yyyyMMdd" var="wDate" /> 
+			
 				<c:if test="${nowDate eq wDate}">
 					<span style="color: #fff; background: #fedcba; border-radius: 5px; font-size: 14px; box-shadow: 1px 1px 3px #ddd">
 						&nbsp;New&nbsp;
