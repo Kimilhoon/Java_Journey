@@ -2,19 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<!-- <script type="text/javascript"
- src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3f3cd365ec1ac0081d50ddb6e680b49d">
-</script> -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script type="text/javascript">
 $(function() {
+	
+    <c:if test="${not empty sessionScope.loginError}">
+   	 alert("${sessionScope.loginError}");
+    // 로그인 실패 후, 세션에서 'loginError' 삭제 (한번만 보여주기 위해)
+    <c:remove var="loginError" scope="session"/>
+	</c:if>	
 	
 	$("#goJoin").click(function() {	
 		location.href = "./join";
@@ -43,25 +41,75 @@ $(function() {
     a:hover {
     	text-decoration: underline;
     }
+    
+    .loginForm {
+        width: 100%;
+        max-width: 400px;  /* 폼의 최대 너비 설정 */
+        margin: 0 auto;    /* 수평 중앙 정렬 */
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 각 요소의 간격을 설정 */
+    .loginForm div {
+        margin-bottom: 15px;
+    }
+
+    /* 레이블 스타일 */
+    .loginForm label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    /* 입력 필드 스타일 */
+    .loginForm input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* padding과 border를 포함한 너비 */
+    }
+
+    /* 버튼 스타일 */
+    .loginForm button {
+        width: 100%;
+        padding: 12px;
+        background-color: #6f4e37;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    /* 버튼 호버 스타일 */
+    .loginForm button:hover {
+        background-color: #5a3e2f;
+    }    
 </style>
 
-</head>
 
-<body>
 
-로그인 페이지
+<h2 style="text-align: center; font-weight: bold;" >로그인</h2>
 <hr>
 
-<form action="./login" method="post">
+<form action="./login" method="post" class="loginForm">
 
 <div>
-	<label for="userId">아이디</label>
-	<input type="text" name="userId" id="userId">
+	<label for="userId"></label>
+	<input type="text" name="userId" id="userId" placeholder="로그인">
 </div>
 
 <div>
-	<label for="userPw">비밀번호</label>
-	<input type="password" name="userPw" id="userPw">
+	<label for="userPw"></label>
+	<input type="password" name="userPw" id="userPw" placeholder="비밀번호">
+</div>
+
+<div>
+	<button id="btnLogin" class="btn btn-primary">로그인</button>
 </div>
 
 <div>
@@ -73,55 +121,9 @@ $(function() {
 <div id="goJoin">회원가입</div>
 
 
-<div>
-	<button id="btnLogin" class="btn btn-primary">로그인</button>
-</div>
-
-
-
-
-
-<!-- -------------------------------------------------------------------------- -->
-<!-- 지도api -->
-<!-- <div id="map" style="width:500px; height:400px;"></div> -->
-
-<!-- <script type="text/javascript">
-	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 초기 중심좌표.
-		level: 3 //지도의 레벨(확대, 축소 정도)
-	};
-
-	var map = new kakao.maps.Map(container, options);
-	 //지도를 생성하여 지정된 위치와 옵션으로 표시
-	
-	 // 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	 
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('서울특별시 강남구 강남구 테헤란로14길 6', function(result, status) {		
-		if (status === kakao.maps.services.Status.OK) { 	// 정상적으로 검색이 완료됐으면
-			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			// 검색결과에서 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			map.setCenter(coords);
-	
-			// 마커를 생성하고 지도에 표시합니다
-			var marker = new kakao.maps.Marker({
-			map: map,
-			position: coords
-			});
-	
-			// 결과 좌표를 콘솔에 출력합니다 (디버깅 용도)
-			//console.log(result);
-		}
-	});
-	 
-</script> -->
-
 
 </form>
 
-</body>
-</html>
+
 
 <c:import url="../layout/footer.jsp" />

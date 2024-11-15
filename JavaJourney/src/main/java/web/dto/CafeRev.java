@@ -11,9 +11,13 @@ public class CafeRev {
 	private String cafeName;
 	private String cafeLoc;
 	private int userNo;
+	private String userNick;
 	private String revContent;
 	private int revHit;
 	private Date revDate;
 	private int revsp;
+	private int cafeRevCommCount;
+	
+	private int avgRevStarPoint;
 	
 }
