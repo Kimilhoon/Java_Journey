@@ -127,8 +127,8 @@ $(function() {
 			<div id="search" class="col-6">
 
 				<form class="search-box d-flex" action="./list" method="get">
-
-					<input class="form-control me-2" type="text" name="search">
+				
+					<input class="form-control me-2" type="text" name="search" placeholder="검색어를 입력하세요">
 					<button class="btn btn-outline-primary" type="submit">
 						<i class="bi bi-search"></i>
 					</button>

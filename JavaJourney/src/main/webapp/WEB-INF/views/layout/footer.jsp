@@ -50,7 +50,7 @@ a {
 	  });
 </script>
 
-<div class="bg-light mt-5" style="border-top: 1px solid #6f4e37">
+<div class="mt-5" style="background: #F5F3EF">
 	
 	<br>
 	<div class="footer text-center">

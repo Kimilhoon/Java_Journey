@@ -34,8 +34,8 @@ $(function() {
 
     // 우편번호 찾기 버튼 클릭
     $("#btnPostcode").click(function(e) {
-    	e.preventDefault();
-    	
+       e.preventDefault();
+       
         // 우편번호 찾기창 초기화
         $("#postCode").val("");
         $("#cafeAdd1").val("");
@@ -72,26 +72,26 @@ $(function() {
     }); //$("#btnPostcode") end
     
     $('#cafeImgOriName').summernote({ //섬머노트 설정
-    	width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+       width: 500, height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
         ]
     }); // $('#cafeImgOriName') end
     
     $('#cafeInfo').summernote({ 
-    	width: 500, height: 200 
+       width: 500, height: 200 
         , toolbar: [
             ['insert', ['picture']] 
         ]
     }); // $('#cafeInfo') end
     
-	$("#btnManagerMenu").click(function () {
-		location.href="/manager/menu";
-	}) //$("#btnManagerMenu") end
-	
-	$("#btnWrite").click(function() {
-		$(this).parents("form").submit();
-	});
+   $("#btnManagerMenu").click(function () {
+      location.href="/manager/menu";
+   }) //$("#btnManagerMenu") end
+   
+   $("#btnWrite").click(function() {
+      $(this).parents("form").submit();
+   });
     
   }); //$(function() end
 </script>
@@ -100,32 +100,32 @@ $(function() {
 
 <style type="text/css">
 #postcodeWrap {
-/* 	position: relative; */
-	position: absolute;
-	
-	
-	width: 500px;
-	height: 500px;
-	
-	border: 1px solid #ccc;
-	
-	display: none;
-	
+/*    position: relative; */
+   position: absolute;
+   
+   
+   width: 500px;
+   height: 500px;
+   
+   border: 1px solid #ccc;
+   
+   display: none;
+   
 }
 #postcodeWrap .closeIcon{
 
-	position: absolute;
-	
-	width: 30px;
-	z-index: 9999;
-	
-	top: 0.5px;
-	right: -38px;
-	
-	border: 1px solid skyblue;
-	padding: 3px;
-	
-	cursor: pointer;
+   position: absolute;
+   
+   width: 30px;
+   z-index: 9999;
+   
+   top: 0.5px;
+   right: -38px;
+   
+   border: 1px solid skyblue;
+   padding: 3px;
+   
+   cursor: pointer;
 }
 
 
@@ -136,82 +136,88 @@ $(function() {
 <div>
 <form action="./cafe" method="post" enctype="multipart/form-data">
 <table>
-	<tr>
-		<td>카페 이름</td>
-		<td><input type="text" id="cafeName" name="cafeName"></td>		
-	</tr>
-	<tr>
-		<td>카페 정보</td>
-		<td><textarea id="cafeComm" name="cafeComm" rows="5" cols="22"></textarea></td>		
-	</tr>
-	<tr>
-		<td>카페 전화번호</td>
-		<td><input type="tel" id="cafePhone" name="cafePhone" ></td>		
-	</tr>
-	<tr>
-		<td>카페 운영시간</td>
-		<td><input type="text" id="busyTime" name="busyTime"  placeholder="예: 월-금 09:00 - 18:00"></td>		
-	</tr>	
-	<tr>
-		<td>카페 메인사진[이미지]]</td>
-		<td>
-		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
-		rows="4" cols="4"></textarea>
-		</td>		
+   <tr>
+      <td>카페 이름</td>
+      <td><input type="text" id="cafeName" name="cafeName"></td>      
+   </tr>
+   <tr>
+      <td>사업자번호</td>
+      <td><input type="text" id="businessNo" name="businessNo"></td>      
+   </tr>   
+   <tr>
+      <td>카페 정보</td>
+      <td><textarea id="cafeComm" name="cafeComm" rows="5" cols="22" placeholder="간단한 정보를 입력하세요"></textarea></td>      
+   </tr>
+   <tr>
+      <td>카페 전화번호</td>
+      <td><input type="tel" id="cafePhone" name="cafePhone" ></td>      
+   </tr>
+   <tr>
+      <td>카페 운영시간</td>
+      <td><input type="text" id="busyTime" name="busyTime"  placeholder="예: 월-금 09:00 - 18:00"></td>      
+   </tr>   
+   <tr>
+      <td>카페 메인사진[이미지]]</td>
+      <td>
+      <textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control"
+      rows="4" cols="4"></textarea>
+      </td>      
 
 	</tr>
-	<tr>
-		<td>카페 지역</td>
-		<td>
-		<select id="category">
-	      <option hidden="none"></option>
-	      <option value="서울">서울</option>
-	      <option value="경기">경기</option>
-	      <option value="인천">인천</option>
-	      <option value="부산">부산</option>
-	      <option value="제주">제주</option>
-<!-- 			<option hidden="none"></option> -->
-<!-- 			<option value="Gangnamgu">강남구</option> -->
-<!-- 			<option value="Seochogu">서초구</option> -->
-<!-- 			<option value="Songpagu">송파구</option> -->
-<!-- 			<option value="jongrogu">종로구</option> -->
-<!-- 			<option value="Seodaemungu">서대문구</option> -->
-<!-- 			<option value="Mapogu">마포구</option>	       -->
-  		 </select>
-   </td>
-	</tr>
-	<tr>
-		<td>카페 상세설명[이미지]</td>
-		<td>
-		<textarea id="cafeInfo" name="cafeInfo" class="form-control"
-		rows="4" cols="4"></textarea>
-		</td>		
-	</tr>
-	<tr>
-		<td>카페 주소</td>
-		<td>
-		<button id="btnPostcode" type="button">우편번호 찾기</button>
-		<div id="postcodeWrap"> <!-- 우편닫기버튼기능 -->
-			<img alt="x" src="../resources/img/close.png" class="closeIcon">
-		</div>
-		<input type="text" id="postCode" name="postCode" placeholder="우편번호" readonly="readonly"><br>
-		<input type="text" id="cafeAdd1" name="cafeAdd1" placeholder="주소" readonly="readonly"><br>
-		<input type="text" id="cafeAdd2" name="cafeAdd2" placeholder="상세주소"><br>
-		</td>
-	</tr>
+
+   <tr>
+      <td>카페 지역</td>
+      <td>
+      <select id="category" name="cafeLoc">
+         <option hidden="none"></option>
+         <option value="서울">서울</option>
+         <option value="경기">경기</option>
+         <option value="인천">인천</option>
+         <option value="부산">부산</option>
+         <option value="제주">제주</option>
+<!--          <option hidden="none"></option> -->
+<!--          <option value="Gangnamgu">강남구</option> -->
+<!--          <option value="Seochogu">서초구</option> -->
+<!--          <option value="Songpagu">송파구</option> -->
+<!--          <option value="jongrogu">종로구</option> -->
+<!--          <option value="Seodaemungu">서대문구</option> -->
+<!--          <option value="Mapogu">마포구</option>          -->
+        </select>
+        </td>
+   </tr>
+   
+   <tr>
+      <td>카페 상세설명[이미지]</td>
+      <td>
+      <textarea id="cafeInfo" name="cafeInfo" class="form-control"
+      rows="4" cols="4"></textarea>
+      </td>      
+   </tr>
+   <tr>
+      <td>카페 주소</td>
+      <td>
+      <button id="btnPostcode" type="button">우편번호 찾기</button>
+      <div id="postcodeWrap"> <!-- 우편닫기버튼기능 -->
+         <img alt="x" src="../resources/img/close.png" class="closeIcon">
+      </div>
+      <input type="text" id="postCode" name="postCode" placeholder="우편번호" readonly="readonly"><br>
+      <input type="text" id="cafeAdd1" name="cafeAdd1" placeholder="주소" readonly="readonly"><br>
+      <input type="text" id="cafeAdd2" name="cafeAdd2" placeholder="상세주소"><br>
+      </td>
+   </tr>
 
 
-<!-- 	<tr> -->
-<!-- 		<td>사장 아이디</td> -->
-<!-- 		<td> -->
-<!-- 			<input type="text" id="cafeId" name="cafeId"> -->
-<!-- 			<button id="idCheck" type="button">중복확인</button> -->
-<!-- 		</td>		 -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>사장 비밀번호</td> -->
-<!-- 		<td><input type="text" id="cafePw" name="cafePw"></td>		 -->
-<!-- 	</tr> -->
+<!--    <tr> -->
+<!--       <td>사장 아이디</td> -->
+<!--       <td> -->
+<!--          <input type="text" id="cafeId" name="cafeId"> -->
+<!--          <button id="idCheck" type="button">중복확인</button> -->
+<!--       </td>       -->
+<!--    </tr> -->
+<!--    <tr> -->
+<!--       <td>사장 비밀번호</td> -->
+<!--       <td><input type="text" id="cafePw" name="cafePw"></td>       -->
+<!--    </tr> -->
 
 </table>
 

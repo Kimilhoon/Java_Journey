@@ -19,7 +19,7 @@ public class ManagerController {
 //	
 	@Autowired private ManagerService service;
 	
-	@GetMapping("/menu2")
+	@GetMapping("/menu")
 	public void menuForm() {}
 	
 	@GetMapping("/user")

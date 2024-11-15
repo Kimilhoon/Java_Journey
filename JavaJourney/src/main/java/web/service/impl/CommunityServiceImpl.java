@@ -278,6 +278,21 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.selectNoticeBtNoticeNo(notice);
 	}
 	
+	@Override
+	public void insertNotice(Notice notice) {
+		dao.insertNoticeByTitleContent(notice);
+	}	
+	
+	@Override
+	public void updateNoticeByNoticeNo(Notice notice) {
+		dao.updateNotice(notice);
+	}
+	
+	@Override
+	public void deleteNoticeByNoticeNo(int noticeNo) {
+		dao.deleteNotice(noticeNo);
+	}
+	
 	//나만의 레시피 ------------------------------------------------------------------------------------
 	@Override
 	public Paging getMyRecipePaging(Paging curPage, String search) {
