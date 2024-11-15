@@ -55,15 +55,17 @@ public class CommunityController {
 		//동쥬니
 		
 		@GetMapping("/freeboard/list")
-		public void freeBoardListForm(Model model,Paging curPage,String search,String category) {
-			Paging paging = service.getFreeBoardPaging(curPage,search,category);
-			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category);
+		public void freeBoardListForm(Model model,Paging curPage,String search,String category,String order,String searchType) {
+			Paging paging = service.getFreeBoardPaging(curPage,search,category,order,searchType);
+			List<FreeBoard> freeBoardList = service.getFreeBoardList(paging,search,category,order,searchType);
 			
 			
 			model.addAttribute("freeBoardList", freeBoardList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
 			model.addAttribute("category", category);
+			model.addAttribute("order", order);
+			model.addAttribute("searchType", searchType);
 			
 		}
 		@GetMapping("/freeboard/view")

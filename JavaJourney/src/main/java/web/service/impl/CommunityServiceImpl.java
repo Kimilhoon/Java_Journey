@@ -51,26 +51,35 @@ public class CommunityServiceImpl implements CommunityService {
 
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
-	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
+	public Paging getFreeBoardPaging(Paging curPage, String search, String category ,String order,String searchType) {
 //		log.info("{}",search);
 //		log.info("{}",category);
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
-		if(category == null || "".equals(category)||"all".equals(category)) {
+		if(category == null || "".equals(category)||"all".equals(category)||"N".equals(category)) {
 			category = "N";
 		}else if(category.equals("cafe")) {
 			category="카페";
 		}else {
 			category="원두";
 		}
+		
 		if(search == null || "".equals(search)) {
 			search = "N";
+		}
+		
+		
+		
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
 		}
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("search", search);
 		map.put("category", category);
+		map.put("order", order);
+		map.put("searchType", searchType);
 
 		int totalCnt = dao.getFreeBoardTotalCnt(map);
 		
@@ -82,19 +91,31 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<FreeBoard> getFreeBoardList(Paging paging, String search,String category) {
+	public List<FreeBoard> getFreeBoardList(Paging paging, String search,String category,String order,String searchType) {
 		
-		if(category == null || "".equals(category)||"all".equals(category)) {
+		if(category == null || "".equals(category)||"all".equals(category)||"N".equals(category)) {
 			category = "N";
 		}else if(category.equals("cafe")) {
 			category="카페";
 		}else {
 			category="원두";
 		}
+		
+		if(order == null || "".equals(order)) {
+			order = "W";
+		}
+		
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
+		}
+		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("paging", paging);
 		map.put("search", search);
 		map.put("category", category);
+		map.put("order", order);
+		map.put("searchType", searchType);
 		List<FreeBoard> freeBoardList = dao.selectFreeBoardListAll(map);
 		for(FreeBoard f : freeBoardList) {
 			f.setFreeBoardCommentCount(dao.selectFreeBoardCommentCnt(f));
