@@ -21,6 +21,7 @@ import web.dao.face.CommunityDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -830,7 +831,7 @@ public class CommunityServiceImpl implements CommunityService {
     //----------------------------------------------------------------------------
     
     @Override
-    public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging) {
+    public List<BeanRev> getBeanReviewList(String category, String order, String search, Paging paging) {
     	
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
@@ -838,13 +839,9 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
-		List<BeanRev> bList = dao.selectBeanReview(param);
+		List<BeanRev> list = dao.selectBeanReview(param);
 		
-		List<List<BeanRev>> list = new ArrayList<>();
-		
-		list.add(bList);
-		
-		for(BeanRev b : bList) {
+		for(BeanRev b : list) {
 			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
 		}
 		
@@ -901,19 +898,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
     
     @Override
-    public List<List<BeanRev>> getBeanReviewInfo(BeanRev revNo) {
+    public BeanRev getBeanReviewInfo(BeanRev revNo) {
     	
-		List<BeanRev> bList = dao.selectBeanReviewInfo(revNo);
-		
-		List<List<BeanRev>> list = new ArrayList<>();
-		
-		list.add(bList);
-		
-		for(BeanRev b : bList) {
-			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
-		}
-    	
-		return list;
+		return dao.selectBeanReviewInfo(revNo);
     }
     
     @Override
@@ -951,9 +938,62 @@ public class CommunityServiceImpl implements CommunityService {
     	return dao.selectBusinessNoByBeanRevNo(revNo);
     }
     
+    @Override
+    public List<BeanRev> getBeanTasteList(BeanRev beanRev) {
+    	
+    	return dao.selectBeanTasteName(beanRev);
+    	
+    }
     
+    @Override
+    public String getBeanName(int beanNo) {
+    	
+    	return dao.selectBeanNameByBeanNo(beanNo);
+    }
     
+    @Override
+    public void joinBeanReview(BeanRev beanRev) {
+    	
+    	dao.insertBeanReview(beanRev);
+    }
     
+    @Override
+    public void dropBeanReview(BeanRev beanRev) {
+    	
+		dao.deleteBeanReviewByBeanNo(beanRev);
+		dao.deleteBeanReviewCommByBeanNo(beanRev);
+    	
+    }
+    
+    @Override
+    public Integer getBeanNo(Integer subNo) {
+    	
+    	return dao.getBeanNoBySubNo(subNo);
+    }
+    
+    @Override
+    public void changeBeanReview(BeanRev beanRev) {
+    	
+    	dao.updateBeanReviewByBeanNo(beanRev);
+    }
+    
+    @Override
+    public void writeBeanReviewComm(BeanRev revNo, BeanRevComm commCont, String userId) {
+    	
+		int userNo = dao.selectUsernoByUserid(userId);
+		
+		commCont.setRevNo(revNo.getRevNo());
+		commCont.setUserNo(userNo);
+		
+		dao.insertBeanReviewComm(commCont);
+    	
+    }
+    
+    @Override
+    public void dropBeanReviewComment(BeanRevComm commNo) {
+    	
+    	dao.deleteBeanReviewCommByCommNo(commNo);
+    }
     
     
     

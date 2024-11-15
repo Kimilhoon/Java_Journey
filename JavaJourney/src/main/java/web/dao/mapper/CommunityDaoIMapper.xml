@@ -695,11 +695,9 @@
 	</select>
 	
 	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
-		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname, cupnotename
+		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname
 		FROM beanrev br
 		JOIN bean b ON br.beanno = b.beanno
-		JOIN beantaste bt ON b.beanno = bt.beanno
-		JOIN cupnote c ON c.cupnoteno = bt.cupnoteno
 		<where>
 			AND revno = #{revNo }
 		</where>
@@ -728,6 +726,67 @@
 		</where>
 	</select>
 	
+	<select id="selectBeanTasteName" resultType="BeanRev" parameterType="BeanRev">
+		SELECT cupnotename
+		FROM cupnote cn
+		JOIN beantaste bt ON cn.cupnoteno = bt.cupnoteno
+		<where>
+			bt.beanno = #{beanNo }
+		</where>
+	</select>
+	
+	<select id="selectBeanNameByBeanNo" resultType="string" parameterType="int">
+		SELECT beanName
+		FROM bean
+		<where>
+			AND beanno = #{beanNo }
+		</where>
+	</select>
+	
+	<insert id="insertBeanReview" parameterType="BeanRev" >
+		INSERT INTO beanrev (revNo, beanNo, subNo, userNo, revCont, revHit, revDate, revstarpoint)
+		VALUES ( revNo_seq.nextval , #{beanNo }, #{subNo }, #{userNo }, #{revCont }, 0, sysdate, #{revStarPoint } )
+	</insert>
+	
+	<delete id="deleteBeanReviewByBeanNo" parameterType="beanRev">
+		DELETE beanRev
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<delete id="deleteBeanReviewCommByBeanNo" parameterType="beanRev">
+		DELETE beanRevComm
+		<where>
+			AND revNo = #{revNo }
+		</where>
+	</delete>
+	
+	<select id="getBeanNoBySubNo" resultType="Integer" parameterType="Integer">
+		SELECT beanno FROM beansub
+		<where>
+			AND subNo = #{subNo }
+		</where>
+	</select>
+	
+	<update id="updateBeanReviewByBeanNo" parameterType="BeanRev">
+		UPDATE BeanRev
+		SET revCont = #{revCont }
+			, revstarpoint = #{revStarPoint }
+		<where>
+			revNo = #{revNo }
+		</where>
+	</update>
+	
+	<insert id="insertBeanReviewComm" parameterType="BeanRevComm">
+		INSERT INTO beanrevcomm
+		VALUES ( beanrevcomm_seq.nextval, #{revNo }, #{userNo }, #{commCont }, null, sysdate )
+	</insert>
+	
+	<delete id="deleteBeanReviewCommByCommNo" parameterType="BeanRevComm">
+		DELETE BeanRevComm
+		where commno = #{commNo }
+	</delete>
 	
 	
 	

@@ -158,4 +158,21 @@
 	<!-- /bean/info -->
 	<!-- ====================================================================================================== -->
 	
+	<select id="selectBeanMember" parameterType="map" resultType="java.util.HashMap">
+		SELECT
+			m.userNo, userId, userNick, userEmail, userName, 
+			userPhone, userPostcode, userAdd1, userAdd2,
+			b.beanName, b.beanNo
+		FROM member m
+		LEFT JOIN beanRev br ON br.userNo = m.userNo
+		LEFT JOIN bean b ON br.beanNo = b.beanNo
+		<where>
+		AND		m.userId = #{ userId }
+		AND		b.beanNo = #{ beanNo }
+		</where>
+	</select>
+	
+	<!-- /bean/sub -->
+	<!-- ====================================================================================================== -->
+	
 </mapper>

@@ -28,12 +28,13 @@ public class MemberQuizResult {
 //	private int beanImgNo;
 	private String beanOriginName;
 	
+	//조인 grind
+	private int grindNo;
+//	private String grindName;
 	
-	
-	
-	
-	
-	
+	//조인 extraction
+	private int extractionNo;
+//	private String extractionName;
 	
 	
 	
