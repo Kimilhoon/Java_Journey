@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
 <!-- header내용 --->
 <!DOCTYPE html>
 <html>
@@ -25,10 +26,10 @@
 
 <script type="text/javascript">
 $(function() {
-	$("#btnLogout").click(function() {
-		location.href="/member/logout;"
-	}) 
-})
+    $("#btnLogout").click(function() {
+        location.href = "/member/logout";
+    });
+});
 </script>
 
 <style>
@@ -134,9 +135,9 @@ $(function() {
 <!-- 로그인 및 기타 링크 -->
  	 <div class="flex-shrink-0">
   		<c:if test="${isLogin }">
-  			<div class="loginLoc">
-			<span id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></span>
-  			</div>
+			<div class="loginLoc">
+			    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
+			</div>
 		</c:if>
 		<c:if test="${empty isLogin }">
 			<div class="loginLoc">
@@ -146,19 +147,16 @@ $(function() {
 			</div>
 		</c:if>
   	</div>
-    <div class="flex-shrink-0 mx-5">
-      <ul style="list-style: none;">
-      	<c:if test="${userNick eq 'admin' }">
-      	<li><a href="/manager/menu" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
-      	</c:if>
+  	
   	<c:if test="${userNick eq 'admin' }">
-	    <div class="flex-shrink-0 loginLoc">
+	    <div class="flex-shrink-0 mt-4 loginLoc">
 	      <ul style="list-style:none">
-	      	<li><a href="/manager/menu2" style="text-decoration: none; color: yellow;"><br>관리자전용메뉴</a></li>
+	      	<li><a href="/manager/menu" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>
   </div>
+
 <div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
@@ -238,4 +236,5 @@ $(function() {
     </div>
   </nav>
 </div>
-</div>
+
+
