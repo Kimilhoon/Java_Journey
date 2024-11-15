@@ -394,7 +394,7 @@ function clip(){
 	    </span>
 	    	<span style="color: #D8D8D8"> | </span>
 	    <span>
-	    <a href="./comm/delete?revNo=${beanRev.revNo }&beanRevCommNo=${comm.commNo }" style="text-decoration: none; color: #6f4e37">
+	    <a href="./comm/delete?revNo=${beanRev.revNo }&commNo=${comm.commNo }" style="text-decoration: none; color: #6f4e37">
 	        <small>삭제</small>
 	    </a>
 	    </span>

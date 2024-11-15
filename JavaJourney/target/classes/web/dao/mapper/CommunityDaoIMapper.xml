@@ -758,10 +758,8 @@
 	</insert>
 	
 	<delete id="deleteBeanReviewCommByCommNo" parameterType="BeanRevComm">
-		DELETE beanrevcomm
-		<where>
-			commno = #{commNo }
-		</where>
+		DELETE BeanRevComm
+		where commno = #{commNo }
 	</delete>
 	
 	

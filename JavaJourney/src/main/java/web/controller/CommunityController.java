@@ -565,6 +565,8 @@ public class CommunityController {
 		//댓글 리스트
 		List<BeanRevComm> brevcommList = service.getBeanReviewCommentList(revNo);
 		
+		log.info("brevcommList: {}", brevcommList);
+		
 		//원두 상세 정보
 		BeanRev beanRev = service.getBeanReviewInfo(revNo);
 		
@@ -627,6 +629,8 @@ public class CommunityController {
 	
 	@RequestMapping("/breview/comm/delete")
 	public String beanReviewCommDelete(BeanRevComm commNo, BeanRev revNo) {
+		
+		log.info("commNo: {}", commNo);
 		
 		service.dropBeanReviewComment(commNo);
 		
