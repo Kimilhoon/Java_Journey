@@ -136,6 +136,7 @@ public class CafeServiceImpl implements CafeService {
 		dao.removeWish(params);
 	}
 
+
 	
 	
 }

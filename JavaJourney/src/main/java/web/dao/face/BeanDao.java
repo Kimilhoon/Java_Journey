@@ -114,14 +114,25 @@ public interface BeanDao {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	/**
+	 * 원두 정보 조회하기
+	 * 
+	 * @param param - 원두 번호
+	 * @return 원두 정보 
+	 */
+	public Bean selectBeanByBeanNo(Bean param);
 
 
 	/**
-	 * 원두 유저 정보 가져오기
+	 * 유저 아이디로 유저 정보 조회
 	 * 
-	 * @return 원두 유저 정보
+	 * @param userId - 유저 아이디
+	 * @return 유저 정보
 	 */
-	public List<Map<String, Object>> selectBeanMember(Map<String, Object> params);
+	public Member selectMemberByUserId(String userId);
+
+	
 
 	// /bean/info
 	// --------------------------------------------------------------------------------------

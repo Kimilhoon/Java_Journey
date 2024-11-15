@@ -104,7 +104,6 @@ public class CafeController {
 		
 		model.addAttribute("list", list);
 		
-		
 	} // CafeInfoForm(Cafe) end
 	
 	@PostMapping("/info")

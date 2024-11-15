@@ -113,15 +113,25 @@ public interface BeanService {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	/**
+	 * 원두 정보 불러오기
+	 * 
+	 * @param param - 원두 번호
+	 * @return 원두 정보
+	 */
+	public Bean getBeanByBeanNo(Bean param);
 
 
 	/**
-	 * 원두 정보와 유저 정보 불러오기
+	 * 유저 아이디로 멤버 정보 불러오기
 	 * 
-	 * @param params - 원두 번호
-	 * @return 원두와 유저정보
+	 * @param userId - 유저아이디
+	 * @return 불러올 멤버 정보
 	 */
-	public List<Map<String, Object>> getBeanMember(Map<String, Object> params);
+	public Member getMemberByUserId(String userId);
+
+	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
