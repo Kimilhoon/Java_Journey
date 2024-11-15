@@ -27,23 +27,18 @@ public class CreateCafeController {
 	@PostMapping("/cafe")
 	public String writeProc(Cafe cafe, CafeImg cafeImg) {
 		log.info("cafe:{}", cafe);
-		log.info("cafeImg1:{}", cafeImg);
 		
 		service.insertCafe(cafe, cafeImg);
-		log.info("cafeImg2:{}", cafeImg);
 		
 		return "redirect:/cafe/all";
 	}
 	
 	@GetMapping("/cafeUpdate")
-	public String update(CafeImg cafeImg, Cafe cafe, Model model) {
-		log.info("cafeImg3:{}",  cafeImg);
+	public String update(Cafe cafe, Model model) {
 		
-		cafe = service.view(cafe, cafeImg);
+		cafe = service.view(cafe);
 		model.addAttribute("cafe", cafe);
-		model.addAttribute("cafeImg", cafeImg);
 		
-		log.info("cafeImg4:{}",  cafeImg);
 		
 		return "/create/cafeUpdate";
 	}

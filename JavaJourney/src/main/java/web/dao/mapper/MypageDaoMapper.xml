@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+
+	<!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.MypageDao">
+
 	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
 		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
 		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
@@ -32,16 +33,61 @@
 <!-- 				upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
 <!-- 			</if> -->
 		</where>
+		
 	</select>
 	
+	<select id="selectMyQuizeResult" resultType="MemberQuizResult">
+		SELECT m.quizresult, m.userno,
+		b1.BEANNO, b1.BEANNAME, 
+		b2.BEANORIGINNAME,
+		c.CUPNOTENAME,
+		g.GRINDNAME,
+		e.EXTRACTIONNAME 
+		FROM MEMBERQUIZRESULT m
+		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO 
+		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
+		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
+		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
+		INNER JOIN CUPNOTE c ON b3.CUPNOTENO = c.CUPNOTENO 
+		INNER JOIN GRIND g ON q.GRIND = g.GRINDNO
+		INNER JOIN EXTRACTION e ON q.EXTRACTION = e.EXTRACTIONNO 
+		<where>
+			m.USERNO = #{userNo}
+		</where> 
+	</select>
 	
-	
+<!-- 	<select id="selectMyBeanSubResult" resultType="BeanSub"> -->
+<!-- 		SELECT -->
+<!-- 			SUBNO, USERNO, BEANNO, GRAM, PRICE, -->
+<!-- 			GRIND, SUBSTARTDATE, SUBENDDATE, SUBTIME, NONSUB -->
+<!-- 			FROM BEANSUB -->
+<!-- 			<where> -->
+<!-- 				USERNO = #{userNo} -->
+<!-- 			</where> -->
+<!-- 			ORDER BY SUBNO -->
+<!-- 	</select> -->
+	<select id="selectMyBeanSubResult" resultType="BeanSub">
+		SELECT
+			b1.SUBNO, b1.USERNO,
+			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
+			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
+			b2.BEANNAME,
+			b3.BEANORIGINNAME 
+			FROM BEANSUB b1, BEAN b2, BEANIMG b3
+			<where>
+				AND b1.BEANNO = b2.BEANNO
+				AND b2.BEANIMGNO = b3.BEANIMGNO 
+				AND USERNO = #{userNo}
+			</where>
+			ORDER BY SUBNO
+	</select>
 
-	
-	
-	
-	
-	
+	<delete id="subCancel" parameterType="Integer">
+		DELETE BEANSUB
+		<where>
+			subNo = #{No}
+		</where>
+	</delete>
 	
 	
 	
@@ -121,9 +167,8 @@
 	
 	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
 	    SELECT 
-			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revHit, r.revDate, r.revsp
-			 , c.imgNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, c.cafeLoc
-			 , c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo
+			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revDate
+			 , c.cafeName, c.cafeComm
 	    FROM 
 	        CafeRev r
 	    JOIN 
@@ -137,12 +182,14 @@
 
 	<select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
 		SELECT
-			r.revNo, r.beanNo, r.subNo, r.userNo, r.revCont, r.revDate
+			br.revNo, br.beanNo, br.subNo, br.userNo, br.revCont, br.revDate
 			, b.beanNo, b.beanName
-		FROM BeanRev r
-		JOIN BEAN b ON r.beanNo = b.beanNo
-		WHERE userNo = #{userNo}
-		ORDER BY r.revDate DESC
+		FROM BeanRev br
+		JOIN BEAN b ON br.beanNo = b.beanNo
+		<where>
+		userNo = #{userNo}
+		</where> 
+		ORDER BY br.revDate DESC
 	</select>	
 	
 	<select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
@@ -151,7 +198,6 @@
 		FROM FreeBoard
 		<where>
 			userNo = #{userNo}
-		
 		</where>
 		ORDER BY freeBoardNo DESC
 	</select>		
@@ -166,6 +212,31 @@
 		ORDER BY myRipNo DESC
 	</select>
 	
+	
+	
+	
+<!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM ( -->
+<!-- 			SELECT c.cafename  -->
+<!-- 			FROM CAFEREV cr  -->
+<!-- 			JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
+<!-- 			WHERE cr.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT b.beanname -->
+<!-- 			FROM BEANREV br -->
+<!-- 			JOIN BEAN b ON b.BEANNO = br.BEANNO -->
+<!-- 			WHERE br.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT FREEBOARDTITLE -->
+<!-- 			FROM FREEBOARD -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT MYRIPTITLE -->
+<!-- 			FROM MYRECIPE -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 		) -->
+<!-- 	</select> -->
 
 
 

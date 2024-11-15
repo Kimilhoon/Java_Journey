@@ -21,7 +21,7 @@
 <script type="text/javascript">
 $(function() {
 
-    // 지도 초기화
+	// 지도 초기화
     var mapContainer = document.getElementById('map'),
         mapOption = {
             center: new kakao.maps.LatLng(37.5665, 126.9780),
@@ -32,6 +32,51 @@ $(function() {
         position: map.getCenter()
     });
     marker.setMap(map);
+    
+ 	// 주소가 이미 저장된 경우 지도 위치 업데이트(내가 수정한 코드)
+    $(document).ready(function() {
+        var savedAddress = $("#cafeAdd1").val(); // 저장된 주소 가져오기
+        if (savedAddress) {
+            updateMapWithAddress(savedAddress);
+        }
+    });
+    
+ 	// 주소를 입력하면 해당 주소로 지도 위치 업데이트하는 함수
+    function updateMapWithAddress(address) {
+        var geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(address, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var lat = result[0].y;
+                var lon = result[0].x;
+                var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+                // 지도 중심 이동
+                map.setCenter(moveLatLon);
+                marker.setPosition(moveLatLon);
+            } else {
+                console.error("지도 초기화 중 주소 검색 실패:", status);
+            }
+        });
+    }
+ 	
+//     // 페이지 로드 시 cafeAdd1(주소)에 따른 지도 위치 업데이트
+//     var savedAddress = $("#cafeAdd1").val(); // 저장된 주소 가져오기
+//     if (savedAddress) {
+//         var geocoder = new kakao.maps.services.Geocoder();
+//         geocoder.addressSearch(savedAddress, function(result, status) {
+//             if (status === kakao.maps.services.Status.OK) {
+//                 var lat = result[0].y;
+//                 var lon = result[0].x;
+//                 var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+//                 // 지도 중심 이동
+//                 map.setCenter(moveLatLon);
+//                 marker.setPosition(moveLatLon);
+//             } else {
+//                 console.error("지도 초기화 중 주소 검색 실패:", status);
+//             }
+//         });
+//     }    
 
     // 우편번호 찾기 버튼 클릭
     $("#btnPostcode").click(function(e) {
@@ -45,31 +90,34 @@ $(function() {
         new daum.Postcode({
             oncomplete: function(data) {
                 $("#postCode").val(data.zonecode);
-                if (data.userSelectedType === 'R') {
-                    $("#cafeAdd1").val(data.roadAddress);
-                } else {
-                    $("#cafeAdd1").val(data.jibunAddress);
-                }
+                var address = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+                $("#cafeAdd1").val(address);                
+//                 if (data.userSelectedType === 'R') {
+//                     $("#cafeAdd1").val(data.roadAddress);
+//                 } else {
+//                     $("#cafeAdd1").val(data.jibunAddress);
+//                 }
 
                 // 상세주소 입력 포커스
                 $("#cafeAdd2").focus();
                 $("#postcodeWrap").hide();
 
                 // 주소로 지도 위치 갱신
-                var geocoder = new kakao.maps.services.Geocoder();
-                geocoder.addressSearch(data.roadAddress, function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                        var lat = result[0].y;
-                        var lon = result[0].x;
-                        var moveLatLon = new kakao.maps.LatLng(lat, lon);
+                updateMapWithAddress(address);
+//                 var geocoder = new kakao.maps.services.Geocoder();
+//                 geocoder.addressSearch(data.roadAddress, function(result, status) {
+//                     if (status === kakao.maps.services.Status.OK) {
+//                         var lat = result[0].y;
+//                         var lon = result[0].x;
+//                         var moveLatLon = new kakao.maps.LatLng(lat, lon);
 
-                        // 지도 중심 이동
-                        map.setCenter(moveLatLon);
-                        marker.setPosition(moveLatLon);
-                    }
-                });
+//                         // 지도 중심 이동
+//                         map.setCenter(moveLatLon);
+//                         marker.setPosition(moveLatLon);
+//                     }
+//                 });
             }
-        }).open(); //팝업창 열기 위한 open
+        }); //팝업창 열기 위한 open
     }); //$("#btnPostcode") end
 
     
@@ -190,7 +238,7 @@ $(function() {
 		$(".custom-image img").css({
 			width: "400px",
 			height: "360px",
-	        objectFit: "contain",		// 이미지가 썸네일 크기에 맞도록 설정
+	        objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
 	        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
 			 
 		});

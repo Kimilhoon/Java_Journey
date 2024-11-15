@@ -11,8 +11,10 @@
 <meta charset="UTF-8">
 <title>JavaJourney</title>
 <!-- bootstrap 링크 -->
+<!-- jquery 링크 -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- jquery 링크 END -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -22,11 +24,43 @@
 <link rel="icon" type="image/png"
 	href="/resources/favicon/JavaJourneyIcon.png">
 <!-- bootstrap 링크 End -->
-<!-- jquery 링크 -->
-<!-- jquery 링크 END -->
 <!-- summernote 링크 -->
 <!-- summernote 링크 End-->
+<style type="text/css">
+.sidebar {
+	background-color: #e9ecef;
+/* 	padding: 30px; */
+	min-height: 100vh;
+	width: 250px;
+ 	font-family: 'Gothic A1', sans-serif; 
+}
 
+.sidebar a {
+	display: block;
+	padding: 10px;
+ 	margin-bottom: 10px; 
+	color: #495057;
+	background-color: #ffffff;
+	border: 1px solid #dee2e6;
+	text-align: center;
+	border-radius: 1px;
+	text-decoration: none;
+	font-family: 'Gothic A1', sans-serif;
+}
+
+.sidebar a:hover, .sidebar a.active {
+	background-color: #ced4da;
+	color: #343a40;
+}
+.dropdown:hover .dropdown-menu {
+      display: flex;
+       flex-direction: column; 
+/*       flex-direction: row; */
+      position: absolute;
+      top: 0;
+      left: 100%;
+    }
+</style>
 </head>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body>

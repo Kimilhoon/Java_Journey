@@ -103,18 +103,28 @@ public interface BeanDao {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
-
-
+	
+	
 	/**
 	 * 찜 추가
 	 * 
 	 * @param bean - 전달 받은 원두, 유저 NO
 	 */
 //	public void insertWish(BeanWish beanWish);
-
+	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
 
+
+	/**
+	 * 원두 유저 정보 가져오기
+	 * 
+	 * @return 원두 유저 정보
+	 */
+	public List<Map<String, Object>> selectBeanMember(Map<String, Object> params);
+
+	// /bean/info
+	// --------------------------------------------------------------------------------------
 	
 	
 } // interface end

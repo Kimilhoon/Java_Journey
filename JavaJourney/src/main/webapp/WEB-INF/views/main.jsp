@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- header -->
-<c:import url="./layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
 
 <script type="text/javascript">
 $(function () {
@@ -21,7 +21,6 @@ $(function () {
 }
 </style>
 <div class="container" style="width: 330px;">
-<%-- ${userNo } --%>
 <div id="bestBean">
     <!-- 이달의 베스트원두 -->
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">

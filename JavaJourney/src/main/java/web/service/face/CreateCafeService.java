@@ -18,10 +18,9 @@ public interface CreateCafeService {
 	/**
 	 * 게시글 상세보기
 	 * @param cafe
-	 * @param cafeImg 
 	 * @return
 	 */
-	public Cafe view(Cafe cafe, CafeImg cafeImg);
+	public Cafe view(Cafe cafe);
 
 	/**
 	 * 협약 카페 글 수정

@@ -21,6 +21,7 @@ import web.dao.face.CommunityDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.Cafe;
 import web.dto.CafeRev;
 import web.dto.CafeRevComm;
@@ -51,26 +52,35 @@ public class CommunityServiceImpl implements CommunityService {
 
 	//자유게시판--------------------------------------------------------------------------------
 	@Override
-	public Paging getFreeBoardPaging(Paging curPage, String search, String category) {
+	public Paging getFreeBoardPaging(Paging curPage, String search, String category ,String order,String searchType) {
 //		log.info("{}",search);
 //		log.info("{}",category);
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
 		}
-		if(category == null || "".equals(category)||"all".equals(category)) {
+		if(category == null || "".equals(category)||"all".equals(category)||"N".equals(category)) {
 			category = "N";
 		}else if(category.equals("cafe")) {
 			category="카페";
 		}else {
 			category="원두";
 		}
+		
 		if(search == null || "".equals(search)) {
 			search = "N";
+		}
+		
+		
+		
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
 		}
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("search", search);
 		map.put("category", category);
+		map.put("order", order);
+		map.put("searchType", searchType);
 
 		int totalCnt = dao.getFreeBoardTotalCnt(map);
 		
@@ -82,19 +92,31 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<FreeBoard> getFreeBoardList(Paging paging, String search,String category) {
+	public List<FreeBoard> getFreeBoardList(Paging paging, String search,String category,String order,String searchType) {
 		
-		if(category == null || "".equals(category)||"all".equals(category)) {
+		if(category == null || "".equals(category)||"all".equals(category)||"N".equals(category)) {
 			category = "N";
 		}else if(category.equals("cafe")) {
 			category="카페";
 		}else {
 			category="원두";
 		}
+		
+		if(order == null || "".equals(order)) {
+			order = "W";
+		}
+		
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
+		}
+		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("paging", paging);
 		map.put("search", search);
 		map.put("category", category);
+		map.put("order", order);
+		map.put("searchType", searchType);
 		List<FreeBoard> freeBoardList = dao.selectFreeBoardListAll(map);
 		for(FreeBoard f : freeBoardList) {
 			f.setFreeBoardCommentCount(dao.selectFreeBoardCommentCnt(f));
@@ -254,6 +276,21 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Notice getNotice(Notice notice) {
 		return dao.selectNoticeBtNoticeNo(notice);
+	}
+	
+	@Override
+	public void insertNotice(Notice notice) {
+		dao.insertNoticeByTitleContent(notice);
+	}	
+	
+	@Override
+	public void updateNoticeByNoticeNo(Notice notice) {
+		dao.updateNotice(notice);
+	}
+	
+	@Override
+	public void deleteNoticeByNoticeNo(int noticeNo) {
+		dao.deleteNotice(noticeNo);
 	}
 	
 	//나만의 레시피 ------------------------------------------------------------------------------------
@@ -809,7 +846,7 @@ public class CommunityServiceImpl implements CommunityService {
     //----------------------------------------------------------------------------
     
     @Override
-    public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging) {
+    public List<BeanRev> getBeanReviewList(String category, String order, String search, Paging paging) {
     	
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
@@ -817,13 +854,9 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("search", search);
 		param.put("paging", paging);
 		
-		List<BeanRev> bList = dao.selectBeanReview(param);
+		List<BeanRev> list = dao.selectBeanReview(param);
 		
-		List<List<BeanRev>> list = new ArrayList<>();
-		
-		list.add(bList);
-		
-		for(BeanRev b : bList) {
+		for(BeanRev b : list) {
 			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
 		}
 		
@@ -880,19 +913,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
     
     @Override
-    public List<List<BeanRev>> getBeanReviewInfo(BeanRev revNo) {
+    public BeanRev getBeanReviewInfo(BeanRev revNo) {
     	
-		List<BeanRev> bList = dao.selectBeanReviewInfo(revNo);
-		
-		List<List<BeanRev>> list = new ArrayList<>();
-		
-		list.add(bList);
-		
-		for(BeanRev b : bList) {
-			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
-		}
-    	
-		return list;
+		return dao.selectBeanReviewInfo(revNo);
     }
     
     @Override
@@ -930,9 +953,68 @@ public class CommunityServiceImpl implements CommunityService {
     	return dao.selectBusinessNoByBeanRevNo(revNo);
     }
     
+    @Override
+    public List<BeanRev> getBeanTasteList(BeanRev beanRev) {
+    	
+    	return dao.selectBeanTasteName(beanRev);
+    	
+    }
     
+    @Override
+    public String getBeanName(int beanNo) {
+    	
+    	return dao.selectBeanNameByBeanNo(beanNo);
+    }
     
+    @Override
+    public void joinBeanReview(BeanRev beanRev) {
+    	
+    	dao.insertBeanReview(beanRev);
+    }
     
+    @Override
+    public void dropBeanReview(BeanRev beanRev) {
+    	
+		dao.deleteBeanReviewByBeanNo(beanRev);
+		dao.deleteBeanReviewCommByBeanNo(beanRev);
+    	
+    }
+    
+    @Override
+    public Integer getBeanNo(Integer subNo) {
+    	
+    	return dao.getBeanNoBySubNo(subNo);
+    }
+    
+    @Override
+    public void changeBeanReview(BeanRev beanRev) {
+    	
+    	dao.updateBeanReviewByBeanNo(beanRev);
+    }
+    
+    @Override
+    public void writeBeanReviewComm(BeanRev revNo, BeanRevComm commCont, String userId) {
+    	
+		int userNo = dao.selectUsernoByUserid(userId);
+		
+		commCont.setRevNo(revNo.getRevNo());
+		commCont.setUserNo(userNo);
+		
+		dao.insertBeanReviewComm(commCont);
+    	
+    }
+    
+    @Override
+    public void dropBeanReviewComment(BeanRevComm commNo) {
+    	
+    	dao.deleteBeanReviewCommByCommNo(commNo);
+    }
+    
+    @Override
+    public void changeBeanReviewComment(BeanRevComm beanRevComm) {
+    	
+		dao.updateBeanReviewCommByCommNo(beanRevComm);
+    }
     
     
     

@@ -26,39 +26,7 @@ body {
 	display: flex;
 }
 
-.sidebar {
-	background-color: #e9ecef;
-/* 	padding: 30px; */
-	min-height: 100vh;
-	width: 250px;
- 	font-family: 'Gothic A1', sans-serif; 
-}
 
-.sidebar a {
-	display: block;
-	padding: 10px;
- 	margin-bottom: 10px; 
-	color: #495057;
-	background-color: #ffffff;
-	border: 1px solid #dee2e6;
-	text-align: center;
-	border-radius: 1px;
-	text-decoration: none;
-	font-family: 'Gothic A1', sans-serif;
-}
-
-.sidebar a:hover, .sidebar a.active {
-	background-color: #ced4da;
-	color: #343a40;
-}
-.dropdown:hover .dropdown-menu {
-      display: flex;
-       flex-direction: column; 
-/*       flex-direction: row; */
-      position: absolute;
-      top: 0;
-      left: 100%;
-    }
 .main-content {
 	flex: 1;
 	padding: 20px;

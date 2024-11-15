@@ -6,28 +6,31 @@
 
 <c:import url="../layout/header.jsp" />
 
-<!-- 포트원 SDK -->
 
 <script type="text/javascript">
 $(function() {
+
+$("#QuizBtn").click(function() {
+
+	// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)
+	location.href = "./quiz1";
 	
+	
+});
 
 }) // $(function() end
-
-
-
 </script>
 
 <style type="text/css">
 
-}
+
 
 </style>
 
 <div class="container">
 
 <div class="text-center m-5">
-<h1> <퀴즈 시간> </h1>
+<h1> <퀴즈 결과> </h1>
 </div>
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
@@ -39,16 +42,10 @@ $(function() {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<form action="./quiz" method="get">
-<div id="beanQuiz" class="d-flex justify-content-center mb-5">
 
 
-</div> <!-- <div id="beanSubscribe"> -->
-</form>
-
-
-<div id="Subscribe" class="d-grid gap-2 col-4 mx-auto">
-<button id="subBtn" type="button" class="btn btn-lg btn-secondary">구 독</button>
+<div id="beanQuiz" class="d-grid gap-2 col-4 mx-auto">
+<button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->

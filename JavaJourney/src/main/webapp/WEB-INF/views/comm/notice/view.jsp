@@ -4,6 +4,17 @@
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
+<script type="text/javascript">
+$(function () {
+	$("#btnUpate").click(function name() {
+		location.href="/comm/notice/update?noticeNo=" + ${notice.noticeNo};
+	})
+	$("#btnCancle").click(function name() {
+		location.href="/comm/notice/cancel?noticeNo=" + ${notice.noticeNo};
+	})
+})
+</script>
+
 <style>
 .btn{
 	background: transparent;
@@ -32,7 +43,10 @@ a {
 }
 </style>
 <div id="content">
-
+<div id="btn">
+<button id="btnUpate">수정</button>
+<button id="btnCancle">삭제</button>
+</div>
 <div class="table">
 
 <table class="table table-bordered">
