@@ -26,10 +26,10 @@
 
 <script type="text/javascript">
 $(function() {
-	$("#btnLogout").click(function() {
-		location.href="/member/logout;"
-	}) 
-})
+    $("#btnLogout").click(function() {
+        location.href = "/member/logout";
+    });
+});
 </script>
 
 <style>
@@ -47,15 +47,6 @@ $(function() {
     position: absolute;
     top: 10px;
     right: 10px;
-    cursor: pointer;
-}
-
-#welcomeNick {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #f3e9dc;
-    text-align: right;
 }
 
 /* 메뉴바 크기 및 텍스트 스타일 조정 */
@@ -144,9 +135,9 @@ $(function() {
 <!-- 로그인 및 기타 링크 -->
  	 <div class="flex-shrink-0">
   		<c:if test="${isLogin }">
-  			<div class="loginLoc">
-			<span id="btnLogout" style="color: #f3e9dc;"><small>로그아웃</small></span>
-  			</div>
+			<div class="loginLoc">
+			    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
+			</div>
 		</c:if>
 		<c:if test="${empty isLogin }">
 			<div class="loginLoc">
@@ -158,9 +149,9 @@ $(function() {
   	</div>
   	
   	<c:if test="${userNick eq 'admin' }">
-	    <div class="flex-shrink-0 mx-5">
+	    <div class="flex-shrink-0 mt-4 loginLoc">
 	      <ul style="list-style:none">
-	      	<li><a href="/manager/menu2" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
+	      	<li><a href="/manager/menu2" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>
@@ -238,7 +229,7 @@ $(function() {
             <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo}">내 취향 결과</a></li>
             <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo}">구독 정보</a></li>
             <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo}">찜 목록</a></li>
-            <li><a class="dropdown-item" href="/mypage/myview">작성글 확인</a></li>
+            <li><a class="dropdown-item" href="/mypage/myview?userNo=${sessionScope.userNo}">작성글 확인</a></li>
           </ul>
         </li>
       </ul>

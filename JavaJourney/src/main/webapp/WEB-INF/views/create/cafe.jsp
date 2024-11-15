@@ -163,7 +163,7 @@ $(function() {
 	<tr>
 		<td>카페 지역</td>
 		<td>
-		<select id="category">
+		<select id="category" name="cafeLoc">
 	      <option hidden="none"></option>
 	      <option value="서울">서울</option>
 	      <option value="경기">경기</option>

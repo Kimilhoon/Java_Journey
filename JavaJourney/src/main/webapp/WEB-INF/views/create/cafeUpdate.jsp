@@ -31,6 +31,25 @@ $(function() {
         position: map.getCenter()
     });
     marker.setMap(map);
+    
+    // 페이지 로드 시 cafeAdd1(주소)에 따른 지도 위치 업데이트
+    var savedAddress = $("#cafeAdd1").val(); // 저장된 주소 가져오기
+    if (savedAddress) {
+        var geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(savedAddress, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var lat = result[0].y;
+                var lon = result[0].x;
+                var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+                // 지도 중심 이동
+                map.setCenter(moveLatLon);
+                marker.setPosition(moveLatLon);
+            } else {
+                console.error("지도 초기화 중 주소 검색 실패:", status);
+            }
+        });
+    }    
 
     // 우편번호 찾기 버튼 클릭
     $("#btnPostcode").click(function(e) {

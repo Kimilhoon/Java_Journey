@@ -249,7 +249,7 @@ public class MypageController {
 
 		
 	@GetMapping("/myview")
-	public String view(Model model
+	public void view(Model model
 			, HttpSession session
 			, Member member
 			, @RequestParam(defaultValue = "전체") String category
@@ -260,12 +260,9 @@ public class MypageController {
         // 세션에서 userNo 가져오기
         Integer userNo = (Integer) session.getAttribute("userNo");
  
-        if(userNo == null) {
-        	return "redirect:/member/login";
-        } else {
-//        	return "mypage/myview?userNo="+userNo;
-        	
-        }
+//        if(userNo == null) {
+//        	return "redirect:/member/login";
+//        }
         
         List<Map<String, Object>> myView = new ArrayList<>();
         
@@ -464,7 +461,6 @@ public class MypageController {
         
         log.info("page:{}",page);
         
-        return "mypage/myview?userNo="+userNo;
 	}	
 	
 	
