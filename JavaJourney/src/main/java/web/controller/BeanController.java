@@ -6,9 +6,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,9 +114,7 @@ public class BeanController {
 	
 	
 	@PostMapping("/info")
-	public void BeanInfoFormProc(
-				@RequestBody BeanWish beanWish
-				) {
+	public void BeanInfoFormProc(@RequestBody BeanWish beanWish) {
 		
 		log.info("beanNo: {}", beanWish.getBeanNo());
 	    log.info("userNo: {}", beanWish.getUserNo());
@@ -128,7 +129,7 @@ public class BeanController {
 		
 //		beanWish.setBeanNo(beanWish.getBeanNo());
 //		beanWish.setUserNo(beanWish.getUserNo());
-	
+	    
 	    Map<String, Integer> params = new HashMap<>();
 	    params.put("beanNo", beanWish.getBeanNo());
 	    params.put("userNo", beanWish.getUserNo());
@@ -138,7 +139,8 @@ public class BeanController {
 		} else if ("remove".equals(beanWish.getAction())) {
 	        service.removeWish(params);
 	    }
-	 
+		
+	    
 	} // BeanInfoFormProc end
 
 	// /bean/info
@@ -163,14 +165,28 @@ public class BeanController {
 	    
 	} // BeanSub(Bean param, Model model) end
 
-	@PostMapping("/payment/complete")
+	@PostMapping("/sub/payment/complete")
 	public String BeanSub(@RequestBody BeanSub beanSub) {
 		
 		log.info("BeanSub: {}", beanSub);
 		
 		service.beanSubscribe(beanSub);
 		
-		return "redirect:./sub/succ";
+		return "redirect:/bean/sub/succ";
+	} // BeanSub(@RequestBody BeanSub beanSub) end
+	
+	@GetMapping("/sub/succ")
+	public void BeanSubSucc() {
+		
+	}
+	
+	@GetMapping("/sub/fail")
+	public void BeanSubFail(Bean param, Model model) {
+		
+		Bean beanNo = new Bean();
+		beanNo.setBeanNo(param.getBeanNo());
+		
+		model.addAttribute("bean", beanNo);
 	}
 	
 	// /bean/sub

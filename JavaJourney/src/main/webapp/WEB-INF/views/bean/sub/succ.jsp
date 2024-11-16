@@ -4,19 +4,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:import url="../layout/header.jsp" />
+<c:import url="../../layout/header.jsp" />
 
 
 <script type="text/javascript">
 $(function() {
- 
-$("#QuizBtn").click(function() {
-
-	// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)
-	location.href = "./quiz1";
 	
+	$("#beanSubInfoBtn").click(function() {
+		location.href="../sub?beanNo=${ beanNo }"
+	})
 	
-});
+	$("#beanAllBtn").click(function() {
+		location.href="../all"
+	})
+	
 
 }) // $(function() end
 </script>
@@ -30,7 +31,7 @@ $("#QuizBtn").click(function() {
 <div class="container">
 
 <div class="text-center m-5">
-<h1> <퀴즈 결과> </h1>
+<h1> <구독결과!!> </h1>
 </div>
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
@@ -42,15 +43,24 @@ $("#QuizBtn").click(function() {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
+<div class="text-center fs-1 mb-5">
+<p>${ userName }</p> 
+님이
+<p>${ beanName }</p>
+의&nbsp;구독을
+<p>성공하였습니다</p>
+</div>
 
 
-<div id="beanQuiz" class="d-grid gap-2 col-4 mx-auto">
-<button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>
+
+<div id="beanSub" class="d-grid gap-2 col-4 mx-auto">
+<button id="beanSubInfoBtn" type="button" class="btn btn-lg btn-secondary">구독 정보 보러가기</button>
+<button id="beanAllBtn" type="button" class="btn btn-lg btn-secondary">메인으로 쓩~</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->
 
-<c:import url="../layout/footer.jsp" />
+<c:import url="../../layout/footer.jsp" />
 
 </body>
 </html>
