@@ -5,71 +5,145 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<c:import url="../../layout/header.jsp" />
 
 <style>
 
+input:focus {
+    outline: none;  /* 기본 파란색 테두리 제거 */
+    box-shadow: 0 0 5px #6f4e37;  /* 원하는 색상으로 그림자 설정 */
+    border-color: #6f4e37;  /* 테두리 색상 변경 (선택 사항) */
+}
+
+a {
+	color: #6f4e37;
+}
+
+.btn{
+   background: transparent;
+   border: 1px solid #6f4e37;
+   color: black;
+}
+.btn:hover{
+   background: #6f4e37;
+   color: white;
+}
 
 </style>
 
-</head>
-<body>
+<script type="text/javascript">
 
-<c:import url="../../layout/header.jsp" />
+$(function() {
+	
+	$("#category").change(function() {
+		
+		if($("#category").val() == "all") {
+			location.href = "./list";
+			return;
+		}
+		
+		location.href = "./list?category=" + $("#category").val();
+		
+	})
+	
+})
 
-<h1>카페리뷰리스트</h1>
-<br>
+
+</script>
 
 <div id="content">
-<div class="container" id="top">
+<div class="container col-12" id="top">
 
-<div class="col6 text-right">
-<div id="order-list">
+<div class="d-flex justify-content-between">
+
+<div class="col-6 d-flext flex-column">
+<div id="order-list" class="mb-2">
 <a href="./list?order=recent">최근리뷰순</a>
-|
+&nbsp;|&nbsp;
 <a href="./list?order=star">별점높은순</a>
-|
+&nbsp;|&nbsp;
 <a href="./list?order=popular">인기많은순</a>
 </div> <!-- order-list -->
 
 <div id="category-list">
-카테고리
-<select id="category">
-      <option value="all">전체</option>
-      <option value="seoul">서울</option>
-      <option value="gyeonggi">경기</option>
-      <option value="incehon">인천</option>
-      <option value="busan">부산</option>
-      <option value="jeju">제주</option>
+카테고리&nbsp;|&nbsp;
+	<select id="category">
+		<c:choose>
+			<c:when test="${category eq '전체' }">
+				<option value="all" selected="selected">전체</option>
+			</c:when>
+			<c:otherwise>
+				<option value="all">전체</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '서울' }">
+				<option value="서울" selected="selected">서울</option>
+			</c:when>
+			<c:otherwise>
+				<option value="서울">서울</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '경기' }">
+				<option value="경기" selected="selected">경기</option>
+			</c:when>
+			<c:otherwise>
+				<option value="경기">경기</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '인천' }">
+				<option value="인천" selected="selected">인천</option>
+			</c:when>
+			<c:otherwise>
+				<option value="인천">인천</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '부산' }">
+				<option value="부산" selected="selected">부산</option>
+			</c:when>
+			<c:otherwise>
+				<option value="부산">부산</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '제주' }">
+				<option value="제주" selected="selected">제주</option>
+			</c:when>
+			<c:otherwise>
+				<option value="제주">제주</option>
+			</c:otherwise>
+		</c:choose>
+		
    </select>
 </div> <!-- category-list -->
-</div> <!-- col -->
+</div>
 
+<div id="search" class="col-6">
 
-<div class="col-6 text-right">
-<div id="search">
-<form class="search-box" action="./list" method="get">
-	<input class="search-txt" type="text" name="search">
-	<button class="search-btn" type="submit">
+<form class="search-box d-flex" action="./list" method="get">
+
+	<input class="form-control me-2" type="text" name="search" placeholder="검색어를 입력하세요">
+	<button class="btn btn-outline-primary" type="submit">
 		<i class="bi bi-search"></i>
 	</button>
+	
 </form>
+
 </div> <!-- search -->
-</div> <!-- col -->
 
 </div> <!-- container -->
-</div> <!-- content -->
+</div> <!-- top -->
+</div>
+
+<br>
 
 <div class="container" id="center">
 
@@ -77,7 +151,8 @@
 <tr>
 	<th class="col-1" scope="col">글번호</th>
 	<th class="col-1" scope="col">지역</th>
-	<th class="col-5" scope="col">카페이름</th>
+	<th class="col-1" scope="col"></th>
+	<th class="col-4" scope="col">카페이름</th>
 	<th class="col-2" scope="col">작성자</th>
 	<th class="col-2" scope="col">작성일</th>
 	<th class="col-1" scope="col">별점</th>
@@ -85,23 +160,51 @@
 
 <c:forEach var="list" items="${creviewList }">
 	<tr>
-	<td class="col-1" scope="row">${list.revNo }</td>
+		<td class="col-1" scope="row">
+		
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" /> 
+			<fmt:formatDate value="${list.revDate }" pattern="yyyyMMdd" var="wDate" /> 
+
+			${list.revNo }
+		</td>
 	<td class="col-1">${list.cafeLoc }</td>
-	<td class="col-5">
-	<a href="./view?revNo=${list.revNo }"> ${list.cafeName } </a>
+	<td class="col-1">
+		<c:if test="${nowDate eq wDate }">
+			<span style="color: #fff; background: #fedcba; border-radius: 5px;
+			font-size: 14px; box-shadow: 1px 1px 3px #ddd">
+			&nbsp;New&nbsp;</span>
+		</c:if>
 	</td>
-	<td class="col-2">${list.userNo }</td>
-	<td class="col-2">${list.revDate }</td>
+	<td class="col-4">
+		<a href="./view?revNo=${list.revNo }">
+			${list.cafeName}
+		</a>
+		<c:if test="${list.cafeRevCommCount >= 1 }">
+			&nbsp;[${list.cafeRevCommCount }]
+		</c:if>
+	</td>
+	<td class="col-2">${list.userNick }</td>
+	<td class="col-2"><fmt:formatDate value="${list.revDate }" pattern="yyyy-MM-dd"/></td>
 	<td class="col-1">${list.revsp }</td>
 	</tr>
 </c:forEach>
 
 </table>
 
+
+<div class="col-1">
+	<a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a><br>
+	<small>(삭제해!!!)</small>
 </div>
 
-</body>
-</html>
+</div><!-- content -->
+
+
+
+<c:import url="../../layout/page_irooni.jsp" />
+
+<c:import url="../../layout/footer.jsp" />
 
 
 

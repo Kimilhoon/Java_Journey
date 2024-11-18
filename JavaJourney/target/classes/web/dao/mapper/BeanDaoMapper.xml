@@ -1,26 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.BeanDao">
 	
-	<select id="selectCntAll" resultType="int">
-		SELECT count(*) FROM bean
+	<select id="selectBeanTop" resultType="Bean">
+		SELECT * FROM (
+			SELECT rowNum rNum, B.* FROM (
+				SELECT 
+					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo,
+					beanOriginname, beanStoredname, beanImgSize, bs.gram,
+					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount,
+					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint
+				FROM bean b
+				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo
+				ORDER BY reviewCount DESC
+			) B
+		)
+		WHERE rNum &lt;= 3
 	</select>
 	
-	<select id="selectAll" resultType="Bean" parameterType="web.util.Paging">
+	<select id="selectBeanCount" resultType="Bean">
+		SELECT count(beanNo) as beanCount FROM bean
+	</select>
+	
+	<!-- /bean/best -->
+	<!-- ====================================================================================================== -->
+
+	<select id="selectCntAll" resultType="int" parameterType="hashmap">
+		SELECT count(*)
+		FROM bean b
+		<if test='cupnote != null and cupnote != "N"'>
+		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+    	LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
+    	</if>
+		<where>
+			<if test='cupnote != null and cupnote != "N"'>
+			AND		c.cupNoteName = #{ cupnote }
+			</if>
+			<if test='keyword != null and keyword != "N"'>
+			AND		upper(b.beanName) LIKE '%'||upper(#{keyword})||'%' 
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="selectAll" resultType="Bean" parameterType="hashmap">
 		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
+			SELECT rowNum rNum, B.* FROM (
 				SELECT 
-					beanNo, beanImgNo, beanName, origin, beanComm,
-					beanInfo, beanPrice, businessNo
-				FROM bean
+					b.beanNo, i.beanImgNo, beanName, origin, 
+					beanComm, beanInfo, beanPrice, businessNo,
+					beanOriginname, beanStoredname, beanImgSize,
+					<if test='cupnote != "N"'>
+					c.cupNoteNo, c.cupNoteName,
+					</if>
+					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount
+<!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
+<!-- 						FROM ( -->
+<!-- 							SELECT DISTINCT c.cupNoteName -->
+<!-- 							FROM cupNote c -->
+<!-- 							INNER JOIN beanTaste bt ON c.cupNoteNo = bt.cupNoteNo -->
+<!-- 							WHERE bt.beanNo = b.beanNo -->
+<!-- 						) -->
+<!-- 					) AS cupNoteNames -->
+<!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
+				FROM bean b
+				<if test='cupnote != "N"'>
+				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
+				</if>
+				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+				<where>
+				<if test='cupnote != "N"'>
+				AND		c.cupNoteName = #{ cupnote }
+				</if>
+				<if test='keyword != "N"'>
+				AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 
+				</if>
+				</where>
 				ORDER BY beanNo DESC
 			) B
 		) bean
-		WHERE rnum BETWEEN #{ startNo } AND #{ endNo }
-	</select> 
+		WHERE rNum BETWEEN #{ paging.startNo } AND #{ paging.endNo }
+	</select>  
+	
+	<!-- /bean/all -->
+	<!-- ====================================================================================================== -->
+	
+	<select id="selectByBeanNo" resultType="Bean" parameterType="Bean">
+		SELECT 
+				b.beanNo, i.beanImgNo, beanName, origin, 
+				beanComm, beanInfo, beanPrice, businessNo,
+				beanOriginname, beanStoredname, beanImgSize
+		FROM	bean b
+		INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
+		<where>
+		AND		b.beanNo = #{ beanNo }
+		</where>
+	</select>
+	
+	<select id="selectStarPoint" parameterType="Bean" resultType="BeanRev">
+		SELECT TRUNC(avg (revStarPoint) ) AS avgRevStarPoint, beanNo
+		FROM	beanRev
+		<where>
+		AND		beanNo = #{ beanNo }
+		</where>
+		GROUP BY beanNo
+	</select>
+	
+	<select id="selectByUserId" parameterType="String" resultType="Member">
+		SELECT	userNo
+		FROM	member
+		<where>
+		AND		userId = #{ userId }
+		</where>
+	</select>
+	
+	<select id="selectAllRev" resultType="BeanRev" parameterType="Bean">
+		SELECT
+			revNo, b.beanNo, b.subNo, b.userNo, revCont, 
+			revHit, revDate, revStarPoint,
+			m.userNick
+		FROM beanRev b
+		LEFT JOIN member m ON b.userNo = m.userNo
+		<where>
+		AND		beanNo = ${ beanNo }
+		</where>
+	</select>
+
+<!-- 	<insert id="insertWish" parameterType="BeanWish"> -->
+<!-- 		<selectKey order="BEFORE" resultType="int" keyProperty="beanWishNo"> -->
+<!-- 			SELECT beanWishNo_seq.nextval FROM dual -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT INTO beanWish( beanWishNo, beanNo, userNo ) -->
+<!-- 		VALUES ( #{ beanWishNo }, #{ beanNo }, #{ userNo } ) -->
+<!-- 	</insert> -->
+
+	<insert id="addWish" parameterType="map">
+		<selectKey order="BEFORE" resultType="int" keyProperty="beanWishNo">
+			SELECT beanWishNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO beanWish( beanWishNo, beanNo, userNo )
+		VALUES ( #{ beanWishNo }, #{ beanNo }, #{ userNo } )
+	</insert>
+	
+	<delete id="removeWish" parameterType="map">
+		DELETE 	beanWish
+		<where>
+		AND		beanNo = #{ beanNo }
+		AND		userNo = #{ userNo }
+		</where>
+	</delete>
+
+	<!-- /bean/info -->
+	<!-- ====================================================================================================== -->
+	
+	<select id="selectBeanMember" parameterType="map" resultType="java.util.HashMap">
+		SELECT
+			m.userNo, userId, userNick, userEmail, userName, 
+			userPhone, userPostcode, userAdd1, userAdd2,
+			b.beanName, b.beanNo
+		FROM member m
+		LEFT JOIN beanRev br ON br.userNo = m.userNo
+		LEFT JOIN bean b ON br.beanNo = b.beanNo
+		<where>
+		AND		m.userId = #{ userId }
+		AND		b.beanNo = #{ beanNo }
+		</where>
+	</select>
+	
+	<!-- /bean/sub -->
+	<!-- ====================================================================================================== -->
 	
 </mapper>

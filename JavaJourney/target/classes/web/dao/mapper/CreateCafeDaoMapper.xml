@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.dao.face.CreateCafeDao">
+
+	<insert id="insertCafeImg" parameterType="CafeImg">
+		<selectKey order="BEFORE" keyProperty="cafeImgNo" resultType="int">
+			select cafeImgNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO cafeimg(cafeImgNo, cafeImgOriName)
+		VALUES(#{cafeImgNo}, #{cafeImgOriName})	
+	</insert>
+
+	<select id="selectByLatest" resultType="int">
+		SELECT * from(
+		SELECT cafeImgNo FROM cafeimg
+		ORDER BY cafeImgNo DESC
+			)WHERE rownum = 1
+	</select>
+
+	<insert id="insertCafe" parameterType="Cafe">
+		<selectKey order="BEFORE" resultType="int" keyProperty="cafeNo">
+			SELECT cafeNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO CAFE (cafeNo, imgNo, cafeName, cafeComm, cafePhone
+		, busyTime, cafeLoc, cafeAdd1, cafeAdd2, cafeInfo)
+		VALUES (#{cafeNo}, #{imgNo}, #{cafeName}, #{cafeComm}, #{cafePhone}
+		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2}, #{cafeInfo})
+	</insert>
+	
+	
+	<select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
+		SELECT *
+		FROM CAFE c
+		JOIN CAFEIMG ci ON c.imgno = ci.cafeimgno
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</select>
+	
+	<update id="update" parameterType="Cafe">
+		UPDATE CAFE
+		<set>
+			, cafeName = #{cafeName}
+			, cafeComm = #{cafeComm}
+			, busyTime = #{busyTime}
+			, cafeInfo = #{cafeInfo}
+			, cafeAdd1 = #{cafeAdd1}
+			, cafeAdd2 = #{cafeAdd2}
+		</set>
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</update>
+	
+	<delete id="delete">
+		DELETE Cafe
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</delete>
+	
+	
+</mapper>
