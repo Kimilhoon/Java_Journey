@@ -174,13 +174,26 @@ public class BeanController {
 		
 		log.info("Redirecting to /bean/sub/succ after bean subscription.");
 		
-		return "redirect:/bean/sub/succ";
+		return "/bean/sub/succ";
 	} // BeanSub(@RequestBody BeanSub beanSub) end
 	
 	@GetMapping("/sub/succ")
-	public void BeanSubSucc() {
+	public String BeanSubSucc(BeanSub param, Model model) {
 		
-	}
+		BeanSub beanSub = new BeanSub();
+		beanSub.setBeanNo(param.getBeanNo());
+		beanSub.setBeanName(param.getBeanName());
+		beanSub.setUserName(param.getUserName());
+		
+		
+		
+		model.addAttribute("beanSub", beanSub);
+		
+		log.info("beanSub: {}", beanSub);
+		
+		
+		return "bean/sub/succ";
+	} // BeanSubSucc() end
 	
 	@GetMapping("/sub/fail")
 	public void BeanSubFail(Bean param, Model model) {
