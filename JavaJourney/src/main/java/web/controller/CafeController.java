@@ -67,6 +67,7 @@ public class CafeController {
 		model.addAttribute("location", location);
 		model.addAttribute("keyword", keyword);
 		
+		log.info("AllCafeForm 호출 성공");
 	} // AllCafeForm() end
 	
 	

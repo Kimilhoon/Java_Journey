@@ -80,7 +80,7 @@ img{
 			<p class="fw-bolder fs-4">${cafe.cafeName }</p>
 			<p class="fw-semibold fs-5">${cafe.cafeLoc }</p>
 			<p class="fw-semibold fs-6">${cafe.cafePhone }</p>
-			<p>리뷰 : ${cafe.reviewCount } | ★(${cafe.avgRevStarPoint})</p>
+			<p>리뷰( ${cafe.reviewCount } ) | ★( ${cafe.avgRevStarPoint} )</p>
 	</td>
 		<c:if test="${status.index % 4 == 3 || status.last }">
 		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
