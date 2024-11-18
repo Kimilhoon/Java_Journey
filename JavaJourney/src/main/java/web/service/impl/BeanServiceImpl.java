@@ -176,6 +176,14 @@ public class BeanServiceImpl implements BeanService {
 	public void removeWish(Map<String, Integer> params) {
 		dao.removeWish(params);
 	} // removeWish(Map<String, Integer> params) end
+	
+	
+	@Override
+	public boolean checkUserWish(int beanNo, int userNo) {
+		int count = dao.countUserWish(beanNo, userNo);
+		
+		return count > 0;
+	}
 
 	
 	
