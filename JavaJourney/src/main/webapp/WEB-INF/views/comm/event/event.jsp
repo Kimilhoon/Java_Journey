@@ -43,25 +43,22 @@
 	}
 	
 </style>
+<c:forEach var="eventList" items="${eventList }">
 <div >
 <div id="c"  >
-<button type="button" onclick="showModal('modal1')"><img alt="" src="/resources/img/event/1.jpg"></button>
+<button type="button" onclick="showModal('modal1')">${eventList.eveImg }</button>
 	
 <div id="modal1" class="modal modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
         <span class="close" onclick="closeModal('modal1')">&times;</span> <!-- 모달닫기기능 -->
-       	<img alt="" src="/resources/img/event/1-1.jpg">
+       	${eventList.eventBanner }
     </div>
 </div>
-	
 </div>
-	
-
-	<img alt="" src="/resources/img/event/2.jpg">
-	<img alt="" src="/resources/img/event/3.jpg">
 </div>
 
-
+</c:forEach>
+	
 
 
 
