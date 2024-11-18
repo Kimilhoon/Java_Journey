@@ -75,13 +75,12 @@ img{
 	
 	<td class="text-center" style="flex-shrink: 0;">
 		<a href="./info?cafeNo=${cafe.cafeNo }">
-<%-- 			<img alt="${cafe.cafeName }" src="${cafe.cafeImgOriName }"> --%>
 			<div class="custom-image">${cafe.cafeImgOriName }</div>
 		</a>
 			<p class="fw-bolder fs-4">${cafe.cafeName }</p>
 			<p class="fw-semibold fs-5">${cafe.cafeLoc }</p>
 			<p class="fw-semibold fs-6">${cafe.cafePhone }</p>
-			<p>리뷰 : ${cafe.reviewCount } | ★(${cafe.avgRevStarPoint})</p>
+			<p>리뷰( ${cafe.reviewCount } ) | ★( ${cafe.avgRevStarPoint} )</p>
 	</td>
 		<c:if test="${status.index % 4 == 3 || status.last }">
 		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
@@ -101,48 +100,8 @@ img{
 
 </div> <!-- id="BestCafeList" End -->
 
-<!-- 	<div class="row row-cols-1 g-1 grid gap-4"> -->
-	
-<!-- 		<div class="card text-center " style="width: 23rem;"> -->
-<%-- 			<a href="./info"><img src="<c:url value='/resources/img/cafe/c01.jpg' />" --%>
-<%-- 			 class="card-img-top rounded mx-auto d-block" alt="${cafe.cafeName}"></a> --%>
-<!-- 			<div class="card-body"> -->
-<%-- 				<p class="card-text fw-bolder fs-4">${cafe.cafeName }가타커피</p> --%>
-<%-- 				<p class="card-text fw-semibold fs-5">${cafe.cafeLoc }서울 송파구</p> --%>
-<%-- 				<p class="card-text fw-light fs-6">${cafe.cafeRev }리뷰 : 111 | ★ 4.0</p> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-		
-<!-- 		<div class="card text-center" style="width: 23rem;"> -->
-<%-- 			<a><img src="<c:url value='/resources/img/cafe/c02.jpg' />" --%>
-<%-- 			 class="card-img-top rounded mx-auto d-block" alt="${cafe.cafeName}"></a> --%>
-<!-- 			<div class="card-body"> -->
-<!-- 				<p class="card-text fw-bolder fs-4">슬로우커피</p> -->
-<!-- 				<p class="card-text fw-semibold fs-5">서울 강남구</p> -->
-<!-- 				<p class="card-text fw-light fs-6">리뷰 : 102 | ★ 4.0</p> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		
-<!-- 		<div class="card text-center" style="width: 23rem;"> -->
-<%-- 			<a><img src="<c:url value='/resources/img/cafe/c05.jpg' />" --%>
-<%-- 			 class="card-img-top rounded mx-auto d-block" alt="${cafeInfo.cafeName}"></a> --%>
-<!-- 			<div class="card-body"> -->
-<%-- 				<p class="card-text fw-bolder fs-4">${cafe.cafeName }</p> --%>
-<%-- 				<p class="card-text fw-semibold fs-5">${cafe.cafeLoc }</p> --%>
-<%-- 				<p class="card-text fw-light fs-6">리뷰 : ${cafe.reviewCount } | ★ 4.0</p> --%>
-<!-- 				<p class="card-text fw-bolder fs-4">카페온화(익선점)</p> -->
-<!-- 				<p class="card-text fw-semibold fs-5">서울 종로구</p> -->
-<!-- 				<p class="card-text fw-light fs-6">리뷰 : 1,045 | ★ 5.0</p> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-
-
 </div><!-- container End -->
 
-<!-- <div class="text-center"> -->
-<!-- 	<a class="btn btn-secondary" href="./all" role="button">전체 카페</a> -->
-<!-- </div> -->
 <div class="d-flex justify-content-center">
 <button id="allCafe" type="button" class="btn btn-outline-secondary btn-lg w-75">전체 카페 보러가기 >> ${ count.cafeCount }</button>
 </div>

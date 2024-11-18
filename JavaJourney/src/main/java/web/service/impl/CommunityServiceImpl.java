@@ -694,7 +694,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public int getUserNo(String userId) {
 		
 		return dao.selectUsernoByUserid(userId);
-	}
+	} 
 	
 	@Override
 	public void joinCafeReview(CafeRev cafeRev) {
@@ -820,6 +820,11 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.deleteEventByEventNo(event);
 	}
 	
+	@Override
+	public void changeEvent(Event event) {
+		dao.updateEventByEventNo(event);
+	}
+	
 	
    // 현재 revNo를 기준으로 이전 revNo와 다음 revNo를 가져오는 메서드
     public Map<String, Integer> getPrevNextRevNos(CafeRev revNo) {
@@ -873,9 +878,17 @@ public class CommunityServiceImpl implements CommunityService {
 		List<BeanRev> list = dao.selectBeanReview(param);
 		List<BeanRev> brList = new ArrayList<BeanRev>();
 		
-		for(int i=0 ; i<list.size();i+=2) {
-			brList.add(list.get(i));
+		if(category != null && !"".equals(category)) {
+			for(int i=0 ; i<list.size();i++) {
+				brList.add(list.get(i));
+			}
+		}else {
+			
+			for(int i=0 ; i<list.size();i+=2) {
+				brList.add(list.get(i));
+			}
 		}
+		
 		
 		List<List<BeanRev>> bList = new ArrayList<List<BeanRev>>();
 		
@@ -935,11 +948,16 @@ public class CommunityServiceImpl implements CommunityService {
 //		log.info("totalCNT{}",totalCnt);
 		
 //		Paging paging = new Paging(curPage.getCurPage(),totalCnt);
-	    Paging paging = new Paging(curPage.getCurPage(), totalCnt, curPage.getListCount(), curPage.getPageCount());
+		
+		if( !"N".equals(category) ) {
+			Paging paging = new Paging(curPage.getCurPage(), totalCnt,10,10);
+			return paging;
+			
+		}
+			Paging paging = new Paging(curPage.getCurPage(), totalCnt,20,10);
+			return paging;
 
 //		log.info("paging : {}", paging);
-		
-		return paging;
     
     }
     

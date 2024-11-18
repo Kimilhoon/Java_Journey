@@ -44,11 +44,12 @@ public class CreateCafeController {
 	}
 	
 	@PostMapping("/cafeUpdate")
-	public String updateProc(Cafe cafe, Model model) {
+	public String updateProc(Cafe cafe, Model model, CafeImg cafeImg) {
 		log.info("cafe:{}", cafe);
+		log.info("cafe:{}", cafeImg);
 		
-		service.update(cafe);
-		return "redirect:/info?cafeNo=" + cafe.getCafeNo();
+		service.update(cafe, cafeImg);
+		return "redirect:/cafe/info?cafeNo=" + cafe.getCafeNo();
 	}
 	
 	@RequestMapping("/cafeDelete")

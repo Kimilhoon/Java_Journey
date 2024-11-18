@@ -13,7 +13,13 @@ $(function() {
 	 	   history.back();
 	});
 	
-	$('#beanInfo').summernote({ //섬머노트 설정
+	$('#eventInfo').summernote({ //섬머노트 설정
+        height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+        , toolbar: [
+            ['insert', ['picture']] // 이미지 업로드 버튼만 추가
+        ]
+      });
+	$('#evantBanner').summernote({ //섬머노트 설정
         height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
@@ -39,17 +45,26 @@ $(function() {
 		<tr>
 			<td class="mx-3">
 			이벤트 이름
-			<input type="text" maxlength="10" id="eveOriName" name="eveOriName">
+			<input type="text" name="eventName">
+			</td>
+		</tr>
+		<tr>
+			<td>
+			
+			<div>이벤트 배너</div>
+			<textarea id="evantBanner" name="eventBanner" class="eveImg"
+			rows="4" cols="2"></textarea>
 			<span class="mx-5"></span>
 			<span class="mx-3">이벤트 날짜 설정</span>
 			시작
 			<input type="date" id="eveStart" name="eveStart">
 			종료
 			<input type="datetime-local" id="eveEnd" name="eveEnd">
+			</td>
 		</tr>
 		<tr>
 			<td>이벤트이미지[이미지삽입]
-			<textarea id="beanInfo" name="eveImg" class="eveImg"
+			<textarea id="eventInfo" name="eveImg" class="eveImg"
 			rows="4" cols="2"></textarea>
 			</td>
 		</tr>

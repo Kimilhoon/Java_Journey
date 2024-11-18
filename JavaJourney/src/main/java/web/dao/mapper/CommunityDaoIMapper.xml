@@ -493,7 +493,7 @@
 
 <!-- 	event -->
 	<select id="selectEventAllList" resultType="Event">
-		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		SELECT EVENTNO, EVENTNAME, EVESTART, EVEEND, EVEIMG,EVENTBANNER
 		FROM EVENT
 		ORDER BY EVENTNO DESC
 	</select>
@@ -502,12 +502,12 @@
 		<selectKey order="BEFORE" keyProperty="eventNo" resultType="int"> 
 			SELECT EVENT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO EVENT(EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG)
-		VALUES(#{eventNo}, #{eveOriName}, #{eveStart}, #{eveEnd}, #{eveImg})
+		INSERT INTO EVENT(EVENTNO, EVENTNAME, EVESTART, EVEEND, EVEIMG, EVENTBANNER)
+		VALUES(#{eventNo}, #{eventName}, #{eveStart}, #{eveEnd}, #{eveImg}, #{eventBanner})
 	</insert>
 	
 	<select id="selectByEventNo" resultType="Event" parameterType="Event">
-		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		SELECT EVENTNO, EVENTNAME, EVESTART, EVEEND, EVEIMG,EVENTBANNER
 		FROM EVENT
 		<where>
 			EVENTNO = #{eventNo}
@@ -855,6 +855,17 @@
 		AND m.userno = br.userno
 		AND revno = #{revNo}
 	</select>
+	
+	<update id="updateEventByEventNo" parameterType="Event">
+		UPDATE EVENT
+		SET 
+			eventname=#{eventName},
+			eventbanner=#{eventBanner},
+			eveimg=#{eveImg},
+			evestart=#{eveStart},
+			eveend=#{eveEnd}
+		WHERE eventNo=#{eventNo}
+	</update>
 	
 </mapper>
 
