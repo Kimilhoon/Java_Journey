@@ -31,7 +31,7 @@ public class BeanServiceImpl implements BeanService {
 	} // getBeanTop() end
 
 	
-	@Override
+	@Override 
 	public Bean getBeanCount() {
 		return dao.selectBeanCount();
 	} // getBeanCount() end
