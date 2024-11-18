@@ -5,6 +5,7 @@
 <style>
 a {
 	color: #6f4e37;
+	text-decoration: none;
 }
 </style>
 

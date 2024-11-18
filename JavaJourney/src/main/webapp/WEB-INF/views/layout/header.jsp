@@ -112,7 +112,7 @@ $(function() {
 }
 
 /* 메뉴바 전체 배경이 꽉 차도록 조정 */
-.d-flex.justify-content-center {
+.header.d-flex.justify-content-center {
     background-color: #6f4e37; /* 갈색 배경색 */
     width: 100%;
 }
@@ -127,18 +127,13 @@ $(function() {
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body>
 
-<div class="d-flex justify-content-center">
+<div class="header d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
 <img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="200" height="200" id="logo" />
 </a>
 
 <!-- 로그인 및 기타 링크 -->
- 	 <div class="flex-shrink-0">
-  		<c:if test="${isLogin }">
-			<div class="loginLoc">
-			    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
-			</div>
-		</c:if>
+ 	 <div class="flex-shrink-0 mt-4">
 		<c:if test="${empty isLogin }">
 			<div class="loginLoc">
 			<a href="/member/join" style="text-decoration: none; color: #f3e9dc;"><small>회원가입</small></a>
@@ -149,18 +144,32 @@ $(function() {
   	</div>
   	
   	<c:if test="${userNick eq 'admin' }">
-	    <div class="flex-shrink-0 mt-4 loginLoc">
+	    <div class="loginLoc">
 	      <ul style="list-style:none">
 	      	<li><a href="/manager/menu" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>
+  	
+  	<c:if test="${isLogin and (userNick ne 'admin') }">
+	    <div class="loginLoc">
+	      <ul style="list-style:none">
+	      	<li><span style="text-decoration: none; color: #f3e9dc;">${userNick } 님, 안녕하세요</span></li>
+	      </ul>
+	    </div>
+  	</c:if>
+  	
+	<c:if test="${isLogin }">
+		<div class="flex-shrink-0 mt-4 loginLoc">
+		    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
+		</div>
+	</c:if>
   </div>
 
-<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
+<div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-0 d-flex justify-content-center">
+      <ul class="navbar-nav mb-0 header d-flex justify-content-center">
         <!-- 브랜드 메뉴 -->
         <li class="nav-item dropdown mx-2">
           <a class="nav-link dropdown fs-5 text-light" href="/brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -236,4 +245,3 @@ $(function() {
     </div>
   </nav>
 </div>
-

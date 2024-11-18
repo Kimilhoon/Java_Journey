@@ -241,13 +241,14 @@ public class CommunityController {
 		// 나만의 레시피 --------------------------------------------------------------------------
 		
 		@GetMapping("/myrecipe/list")
-		public void myrecipe(Paging curPage, String search,Model model) {
-			Paging paging = service.getMyRecipePaging(curPage,search);
-			List<MyRecipe> myRecipeList = service.getMyRecipeList(paging,search);
+		public void myrecipe(Paging curPage, String search,Model model,String order,String searchType) {
+			Paging paging = service.getMyRecipePaging(curPage,search,searchType);
+			List<MyRecipe> myRecipeList = service.getMyRecipeList(paging,search,searchType,order);
 			model.addAttribute("myRecipeList", myRecipeList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
-			
+			model.addAttribute("order", order);
+			model.addAttribute("searchType", searchType);
 		}
 		
 		@GetMapping("/myrecipe/write")
@@ -549,24 +550,24 @@ public class CommunityController {
 		
 	    Paging paging = service.getBeanReviewPaging(curPage, category, order, search);
 	    
-	    List<BeanRev> rawBreviewList = service.getBeanReviewList(category, order, search, paging);
+	    List<List<BeanRev>> rawBreviewList = service.getBeanReviewList(category, order, search, paging);
 
 	    // Map을 사용하여 글번호로 그룹화하면서 맛과 향을 중복 없이 병합
-	    Map<Integer, BeanRev> uniqueBreviewMap = new LinkedHashMap<>();
-	    
-	    for (BeanRev review : rawBreviewList) {
-	        uniqueBreviewMap.computeIfAbsent(review.getRevNo(), key -> {
-	            review.setCupNoteNames(new HashSet<>()); // 맛과 향 Set 초기화
-	            return review;
-	        }).getCupNoteNames().add(review.getCupNoteName()); // 중복되지 않는 맛과 향만 추가
-	    }
-
-	    List<BeanRev> breviewList = new ArrayList<>(uniqueBreviewMap.values());
+//	    Map<Integer, BeanRev> uniqueBreviewMap = new LinkedHashMap<>();
+//	    
+//	    for (BeanRev review : rawBreviewList) {
+//	        uniqueBreviewMap.computeIfAbsent(review.getRevNo(), key -> {
+//	            review.setCupNoteNames(new HashSet<>()); // 맛과 향 Set 초기화
+//	            return review;
+//	        }).getCupNoteNames().add(review.getCupNoteName()); // 중복되지 않는 맛과 향만 추가
+//	    }
+//
+//	    List<BeanRev> breviewList = new ArrayList<>(uniqueBreviewMap.values());
 	    model.addAttribute("paging", paging);
 	    model.addAttribute("category", category);
 	    model.addAttribute("order", order);
 	    model.addAttribute("search", search);
-	    model.addAttribute("breviewList", breviewList);
+	    model.addAttribute("breviewList", rawBreviewList);
 	}
 
 	
@@ -655,7 +656,7 @@ public class CommunityController {
 		
 		String userId = (String) session.getAttribute("userId");
 		
-//		service.writeBeanReviewComm(revNo, commCont, userId);
+		service.writeBeanReviewComm(revNo, commCont, userId);
 		
 		return "redirect: ./view?revNo=" + revNo.getRevNo();
 	}
@@ -673,7 +674,7 @@ public class CommunityController {
 		
 //		log.info("commNo: {}", commNo);
 		
-//		service.dropBeanReviewComment(commNo);
+		service.dropBeanReviewComment(commNo);
 		
 		return "redirect: ../view?revNo=" + revNo.getRevNo();
 	}
@@ -686,7 +687,7 @@ public class CommunityController {
 		Integer beanNo = service.getBeanNo(subNo.getSubNo());
 		String beanName = service.getBeanName(beanNo);
 		
-//		model.addAttribute("beanName", beanName);
+		model.addAttribute("beanName", beanName);
 		model.addAttribute("beanNo", beanNo);
 		model.addAttribute("subNo", subNo);
 		
@@ -714,7 +715,7 @@ public class CommunityController {
 	@RequestMapping("/breview/delete")
 	public String beanReviewDelete(BeanRev beanRev) {
 		
-//		service.dropBeanReview(beanRev);
+		service.dropBeanReview(beanRev);
 			
 		return "redirect: ./list";
 	}
@@ -730,7 +731,7 @@ public class CommunityController {
 	@PostMapping("/breview/update")
 	public String beanReviewUpdateProc(BeanRev beanRev) {
 		
-		log.info("beanRev: {}", beanRev);
+//		log.info("beanRev: {}", beanRev);
 		
 		service.changeBeanReview(beanRev);
 		

@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class Bean {
-//
-	private int beanNo;
+// 
+	private int beanNo; 
 	private int beanImgNo;
 	private String beanName;
 	private String origin;
@@ -28,7 +28,7 @@ public class Bean {
 	// beanRev join
 	private int revStarPoint;
 	private int reviewCount;
-	private int avgRevStarPoint;
+	private double avgRevStarPoint;
 	
 	// beanSub join
 	private int gram;

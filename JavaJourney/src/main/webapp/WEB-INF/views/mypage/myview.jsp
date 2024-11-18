@@ -7,56 +7,69 @@
 
 
 
+<div class="container col-12">
+    <div class="d-flex justify-content-between mb-3">
+		<div id="category-list">
+		    <label>카테고리 </label>
+		    <select id="category" onchange="filterByCategory()">
+		        <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
+		        <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
+		        <option value="원두리뷰" ${category == '원두리뷰' ? 'selected' : ''}>원두리뷰</option>
+		        <option value="자유게시판" ${category == '자유게시판' ? 'selected' : ''}>자유게시판</option>
+		        <option value="나만의레시피" ${category == '나만의레시피' ? 'selected' : ''}>나만의레시피</option>
+		    </select>
+		</div> <!-- id="category-list" end -->
 
-<div id="category-list" class="container col-12">
-    <label>카테고리 </label>
-    <select id="category" onchange="filterByCategory()">
-        <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
-        <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
-        <option value="원두리뷰" ${category == '원두리뷰' ? 'selected' : ''}>원두리뷰</option>
-        <option value="자유게시판" ${category == '자유게시판' ? 'selected' : ''}>자유게시판</option>
-        <option value="나만의레시피" ${category == '나만의레시피' ? 'selected' : ''}>나만의레시피</option>
-    </select>
-</div>
 
 
+		<div class="d-flex align-items-center"> <!-- 오른쪽 끝 정렬이라는 뜻 -->
+		    <input id="searchText" class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
+		    <button id="btnSearch" >검색</button>
+		</div> <!-- class="d-flex align-items-center" end -->
+	
+	</div><!-- <div class="d-flex justify-content-between mb-3"> -->
 
-<div class="d-flex justify-content-end"> <!-- 오른쪽 끝 정렬이라는 뜻 -->
-    <div class="col-2">
-        <input id="searchText" class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
-    </div>
-    <button id="btnSearch" class="btn btn-primary">검색</button>
-</div>
+
 <script>
 
-function filterByCategory() {
-    const selectedCategory = document.getElementById("category").value || '전체';  // 카테고리가 선택되지 않으면 기본값 '전체'
-    const searchText = document.getElementById("searchText").value;  // 검색어를 가져옴
-    const currentSearch = searchText ? "&search=" + encodeURIComponent(searchText) : "";  // 검색어가 있을 때만 추가
-    location.href = "/mypage/myview?userNo=" + ${userNo} +"&curPage=1" + "&category=" + encodeURIComponent(selectedCategory) + currentSearch;
-}
-
-// 검색 버튼 클릭 이벤트 처리
-document.getElementById("btnSearch").onclick = function() {
-    filterByCategory(); // 카테고리와 검색어를 함께 처리
-};
-
-//Enter key 이벤트로 검색 처리
-document.getElementById("searchText").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        filterByCategory();  // Enter 키를 누르면 검색 실행
-    }
-});
-
-// 페이지 로드 시, 카테고리 값이 없을 경우 '전체'로 처리
-onload = function() {
-    const category = document.getElementById("category").value || '전체';
-    document.getElementById("category").value = category;
-};
+	function filterByCategory() {
+	    const selectedCategory = document.getElementById("category").value || '전체';  // 카테고리가 선택되지 않으면 기본값 '전체'
+	    const searchText = document.getElementById("searchText").value;  // 검색어를 가져옴
+	    const currentSearch = searchText ? "&search=" + encodeURIComponent(searchText) : "";  // 검색어가 있을 때만 추가
+	    location.href = "/mypage/myview?userNo=" + ${userNo} +"&curPage=1" + "&category=" + encodeURIComponent(selectedCategory) + currentSearch;
+	}
+	
+	// 검색 버튼 클릭 이벤트 처리
+	document.getElementById("btnSearch").onclick = function() {
+	    filterByCategory(); // 카테고리와 검색어를 함께 처리
+	};
+	
+	//Enter key 이벤트로 검색 처리
+	document.getElementById("searchText").addEventListener("keypress", function(event) {
+	    if (event.key === "Enter") {
+	        filterByCategory();  // Enter 키를 누르면 검색 실행
+	    }
+	});
+	
+	// 페이지 로드 시, 카테고리 값이 없을 경우 '전체'로 처리
+	onload = function() {
+	    const category = document.getElementById("category").value || '전체';
+	    document.getElementById("category").value = category;
+	};
 </script>
 
 
-<div class="container col-12">
+<style>
+#category-list {
+    flex: 1;
+}
+
+#searchText {
+    width: 200px; /* Adjust the width as needed */
+}
+</style>
+
+
 <table class="table text-center" >
 <tr>
 	<th class="col-1" scope="col">글번호</th>
@@ -143,7 +156,7 @@ onload = function() {
 </c:forEach>
 
 </table>
-</div>
+</div> <!-- class="container" end -->
 
 
 

@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 
 <script type="text/javascript">
-$(function() {
+$(async function() {
 	
 // 	// 요소 선택
 // 	const legend = document.getElementById("legend");
@@ -31,7 +31,7 @@ $(function() {
 // 	    description.style.display = "none";
 // 	});
 
-$(document).ready(function() {
+$(document).ready( async function() {
 	// 각 라디오 그룹에 대한 요소 선택
 	const gramRadios = $("input[name='gram']");
 	const periodRadios = $("input[name='subTime']");
@@ -54,11 +54,13 @@ $(document).ready(function() {
 	grindRadios.change(function() {
 		selectedGrind.text( $(this).val() );
 	});
+	
+
 }); // $(document).ready(function() end
 
 		
 //버튼 클릭 시 총 가격 계산 후 결제 요청 함수 호출
-$("#subBtn").on("click", function () {
+$("#subBtn").on("click", async function () {
 
 	 $(this).prop("disabled", true);
 	
@@ -68,13 +70,13 @@ $("#subBtn").on("click", function () {
 });
 
 
-function calculateTotal() {
+async function calculateTotal() {
 	// 가격과 gram 가져오기
-	var price = parseInt($("#beanPrice").val());
-	var gram = parseInt($("input[name='gram']:checked").val());
+	const price = parseInt($("#beanPrice").val());
+	const gram = parseInt($("input[name='gram']:checked").val());
 	
 	// 총 가격 계산
-	var totalPrice = price * gram;
+	const totalPrice = price * gram / 100;
 	
 	// 결과를 totalPrice 요소에 설정
 	$("#totalPrice").text(totalPrice);
@@ -98,38 +100,47 @@ $("#CancelBtn").click(function() {
 /* SDK 초기화 */ 
 // IMP.init("imp72523611");
 
-function requestPayment() {
+
+async function requestPayment() {
 
 	const totalAmount = parseInt($("#totalPrice").text());
 	const paymentId = `payment-${randomUUID}`;
-	const orderName = "${ bean.beanName }";
-	const customerId = "${ member.userNo }";
-	const fullname = "${ member.userName }";
-	const phoneNumber = "${ member.userPhone }"
-	const email = "${ member.userEmail }"
-	const addressLine1 = "${ member.userAdd1 }"
-	const addressLine2 = "${ member.userAdd2 }"
-	const zipcode = "${ member.userPostcode }"
+	const orderName = `${bean.beanName}`;
+	const customerId = `${member.userNo}`;
+	const fullname = `${member.userName}`;
+	const phoneNumber = `${member.userPhone}`;
+	const email = `${member.userEmail}`;
+	const addressLine1 = `${member.userAdd1}`;
+	const addressLine2 = `${member.userAdd2}`;
+	const zipcode = `${member.userPostcode}`;
+	const beanNo = `${bean.beanNo}`;
+	const gram = parseInt($("input[name='gram']:checked").val());
+	const grind = $("input[name='grind']:checked").val();
+	const subTime = $("input[name='subTime']:checked").val();
 	
-	console.log(totalAmount)
-	console.log(paymentId)
-	console.log(orderName)
-	console.log(customerId)
-	console.log(fullname)
-	console.log(phoneNumber)
-	console.log(email)
-	console.log(addressLine1)
-	console.log(addressLine2)
-	console.log(zipcode)
+	console.log(totalAmount);
+	console.log(paymentId);
+	console.log(orderName);
+	console.log(customerId);
+	console.log(fullname);
+	console.log(phoneNumber);
+	console.log(email);
+	console.log(addressLine1);
+	console.log(addressLine2);
+	console.log(zipcode);
+	console.log(beanNo);
+	console.log(gram);
+	console.log(grind);
+	console.log(subTime);
 	
-	PortOne.requestPayment({
+	const response = await PortOne.requestPayment({
 		// Store ID 설정
 		storeId: "store-be1fa1df-6baa-44e7-ba56-8e23cd18366d",
 		// 채널 키 설정
 		channelKey: "channel-key-67189232-0ce2-4acf-ab99-4a03ee845cb5",
 		paymentId: paymentId,
 		orderName: orderName,
-		totalAmount: totalAmount,
+		totalAmount: 1000,
 		currency: "KRW",
 		payMethod: "CARD",
 		customer: {
@@ -143,12 +154,61 @@ function requestPayment() {
 			},
 			zipcode: zipcode
 		}
+	}); // const response = PortOne.requestPayment({ end
+// 		console.log("리스폰슴ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
+// 		console.log(response);
+	if (response.code != undefined) {
+		// 오류 발생
+		location.href = '/bean/sub/fail?beanNo=' + beanNo;
+	    return;
+		
+	}
+ 
+// 	const URL = 'http://localhost:8088/bean/sub?beanNo=' + `${ bean.beanNo }` + '/payment/complete'
+// 	const URL = 'http://localhost:8088/bean/sub/payment/complete'
+	
+	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
+	
+	const notified = await fetch('http://localhost:8088/bean/sub/payment/complete', {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+		// paymentId와 주문 정보를 서버에 전달합니다
+		body: JSON.stringify({
+			paymentId: paymentId,
+			beanNo: beanNo,
+			orderName: orderName,
+			totalAmount: 10000,
+			customerId: customerId,
+			fullName: fullname,
+			phoneNumber: phoneNumber,
+			email: email,
+			addressLine1: addressLine1,
+			addressLine2: addressLine2,
+			zipcode: zipcode,
+			gram: gram,
+			grind: grind,
+			subTime: subTime,
+	    }),
 	});
+// 	console.log(notified);
+	if(notified.ok){
+		console.log("결제 완ㄹ효");
+		location.href = '/bean/sub/succ?beanNo=' + beanNo + "&&beanName=" + orderName + "&&userName=" + fullname;
+	}
+// 	}else{
+// 		console.log("결제ㅌㅌㅌㅌㅌㅌㅌ");
+// 		location.href = "./sub/fail";
+		
+// 	}
+	
 
+
+	        
+	
 }; // function requestPayment() end
 
 
-}) // $(function() end
+}); // $(function() end
 
 // document.addEventListener("DOMContentLoaded", function() {
 // 	// 각 라디오 그룹에 대한 요소 선택
@@ -205,7 +265,13 @@ function requestPayment() {
 <style type="text/css">
 
 #beanSubInfo{
-	font-size: xx-large;
+	font-size: 30px;
+}
+
+#beanSubInfo p {
+	font-size: 40px;
+	font-weight: bold;
+	color: #6f4e37;
 }
 
 #buyGuide{
@@ -311,14 +377,14 @@ function requestPayment() {
 
 <div id="beanGuide">
 
-<div id="beanSubInfo" class="d-flex justify-content-center">
+<div id="beanSubInfo" class="d-flex justify-content-center align-items-center">
 <input type="hidden" id="beanPrice" value="${ bean.beanPrice }">
-<p class="fw-bold text-danger-emphasis">${ bean.beanName }</p>
+<p class="m-0 d-inline">${ bean.beanName }</p>
 가&nbsp;
-<p id="selectedGram" class="fw-bold text-danger-emphasis">200g</p>씩&nbsp;
-<p id="selectedGrind" class="fw-bold text-danger-emphasis">홀빈</p>&nbsp;분쇄타입으로&nbsp;
-<p id="selectedPeriod" class="fw-bold text-danger-emphasis">1주</p>&nbsp;마다&nbsp;
-<p id="totalPrice" class="fw-bold text-danger-emphasis">0</p>
+<p id="selectedGram" class="m-0 d-inline">200g</p>씩&nbsp;
+<p id="selectedGrind" class="m-0 d-inline">홀빈</p>&nbsp;분쇄타입으로&nbsp;
+<p id="selectedPeriod" class="m-0 d-inline">1주</p>&nbsp;마다&nbsp;
+<p id="totalPrice" class="m-0 d-inline">0</p>
 원 정기 결제됩니다.
 </div> <!-- <div id="beanSubInfo" class="d-flex justify-content-center"> -->
 

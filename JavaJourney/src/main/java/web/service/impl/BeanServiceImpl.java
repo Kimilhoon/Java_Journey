@@ -1,5 +1,6 @@
 package web.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import web.dao.face.BeanDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
@@ -26,7 +28,16 @@ public class BeanServiceImpl implements BeanService {
 	
 	@Override
 	public List<Bean> getBeanTop() {
-		return dao.selectBeanTop();
+		
+		List<Bean> list = dao.selectBeanTop();
+		
+		List<List<Bean>> bList = new ArrayList<List<Bean>>();
+		
+		for(Bean b : list) {
+			
+		}
+		
+		return list;
 	} // getBeanTop() end
 
 	
@@ -175,6 +186,7 @@ public class BeanServiceImpl implements BeanService {
 	public void removeWish(Map<String, Integer> params) {
 		dao.removeWish(params);
 	} // removeWish(Map<String, Integer> params) end
+
 	
 	
 //	@Override
@@ -185,12 +197,27 @@ public class BeanServiceImpl implements BeanService {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	 
+	@Override
+	public Bean getBeanByBeanNo(Bean param) {
+		return dao.selectBeanByBeanNo(param);
+	} // getBeanByBeanNo(Bean param) end
 
 
 	@Override
-	public List<Map<String, Object>> getBeanMember(Map<String, Object> params) {
-		return dao.selectBeanMember(params);
-	}
+	public Member getMemberByUserId(String userId) {
+		return dao.selectMemberByUserId(userId);
+	} // getMemberByUserId(String userId) end
+
+
+	@Override
+	public void beanSubscribe(BeanSub beanSub) {
+		dao.beanSubscribe(beanSub);
+	} // beanSubscribe(BeanSub beanSub) end
+
+
+	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------

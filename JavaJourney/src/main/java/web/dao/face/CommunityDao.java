@@ -738,6 +738,8 @@ public interface CommunityDao {
 	 */
 	public void updateBeanReviewCommByCommNo(BeanRevComm beanRevComm);
 	
+	public List<BeanRev> selectBeanRevByBeanRevNo(BeanRev r);
+
 }
 
 
