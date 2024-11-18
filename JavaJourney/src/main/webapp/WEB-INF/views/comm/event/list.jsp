@@ -65,26 +65,33 @@ $(function() {
 
 
 <div class="d-flex justify-content-center">
-<table>
+<table class="table text-center">
+	<tr>
+		<td>이벤트 번호</td>
+		<td>이벤트 이름</td>
+		<td>이벤트 기간</td>
+		<td>삭제</td>
+	</tr>
+    <c:forEach var="event" items="${eventList}">
     <tr>
-        <c:forEach var="event" items="${eventList}">
-            <td style="text-align: center; padding: 10px;">
-            <input type="number" id="eventNo" 
-            name="eventNo" value="${event.eventNo }" hidden="hidden"> 
-                <!-- 이미지 표시, 크기 고정 -->
-                <div id="info" class="custom-image">
-                <a href="/comm/event/info?eventNo=${event.eventNo}">${event.eveImg}</a>
-                </div>
-<!--                 <div id="info" class="custom-image" -->
-<!--                  style="cursor: pointer;"> -->
-<%--                 ${event.eveImg} --%>
-<!--                 </div> -->
-                <div>${event.eveOriName}</div>
-                <div><fmt:formatDate value="${event.eveStart}" pattern="yyyy-MM-dd"/>
-                ~ <fmt:formatDate value="${event.eveEnd}" pattern="yyyy-MM-dd"/></div>
-            </td>
-        </c:forEach>
+	    <td style="text-align: center; padding: 10px;">
+	    	${event.eventNo }
+	    </td>
+	        <!-- 이미지 표시, 크기 고정 -->
+	<!--                 <div id="info" class="custom-image" -->
+	<!--                  style="cursor: pointer;"> -->
+	<%--                 ${event.eveImg} --%>
+	<!--                 </div> -->
+	    <td>
+	        <div><a href="/comm/event/info?eventNo=${event.eventNo}">${event.eventName}</a></div>
+		</td>
+	    <td>   
+	        <div><fmt:formatDate value="${event.eveStart}" pattern="yyyy-MM-dd"/>
+	        ~ <fmt:formatDate value="${event.eveEnd}" pattern="yyyy-MM-dd"/></div>
+	    </td>
+	    <td><a href="./delete?eventNo=${event.eventNo }"><button type="button"> 삭제</button></a></td>
     </tr>
+    </c:forEach>
 </table>
 </div>
 <div id="result"></div>

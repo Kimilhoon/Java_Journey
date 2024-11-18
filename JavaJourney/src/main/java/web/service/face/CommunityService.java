@@ -677,6 +677,12 @@ public interface CommunityService {
 	 */
 	public void changeBeanReviewComment(BeanRevComm beanRevComm);
 	
+	/**
+	 * 이벤트 수정
+	 * 
+	 * @param event
+	 */
+	public void changeEvent(Event event);
 	
 }
 

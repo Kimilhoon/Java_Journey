@@ -26,6 +26,8 @@ public class Cafe {
 	private String cafeStoredName;
     private String cafeOriginName;
 	private String cafeImgOriName;
+	private int cafeImgSize;
+
 	
 	// cafeRev join
 	private int revsp;

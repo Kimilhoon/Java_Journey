@@ -33,7 +33,7 @@
 					<a class="page-link" href="./list?order=${order }&search=${search }&category=${category }" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
 				</c:when>
 				<c:otherwise>
-					<a class="page-link" href="./list">&larr; 처음</a>
+					<a class="page-link" href="./list" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
 				</c:otherwise>
 			</c:choose>
 		</li>

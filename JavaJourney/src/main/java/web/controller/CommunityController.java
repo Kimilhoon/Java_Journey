@@ -400,7 +400,11 @@ public class CommunityController {
 		//이벤트---------------------------------------------------------------------------------------
 		
 		@GetMapping("/event/event")
-		public void event() {}
+		public void event(Event event, Model model) {
+			List<Event> eventList = service.selectByAll();
+			model.addAttribute("eventList",eventList);
+			
+		}
 		
 	
 	//--------------------------------------------------------------------------------------
@@ -782,14 +786,18 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/event/update")
-	public void eventUpdateForm() {}
+	public void eventUpdateForm(Event event,Model model) {
+		Event eventView = service.eventInfoByeventNo(event);
+		model.addAttribute("eventView",eventView);
+	}
 	
 	@PostMapping("/event/update")
-	public void eventUpdateProc(
+	public String eventUpdateProc(
 			Event event
 			) {
 		log.info("updateevent : {}", event);
-		
+		service.changeEvent(event);
+		return "redirect:/comm/event/list";
 	}
 	
 	@GetMapping("/event/delete")

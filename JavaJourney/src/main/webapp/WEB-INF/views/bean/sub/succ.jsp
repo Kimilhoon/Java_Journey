@@ -11,7 +11,7 @@
 $(function() {
 	
 	$("#beanSubInfoBtn").click(function() {
-		location.href="../sub?beanNo=${ beanNo }"
+		location.href="../mypage/subscribe?beanNo=${ beanSub.beanNo }"
 	})
 	
 	$("#beanAllBtn").click(function() {
@@ -23,8 +23,15 @@ $(function() {
 </script>
 
 <style type="text/css">
+#subText{
+	font-size: 40px;
+}
 
-
+#subText p span{
+	font-size: 55px;
+	font-weight: bold;
+	color: #6f4e37;
+}
 
 </style>
 
@@ -43,12 +50,14 @@ $(function() {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<div class="text-center fs-1 mb-5">
-<p>${ userName }</p> 
-님이
-<p>${ beanName }</p>
-의&nbsp;구독을
-<p>성공하였습니다</p>
+<div id="subText" class="text-center mb-5">
+	<p>
+		<span>${ beanSub.userName }</span>님이
+	</p>
+	<p>
+		<span>${ beanSub.beanName }</span>의&nbsp;구독을
+	</p>
+	<p>성공하였습니다</p>
 </div>
 
 

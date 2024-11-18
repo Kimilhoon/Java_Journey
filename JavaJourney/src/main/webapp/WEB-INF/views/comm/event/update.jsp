@@ -32,7 +32,7 @@ $(function() {
 </script>
 
 
-<h1>이벤트 글작성</h1>
+<h1>이벤트 업데이트</h1>
 
 <div>
 <button id="btnManagerMenu">관리자메뉴로가기</button>
@@ -40,12 +40,12 @@ $(function() {
 </div>
 
 <div class="container">	
-<form id="form" action="./write" method="post" enctype="multipart/form-data">
+<form id="form" action="./update?eventNo=${eventView.eventNo }" method="post" enctype="multipart/form-data">
 	<table class="table table-info">
 		<tr>
 			<td class="mx-3">
 			이벤트 이름
-			<input type="text" name="eventName">
+			<input type="text" name="eventName" value="${eventView.eventName }" readonly="readonly">
 			</td>
 		</tr>
 		<tr>
@@ -53,19 +53,19 @@ $(function() {
 			
 			<div>이벤트 배너</div>
 			<textarea id="evantBanner" name="eventBanner" class="eveImg"
-			rows="4" cols="2"></textarea>
+			rows="4" cols="2">${eventView.eventBanner }</textarea>
 			<span class="mx-5"></span>
 			<span class="mx-3">이벤트 날짜 설정</span>
 			시작
-			<input type="date" id="eveStart" name="eveStart">
+			<input type="date" id="eveStart" name="eveStart" value="${eventView.eveStart }">
 			종료
-			<input type="datetime-local" id="eveEnd" name="eveEnd">
+			<input type="datetime-local" id="eveEnd" name="eveEnd" value="${eventView.eveEnd }">
 			</td>
 		</tr>
 		<tr>
 			<td>이벤트이미지[이미지삽입]
 			<textarea id="eventInfo" name="eveImg" class="eveImg"
-			rows="4" cols="2"></textarea>
+			rows="4" cols="2">${eventView.eveImg }</textarea>
 			</td>
 		</tr>
 	</table>

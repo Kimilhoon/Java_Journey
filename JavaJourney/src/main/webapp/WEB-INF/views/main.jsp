@@ -20,7 +20,7 @@ $(function () {
 	border-radius: 10px; /* 슬라이드 모서리를 둥글게 */
 }
 </style>
-<div class="container" style="width: 330px;">
+<div class="container">
 <div id="bestBean">
     <!-- 이달의 베스트원두 -->
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -30,7 +30,7 @@ $(function () {
             <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-
+	
         <!-- carousel items -->
         <div class="carousel-inner">
             <c:forEach var="bean" items="${list}" varStatus="status">
@@ -41,7 +41,8 @@ $(function () {
                                 ${bean.beanOriginName}
                             </div>
                         </a>
-                        <p class="fw-bold fs-4">${bean.beanName}(${bean.gram}g)</p>
+<%--                         <p class="fw-bold fs-4">${bean.beanName}(${bean.gram}g)</p> --%>
+                        <p class="fw-bold fs-4">${bean.beanName}</p>
                         <p>${bean.origin}</p>
                         <p>리뷰 : ${bean.reviewCount}</p>
                         <p>★( ${bean.avgRevStarPoint} )</p>
@@ -49,7 +50,7 @@ $(function () {
                 </div>
             </c:forEach>
         </div>
-
+	
         <!-- Controls -->
         <button class="carousel-control-prev btn btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
