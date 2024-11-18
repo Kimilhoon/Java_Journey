@@ -7,69 +7,117 @@
 
 <script type="text/javascript">
 $(function () {
-	$(".custom-image img").css({
-        width: "200px",
-        height: "200px"
+   $(".custom-image img").css({
+        width: "200px"
+        , height: "200px"
     });
 })
 </script>
+
 <style>
-.carousel-item{
-	background-color: #faebd7; /* 배경색 설정 */
-	padding: 20px; /* 내용과 배경 색 사이 여백 */
-	border-radius: 10px; /* 슬라이드 모서리를 둥글게 */
+
+.custom-image img {
+	padding: 20px;
+	background-color: f5f5f5;
 }
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+/*      padding: 20px; */
+/*      background-color: #f5f5f5; */
+}
+
+.carousel-container {
+    width: 48%; /* 양쪽 배너를 나누기 위한 크기 설정 */
+    position: relative;
+}
+
+.carousel-container.left .carousel-item {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+}
+
+.carousel-container.right .carousel-item {
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.carousel-item {
+    background-color: #faebd7;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.carousel-indicators button {
+    background-color: #666; /* 기본 색상 */
+    border: none; /* 테두리 제거 */
+    opacity: 0.8; /* 약간의 투명도 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 클릭 시 애니메이션 효과 */
+}
+
 </style>
+
 <div class="container">
-<div id="bestBean">
-    <!-- 이달의 베스트원두 -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators (optional) -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-	
-        <!-- carousel items -->
-        <div class="carousel-inner">
-            <c:forEach var="bean" items="${list}" varStatus="status">
-                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                    <div class="text-center" style="flex-shrink: 0;">
-                        <a href="/bean/info?beanNo=${bean.beanNo}">
-                            <div class="custom-image">
+    <!-- Left Carousel -->
+    <div class="carousel-container left">
+        <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <c:forEach var="bean" items="${list}" varStatus="status">
+                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                    	 <div class="custom-image">
                                 ${bean.beanOriginName}
-                            </div>
+                          </div>
+                        <a href="/bean/info?beanNo=${bean.beanNo}">
+                            <p class="fw-bold fs-4">${bean.beanName}</p>
                         </a>
-<%--                         <p class="fw-bold fs-4">${bean.beanName}(${bean.gram}g)</p> --%>
-                        <p class="fw-bold fs-4">${bean.beanName}</p>
                         <p>${bean.origin}</p>
-                        <p>리뷰 : ${bean.reviewCount}</p>
-                        <p>★( ${bean.avgRevStarPoint} )</p>
+                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
                     </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
         </div>
-	
-        <!-- Controls -->
-        <button class="carousel-control-prev btn btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next btn btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+    </div>
+
+    <!-- Right Carousel -->
+    <div class="carousel-container right">
+        <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <c:forEach var="bean" items="${list}" varStatus="status">
+                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+            	 		<div class="custom-image">
+                                ${bean.beanOriginName}
+                          </div>
+                        <a href="/bean/info?beanNo=${bean.beanNo}">
+                            <p class="fw-bold fs-4">${bean.beanName}</p>
+                        </a>
+                        <p>${bean.origin}</p>
+                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div id="bestCafe">
-<!-- 이달의 베스트카페 -->
-<%-- ${beanBestList } --%>
-</div>
-
 
 <!-- footer -->
 <c:import url="./layout/footer.jsp"/> 
-
