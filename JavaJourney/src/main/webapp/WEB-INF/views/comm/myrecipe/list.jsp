@@ -74,6 +74,7 @@ a {
 <div id="searchbox" class="d-flex justify-content-end align-items-center mb-3">
 <input type="text" id="search" class="form-control me-2 col-6" placeholder="검색어를 입력하세요."><button id="btn_search" class="btn "><i class="bi bi-search"></i></button>
 </div>
+<div id="tablelist">
 <table class="table text-center">
 <thead>
 	<tr>
@@ -116,6 +117,7 @@ a {
 	</c:forEach>
 </tbody>
 </table>
+</div>
 <a href="./write"><button class="btn  ms-2">글쓰기</button></a>
 <div>
 <%-- 	<a href="./list?curPage=${paging.curPage-1  }&search=${search}&category=${category}">이전</a> --%>

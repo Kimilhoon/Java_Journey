@@ -315,6 +315,26 @@ public interface CommunityDao {
 	 * @return
 	 */
 	public Notice selectNoticeBtNoticeNo(Notice notice);
+
+	/**
+	 * 공지사항 DB에 삽입하기 
+	 * @param notice - title, content
+	 */
+	public void insertNoticeByTitleContent(Notice notice);
+	
+	/**
+	 * 수정한 공지사항 DB에 update하기
+	 * @param notice
+	 */
+	public void updateNotice(Notice notice);
+
+	/**
+	 * 공지사항 DB에서 delete하기
+	 * @param noticeNo
+	 */
+	public void deleteNotice(int noticeNo);
+
+	
 	//나만의레시피 ------------------------------------------------------------------------------------------------
 	/**
 	 * 나만의 레시피 검색조건에 따른 글 수
@@ -717,7 +737,7 @@ public interface CommunityDao {
 	 * @param beanRevComm
 	 */
 	public void updateBeanReviewCommByCommNo(BeanRevComm beanRevComm);
-	
+
 }
 
 

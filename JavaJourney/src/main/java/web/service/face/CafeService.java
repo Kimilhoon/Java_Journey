@@ -69,7 +69,7 @@ public interface CafeService {
 	 * @return 카페 리뷰 내용
 	 */
 	public List<CafeRev> selectAllRev(Cafe cafe);
-
+	
 	/**
 	 * 유저, 카페 번호 조회해서 찜 추가
 	 * @param cafeNo
@@ -83,6 +83,7 @@ public interface CafeService {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
+
 
 
 

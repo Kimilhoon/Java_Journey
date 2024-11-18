@@ -1,15 +1,17 @@
 package web.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanRev;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
@@ -111,9 +114,7 @@ public class BeanController {
 	
 	
 	@PostMapping("/info")
-	public void BeanInfoFormProc(
-				@RequestBody BeanWish beanWish
-				) {
+	public void BeanInfoFormProc(@RequestBody BeanWish beanWish) {
 		
 		log.info("beanNo: {}", beanWish.getBeanNo());
 	    log.info("userNo: {}", beanWish.getUserNo());
@@ -128,7 +129,7 @@ public class BeanController {
 		
 //		beanWish.setBeanNo(beanWish.getBeanNo());
 //		beanWish.setUserNo(beanWish.getUserNo());
-	
+	    
 	    Map<String, Integer> params = new HashMap<>();
 	    params.put("beanNo", beanWish.getBeanNo());
 	    params.put("userNo", beanWish.getUserNo());
@@ -138,7 +139,8 @@ public class BeanController {
 		} else if ("remove".equals(beanWish.getAction())) {
 	        service.removeWish(params);
 	    }
-	
+		
+	    
 	} // BeanInfoFormProc end
 
 	// /bean/info
@@ -149,42 +151,43 @@ public class BeanController {
 			@SessionAttribute(value = "userId", required = false) String userId, 
 			Model model) {
 	    
-		Bean bean = service.getBeanInfo(param);
-		log.info("bean: {}", bean);
-
-		Map<String, Object> params = new HashMap<String, Object>();
-	    
-		params.put("beanNo", param.getBeanNo());
-		params.put("userId", userId);
-	    
-		List<Map<String, Object>> member = service.getBeanMember(params);
+		// 원두 정보 불러오기
+		Bean bean = service.getBeanByBeanNo(param);
+		// 멤버 정보 불러오기
+		Member member = service.getMemberByUserId(userId);
 		
-		// 각 Map에서 userNo 값을 int로 변환
-		for (Map<String, Object> memberMap : member) {
-		    Object userNoObject = memberMap.get("USERNO");
-
-		    // userNo가 BigDecimal 또는 String일 경우 변환
-		    if (userNoObject instanceof BigDecimal) {
-		        memberMap.put("userNo", ((BigDecimal) userNoObject).intValue());
-		    } else if (userNoObject instanceof String) {
-		        try {
-		            memberMap.put("userNo", Integer.parseInt((String) userNoObject));
-		        } catch (NumberFormatException e) {
-		            log.error("userNo 값이 숫자가 아닙니다: " + userNoObject);
-		        }
-		    }
-		}
-		
-		log.info("member: {}", member);
-	    
 		model.addAttribute("bean", bean);
 		model.addAttribute("member", member);
-	    
-		String randomUUID = UUID.randomUUID().toString();
+		
+		// 랜덤 값 생성
+		String randomUUID = UUID.randomUUID().toString().split("-")[4];
 		model.addAttribute("randomUUID", randomUUID);
 	    
 	} // BeanSub(Bean param, Model model) end
+
+	@PostMapping("/sub/payment/complete")
+	public String BeanSub(@RequestBody BeanSub beanSub) {
+		
+		log.info("BeanSub: {}", beanSub);
+		
+		service.beanSubscribe(beanSub);
+		
+		return "redirect:/bean/sub/succ";
+	} // BeanSub(@RequestBody BeanSub beanSub) end
 	
+	@GetMapping("/sub/succ")
+	public void BeanSubSucc() {
+		
+	}
+	
+	@GetMapping("/sub/fail")
+	public void BeanSubFail(Bean param, Model model) {
+		
+		Bean beanNo = new Bean();
+		beanNo.setBeanNo(param.getBeanNo());
+		
+		model.addAttribute("bean", beanNo);
+	}
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------

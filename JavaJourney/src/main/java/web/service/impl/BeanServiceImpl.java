@@ -12,6 +12,7 @@ import web.dao.face.BeanDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
@@ -175,6 +176,7 @@ public class BeanServiceImpl implements BeanService {
 	public void removeWish(Map<String, Integer> params) {
 		dao.removeWish(params);
 	} // removeWish(Map<String, Integer> params) end
+
 	
 	
 //	@Override
@@ -185,12 +187,27 @@ public class BeanServiceImpl implements BeanService {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	 
+	@Override
+	public Bean getBeanByBeanNo(Bean param) {
+		return dao.selectBeanByBeanNo(param);
+	} // getBeanByBeanNo(Bean param) end
 
 
 	@Override
-	public List<Map<String, Object>> getBeanMember(Map<String, Object> params) {
-		return dao.selectBeanMember(params);
-	}
+	public Member getMemberByUserId(String userId) {
+		return dao.selectMemberByUserId(userId);
+	} // getMemberByUserId(String userId) end
+
+
+	@Override
+	public void beanSubscribe(BeanSub beanSub) {
+		dao.beanSubscribe(beanSub);
+	} // beanSubscribe(BeanSub beanSub) end
+
+
+	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------

@@ -171,7 +171,7 @@ img{
 </select>
 </div>
 </div>
-
+ 
 <div id="search" class="p-2 d-flex justify-content-between">
 <input type="text" id="keyword" name="keyword" class="form-control">
 <span id="searchIcon">

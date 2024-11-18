@@ -102,7 +102,7 @@
 		FROM cafeRev c
 		LEFT JOIN member m ON c.userNo = m.userNo
 		<where>
-		AND		cafeNo = ${ cafeNo }
+			cafeNo = ${ cafeNo }
 		</where>
 	</select>
 

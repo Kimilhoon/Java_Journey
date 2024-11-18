@@ -156,8 +156,6 @@ body {
     opacity: 1;                /* 호버 시 텍스트가 나타남 */
 }
 
-
-
 /* =================================================================== */
 #inc01 .item{width:310px}
 #inc01 .item .img{width:310px;height:310px}
@@ -173,7 +171,7 @@ body {
  		<a href="/cafe/best" style="height: 100%;" >
 			<div class="box1 bestcafe">
 			    <div class="imgbox cafebox">
-			       	<img src="<c:url value='/resources/img/welcome/bestCafe.jpg'/>" alt="베스트카페이미지" width="50%" height="100%" />
+			       	<img src="/resources/img/welcome/bestCafe.jpg" alt="베스트카페이미지" width="50%" height="100%" />
 			       	<div class="overlay-text">이달의 카페</div> <!-- 추가된 텍스트 -->
 			    </div>
 			</div>
@@ -181,7 +179,7 @@ body {
    		<a href="/bean/best"  style="height: 100%;">
 			<div class="box1 bestbean">
 			    <div class="imgbox beanbox">
-			       	<img src="<c:url value='/resources/img/welcome/bestBean.jpg'/>" alt="베스트원두이미지" width="50%" height="100%" />
+			       	<img src="/resources/img/welcome/bestBean.jpg" alt="베스트원두이미지" width="50%" height="100%" />
 			       	<div class="overlay-text">취향 조사</div> <!-- 추가된 텍스트 -->
 			    </div>
 			</div>

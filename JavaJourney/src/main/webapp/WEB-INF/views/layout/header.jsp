@@ -26,113 +26,222 @@
 
 <script type="text/javascript">
 $(function() {
-	$("#btnLogout").click(function() {
-		location.href="/member/logout;"
-	}) 
-})
+    $("#btnLogout").click(function() {
+        location.href = "/member/logout";
+    });
+});
 </script>
+
+<style>
+/* 로고 크기 조정 */
+#logo {
+	position: flex;
+    height: 100px;
+    width: 100px;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+/* 우측 상단에 회원가입, 로그인, 로그아웃 버튼 배치 */
+.loginLoc {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* 메뉴바 크기 및 텍스트 스타일 조정 */
+.navbar-nav .nav-link {
+    color: #f3e9dc !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center; /* 텍스트와 아이콘 가운데 정렬 */
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* 메뉴바 크기 조정 */
+.navbar-nav .nav-link {
+    font-size: 1.2rem; /* 크기를 조절 */
+    padding: 0.5rem 1rem;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+    background-color: #f3e9dc; /* 배경색 베이지 */
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 드롭다운에 그림자 추가 */
+    text-align: center;
+    border-radius: 0.375rem; /* 모서리 둥글게 */
+    position: absolute;
+    z-index: 1000;
+    top: 100%; /* 메뉴가 아이템 아래로 떨어지게 */
+    left: 50%;
+    transform: translateX(-50%); /* 메뉴가 정확히 가운데로 위치하게 */
+    padding: 0.5rem 0; /* 위아래 여백 추가 */
+}
+
+/* 드롭다운 아이템 스타일 */
+.dropdown-menu .dropdown-item {
+    color: #4B3621;
+    font-size: 0.95rem;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center; /* 드롭다운 아이템 텍스트 가운데 정렬 */
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #d9c3a5; /* 살짝 어두운 베이지색 */
+}
+
+/* 메뉴바를 중앙 정렬 및 폭 조정 */
+.navbar {
+    background-color: #6f4e37; /* 갈색 배경색 */
+    width: 100%;
+    padding: 0.5rem 0; /* 위아래 여백 조정 */
+}
+
+.navbar-nav {
+    gap: 1rem; /* 메뉴 간격 */
+}
+
+/* 드롭다운 메뉴가 hover 시 나타나도록 */
+.navbar-nav .nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+/* 메뉴바 전체 배경이 꽉 차도록 조정 */
+.d-flex.justify-content-center {
+    background-color: #6f4e37; /* 갈색 배경색 */
+    width: 100%;
+}
+
+/* 드롭다운 메뉴 항목 클릭 방지 */
+.navbar-nav .nav-item > a {
+    pointer-events: none; /* 클릭이 안되도록 설정 */
+}
+</style>
+
 </head>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body>
+
 <div class="d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<img src="<c:url value='/resources/img/coffeeLogo.png' />"
-alt="로고" width="200" height="200" />
+<img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="200" height="200" id="logo" />
 </a>
+
 <!-- 로그인 및 기타 링크 -->
-  <div class="d-flex align-items-center" style="width: 10%" id="loginLoc">
- 	 <div class="flex-shrink-0 mx-3">
-  		<ul style="list-style:none">
-  		<c:if test="${isLogin }">
-  			<li hidden="hidden"></li>
-  			<li>아이디 : ${userId}</li>
-  			<li>닉네임 : ${userNick}</li>
-  			<li><button id="btnLogout">로그아웃</button></li>
-		</c:if>
+ 	 <div class="flex-shrink-0 mt-4">
 		<c:if test="${empty isLogin }">
-			<li><a href="/member/join" style="text-decoration: none; color: red;">회원가입</a></li>
-      		<li><a href="/member/login" style="text-decoration: none; color: red;">로그인</a></li>
+			<div class="loginLoc">
+			<a href="/member/join" style="text-decoration: none; color: #f3e9dc;"><small>회원가입</small></a>
+			<span style="color:#f3e9dc"> | </span>
+      		<a href="/member/login" style="text-decoration: none; color: #f3e9dc;"><small>로그인</small></a>
+			</div>
 		</c:if>
-  		</ul>
   	</div>
-    <div class="flex-shrink-0 mx-5">
-      <ul style="list-style:none">
-      	<c:if test="${userNick eq 'admin' }">
-      	<li><a href="/manager/menu2" style="text-decoration: none; color: red;">관리자전용메뉴</a></li>
-      	</c:if>
+  	
+  	<c:if test="${userNick eq 'admin' }">
+	    <div class="loginLoc">
+	      <ul style="list-style:none">
+	      	<li><a href="/manager/menu" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
+	      </ul>
+	    </div>
+  	</c:if>
+  	
+  	<c:if test="${isLogin and (userNick ne 'admin') }">
+	    <div class="loginLoc">
+	      <ul style="list-style:none">
+	      	<li><span style="text-decoration: none; color: #f3e9dc;">${userNick } 님, 안녕하세요</span></li>
+	      </ul>
+	    </div>
+  	</c:if>
+  	
+	<c:if test="${isLogin }">
+		<div class="flex-shrink-0 mt-4 loginLoc">
+		    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
+		</div>
+	</c:if>
+  </div>
+
+<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
+  <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-0 d-flex justify-content-center">
+        <!-- 브랜드 메뉴 -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown fs-5 text-light" href="/brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            브랜드
+          </a>
+          <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/brand/info">브랜드소개</a></li>
+          </ul>
+        </li>
+        
+        <!-- 카페 메뉴 -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown fs-5 text-light" href="/cafe/best" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            카페
+          </a>
+          <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/cafe/best">이달의 카페</a></li>
+            <li><a class="dropdown-item" href="/cafe/all">전체 카페</a></li>
+          </ul>
+        </li>
+        
+        <!-- 원두 메뉴 -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown fs-5 text-light" href="/bean/best" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            원두
+          </a>
+          <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/bean/best">이달의 원두</a></li>
+            <li><a class="dropdown-item" href="/bean/all">전체 원두</a></li>
+          </ul>
+        </li>
+        
+        <!-- 취향조사 메뉴 -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown fs-5 text-light" href="/quiz/quiz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            취향조사
+          </a>
+          <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/quiz/quiz1">취향 원두 찾기</a></li>
+          </ul>
+        </li>
+        
+        <!-- 커뮤니티 메뉴 -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown fs-5 text-light" href="/cafereview/list" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            커뮤니티
+          </a>
+          <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/comm/creview/list">카페리뷰</a></li>
+            <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
+            <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
+            <li><a class="dropdown-item" href="/comm/myrecipe/list">나만의 레시피</a></li>
+            <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
+            <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
+            <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
+          </ul>
+        </li>
+        
+        <!-- 마이페이지 메뉴 -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown fs-5 text-light" href="/mypage/myinfo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            마이페이지
+          </a>
+          <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/mypage/myinfo">회원 정보 수정</a></li>
+            <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo}">내 취향 결과</a></li>
+            <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo}">구독 정보</a></li>
+            <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo}">찜 목록</a></li>
+            <li><a class="dropdown-item" href="/mypage/myview?userNo=${sessionScope.userNo}">작성글 확인</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
-  </div>
-</div>
-<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
-  <div class="container d-flex justify-content-center align-items-center" style="max-width: 100%;">
-    <!-- 네비게이션 메뉴 -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="dropdown-center collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class=" dropdown-center navbar-nav mb-2 mb-lg-0 d-flex justify-content-center">
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              브랜드
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/brand/info">브랜드소개</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/cafe/best" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              카페
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/cafe/best">이달의 카페</a></li>
-              <li><a class="dropdown-item" href="/cafe/all">전체 카페</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/bean/best" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              원두
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/bean/best">이달의 원두</a></li>
-              <li><a class="dropdown-item" href="/bean/all">전체 원두</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/quiz/quiz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              취향조사
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/quiz/quiz1">취향 원두 찾기</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/cafereview/list" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              커뮤니티
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/comm/creview/list">카페리뷰</a></li>
-              <li><a class="dropdown-item" href="/comm/breview/list">원두리뷰</a></li>
-              <li><a class="dropdown-item" href="/comm/freeboard/list">자유게시판</a></li>
-              <li><a class="dropdown-item" href="/comm/myrecipe/list">나만의 레시피</a></li>
-              <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
-              <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
-              <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown mx-2 px-1">
-            <a class="nav-link dropdown fs-1 text-light" href="/mypage/myinfo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              마이페이지
-            </a>
-            <ul class="dropdown-menu bg-light">
-              <li><a class="dropdown-item" href="/mypage/myinfo">회원 정보 수정</a></li>
-              <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
-              <li><a class="dropdown-item" href="/mypage/subscribe?userNo=${sessionScope.userNo }">구독 정보</a></li>
-              <li><a class="dropdown-item" href="/mypage/like?userNo=${sessionScope.userNo }">찜 목록</a></li>
-              <li><a class="dropdown-item" href="/mypage/myview?userNo=${sessionScope.userNo }">작성글 확인</a></li>
-              <li><a class="dropdown-item" href="/mypage/quizres?userNo=${sessionScope.userNo }">내 취향 결과</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-</div>
+  </nav>
 </div>

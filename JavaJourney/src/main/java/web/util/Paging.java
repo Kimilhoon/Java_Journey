@@ -55,6 +55,17 @@ public class Paging {
 		this.pageCount = pageCount;
 		this.makePaging();
 	}
+	
+	public Paging(int curPage, int totalCount, int listCount, int totalPage, int startPage, int endPage, int pageCount) {
+		super();
+		this.curPage = curPage;
+		this.totalCount = totalCount;
+		this.listCount = listCount;
+		this.totalPage = totalPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.pageCount = pageCount;
+	}
 
 	@Override
 	public String toString() {
@@ -181,8 +192,8 @@ public class Paging {
 
 		// 화면에 보이는 게시글의 시작, 끝번호 계산
 		startNo = (curPage-1)*listCount+1; 
-		endNo = curPage * listCount;
-		
+//		endNo = curPage * listCount;
+		endNo = Math.min(curPage * listCount, totalCount);
 		
 		
 		
