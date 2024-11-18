@@ -1,5 +1,6 @@
 package web.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,16 @@ public class BeanServiceImpl implements BeanService {
 	
 	@Override
 	public List<Bean> getBeanTop() {
-		return dao.selectBeanTop();
+		
+		List<Bean> list = dao.selectBeanTop();
+		
+		List<List<Bean>> bList = new ArrayList<List<Bean>>();
+		
+		for(Bean b : list) {
+			
+		}
+		
+		return list;
 	} // getBeanTop() end
 
 	
