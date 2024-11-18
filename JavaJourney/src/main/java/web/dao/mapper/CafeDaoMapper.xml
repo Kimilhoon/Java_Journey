@@ -26,30 +26,33 @@
    <select id="selectCafeCount" resultType="Cafe">
    	SELECT count(cafeNo) as cafeCount FROM cafe
    </select>
-   
-<!--    <select id="selectAll" resultType="Cafe"> -->
-<!--       SELECT -->
-<!--          cafeNo, imgNo, cafeName, cafeComm, cafePhone,  -->
-<!--          busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo -->
-<!--       FROM cafe -->
-<!--       ORDER BY cafeNo -->
-<!--    </select> -->
 
    <select id="selectAll" resultType="Cafe" parameterType="web.util.Paging">
-      SELECT * FROM (
-         SELECT rowNum rNum, C.* 
-         FROM (
-            SELECT
-               cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
-               busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
-               cafeImgOriName, cafeImgStoName, cafeImgSize
-            FROM cafe c
-            INNER JOIN cafeImg i ON c.imgNo = i.cafeImgNo
-            ORDER BY cafeNo DESC
-         ) C
-      ) cafe
-      WHERE rNum BETWEEN #{ startNo } AND #{ endNo }
+	    SELECT 
+	        c.cafeNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, 
+	        c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo, 
+	        i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize, 
+	        NVL(r.reviewCount, 0) AS reviewCount, 
+	        NVL(ROUND(r.avgRevStarPoint, 1), 0) AS avgRevStarPoint
+	    FROM 
+	        cafe c
+	    INNER JOIN 
+	        cafeImg i ON c.imgNo = i.cafeImgNo
+	    LEFT JOIN 
+	        (SELECT 
+	             cafeNo, 
+	             COUNT(*) AS reviewCount, 
+	             AVG(revsp) AS avgRevStarPoint
+	         FROM 
+	             cafeRev
+	         GROUP BY 
+	             cafeNo) r 
+	    ON 
+	        c.cafeNo = r.cafeNo
+	    ORDER BY 
+	        avgRevStarPoint DESC
    </select>
+
    
    <select id="selectCntAll" resultType="int" parameterType="hashmap">
         SELECT count(*) 
