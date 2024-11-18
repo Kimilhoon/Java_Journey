@@ -67,6 +67,18 @@
 #searchText {
     width: 200px; /* Adjust the width as needed */
 }
+
+#btnSearch {
+    width: 19%;
+    padding: 9px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
 </style>
 
 
@@ -163,23 +175,23 @@
 <!-- 페이징 처리 -->
 <div class="pagination justify-content-center" >
     <c:if test="${paging.curPage > 1}" >
-        <a href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" class="start"><<</a>
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 1}&category=${category}&search=${search}" class="prev">이전</a>
+        <a href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" class="start" style="background: #ebddcc; color: black; border: 1px solid #ebddcc; padding: 8px 16px;"><<</a>
+        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 1}&category=${category}&search=${search}" class="prev" style="color: black; border: 1px solid #ebddcc; padding: 8px 16px;">이전</a>
     </c:if>
 
     <!-- 페이지 번호 출력 -->
     <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
         <c:if test="${i == paging.curPage}">
-            <span class="current">${i}</span>
+            <span class="current" style="background: #6f4e37; color: white; border: 1px solid #6f4e37; padding: 8px 16px; font-weight: bold; ">${i}</span>
         </c:if>
         <c:if test="${i != paging.curPage}">
-            <a href="/mypage/myview?userNo=${userNo}&curPage=${i}&category=${category}&search=${search}" class="page">${i}</a>
+            <a href="/mypage/myview?userNo=${userNo}&curPage=${i}&category=${category}&search=${search}" class="page" style="color: black; border: 1px solid #ebddcc; padding: 8px 16px; font-weight: bold; text-decoration: none;">${i}</a>
         </c:if>
     </c:forEach>
 
     <c:if test="${paging.curPage < paging.totalPage}">
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 1}&category=${category}&search=${search}" class="next">다음</a>
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" class="next">>></a>
+        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 1}&category=${category}&search=${search}" class="next" style=" color: black; border: 1px solid #ebddcc; padding: 8px 16px;">다음</a>
+        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" class="next" style="background: #ebddcc; color: black; border: 1px solid #ebddcc; padding: 8px 16px;">>></a>
     </c:if>
 </div>
 
