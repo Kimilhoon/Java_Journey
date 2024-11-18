@@ -6,20 +6,34 @@
 <mapper namespace="web.dao.face.BeanDao">
 	
 	<select id="selectBeanTop" resultType="Bean">
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rowNum rNum, B.* FROM ( -->
+<!-- 				SELECT  -->
+<!-- 					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo, -->
+<!-- 					beanOriginname, beanStoredname, beanImgSize, bs.gram, -->
+<!-- 					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount, -->
+<!-- 					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint -->
+<!-- 				FROM bean b -->
+<!-- 				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo -->
+<!-- 				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo -->
+<!-- 				ORDER BY reviewCount DESC -->
+<!-- 			) B -->
+<!-- 		) -->
+<!-- 		WHERE rNum &lt;= 3 -->
+		
 		SELECT * FROM (
-			SELECT rowNum rNum, B.* FROM (
-				SELECT 
-					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo,
-					beanOriginname, beanStoredname, beanImgSize, bs.gram,
-					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount,
-					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint
-				FROM bean b
-				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
-				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo
-				ORDER BY reviewCount DESC
-			) B
+			SELECT rownum rnum ,b.*,bi.BEANORIGINNAME ,revcnt.reviewCount, revcnt.avgRevStarPoint FROM (
+				SELECT a.beanno,a.reviewCount, a.avgRevStarPoint FROM (
+					SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
+					WHERE qq.BEANNO = ww.BEANNO) a
+				GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
+			)revcnt , bean b, BEANIMG bi
+			WHERE b.BEANNO = revcnt.beanno
+			AND b.BEANIMGNO = bi.BEANIMGNO 
 		)
-		WHERE rNum &lt;= 3
+		WHERE rnum BETWEEN 1 AND 3
+		ORDER BY rnum DESC
+		
 	</select>
 	
 	<select id="selectBeanCount" resultType="Bean">
