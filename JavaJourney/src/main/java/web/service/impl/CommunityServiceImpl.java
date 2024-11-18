@@ -694,7 +694,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public int getUserNo(String userId) {
 		
 		return dao.selectUsernoByUserid(userId);
-	}
+	} 
 	
 	@Override
 	public void joinCafeReview(CafeRev cafeRev) {
@@ -818,6 +818,11 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void eventDeleteByEventNo(Event event) {
 		dao.deleteEventByEventNo(event);
+	}
+	
+	@Override
+	public void changeEvent(Event event) {
+		dao.updateEventByEventNo(event);
 	}
 	
 	

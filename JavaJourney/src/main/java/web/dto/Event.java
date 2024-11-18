@@ -10,7 +10,8 @@ public class Event {
 //	
 	//변경할 event DTO
 	private int eventNo;
-	private String eveOriName;
+	private String eventName;
+	private String eventBanner;
 	@DateTimeFormat(pattern = "yyyy-MM-dd") private Date eveStart;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") private Date eveEnd;
 	private String eveImg;
