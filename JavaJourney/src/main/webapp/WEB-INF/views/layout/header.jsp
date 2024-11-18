@@ -245,4 +245,3 @@ $(function() {
     </div>
   </nav>
 </div>
-
