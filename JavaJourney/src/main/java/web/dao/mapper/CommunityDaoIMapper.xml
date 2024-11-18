@@ -820,8 +820,6 @@
 		WHERE commno = #{commNo }
 	</update>
 	
-	
-	
 </mapper>
 
 

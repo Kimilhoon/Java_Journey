@@ -44,7 +44,7 @@ $(function() {
 	    function sendWishData(beanNo, userNo, action) {
 	    	
 	        $.ajax({
-	            url: './info',  // 요청 URL
+	            url: '/bean/info',  // 요청 URL
 	            type: 'POST',
 	            contentType: 'application/json',  // JSON 형식
 	            data: JSON.stringify({ 
@@ -166,6 +166,8 @@ $(function() {
 #beanComm p{
 	width: 840px;
 	height: 300px;
+	
+	word-break: keep-all;
 }
 
 .custom-imgae{
@@ -222,7 +224,7 @@ $(function() {
 </div>
 
 <div id="beanComm">
-<p>${ beanInfo.beanComm }</p>
+<p id="beanCommTag">${ beanInfo.beanComm }</p>
 <!-- <p>다아한 탱산뎌언인은 헐즛구에해의 로렘입숨 테스트 데이터 잘 보고 갑니다 ㅎㅎ 넘 ㅜ좋으네여 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를. </p> -->
 </div>
 
@@ -330,7 +332,7 @@ $(function() {
 </div>
 ${ beanInfo.beanInfo }
 </div>
-
+ 
 <div id="beanReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 <div>
 <p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>

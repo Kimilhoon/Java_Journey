@@ -38,7 +38,7 @@ $(function() {
 	position: flex;
     height: 100px;
     width: 100px;
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 20px;
 }
 
@@ -133,12 +133,7 @@ $(function() {
 </a>
 
 <!-- 로그인 및 기타 링크 -->
- 	 <div class="flex-shrink-0">
-  		<c:if test="${isLogin }">
-			<div class="loginLoc">
-			    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
-			</div>
-		</c:if>
+ 	 <div class="flex-shrink-0 mt-4">
 		<c:if test="${empty isLogin }">
 			<div class="loginLoc">
 			<a href="/member/join" style="text-decoration: none; color: #f3e9dc;"><small>회원가입</small></a>
@@ -149,12 +144,26 @@ $(function() {
   	</div>
   	
   	<c:if test="${userNick eq 'admin' }">
-	    <div class="flex-shrink-0 mt-4 loginLoc">
+	    <div class="loginLoc">
 	      <ul style="list-style:none">
 	      	<li><a href="/manager/menu" style="text-decoration: none; color: yellow;">관리자전용메뉴</a></li>
 	      </ul>
 	    </div>
   	</c:if>
+  	
+  	<c:if test="${isLogin and (userNick ne 'admin') }">
+	    <div class="loginLoc">
+	      <ul style="list-style:none">
+	      	<li><span style="text-decoration: none; color: #f3e9dc;">${userNick } 님, 안녕하세요</span></li>
+	      </ul>
+	    </div>
+  	</c:if>
+  	
+	<c:if test="${isLogin }">
+		<div class="flex-shrink-0 mt-4 loginLoc">
+		    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
+		</div>
+	</c:if>
   </div>
 
 <div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
@@ -236,5 +245,4 @@ $(function() {
     </div>
   </nav>
 </div>
-
 

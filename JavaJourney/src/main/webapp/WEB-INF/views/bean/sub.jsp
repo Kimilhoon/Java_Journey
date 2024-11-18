@@ -54,6 +54,8 @@ $(document).ready(function() {
 	grindRadios.change(function() {
 		selectedGrind.text( $(this).val() );
 	});
+	
+
 }); // $(document).ready(function() end
 
 		
@@ -70,11 +72,11 @@ $("#subBtn").on("click", function () {
 
 function calculateTotal() {
 	// 가격과 gram 가져오기
-	var price = parseInt($("#beanPrice").val());
-	var gram = parseInt($("input[name='gram']:checked").val());
+	const price = parseInt($("#beanPrice").val());
+	const gram = parseInt($("input[name='gram']:checked").val());
 	
 	// 총 가격 계산
-	var totalPrice = price * gram;
+	const totalPrice = price * gram;
 	
 	// 결과를 totalPrice 요소에 설정
 	$("#totalPrice").text(totalPrice);
@@ -98,38 +100,47 @@ $("#CancelBtn").click(function() {
 /* SDK 초기화 */ 
 // IMP.init("imp72523611");
 
-function requestPayment() {
+
+async function requestPayment() {
 
 	const totalAmount = parseInt($("#totalPrice").text());
 	const paymentId = `payment-${randomUUID}`;
-	const orderName = "${ bean.beanName }";
-	const customerId = "${ member.userNo }";
-	const fullname = "${ member.userName }";
-	const phoneNumber = "${ member.userPhone }"
-	const email = "${ member.userEmail }"
-	const addressLine1 = "${ member.userAdd1 }"
-	const addressLine2 = "${ member.userAdd2 }"
-	const zipcode = "${ member.userPostcode }"
+	const orderName = `${bean.beanName}`;
+	const customerId = `${member.userNo}`;
+	const fullname = `${member.userName}`;
+	const phoneNumber = `${member.userPhone}`;
+	const email = `${member.userEmail}`;
+	const addressLine1 = `${member.userAdd1}`;
+	const addressLine2 = `${member.userAdd2}`;
+	const zipcode = `${member.userPostcode}`;
+	const beanNo = `${bean.beanNo}`;
+	const gram = parseInt($("input[name='gram']:checked").val());
+	const grind = $("input[name='grind']:checked").val();
+	const subTime = $("input[name='subTime']:checked").val();
 	
-	console.log(totalAmount)
-	console.log(paymentId)
-	console.log(orderName)
-	console.log(customerId)
-	console.log(fullname)
-	console.log(phoneNumber)
-	console.log(email)
-	console.log(addressLine1)
-	console.log(addressLine2)
-	console.log(zipcode)
+	console.log(totalAmount);
+	console.log(paymentId);
+	console.log(orderName);
+	console.log(customerId);
+	console.log(fullname);
+	console.log(phoneNumber);
+	console.log(email);
+	console.log(addressLine1);
+	console.log(addressLine2);
+	console.log(zipcode);
+	console.log(beanNo);
+	console.log(gram);
+	console.log(grind);
+	console.log(subTime);
 	
-	PortOne.requestPayment({
+	const response = PortOne.requestPayment({
 		// Store ID 설정
 		storeId: "store-be1fa1df-6baa-44e7-ba56-8e23cd18366d",
 		// 채널 키 설정
 		channelKey: "channel-key-67189232-0ce2-4acf-ab99-4a03ee845cb5",
 		paymentId: paymentId,
 		orderName: orderName,
-		totalAmount: totalAmount,
+		totalAmount: 1000,
 		currency: "KRW",
 		payMethod: "CARD",
 		customer: {
@@ -143,12 +154,44 @@ function requestPayment() {
 			},
 			zipcode: zipcode
 		}
+	}); // const response = PortOne.requestPayment({ end
+		
+	if (response.code !== undefined) {
+		// 오류 발생
+		$(location).attr('href', '/bean/sub/fail?beanNo=' + beanNo);
+	}
+ 
+// 	const URL = 'http://localhost:8088/bean/sub?beanNo=' + `${ bean.beanNo }` + '/payment/complete'
+// 	const URL = 'http://localhost:8088/bean/sub/payment/complete'
+	
+	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
+	const notified = await fetch('http://localhost:8088/bean/sub/payment/complete', {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+		// paymentId와 주문 정보를 서버에 전달합니다
+		body: JSON.stringify({
+			paymentId: paymentId,
+			beanNo: beanNo,
+			orderName: orderName,
+			totalAmount: 10000,
+			customerId: customerId,
+			fullName: fullname,
+			phoneNumber: phoneNumber,
+			email: email,
+			addressLine1: addressLine1,
+			addressLine2: addressLine2,
+			zipcode: zipcode,
+			gram: gram,
+			grind: grind,
+			subTime: subTime,
+	    }),
 	});
+
 
 }; // function requestPayment() end
 
 
-}) // $(function() end
+}); // $(function() end
 
 // document.addEventListener("DOMContentLoaded", function() {
 // 	// 각 라디오 그룹에 대한 요소 선택

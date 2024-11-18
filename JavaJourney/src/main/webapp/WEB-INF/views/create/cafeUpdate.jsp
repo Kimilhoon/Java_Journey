@@ -31,6 +31,25 @@ $(function() {
         position: map.getCenter()
     });
     marker.setMap(map);
+    
+    // 페이지 로드 시 cafeAdd1(주소)에 따른 지도 위치 업데이트
+    var savedAddress = $("#cafeAdd1").val(); // 저장된 주소 가져오기
+    if (savedAddress) {
+        var geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(savedAddress, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var lat = result[0].y;
+                var lon = result[0].x;
+                var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+                // 지도 중심 이동
+                map.setCenter(moveLatLon);
+                marker.setPosition(moveLatLon);
+            } else {
+                console.error("지도 초기화 중 주소 검색 실패:", status);
+            }
+        });
+    }    
 
     // 우편번호 찾기 버튼 클릭
     $("#btnPostcode").click(function(e) {
@@ -97,6 +116,7 @@ $(function() {
 	});
     
   }); //$(function() end
+		  	  
 </script>
  
 
@@ -161,23 +181,25 @@ $(function() {
 	<tr>
 		<td>카페 메인사진[이미지]]</td>
 		<td>
-		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control" rows="4" cols="4">${cafeImg.cafeImgOriName}</textarea>
+		<textarea id="cafeImgOriName" name="cafeImgOriName" class="form-control" rows="4" cols="4">${cafe.cafeImgOriName}</textarea>
 		</td>		
 
 	</tr>
+	
 	<tr>
 		<td>카페 지역</td>
 		<td>
-		<select id="category">
+		<select id="category" name="cafeLoc">
 	      <option hidden="none"></option>
-	      <option value="서울">서울</option>
-	      <option value="경기">경기</option>
-	      <option value="인천">인천</option>
-	      <option value="부산">부산</option>
-	      <option value="제주">제주</option>  
+	      <option value="서울" ${cafe.cafeLoc == '서울' ? 'selected' : ''}>서울</option>
+	      <option value="경기" ${cafe.cafeLoc == '경기' ? 'selected' : ''}>경기</option>
+	      <option value="인천" ${cafe.cafeLoc == '인천' ? 'selected' : ''}>인천</option>
+	      <option value="부산" ${cafe.cafeLoc == '부산' ? 'selected' : ''}>부산</option>
+	      <option value="제주" ${cafe.cafeLoc == '제주' ? 'selected' : ''}>제주</option>  
   		 </select>
-   </td>
+  		</td>
 	</tr>
+	
 	<tr>
 		<td>카페 상세설명</td>
 		<td>
