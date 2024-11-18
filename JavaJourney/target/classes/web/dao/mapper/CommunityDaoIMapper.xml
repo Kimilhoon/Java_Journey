@@ -846,6 +846,16 @@
 		WHERE commno = #{commNo }
 	</update>
 	
+	<select id="selectBeanRevByBeanRevNo" parameterType="BeanRev" resultType="BeanRev">
+		SELECT br.revNo,b.beanNo,b.beanName,c.cupNoteNo,c.cupNoteName,br.subNo,br.userNo,br.revCont,br.revHit,br.revDate,br.revStarPoint, m.userNick
+		FROM BEANREV br ,BEAN b , BEANTASTE bt, CUPNOTE c , member m
+		WHERE br.BEANNO = b.BEANNO 
+		AND b.BEANNO = bt.BEANNO 
+		AND bt.CUPNOTENO = c.CUPNOTENO 
+		AND m.userno = br.userno
+		AND revno = #{revNo}
+	</select>
+	
 </mapper>
 
 
