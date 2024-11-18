@@ -46,6 +46,13 @@ public interface ManagerService {
 	 */
 	public List<BeanSub> selectBeanSubAll(Paging paging);
 	
+	/**
+	 * 구독유저 취소
+	 * @param subNo
+	 * @return
+	 */
+	public boolean subCancelBySubNo(List<Integer> subNo);
+	
 
 	
 	

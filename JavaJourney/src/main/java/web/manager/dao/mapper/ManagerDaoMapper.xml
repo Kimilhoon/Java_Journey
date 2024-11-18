@@ -67,4 +67,24 @@
     </where>
 	</select>
 	
+	<select id="selectBeanSubCancelByBeanSub" resultType="boolean" parameterType="int">
+			SELECT 
+				CASE 
+					WHEN NONSUB = 'N' THEN 'TRUE'
+					ELSE 'FALSE'
+				END AS RESULT
+			FROM BEANSUB
+			WHERE SUBNO = #{subNo}
+	</select>
+	
+	<update id="subNoSubCancenBySubNoForUpdate" parameterType="int">
+		UPDATE BEANSUB
+		<set>
+			NONSUB = 'N'
+		</set>
+		<where>
+			SUBNO = #{subNo}
+		</where>
+	</update>
+	
 </mapper>

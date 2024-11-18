@@ -49,6 +49,19 @@ public interface ManagerDao {
 	 * @return
 	 */
 	public List<BeanSub> selectAllBeanSubUser(Paging paging);
+	
+	/**
+	 * 구독유저가 이미 취소되었는지 확인하기 ( 오류 방지용 )
+	 * @param no
+	 * @return
+	 */
+	public boolean selectBeanSubCancelByBeanSub(Integer no);
+	
+	/**
+	 * 구독유저를 취소로 바꾸기
+	 * @param no
+	 */
+	public void subNoSubCancenBySubNoForUpdate(Integer no);
 
 	
 

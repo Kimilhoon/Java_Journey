@@ -85,7 +85,20 @@ public class ManagerServiceImpl implements ManagerService {
 	public List<BeanSub> selectBeanSubAll(Paging paging) {
 		return dao.selectAllBeanSubUser(paging);
 	}
-
+	
+	@Override
+	public boolean subCancelBySubNo(List<Integer> subNo) {
+		for(Integer No : subNo) {
+			if( dao.selectBeanSubCancelByBeanSub(No)) {
+				log.info("구독을 이미 취소한 유저");
+				return false;
+			} else {
+				dao.subNoSubCancenBySubNoForUpdate(No);
+			}
+		}
+		return true;
+	}
+	
 }
 
 

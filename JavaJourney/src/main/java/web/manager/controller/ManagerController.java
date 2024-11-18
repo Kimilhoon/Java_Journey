@@ -81,4 +81,29 @@ public class ManagerController {
 		model.addAttribute("paging",paging);
 	}
 	
+	@GetMapping("/subcancel")
+	@ResponseBody
+	public Map<String, Object> subCancelProcAjax(
+		@RequestParam("subNo") List<Integer> subNo
+			) {
+		log.info("subNo : {}", subNo);
+		
+		boolean isSubCancel = service.subCancelBySubNo(subNo);
+		Map<String, Object> result = new HashMap<>();
+
+		if( isSubCancel ) {
+			result.put("status", "success");
+			result.put("message", "구독이 성공적으로 취소되었습니다");
+		} else {
+			result.put("status", "fail");
+			result.put("message", "알수없는 이유로 구독취소가 중단되었습니다");
+		}
+		return result;
+	
+	}
+	
+	
+	
+	
+	
 }
