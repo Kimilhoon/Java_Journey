@@ -8,7 +8,8 @@
 
 <script type="text/javascript">
 $(function() {
-	
+	if(${not empty isLogin}){
+		
 	$.ajax({
 		url: "./reccheck?freeBoardNo="+${freeBoardView.freeBoardNo },
 		type: "get",
@@ -25,6 +26,7 @@ $(function() {
 			
 		}
 	});
+	}
 	
 	
 	
@@ -67,6 +69,16 @@ $(function() {
 	
 	$("#btn_rec").click(function() {
 		
+		if(${empty isLogin}){
+			var login = confirm("로그인 후 이용가능한 서비스입니다. 로그인 하시겠습니까?");
+			if(login){
+				location.href = "/member/login";
+				return;
+			}
+			return false;
+			
+		}
+		
 		$.ajax({
 			url: "./recommend?freeBoardNo="+${freeBoardView.freeBoardNo },
 			type: "get",
@@ -95,7 +107,12 @@ $(function() {
 	};
 
 	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	var marker = new kakao.maps.Marker({
+        position: map.getCenter()	
+    });
 	
+    marker.setMap(map);
+    
 	$(".btn_reply").click(function() {
 		
 		var content = '<tr>'

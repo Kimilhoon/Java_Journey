@@ -68,8 +68,8 @@ alt="로고" width="200" height="200" />
   <div class="container d-flex justify-content-center align-items-center" style="max-width: 100%;">
     <!-- 네비게이션 메뉴 -->
     <nav class="navbar navbar-expand-lg">
-      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center">
+      <div class="dropdown-center collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul class=" dropdown-center navbar-nav mb-2 mb-lg-0 d-flex justify-content-center">
           <li class="nav-item dropdown mx-2 px-1">
             <a class="nav-link dropdown fs-1 text-light" href="/brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               브랜드
