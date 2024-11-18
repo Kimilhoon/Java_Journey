@@ -554,7 +554,7 @@ public interface CommunityService {
 	 * @param paging
 	 * @return
 	 */
-	public List<BeanRev> getBeanReviewList(String category, String order, String search, Paging paging);
+	public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging);
 
 	/**
 	 * 원두 리뷰 페이징
