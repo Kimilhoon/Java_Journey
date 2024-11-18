@@ -76,7 +76,7 @@ function calculateTotal() {
 	const gram = parseInt($("input[name='gram']:checked").val());
 	
 	// 총 가격 계산
-	const totalPrice = price * gram;
+	const totalPrice = price * gram / 100;
 	
 	// 결과를 totalPrice 요소에 설정
 	$("#totalPrice").text(totalPrice);

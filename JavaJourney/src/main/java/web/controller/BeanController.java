@@ -172,6 +172,8 @@ public class BeanController {
 		
 		service.beanSubscribe(beanSub);
 		
+		log.info("Redirecting to /bean/sub/succ after bean subscription.");
+		
 		return "redirect:/bean/sub/succ";
 	} // BeanSub(@RequestBody BeanSub beanSub) end
 	
