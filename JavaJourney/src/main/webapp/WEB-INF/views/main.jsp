@@ -41,7 +41,8 @@ $(function () {
                                 ${bean.beanOriginName}
                             </div>
                         </a>
-                        <p class="fw-bold fs-4">${bean.beanName}(${bean.gram}g)</p>
+<%--                         <p class="fw-bold fs-4">${bean.beanName}(${bean.gram}g)</p> --%>
+                        <p class="fw-bold fs-4">${bean.beanName}</p>
                         <p>${bean.origin}</p>
                         <p>리뷰 : ${bean.reviewCount}</p>
                         <p>★( ${bean.avgRevStarPoint} )</p>
