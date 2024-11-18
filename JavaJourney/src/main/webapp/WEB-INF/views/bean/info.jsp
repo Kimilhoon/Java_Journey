@@ -54,6 +54,10 @@ $(function() {
 	            }),
 	            dataType: "json",  // 서버에서 JSON 응답을 받을 때
 	            success: function(response) {
+	            	
+	            	console.log("Action:", action);
+	            	console.log("Response:", response);
+	            	
 	                if (action === 'add') {
 	                    console.log('찜 상태가 추가되었습니다.');
 	                    
@@ -62,8 +66,11 @@ $(function() {
 	                    
 	                }
 	            },
-	            error: function() {
+	            error: function(xhr, status, error) {
 	                console.error("AJAX 요청에 실패했습니다.");
+	                console.log("Status:", status);
+	                console.log("Error:", error);
+	                console.log("Response Text:", xhr.responseText);
 	            }
 	        })
 	    };
