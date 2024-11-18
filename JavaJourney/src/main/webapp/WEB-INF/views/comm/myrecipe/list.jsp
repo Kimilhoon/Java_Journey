@@ -10,24 +10,30 @@ $(function() {
 	$(document).on("click", "#btn_search", function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
-		$.ajax({
-			url: "./list",
-			type: "get",
-			data:{
-				"search":$("#search").val(),
-			},
-			dataType: "html",
-			success: function(res) {
-// 				console.log(res);
-				$("body").children().remove();
-				$("body").html(res); 
-// 				location.href=location.href;
-			},
-			error: function() {
+// 		$.ajax({
+// 			url: "./list",
+// 			type: "get",
+// 			data:{
+// 				"search":$("#search").val(),
+// 				"searchType":$("#searchType").val()
+// 			},
+// 			dataType: "html",
+// 			success: function(res) {
+// // 				console.log(res);
+// 				const c = $("<div>").html(res).find("#listtable").html();
+// // 				console.log(c);
 				
-			}
+// 				$("#listtable").children().remove();
+// 				$("#listtable").html(c); 
+// // 				location.href=location.href;
+// 			},
+// 			error: function() {
+				
+// 			}
 			
-		});
+// 		});
+		location.href="./list?search="+$("#search").val()+"&searchType="+$("#searchType").val()+"&order=${order}";
+
 		
 	});
 	
@@ -71,9 +77,33 @@ a {
 </style>
 <div class="container" >
 
-<div id="searchbox" class="d-flex justify-content-end align-items-center mb-3">
-<input type="text" id="search" class="form-control me-2 col-6" placeholder="검색어를 입력하세요."><button id="btn_search" class="btn "><i class="bi bi-search"></i></button>
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./list">myrecipe</a></li>
+		<li class="breadcrumb-item active" aria-current="page">list</li>
+	</ol>
+</nav>
+
+<div id="order_search_wrap">
+<div id="order" style="float: left;">
+<a href="./list?search=${search}&searchType=${searchType}&order=W" id="W">최근리뷰순</a>
+<span>|</span>
+<a href="./list?search=${search}&searchType=${searchType}&order=R" id="R">추천순</a>
+<span>|</span>
+<a href="./list?search=${search}&searchType=${searchType}&order=C" id="C">댓글많은순</a>
 </div>
+
+<div id="search_div">
+	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+	<select id="searchType" class="form-select" style="width: 150px; float: right; display: inline-block;">
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+		<option value="titlecontent">제목 + 내용</option>
+	</select>
+</div>
+</div>
+<div id="listtable">
 <table class="table text-center">
 <thead>
 	<tr>
@@ -116,6 +146,7 @@ a {
 	</c:forEach>
 </tbody>
 </table>
+</div>
 <a href="./write"><button class="btn  ms-2">글쓰기</button></a>
 <div>
 <%-- 	<a href="./list?curPage=${paging.curPage-1  }&search=${search}&category=${category}">이전</a> --%>

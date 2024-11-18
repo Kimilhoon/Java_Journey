@@ -34,7 +34,7 @@ $(function() {
 		<li><a class="dropdown-item" href="/manager/user" style="text-decoration: none; color: black;">유저관리</a></li>
 		<li><a class="dropdown-item" href="/manager/subuser" style="text-decoration: none; color: black;">구독관리</a></li>
 		<li><a href="/comm/notice/write" style="text-decoration: none; color: black;">공지사항등록</a></li>
-		<li><a href="/comm/event/event" style="text-decoration: none; color: black;">이벤트등록</a></li>
+		<li><a href="/comm/event/write" style="text-decoration: none; color: black;">이벤트등록</a></li>
 	</ul>
 	</li>
 </ul>
@@ -66,13 +66,13 @@ $(function() {
 <!-- 자게, 나만의레시피, 공지 -->
 	<li><a href="/comm/freeboard/list" style="text-decoration: none; color: black;">자유게시판</a></li>
 	<li><a href="/comm/myrecipe/list" style="text-decoration: none; color: black;">나만의레시피</a></li>
-	<li><a href="/comm/event/event" style="text-decoration: none; color: black;">이벤트</a></li>
+	<li><a href="/comm/event/list" style="text-decoration: none; color: black;">이벤트</a></li>
 	<li><a href="/comm/notice/list" style="text-decoration: none; color: black;">공지사항</a></li>
 	<li><a href="/comm/faq/list" style="text-decoration: none; color: black;">자주묻는질문</a></li>
 </ul>
 </div>
 
-<iframe id="target-element" src="/" style="margin-left: 240px; width: 1870px; height: 930px;
+<iframe id="target-element" src="/" style="margin-left: 240px; width: 1600px; height: 930px;
 overflow: hidden; border: 1px solid #ccc;"></iframe>
 
 

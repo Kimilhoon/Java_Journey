@@ -67,6 +67,7 @@ public class CafeController {
 		model.addAttribute("location", location);
 		model.addAttribute("keyword", keyword);
 		
+		log.info("AllCafeForm 호출 성공");
 	} // AllCafeForm() end
 	
 	
@@ -103,6 +104,12 @@ public class CafeController {
 		log.info("list: {}", list);
 		
 		model.addAttribute("list", list);
+
+		//주소 정보 추가
+		String savedAddress = cafeInfo.getCafeAdd1(); // 카페 주소
+	    model.addAttribute("savedAddress", savedAddress);
+
+	    log.info("Saved Address: {}", savedAddress);
 		
 	} // CafeInfoForm(Cafe) end
 	
@@ -123,6 +130,8 @@ public class CafeController {
 	    }
 		
 	}
+	
+	
 	
 	
 } // class end

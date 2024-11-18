@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 
 <script type="text/javascript">
-$(function() {
+$(async function() {
 	
 // 	// 요소 선택
 // 	const legend = document.getElementById("legend");
@@ -31,7 +31,7 @@ $(function() {
 // 	    description.style.display = "none";
 // 	});
 
-$(document).ready(function() {
+$(document).ready( async function() {
 	// 각 라디오 그룹에 대한 요소 선택
 	const gramRadios = $("input[name='gram']");
 	const periodRadios = $("input[name='subTime']");
@@ -60,7 +60,7 @@ $(document).ready(function() {
 
 		
 //버튼 클릭 시 총 가격 계산 후 결제 요청 함수 호출
-$("#subBtn").on("click", function () {
+$("#subBtn").on("click", async function () {
 
 	 $(this).prop("disabled", true);
 	
@@ -70,13 +70,13 @@ $("#subBtn").on("click", function () {
 });
 
 
-function calculateTotal() {
+async function calculateTotal() {
 	// 가격과 gram 가져오기
 	const price = parseInt($("#beanPrice").val());
 	const gram = parseInt($("input[name='gram']:checked").val());
 	
 	// 총 가격 계산
-	const totalPrice = price * gram;
+	const totalPrice = price * gram / 100;
 	
 	// 결과를 totalPrice 요소에 설정
 	$("#totalPrice").text(totalPrice);
@@ -133,7 +133,7 @@ async function requestPayment() {
 	console.log(grind);
 	console.log(subTime);
 	
-	const response = PortOne.requestPayment({
+	const response = await PortOne.requestPayment({
 		// Store ID 설정
 		storeId: "store-be1fa1df-6baa-44e7-ba56-8e23cd18366d",
 		// 채널 키 설정
@@ -155,16 +155,20 @@ async function requestPayment() {
 			zipcode: zipcode
 		}
 	}); // const response = PortOne.requestPayment({ end
-		
-	if (response.code !== undefined) {
+// 		console.log("리스폰슴ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ");
+// 		console.log(response);
+	if (response.code != undefined) {
 		// 오류 발생
-		$(location).attr('href', '/bean/sub/fail?beanNo=' + beanNo);
+		location.href = '/bean/sub/fail?beanNo=' + beanNo;
+	    return;
+		
 	}
  
 // 	const URL = 'http://localhost:8088/bean/sub?beanNo=' + `${ bean.beanNo }` + '/payment/complete'
 // 	const URL = 'http://localhost:8088/bean/sub/payment/complete'
 	
 	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
+	
 	const notified = await fetch('http://localhost:8088/bean/sub/payment/complete', {
 	method: "POST",
 	headers: { "Content-Type": "application/json" },
@@ -186,8 +190,21 @@ async function requestPayment() {
 			subTime: subTime,
 	    }),
 	});
+// 	console.log(notified);
+	if(notified.ok){
+		console.log("결제 완ㄹ효");
+		location.href = '/bean/sub/succ?beanNo=' + beanNo + "&&beanName=" + orderName + "&&userName=" + fullname;
+	}
+// 	}else{
+// 		console.log("결제ㅌㅌㅌㅌㅌㅌㅌ");
+// 		location.href = "./sub/fail";
+		
+// 	}
+	
 
 
+	        
+	
 }; // function requestPayment() end
 
 
@@ -248,7 +265,13 @@ async function requestPayment() {
 <style type="text/css">
 
 #beanSubInfo{
-	font-size: xx-large;
+	font-size: 30px;
+}
+
+#beanSubInfo p {
+	font-size: 40px;
+	font-weight: bold;
+	color: #6f4e37;
 }
 
 #buyGuide{
@@ -354,14 +377,14 @@ async function requestPayment() {
 
 <div id="beanGuide">
 
-<div id="beanSubInfo" class="d-flex justify-content-center">
+<div id="beanSubInfo" class="d-flex justify-content-center align-items-center">
 <input type="hidden" id="beanPrice" value="${ bean.beanPrice }">
-<p class="fw-bold text-danger-emphasis">${ bean.beanName }</p>
+<p class="m-0 d-inline">${ bean.beanName }</p>
 가&nbsp;
-<p id="selectedGram" class="fw-bold text-danger-emphasis">200g</p>씩&nbsp;
-<p id="selectedGrind" class="fw-bold text-danger-emphasis">홀빈</p>&nbsp;분쇄타입으로&nbsp;
-<p id="selectedPeriod" class="fw-bold text-danger-emphasis">1주</p>&nbsp;마다&nbsp;
-<p id="totalPrice" class="fw-bold text-danger-emphasis">0</p>
+<p id="selectedGram" class="m-0 d-inline">200g</p>씩&nbsp;
+<p id="selectedGrind" class="m-0 d-inline">홀빈</p>&nbsp;분쇄타입으로&nbsp;
+<p id="selectedPeriod" class="m-0 d-inline">1주</p>&nbsp;마다&nbsp;
+<p id="totalPrice" class="m-0 d-inline">0</p>
 원 정기 결제됩니다.
 </div> <!-- <div id="beanSubInfo" class="d-flex justify-content-center"> -->
 

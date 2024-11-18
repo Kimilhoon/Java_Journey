@@ -21,56 +21,145 @@
 <script type="text/javascript">
 $(function() {
 
-    // 지도 초기화
-    var mapContainer = document.getElementById('map'),
-        mapOption = {
-            center: new kakao.maps.LatLng(37.5665, 126.9780),
-            level: 3
-        };
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-    var marker = new kakao.maps.Marker({
-        position: map.getCenter()
-    });
-    marker.setMap(map);
+	var mapContainer = document.getElementById('map'),
+    mapOption = {
+        center: new kakao.maps.LatLng(37.5665, 126.9780), // 초기 지도 중심 좌표 (서울)
+        level: 3 // 초기 지도 확대 레벨
+    };
 
-    // 우편번호 찾기 버튼 클릭
-    $("#btnPostcode").click(function(e) {
-    	e.preventDefault();
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+	var marker = new kakao.maps.Marker({
+	    position: map.getCenter() // 마커 초기 위치 설정
+	});
+	marker.setMap(map); // 마커 지도에 표시
+	
+	// 서버에서 전달된 주소 가져오기
+    var savedAddress = "${savedAddress}";
+    if (savedAddress) {
+        updateMapWithAddress(savedAddress);
+    } else {
+        console.warn("저장된 주소가 없습니다.");
+    }
+
+	// 주소를 기반으로 지도 위치를 업데이트하는 함수
+	function updateMapWithAddress(address) {
+	    var geocoder = new kakao.maps.services.Geocoder();
+	    geocoder.addressSearch(address, function (result, status) {
+	        if (status === kakao.maps.services.Status.OK) {
+	            var lat = result[0].y;
+	            var lon = result[0].x;
+	            var moveLatLon = new kakao.maps.LatLng(lat, lon);
+	
+	            // 지도 중심 이동
+	            map.setCenter(moveLatLon);
+	            marker.setPosition(moveLatLon);
+	        } else {
+	            console.error("지도 초기화 중 주소 검색 실패:", status);
+	        }
+	    });
+	}
+
+//---------------------------------------------------------------------------------------------------
+
+	// cafeupdate 지도API 생성 코드
+	// 지도 초기화
+//     var mapContainer = document.getElementById('map'),
+//         mapOption = {
+//             center: new kakao.maps.LatLng(37.5665, 126.9780),
+//             level: 3
+//         };
+//     var map = new kakao.maps.Map(mapContainer, mapOption);
+//     var marker = new kakao.maps.Marker({
+//         position: map.getCenter()
+//     });
+//     marker.setMap(map);
+    
+//  	// 주소가 이미 저장된 경우 지도 위치 업데이트(내가 수정한 코드)
+//     $(document).ready(function() {
+//         var savedAddress = $("#cafeAdd1").val(); // 저장된 주소 가져오기
+//         if (savedAddress) {
+//             updateMapWithAddress(savedAddress);
+//         }
+//     });
+    
+//  	// 주소를 입력하면 해당 주소로 지도 위치 업데이트하는 함수
+//     function updateMapWithAddress(address) {
+//         var geocoder = new kakao.maps.services.Geocoder();
+//         geocoder.addressSearch(address, function(result, status) {
+//             if (status === kakao.maps.services.Status.OK) {
+//                 var lat = result[0].y;
+//                 var lon = result[0].x;
+//                 var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+//                 // 지도 중심 이동
+//                 map.setCenter(moveLatLon);
+//                 marker.setPosition(moveLatLon);
+//             } else {
+//                 console.error("지도 초기화 중 주소 검색 실패:", status);
+//             }
+//         });
+//     }
+ 	
+// //     // 페이지 로드 시 cafeAdd1(주소)에 따른 지도 위치 업데이트
+// //     var savedAddress = $("#cafeAdd1").val(); // 저장된 주소 가져오기
+// //     if (savedAddress) {
+// //         var geocoder = new kakao.maps.services.Geocoder();
+// //         geocoder.addressSearch(savedAddress, function(result, status) {
+// //             if (status === kakao.maps.services.Status.OK) {
+// //                 var lat = result[0].y;
+// //                 var lon = result[0].x;
+// //                 var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+// //                 // 지도 중심 이동
+// //                 map.setCenter(moveLatLon);
+// //                 marker.setPosition(moveLatLon);
+// //             } else {
+// //                 console.error("지도 초기화 중 주소 검색 실패:", status);
+// //             }
+// //         });
+// //     }    
+
+//     // 우편번호 찾기 버튼 클릭
+//     $("#btnPostcode").click(function(e) {
+//     	e.preventDefault();
     	
-        // 우편번호 찾기창 초기화
-        $("#postCode").val("");
-        $("#cafeAdd1").val("");
-        $("#cafeAdd2").val("");
+//         // 우편번호 찾기창 초기화
+//         $("#postCode").val("");
+//         $("#cafeAdd1").val("");
+//         $("#cafeAdd2").val("");
 
-        new daum.Postcode({
-            oncomplete: function(data) {
-                $("#postCode").val(data.zonecode);
-                if (data.userSelectedType === 'R') {
-                    $("#cafeAdd1").val(data.roadAddress);
-                } else {
-                    $("#cafeAdd1").val(data.jibunAddress);
-                }
+//         new daum.Postcode({
+//             oncomplete: function(data) {
+//                 $("#postCode").val(data.zonecode);
+//                 var address = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+//                 $("#cafeAdd1").val(address);                
+// //                 if (data.userSelectedType === 'R') {
+// //                     $("#cafeAdd1").val(data.roadAddress);
+// //                 } else {
+// //                     $("#cafeAdd1").val(data.jibunAddress);
+// //                 }
 
-                // 상세주소 입력 포커스
-                $("#cafeAdd2").focus();
-                $("#postcodeWrap").hide();
+//                 // 상세주소 입력 포커스
+//                 $("#cafeAdd2").focus();
+//                 $("#postcodeWrap").hide();
 
-                // 주소로 지도 위치 갱신
-                var geocoder = new kakao.maps.services.Geocoder();
-                geocoder.addressSearch(data.roadAddress, function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                        var lat = result[0].y;
-                        var lon = result[0].x;
-                        var moveLatLon = new kakao.maps.LatLng(lat, lon);
+//                 // 주소로 지도 위치 갱신
+//                 updateMapWithAddress(address);
+// //                 var geocoder = new kakao.maps.services.Geocoder();
+// //                 geocoder.addressSearch(data.roadAddress, function(result, status) {
+// //                     if (status === kakao.maps.services.Status.OK) {
+// //                         var lat = result[0].y;
+// //                         var lon = result[0].x;
+// //                         var moveLatLon = new kakao.maps.LatLng(lat, lon);
 
-                        // 지도 중심 이동
-                        map.setCenter(moveLatLon);
-                        marker.setPosition(moveLatLon);
-                    }
-                });
-            }
-        }).open(); //팝업창 열기 위한 open
-    }); //$("#btnPostcode") end
+// //                         // 지도 중심 이동
+// //                         map.setCenter(moveLatLon);
+// //                         marker.setPosition(moveLatLon);
+// //                     }
+// //                 });
+//             }
+//         }); //팝업창 열기 위한 open
+//     }); //$("#btnPostcode") end
 
     
 //------------------------------------------------------------------------------
@@ -190,7 +279,7 @@ $(function() {
 		$(".custom-image img").css({
 			width: "400px",
 			height: "360px",
-	        objectFit: "contain",		// 이미지가 썸네일 크기에 맞도록 설정
+	        objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
 	        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
 			 
 		});
@@ -334,7 +423,7 @@ $(function() {
 	</div>
 	<div class="text-center">
 		${ cafeInfo.cafeInfo }
-		<p>카페 안내문</p>
+<!-- 		<p>카페 안내문</p> -->
 	</div>
 </div>
 

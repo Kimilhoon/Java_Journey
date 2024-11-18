@@ -27,33 +27,33 @@ $(function() {
 	$(document).on("click", "#btn_search", function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
-
+		location.href="./list?search="+$("#search").val()+"&searchType="+$("#searchType").val()+"&order=${order}&category="+$("#category").val();
 // 		location.href="./list?search="+$("#search").val()+"&category="+$("#category").val();
-		$.ajax({
-			url: "./list",
-			type: "get",
-			data:{
-				"search":$("#search").val(),
-				"category":$("#category").val(),
-				"searchType":$("#searchType").val()
+// 		$.ajax({
+// 			url: "./list",
+// 			type: "get",
+// 			data:{
+// 				"search":$("#search").val(),
+// 				"category":$("#category").val(),
+// 				"searchType":$("#searchType").val()
 				
-			},
-			dataType: "html",
-			success: function(res) {
-// 				console.log(res);
-				const c = $("<div>").html(res).find("#listtable").html();
-// 				console.log(c);
+// 			},
+// 			dataType: "html",
+// 			success: function(res) {
+// // 				console.log(res);
+// 				const c = $("<div>").html(res).find("#listtable").html();
+// // 				console.log(c);
 				
-				$("#listtable").children().remove();
-				$("#listtable").html(c); 
-	            // 현재 페이지의 #content에 새 콘텐츠 삽입
-// 	            $("body").html(newContent);
-			},
-			error: function() {
-				alert("tq");
-			}
+// 				$("#listtable").children().remove();
+// 				$("#listtable").html(c); 
+// 	            // 현재 페이지의 #content에 새 콘텐츠 삽입
+// // 	            $("body").html(newContent);
+// 			},
+// 			error: function() {
+// 				alert("tq");
+// 			}
 			
-		});
+// 		});
 		
 	});
 	
@@ -90,6 +90,12 @@ a {
 </style>
 <div id="plz" >
 <div class="container">
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./list">freeboard</a></li>
+		<li class="breadcrumb-item active" aria-current="page">list</li>
+	</ol>
+</nav>
 <div id="order_search_wrap">
 <div id="order" style="float: left;">
 <a href="./list?search=${search}&searchType=${searchType}&category=${category}&order=W" id="W">최근리뷰순</a>

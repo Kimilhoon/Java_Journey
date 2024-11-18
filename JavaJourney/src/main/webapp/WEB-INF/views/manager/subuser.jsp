@@ -17,54 +17,59 @@ body{
 	font-family: '나눔고딕', Arial, sans-serif; /* 폰트 설정 */
 }
 table {
-	margin: 0 auto;
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-	background-color: #f5f5f5;
+    margin: 0 auto;
+    width: 90%; /* 테이블 전체 너비 설정 */
+    border: 1px solid #ccc;
+    border-collapse: collapse; /* 셀 간 공백 제거 */
+    background-color: #f5f5f5;
 }
-th{
-	padding : 10.5px 5px;
-	font-size: 24px;
-	text-align: center;
+
+th, td {
+    padding: 2px 5px; /* 셀 내부 여백 줄임 */
+    font-size: 14px; /* 글자 크기 */
+    letter-spacing: -0.5px; /* 글자 간 간격 줄이기 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    border: 1px solid #ccc; /* 셀 테두리 */
+    box-sizing: border-box; /* 패딩과 보더 포함 크기 설정 */
 }
-td {
+/* td {
 	text-align: center;
-	padding : 10.5px 5px;
-	font-size: 20px;
+	padding : 13.5px 5px;
+	font-size: 12px;
 	margin-bottom: 10px;
-}
+} */
 </style>
 <script type="text/javascript">
 $(function () {
 	
 	$("#btnBeanSubCancel").click(function () {
 		console.log("테스트");
-		var userNoValue = $('input[name="userNo"]:checked')
+		var beanSubNoValue = $('input[name="subNo"]:checked')
 		.map(function () {
 			return this.value;
 		}).get()
-		console.log(userNoValue);
+		console.log(beanSubNoValue);
 		
-		$.ajax({
-			type: "get"
-			, url: "/manager/usercancel?userNo=" + userNoValue
-// 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
-			, success: function (res) {
-				console.log("ajax 성공");
+// 		$.ajax({
+// 			type: "get"
+// 			, url: "/manager/usercancel?userNo=" + userNoValue
+// // 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
+// 			, success: function (res) {
+// 				console.log("ajax 성공");
 				
-				if(res.status === "success") {
-					alert(res.message);
-					location.reload();//새로고침
-				} else if(res.status === "fail") {
-					alert(res.message);
-				}
+// 				if(res.status === "success") {
+// 					alert(res.message);
+// 					location.reload();//새로고침
+// 				} else if(res.status === "fail") {
+// 					alert(res.message);
+// 				}
 				
-			}
-			, error: function () {
-				console.log("ajax 실패");
-			}
+// 			}
+// 			, error: function () {
+// 				console.log("ajax 실패");
+// 			}
 			 			
-			});
+// 			});
 		});
 })
 </script>
@@ -90,7 +95,7 @@ $(function () {
 <c:forEach var="beanSub" items="${beanSubList}">
 	<tr>
 		<td>
-		<input type="checkbox" id="${beanSub.subNo}" name="userNo" value="${beanSub.subNo}"> 
+		<input type="checkbox" id="${beanSub.subNo}" name="subNo" value="${beanSub.subNo}"> 
 		</td>
 		<td>
 		<fmt:formatDate value="${beanSub.subStartDate }" pattern="yyyy-MM-dd"/>
