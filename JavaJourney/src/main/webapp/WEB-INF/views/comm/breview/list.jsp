@@ -64,7 +64,7 @@ $(function() {
 				<!-- order-list -->
 
 				<div id="category-list">
-					카테고리&nbsp;|&nbsp; <select id="category">
+					맛과 향&nbsp;|&nbsp; <select id="category">
 						<c:choose>
 							<c:when test="${category eq '전체' }">
 								<option value="all" selected="selected">전체</option>
@@ -119,6 +119,33 @@ $(function() {
 							</c:otherwise>
 						</c:choose>
 
+						<c:choose>
+							<c:when test="${category eq '향긋한' }">
+								<option value="향긋한" selected="selected">향긋한</option>
+							</c:when>
+							<c:otherwise>
+								<option value="향긋한">향긋한</option>
+							</c:otherwise>
+						</c:choose>
+
+						<c:choose>
+							<c:when test="${category eq '진한' }">
+								<option value="진한" selected="selected">진한</option>
+							</c:when>
+							<c:otherwise>
+								<option value="진한">진한</option>
+							</c:otherwise>
+						</c:choose>
+
+						<c:choose>
+							<c:when test="${category eq '부드러운' }">
+								<option value="부드러운" selected="selected">부드러운</option>
+							</c:when>
+							<c:otherwise>
+								<option value="부드러운">부드러운</option>
+							</c:otherwise>
+						</c:choose>
+
 					</select>
 				</div>
 				<!-- category-list -->
@@ -148,49 +175,48 @@ $(function() {
 
 <div class="container" id="center">
 
-<table class="table text-center">
-	<tr>
-		<th class="col-1" scope="col">글번호</th>
-		<th class="col-1" scope="col">맛과 향</th>
-		<th class="col-1" scope="col"></th>
-		<th class="col-4" scope="col">카페이름</th>
-		<th class="col-2" scope="col">작성자</th>
-		<th class="col-2" scope="col">작성일</th>
-		<th class="col-1" scope="col">별점</th>
-	</tr>
-
-	<c:forEach var="list" items="${breviewList}">
+	<table class="table text-center">
 		<tr>
-			<td class="col-1">${list.revNo}</td>
-			<td class="col-1">
-				<c:forEach var="note" items="${list.cupNoteNames}" varStatus="status">
-					${note}<c:if test="${!status.last}">, </c:if>
-				</c:forEach>
-			</td>
-			<td class="col-1">
-			
-			<jsp:useBean id="now" class="java.util.Date" />
-			<fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" /> 
-			<fmt:formatDate value="${list.revDate }" pattern="yyyyMMdd" var="wDate" /> 
-			
-				<c:if test="${nowDate eq wDate}">
-					<span style="color: #fff; background: #fedcba; border-radius: 5px; font-size: 14px; box-shadow: 1px 1px 3px #ddd">
-						&nbsp;New&nbsp;
-					</span>
-				</c:if>
-			</td>
-			<td class="col-4">
-				<a href="./view?revNo=${list.revNo}">${list.beanName}</a>
-				<c:if test="${list.beanRevCommCount >= 1}">
-					&nbsp;[${list.beanRevCommCount}]
-				</c:if>
-			</td>
-			<td class="col-2">${list.userNick}</td>
-			<td class="col-2"><fmt:formatDate value="${list.revDate}" pattern="yyyy-MM-dd" /></td>
-			<td class="col-1">${list.revStarPoint}</td>
+			<th class="col-1" scope="col">글번호</th>
+			<th class="col-1" scope="col">맛과 향</th>
+			<th class="col-1" scope="col"></th>
+			<th class="col-4" scope="col">원두이름</th>
+			<th class="col-2" scope="col">작성자</th>
+			<th class="col-2" scope="col">작성일</th>
+			<th class="col-1" scope="col">별점</th>
 		</tr>
-	</c:forEach>
-</table>
+
+		<c:forEach var="list" items="${breviewList}" varStatus="var">
+			<c:forEach var="note" items="${list}" varStatus="status">
+				<c:if test="${status.first }">
+					<tr>
+						<td class="col-1">${note.revNo}</td>
+						<td class="col-1">
+				</c:if>
+					${note.cupNoteName}<c:if test="${!status.last}">, </c:if>
+
+				<c:if test="${status.last }">
+
+					<td class="col-1"><jsp:useBean id="now" class="java.util.Date" />
+						<fmt:formatDate value="${now }" pattern="yyyyMMdd" var="nowDate" />
+						<fmt:formatDate value="${note.revDate }" pattern="yyyyMMdd"
+							var="wDate" /> <c:if test="${nowDate eq wDate}">
+							<span
+								style="color: #fff; background: #fedcba; border-radius: 5px; font-size: 14px; box-shadow: 1px 1px 3px #ddd">
+								&nbsp;New&nbsp; </span>
+						</c:if></td>
+					<td class="col-4"><a href="./view?revNo=${note.revNo}">${note.beanName}</a>
+						<c:if test="${note.beanRevCommCount >= 1}">
+					&nbsp;[${note.beanRevCommCount}]
+				</c:if></td>
+					<td class="col-2">${note.userNick}</td>
+					<td class="col-2"><fmt:formatDate value="${note.revDate}"
+							pattern="yyyy-MM-dd" /></td>
+					<td class="col-1">${note.revStarPoint}</td>
+				</c:if>
+			</c:forEach>
+		</c:forEach>
+	</table>
 
 
 

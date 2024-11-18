@@ -66,7 +66,7 @@ $(function() {
 </div> <!-- order-list -->
 
 <div id="category-list">
-카테고리&nbsp;|&nbsp;
+지역 &nbsp;|&nbsp;
 	<select id="category">
 		<c:choose>
 			<c:when test="${category eq '전체' }">
@@ -78,47 +78,56 @@ $(function() {
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '서울' }">
-				<option value="서울" selected="selected">서울</option>
+			<c:when test="${category eq '강남' }">
+				<option value="강남" selected="selected">강남</option>
 			</c:when>
 			<c:otherwise>
-				<option value="서울">서울</option>
+				<option value="강남">강남</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '경기' }">
-				<option value="경기" selected="selected">경기</option>
+			<c:when test="${category eq '서초' }">
+				<option value="서초" selected="selected">서초</option>
 			</c:when>
 			<c:otherwise>
-				<option value="경기">경기</option>
+				<option value="서초">서초</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '인천' }">
-				<option value="인천" selected="selected">인천</option>
+			<c:when test="${category eq '송파' }">
+				<option value="송파" selected="selected">송파</option>
 			</c:when>
 			<c:otherwise>
-				<option value="인천">인천</option>
+				<option value="송파">송파</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '부산' }">
-				<option value="부산" selected="selected">부산</option>
+			<c:when test="${category eq '종로' }">
+				<option value="종로" selected="selected">종로</option>
 			</c:when>
 			<c:otherwise>
-				<option value="부산">부산</option>
+				<option value="종로">종로</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '제주' }">
-				<option value="제주" selected="selected">제주</option>
+			<c:when test="${category eq '서대문' }">
+				<option value="서대문" selected="selected">서대문</option>
 			</c:when>
 			<c:otherwise>
-				<option value="제주">제주</option>
+				<option value="서대문">서대문</option>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${category eq '마포' }">
+				<option value="마포" selected="selected">마포</option>
+			</c:when>
+			<c:otherwise>
+				<option value="마포">마포</option>
 			</c:otherwise>
 		</c:choose>
 		
