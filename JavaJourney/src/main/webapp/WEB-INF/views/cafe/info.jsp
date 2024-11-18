@@ -158,11 +158,11 @@ $(function() {
 		});
 		
 		$("#btnUpdate").click(function() {
-			location.href="/create/cafeupdate?cafeNo=${cafeInfo.cafeNo}";
+			location.href="/create/cafeUpdate?cafeNo=${cafeInfo.cafeNo}";
 		});
 		
 		$("#btnDelete").click(function() {
-			location.href="/create/cafedelete?cafeNo=${cafeInfo.cafeNo}";
+			location.href="/create/cafeDelete?cafeNo=${cafeInfo.cafeNo}";
 		});
 	
 	/* -------------------------------------------------------------------------------------------------------------- */

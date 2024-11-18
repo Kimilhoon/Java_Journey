@@ -69,8 +69,8 @@
 }
 
 #btnSearch {
-    width: 19%;
-    padding: 9px;
+    width: 27%;
+    padding: 7px;
     background-color: #6f4e37;
     color: white;
     border: none;

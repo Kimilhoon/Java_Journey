@@ -112,7 +112,7 @@ $(function() {
 }
 
 /* 메뉴바 전체 배경이 꽉 차도록 조정 */
-.d-flex.justify-content-center {
+.header.d-flex.justify-content-center {
     background-color: #6f4e37; /* 갈색 배경색 */
     width: 100%;
 }
@@ -127,7 +127,7 @@ $(function() {
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body>
 
-<div class="d-flex justify-content-center">
+<div class="header d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
 <img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="200" height="200" id="logo" />
 </a>
@@ -166,10 +166,10 @@ $(function() {
 	</c:if>
   </div>
 
-<div class="d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
+<div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-0 d-flex justify-content-center">
+      <ul class="navbar-nav mb-0 header d-flex justify-content-center">
         <!-- 브랜드 메뉴 -->
         <li class="nav-item dropdown mx-2">
           <a class="nav-link dropdown fs-5 text-light" href="/brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -245,4 +245,3 @@ $(function() {
     </div>
   </nav>
 </div>
-

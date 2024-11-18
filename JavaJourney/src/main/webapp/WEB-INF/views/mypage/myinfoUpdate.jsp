@@ -285,7 +285,8 @@ $(function() {
 </script>
 
 
-
+<!-- 주소 -->
+<!-- -------------------------------------------------- -->
 <style type="text/css">
 #postcodeWrap {
 /* 	position: relative; */
@@ -310,7 +311,6 @@ $(function() {
 	top: 0.5px;
 	right: -38px;
 	
-	border: 1px solid skyblue;
 	padding: 3px;
 	
 	cursor: pointer;
@@ -318,10 +318,11 @@ $(function() {
 
 </style>
 
+
 <style type="text/css">
 .info-form {
     width: 100%;
-    max-width: 400px;  /* 폼의 최대 너비 설정 */
+    max-width: 600px;  /* 폼의 최대 너비 설정 */
     margin: 0 auto;    /* 수평 중앙 정렬 */
     padding: 20px;
     background-color: #f9f9f9;
@@ -347,20 +348,6 @@ $(function() {
     box-sizing: border-box;
 }
 
-.info-form button {
-    width: 100%;
-    padding: 12px;
-    background-color: #6f4e37;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.info-form button:hover {
-    background-color: #5a3e2f;
-}
 
 #btnOut {
     background: none;        /* 배경 제거 */
@@ -378,11 +365,67 @@ $(function() {
     color: #5a3e2f;          /* 호버시 색상 변경 */
     text-decoration: none;   /* 호버 시 밑줄 제거 */
 }
+
+#btnUpdate {
+    width: 100%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
+#btnUpdate :hover {
+    background-color: #5a3e2f;
+}
+
+
+/* ------------------------------------------------------- */
+#infoUpdateForm .nickSection{
+    margin-bottom: 30px; /* 섹션 간 간격 설정 */
+}
+#infoUpdateForm .addressSection {
+    margin-bottom: 5px; /* 섹션 간 간격 설정 */
+}
+
+#infoUpdateForm .nickSection input{
+    width: 83%; /* 텍스트 필드의 너비를 줄여서 버튼이 들어갈 공간 확보 */
+}
+#infoUpdateForm .addressSection input{
+    width: 77%;
+}
+
+#infoUpdateForm .nickSection button{
+    width: 16%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#infoUpdateForm .addressSection button{
+    width: 22%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#userAdd1, #userAdd2 {
+    margin-bottom: 5px; /* 두 입력 필드 사이에 10px 간격 추가 */
+}
 </style>
+
 
 <h2 style="text-align: center; font-weight: bold;">회원 정보 수정</h2>
 <hr>
 
+<div id="infoUpdateForm">
 <form action="./myinfoUpdate" method="post" class="info-form">
 
 <input type="hidden" name="userNo" value="${member.userNo }" readonly="readonly">
@@ -404,7 +447,7 @@ $(function() {
 <p id="pwCheckResult" style="font-size:0.6rem;">
 
 
-<div>
+<div class="nickSection">
 	<label for="userNick">닉네임</label>
 	<input type="text" name="userNick" id="userNick" required="required" value="${member.userNick }">
 	<button id="userNickCheck" type="button">중복확인</button>
@@ -433,20 +476,25 @@ $(function() {
 	</label>
 </div>
 
-
-<label>주소</label>
-<button id="btnPostcode">우편번호 찾기</button>
-<div id="postcodeWrap">
-	<img alt="x" src="../resources/img/close.png" class="closeIcon">
+<div class="addressSection">
+	<label>주소</label>
+	<button id="btnPostcode">우편번호 찾기</button>
+	<div id="postcodeWrap">
+		<img alt="x" src="../resources/img/close.png" class="closeIcon">
+	</div>
+	<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly" value="${member.userPostcode }"><br>
 </div>
-<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly" value="${member.userPostcode }"><br>
-<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly" value="${member.userAdd1 }"><br>
-<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소" value="${member.userAdd2 }"><br>
+	<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly" value="${member.userAdd1 }"><br>
+	<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소" value="${member.userAdd2 }"><br>
 
 <br>
-<button id="btnUpdate">수정하기</button>
+<div class="btnUpdate">
+	<button id="btnUpdate">수정하기</button>
+</div>
 
 </form>
+</div> <!-- id="infoUpdateForm" -->
+
 <button id="btnOut" type="button">|탈퇴하기|</button>
 
 

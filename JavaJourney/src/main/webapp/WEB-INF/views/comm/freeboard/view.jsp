@@ -8,7 +8,8 @@
 
 <script type="text/javascript">
 $(function() {
-	
+	if(${not empty isLogin}){
+		
 	$.ajax({
 		url: "./reccheck?freeBoardNo="+${freeBoardView.freeBoardNo },
 		type: "get",
@@ -25,6 +26,7 @@ $(function() {
 			
 		}
 	});
+	}
 	
 	
 	
@@ -67,6 +69,16 @@ $(function() {
 	
 	$("#btn_rec").click(function() {
 		
+		if(${empty isLogin}){
+			var login = confirm("로그인 후 이용가능한 서비스입니다. 로그인 하시겠습니까?");
+			if(login){
+				location.href = "/member/login";
+				return;
+			}
+			return false;
+			
+		}
+		
 		$.ajax({
 			url: "./recommend?freeBoardNo="+${freeBoardView.freeBoardNo },
 			type: "get",
@@ -95,7 +107,12 @@ $(function() {
 	};
 
 	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	var marker = new kakao.maps.Marker({
+        position: map.getCenter()	
+    });
 	
+    marker.setMap(map);
+    
 	$(".btn_reply").click(function() {
 		
 		var content = '<tr>'
@@ -485,7 +502,13 @@ a {
 
 
 <div id="content">
-
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./list">freeboard</a></li>
+		<li class="breadcrumb-item"><a href="./list">list</a></li>
+		<li class="breadcrumb-item active" aria-current="page">view</li>
+	</ol>
+</nav>
 <div class="table">
 
 <table class="table table-bordered">

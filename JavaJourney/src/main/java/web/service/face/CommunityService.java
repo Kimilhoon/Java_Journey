@@ -306,7 +306,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return - 
 	 */
-	public Paging getMyRecipePaging(Paging curPage, String search);
+	public Paging getMyRecipePaging(Paging curPage, String search,String searchType);
 	
 	/**
 	 * 
@@ -315,7 +315,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return
 	 */
-	public List<MyRecipe> getMyRecipeList(Paging paging, String search);
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search,String searchType,String order);
 	
 	/**
 	 * 나만의 레시피 글 작성
@@ -554,7 +554,7 @@ public interface CommunityService {
 	 * @param paging
 	 * @return
 	 */
-	public List<BeanRev> getBeanReviewList(String category, String order, String search, Paging paging);
+	public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging);
 
 	/**
 	 * 원두 리뷰 페이징

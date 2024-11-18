@@ -47,7 +47,7 @@
 <div id="c"  >
 <button type="button" onclick="showModal('modal1')"><img alt="" src="/resources/img/event/1.jpg"></button>
 	
-<div id="modal1" class="modal">
+<div id="modal1" class="modal modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
         <span class="close" onclick="closeModal('modal1')">&times;</span> <!-- 모달닫기기능 -->
        	<img alt="" src="/resources/img/event/1-1.jpg">

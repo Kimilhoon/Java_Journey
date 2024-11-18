@@ -5,7 +5,7 @@
 <c:import url="../layout/header.jsp"/>
 
 
-<h1>협약 카페 등록 페이지</h1>
+<h2 style="text-align: center; font-weight: bold;">협약 카페 등록</h2>
 <hr>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -99,6 +99,8 @@ $(function() {
 
 
 <style type="text/css">
+
+/* 주소 */
 #postcodeWrap {
 /*    position: relative; */
    position: absolute;
@@ -122,22 +124,104 @@ $(function() {
    top: 0.5px;
    right: -38px;
    
-   border: 1px solid skyblue;
    padding: 3px;
    
    cursor: pointer;
+}
+
+#btnManagerMenu {
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;	
+    margin-left: 300px;
+}
+
+
+
+/* 테이블 전체를 중앙 정렬 */
+form {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* 테이블과 버튼을 중앙으로 정렬 */
+}
+
+/* 테이블 스타일 */
+table {
+    margin: 20px auto; /* 페이지 중앙 정렬 */
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    width: 70%; /* 너비 조정 */
+    max-width: 1500px; /* 최대 너비 설정 */
+    background-color: #f9f9f9; /* 테이블 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 8px; /* 테이블 모서리를 둥글게 */
+    overflow: hidden; /* 둥근 테두리 안에 내용 제한 */
+}
+
+/* 테이블 행 스타일 */
+table tr {
+    border-bottom: 1px solid #ddd; /* 행 구분선 */
+}
+
+table tr:last-child {
+    border-bottom: none; /* 마지막 행 구분선 제거 */
+}
+
+/* 테이블 헤더와 셀 스타일 */
+table td {
+    padding: 12px 15px; /* 셀 내부 여백 */
+    text-align: left; /* 텍스트 정렬 */
+    font-size: 16px; /* 폰트 크기 */
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], 
+textarea, 
+select {
+    width: 100%; /* 입력 필드의 너비를 셀에 맞게 조정 */
+    padding: 10px; /* 내부 여백 */
+    font-size: 14px; /* 폰트 크기 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 4px; /* 모서리를 둥글게 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
+
+#btnPostcode {
+    padding: 8px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;	
+}
+
+
+#btnWrite {
+    width: 70%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
 }
 
 
 </style>
 
 <button id="btnManagerMenu">관리자메뉴로가기</button>
+
 <hr>
 <div>
 <form action="./cafe" method="post" enctype="multipart/form-data">
 <table>
    <tr>
-      <td>카페 이름</td>
+      <td >카페 이름</td>
       <td><input type="text" id="cafeName" name="cafeName"></td>      
    </tr>
    <tr>
@@ -150,7 +234,7 @@ $(function() {
    </tr>
    <tr>
       <td>카페 전화번호</td>
-      <td><input type="tel" id="cafePhone" name="cafePhone" ></td>      
+      <td><input type="text" id="cafePhone" name="cafePhone" ></td>      
    </tr>
    <tr>
       <td>카페 운영시간</td>
@@ -169,19 +253,19 @@ $(function() {
       <td>카페 지역</td>
       <td>
       <select id="category" name="cafeLoc">
-         <option hidden="none"></option>
-         <option value="서울">서울</option>
-         <option value="경기">경기</option>
-         <option value="인천">인천</option>
-         <option value="부산">부산</option>
-         <option value="제주">제주</option>
 <!--          <option hidden="none"></option> -->
-<!--          <option value="Gangnamgu">강남구</option> -->
-<!--          <option value="Seochogu">서초구</option> -->
-<!--          <option value="Songpagu">송파구</option> -->
-<!--          <option value="jongrogu">종로구</option> -->
-<!--          <option value="Seodaemungu">서대문구</option> -->
-<!--          <option value="Mapogu">마포구</option>          -->
+<!--          <option value="서울">서울</option> -->
+<!--          <option value="경기">경기</option> -->
+<!--          <option value="인천">인천</option> -->
+<!--          <option value="부산">부산</option> -->
+<!--          <option value="제주">제주</option> -->
+         <option hidden="none"></option>
+         <option value="강남구">강남구</option>
+         <option value="서초구">서초구</option>
+         <option value="송파구">송파구</option>
+         <option value="종로구">종로구</option>
+         <option value="서대문구">서대문구</option>
+         <option value="마포구">마포구</option>         
         </select>
         </td>
    </tr>
@@ -219,11 +303,15 @@ $(function() {
 <!--       <td><input type="text" id="cafePw" name="cafePw"></td>       -->
 <!--    </tr> -->
 
+	<tr>
+		<td></td>
+      <td>
+		<!-- 지도를 표시할 div 입니다 -->
+      <div id="map" style="width:500px; height:400px;"></div>
+      </td>
+	</tr>
+
 </table>
-
-<!-- 지도를 표시할 div 입니다 -->
-<div id="map" style="width:500px; height:400px;"></div>
-
 
 <button id="btnWrite">등록</button>
 

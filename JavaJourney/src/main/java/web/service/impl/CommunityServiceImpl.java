@@ -295,7 +295,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	//나만의 레시피 ------------------------------------------------------------------------------------
 	@Override
-	public Paging getMyRecipePaging(Paging curPage, String search) {
+	public Paging getMyRecipePaging(Paging curPage, String search,String searchType) {
 		
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
@@ -303,9 +303,13 @@ public class CommunityServiceImpl implements CommunityService {
 		if(search == null || "".equals(search)) {
 			search = "N";
 		}
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
+		}
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("search", search);
+		map.put("searchType", searchType);
 
 		int totalCnt = dao.getMyRecipeTotalCnt(map);
 		
@@ -317,10 +321,20 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<MyRecipe> getMyRecipeList(Paging paging, String search) {
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search,String searchType,String order) {
+		
+		if(order == null || "".equals(order)) {
+			order = "W";
+		}
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
+		}
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("paging", paging);
 		map.put("search", search);
+		map.put("order", order);
+		map.put("searchType", searchType);
 		List<MyRecipe> myRecipeList = dao.selectMyRecipeListAll(map);
 		for(MyRecipe mr : myRecipeList) {
 			mr.setUserNick( (dao.selectMemberByUserNo(mr.getUserNo())).getUserNick() );
@@ -718,16 +732,18 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		if(category == null || "".equals(category)||"all".equals(category)) {
 			category = "N";
-		}else if(category.equals("서울")) {
-			category="서울";
-		}else if(category.equals("경기")) {
-			category="경기";
-		}else if(category.equals("인천")) {
-			category="인천";
-		}else if(category.equals("부산")) {
-			category="부산";
-		}else if(category.equals("제주")) {
-			category="제주";
+		}else if(category.equals("강남")) {
+			category="강남";
+		}else if(category.equals("서초")) {
+			category="서초";
+		}else if(category.equals("송파")) {
+			category="송파";
+		}else if(category.equals("종로")) {
+			category="종로";
+		}else if(category.equals("마포")) {
+			category="마포";
+		}else if(category.equals("서대문")) {
+			category="서대문";
 		}
 		
 		if(search == null || "".equals(search)) {
@@ -846,7 +862,7 @@ public class CommunityServiceImpl implements CommunityService {
     //----------------------------------------------------------------------------
     
     @Override
-    public List<BeanRev> getBeanReviewList(String category, String order, String search, Paging paging) {
+    public List<List<BeanRev>> getBeanReviewList(String category, String order, String search, Paging paging) {
     	
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("category", category);
@@ -855,12 +871,27 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("paging", paging);
 		
 		List<BeanRev> list = dao.selectBeanReview(param);
+		List<BeanRev> brList = new ArrayList<BeanRev>();
 		
-		for(BeanRev b : list) {
-			b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
+		for(int i=0 ; i<list.size();i+=2) {
+			brList.add(list.get(i));
 		}
 		
-		return list;
+		List<List<BeanRev>> bList = new ArrayList<List<BeanRev>>();
+		
+		
+		for(BeanRev br : brList) {
+			List<BeanRev> resList = dao.selectBeanRevByBeanRevNo(br);
+			for(BeanRev b : resList) {
+				
+//			List<CupNote> categoryList = dao.dkddk(b.getRevNo());
+				b.setBeanRevCommCount(dao.getBeanReviewCommentCnt(b));
+			}
+			
+			bList.add(resList);
+		}
+		
+		return bList;
 		
     }
 	
@@ -883,6 +914,12 @@ public class CommunityServiceImpl implements CommunityService {
 			category="고소";
 		}else if(category.equals("은은한")) {
 			category="은은한";
+		}else if(category.equals("향긋한")) {
+			category="향긋한";
+		}else if(category.equals("진한")) {
+			category="진한";
+		}else if(category.equals("부드러운")) {
+			category="부드러운";
 		}
 		
 		if(search == null || "".equals(search)) {

@@ -40,9 +40,12 @@ $(function() {
 		center: new kakao.maps.LatLng(${freeBoardView.freeBoardMapX }, ${freeBoardView.freeBoardMapY }), //지도의 중심좌표.
 		level: 3 //지도의 레벨(확대, 축소 정도)
 	};
-
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	var marker = new kakao.maps.Marker({
+        position: map.getCenter()
+    });
+    marker.setMap(map);
 	$("#map_update").click(function() {
 		$("#dmap").toggle();
 		$("#api_all_wrap").toggle();
@@ -359,6 +362,16 @@ $(function() {
 
 </style>
 <div id="content">
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./list">freeboard</a></li>
+		<li class="breadcrumb-item"><a href="./list">list</a></li>
+		<li class="breadcrumb-item"><a href="./view?freeBoardNo=${freeBoardView.freeBoardNo }">view</a></li>
+		<li class="breadcrumb-item active" aria-current="page">update</li>
+	</ol>
+</nav>
+
 <div class="container">
 <table class="table table-bordered">
 <tr>
