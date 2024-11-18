@@ -371,7 +371,15 @@
 		SELECT count(*) FROM myrecipe
 		<where>
 			<if test='search != "N" '>
-				AND upper(myriptitle) LIKE '%'||upper(#{search})||'%'
+				<if test='searchType == "title"'>
+				AND upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "content"'>
+				AND upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "titlecontent"'>
+				AND (upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%' OR upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%')
+				</if>
 			</if>
 		</where>
 	</select>
@@ -380,9 +388,27 @@
 		SELECT MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO
 		FROM (
 			SELECT rownum r,a.* FROM(
-				SELECT * FROM MYRECIPE
-				WHERE upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
-				ORDER BY MYRIPNO DESC
+				SELECT myrip.*,(SELECT count(*) FROM MYRECIPECOMMENT m WHERE m.myripno = myrip.myripno  ) cCNT,(SELECT count(*) FROM MYRECIPERECOMMEND m2 WHERE m2.myripno = myrip.myripno  ) rCNT  FROM MYRECIPE myrip
+				<where>
+					<if test='searchType == "title"'>
+						AND upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "content"'>
+						AND upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "titlecontent"'>
+						AND (upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%' OR upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%')
+					</if>
+				</where>
+				<if test='order == "W"'>
+					ORDER BY myrip.myripno DESC
+				</if>
+				<if test='order == "R"'>
+					ORDER BY rCNT DESC,myrip.myripno DESC
+				</if>
+				<if test='order == "C"'>
+					ORDER BY cCNT DESC,myrip.myripno DESC
+				</if>
 				)a
 			)
 		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}

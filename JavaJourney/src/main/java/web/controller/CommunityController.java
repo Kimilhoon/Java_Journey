@@ -241,13 +241,14 @@ public class CommunityController {
 		// 나만의 레시피 --------------------------------------------------------------------------
 		
 		@GetMapping("/myrecipe/list")
-		public void myrecipe(Paging curPage, String search,Model model) {
-			Paging paging = service.getMyRecipePaging(curPage,search);
-			List<MyRecipe> myRecipeList = service.getMyRecipeList(paging,search);
+		public void myrecipe(Paging curPage, String search,Model model,String order,String searchType) {
+			Paging paging = service.getMyRecipePaging(curPage,search,searchType);
+			List<MyRecipe> myRecipeList = service.getMyRecipeList(paging,search,searchType,order);
 			model.addAttribute("myRecipeList", myRecipeList);
 			model.addAttribute("paging", paging);
 			model.addAttribute("search", search);
-			
+			model.addAttribute("order", order);
+			model.addAttribute("searchType", searchType);
 		}
 		
 		@GetMapping("/myrecipe/write")

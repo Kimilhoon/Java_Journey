@@ -295,7 +295,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	//나만의 레시피 ------------------------------------------------------------------------------------
 	@Override
-	public Paging getMyRecipePaging(Paging curPage, String search) {
+	public Paging getMyRecipePaging(Paging curPage, String search,String searchType) {
 		
 		if(curPage.getCurPage()==0) {
 			curPage.setCurPage(1);
@@ -303,9 +303,13 @@ public class CommunityServiceImpl implements CommunityService {
 		if(search == null || "".equals(search)) {
 			search = "N";
 		}
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
+		}
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("search", search);
+		map.put("searchType", searchType);
 
 		int totalCnt = dao.getMyRecipeTotalCnt(map);
 		
@@ -317,10 +321,20 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<MyRecipe> getMyRecipeList(Paging paging, String search) {
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search,String searchType,String order) {
+		
+		if(order == null || "".equals(order)) {
+			order = "W";
+		}
+		if(searchType == null || "".equals(searchType)) {
+			searchType = "title";
+		}
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("paging", paging);
 		map.put("search", search);
+		map.put("order", order);
+		map.put("searchType", searchType);
 		List<MyRecipe> myRecipeList = dao.selectMyRecipeListAll(map);
 		for(MyRecipe mr : myRecipeList) {
 			mr.setUserNick( (dao.selectMemberByUserNo(mr.getUserNo())).getUserNick() );

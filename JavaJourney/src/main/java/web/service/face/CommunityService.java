@@ -306,7 +306,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return - 
 	 */
-	public Paging getMyRecipePaging(Paging curPage, String search);
+	public Paging getMyRecipePaging(Paging curPage, String search,String searchType);
 	
 	/**
 	 * 
@@ -315,7 +315,7 @@ public interface CommunityService {
 	 * @param search - 검색어
 	 * @return
 	 */
-	public List<MyRecipe> getMyRecipeList(Paging paging, String search);
+	public List<MyRecipe> getMyRecipeList(Paging paging, String search,String searchType,String order);
 	
 	/**
 	 * 나만의 레시피 글 작성
