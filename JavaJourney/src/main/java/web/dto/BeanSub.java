@@ -31,6 +31,8 @@ public class BeanSub {
 	// member join
 	@JsonProperty("fullname")
 	private String userName;
+	private String userAdd1;
+	private String userAdd2;
 	
 	//조인 BeanImg
 	private String beanOriginName;
