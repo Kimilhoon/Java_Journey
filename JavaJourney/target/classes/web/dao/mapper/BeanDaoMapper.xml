@@ -168,6 +168,12 @@
 		AND		userNo = #{ userNo }
 		</where>
 	</delete>
+	
+	<select id="countUserWish" parameterType="map" resultType="int">
+		SELECT COUNT(*) 
+		FROM beanWish 
+		WHERE beanNo = #{beanNo} AND userNo = #{userNo}
+    </select>
 
 	<!-- /bean/info -->
 	<!-- ====================================================================================================== -->
