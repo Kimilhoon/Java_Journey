@@ -166,23 +166,23 @@ public class BeanController {
 	// --------------------------------------------------------------------------------------
 	
 	@GetMapping("/sub")
-	public void BeanSub(Bean param, 
-			@SessionAttribute(value = "userId", required = false) String userId, 
-			Model model) {
-	    
-		// 원두 정보 불러오기
-		Bean bean = service.getBeanByBeanNo(param);
-		// 멤버 정보 불러오기
-		Member member = service.getMemberByUserId(userId);
-		
-		model.addAttribute("bean", bean);
-		model.addAttribute("member", member);
-		
-		// 랜덤 값 생성
-		String randomUUID = UUID.randomUUID().toString().split("-")[4];
-		model.addAttribute("randomUUID", randomUUID);
-	    
-	} // BeanSub(Bean param, Model model) end
+	   public void BeanSub(Bean param, 
+	         @SessionAttribute(value = "userId", required = false) String userId, 
+	         Model model) {
+	       
+	      // 원두 정보 불러오기
+	      Bean bean = service.getBeanByBeanNo(param);
+	      // 멤버 정보 불러오기
+	      Member member = service.getMemberByUserId(userId);
+	      
+	      model.addAttribute("bean", bean);
+	      model.addAttribute("member", member);
+	      
+	      // 랜덤 값 생성
+	      String randomUUID = UUID.randomUUID().toString().split("-")[4];
+	      model.addAttribute("randomUUID", randomUUID);
+	       
+	   } // BeanSub(Bean param, Model model) end
 
 	@PostMapping("/sub/payment/complete")
 	public String BeanSub(@RequestBody BeanSub beanSub) {

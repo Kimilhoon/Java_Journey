@@ -17,6 +17,7 @@ public class Member {
 	private String userAdd2;
 	private String businessNo;
 	private int socialNo;
+	private String status;
 	
 	// bean join
 	private int beanNo;
