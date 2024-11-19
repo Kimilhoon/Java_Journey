@@ -14,17 +14,6 @@ public interface CreateCafeDao {
 	 */
 	public void write(Cafe cafe);
 
-	/**
-	 * 협약 카페 글 수정 반영
-	 * @param cafe
-	 */
-	public void update(Cafe cafe);
-
-	/**
-	 * 협약 카페 글 삭제
-	 * @param cafe
-	 */
-	public void delete(Cafe cafe);
 
 	/**
 	 * DB에 이미지 문자열 삽입하면서 FK의 값도 부여하기
@@ -50,6 +39,26 @@ public interface CreateCafeDao {
 	 * @return
 	 */
 	public Cafe selectByCafeNo(Cafe cafe);
+
+	/**
+	 * 협약 카페 글 수정 반영
+	 * @param cafe
+	 */
+	public void updateCafe(Cafe cafe);
+	
+	
+	/**
+	 * 협약 카페 글 삭제
+	 * @param cafe
+	 */
+	public void deleteCafe(Cafe cafe);
+
+
+	/**
+	 * 협약 카페 메인 이미지 삭제
+	 * @param cafeImg
+	 */
+//	public void deleteCafeImg(CafeImg cafeImg);
 
 
 }

@@ -30,6 +30,7 @@ $(function() {
     #goJoin {
     	cursor: pointer; /* 클릭 가능한 모양으로 커서 변경 */
    	 	text-decoration: none; /* 밑줄 제거 */
+/*    	 	color: #6f4e37; */
     }
     #goJoin:hover {
     	text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */

@@ -25,11 +25,19 @@ public interface ManagerService {
 	public List<Member> selectAll(Paging paging);
 
 	/**
-	 * ajax로 받은 userNo를 
+	 * ajax로 받은 userNo를 비활성화하기
 	 * @param userNo
 	 * @return 
 	 */
 	public boolean userCancelByUserNo(List<Integer> userNo);
+	
+	/**
+	 * ajax로 받은 userNo를 활성화 하기
+	 * @param userNo
+	 * @return
+	 */
+	public boolean userReviveByUserNo(List<Integer> userNo);
+
 	
 	/**
 	 * 구독유저 페이징
@@ -52,6 +60,7 @@ public interface ManagerService {
 	 * @return
 	 */
 	public boolean subCancelBySubNo(List<Integer> subNo);
+
 	
 
 	

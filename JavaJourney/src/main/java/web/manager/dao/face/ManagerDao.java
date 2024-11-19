@@ -29,13 +29,13 @@ public interface ManagerDao {
 	 * @param no
 	 * @return
 	 */
-	public boolean selectBeanSubByUserNo(Integer no);
+	public boolean selectByUserNoForStatus(Integer no);
 	
 	/**
 	 * 선택받은 아이들 DB에서 탈퇴시키기 
 	 * @param no
 	 */
-	public void deleteUserNo(Integer no);
+	public void updateUserStatus(Integer no);
 	
 	/**
 	 * 구독유저 페이징

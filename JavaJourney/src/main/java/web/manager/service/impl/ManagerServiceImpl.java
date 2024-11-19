@@ -49,18 +49,31 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public boolean userCancelByUserNo(List<Integer> userNo) {
 		for(Integer No : userNo) {
-			if( dao.selectBeanSubByUserNo(No)) {
-				//구독 번호에 유저넘버가 있을경우 중단
-				//구독 번호 부터 삭제한 후 유저 삭제로 넘어가기
-				log.info("구독번호가 존재하는 유저");
+			if( dao.selectByUserNoForStatus(No)) {
+				//user의 상태가 N인 경우 
+				log.info("이미 비활성화된 유저입니다");
 				return false;
 			} else {
-				dao.deleteUserNo(No);
+				dao.updateUserStatus(No);
 			}
 		}// for(Integer No : userNo) End
 		return true;
 	} //userCancelByUserNo end
-
+	
+	@Override
+	public boolean userReviveByUserNo(List<Integer> userNo) {
+		for(Integer No : userNo) {
+			if( dao.selectByUserNoForStatus(No)) {
+				//user의 상태가 N인 경우 
+				dao.updateUserStatus(No);
+			} else {
+				log.info("이미 활성화된 유저입니다");
+				return false;
+			}
+		}// for(Integer No : userNo) End
+		return true;
+	}
+	
 	@Override
 	public Paging getBeanSubPaging(HttpServletRequest req) {
 		String param = req.getParameter("curPage");

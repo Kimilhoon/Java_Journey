@@ -33,9 +33,17 @@ $(function() {
 	            $(this).text("찜 ♥");  // 찜을 추가
 	            sendWishData(beanNo, userNo, 'add');  // 데이터 추가 요청
 	            
-	        } else {
+				// 찜 상태에 맞는 모달 내용 변경
+				$("#disSubModal .modal-body p").text("해당 원두를 찜 했습니다");
+				$('#disSubModal').modal('show');
+	            
+	        } else if (currentText === "찜 ♥") {
 	            $(this).text("찜 ♡");  // 찜을 취소
 	            sendWishData(beanNo, userNo, 'remove');  // 데이터 삭제 요청
+	            
+				// 찜 해제에 맞는 모달 내용 변경
+				$("#subModal .modal-body p").text("해당 원두를 이제 싫어합니다");
+				$('#subModal').modal('show');
 	            
 	        }
 			
@@ -66,14 +74,15 @@ $(function() {
 	                    
 	                }
 	            },
-	            error: function(xhr, status, error) {
+	            error: function() {
+// 	            error: function(xhr, status, error) {
 	                console.error("AJAX 요청에 실패했습니다.");
-	                console.log("Status:", status);
-	                console.log("Error:", error);
-	                console.log("Response Text:", xhr.responseText);
+// 	                console.log("Status:", status);
+// 	                console.log("Error:", error);
+// 	                console.log("Response Text:", xhr.responseText);
 	            }
 	        })
-	    };
+	    }; // function sendWishData(beanNo, userNo, action) end
 
 	}); // $(document).ready() end
 			
@@ -181,6 +190,14 @@ $(function() {
 	margin-right: 5px;
 }
 
+.modal-header{
+	background: #6f4e37;
+}
+
+.modal-title{
+	color: white;
+}
+
 
 
 /* 기본 스타일 */
@@ -256,7 +273,14 @@ $(function() {
 </div> <!-- <div id="starPoint"> -->
 
 <div id="btn" class="d-flex justify-content-center mt-auto">
-<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
+<c:choose>
+	<c:when test="${isWish}">
+		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2" >찜 ♥</button>
+	</c:when>
+	<c:otherwise>
+		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2" >찜 ♡</button>
+	</c:otherwise>
+</c:choose>
 <button type="button" id="sub" class="btn btn-secondary btn-lg m-2">구독</button>
 </div>
 
@@ -380,6 +404,44 @@ ${ beanInfo.beanInfo }
 
 
 </div> <!-- <div class="container"> -->
+
+<!-- Modal -->
+<div class="modal fade" id="subModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">원두우 찜~</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>...</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!-- 				<button type="button" class="btn btn-primary">Save changes</button> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="disSubModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">원두우 찜~</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>...</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!-- 				<button type="button" class="btn btn-primary">Save changes</button> -->
+			</div>
+		</div>
+	</div>
+</div>
 
 <c:import url="../layout/footer.jsp" />
 

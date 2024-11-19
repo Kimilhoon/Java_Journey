@@ -125,5 +125,29 @@
 		</where>
 	</delete>
 
+	<select id="selectBeanTop" resultType="cafe">
+		SELECT *
+		FROM (
+		    SELECT ROWNUM AS rnum, c.*, ci.cafeimgoriname, revcnt.reviewCount, revcnt.avgRevStarPoint
+		    FROM (
+		        SELECT c.cafeno, COUNT(*) AS reviewCount, ROUND(AVG(revsp), 2) AS avgRevStarPoint
+		        FROM cafe c
+		        JOIN caferev cr ON c.cafeno = cr.cafeno
+		        JOIN cafeimg ci ON c.imgno = ci.cafeimgno
+		        GROUP BY c.cafeno, c.imgno
+		        ORDER BY COUNT(*) DESC, avgrevstarpoint DESC
+		    ) revcnt
+		    JOIN cafe c ON c.cafeno = revcnt.cafeno
+		    JOIN cafeimg ci ON c.imgno = ci.cafeimgno
+			WHERE rownum BETWEEN 1 AND 3
+		)
+		ORDER BY rnum
+	</select>
+	
+	
+	
+	
+	
+	
    
 </mapper>

@@ -15,7 +15,8 @@
         SELECT rownum rnum, M.*
         FROM (
             SELECT userNo, userId, userPw, userNick, userEmail, userName,
-                   userPhone, userPostcode, userAdd1, userAdd2, businessNo
+                   userPhone, userPostcode, userAdd1, userAdd2, businessNo,
+                   status
             FROM member
             ORDER BY userNo DESC
         ) M
@@ -25,21 +26,33 @@
     </where>
 	</select>
 	
-	<select id="selectBeanSubByUserNo" resultType="boolean" parameterType="int">
-    SELECT CASE WHEN EXISTS (
-        SELECT 1
-        FROM BEANSUB
-        WHERE userno = #{userNo}
-    ) THEN 1 ELSE 0 END
-    FROM DUAL
+	<select id="selectByUserNoForStatus" resultType="boolean" parameterType="int">
+<!--     SELECT CASE WHEN EXISTS ( -->
+<!--         SELECT 1 -->
+<!--         FROM BEANSUB -->
+<!--         WHERE userno = #{userNo} -->
+<!--     ) THEN 1 ELSE 0 END -->
+<!--     FROM DUAL -->
+			SELECT 
+				CASE 
+					WHEN STATUS = 'N' THEN 'TRUE'
+					ELSE 'FALSE'
+				END AS RESULT
+			FROM MEMBER
+			WHERE USERNO = #{subNo}
 	</select>
 	
-	<delete id="deleteUserNo" parameterType="int">
-		DELETE MEMBER
+	<update id="updateUserStatus" parameterType="int">
+		UPDATE MEMBER
+   	 	SET STATUS = 
+      	  CASE 
+      	      WHEN STATUS = 'Y' THEN 'N'
+      	      WHEN STATUS = 'N' THEN 'Y'
+     	   END
 		<where>
-			userno = #{userNo}
+			USERNO = #{userNo}
 		</where>
-	</delete>
+	</update>
 	
 	<select id="selectCntBeanSubAll" resultType="int">
 		select count(*) from beansub
@@ -70,7 +83,7 @@
 	<select id="selectBeanSubCancelByBeanSub" resultType="boolean" parameterType="int">
 			SELECT 
 				CASE 
-					WHEN NONSUB = 'N' THEN 'TRUE'
+					WHEN NONSUB = 'Y' THEN 'TRUE'
 					ELSE 'FALSE'
 				END AS RESULT
 			FROM BEANSUB
@@ -80,7 +93,7 @@
 	<update id="subNoSubCancenBySubNoForUpdate" parameterType="int">
 		UPDATE BEANSUB
 		<set>
-			NONSUB = 'N'
+			NONSUB = 'Y'
 		</set>
 		<where>
 			SUBNO = #{subNo}

@@ -89,32 +89,6 @@
 		</where>
 	</delete>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-	
 	<select id="findByUserId" parameterType="String" resultType="Member">
 		SELECT 
 			userNo, userId, userPw, userNick, userEmail, userName

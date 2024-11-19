@@ -23,13 +23,13 @@ table {
 }
 th{
 	padding : 13.5px 5px;
-	font-size: 24px;
+	font-size: 20px;
 	text-align: center;
 }
 td {
 	text-align: center;
 	padding : 13.5px 5px;
-	font-size: 20px;
+	font-size: 16px;
 	margin-bottom: 10px;
 }
 </style>
@@ -48,6 +48,34 @@ $(function () {
 			type: "get"
 			, url: "/manager/usercancel?userNo=" + userNoValue
 // 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
+			, success: function (res) {
+				console.log("ajax 성공");
+				
+				if(res.status === "success") {
+					alert(res.message);
+					location.reload();//새로고침
+				} else if(res.status === "fail") {
+					alert(res.message);
+				}
+				
+			}
+			, error: function () {
+				console.log("ajax 실패");
+			}
+			 			
+			});
+		});
+	$("#btnUserRevive").click(function () {
+		console.log("테스트");
+		var userNoValue = $('input[name="userNo"]:checked')
+		.map(function () {
+			return this.value;
+		}).get()
+		console.log(userNoValue);
+		
+		$.ajax({
+			type: "get"
+			, url: "/manager/userrevive?userNo=" + userNoValue
 			, success: function (res) {
 				console.log("ajax 성공");
 				
@@ -85,6 +113,7 @@ $(function () {
 			<th>주소</th>
 			<th>상세주소</th>
 			<th>사업자번호</th>
+			<th>상태표시</th>
 		</tr>
 	</thead>
 <tbody>
@@ -105,13 +134,15 @@ $(function () {
 		<td>${Member.userAdd1}</td>
 		<td>${Member.userAdd2}</td>
 		<td>${Member.businessNo}</td>
+		<td>${Member.status}</td>
 	</tr>
 </c:forEach>
 </tbody>
 </table>
 
 <div class="position-absolute top-20 end-0 translate-middle-y">
-	<button class="btn btn-primary" id="btnUserCancel">탈퇴시키기</button>
+	<button class="btn btn-primary" id="btnUserCancel">비활성화</button>
+	<button class="btn btn-primary" id="btnUserRevive">활성화</button>
 </div>
 
 <c:import url="/WEB-INF/views/manager/userpage.jsp"/>

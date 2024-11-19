@@ -409,12 +409,11 @@ $(function() {
 	}) //$("#btnPostcode") end
 	
 
-	
-	
-	
 }) //$(function() end
 </script>
 
+<!-- 이용약관 모달 -->
+<!-- -------------------------------------------------- -->
 <script type="text/javascript">
 	function showModal(modalId) {
 	    document.getElementById(modalId).style.display = 'block';
@@ -424,7 +423,53 @@ $(function() {
     }
 </script>
 
+<!-- 사업자번호 -->
+<!-- -------------------------------------------------- -->
+<script type="text/javascript">
+function businessNoChk() {
+    $("#businessNo").val($("#businessNo").val().replace(/[^0-9]/g, ""));
+    bNoNum = $("#businessNo").val();
+
+    if(!bNoNum) {
+        alert("사업자등록번호를 입력해주세요.");
+        return false;
+    }
+
+    var data = {
+        "b_no": [bNoNum]
+    };
+    
+    $.ajax({
+        url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=C%2FBDbwNCr9N8%2FKH2vaukgMkr6Aoal1%2FVkwJsw8hhZDiZLkbgKK0Vd6KtRfd4abTry1YbcHWo86KwnyEC2J%2BiBQ%3D%3D",  // serviceKey 값을 xxxxxx에 입력
+        type: "POST",
+        data: JSON.stringify(data), // json 을 string으로 변환하여 전송
+        dataType: "JSON",
+        traditional: true,
+        contentType: "application/json; charset:UTF-8",
+        accept: "application/json",
+        success: function(result) {
+            console.log(result);
+            if(result.match_cnt == "1") {
+                //성공
+                console.log("success");
+            } else {
+                //실패
+                console.log("fail");
+                alert(result.data[0]["tax_type"]);
+            }
+        },
+        error: function(result) {
+            console.log("error");
+            console.log(result.responseText); //responseText의 에러메세지 확인
+        }
+    });
+}
+</script>
+
+
+
 <!-- 이용약관 모달 -->
+<!-- -------------------------------------------------- -->
 <style type="text/css">
 	.modal {
 		display: none;
@@ -455,11 +500,13 @@ $(function() {
 		right: 10px;
 		font-size: 20px;
 		cursor: pointer;
-	}
+	}	
 	
 </style>
 
+
 <!-- 주소 -->
+<!-- -------------------------------------------------- -->
 <style type="text/css">
 #postcodeWrap {
 /* 	position: relative; */
@@ -484,20 +531,21 @@ $(function() {
 	top: 0.5px;
 	right: -38px;
 	
-	border: 1px solid skyblue;
 	padding: 3px;
 	
 	cursor: pointer;
 }
 
-
 </style>
 
 
+<!-- 회원가입폼 css -->
+<!-- ------------------------------------------------------ -->
 <style type="text/css">
+
 #joinForm {
     width: 100%;
-    max-width: 400px;  /* 폼의 최대 너비 설정 */
+    max-width: 700px;  /* 폼의 최대 너비 설정 */
     margin: 0 auto;    /* 수평 중앙 정렬 */
     padding: 20px;
     background-color: #f9f9f9;
@@ -506,57 +554,147 @@ $(function() {
 }
 
 #joinForm div {
-    margin-bottom: 15px;
+    margin-bottom: 30px; /* div끼리의 간격 */
 }
 
 #joinForm label {
-    display: block;
-    margin-bottom: 5px;
+    display: block; /* 라벨과 입력 필드를 세로로 정렬 */
+    margin-bottom: 5px;  /* 라벨과 입력 필드 간 간격 */
     font-weight: bold;
 }
 
 #joinForm input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    width: 100%; /* 입력 필드와 버튼의 너비를 통일 */
+    padding: 10px; /* 내부 여백 추가 */
+    border: 1px solid #ccc; /* 테두리 설정 */
+    border-radius: 4px; /* 모서리를 둥글게 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    margin-top: 3px;
+}
+    
+#joinForm input::placeholder {
+    font-size: 15px; /* 텍스트 크기 줄이기 */
+    color: gray;     /* 텍스트 색상 변경 */
 }
 
-#joinForm button {
+
+/* 이용약관 */
+/* ------------------------------------------------------------- */
+#joinForm .agreeSection input[type="checkbox"] {
+    width: auto; /* 체크박스의 기본 크기를 유지 */
+    margin-right: 8px; /* 체크박스와 텍스트 간의 간격 */
+    padding: 0; /* 체크박스의 기본 여백 제거 */
+    box-sizing: content-box; /* 체크박스 크기 계산 방식 변경 */
+}
+.agreeSection {
+    margin-top: 20px; /* 섹션 간 간격 */
+    font-size: 16px; /* 폰트 크기 */
+}
+
+.agreeSection .agree {
+    display: inline-block; /* 한 줄에 표시 */
+    margin-right: 15px; /* 체크박스와 버튼 간의 간격 */
+}
+
+.agreeSection button {
+    font-size: 14px; /* 버튼 폰트 크기 */
+    margin-left: 5px; /* 버튼과 텍스트 간의 간격 */
+    cursor: pointer; /* 버튼 클릭 시 커서 모양 */
+}
+
+.agreeSection button:hover {
+    background-color: #ddd; /* 버튼 hover 효과 */
+}
+
+
+
+/* 회원가입버튼 */
+/* ------------------------------------------------------------- */
+#joinForm .btnJoin button{
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     background-color: #6f4e37;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 17px;
 }
-
 #joinForm button:hover {
     background-color: #5a3e2f;
 }
 
-#btnOut {
-    background: none;        /* 배경 제거 */
-    border: none;            /* 테두리 제거 */
-    color: #6f4e37;          /* 텍스트 색상 */
-    font-size: 14px;         /* 글자 크기 */
-    text-decoration: underline; /* 밑줄 추가 */
-    cursor: pointer;        /* 커서 스타일 변경 */
-    margin-left: auto;       /* 오른쪽으로 이동 */
-    display: block;          /* 블록 요소로 만들어 margin 적용 */
-    padding: 0;              /* 여백 제거 */
+/* 버튼 텍스트박스 옆으로 옮기기 */
+/* ------------------------------------------------------------- */
+#joinForm .idSection,
+#joinForm .nickSection,
+#joinForm .businessSection{
+    margin-bottom: 30px; /* 섹션 간 간격 설정 */
+}
+#joinForm .addressSection {
+    margin-bottom: 5px; /* 섹션 간 간격 설정 */
 }
 
-#btnOut:hover {
-    color: #5a3e2f;          /* 호버시 색상 변경 */
-    text-decoration: none;   /* 호버 시 밑줄 제거 */
-    
-    
+
+#joinForm .idSection input,
+#joinForm .nickSection input,
+#joinForm .businessSection input{
+    width: 83%; /* 텍스트 필드의 너비를 줄여서 버튼이 들어갈 공간 확보 */
 }
+#joinForm .addressSection input{
+    width: 77%;
+}
+
+#joinForm .idSection button,
+#joinForm .nickSection button,
+#joinForm .businessSection button{
+    width: 16%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#joinForm .addressSection button{
+    width: 22%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#userAdd1, #userAdd2 {
+    margin-bottom: 5px; /* 두 입력 필드 사이에 10px 간격 추가 */
+}
+
+
+/* 이용약관 버튼 */
+/* ------------------------------------------------------------- */
+label.agree button {
+    margin-left: 5px;
+    width: auto;
+    padding: 3px 8px; 
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+label.agree button:hover {
+    background-color: #ddd; /* 마우스 오버 시 배경 색상 */
+}
+
 </style>
+
+
+
+
 
 <h2 style="text-align: center; font-weight: bold;">회원가입</h2>
 <hr>
@@ -566,7 +704,7 @@ $(function() {
 
 <div class="idSection">
 	<label for="userId">아이디</label>
-	<input type="text" name="userId" id="userId" required="required">
+	<input type="text" name="userId" id="userId" required="required" placeholder="5-15자의 영문, 숫자">
 	<button id="userIdCheck" type="button">중복확인</button>
 	<span id="userIdCheckMsg"></span>
 </div>
@@ -576,7 +714,7 @@ $(function() {
 
 <div>
 	<label for="userPw">비밀번호
-		<input type="text" name="userPw" id="userPw" required="required">
+		<input type="text" name="userPw" id="userPw" required="required" placeholder="5-20자의 영문 대/소문자, 숫자, 특수문자">
 	</label>
 </div>
 <p id="pwValidation" style="color:red; font-size:0.6rem;">
@@ -590,9 +728,9 @@ $(function() {
 </div>
 <p id="pwCheckResult" style="font-size:0.6rem;">
 
-<div>
+<div class="nickSection">
 	<label for="userNick">닉네임</label>
-	<input type="text" name="userNick" id="userNick" required="required">
+	<input type="text" name="userNick" id="userNick" required="required" placeholder="5-10자의 영문, 한글, 숫자">
 	<button id="userNickCheck" type="button">중복확인</button>
 	<span id="userNickCheckMsg"></span>
 </div>
@@ -615,65 +753,53 @@ $(function() {
 
 <div>
 	<label for="userPhone">전화번호
-		<input type="text" name="userPhone" id="userPhone" required="required">
+		<input type="text" name="userPhone" id="userPhone" required="required" placeholder="ex) 010-0000-0000" 
+		pattern="\d{3}-\d{4}-\d{4}" oninput="this.value = this.value.replace(/[^0-9-]/g, '');"> 
 	</label>
 </div>
 
-
-<label>주소</label>
-<button id="btnPostcode">우편번호 찾기</button>
-<div id="postcodeWrap">
-	<img alt="x" src="../resources/img/close.png" class="closeIcon">
+<div class="addressSection">
+	<label>주소</label>
+	<div id="postcodeWrap">
+		<img alt="x" src="../resources/img/close.png" class="closeIcon">
+	</div>
+	<button id="btnPostcode">우편번호 찾기</button>
+	<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly"><br>
 </div>
-<input type="text" id="userPostcode" name="userPostcode" placeholder="우편번호" readonly="readonly"><br>
-<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly"><br>
-<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소"><br>
+	<input type="text" id="userAdd1" name="userAdd1" placeholder="주소" readonly="readonly"><br>
+	<input type="text" id="userAdd2" name="userAdd2" placeholder="상세주소"><br>
 
-
-<!-- <div> -->
-<!-- 	<label for="userPostcode">우편번호 -->
-<!-- 		<input type="text" name="userPostcode" id="userPostcode" required="required"> -->
-<!-- 	</label> -->
-<!-- </div> -->
-
-<!-- <div> -->
-<!-- 	<label for="userAdd1">주소 -->
-<!-- 		<input type="text" name="userAdd1" id="userAdd1" required="required"> -->
-<!-- 	</label> -->
-<!-- </div> -->
-
-<!-- <div> -->
-<!-- 	<label for="userAdd2">상세주소 -->
-<!-- 		<input type="text" name="userAdd2" id="userAdd2" required="required"> -->
-<!-- 	</label> -->
-<!-- </div> -->
 <br>
 
 
-<div>
+<div class="businessSection">
 	<label for="businessNo">사업자 등록번호
 		<input type="text" name="businessNo" id="businessNo" placeholder="(선택) 사업자 등록 시">
+		<button type="button"  name="businessNoCheck" id="businessNoCheck" onclick="businessNoChk();">확인</button>
 	</label>
 </div>
 <br>
 
-<label style="font-size: 18px">[ 이용 약관 ]</label>
-<br>
-<label class="agree">
-    <input type="checkbox" id="checkAll"> 모든 약관에 동의
-</label>
-<br>
-<label class="agree">
-    <input type="checkbox" class="terms-checkbox"> 이용 약관 (필수)
-    <button type="button" onclick="showModal('modal1')">보기</button>
-</label>
-<br>
-<label class="agree">
-	<input type="checkbox" class="terms-checkbox"> 개인정보 수집 및 이용 (필수)
-	<button type="button" onclick="showModal('modal2')">보기</button>
-</label>
+<div class="agreeSection">
+	<label id="agree" style="font-size: 17px"> 이용 약관 </label>
+	<br>
+	<label class="agree">
+	    <input type="checkbox" id="checkAll"> 모든 약관에 동의
+	</label>
+	<br>
+	<label class="agree">
+	    <input type="checkbox" class="terms-checkbox"> 이용 약관 (필수)
+	    <button type="button" onclick="showModal('modal1')">자세히</button>
+	</label>
+	<br>
+	<label class="agree">
+		<input type="checkbox" class="terms-checkbox"> 개인정보 수집 및 이용 (필수)
+		<button type="button" onclick="showModal('modal2')">자세히</button>
+	</label>
+</div>
 
-<div>
+<br>
+<div class="btnJoin">
 	<button id="btnJoin" class="btn btn-primary" type="button">회원 가입</button>
 </div>
 
