@@ -72,7 +72,7 @@ $(function() {
 </ul>
 </div>
 
-<iframe id="target-element" src="/" style="margin-left: 240px; width: 1870px; height: 930px;
+<iframe id="target-element" src="/" style="margin-left: 240px; width: 1660px; height: 850px;
 overflow: hidden; border: 1px solid #ccc;"></iframe>
 
 
