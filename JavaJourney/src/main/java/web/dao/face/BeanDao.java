@@ -5,12 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import web.dto.Bean;
 import web.dto.BeanRev;
-import web.dto.BeanRevComm;
 import web.dto.BeanSub;
-import web.dto.BeanWish;
 import web.dto.Member;
 
 @Mapper
@@ -107,6 +106,16 @@ public interface BeanDao {
 	
 	
 	/**
+	 * 서비스 값 반환
+	 * 
+	 * @param beanNo
+	 * @param userNo
+	 * @return
+	 */
+	public int countUserWish(@Param("beanNo") int beanNo, @Param("userNo") int userNo);
+	
+	
+	/**
 	 * 찜 추가
 	 * 
 	 * @param bean - 전달 받은 원두, 유저 NO
@@ -147,7 +156,7 @@ public interface BeanDao {
 
 	
 
-	// /bean/info
+	// /bean/sub
 	// --------------------------------------------------------------------------------------
 	
 	

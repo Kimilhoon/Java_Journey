@@ -103,6 +103,16 @@ public interface BeanService {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
+	
+	
+	/**
+	 * beanNo와 userNo를 가져와서 로그인 되어있는지 확인
+	 * 
+	 * @param beanNo
+	 * @param userNo
+	 * @return true / false
+	 */
+	public boolean checkUserWish(int beanNo, int userNo);
 
 
 	/**

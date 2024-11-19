@@ -55,6 +55,8 @@ $(document).ready( async function() {
 		selectedGrind.text( $(this).val() );
 	});
 	
+	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 }); // $(document).ready(function() end
 
@@ -265,11 +267,11 @@ async function requestPayment() {
 <style type="text/css">
 
 #beanSubInfo{
-	font-size: 30px;
+	font-size: 27px;
 }
 
 #beanSubInfo p {
-	font-size: 40px;
+	font-size: 32px;
 	font-weight: bold;
 	color: #6f4e37;
 }
@@ -283,6 +285,16 @@ async function requestPayment() {
 	border-bottom: solid 2px #6F4E37;
 	
 	margin-bottom: 20px;
+}
+
+.custom-tooltip .tooltip-inner {
+    background-color: #6F4E37; /* 원하는 배경색 */
+    color: #fff; /* Tooltip 텍스트 색상 (선택 사항) */
+}
+
+.custom-tooltip .tooltip-arrow {
+	/* 화살표와 이너의 색상은 따로 이기 때문에 따로 설정을 해줘야한다 */
+    border-left-color: #6F4E37; /* 화살표 색상 (배경색과 동일하게 설정) */
 }
 
 </style>
@@ -351,7 +363,10 @@ async function requestPayment() {
 
 <div id="beanGrind" class="mx-auto">
 <fieldset class="row mb-3">
-<legend class="col-form-label col-sm-10 pt-0">★분쇄 타입★</legend>
+<legend class="col-form-label col-sm-10 pt-0 " data-bs-toggle="tooltip" data-bs-placement="right"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="홀빈: 두꺼운 굵기입니다<br>에스프레소: 중간 굵기입니다<br>핸드드립: 얇은 굵기입니다" 
+        data-bs-html="true">★분쇄 타입★</legend>
 <!-- <p id="description" class="description">This is the form description.</p> -->
 <div class="col-sm-10">
 	<div class="form-check">
