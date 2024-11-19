@@ -83,6 +83,12 @@ public interface CafeDao {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
+	
+	/**
+	 * 베스트 카페 3개 갖고오기
+	 * @return
+	 */
+	public List<Cafe> selectBeanTop();
 
 
 
