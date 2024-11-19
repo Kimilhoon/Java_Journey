@@ -12,6 +12,7 @@ $(function () {
         , height: "200px"
     });
 })
+
 </script>
 
 <style>
@@ -45,7 +46,7 @@ $(function () {
 .carousel-item {
     background-color: #faebd7;
     padding: 20px;
-    border-radius: 10px;
+/*     border-radius: 10px; */
     text-align: center;
 }
 
@@ -65,9 +66,26 @@ $(function () {
     transition: background-color 0.3s ease, transform 0.3s ease; /* 클릭 시 애니메이션 효과 */
 }
 
+#video_area {
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+#background_video {
+    z-index: -1;
+    width: 100vw;
+}
+
 </style>
 
+<div id="video_area">
+<video id="background_video" src="/resources/bgvideo.mp4" autoplay="autoplay" loop="loop" muted="muted"></video>
+</div>
+
 <div class="container">
+
+
     <!-- Left Carousel -->
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
@@ -118,6 +136,7 @@ $(function () {
         </div>
     </div>
 </div>
+
 
 <!-- footer -->
 <c:import url="./layout/footer.jsp"/> 
