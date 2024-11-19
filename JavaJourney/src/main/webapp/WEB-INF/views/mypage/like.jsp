@@ -84,33 +84,43 @@ a:active{
 </div>
 
 <div class="container">
-<table id="contentall">
-    <c:forEach var="cafe" items="${cafeWishNoList}" varStatus="status">
-        <c:if test="${status.index % 3 == 0}">
-            <tr>
-        </c:if>
+    <table id="contentall">
+        <!-- Cafe 리스트 출력 -->
+        <c:forEach var="cafe" items="${cafeWishNoList}" varStatus="cafeStatus">
+            <c:if test="${cafeStatus.index % 8 == 0}">
+                <tr>
+            </c:if>
 
-        <!-- Cafe 리스트의 항목 -->
-        	<td class="cafetb">
-        	<div class="custom-image">
-        	<p><a href="/cafe/info?cafeNo=${cafe.cafeNo }">${cafe.cafeImgOriName}</a></p>
-        	<p>${cafe.cafeName}</p>
-        	</div>
-        	</td>
-		
-        <!-- Bean 리스트의 항목을 동일 인덱스로 출력 -->
-        <c:set var="bean" value="${beanWishList[status.index]}"/>
-        	<td class="beantb">
-        	<div class="custom-image">
-        	<p><a href="/bean/info?beanNo=${bean.beanNo }" >${bean.beanOriginName}</a></p>
-        	<p>${bean.beanName}</p>
-        	</div>
-        	</td>
-        <c:if test="${status.index % 3 == 2 || status.last}">
-            </tr>
-        </c:if>
-    </c:forEach>
-</table>
+            <td class="cafetb">
+                <div class="custom-image">
+                    <p><a href="/cafe/info?cafeNo=${cafe.cafeNo}">${cafe.cafeImgOriName}</a></p>
+                    <p>${cafe.cafeName}</p>
+                </div>
+            </td>
+
+            <c:if test="${cafeStatus.index % 8 == 7 || cafeStatus.last}">
+                </tr>
+            </c:if>
+        </c:forEach>
+
+        <!-- Bean 리스트 출력 -->
+        <c:forEach var="bean" items="${beanWishList}" varStatus="beanStatus">
+            <c:if test="${beanStatus.index % 8 == 0}">
+                <tr>
+            </c:if>
+
+            <td class="beantb">
+                <div class="custom-image">
+                    <p><a href="/bean/info?beanNo=${bean.beanNo}">${bean.beanOriginName}</a></p>
+                    <p>${bean.beanName}</p>
+                </div>
+            </td>
+
+            <c:if test="${beanStatus.index % 8 == 7 || beanStatus.last}">
+                </tr>
+            </c:if>
+        </c:forEach>
+    </table>
 </div>
 
 <div>
