@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -21,8 +22,13 @@ public class QuizController {
 	@Autowired
 	private QuizService service;
 	
-	@GetMapping("/quizFrom")
-	public void quiz1Form(@RequestBody QuizResult quizResult, 
+	@GetMapping("/quizForm")
+	public void quizForm() {
+		
+	} // quizForm() end
+	
+	@PostMapping("/quizForm")
+	public void quizFormProc(@RequestBody QuizResult quizResult, 
 			@SessionAttribute(value = "userId", required = false) String userId,
 			Model model) {
 		
@@ -38,9 +44,8 @@ public class QuizController {
 		
 	} // quizForm() end
 	
-	
 	@GetMapping("/quizResult")
-	public void quizForm() {
+	public void quizResult() {
 		
 	} // quizForm() end
 	

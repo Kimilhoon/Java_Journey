@@ -84,10 +84,11 @@ function submitForm() {
 		type: form.attr("method"), // form의 method 속성에서 전송 방식 가져옴
 		data: formData,
 		dataType: "json",
+		contentType : 'application/json',
 		success: function(res) {
 			
 			console.log(res);
-			
+			 
 			if( res.success) {
 				window.location.href="./quizResult"; // 결과 페이지로 이동
 			} else {
@@ -167,7 +168,7 @@ form div p {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<form action="./quizForm" method="get" >
+<form action="./quizForm" method="post" >
 
 <div id="beanGram" style="display: none;">
 
