@@ -6,13 +6,16 @@
 <mapper namespace="web.dao.face.MypageDao">
 
 	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
-		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
+		SELECT C1.CAFENO, C1.USERNO, C1.IMGNO 
+		C2.CAFENO, CAFENAME, CAFECOMM,
 		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
-		CAFEADD2, CAFEINFO
+		CAFEADD2, CAFEINFO,
+		C3.CAFEIMGORINAME
 		FROM CAFEWISH C1
 		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
+		INNER JOIN CAFEIMG C3 ON C1.IMGNO = C3.CAFEIMGNO
 		<where>
-			USERNO = #{userNo}
+			C1.USERNO = #{userNo}
 			<if test='searchText != "N"'>
 				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%'
 			</if>

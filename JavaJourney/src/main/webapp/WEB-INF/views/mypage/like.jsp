@@ -93,7 +93,7 @@ a:active{
         <!-- Cafe 리스트의 항목 -->
         	<td class="cafetb">
         	<div class="custom-image">
-        	<p>${cafe.cafeInfo}</p>
+        	<p><a href="/cafe/info?cafeNo=${cafe.cafeNo }">${cafe.cafeImgOriName}</a></p>
         	<p>${cafe.cafeName}</p>
         	</div>
         	</td>
@@ -102,7 +102,7 @@ a:active{
         <c:set var="bean" value="${beanWishList[status.index]}"/>
         	<td class="beantb">
         	<div class="custom-image">
-        	<p>${bean.beanOriginName}</p>
+        	<p><a href="/bean/info?beanNo=${bean.beanNo }" >${bean.beanOriginName}</a></p>
         	<p>${bean.beanName}</p>
         	</div>
         	</td>
