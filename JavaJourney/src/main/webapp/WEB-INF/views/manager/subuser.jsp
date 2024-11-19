@@ -83,7 +83,7 @@ $(function () {
 			<th>용량</th>
 			<th>분쇄</th>
 			<th>구독기간</th>
-			<th>취소표시</th>
+			<th>취소여부</th>
 		</tr>
 	</thead>
 <tbody>
