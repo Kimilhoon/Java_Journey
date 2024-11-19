@@ -7,6 +7,8 @@
 
 <c:import url="../../layout/header.jsp" />
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <style>
 
 input:focus, select:focus {
@@ -247,6 +249,29 @@ button.btn-light:hover {
 
 <script>
 
+// Kakao SDK 초기화
+  Kakao.init('f4c1cc8b7b37a15aa3f598f8c45acfef');
+
+  function shareToKakao() {
+
+	  // 카카오톡 메시지 전송
+    Kakao.Share.sendDefault({
+      objectType: 'text',
+      text: `${userNick } 님이 ${cafeRev.cafeName } 카페를 추천했어요!`,
+      link: {
+        webUrl: window.location.href
+      },
+      buttons: [
+        {
+          title: '${cafeRev.cafeName } 카페 보러가기',
+          link: {
+            webUrl: window.location.href
+          }
+        }
+      ]
+    });
+  }
+
 //모달 열기
 function openEditModal(commentNo, content) {
     document.getElementById("cafeRevCommNo").value = commentNo;
@@ -303,7 +328,6 @@ function clip(){
 
 </script>
 
-
 <!-- 댓글 수정 모달 -->
 <div class="modal" id="editCommentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -357,8 +381,12 @@ function clip(){
 </div> <!-- table -->
 
 <div id="bottom" class="d-flex justify-content-between align-items-center">
-    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37;"></i>
-
+	<div>
+	    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37;"></i>
+	    <i class="bi bi-chat-fill" onclick="shareToKakao()" style="cursor: pointer; color: #FEE500; font-size: 1.8em; margin-left: 20px;"></i>
+	</div>
+	
+	
     <c:if test="${ (userId eq writerId) or (userNick eq 'admin') }">
         <span>
             <a href="./update?revNo=${cafeRev.revNo }" style="color: #6f4e37">수정</a>
