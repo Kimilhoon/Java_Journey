@@ -37,6 +37,7 @@ $(function () {
             }
         });
     });
+    
 });
 </script>
 <style type="text/css">
@@ -68,13 +69,12 @@ $(function () {
 		</ul>
 	</td>
 	<td>
-	<!-- 해당 원두를 누르면 그 원두의 리뷰를 쓰러가야함
-	따라서 해당원두에 맞는 리뷰글쓰기로 바로 글작성을 할 것인지
-	아니면 원두리뷰 전체 글쓰기로 화면이동을 할 것인지 선택해야함
-	쉬운건 원두리뷰 전체 글쓰리의 화면이동일듯 
-	일훈 : 구독번호도 넣어주셔야돼요ㅠ 쿼리스트링으루..
-	http://localhost:8088/comm/breview/write?beanNo=82&subNo=3 예시-->
-	<a href="/comm/breview/write?beanNo=${sub.beanNo}&subNo=${sub.subNo}">리뷰쓰러가기</a>
+	<c:if test="${empty sub.revStarPoint}">
+	<a href="/comm/breview/write?subNo=${sub.subNo}">
+	<span id="isRev">리뷰쓰러가기</span>
+	</a>
+	</c:if>
+	${sub.revStarPoint}
 	</td>
 </tr>
 </table>
