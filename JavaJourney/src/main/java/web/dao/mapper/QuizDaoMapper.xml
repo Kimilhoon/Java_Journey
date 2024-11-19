@@ -10,7 +10,7 @@
 		SELECT userno
 		FROM member
 		<where>
-		AND		userno = #{ userNo}
+		AND		userid = #{ userId }
 		</where>
 	</select>
 	
