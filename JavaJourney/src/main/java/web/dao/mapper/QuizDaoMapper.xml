@@ -6,6 +6,6 @@
     
 <mapper namespace="web.dao.face.QuizDao">
 	
-	
+	sel
 	
 </mapper>
