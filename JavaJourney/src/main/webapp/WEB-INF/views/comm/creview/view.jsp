@@ -7,8 +7,6 @@
 
 <c:import url="../../layout/header.jsp" />
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
 <style>
 
 input:focus, select:focus {
