@@ -12,6 +12,7 @@ $(function () {
         , height: "200px"
     });
 })
+
 </script>
 
 <style>
@@ -45,7 +46,7 @@ $(function () {
 .carousel-item {
     background-color: #faebd7;
     padding: 20px;
-    border-radius: 10px;
+/*     border-radius: 10px; */
     text-align: center;
 }
 
@@ -65,9 +66,26 @@ $(function () {
     transition: background-color 0.3s ease, transform 0.3s ease; /* 클릭 시 애니메이션 효과 */
 }
 
+#video_area {
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+#background_video {
+    z-index: -1;
+    width: 100vw;
+}
+
 </style>
 
+<div id="video_area">
+<video id="background_video" src="/resources/bgvideo.mp4" autoplay="autoplay" loop="loop" muted="muted"></video>
+</div>
+
 <div class="container">
+
+
     <!-- Left Carousel -->
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
@@ -77,7 +95,7 @@ $(function () {
                 <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <c:forEach var="bean" items="${list}" varStatus="status">
+                <c:forEach var="bean" items="${bList}" varStatus="status">
                     <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
                     	 <div class="custom-image">
                                 ${bean.beanOriginName}
@@ -102,22 +120,23 @@ $(function () {
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <c:forEach var="bean" items="${list}" varStatus="status">
-                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                <c:forEach var="cafe" items="${cList }" varStatus="status">
+                    <div class="carousel-item ${status.index == 0 ? 'active' : '' }">
             	 		<div class="custom-image">
-                                ${bean.beanOriginName}
+                                ${cafe.cafeImgOriName }
                           </div>
-                        <a href="/bean/info?beanNo=${bean.beanNo}">
-                            <p class="fw-bold fs-4">${bean.beanName}</p>
+                        <a href="/cafe/info?cafeNo=${cafe.cafeNo }">
+                            <p class="fw-bold fs-4">${cafe.cafeName }</p>
                         </a>
-                        <p>${bean.origin}</p>
-                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+                        <p>${cafe.cafeLoc }</p>
+                        <p>리뷰: ${cafe.reviewCount } ★(${cafe.avgRevStarPoint })</p>
                     </div>
                 </c:forEach>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- footer -->
 <c:import url="./layout/footer.jsp"/> 

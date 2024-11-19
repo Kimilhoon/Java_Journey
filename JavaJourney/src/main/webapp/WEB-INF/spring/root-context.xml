@@ -60,7 +60,7 @@
 		
 		<!-- 패키지 단위로 DTO의 별칭 지정하기 -->
 		<property name="typeAliasesPackage">
-			<value>*.dto</value>
+			<value>*.dto, *.util</value>
 		</property>
 		
 	</bean>

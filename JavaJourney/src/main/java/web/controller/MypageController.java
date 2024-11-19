@@ -88,7 +88,6 @@ public class MypageController {
 		model.addAttribute("beanWishList",beanWishList);
 	}
 	
-	
 
 	
 	
