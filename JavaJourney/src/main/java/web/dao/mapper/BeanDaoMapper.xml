@@ -27,6 +27,7 @@
 					SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
 					WHERE qq.BEANNO = ww.BEANNO) a
 				GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
+		        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
 			)revcnt , bean b, BEANIMG bi
 			WHERE b.BEANNO = revcnt.beanno
 			AND b.BEANIMGNO = bi.BEANIMGNO 

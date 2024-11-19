@@ -1,6 +1,5 @@
 package web.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dao.face.BeanDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
-import web.dto.BeanRevComm;
 import web.dto.BeanSub;
-import web.dto.BeanWish;
 import web.dto.Member;
 import web.service.face.BeanService;
 import web.util.Paging;
@@ -30,12 +27,6 @@ public class BeanServiceImpl implements BeanService {
 	public List<Bean> getBeanTop() {
 		
 		List<Bean> list = dao.selectBeanTop();
-		
-		List<List<Bean>> bList = new ArrayList<List<Bean>>();
-		
-		for(Bean b : list) {
-			
-		}
 		
 		return list;
 	} // getBeanTop() end

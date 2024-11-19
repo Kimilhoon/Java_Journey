@@ -77,7 +77,7 @@ $(function () {
                 <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <c:forEach var="bean" items="${list}" varStatus="status">
+                <c:forEach var="bean" items="${bList}" varStatus="status">
                     <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
                     	 <div class="custom-image">
                                 ${bean.beanOriginName}
@@ -102,16 +102,16 @@ $(function () {
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <c:forEach var="bean" items="${list}" varStatus="status">
-                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                <c:forEach var="cafe" items="${cList }" varStatus="status">
+                    <div class="carousel-item ${status.index == 0 ? 'active' : '' }">
             	 		<div class="custom-image">
-                                ${bean.beanOriginName}
+                                ${cafe.cafeImgOriName }
                           </div>
-                        <a href="/bean/info?beanNo=${bean.beanNo}">
-                            <p class="fw-bold fs-4">${bean.beanName}</p>
+                        <a href="/cafe/info?cafeNo=${cafe.cafeNo }">
+                            <p class="fw-bold fs-4">${cafe.cafeName }</p>
                         </a>
-                        <p>${bean.origin}</p>
-                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+                        <p>${cafe.cafeLoc }</p>
+                        <p>리뷰: ${cafe.reviewCount } ★(${cafe.avgRevStarPoint })</p>
                     </div>
                 </c:forEach>
             </div>
