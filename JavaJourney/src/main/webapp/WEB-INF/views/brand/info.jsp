@@ -148,7 +148,7 @@ a{text-decoration:none}
                 <div style="color: #452020">Java Journey는 커피 문화를 사랑하는 사람들을 위해 고안된 프리미엄 커뮤니티와 구독 플랫폼입니다. 
                 여기서는 커피 애호가들이 원두와 카페에 대한 정보를 공유하고, 취향에 맞는 새로운 원두를 만날 수 있습니다. 
                 단순한 커뮤니티를 넘어, Java Journey는 커피와 관련된 모든 것이 연결되는 허브 역할을 합니다.</div>
-                <a href="/main">자세히 보기<span class="material-symbols-outlined">play_arrow</span></a>            
+                <a href="/cafe/all">카페 알아보기<span class="material-symbols-outlined">play_arrow</span></a>            
             </div>
             <div class="img_box observe">
                 <div class="img"><img src="/resources/img/java.jpg" alt="Innovation"></div>
@@ -163,7 +163,7 @@ a{text-decoration:none}
                 <div style="color: #452020">Java Journey의 원두 구독 서비스는 국내외 다양한 로스터리의 고품질 원두를 큐레이팅하여, 사용자의 취향에 맞춘 맞춤형 커피 경험을 제공합니다. 
                 정기적으로 제공되는 원두 추천은 물론, 각 원두에 대한 상세한 프로파일과 추출법 가이드를 통해 커피의 풍미를 깊이 이해할 수 있도록 돕습니다.
 				</div>
-                <a href="/bean/best">자세히 보기<span class="material-symbols-outlined">play_arrow</span></a>            
+                <a href="/bean/all">원두 알아보기<span class="material-symbols-outlined">play_arrow</span></a>            
             </div>
             <div class="img_box observe">
                 <div class="img"><img src="/resources/img/oneshot.jpg" alt="Sustainability"></div>
@@ -176,7 +176,7 @@ a{text-decoration:none}
             <div class="cont">
                 <figcaption class="tit">원두와 카페에 대한 모든 정보가<br>모이는 커뮤니티</figcaption>
                 <div style="color: #452020">커피의 시작은 원두에서, 완성은 카페에서 이루어집니다. Java Journey 커뮤니티에서는 커피 전문가와 애호가들이 모여 다양한 원두와 카페에 대한 인사이트를 나누고, 커피를 매개로 하는 특별한 소통의 장이 펼쳐집니다. 커피 초보자도 전문가도 이곳에서 새로운 커피 경험을 찾아가며 영감을 얻을 수 있습니다.</div>
-                <a href="/comm/freeboard/list">자세히 보기<span class="material-symbols-outlined">play_arrow</span></a>            
+                <a href="/comm/freeboard/list">소통하기<span class="material-symbols-outlined">play_arrow</span></a>            
             </div>
             <div class="img_box observe">
                 <div class="img"><img src="/resources/img/community.jpg" alt="Targeting"></div>
