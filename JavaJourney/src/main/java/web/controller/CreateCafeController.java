@@ -53,9 +53,9 @@ public class CreateCafeController {
 	}
 	
 	@RequestMapping("/cafeDelete")
-	public String delete(Cafe cafe, Model model) {
+	public String delete(Cafe cafe, Model model, CafeImg cafeImg) {
 		
-		service.delete(cafe);
+		service.delete(cafe, cafeImg);
 		return "redirect:/cafe/all";
 	}
 

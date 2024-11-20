@@ -34,7 +34,9 @@ public interface CreateCafeService {
 	 * @param cafe
 	 * @param cafeImg 
 	 */
-	public void delete(Cafe cafe);
+//	public void delete(Cafe cafe);
+	public void delete(Cafe cafe, CafeImg cafeImg);
+
 
 
 

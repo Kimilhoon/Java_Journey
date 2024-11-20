@@ -88,7 +88,7 @@ public interface CafeDao {
 	 * 베스트 카페 3개 갖고오기
 	 * @return
 	 */
-	public List<Cafe> selectBeanTop();
+	public List<Cafe> selectCafeTop();
 
 
 
