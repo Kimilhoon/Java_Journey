@@ -39,6 +39,7 @@
 		<where>
 			AND userId = #{userId}
 			AND userPw = #{userPw}
+			AND status = 'Y'
 		</where>	
 	</select>
 	

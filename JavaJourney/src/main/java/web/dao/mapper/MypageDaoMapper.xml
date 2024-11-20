@@ -6,16 +6,19 @@
 <mapper namespace="web.dao.face.MypageDao">
 
 	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
-		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
+		SELECT C1.CAFENO, C1.USERNO, 
+		C2.CAFENO, CAFENAME, CAFECOMM,
 		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
-		CAFEADD2, CAFEINFO
+		CAFEADD2, CAFEINFO,
+		C3.CAFEIMGORINAME
 		FROM CAFEWISH C1
 		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
+		INNER JOIN CAFEIMG C3 ON C2.IMGNO = C3.CAFEIMGNO
 		<where>
-			USERNO = #{userNo}
-			<if test='searchText != "N"'>
-				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%'
-			</if>
+			C1.USERNO = #{userNo}
+<!-- 			<if test='searchText != "N"'> -->
+<!-- 				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%' -->
+<!-- 			</if> -->
 		</where>
 	</select>
 	
@@ -44,7 +47,7 @@
 		g.GRINDNAME,
 		e.EXTRACTIONNAME 
 		FROM MEMBERQUIZRESULT m
-		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO 
+		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO
 		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
 		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
 		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
@@ -84,16 +87,28 @@
 				AND b2.BEANIMGNO = b3.BEANIMGNO
 				AND b1.BEANNO = b4.BEANNO(+)
 				AND b1.USERNO = #{userNo}
+				AND b1.NONSUB = 'N'
 			</where>
 			ORDER BY SUBNO DESC
 	</select>
 
-	<delete id="subCancel" parameterType="Integer">
-		DELETE BEANSUB
+<!-- 	<delete id="subCancel" parameterType="Integer"> -->
+<!-- 		DELETE BEANSUB -->
+<!-- 		<where> -->
+<!-- 			subNo = #{No} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
+	
+	<update id="subUpdateCancel" parameterType="Integer">
+		UPDATE BEANSUB
+   	 	SET NONSUB = 
+      	  CASE 
+      	      WHEN NONSUB = 'N' THEN 'Y'
+     	   END
 		<where>
-			subNo = #{No}
+			SUBNO = #{subNo}
 		</where>
-	</delete>
+	</update>
 	
 	<select id="findByUserId" parameterType="String" resultType="Member">
 		SELECT *
@@ -134,6 +149,7 @@
 			AND userNick = #{userNick}
 		</where>
 	</select>
+
 
 	<update id="changeStatus" parameterType="int">
 		UPDATE MEMBER
@@ -195,5 +211,27 @@
 	
 
 
+<!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM ( -->
+<!-- 			SELECT c.cafename  -->
+<!-- 			FROM CAFEREV cr  -->
+<!-- 			JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
+<!-- 			WHERE cr.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT b.beanname -->
+<!-- 			FROM BEANREV br -->
+<!-- 			JOIN BEAN b ON b.BEANNO = br.BEANNO -->
+<!-- 			WHERE br.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT FREEBOARDTITLE -->
+<!-- 			FROM FREEBOARD -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT MYRIPTITLE -->
+<!-- 			FROM MYRECIPE -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 		) -->
+<!-- 	</select> -->
 
 </mapper>

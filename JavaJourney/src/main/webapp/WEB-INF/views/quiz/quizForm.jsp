@@ -83,7 +83,7 @@ function submitForm() {
 	const form = $("form");
 	const formData = form.serializeArray(); // 폼데이터를 쿼리스트링 형식으로 직렬화
 
-	const 
+// 	const 
 	
 	$.ajax({
 		url: form.attr("action"), // form의 action 속성에서 URL 가져옴

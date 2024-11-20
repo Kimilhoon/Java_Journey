@@ -68,9 +68,11 @@ public class MypageController {
 	@ResponseBody
 	public void cancelsubForm(
 			@RequestParam("subNo") List<Integer> subNo
+//			@RequestParam("nonSub") String nonSub
 			) {
 		log.info("subNo : {}",subNo);
-		service.subCancelBySubNo(subNo);
+//		log.info("nonSub : {}",nonSub);
+		service.updateSubCancelBySubNo(subNo);
 	}
 	
 	@GetMapping("/like")
@@ -197,7 +199,7 @@ public class MypageController {
     public boolean checkPassword(@RequestParam("userPw") String userPw, HttpSession session) {
         // 세션에서 현재 사용자 ID 가져오기
         String userId = (String) session.getAttribute("userId");
-        log.info("userId",userId);
+        log.info("userId:{}",userId);
 
         // DB에 저장된 비밀번호와 비교하기
         Member member = service.findByUserId(userId);
@@ -242,7 +244,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/out")
-	public String leave(Member member, HttpSession session) {
+	public void leave(Member member, HttpSession session) {
 		int userNo = (int) session.getAttribute("userNo");
 		log.info("userNo:{}", userNo);
 		
@@ -251,7 +253,6 @@ public class MypageController {
 		
 		session.invalidate();
 		
-		return "redirect:/main";
 	}
 	
 	

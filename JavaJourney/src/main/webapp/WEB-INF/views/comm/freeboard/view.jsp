@@ -529,15 +529,35 @@ a {
 	<tr id="boardContent">
 		<td colspan="8">${freeBoardView.freeBoardContent}</td>
 	</tr>
-	<c:if test='${freeBoardView.freeBoardMapX ne"123" }'>
-		<tr>
-			<td colspan="8">
-				<div>
-					<div id="map" style="width: -webkit-fill-available; height:500px;"></div>
-				</div>
-			</td>
-		</tr>
-	</c:if>
+<%-- 	<c:if test='${freeBoardView.freeBoardMapX ne"123" }'> --%>
+<!-- 		<tr> -->
+<!-- 			<td colspan="8"> -->
+<!-- 				<div> -->
+<!-- 					<div id="map" style="width: -webkit-fill-available; height:500px;"></div> -->
+<!-- 				</div> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<%-- 	</c:if> --%>
+		<c:choose>
+		   <c:when test='${freeBoardView.freeBoardMapX ne"123" }'>
+		      <tr>
+		         <td colspan="8">
+		            <div>
+		               <div id="map" style="width: -webkit-fill-available; height:500px;"></div>
+		            </div>
+		         </td>
+		      </tr>
+		   </c:when>
+		   <c:otherwise>
+		      <tr style="display:none;">
+		         <td colspan="8">
+		            <div>
+		               <div id="map" style="width: -webkit-fill-available; height:500px;"></div>
+		            </div>
+		         </td>
+		      </tr>
+		   </c:otherwise>
+		 </c:choose>
 </table>
 </div> <!-- table -->
 <div id="bottom" >

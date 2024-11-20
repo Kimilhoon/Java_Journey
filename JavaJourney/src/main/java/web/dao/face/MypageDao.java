@@ -20,40 +20,6 @@ import web.util.Paging;
 
 @Mapper
 public interface MypageDao {
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//진주 --------------------------------------
 	
@@ -143,14 +109,14 @@ public interface MypageDao {
 	public List<BeanSub> selectMyBeanSubResult(int userNo);
 	
 	/**
-	 * 구독정보에서 구독번호를 넘겨받아 구독원두를 취소하기
+	 * 구독정보에서 구독번호를 넘겨받아 구독원두를 취소하는 표시로 만들기
 	 * @param no
 	 */
-	public void subCancel(Integer No);
+	public void subUpdateCancel(Integer No);
 
 	/**
 	 * 탈퇴하기를 누르면 status를 Y에서 N으로 바꿔준다
-	 * 로그인 불가능하게 비활성화시킴 (탈퇴기능)
+	 * 로그인 불가능하게 (N)비활성화시킴 (탈퇴기능)
 	 * @param userNo
 	 */
 	public void changeStatus(int userNo);
