@@ -41,6 +41,8 @@ $(function () {
 		
   });
 	
+	$("#order-list").css("cursor", "pointer");
+	
 });
 </script>
 <style type="text/css">
