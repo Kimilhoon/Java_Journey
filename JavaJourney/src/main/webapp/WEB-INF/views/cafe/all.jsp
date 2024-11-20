@@ -8,7 +8,6 @@
 
 <script type="text/javascript">
 $(function() {
-// 	$("#location").on("change", function() {
 	$("#location").change(function() {
 		
 		var locationValue = $(this).val();
@@ -32,7 +31,7 @@ $(function() {
 			
 		});
 		
-	}); // $("#location").on("change", function() end
+	}); // $("#location").change(function() { end
 	
 	$("#searchIcon").click(function() {
 // 		console.log($("#search").val());

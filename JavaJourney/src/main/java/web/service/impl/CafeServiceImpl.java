@@ -64,7 +64,7 @@ public class CafeServiceImpl implements CafeService {
 		
 		//페이징 계산하기
 		param.setTotalPage(totalCount);
-		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 5);
+		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 10);
 		
 		log.info("paging: {}", paging);
 		
