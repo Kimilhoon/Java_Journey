@@ -17,14 +17,10 @@ $(function () {
 
 <style>
 
-.custom-image img {
-	padding: 20px;
-	background-color: f5f5f5;
-}
-
 .container {
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
     align-items: center;
 /*      padding: 20px; */
 /*      background-color: #f5f5f5; */
@@ -84,7 +80,6 @@ $(function () {
 </div>
 
 <div class="container">
-
 
     <!-- Left Carousel -->
     <div class="carousel-container left">
