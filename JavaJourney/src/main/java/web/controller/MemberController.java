@@ -41,7 +41,7 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	//이메일인증
+	//이메일인증 의존성주입
 	@Autowired 
 	private JavaMailSender mailSender;
 	
@@ -89,6 +89,8 @@ public class MemberController {
 		
 		boolean isLogin = service.login(member);
 
+//		if("Y".equals(member.getStatus())) {
+
 		if(isLogin) {
 			log.info("로그인 성공");
 			
@@ -108,6 +110,8 @@ public class MemberController {
 			
 			return "redirect:/member/login";
 		}
+		
+//		} return "redirect:/main";
 
 	}
 	
@@ -171,15 +175,15 @@ public void test() {}
 	
 	//이메일 인증
 	@GetMapping("/mailCheck")
-	@ResponseBody
+	@ResponseBody //json통신위해 작성
 	public String mailCheck(String userEmail) throws Exception{
-		log.info("userEmail:{}", userEmail);
+//		log.info("userEmail:{}", userEmail);
 		
 	
 		//인증번호 생성
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
-		System.out.println("인증번호 :"+ checkNum);
+//		System.out.println("인증번호 :"+ checkNum);
 		
 		
 		//이메일 전송 내용

@@ -206,7 +206,7 @@ $(function() {
        
         if (realOut) {
             // "예"를 선택한 경우 탈퇴 요청 전송
-            location.href = "<c:url value='/mypage/out'/>"; // 회원 탈퇴 요청 URL
+            location.href = "/mypage/out"; // 회원 탈퇴 요청 URL
         }
 	})
 	
@@ -460,7 +460,7 @@ $(function() {
 
 <div>
 	<label for="userEmail">이메일
-		<input type="email" name="userEmail" id="userEmail" required="required" value="${member.userEmail }">
+		<input type="email" name="userEmail" id="userEmail" required="required" value="${member.userEmail }" readonly="readonly">
 	</label>
 </div>
 
@@ -495,7 +495,8 @@ $(function() {
 </form>
 </div> <!-- id="infoUpdateForm" -->
 
-<button id="btnOut" type="button">|탈퇴하기|</button>
+
+<button id="btnOut" type="button" data-userno="${member.userNo}">|탈퇴하기|</button>
 
 
 <c:import url="../layout/footer.jsp" />
