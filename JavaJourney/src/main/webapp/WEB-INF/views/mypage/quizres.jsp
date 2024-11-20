@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp"/>
 
-<h1 class="text-center">나의 취향결과</h1> 
+<h1 class="text-center">취향결과</h1> 
 <script type="text/javascript">
 $(function () {
 	$(".custom-image img").css({

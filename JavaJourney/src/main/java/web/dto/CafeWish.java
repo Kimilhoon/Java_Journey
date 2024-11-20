@@ -24,6 +24,12 @@ public class CafeWish {
 	
 	//찜누르기
 	private String Action;
+	
+	//조인
+	private int cafeImgNo;
+	private String cafeImgOriName;
+	private String cafeImgStoName;
+	private int cafeImgSize;
 
 }
 	

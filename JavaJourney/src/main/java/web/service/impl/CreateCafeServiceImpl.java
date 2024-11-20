@@ -50,8 +50,9 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 	
 	@Override
 	@Transactional
-	public void delete(Cafe cafe) {
+	public void delete(Cafe cafe, CafeImg cafeImg) {
 		dao.deleteCafe(cafe);
+		dao.deleteCafeImg(cafeImg);
 	}
 
 
