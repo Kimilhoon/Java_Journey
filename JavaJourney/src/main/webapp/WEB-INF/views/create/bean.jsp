@@ -14,21 +14,55 @@ $(function () {
 	$("#btnBack").click(function () {
  	   history.back();
 	});
-	
-    $('#beanInfo').summernote({ //섬머노트 설정
-        height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
-        , toolbar: [
-            ['insert', ['picture']] // 이미지 업로드 버튼만 추가
-        ]
-      });
+   
     $('#beanOriginName').summernote({ 
     	width: 400, height: 200
     	, toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
-        ]
+        ],
+    	callbacks: {
+        	onImageUpload: function(files) {
+            	// 기존 이미지 제거
+            	$('#beanOriginName').summernote('code', '');
+
+	            // 새 이미지 업로드 및 삽입
+    	        const reader = new FileReader();
+        	    reader.onload = function(e) {
+            	    const imageBase64 = e.target.result;
+                	$('#beanOriginName').summernote('insertImage', imageBase64); // 새 이미지 삽입
+	            };
+    	        reader.readAsDataURL(files[0]); // 첫 번째 파일만 처리
+        	}
+    	}
     	
-      });
-   
+    });
+    
+    $('#beanOriginName').next('.note-editor').find('.note-editable').attr('contenteditable', false);
+
+    $('#beanInfo').summernote({ //섬머노트 설정
+        height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+        , toolbar: [
+            ['insert', ['picture']] // 이미지 업로드 버튼만 추가
+        ],
+    	callbacks: {
+        	onImageUpload: function(files) {
+            	// 기존 이미지 제거
+            	$('#beanInfo').summernote('code', '');
+
+	            // 새 이미지 업로드 및 삽입
+    	        const reader = new FileReader();
+        	    reader.onload = function(e) {
+            	    const imageBase64 = e.target.result;
+                	$('#beanInfo').summernote('insertImage', imageBase64); // 새 이미지 삽입
+	            };
+    	        reader.readAsDataURL(files[0]); // 첫 번째 파일만 처리
+        	}
+    	}
+    
+    });
+
+    $('#beanInfo').next('.note-editor').find('.note-editable').attr('contenteditable', false);
+    
     $("#btnBeanImg").click(function() {
         window.open("/create/selectimage", "popupWindow"
         		, "width=900,height=600");

@@ -17,6 +17,7 @@ public class Bean {
 	private int beanCount;
 	
 	private String businessNo;	
+	private String status;	
 	
 	//beanImg join
 	private String beanStoredName;

@@ -79,4 +79,5 @@ public class CreateBeanController {
 		service.beanDelete(bean.getBeanNo());
 		return "redirect:/bean/all";
 	}
+	
 }
