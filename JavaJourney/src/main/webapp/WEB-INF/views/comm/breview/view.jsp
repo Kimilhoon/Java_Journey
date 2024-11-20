@@ -9,6 +9,18 @@
 
 <style>
 
+#share-btn {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100%; /* 부모 요소의 높이에 맞추기 */
+}
+
+#share-btn i, #share-btn a {
+    margin: 0 5px; /* 아이콘과 링크 사이 간격 조정 */
+}
+
+
 input:focus, select:focus {
     outline: none;  /* 기본 파란색 테두리 제거 */
     box-shadow: 0 0 5px #6f4e37;  /* 원하는 색상으로 그림자 설정 */
@@ -386,9 +398,12 @@ function clip(){
 </div> <!-- table -->
 
 <div id="bottom" class="d-flex justify-content-between align-items-center">
-	<div>
+
+	<div id="share-btn">
 	    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37;"></i>
-	    <i class="bi bi-chat-fill" onclick="shareToKakao()" style="cursor: pointer; color: #FEE500; font-size: 1.8em; margin-left: 20px;"></i>
+	    <a id="kakaotalk-sharing-btn" onclick="shareToKakao()" style="cursor: pointer;">
+	    	<img src="/resources/img/kakaoLogo.png" style="cursor: pointer; width: 38px; height: 38px;">
+		</a>
 	</div>
 	
     <c:if test="${ (userId eq writerId) or (userNick eq 'admin') }">
