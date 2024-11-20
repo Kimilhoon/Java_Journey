@@ -24,7 +24,7 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public List<Cafe> getCafeTop() {
-		return dao.selectBeanTop();
+		return dao.selectCafeTop();
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public class CafeServiceImpl implements CafeService {
 		log.info("totalCount: {}", totalCount);
 		
 		//페이징 계산하기
-		param.setTotalPage(totalCount);
+//		param.setTotalPage(totalCount);
 		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 5);
 		
 		log.info("paging: {}", paging);
@@ -103,8 +103,10 @@ public class CafeServiceImpl implements CafeService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startNo", paging.getStartNo());
 		map.put("endNo", paging.getEndNo());
-		map.put("location", location);
-		map.put("keyword", keyword);
+//		map.put("location", location);
+//		map.put("keyword", keyword);
+		map.put("location", String.valueOf(location)); // 문자열로 변환
+	    map.put("keyword", String.valueOf(keyword));   // 문자열로 변환
 		
 		List<Cafe> AllCafeList = dao.selectAll(map);
 		

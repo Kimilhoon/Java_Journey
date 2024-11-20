@@ -38,6 +38,9 @@ public class Paging {
 	//	** 계산으로 알아냄
 	private int endNo;
 	
+	private String location; // 지역 필터
+    private String keyword;  // 키워드 필터
+	
 	public Paging() {}
 
 	public Paging(int curPage, int totalCount) {
@@ -145,6 +148,22 @@ public class Paging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+	
+	public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 	
 	//페이징에 필요한 계산 처리
 	private void makePaging() {

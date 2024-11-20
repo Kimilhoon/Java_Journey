@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
@@ -132,7 +133,15 @@ a {
 		</td>
 		<td>
 			<a href="./view?myRipNo=${myRecipeList.myRipNo}"class="hit" >
-				${myRecipeList.myRipTitle}
+				
+				<c:choose>
+			        <c:when test="${fn:length(myRecipeList.myRipTitle) gt 26}">
+			       	 <c:out value="${fn:substring(myRecipeList.myRipTitle, 0, 25)}..."></c:out>
+			        </c:when>
+			        <c:otherwise>
+			       	 <c:out value="${myRecipeList.myRipTitle}"></c:out>
+			        </c:otherwise>
+				</c:choose>
 			</a>
 				[${myRecipeList.myRipCommentCount}]
 		</td>
