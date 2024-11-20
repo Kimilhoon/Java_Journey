@@ -132,11 +132,6 @@ public interface MypageService {
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
 
-	/**
-	 * 세션에서 가져온 userNo에 맞는 회원 삭제
-	 * @param userNo
-	 */
-	public void leaveMember(Integer userNo);
 	
 	/**
 	 * 세션에서 가져온 userNo에 맞는 회원의 취향결과보기
@@ -157,6 +152,12 @@ public interface MypageService {
 	 * @param subNo
 	 */
 	public void subCancelBySubNo(List<Integer> subNo);
+
+	/**
+	 * 회원탈퇴눌렀을때 STATUS 변경 (Y->N)
+	 * @param member
+	 */
+	public void outMember(Member member);
 
 	/**
 	 * 내가 작성한글 페이징

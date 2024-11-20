@@ -240,17 +240,41 @@ public class MypageController {
 		
 		return ResponseEntity.ok(checkNickResult);
 	}
-	
 	@RequestMapping("/out")
-	public String out(Member member, HttpSession session) {
-		
+	public String leave(Member member, HttpSession session) {
+		// DB에서 기존 사용자 정보 가져오기
 		Integer userNo = (Integer) session.getAttribute("userNo");
-		service.leaveMember(userNo);
+	    log.info("OutMember userNo before update: {}", member.getUserNo());
+		service.outMember(member);
+	    log.info("out userNo1:{}", userNo);
+	    log.info("out member1:{}", member);
+	    
+		member = service.findByUserNo(userNo);
+		log.info("out userNo2:{}", userNo);
+		log.info("out member2:{}", member);
 		
+		log.info("Before session.invalidate() - userNo: {}", userNo);
 		session.invalidate();
-		
 		return "redirect:/main"; 
 	}
+//	@GetMapping("/out")
+//	public void leaveMember(HttpSession session, Model model) {
+//        // 세션에서 userNo 가져오기
+//        Integer userNo = (Integer) session.getAttribute("userNo");
+//        // DB에서 기존 사용자 정보 가져오기
+//        Member member = service.findByUserNo(userNo);
+//        model.addAttribute("member", member);
+//	}
+	
+//	@RequestMapping("/out")
+//	public String leave(Member member, HttpSession session) {
+//		service.outMember(member);
+//		
+//		session.invalidate();
+//		return "redirect:/main"; 
+//	}
+	
+	
 
 		
 	@GetMapping("/myview")
