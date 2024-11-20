@@ -47,7 +47,7 @@
 		g.GRINDNAME,
 		e.EXTRACTIONNAME 
 		FROM MEMBERQUIZRESULT m
-		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULT
+		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO
 		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
 		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
 		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
@@ -91,12 +91,23 @@
 			ORDER BY SUBNO DESC
 	</select>
 
-	<delete id="subCancel" parameterType="Integer">
-		DELETE BEANSUB
+<!-- 	<delete id="subCancel" parameterType="Integer"> -->
+<!-- 		DELETE BEANSUB -->
+<!-- 		<where> -->
+<!-- 			subNo = #{No} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
+	
+	<update id="subUpdateCancel" parameterType="Integer">
+		UPDATE BEANSUB
+   	 	SET NONSUB = 
+      	  CASE 
+      	      WHEN NONSUB = 'N' THEN 'Y'
+     	   END
 		<where>
-			subNo = #{No}
+			SUBNO = #{subNo}
 		</where>
-	</delete>
+	</update>
 	
 	<select id="findByUserId" parameterType="String" resultType="Member">
 		SELECT 
@@ -195,9 +206,6 @@
 		ORDER BY myRipNo DESC
 	</select>
 	
-	
-	
-	
 <!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
 <!-- 		FROM ( -->
@@ -220,10 +228,5 @@
 <!-- 			WHERE userNo = #{userNo} -->
 <!-- 		) -->
 <!-- 	</select> -->
-
-
-
-
-
 
 </mapper>

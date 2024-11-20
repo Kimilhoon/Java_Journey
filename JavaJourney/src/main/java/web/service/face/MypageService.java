@@ -17,46 +17,6 @@ import web.dto.MyRecipe;
 import web.util.Paging;
 
 public interface MypageService {
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	//진주---------------------------------------
@@ -153,10 +113,10 @@ public interface MypageService {
 	public List<BeanSub> selectMyBeanSub(int userNo);
 	
 	/**
-	 * Ajax로 전달받은 subNo <Integer> 배열로 구독 취소하기
+	 * Ajax로 전달받은 subNo <Integer> 배열로 구독 취소하기 -> 구독취소여부 Y(구취)로 바꾸기 기존은 N(구독중)
 	 * @param subNo
 	 */
-	public void subCancelBySubNo(List<Integer> subNo);
+	public void updateSubCancelBySubNo(List<Integer> subNo);
 
 	/**
 	 * 내가 작성한글 페이징

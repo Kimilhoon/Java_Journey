@@ -67,10 +67,11 @@ public class MypageController {
 	@PostMapping("/cancelsub")
 	@ResponseBody
 	public void cancelsubForm(
-			@RequestParam("subNo") List<Integer> subNo
+			@RequestParam("subNo") List<Integer> subNo,
+			@RequestParam("nonSub") String nonSub
 			) {
 		log.info("subNo : {}",subNo);
-		service.subCancelBySubNo(subNo);
+//		service.updateSubCancelBySubNo(subNo);
 	}
 	
 	@GetMapping("/like")
