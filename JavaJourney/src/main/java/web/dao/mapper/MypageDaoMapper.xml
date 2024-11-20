@@ -110,9 +110,7 @@
 	</update>
 	
 	<select id="findByUserId" parameterType="String" resultType="Member">
-		SELECT 
-			userNo, userId, userPw, userNick, userEmail, userName
-	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		SELECT *
 	 	FROM MEMBER
 	 	<where>
 	 		userId = #{userId}
@@ -120,9 +118,7 @@
 	</select>	
 	
 	<select id="findByUserNo" parameterType="int" resultType="Member">
-		SELECT 
-			userNo, userId, userPw, userNick, userEmail, userName
-	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		SELECT *
 	 	FROM MEMBER
 	 	<where>
 	 		userNo = #{userNo}
@@ -153,10 +149,17 @@
 		</where>
 	</select>
 	
-	<delete id="deleteMemberByUserNo" parameterType="Integer">
-		DELETE FROM member
-		WHERE userNo = #{userNo}
-	</delete>
+<!-- 	<delete id="deleteMemberByUserNo" parameterType="Integer"> -->
+<!-- 		DELETE FROM member -->
+<!-- 		WHERE userNo = #{userNo} -->
+<!-- 	</delete> -->
+	<update id="updateStatus" parameterType="Member">
+		UPDATE MEMBER
+		SET status = 'N'
+		WHERE USERNO = #{userNo}  
+	</update>
+	
+	
 	
 	
 	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">

@@ -6,6 +6,12 @@
     
 <mapper namespace="web.dao.face.QuizDao">
 	
-	
+	<select id="selectUserNoByUserId" parameterType="String" resultType="Member">
+		SELECT userno
+		FROM member
+		<where>
+		AND		userid = #{ userId }
+		</where>
+	</select>
 	
 </mapper>

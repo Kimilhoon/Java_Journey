@@ -93,12 +93,6 @@ public interface MypageDao {
 	 * @return
 	 */
 	public List<MyRecipe> selectMyRecipeByUserNo(int userNo);
-
-	/**
-	 * 회원번호에 해당하는 회원 지우기
-	 * @param member
-	 */
-	public void deleteMemberByUserNo(Integer userNo);
 	
 	/**
 	 * 나의 취향결과 DB에서 조회하기
@@ -119,6 +113,13 @@ public interface MypageDao {
 	 * @param no
 	 */
 	public void subUpdateCancel(Integer No);
+
+	/**
+	 * 회원탈퇴를 한다면 status를 Y에서 N으로 바꿔준다
+	 * 회원은 로그인 불가능(탈퇴기능)
+	 * @param member
+	 */
+	public void updateStatus(Member member);
 
 	/**
 	 * 카테고리와 검색어로 필터링된 게시글 수

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.MypageDao;
@@ -159,10 +160,11 @@ public class MypageServiceImpl implements MypageService {
 		return dao.selectMyRecipeByUserNo(userNo);
 	}
 
-
 	@Override
-	public void leaveMember(Integer userNo) {
-		dao.deleteMemberByUserNo(userNo);
+	@Transactional
+	public void outMember(Member member) {
+		dao.updateStatus(member);
+	    log.info("Updated member status: {}", member.getStatus());
 		
 	}
 
