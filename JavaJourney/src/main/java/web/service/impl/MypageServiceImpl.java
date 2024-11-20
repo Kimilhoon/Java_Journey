@@ -40,9 +40,10 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Override
 	public void updateSubCancelBySubNo(List<Integer> subNo) {
-		for(Integer No : subNo) {
-			dao.subUpdateCancel(No);
-		}
+			for(Integer No : subNo) {
+				dao.subUpdateCancel(No);
+			}
+		
 	}
 	
 	
