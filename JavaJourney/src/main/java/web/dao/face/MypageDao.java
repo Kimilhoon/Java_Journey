@@ -117,9 +117,34 @@ public interface MypageDao {
 	/**
 	 * 탈퇴하기를 누르면 status를 Y에서 N으로 바꿔준다
 	 * 로그인 불가능하게 (N)비활성화시킴 (탈퇴기능)
+	 * 닉네임을 '(탈퇴한 회원)'으로 변경
 	 * @param userNo
 	 */
 	public void changeStatus(int userNo);
+
+	/**
+	 * FREEBOARDCOMMENT.userNick 변경 (댓글닉네임)
+	 * @param userNo
+	 */
+	public void changeFreeNick(int userNo);
+
+	/**
+	 * MYRECIPECOMMENT.userNick 변경 (댓글닉네임)
+	 * @param userNo
+	 */
+	public void changeMyrepNick(int userNo);
+
+	/**
+	 *  FREEBOARDCOMMENT.FREEBOARDCOMMNICKTAG (대댓글닉네임)
+	 * @param userNick
+	 */
+	public void changeFreeCommNickTag(String userNick);
+
+	/**
+	 * MYRECIPECOMMENT.MYRIPCOMMNICKTAG 변경 (대댓글닉네임)
+	 * @param userNick
+	 */
+	public void changeMyrecipeCommNickTag(String userNick);
 
 
 

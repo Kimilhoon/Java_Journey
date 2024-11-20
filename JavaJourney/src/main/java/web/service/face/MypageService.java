@@ -115,9 +115,17 @@ public interface MypageService {
 
 	/**
 	 * 탈퇴하기를 누르면 STATUS 변경 (Y->N)
+	 * userNick='(탈퇴한회원)'으로 변경
 	 * @param userNo
 	 */
 	public void outMember(int userNo);
+
+	/**
+	 * 탈퇴하기 누르면
+	 * 대댓글 닉네임을 '(탈퇴한회원)'으로 변경
+	 * @param userNick
+	 */
+	public void updateCommNickTag(String userNick);
 
 
 

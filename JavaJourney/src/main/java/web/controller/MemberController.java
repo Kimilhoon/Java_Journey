@@ -95,12 +95,21 @@ public class MemberController {
 			
 			member= service.info(member);
 			
+			log.info("info member : {}", member);
+			
+	       if ("Y".equals(member.getStatus())) {
 			session.setAttribute("isLogin", true);
 			session.setAttribute("userId", member.getUserId());
 			session.setAttribute("userNick", member.getUserNick());
 			session.setAttribute("userNo", member.getUserNo());
 			
 			return "redirect:/main";
+	       } else {
+	    	   log.info("로그인 실패 : 비활성화된 계정");
+	    	   session.setAttribute("loginError", "탈퇴한 회원입니다");
+				return "redirect:/member/login";
+	       }
+		
 		}else {
 			log.info("로그인 실패");
 			

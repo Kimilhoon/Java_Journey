@@ -165,6 +165,14 @@ public class MypageServiceImpl implements MypageService {
 	@Transactional
 	public void outMember(int userNo) {
 		dao.changeStatus(userNo);
+		dao.changeFreeNick(userNo);
+		dao.changeMyrepNick(userNo);
+	}
+
+	@Override
+	public void updateCommNickTag(String userNick) {
+		dao.changeFreeCommNickTag(userNick);
+		dao.changeMyrecipeCommNickTag(userNick);
 	}
 
 

@@ -244,15 +244,19 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/out")
-	public void leave(Member member, HttpSession session) {
+	public String leave(Member member, HttpSession session) {
 		int userNo = (int) session.getAttribute("userNo");
+		String userNick = (String)session.getAttribute("userNick");
 		log.info("userNo:{}", userNo);
+		log.info("userNick:{}", userNick);
 		
 		service.outMember(userNo);
+		service.updateCommNickTag(userNick);
 		
 		
 		session.invalidate();
 		
+		return "redirect:/main";
 	}
 	
 	
