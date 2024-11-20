@@ -9,7 +9,31 @@
 <!-- 내용 -->
 
 <script type="text/javascript">
+
+Kakao.init('f4c1cc8b7b37a15aa3f598f8c45acfef');
+function shareToKakao() {
+
+	  // 카카오톡 메시지 전송
+    Kakao.Share.sendDefault({
+      objectType: 'text',
+      text: `${userNick } 님이 !`,
+      link: {
+        webUrl: window.location.href
+      },
+      buttons: [
+        {
+          title: '카페 보러가기',
+          link: {
+            webUrl: window.location.href
+          }
+        }
+      ]
+    });
+  }
+
 $(function() {
+	
+	
 	
 	$.ajax({
 		url: "./reccheck?myRipNo="+${myRecipeView.myRipNo },
@@ -537,6 +561,10 @@ function clip(){
 	document.execCommand("copy");
 	document.body.removeChild(textarea);
 	alert("URL이 복사되었습니다.")
+	
+
+
+  
 }
 
 </script>
@@ -544,11 +572,12 @@ function clip(){
 <div id="bottom" >
 	<div style="display: inline-block; float: left; vertical-align: middle;">
 	    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37; margin-right: 15px;"></i>
+	    <i class="bi bi-chat-fill" onclick="shareToKakao()" style="cursor: pointer; color: #6f4e37; font-size: 1.8em; margin-right: 15px;"></i>
 	    <button id="btn_rec" class="btn ">☆추천</button>
 	</div>
     <div style="display: inline-block; float: right;">
 		<a href="./list"><button class="btn "><small>목록</small></button></a>
-	    <c:if test="${member.userNick eq userNick}">
+	    <c:if test="${member.userNick eq userNick or (userNick eq 'admin')}">
 			<a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>수정</small></button></a>
 			<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>삭제</small></button></a>
 		</c:if>
@@ -570,7 +599,7 @@ function clip(){
 		<td style="display: none;">${myRecipeComment.myRipCommNo}</td>
 		<td></td>
 		<td class="text-end">
-			<c:if test="${ myRecipeComment.userNick eq userNick}">
+			<c:if test="${ myRecipeComment.userNick eq userNick or (userNick eq 'admin')}">
 				<button class="btn_cUpdate" style=" border: 0;  background-color: transparent;" onclick="openEditModal('${myRecipeComment.myRipCommNo}', '${myRecipeComment.myRipCommCont}')"><small>수정</small></button>|
 				<button class="btn_cDelete" style=" border: 0;  background-color: transparent;"><small>삭제</small></button>
 				<div style="display: none;">${myRecipeComment.myRipCommNo}</div>
@@ -601,7 +630,7 @@ function clip(){
 			<td style="font-size: x-large;">ㄴ</td>
 			<td>${reply.userNick} ⭢ ${reply.myRipCommNickTag}</td>
 			<td class="text-end">
-				<c:if test="${ reply.userNick eq userNick}">
+				<c:if test="${ reply.userNick eq userNick or (userNick eq 'admin')}">
 					<button class="btn_cUpdate_reply" style=" border: 0;  background-color: transparent;" onclick="openEditModal('${reply.myRipCommNo}', '${reply.myRipCommCont}')"><small>수정</small></button>|
 					<button class="btn_cDelete" style=" border: 0;  background-color: transparent;"><small>삭제</small></button>
 					<div style="display: none;">${reply.myRipCommNo}</div>
