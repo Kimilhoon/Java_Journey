@@ -66,6 +66,35 @@ $(function () {
 			 			
 			});
 		});
+	$("#btnBeanSubReturn").click(function () {
+		console.log("테스트");
+		var beanSubNoValue = $('input[name="subNo"]:checked')
+		.map(function () {
+			return this.value;
+		}).get()
+		console.log(beanSubNoValue);
+		
+		$.ajax({
+			type: "get"
+			, url: "/manager/subcancel?subNo=" + beanSubNoValue
+// 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
+			, success: function (res) {
+				console.log("ajax 성공");
+				
+				if(res.status === "success") {
+					alert(res.message);
+					location.reload();//새로고침
+				} else if(res.status === "fail") {
+					alert(res.message);
+				}
+				
+			}
+			, error: function () {
+				console.log("ajax 실패");
+			}
+			 			
+			});
+		});
 })
 </script>
 </head>
@@ -115,6 +144,7 @@ $(function () {
 
 <div class="position-absolute top-20 end-0 translate-middle-y">
 	<button class="btn btn-primary" id="btnBeanSubCancel">구독취소하기</button>
+	<button class="btn btn-primary" id="btnBeanSubReturn">되돌리기</button>
 </div>
 
 <c:import url="/WEB-INF/views/manager/beansubpage.jsp"/>
