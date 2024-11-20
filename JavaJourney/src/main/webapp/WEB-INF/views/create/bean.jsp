@@ -50,18 +50,6 @@ $(function () {
 		$(this).val($(this).val().replace(/[^0-9-]/g, ''));
 	})
     
-	$("#form").submit(function(e) {
-	    e.preventDefault();  // 폼이 실제로 전송되는 것을 방지하고
-	    const checkedValues = $('input[name="cupNoteName"]:checked')
-	        .map(function() {
-	            return this.value;
-	        }).get();  // jQuery를 사용하여 선택된 체크박스 값들을 배열로 수집
-
-	    console.log("선택된 값:", checkedValues); // 선택된 체크박스 값 출력
-	    // 실제 전송
-	    this.submit();
-	});
-    
     $("input[type='checkbox'][name='cupNoteName']").on("click", function() {
         // 체크된 체크박스의 개수를 확인
         let checkedCount = $("input[type='checkbox'][name='cupNoteName']:checked").length;
@@ -72,6 +60,24 @@ $(function () {
             alert("최대 2개까지만 선택할 수 있습니다.");
         }
     });
+    
+    $("#form").submit(function(e) {
+	    e.preventDefault();  // 폼이 실제로 전송되는 것을 방지하고
+        let checkedCount = $("input[type='checkbox'][name='cupNoteName']:checked").length;
+	    const checkedValues = $('input[name="cupNoteName"]:checked')
+	        .map(function() {
+	            return this.value;
+	        }).get();  // jQuery를 사용하여 선택된 체크박스 값들을 배열로 수집
+
+	    console.log("선택된 값:", checkedValues); // 선택된 체크박스 값 출력
+	    if( checkedCount == 1 ) {
+	    	alert("원두맛은 2개를 선택해야 합니다.");
+	    	return false;
+	    }
+	    // 실제 전송
+	    this.submit();
+	});
+    
 })
 </script>
 

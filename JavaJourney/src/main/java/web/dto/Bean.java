@@ -43,4 +43,8 @@ public class Bean {
 	private String userPostcode;
 	private String userAdd1;
 	private String userAdd2;
+	
+	//조인 BeanTaste
+//	private int beanNo;
+	private int cupNoteNo;
 }
