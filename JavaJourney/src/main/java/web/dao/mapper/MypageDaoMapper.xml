@@ -31,7 +31,7 @@
 		INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
 		INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
 		<where>
-			USERNO = #{userNo}
+			B1.USERNO = #{userNo}
 <!-- 			<if test='searchText != "N"'> -->
 <!-- 				upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
 <!-- 			</if> -->
@@ -47,7 +47,7 @@
 		g.GRINDNAME,
 		e.EXTRACTIONNAME 
 		FROM MEMBERQUIZRESULT m
-		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO
+		INNER JOIN QUIZRESULT q ON m.QUIZRESULTNO = q.QUIZRESULTNO
 		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
 		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
 		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO

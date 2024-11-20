@@ -26,8 +26,8 @@ $(document).ready(function() {
 	// 체크박스 최대 선택 개수 제한
 	const maxSelection = 2;
 
-	$("input[name='cupNoteName']").on('change', function() {
-		const checkedCount = $("input[name='cupNoteName']:checked").length;
+	$("input[name='cupNoteNoQuiz']").on('change', function() {
+		const checkedCount = $("input[name='cupNoteNoQuiz']:checked").length;
 
 		// 체크된 수가 최대 개수를 초과할 경우
 		if (checkedCount > maxSelection) { 
@@ -41,7 +41,7 @@ $("#QuizBtn").click(function() {
 	
 	// 체크박스 최대 선택 개수 제한
 	const maxSelection = 2;
-	const checkedCount = $("input[name='cupNoteName']:checked").length;
+	const checkedCount = $("input[name='cupNoteNoQuiz']:checked").length;
 	
 	if( checkedCount < maxSelection ) {
 		alert(maxSelection + "개를 선택해 주셔야합니다.");
@@ -52,11 +52,11 @@ $("#QuizBtn").click(function() {
 		// 현재 단계를 숨기고 다음 단계를 표시
 		$("#QuizBtn").prop("disabled", true); // 버튼 비활성화
 		
-		$(steps[currentStep]).fadeOut(500, function () {
+		$(steps[currentStep]).fadeOut(250, function () {
 			
 				currentStep++;
 				
-			$(steps[currentStep]).fadeIn(500, function () {
+			$(steps[currentStep]).fadeIn(250, function () {
 				
 				$("#QuizBtn").prop("disabled", false); // 애니메이션 종료 후 활성화
 			
@@ -81,33 +81,41 @@ $("#QuizBtn").click(function() {
 function submitForm() {
 	
 	const form = $("form");
-	const formData = form.serializeArray(); // 폼데이터를 쿼리스트링 형식으로 직렬화
+	const formData = form.serializeArray(); // 폼데이터를 배열 형태로 직렬화
+	
+	
+	// concat 함수 : 두 개 이상의 배열을 순서대로 하나씩 연결(concatenate, 연결시키다)하여 새로운 배열을 반환하는 함수입니다.
+	
+	// formData를 객체로 변환하면서 같은 name 값을 배열로 처리
+    const jsonData = formData.reduce((result, item) => {
+        if (result[item.name]) {
+            // 이미 값이 있으면 배열에 추가
+            result[item.name] = [].concat(result[item.name], item.value);
+        } else {
+            // 값이 없으면 새로운 키로 추가
+            result[item.name] = item.value;
+        }
+        return result;
+    }, {});
 
-	const 
 	
 	$.ajax({
 		url: form.attr("action"), // form의 action 속성에서 URL 가져옴
 		type: form.attr("method"), // form의 method 속성에서 전송 방식 가져옴
-		data: JSON.stringify( formData.reduce((result, item) => {result[item.name]=item.value; return result;}, {}) ),
+		data: JSON.stringify( jsonData ),
 		dataType: "json",
 		contentType : 'application/json',
 		success: function(res) {
 			
 			console.log(res);
 			 
-			if( res.success) {
-				window.location.href="./quizResult"; // 결과 페이지로 이동
-			} else {
-				alert("서버 처리중 문제가 발생했습니다." + res.message);
-			}
 		},
-		error: function(res) {
+		error: function() {
 			console.error("AJAX 요청에 실패했습니다.");
-			alert("퀴즈 데이터를 전송하는 중 오류가 발생했습니다." + res.message);
 		}
 	});
 	
-} // function submitForm() end
+}; // function submitForm() end
 
 // 	// 쿼리 스트링 만들기
 // 	let queryString = "";
@@ -174,7 +182,7 @@ form div p {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<form action="./quizForm" method="post" >
+<form action="./quizResult" method="post" >
 
 <div id="beanGram" style="display: none;">
 
@@ -188,26 +196,26 @@ form div p {
 <tr>
 	<td>
 	<span>새콤</span>
-	<input type="checkbox" id="cupNoteName1" name="cupNoteName" value="새콤">
+	<input type="checkbox" id="cupNoteNoQuiz1" name="cupNoteNoQuiz" value="1">
 	<span>달콤</span>
-	<input type="checkbox" id="cupNoteName2" name="cupNoteName" value="달콤">
+	<input type="checkbox" id="cupNoteNoQuiz2" name="cupNoteNoQuiz" value="2">
 	<span>쌉쌀</span>
-	<input type="checkbox" id="cupNoteName3" name="cupNoteName" value="쌉쌀">
+	<input type="checkbox" id="cupNoteNoQuiz3" name="cupNoteNoQuiz" value="3">
 	<span>고소</span>
-	<input type="checkbox" id="cupNoteName4" name="cupNoteName" value="고소">
+	<input type="checkbox" id="cupNoteNoQuiz4" name="cupNoteNoQuiz" value="4">
 	</td>
 </tr>
 
 <tr>
 	<td>
 	<span>은은한</span>
-	<input type="checkbox" id="cupNoteName5" name="cupNoteName" value="은은한">
+	<input type="checkbox" id="cupNoteNoQuiz5" name="cupNoteNoQuiz" value="5">
 	<span>향긋한</span>
-	<input type="checkbox" id="cupNoteName6" name="cupNoteName" value="향긋한">
+	<input type="checkbox" id="cupNoteNoQuiz6" name="cupNoteNoQuiz" value="6">
 	<span>진한</span>
-	<input type="checkbox" id="cupNoteName7" name="cupNoteName" value="진한">
+	<input type="checkbox" id="cupNoteNoQuiz7" name="cupNoteNoQuiz" value="7">
 	<span>부드러운</span>
-	<input type="checkbox" id="cupNoteName8" name="cupNoteName" value="부드러운">
+	<input type="checkbox" id="cupNoteNoQuiz8" name="cupNoteNoQuiz" value="8">
 	</td>
 </tr>
 </table>
@@ -225,18 +233,18 @@ form div p {
 <fieldset id="grindField">
 
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grindName" id="grindName1" value="굵은 분쇄" checked>
-		<label class="form-check-label" for="grindName1">굵은 분쇄</label>
+		<input class="form-check-input" type="radio" name="grind" id="grind1" value="1" checked>
+		<label class="form-check-label" for="grind1">굵은 분쇄</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grindName" id="grindName2" value="중간 분쇄">
-		<label class="form-check-label" for="grindName2">중간 분쇄</label>
+		<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
+		<label class="form-check-label" for="grind2">중간 분쇄</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grindName" id="grindName3" value="가는 분쇄">
-		<label class="form-check-label" for="grindName3">가는 분쇄</label>
+		<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
+		<label class="form-check-label" for="grind3">가는 분쇄</label>
 	</div>
 	
 </fieldset>
@@ -252,23 +260,23 @@ form div p {
 <fieldset id="extractionField">
 
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extractionName" id="extractionName1" value="압력" checked>
-		<label class="form-check-label" for="extractionName1">압력</label>
+		<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1" checked>
+		<label class="form-check-label" for="extraction1">압력</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extractionName" id="extractionName2" value="드립">
-		<label class="form-check-label" for="extractionName2">드립</label>
+		<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
+		<label class="form-check-label" for="extraction2">드립</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extractionName" id="extractionName3" value="침출">
-		<label class="form-check-label" for="extractionName3">침출</label>
+		<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
+		<label class="form-check-label" for="extraction3">침출</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extractionName" id="extractionName4" value="달임">
-		<label class="form-check-label" for="extractionName4">달임</label>
+		<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
+		<label class="form-check-label" for="extraction4">달임</label>
 	</div>
 	
 </fieldset>

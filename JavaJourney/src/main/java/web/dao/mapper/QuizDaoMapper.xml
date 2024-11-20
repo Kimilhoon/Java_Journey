@@ -14,4 +14,30 @@
 		</where>
 	</select>
 	
+	<insert id="insertQuizResult" parameterType="QuizResult">
+		<selectKey order="BEFORE" resultType="int" keyProperty="quizResultNo">
+			SELECT quizresult_seq.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO quizresult ( quizresultno, grind, extraction )
+		VALUES ( #{ quizResultNo }, #{ grind }, #{ extraction } )
+	</insert>
+	
+	<select id="selectBeanByCupnoteNo" parameterType="QuizResult" resultType="Bean">
+		SELECT *
+		FROM (
+		    SELECT
+		        b.beanno, b.beanimgno, beanname, origin,
+		        bi.beanoriginname, beanstoredname,
+		        bt.CUPNOTENO, q.QUIZRESULTNO,
+		        ROW_NUMBER() OVER (PARTITION BY b.beanno ORDER BY b.beanno) AS rn
+		    FROM bean b
+		    LEFT JOIN beantaste bt ON b.beanno = bt.beanno
+		    LEFT JOIN QUIZRESULT q ON q.beanNo = b.beanno
+		    LEFT JOIN beanImg bi ON b.beanimgno = bi.beanimgno
+		    WHERE bt.cupnoteno = #{ cupNoteNo[0] } OR bt.cupnoteno = #{ cupNoteNo[1] }
+		)
+		WHERE rn <= 3
+	</select>
+	
 </mapper>
