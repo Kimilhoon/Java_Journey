@@ -154,21 +154,12 @@ public interface MypageService {
 	public void subCancelBySubNo(List<Integer> subNo);
 
 	/**
-	 * 회원탈퇴눌렀을때 STATUS 변경 (Y->N)
-	 * @param member
+	 * 탈퇴하기를 누르면 STATUS 변경 (Y->N)
+	 * @param userNo
 	 */
-	public void outMember(Member member);
+	public void outMember(int userNo);
 
-	/**
-	 * 내가 작성한글 페이징
-	 * @param curPage - 현재페이지정보
-	 * @param category - 카테고리
-	 * @param search - 검색어
-	 * @return
-	 */
-//	public Paging getMyViewPaging(Paging curPage, String category, String search);
 
-//	public List<Map<String, Object>> getAll(Paging paging, String category, String search);
 
 
 

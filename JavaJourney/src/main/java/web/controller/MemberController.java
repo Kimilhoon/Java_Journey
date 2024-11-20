@@ -89,7 +89,6 @@ public class MemberController {
 		
 		boolean isLogin = service.login(member);
 
-//		if("Y".equals(member.getStatus())) {
 
 		if(isLogin) {
 			log.info("로그인 성공");
@@ -111,7 +110,6 @@ public class MemberController {
 			return "redirect:/member/login";
 		}
 		
-//		} return "redirect:/main";
 
 	}
 	
@@ -183,7 +181,7 @@ public void test() {}
 		//인증번호 생성
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
-//		System.out.println("인증번호 :"+ checkNum);
+		System.out.println("인증번호 :"+ checkNum);
 		
 		
 		//이메일 전송 내용
