@@ -87,6 +87,7 @@
 				AND b2.BEANIMGNO = b3.BEANIMGNO
 				AND b1.BEANNO = b4.BEANNO(+)
 				AND b1.USERNO = #{userNo}
+				AND b1.NONSUB = 'N'
 			</where>
 			ORDER BY SUBNO DESC
 	</select>
