@@ -11,9 +11,9 @@
 			SELECT userNo_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO MEMBER (userNo, userId, userPw, userNick, userEmail, userName
-		, userPhone, userPostcode, userAdd1, userAdd2, businessNo)
+		, userPhone, userPostcode, userAdd1, userAdd2, businessNo, status)
 		VALUES (#{userNo}, #{userId}, #{userPw}, #{userNick}, #{userEmail}, #{userName}
-		, #{userPhone}, #{userPostcode}, #{userAdd1}, #{userAdd2}, #{businessNo})
+		, #{userPhone}, #{userPostcode}, #{userAdd1}, #{userAdd2}, #{businessNo}, 'Y')
 	</insert>
 	
 	<select id="selectByMemberId" resultType="int" parameterType="Member">

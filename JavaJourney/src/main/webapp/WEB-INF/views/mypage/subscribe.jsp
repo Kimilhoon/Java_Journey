@@ -25,7 +25,7 @@ $(function () {
             type: "post"
             , url: "/mypage/cancelsub"
             , traditional:  true
-            , data: { "subNo": subNo }
+            , data: { "subNo": subNo, "nonSub" : 'Y' }
             , success: function(res) {
                 console.log("ajax 성공");
 				//성공시 모든 체크박스 해제

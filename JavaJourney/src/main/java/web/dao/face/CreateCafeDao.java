@@ -54,6 +54,9 @@ public interface CreateCafeDao {
 	public void deleteCafe(Cafe cafe);
 
 
+	public void deleteCafeImg(CafeImg cafeImg);
+
+
 	/**
 	 * 협약 카페 메인 이미지 삭제
 	 * @param cafeImg

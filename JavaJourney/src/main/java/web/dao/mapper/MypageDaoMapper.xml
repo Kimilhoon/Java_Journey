@@ -6,16 +6,19 @@
 <mapper namespace="web.dao.face.MypageDao">
 
 	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
-		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
+		SELECT C1.CAFENO, C1.USERNO, 
+		C2.CAFENO, CAFENAME, CAFECOMM,
 		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
-		CAFEADD2, CAFEINFO
+		CAFEADD2, CAFEINFO,
+		C3.CAFEIMGORINAME
 		FROM CAFEWISH C1
 		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
+		INNER JOIN CAFEIMG C3 ON C2.IMGNO = C3.CAFEIMGNO
 		<where>
-			USERNO = #{userNo}
-			<if test='searchText != "N"'>
-				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%'
-			</if>
+			C1.USERNO = #{userNo}
+<!-- 			<if test='searchText != "N"'> -->
+<!-- 				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%' -->
+<!-- 			</if> -->
 		</where>
 	</select>
 	
@@ -44,7 +47,7 @@
 		g.GRINDNAME,
 		e.EXTRACTIONNAME 
 		FROM MEMBERQUIZRESULT m
-		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO 
+		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO
 		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
 		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
 		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
@@ -88,17 +91,26 @@
 			ORDER BY SUBNO DESC
 	</select>
 
-	<delete id="subCancel" parameterType="Integer">
-		DELETE BEANSUB
+<!-- 	<delete id="subCancel" parameterType="Integer"> -->
+<!-- 		DELETE BEANSUB -->
+<!-- 		<where> -->
+<!-- 			subNo = #{No} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
+	
+	<update id="subUpdateCancel" parameterType="Integer">
+		UPDATE BEANSUB
+   	 	SET NONSUB = 
+      	  CASE 
+      	      WHEN NONSUB = 'N' THEN 'Y'
+     	   END
 		<where>
-			subNo = #{No}
+			SUBNO = #{subNo}
 		</where>
-	</delete>
+	</update>
 	
 	<select id="findByUserId" parameterType="String" resultType="Member">
-		SELECT 
-			userNo, userId, userPw, userNick, userEmail, userName
-	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		SELECT *
 	 	FROM MEMBER
 	 	<where>
 	 		userId = #{userId}
@@ -106,9 +118,7 @@
 	</select>	
 	
 	<select id="findByUserNo" parameterType="int" resultType="Member">
-		SELECT 
-			userNo, userId, userPw, userNick, userEmail, userName
-	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		SELECT *
 	 	FROM MEMBER
 	 	<where>
 	 		userNo = #{userNo}
@@ -139,10 +149,17 @@
 		</where>
 	</select>
 	
-	<delete id="deleteMemberByUserNo" parameterType="Integer">
-		DELETE FROM member
-		WHERE userNo = #{userNo}
-	</delete>
+<!-- 	<delete id="deleteMemberByUserNo" parameterType="Integer"> -->
+<!-- 		DELETE FROM member -->
+<!-- 		WHERE userNo = #{userNo} -->
+<!-- 	</delete> -->
+	<update id="updateStatus" parameterType="Member">
+		UPDATE MEMBER
+		SET status = 'N'
+		WHERE USERNO = #{userNo}  
+	</update>
+	
+	
 	
 	
 	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
@@ -192,9 +209,6 @@
 		ORDER BY myRipNo DESC
 	</select>
 	
-	
-	
-	
 <!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
 <!-- 		FROM ( -->
@@ -217,10 +231,5 @@
 <!-- 			WHERE userNo = #{userNo} -->
 <!-- 		) -->
 <!-- 	</select> -->
-
-
-
-
-
 
 </mapper>

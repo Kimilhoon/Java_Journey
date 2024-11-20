@@ -58,6 +58,7 @@ public interface MemberService {
 	public String searchPw(Member member);
 
 
+
 	
 	
 }
