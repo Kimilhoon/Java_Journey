@@ -371,7 +371,15 @@
 		SELECT count(*) FROM myrecipe
 		<where>
 			<if test='search != "N" '>
-				AND upper(myriptitle) LIKE '%'||upper(#{search})||'%'
+				<if test='searchType == "title"'>
+				AND upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "content"'>
+				AND upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%'
+				</if>
+				<if test='searchType == "titlecontent"'>
+				AND (upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%' OR upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%')
+				</if>
 			</if>
 		</where>
 	</select>
@@ -380,9 +388,27 @@
 		SELECT MYRIPNO,USERNO,MYRIPTITLE,MYRIPCONTENT,MYRIPHIT,MYRIPWRITEDATE,MYRIPIMGNO
 		FROM (
 			SELECT rownum r,a.* FROM(
-				SELECT * FROM MYRECIPE
-				WHERE upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
-				ORDER BY MYRIPNO DESC
+				SELECT myrip.*,(SELECT count(*) FROM MYRECIPECOMMENT m WHERE m.myripno = myrip.myripno  ) cCNT,(SELECT count(*) FROM MYRECIPERECOMMEND m2 WHERE m2.myripno = myrip.myripno  ) rCNT  FROM MYRECIPE myrip
+				<where>
+					<if test='searchType == "title"'>
+						AND upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "content"'>
+						AND upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%'
+					</if>
+					<if test='searchType == "titlecontent"'>
+						AND (upper(MYRIPTITLE) LIKE '%'||upper(#{search})||'%' OR upper(MYRIPCONTENT) LIKE '%'||upper(#{search})||'%')
+					</if>
+				</where>
+				<if test='order == "W"'>
+					ORDER BY myrip.myripno DESC
+				</if>
+				<if test='order == "R"'>
+					ORDER BY rCNT DESC,myrip.myripno DESC
+				</if>
+				<if test='order == "C"'>
+					ORDER BY cCNT DESC,myrip.myripno DESC
+				</if>
 				)a
 			)
 		WHERE r BETWEEN #{paging.startNo} AND #{paging.endNo}
@@ -467,7 +493,7 @@
 
 <!-- 	event -->
 	<select id="selectEventAllList" resultType="Event">
-		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		SELECT EVENTNO, EVENTNAME, EVESTART, EVEEND, EVEIMG,EVENTBANNER
 		FROM EVENT
 		ORDER BY EVENTNO DESC
 	</select>
@@ -476,12 +502,12 @@
 		<selectKey order="BEFORE" keyProperty="eventNo" resultType="int"> 
 			SELECT EVENT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO EVENT(EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG)
-		VALUES(#{eventNo}, #{eveOriName}, #{eveStart}, #{eveEnd}, #{eveImg})
+		INSERT INTO EVENT(EVENTNO, EVENTNAME, EVESTART, EVEEND, EVEIMG, EVENTBANNER)
+		VALUES(#{eventNo}, #{eventName}, #{eveStart}, #{eveEnd}, #{eveImg}, #{eventBanner})
 	</insert>
 	
 	<select id="selectByEventNo" resultType="Event" parameterType="Event">
-		SELECT EVENTNO, EVEORINAME, EVESTART, EVEEND, EVEIMG
+		SELECT EVENTNO, EVENTNAME, EVESTART, EVEEND, EVEIMG,EVENTBANNER
 		FROM EVENT
 		<where>
 			EVENTNO = #{eventNo}
@@ -721,11 +747,11 @@
 	</select>
 	
 	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
-		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname
+		SELECT br.revno, br.beanno, br.userno, br.revcont, br.revhit, br.revdate, br.revstarpoint, b.beanname
 		FROM beanrev br
 		JOIN bean b ON br.beanno = b.beanno
 		<where>
-			AND revno = #{revNo }
+			AND br.revno = #{revNo }
 		</where>
 	</select>
 	
@@ -820,7 +846,26 @@
 		WHERE commno = #{commNo }
 	</update>
 	
+	<select id="selectBeanRevByBeanRevNo" parameterType="BeanRev" resultType="BeanRev">
+		SELECT br.revNo,b.beanNo,b.beanName,c.cupNoteNo,c.cupNoteName,br.subNo,br.userNo,br.revCont,br.revHit,br.revDate,br.revStarPoint, m.userNick
+		FROM BEANREV br ,BEAN b , BEANTASTE bt, CUPNOTE c , member m
+		WHERE br.BEANNO = b.BEANNO 
+		AND b.BEANNO = bt.BEANNO 
+		AND bt.CUPNOTENO = c.CUPNOTENO 
+		AND m.userno = br.userno
+		AND revno = #{revNo}
+	</select>
 	
+	<update id="updateEventByEventNo" parameterType="Event">
+		UPDATE EVENT
+		SET 
+			eventname=#{eventName},
+			eventbanner=#{eventBanner},
+			eveimg=#{eveImg},
+			evestart=#{eveStart},
+			eveend=#{eveEnd}
+		WHERE eventNo=#{eventNo}
+	</update>
 	
 </mapper>
 

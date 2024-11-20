@@ -19,6 +19,7 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 	@Autowired CreateCafeDao dao;
 
 	@Override
+	@Transactional
 	public void insertCafe(Cafe cafe, CafeImg cafeImg) {
 		log.info("insertcafeImg:{}", cafe);
 		dao.insertCafeImg(cafeImg);
@@ -32,24 +33,28 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 		dao.insertCafe(cafe);
 	}
 
-//	@Override
-//	public Cafe view(Cafe cafe) {
-//		return dao.selectByCafeNo(cafe);
-//	}
-
 	@Override
 	public Cafe view(Cafe cafe) {
 		return dao.selectByCafeNo(cafe);
 	}
 	
 	@Override
-	public void update(Cafe cafe) {
-		dao.update(cafe);
+	@Transactional
+	public void update(Cafe cafe, CafeImg cafeImg) {
+		dao.insertCafeImg(cafeImg);
+		int selectedCafeImgNo = dao.selectByLatest();
+		cafe.setImgNo(selectedCafeImgNo);
+		
+		dao.updateCafe(cafe);
 	}
 	
 	@Override
-	public void delete(Cafe cafe) {
-		dao.delete(cafe);
+	@Transactional
+	public void delete(Cafe cafe, CafeImg cafeImg) {
+		dao.deleteCafe(cafe);
+		dao.deleteCafeImg(cafeImg);
 	}
+
+
 
 }

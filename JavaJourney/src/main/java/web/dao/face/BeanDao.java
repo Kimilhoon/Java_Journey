@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import web.dto.Bean;
 import web.dto.BeanRev;
-import web.dto.BeanRevComm;
-import web.dto.BeanWish;
+import web.dto.BeanSub;
 import web.dto.Member;
 
 @Mapper
@@ -106,6 +106,16 @@ public interface BeanDao {
 	
 	
 	/**
+	 * 서비스 값 반환
+	 * 
+	 * @param beanNo
+	 * @param userNo
+	 * @return
+	 */
+	public int countUserWish(@Param("beanNo") int beanNo, @Param("userNo") int userNo);
+	
+	
+	/**
 	 * 찜 추가
 	 * 
 	 * @param bean - 전달 받은 원두, 유저 NO
@@ -114,16 +124,39 @@ public interface BeanDao {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	/**
+	 * 원두 정보 조회하기
+	 * 
+	 * @param param - 원두 번호
+	 * @return 원두 정보 
+	 */
+	public Bean selectBeanByBeanNo(Bean param);
+
+ 
+	/**
+	 * 유저 아이디로 유저 정보 조회
+	 * 
+	 * @param userId - 유저 아이디
+	 * @return 유저 정보
+	 */
+	public Member selectMemberByUserId(String userId);
 
 
 	/**
-	 * 원두 유저 정보 가져오기
+	 * 전달 받은 구독 정보로 정보 삽입하기
 	 * 
-	 * @return 원두 유저 정보
+	 * @param beanSub - 구독정보
 	 */
-	public List<Map<String, Object>> selectBeanMember(Map<String, Object> params);
+	public void beanSubscribe(BeanSub beanSub);
 
-	// /bean/info
+
+
+
+
+	
+
+	// /bean/sub
 	// --------------------------------------------------------------------------------------
 	
 	

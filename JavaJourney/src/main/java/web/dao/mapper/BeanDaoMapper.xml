@@ -6,20 +6,35 @@
 <mapper namespace="web.dao.face.BeanDao">
 	
 	<select id="selectBeanTop" resultType="Bean">
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rowNum rNum, B.* FROM ( -->
+<!-- 				SELECT  -->
+<!-- 					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo, -->
+<!-- 					beanOriginname, beanStoredname, beanImgSize, bs.gram, -->
+<!-- 					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount, -->
+<!-- 					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint -->
+<!-- 				FROM bean b -->
+<!-- 				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo -->
+<!-- 				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo -->
+<!-- 				ORDER BY reviewCount DESC -->
+<!-- 			) B -->
+<!-- 		) -->
+<!-- 		WHERE rNum &lt;= 3 -->
+		
 		SELECT * FROM (
-			SELECT rowNum rNum, B.* FROM (
-				SELECT 
-					b.beanNo, i.beanImgNo, beanName, origin, beanComm, beanInfo, beanPrice, businessNo,
-					beanOriginname, beanStoredname, beanImgSize, bs.gram,
-					(SELECT COUNT(br.revNo) FROM beanRev br WHERE br.beanNo = b.beanNo) AS reviewCount,
-					(SELECT TRUNC( avg(revStarPoint)) FROM beanRev br WHERE br.beanNo = b.beanNo ) AS avgRevStarPoint
-				FROM bean b
-				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
-				LEFT JOIN beanSub bs ON b.beanNo = bs.beanNo
-				ORDER BY reviewCount DESC
-			) B
+			SELECT rownum rnum ,b.*,bi.BEANORIGINNAME ,revcnt.reviewCount, revcnt.avgRevStarPoint FROM (
+				SELECT a.beanno,a.reviewCount, a.avgRevStarPoint FROM (
+					SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
+					WHERE qq.BEANNO = ww.BEANNO) a
+				GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
+		        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
+			)revcnt , bean b, BEANIMG bi
+			WHERE b.BEANNO = revcnt.beanno
+			AND b.BEANIMGNO = bi.BEANIMGNO 
 		)
-		WHERE rNum &lt;= 3
+		WHERE rnum BETWEEN 1 AND 3
+		ORDER BY rnum DESC
+		
 	</select>
 	
 	<select id="selectBeanCount" resultType="Bean">
@@ -29,9 +44,9 @@
 	<!-- /bean/best -->
 	<!-- ====================================================================================================== -->
 
-	<select id="selectCntAll" resultType="int" parameterType="hashmap">
-		SELECT count(*)
-		FROM bean b
+	<select id="selectCntAll" parameterType="hashmap" resultType="int">
+		SELECT	count(*)
+		FROM	bean b
 		<if test='cupnote != null and cupnote != "N"'>
 		LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
     	LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
@@ -47,7 +62,7 @@
 	</select>
 	
 	
-	<select id="selectAll" resultType="Bean" parameterType="hashmap">
+	<select id="selectAll" parameterType="hashmap" resultType="Bean">
 		SELECT * FROM (
 			SELECT rowNum rNum, B.* FROM (
 				SELECT 
@@ -90,7 +105,7 @@
 	<!-- /bean/all -->
 	<!-- ====================================================================================================== -->
 	
-	<select id="selectByBeanNo" resultType="Bean" parameterType="Bean">
+	<select id="selectByBeanNo" parameterType="Bean" resultType="Bean">
 		SELECT 
 				b.beanNo, i.beanImgNo, beanName, origin, 
 				beanComm, beanInfo, beanPrice, businessNo,
@@ -119,12 +134,12 @@
 		</where>
 	</select>
 	
-	<select id="selectAllRev" resultType="BeanRev" parameterType="Bean">
+	<select id="selectAllRev" parameterType="Bean" resultType="BeanRev">
 		SELECT
-			revNo, b.beanNo, b.subNo, b.userNo, revCont, 
-			revHit, revDate, revStarPoint,
-			m.userNick
-		FROM beanRev b
+				revNo, b.beanNo, b.subNo, b.userNo, revCont, 
+				revHit, revDate, revStarPoint,
+				m.userNick
+		FROM 	beanRev b
 		LEFT JOIN member m ON b.userNo = m.userNo
 		<where>
 		AND		beanNo = ${ beanNo }
@@ -154,23 +169,43 @@
 		AND		userNo = #{ userNo }
 		</where>
 	</delete>
+	
+	<select id="countUserWish" parameterType="map" resultType="int">
+		SELECT COUNT(*) 
+		FROM beanWish 
+		WHERE beanNo = #{beanNo} AND userNo = #{userNo}
+    </select>
 
 	<!-- /bean/info -->
 	<!-- ====================================================================================================== -->
-	
-	<select id="selectBeanMember" parameterType="map" resultType="java.util.HashMap">
+
+	<select id="selectBeanByBeanNo" parameterType="Bean" resultType="Bean">
 		SELECT
-			m.userNo, userId, userNick, userEmail, userName, 
-			userPhone, userPostcode, userAdd1, userAdd2,
-			b.beanName, b.beanNo
-		FROM member m
-		LEFT JOIN beanRev br ON br.userNo = m.userNo
-		LEFT JOIN bean b ON br.beanNo = b.beanNo
+				beanno, beanname, origin, beanprice
+		FROM 	bean
 		<where>
-		AND		m.userId = #{ userId }
-		AND		b.beanNo = #{ beanNo }
+		AND		beanNo = #{ beanNo }
 		</where>
 	</select>
+	 
+	<select id="selectMemberByUserId" parameterType="String" resultType="Member">
+		SELECT
+				userno, userid, userpw, usernick, 
+				useremail, username, userphone, 
+				userpostcode, useradd1, useradd2
+		FROM 	member
+		<where>
+		AND		userId = #{ userId }
+		</where>
+	</select>
+	
+	<insert id="beanSubscribe" parameterType="BeanSub">
+		<selectKey order="BEFORE" resultType="int" keyProperty="subNo">
+			SELECT beanWishNo_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO beanSub ( subno, userno, beanno, gram, price, grind, substartdate, subenddate, subtime, nonsub )
+		VALUES ( #{ subNo }, #{ userNo }, #{ beanNo }, #{ gram }, #{ price }, #{ grind }, SYSDATE, NULL, #{ subTime }, 'N' )
+	</insert>
 	
 	<!-- /bean/sub -->
 	<!-- ====================================================================================================== -->

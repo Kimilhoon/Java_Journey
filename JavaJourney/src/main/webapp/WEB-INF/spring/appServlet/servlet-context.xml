@@ -23,7 +23,6 @@
 	<!-- @Aspect 어노테이션을 이용한 AOP 객체 관리 활성화 -->
 	<aop:aspectj-autoproxy />
 	
-	 
 	
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
@@ -37,6 +36,7 @@
 		<interceptor>
 			<mapping path="/comm/freeboard/*" />
 			<mapping path="/comm/myrecipe/*" />
+			<mapping path="/mypage/*" />
 			
 			<exclude-mapping path="/comm/freeboard/list"/>
 			<exclude-mapping path="/comm/freeboard/view"/>
@@ -108,6 +108,25 @@
 		<beans:property name="maxUploadSizePerFile" value="5242880"/>
 	
 	</beans:bean>
+	
+	
+	<!-- 회원가입 메일 인증 -->
+<!-- 	<beans:bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" />
+		<beans:property name="username" value="sbeei97@gmail.com" />
+		<beans:property name="password" value="mzqc erwq keqb sxvv" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+		
+			</beans:props>
+		</beans:property>
+	</beans:bean> -->
 	
 	
 </beans:beans>

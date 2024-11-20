@@ -20,7 +20,13 @@ import web.util.Paging;
 public class CafeServiceImpl implements CafeService {
 	
 	@Autowired private CafeDao dao;
+	
 
+	@Override
+	public List<Cafe> getCafeTop() {
+		return dao.selectBeanTop();
+	}
+	
 	@Override
 	public List<Cafe> getBest() {
 		return dao.selectBest();
@@ -49,14 +55,31 @@ public class CafeServiceImpl implements CafeService {
 		} else if( location.equals("6") ) {
 			location = "마포구";
 		} // if( location == null || "".equals(location) ) end
+//		if (location == null || "".equals(location)) {
+//	        location = "N";
+//	    } else if ("1".equals(location)) {
+//	        location = "강남구";
+//	    } else if ("2".equals(location)) {
+//	        location = "서초구";
+//	    } else if ("3".equals(location)) {
+//	        location = "송파구";
+//	    } else if ("4".equals(location)) {
+//	        location = "종로구";
+//	    } else if ("5".equals(location)) {
+//	        location = "서대문구";
+//	    } else if ("6".equals(location)) {
+//	        location = "마포구";
+//	    }
 		
 		if( keyword == null || "".equals(keyword) ) {
 			keyword = "N";
 		} // if( keyword == null || "".equals(keyword) ) end
 		
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("location", location);
-		map.put("keyword", keyword);
+//		map.put("location", location);
+//		map.put("keyword", keyword);
+		map.put("location", String.valueOf(location)); // 문자열로 변환
+	    map.put("keyword", String.valueOf(keyword));   // 문자열로 변환
 		
 		//총 게시글 수 조회하기
 		int totalCount = dao.selectCntAll(map);
@@ -89,17 +112,43 @@ public class CafeServiceImpl implements CafeService {
 		} else if( location.equals("6") ) {
 			location = "마포구";
 		} // if( location == null || "".equals(location) ) end
+//		if ("N".equals(location)) {
+//	        location = null;
+//	    } else if ("1".equals(location)) {
+//	        location = "강남구";
+//	    } else if ("2".equals(location)) {
+//	        location = "서초구";
+//	    } else if ("3".equals(location)) {
+//	        location = "송파구";
+//	    } else if ("4".equals(location)) {
+//	        location = "종로구";
+//	    } else if ("5".equals(location)) {
+//	        location = "서대문구";
+//	    } else if ("6".equals(location)) {
+//	        location = "마포구";
+//	    }
 		
+		// keyword 처리: "N"이 들어가면 null로 처리
+//	    if ("N".equals(keyword) || keyword == null || "".equals(keyword)) {
+//	        keyword = null;
 		if( keyword == null || "".equals(keyword) ) {
-			keyword = "N";
+	        keyword = "N";
 		} // if( keyword == null || "".equals(keyword) ) end
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		// HashMap 생성 및 값 설정
+		HashMap<String, Object> map = new HashMap<>();
 		map.put("startNo", paging.getStartNo());
 		map.put("endNo", paging.getEndNo());
 		map.put("location", location);
 		map.put("keyword", keyword);
+//		map.put("location", (location != null && !location.isEmpty()) ? location : "N");
+//		map.put("location", String.valueOf(location)); // 문자열로 변환
+//	    map.put("keyword", String.valueOf(keyword));   // 문자열로 변환
 		
+	    log.info("Processed Location: " + location);
+	    log.info("Processed Keyword: " + keyword);
+	    log.info("Map Contents: " + map);
+	    
 		List<Cafe> AllCafeList = dao.selectAll(map);
 		
 		return AllCafeList;
@@ -135,7 +184,6 @@ public class CafeServiceImpl implements CafeService {
 	public void removeWish(Map<String, Integer> params) {
 		dao.removeWish(params);
 	}
-
 
 	
 	

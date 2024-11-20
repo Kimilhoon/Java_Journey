@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Member {
-
+ 
 	private int userNo;
 	private String userId;
 	private String userPw;
@@ -17,6 +17,7 @@ public class Member {
 	private String userAdd2;
 	private String businessNo;
 	private int socialNo;
+	private String status;
 	
 	// bean join
 	private int beanNo;

@@ -38,9 +38,21 @@
 		</where>
 	</select>
 	
-	<update id="update" parameterType="Cafe">
+	<update id="updateImg" parameterType="CafeImg">
+		UPDATE CAFEIMG
+		<set>
+			cafeImgOriName = #{cafeImgOriName}
+		</set>
+		<where>
+			cafeImgNo = #{cafeImgNo}
+		</where>		
+	</update>
+
+
+	<update id="updateCafe" parameterType="Cafe">
 		UPDATE CAFE
 		<set>
+			, imgNo = #{imgNo}
 			, cafeName = #{cafeName}
 			, cafeComm = #{cafeComm}
 			, busyTime = #{busyTime}
@@ -48,15 +60,20 @@
 			, cafeAdd1 = #{cafeAdd1}
 			, cafeAdd2 = #{cafeAdd2}
 		</set>
-		<where>
-			cafeNo = #{cafeNo}
-		</where>
+		WHERE CAFENO = #{cafeNo}
 	</update>
 	
-	<delete id="delete">
+	<delete id="deleteCafe" parameterType="Cafe">
 		DELETE Cafe
 		<where>
 			cafeNo = #{cafeNo}
+		</where>
+	</delete>
+	
+	<delete id="deleteCafeImg" parameterType="CafeImg">
+		DELETE CafeImg
+		<where>
+			cafeImgNo = #{cafeImgNo}
 		</where>
 	</delete>
 	

@@ -74,7 +74,9 @@ a {
 			<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 			<fmt:formatDate value="${noticeList.wirteDate}" pattern="yyyyMMdd" var="wDate" /> 
 			<c:if test="${nowDate eq wDate }">
-				<span>new</span>
+				<span style="color: #fff; background: #fedcba; border-radius: 5px;
+			font-size: 14px; box-shadow: 1px 1px 3px #ddd">
+			&nbsp;New&nbsp;</span>
 			</c:if>
 			<a href="./view?noticeNo=${noticeList.noticeNo }">	${noticeList.title}</a>
 		</td>

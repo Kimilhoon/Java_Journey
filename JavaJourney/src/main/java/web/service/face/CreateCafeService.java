@@ -26,12 +26,20 @@ public interface CreateCafeService {
 	 * 협약 카페 글 수정
 	 * @param cafe
 	 */
-	public void update(Cafe cafe);
+//	public void update(Cafe cafe);
+	public void update(Cafe cafe, CafeImg cafeImg);
 
 	/**
 	 * 협약 카페 글 삭제
 	 * @param cafe
+	 * @param cafeImg 
 	 */
-	public void delete(Cafe cafe);
+//	public void delete(Cafe cafe);
+	public void delete(Cafe cafe, CafeImg cafeImg);
+
+
+
+
+
 
 }

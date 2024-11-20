@@ -5,7 +5,7 @@
 <c:import url="../layout/header.jsp"/>
 
 
-<h1>협약 카페 수정 페이지</h1>
+<h2 style="text-align: center; font-weight: bold;">협약 카페 수정</h2>
 <hr>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -115,12 +115,19 @@ $(function() {
 		$(this).parents("form").submit();
 	});
     
+	$("#btnCancel").click(function () {
+		location.href="/cafe/all";
+	}) 
+    
   }); //$(function() end
+		  	  
 </script>
  
 
 
 <style type="text/css">
+
+/* 주소 */
 #postcodeWrap {
 /* 	position: relative; */
 	position: absolute;
@@ -144,14 +151,105 @@ $(function() {
 	top: 0.5px;
 	right: -38px;
 	
-	border: 1px solid skyblue;
 	padding: 3px;
 	
 	cursor: pointer;
 }
+	
+#btnManagerMenu {
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;	
+    margin-left: 300px;
+}
 
+
+/* 테이블 전체를 중앙 정렬 */
+form {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* 테이블과 버튼을 중앙으로 정렬 */
+}
+
+/* 테이블 스타일 */
+table {
+    margin: 20px auto; /* 페이지 중앙 정렬 */
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    width: 70%; /* 너비 조정 */
+    max-width: 1500px; /* 최대 너비 설정 */
+    background-color: #f9f9f9; /* 테이블 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 8px; /* 테이블 모서리를 둥글게 */
+    overflow: hidden; /* 둥근 테두리 안에 내용 제한 */
+}
+
+/* 테이블 행 스타일 */
+table tr {
+    border-bottom: 1px solid #ddd; /* 행 구분선 */
+}
+
+table tr:last-child {
+    border-bottom: none; /* 마지막 행 구분선 제거 */
+}
+
+/* 테이블 헤더와 셀 스타일 */
+table td {
+    padding: 12px 15px; /* 셀 내부 여백 */
+    text-align: left; /* 텍스트 정렬 */
+    font-size: 16px; /* 폰트 크기 */
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], 
+textarea, 
+select {
+    width: 100%; /* 입력 필드의 너비를 셀에 맞게 조정 */
+    padding: 10px; /* 내부 여백 */
+    font-size: 14px; /* 폰트 크기 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 4px; /* 모서리를 둥글게 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
+
+#btnPostcode {
+    padding: 8px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;	
+}
+
+#btnCancel, #btnUpdate {
+    flex: 1;                     /* 각 버튼이 동일한 비율로 공간을 차지 */
+    padding: 10px 20px;          /* 버튼 높이 */
+    background-color: #6f4e37;   /* 기본 배경색 */
+    color: white;                /* 텍스트 색상 */
+    border: none;                /* 테두리 제거 */
+    border-radius: 4px;          /* 둥근 모서리 */
+    cursor: pointer;             /* 클릭 가능 커서 */
+    font-size: 17px;             /* 글꼴 크기 */
+    text-align: center;          /* 텍스트 중앙 정렬 */
+}
+
+/* 버튼 별도 색상 설정 */
+#btnCancel {
+    background-color: #e3cab8;
+}
+
+.buttonGroup {
+    display: flex;          /* 플렉스박스로 정렬 */
+    justify-content: center; /* 중앙 정렬 */
+    gap: 10px;              /* 버튼 간 간격 */
+}
 
 </style>
+
 
 <button id="btnManagerMenu">관리자메뉴로가기</button>
 <hr>
@@ -189,12 +287,19 @@ $(function() {
 		<td>카페 지역</td>
 		<td>
 		<select id="category" name="cafeLoc">
-	      <option hidden="none"></option>
-	      <option value="서울" ${cafe.cafeLoc == '서울' ? 'selected' : ''}>서울</option>
-	      <option value="경기" ${cafe.cafeLoc == '경기' ? 'selected' : ''}>경기</option>
-	      <option value="인천" ${cafe.cafeLoc == '인천' ? 'selected' : ''}>인천</option>
-	      <option value="부산" ${cafe.cafeLoc == '부산' ? 'selected' : ''}>부산</option>
-	      <option value="제주" ${cafe.cafeLoc == '제주' ? 'selected' : ''}>제주</option>  
+<!-- 	      <option hidden="none"></option> -->
+<%-- 	      <option value="서울" ${cafe.cafeLoc == '서울' ? 'selected' : ''}>서울</option> --%>
+<%-- 	      <option value="경기" ${cafe.cafeLoc == '경기' ? 'selected' : ''}>경기</option> --%>
+<%-- 	      <option value="인천" ${cafe.cafeLoc == '인천' ? 'selected' : ''}>인천</option> --%>
+<%-- 	      <option value="부산" ${cafe.cafeLoc == '부산' ? 'selected' : ''}>부산</option> --%>
+<%-- 	      <option value="제주" ${cafe.cafeLoc == '제주' ? 'selected' : ''}>제주</option>   --%>
+         <option hidden="none"></option>
+         <option value="강남구" ${cafe.cafeLoc == '강남구' ? 'selected' : ''}>강남구</option>
+         <option value="서초구" ${cafe.cafeLoc == '서초구' ? 'selected' : ''}>서초구</option>
+         <option value="송파구" ${cafe.cafeLoc == '송파구' ? 'selected' : ''}>송파구</option>
+         <option value="종로구" ${cafe.cafeLoc == '종로구' ? 'selected' : ''}>종로구</option>
+         <option value="서대문구" ${cafe.cafeLoc == '서대문구' ? 'selected' : ''}>서대문구</option>
+         <option value="마포구" ${cafe.cafeLoc == '마포구' ? 'selected' : ''}>마포구</option>    	
   		 </select>
   		</td>
 	</tr>
@@ -218,16 +323,21 @@ $(function() {
 		<input type="text" id="cafeAdd2" name="cafeAdd2" placeholder="상세주소" value="${cafe.cafeAdd2 }"><br>
 		</td>
 	</tr>
+	<tr>
+		<td></td>
+      <td>
+		<!-- 지도를 표시할 div 입니다 -->
+      <div id="map" style="width:500px; height:400px;"></div>
+      </td>
+	</tr>
 
 
 </table>
 
-<!-- 지도를 표시할 div 입니다 -->
-<div id="map" style="width:500px; height:400px;"></div>
-
-
-<button id="btnUpdate">수정</button>
+<div class="buttonGroup">
 <button id="btnCancel" type="reset">취소</button>
+<button id="btnUpdate" >수정</button>
+</div>
 
 </form>
 </div>

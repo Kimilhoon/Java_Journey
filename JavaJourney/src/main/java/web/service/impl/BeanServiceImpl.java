@@ -11,8 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import web.dao.face.BeanDao;
 import web.dto.Bean;
 import web.dto.BeanRev;
-import web.dto.BeanRevComm;
-import web.dto.BeanWish;
+import web.dto.BeanSub;
 import web.dto.Member;
 import web.service.face.BeanService;
 import web.util.Paging;
@@ -26,11 +25,14 @@ public class BeanServiceImpl implements BeanService {
 	
 	@Override
 	public List<Bean> getBeanTop() {
-		return dao.selectBeanTop();
+		
+		List<Bean> list = dao.selectBeanTop();
+		
+		return list;
 	} // getBeanTop() end
 
 	
-	@Override
+	@Override 
 	public Bean getBeanCount() {
 		return dao.selectBeanCount();
 	} // getBeanCount() end
@@ -177,6 +179,15 @@ public class BeanServiceImpl implements BeanService {
 	} // removeWish(Map<String, Integer> params) end
 	
 	
+	@Override
+	public boolean checkUserWish(int beanNo, int userNo) {
+		int count = dao.countUserWish(beanNo, userNo);
+		
+		return count > 0;
+	}
+
+	
+	
 //	@Override
 //	public void insertWish(BeanWish beanWish) {
 //		log.info("Inserting wish: {}", beanWish);
@@ -185,12 +196,27 @@ public class BeanServiceImpl implements BeanService {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	 
+	@Override
+	public Bean getBeanByBeanNo(Bean param) {
+		return dao.selectBeanByBeanNo(param);
+	} // getBeanByBeanNo(Bean param) end
 
 
 	@Override
-	public List<Map<String, Object>> getBeanMember(Map<String, Object> params) {
-		return dao.selectBeanMember(params);
-	}
+	public Member getMemberByUserId(String userId) {
+		return dao.selectMemberByUserId(userId);
+	} // getMemberByUserId(String userId) end
+
+
+	@Override
+	public void beanSubscribe(BeanSub beanSub) {
+		dao.beanSubscribe(beanSub);
+	} // beanSubscribe(BeanSub beanSub) end
+
+
+	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------

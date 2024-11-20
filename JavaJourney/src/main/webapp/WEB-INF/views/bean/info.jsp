@@ -33,9 +33,17 @@ $(function() {
 	            $(this).text("찜 ♥");  // 찜을 추가
 	            sendWishData(beanNo, userNo, 'add');  // 데이터 추가 요청
 	            
-	        } else {
+				// 찜 상태에 맞는 모달 내용 변경
+				$("#disSubModal .modal-body p").text("해당 원두를 찜 했습니다");
+				$('#disSubModal').modal('show');
+	            
+	        } else if (currentText === "찜 ♥") {
 	            $(this).text("찜 ♡");  // 찜을 취소
 	            sendWishData(beanNo, userNo, 'remove');  // 데이터 삭제 요청
+	            
+				// 찜 해제에 맞는 모달 내용 변경
+				$("#subModal .modal-body p").text("해당 원두를 이제 싫어합니다");
+				$('#subModal').modal('show');
 	            
 	        }
 			
@@ -44,7 +52,7 @@ $(function() {
 	    function sendWishData(beanNo, userNo, action) {
 	    	
 	        $.ajax({
-	            url: './info',  // 요청 URL
+	            url: '/bean/info',  // 요청 URL
 	            type: 'POST',
 	            contentType: 'application/json',  // JSON 형식
 	            data: JSON.stringify({ 
@@ -54,6 +62,10 @@ $(function() {
 	            }),
 	            dataType: "json",  // 서버에서 JSON 응답을 받을 때
 	            success: function(response) {
+	            	
+	            	console.log("Action:", action);
+	            	console.log("Response:", response);
+	            	
 	                if (action === 'add') {
 	                    console.log('찜 상태가 추가되었습니다.');
 	                    
@@ -63,10 +75,14 @@ $(function() {
 	                }
 	            },
 	            error: function() {
+// 	            error: function(xhr, status, error) {
 	                console.error("AJAX 요청에 실패했습니다.");
+// 	                console.log("Status:", status);
+// 	                console.log("Error:", error);
+// 	                console.log("Response Text:", xhr.responseText);
 	            }
 	        })
-	    };
+	    }; // function sendWishData(beanNo, userNo, action) end
 
 	}); // $(document).ready() end
 			
@@ -166,10 +182,20 @@ $(function() {
 #beanComm p{
 	width: 840px;
 	height: 300px;
+	
+	word-break: keep-all;
 }
 
 .custom-imgae{
 	margin-right: 5px;
+}
+
+.modal-header{
+	background: #6f4e37;
+}
+
+.modal-title{
+	color: white;
 }
 
 
@@ -222,7 +248,7 @@ $(function() {
 </div>
 
 <div id="beanComm">
-<p>${ beanInfo.beanComm }</p>
+<p id="beanCommTag">${ beanInfo.beanComm }</p>
 <!-- <p>다아한 탱산뎌언인은 헐즛구에해의 로렘입숨 테스트 데이터 잘 보고 갑니다 ㅎㅎ 넘 ㅜ좋으네여 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를.다아한 탱산뎌언인은 헐즛구에해의 즐승간바가뭉은 강게노며 시승 뎀옸에 어살이껀 쉬젭힙잉의 드다는 라마시를. </p> -->
 </div>
 
@@ -247,7 +273,14 @@ $(function() {
 </div> <!-- <div id="starPoint"> -->
 
 <div id="btn" class="d-flex justify-content-center mt-auto">
-<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
+<c:choose>
+	<c:when test="${isWish}">
+		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2" >찜 ♥</button>
+	</c:when>
+	<c:otherwise>
+		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2" >찜 ♡</button>
+	</c:otherwise>
+</c:choose>
 <button type="button" id="sub" class="btn btn-secondary btn-lg m-2">구독</button>
 </div>
 
@@ -330,7 +363,7 @@ $(function() {
 </div>
 ${ beanInfo.beanInfo }
 </div>
-
+ 
 <div id="beanReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 <div>
 <p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>
@@ -371,6 +404,44 @@ ${ beanInfo.beanInfo }
 
 
 </div> <!-- <div class="container"> -->
+
+<!-- Modal -->
+<div class="modal fade" id="subModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">원두우 찜~</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>...</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!-- 				<button type="button" class="btn btn-primary">Save changes</button> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="disSubModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">원두우 찜~</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>...</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!-- 				<button type="button" class="btn btn-primary">Save changes</button> -->
+			</div>
+		</div>
+	</div>
+</div>
 
 <c:import url="../layout/footer.jsp" />
 

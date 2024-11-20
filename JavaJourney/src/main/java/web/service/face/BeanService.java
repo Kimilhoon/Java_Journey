@@ -6,6 +6,7 @@ import java.util.Map;
 import web.dto.Bean;
 import web.dto.BeanRev;
 import web.dto.BeanRevComm;
+import web.dto.BeanSub;
 import web.dto.BeanWish;
 import web.dto.Member;
 import web.util.Paging;
@@ -102,6 +103,16 @@ public interface BeanService {
 	 * @param userNo
 	 */
 	public void removeWish(Map<String, Integer> params);
+	
+	
+	/**
+	 * beanNo와 userNo를 가져와서 로그인 되어있는지 확인
+	 * 
+	 * @param beanNo
+	 * @param userNo
+	 * @return true / false
+	 */
+	public boolean checkUserWish(int beanNo, int userNo);
 
 
 	/**
@@ -113,15 +124,33 @@ public interface BeanService {
 	
 	// /bean/info
 	// --------------------------------------------------------------------------------------
+	
+	/**
+	 * 원두 정보 불러오기
+	 * 
+	 * @param param - 원두 번호
+	 * @return 원두 정보
+	 */
+	public Bean getBeanByBeanNo(Bean param);
+
+ 
+	/**
+	 * 유저 아이디로 멤버 정보 불러오기
+	 * 
+	 * @param userId - 유저아이디
+	 * @return 불러올 멤버 정보
+	 */
+	public Member getMemberByUserId(String userId);
 
 
 	/**
-	 * 원두 정보와 유저 정보 불러오기
+	 * 전달 받은 구독 정보로 정보 삽입하기
 	 * 
-	 * @param params - 원두 번호
-	 * @return 원두와 유저정보
+	 * @param beanSub - 구독정보
 	 */
-	public List<Map<String, Object>> getBeanMember(Map<String, Object> params);
+	public void beanSubscribe(BeanSub beanSub);
+
+	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
