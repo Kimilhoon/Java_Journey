@@ -1,5 +1,7 @@
 package web.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,8 @@ public class QuizController {
 			@SessionAttribute(value = "userId", required = false) String userId,
 			Model model) {
 		
+		log.info("{}", quizResult);
+		
 		if (userId == null) {
 	        // 세션에 userId가 없을 때 처리
 	        log.warn("User is not logged in or session has expired.");
@@ -41,6 +45,7 @@ public class QuizController {
 		Member userNo = service.selectUserNoByUserId(userId);
 		log.info("userNo: {}", userNo.getUserNo());
 		model.addAttribute("userNo", userNo.getUserNo());
+		
 		
 	} // quizForm() end
 	
