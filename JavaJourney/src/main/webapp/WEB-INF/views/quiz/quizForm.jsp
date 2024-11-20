@@ -73,30 +73,37 @@ $("#QuizBtn").click(function() {
 
 }); // $("#QuizBtn").click(function() end
 	
+// formData.reduce((result, item), function() {
+// 	result[item.name]=item.value; 
+// 	return result;
+// }, {})
 		
 function submitForm() {
 	
 	const form = $("form");
-	const formData = form.serialize(); // 폼데이터를 쿼리스트링 형식으로 직렬화
+	const formData = form.serializeArray(); // 폼데이터를 쿼리스트링 형식으로 직렬화
 
+	const 
+	
 	$.ajax({
 		url: form.attr("action"), // form의 action 속성에서 URL 가져옴
 		type: form.attr("method"), // form의 method 속성에서 전송 방식 가져옴
-		data: formData,
+		data: JSON.stringify( formData.reduce((result, item) => {result[item.name]=item.value; return result;}, {}) ),
 		dataType: "json",
+		contentType : 'application/json',
 		success: function(res) {
 			
 			console.log(res);
-			
+			 
 			if( res.success) {
 				window.location.href="./quizResult"; // 결과 페이지로 이동
 			} else {
 				alert("서버 처리중 문제가 발생했습니다." + res.message);
 			}
 		},
-		error: function() {
+		error: function(res) {
 			console.error("AJAX 요청에 실패했습니다.");
-			alert("퀴즈 데이터를 전송하는 중 오류가 발생했습니다.");
+			alert("퀴즈 데이터를 전송하는 중 오류가 발생했습니다." + res.message);
 		}
 	});
 	
@@ -167,7 +174,7 @@ form div p {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<form action="./quizForm" method="get" >
+<form action="./quizForm" method="post" >
 
 <div id="beanGram" style="display: none;">
 
