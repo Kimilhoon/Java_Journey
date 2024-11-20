@@ -1,7 +1,6 @@
 package web.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +76,7 @@ public class MemberServiceImpl implements MemberService {
 	public String searchPw(Member member) {
 		return dao.searchPw(member);
 	}
+
 
 
 

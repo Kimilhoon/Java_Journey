@@ -12,7 +12,7 @@ public class QuizResult {
 	private int cupNoteNo;
 	private String grindName;
 	private String extractionName;
-	private String cupNoteName;
+	private String cupNoteName[];
 	private String beanName;
 	
 } // class end
