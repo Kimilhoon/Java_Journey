@@ -1,13 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.manager.dao.face.ManagerDao">
-	<select id="selectAllUser" resultType="Member">
-		select userNo, userId, userPw, userNick, userEmail, userName
-		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
-		from member 
+
+	<select id="selectCntAll" resultType="int">
+		select count(*) from member
 	</select>
-	<!--  -->
+
+	<select id="selectAllUser" resultType="Member" parameterType="Paging">
+    SELECT * 
+    FROM (
+        SELECT rownum rnum, M.*
+        FROM (
+            SELECT userNo, userId, userPw, userNick, userEmail, userName,
+                   userPhone, userPostcode, userAdd1, userAdd2, businessNo,
+                   status
+            FROM member
+            ORDER BY userNo DESC
+        ) M
+    ) member
+    <where>
+        rnum BETWEEN #{startNo} AND #{endNo}
+    </where>
+	</select>
+	
+	<select id="selectByUserNoForStatus" resultType="boolean" parameterType="int">
+<!--     SELECT CASE WHEN EXISTS ( -->
+<!--         SELECT 1 -->
+<!--         FROM BEANSUB -->
+<!--         WHERE userno = #{userNo} -->
+<!--     ) THEN 1 ELSE 0 END -->
+<!--     FROM DUAL -->
+			SELECT 
+				CASE 
+					WHEN STATUS = 'N' THEN 'TRUE'
+					ELSE 'FALSE'
+				END AS RESULT
+			FROM MEMBER
+			WHERE USERNO = #{subNo}
+	</select>
+	
+	<update id="updateUserStatus" parameterType="int">
+		UPDATE MEMBER
+   	 	SET STATUS = 
+      	  CASE 
+      	      WHEN STATUS = 'Y' THEN 'N'
+      	      WHEN STATUS = 'N' THEN 'Y'
+     	   END
+		<where>
+			USERNO = #{userNo}
+		</where>
+	</update>
+	
+	<select id="selectCntBeanSubAll" resultType="int">
+		select count(*) from beansub
+	</select>
+	
+	<select id="selectAllBeanSubUser" parameterType="Paging" resultType="BeanSub">
+		SELECT * 
+    	FROM (
+       	 SELECT rownum rnum, B.*
+       	 FROM (
+       	     SELECT B.SUBNO, B.USERNO AS BEANSUB_USERNO, B.BEANNO, B.GRAM,
+				B.PRICE, B.GRIND, B.SUBSTARTDATE, B.SUBENDDATE,
+				B.SUBTIME, B.NONSUB, M.USERNO AS MEMBER_USERNO, M.USERADD1,
+				M.USERADD2, M.USERNAME, B2.BEANNAME 
+				FROM BEANSUB B, "MEMBER" M, BEAN B2
+		     <where>
+       	     	AND B.USERNO = M.USERNO
+       	     	AND B.BEANNO = B2.BEANNO
+       	     </where>
+       	     ORDER BY B.SUBNO DESC
+      	  ) B
+ 	   ) beansub
+    <where>
+        rnum BETWEEN #{startNo} AND #{endNo}
+    </where>
+	</select>
+	
+	<select id="selectBeanSubCancelByBeanSub" resultType="boolean" parameterType="int">
+			SELECT 
+				CASE 
+					WHEN NONSUB = 'Y' THEN 'TRUE'
+					ELSE 'FALSE'
+				END AS RESULT
+			FROM BEANSUB
+			WHERE SUBNO = #{subNo}
+	</select>
+	
+	<update id="subNoSubCancenBySubNoForUpdate" parameterType="int">
+		UPDATE BEANSUB
+		<set>
+			NONSUB = 'Y'
+		</set>
+		<where>
+			SUBNO = #{subNo}
+		</where>
+	</update>
+	
 </mapper>

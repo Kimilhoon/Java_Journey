@@ -200,7 +200,6 @@ img{
 		</a>
 			<p>${bean.beanName}</p>
 			<p>${bean.origin}</p>
-			<p>맛이요 | </p>
 			<p>리뷰 : ${ bean.reviewCount }</p>
 	</td>
    
@@ -216,6 +215,7 @@ img{
 	</c:forEach>
 </tr>
 </c:if>
+
 
 
 <%-- <c:forEach var="bean" items="${ list }"> --%>

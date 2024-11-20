@@ -32,11 +32,13 @@ public class MainController {
 //		log.info("cafeBestList : {}",cafeBestList);
 		
 //		List<BeanRev> beanBestList = beanservice.getBest();
-		List<Bean> list = beanservice.getBeanTop();
+		List<Bean> bList = beanservice.getBeanTop();
+		List<Cafe> cList = cafeservice.getCafeTop();
 //		log.info("beanBestList : {}",beanBestList);
 		
 //		model.addAttribute("cafeBestList",cafeBestList);
-		model.addAttribute("list", list);
+		model.addAttribute("bList", bList);
+		model.addAttribute("cList", cList);
 		
 	}
 	

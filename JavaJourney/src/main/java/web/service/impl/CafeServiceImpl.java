@@ -20,7 +20,13 @@ import web.util.Paging;
 public class CafeServiceImpl implements CafeService {
 	
 	@Autowired private CafeDao dao;
+	
 
+	@Override
+	public List<Cafe> getCafeTop() {
+		return dao.selectBeanTop();
+	}
+	
 	@Override
 	public List<Cafe> getBest() {
 		return dao.selectBest();
@@ -135,7 +141,6 @@ public class CafeServiceImpl implements CafeService {
 	public void removeWish(Map<String, Integer> params) {
 		dao.removeWish(params);
 	}
-
 
 	
 	

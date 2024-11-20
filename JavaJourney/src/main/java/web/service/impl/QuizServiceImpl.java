@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dao.face.QuizDao;
+import web.dto.Member;
 import web.service.face.QuizService;
 
 @Service
@@ -12,5 +13,10 @@ import web.service.face.QuizService;
 public class QuizServiceImpl implements QuizService {
 	
 	@Autowired private QuizDao dao;
+
+	@Override
+	public Member selectUserNoByUserId(String userId) {
+		return dao.selectUserNoByUserId(userId);
+	} // selectUserNoByUserId(String userId) end
 	
-}
+} // class end

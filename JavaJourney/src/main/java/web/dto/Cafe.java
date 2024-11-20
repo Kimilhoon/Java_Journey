@@ -32,7 +32,7 @@ public class Cafe {
 	// cafeRev join
 	private int revsp;
 	private int reviewCount;
-	private int avgRevStarPoint;
+	private double avgRevStarPoint;
 	
 	
 }

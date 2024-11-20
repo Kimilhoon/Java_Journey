@@ -110,11 +110,14 @@ public class BeanController {
 		
 		model.addAttribute("list", list);
 		
+		boolean isWish = service.checkUserWish(beanInfo.getBeanNo(), userNo.getUserNo());
+		model.addAttribute("isWish", isWish);
+		
 	} // BeanInfoForm(Bean param) end
 	
 	
 	@PostMapping("/info")
-	public void BeanInfoFormProc(@RequestBody BeanWish beanWish) {
+	public ResponseEntity<?> BeanInfoFormProc(@RequestBody BeanWish beanWish) {
 		
 		log.info("beanNo: {}", beanWish.getBeanNo());
 	    log.info("userNo: {}", beanWish.getUserNo());
@@ -134,11 +137,27 @@ public class BeanController {
 	    params.put("beanNo", beanWish.getBeanNo());
 	    params.put("userNo", beanWish.getUserNo());
 	    
-		if( "add".equals(beanWish.getAction()) ){
-			service.addWish(params);
-		} else if ("remove".equals(beanWish.getAction())) {
-	        service.removeWish(params);
-	    }
+	    try {
+	    
+			if( "add".equals(beanWish.getAction()) ){
+				service.addWish(params);
+			} else if ("remove".equals(beanWish.getAction())) {
+		        service.removeWish(params);
+		    }
+			
+			// 응답 데이터 설정
+	        Map<String, String> response = new HashMap<>();
+	        response.put("status", "success");
+	        response.put("message", beanWish.getAction().equals("add") ? "찜 상태가 추가되었습니다." : "찜 상태가 취소되었습니다.");
+
+			
+			return ResponseEntity.ok().body(response);
+			
+    		} catch (Exception e) {
+    			// 예외 처리
+    			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed");
+		    
+		}
 		
 	    
 	} // BeanInfoFormProc end
@@ -147,23 +166,23 @@ public class BeanController {
 	// --------------------------------------------------------------------------------------
 	
 	@GetMapping("/sub")
-	public void BeanSub(Bean param, 
-			@SessionAttribute(value = "userId", required = false) String userId, 
-			Model model) {
-	    
-		// 원두 정보 불러오기
-		Bean bean = service.getBeanByBeanNo(param);
-		// 멤버 정보 불러오기
-		Member member = service.getMemberByUserId(userId);
-		
-		model.addAttribute("bean", bean);
-		model.addAttribute("member", member);
-		
-		// 랜덤 값 생성
-		String randomUUID = UUID.randomUUID().toString().split("-")[4];
-		model.addAttribute("randomUUID", randomUUID);
-	    
-	} // BeanSub(Bean param, Model model) end
+	   public void BeanSub(Bean param, 
+	         @SessionAttribute(value = "userId", required = false) String userId, 
+	         Model model) {
+	       
+	      // 원두 정보 불러오기
+	      Bean bean = service.getBeanByBeanNo(param);
+	      // 멤버 정보 불러오기
+	      Member member = service.getMemberByUserId(userId);
+	      
+	      model.addAttribute("bean", bean);
+	      model.addAttribute("member", member);
+	      
+	      // 랜덤 값 생성
+	      String randomUUID = UUID.randomUUID().toString().split("-")[4];
+	      model.addAttribute("randomUUID", randomUUID);
+	       
+	   } // BeanSub(Bean param, Model model) end
 
 	@PostMapping("/sub/payment/complete")
 	public String BeanSub(@RequestBody BeanSub beanSub) {
@@ -184,8 +203,6 @@ public class BeanController {
 		beanSub.setBeanNo(param.getBeanNo());
 		beanSub.setBeanName(param.getBeanName());
 		beanSub.setUserName(param.getUserName());
-		
-		
 		
 		model.addAttribute("beanSub", beanSub);
 		

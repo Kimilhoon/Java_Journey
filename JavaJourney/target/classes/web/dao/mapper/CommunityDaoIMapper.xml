@@ -747,11 +747,11 @@
 	</select>
 	
 	<select id="selectBeanReviewInfo" parameterType="BeanRev" resultType="BeanRev">
-		SELECT revno, br.beanno, userno, revcont, revhit, revdate, revstarpoint, beanname
+		SELECT br.revno, br.beanno, br.userno, br.revcont, br.revhit, br.revdate, br.revstarpoint, b.beanname
 		FROM beanrev br
 		JOIN bean b ON br.beanno = b.beanno
 		<where>
-			AND revno = #{revNo }
+			AND br.revno = #{revNo }
 		</where>
 	</select>
 	
