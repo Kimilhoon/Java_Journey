@@ -712,8 +712,8 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void dropCafeReview(CafeRev cafeRev) {
 		
-		dao.deleteCafeReviewByCafeNo(cafeRev);
 		dao.deleteCafeReviewCommByCafeNo(cafeRev);
+		dao.deleteCafeReviewByCafeNo(cafeRev);
 		
 	}
 	
@@ -1030,8 +1030,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void dropBeanReview(BeanRev beanRev) {
     	
+    	dao.deleteBeanReviewCommByBeanNo(beanRev);
 		dao.deleteBeanReviewByBeanNo(beanRev);
-		dao.deleteBeanReviewCommByBeanNo(beanRev);
     	
     }
     

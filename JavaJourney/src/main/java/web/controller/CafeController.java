@@ -53,6 +53,11 @@ public class CafeController {
 		log.info("location: {}", location);
 		log.info("keyword: {}", keyword);
 		
+//		// location이 빈 문자열인 경우 null로 변환
+//	    if (location != null && location.trim().isEmpty()) {
+//	        location = null;
+//	    }
+		
 		//전달파라미터 이용한 현재 페이징 객체 알아내기
 		Paging paging = service.getPaging(param, location, keyword);
 		log.info("paging : {}",paging);
@@ -90,7 +95,7 @@ public class CafeController {
 		
 		if (userId == null) {
 	        // 세션에 userId가 없을 때 처리
-	        log.warn("User is not logged in or session has expired.");
+	        log.warn("사용자가 로그인하지 않았거나 세션이 만료되었습니다.");
 	        return;
 	    } // if (userId == null) end
 		

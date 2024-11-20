@@ -7,6 +7,27 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8fbebe3028eb8e4ca3a2c1633eec190&libraries=services"></script>
 
 <script type="text/javascript">
+
+Kakao.init('f4c1cc8b7b37a15aa3f598f8c45acfef');
+function shareToKakao() {
+
+	  // 카카오톡 메시지 전송
+    Kakao.Share.sendDefault({
+      objectType: 'text',
+      text: `${userNick } 님이 !`,
+      link: {
+        webUrl: window.location.href
+      },
+      buttons: [
+        {
+          title: '카페 보러가기',
+          link: {
+            webUrl: window.location.href
+          }
+        }
+      ]
+    });
+  }
 $(function() {
 	if(${not empty isLogin}){
 		
@@ -529,6 +550,7 @@ a {
 	<tr id="boardContent">
 		<td colspan="8">${freeBoardView.freeBoardContent}</td>
 	</tr>
+<<<<<<< HEAD
 <%-- 	<c:if test='${freeBoardView.freeBoardMapX ne"123" }'> --%>
 <!-- 		<tr> -->
 <!-- 			<td colspan="8"> -->
@@ -558,16 +580,39 @@ a {
 		      </tr>
 		   </c:otherwise>
 		 </c:choose>
+=======
+	<c:choose>
+	<c:when test='${freeBoardView.freeBoardMapX ne"123" }'>
+		<tr>
+			<td colspan="8">
+				<div>
+					<div id="map" style="width: -webkit-fill-available; height:500px;"></div>
+				</div>
+			</td>
+		</tr>
+	</c:when>
+	<c:otherwise>
+		<tr style="display:none;">
+			<td colspan="8">
+				<div>
+					<div id="map" style="width: -webkit-fill-available; height:500px;"></div>
+				</div>
+			</td>
+		</tr>
+	</c:otherwise>
+	</c:choose>
+>>>>>>> refs/remotes/origin/master
 </table>
 </div> <!-- table -->
 <div id="bottom" >
 	<div  style="display: inline-block; float: left; vertical-align: middle;">
 		<i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37; margin-right: 15px;"></i>
+	    <i class="bi bi-chat" onclick="shareToKakao()" style="cursor: pointer; color: #6f4e37; font-size: 1.8em; margin-right: 15px;"></i>
 		<button id="btn_rec" class="btn">☆추천</button>
 	</div>
 	<div style="display: inline-block; float: right;">
 		<a href="./list"><button class="btn">목록</button></a>
-		<c:if test="${member.userNick eq userNick}">
+		<c:if test="${(member.userNick eq userNick) or (userNick eq 'admin')}">
 			<a href="./update?freeBoardNo=${freeBoardView.freeBoardNo }"><button class="btn">수정</button></a>
 			<a href="./delete?freeBoardNo=${freeBoardView.freeBoardNo }"><button class="btn">삭제</button></a>
 		</c:if>
@@ -588,7 +633,7 @@ a {
 		<td style="display: none;">${freeBoardComment.commentNo }</td>
 		<td></td>
 		<td class="text-end">
-			<c:if test="${ freeBoardComment.userNick eq userNick}">
+			<c:if test="${ freeBoardComment.userNick eq userNick or (userNick eq 'admin')}">
 				<button class="btn_cUpdate" style=" border: 0;  background-color: transparent;" onclick="openEditModal('${freeBoardComment.commentNo }', '${freeBoardComment.commentContent}')"><small>수정</small></button>|
 				<button class="btn_cDelete" style=" border: 0;  background-color: transparent;"><small>삭제</small></button>
 				<div style="display: none;">${freeBoardComment.commentNo }</div>
@@ -619,7 +664,7 @@ a {
 			<td style="font-size: x-large;">ㄴ</td>
 			<td>${reply.userNick} ⭢ ${reply.freeBoardCommNickTag}</td>
 			<td class="text-end">
-				<c:if test="${ reply.userNick eq userNick}">
+				<c:if test="${ reply.userNick eq userNick or (userNick eq 'admin')}">
 					<button class="btn_cUpdate" style=" border: 0;  background-color: transparent;" onclick="openEditModal('${reply.commentNo }', '${reply.commentContent}')"><small>수정</small></button>|
 					<button class="btn_cDelete" style=" border: 0;  background-color: transparent;"><small>삭제</small></button>
 					<div style="display: none;">${reply.commentNo }</div>

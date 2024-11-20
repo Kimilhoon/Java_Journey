@@ -112,9 +112,9 @@ $(function() {
 </tr>
 </table>
 
-<div style="float: right;">
-<a href="./list"><button class="btn " type="button">목록</button></a>
-<button class="btn " id="write">수정</button>
+<div style="text-align: right;	">
+	<a href="./list"><button class="btn " type="button">목록</button></a>
+	<button class="btn " id="write">수정</button>
 </div>
 
 </form>
