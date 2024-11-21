@@ -3,10 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp" />
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
@@ -22,10 +18,11 @@
     apiURL += "&state=" + state;
     session.setAttribute("state", state);
  %>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <script type="text/javascript">
-
 $(function() {
-
 	
     <c:if test="${not empty sessionScope.loginError}">
    	 alert("${sessionScope.loginError}");
@@ -152,9 +149,9 @@ $(function() {
 </div>
 
  <a href="<%=apiURL%>"><img height="50" src="/resources/img/naverLogin.png" style="width: 360px; height: 52px; cursor: pointer; "/></a>
-<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7df1421a7bccf6b6463a62d7e3cc88f1&redirect_uri=http://localhost:8088/member/kakao/login
+<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a54ccddb4065ad4dbb6ab457409929d7&redirect_uri=http://192.168.10.240:8088/member/kakao/login
 ">
-	<img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; margin-top: 10px; cursor: pointer; ">
+   <img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; margin-top: 10px; cursor: pointer; ">
 </a>
 
 
