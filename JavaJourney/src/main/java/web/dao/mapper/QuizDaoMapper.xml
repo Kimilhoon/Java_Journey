@@ -37,7 +37,7 @@
 		    LEFT JOIN beanImg bi ON b.beanimgno = bi.beanimgno
 		    WHERE bt.cupnoteno = #{ cupNoteNo[0] } OR bt.cupnoteno = #{ cupNoteNo[1] }
 		)
-		WHERE rn <= 3
+		WHERE rn &lt;= 3
 	</select>
 	
 </mapper>
