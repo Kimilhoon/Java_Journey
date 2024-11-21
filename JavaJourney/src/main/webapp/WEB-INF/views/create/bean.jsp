@@ -16,7 +16,7 @@ $(function () {
 	});
    
     $('#beanOriginName').summernote({ 
-    	width: 400, height: 200
+    	height: 200
     	, toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
         ],
@@ -40,7 +40,7 @@ $(function () {
     $('#beanOriginName').next('.note-editor').find('.note-editable').attr('contenteditable', false);
 
     $('#beanInfo').summernote({ //섬머노트 설정
-        height: 200  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
+        height: 500  // 에디터 높이를 설정합니다. 필요에 따라 변경 가능합니다.
         , toolbar: [
             ['insert', ['picture']] // 이미지 업로드 버튼만 추가
         ],
@@ -68,9 +68,9 @@ $(function () {
         		, "width=900,height=600");
 	})
 	
-	$("#beanName").on("input", function() {
-		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
-	})
+// 	$("#beanName").on("input", function() {
+// 		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
+// 	})
 
 	$("#origin").on("input", function() {
 		$(this).val($(this).val().replace(/[0-9!@#$%^&*()]/g, ''));
@@ -115,30 +115,67 @@ $(function () {
 })
 </script>
 
-<div class="container">
+<style type="text/css">
+table {
+    margin: 20px auto; /* 페이지 중앙 정렬 */
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    width: 100%; /* 너비 조정 */
+    max-width: 1500px; /* 최대 너비 설정 */
+    background-color: #f9f9f9; /* 테이블 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 8px; /* 테이블 모서리를 둥글게 */
+    overflow: hidden; /* 둥근 테두리 안에 내용 제한 */
+    
+}
+table tr {
+/*         border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 희미한 줄 */ */
+}
+table td {
+        padding-bottom: 10px;
+}
+input[type="text"],
+textarea {
+	width: 100%; /* 입력 필드의 너비를 셀에 맞게 조정 */
+    padding: 10px; /* 내부 여백 */
+    font-size: 14px; /* 폰트 크기 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 4px; /* 모서리를 둥글게 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
+#btnWrite {
+    width: 100%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
+</style>
 
-<div>
-<button id="btnManagerMenu">관리자메뉴로가기</button>
-<button id="btnBack">뒤로가기</button>
-</div>
-	
+<div class="container">
+<!-- <div> -->
+<!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
+<!-- <button id="btnBack">뒤로가기</button> -->
+<!-- </div> -->
 <form id="form" action="./bean" method="post" enctype="multipart/form-data">
-	<table class="table table-info">
+	<table>
 		<tr>
-			<td class="mx-3">
-			원두이름
-			<input type="text" maxlength="50" id="beanName" name="beanName">
-			</td>
-			<td class="mx-3">
-			원두원산지
-			<input class="mx-3" type="text" maxlength="30" id="origin" name="origin">
-			원두금액
-			<input class="mx-3" type="number" min="1" max="100000" id="beanPrice" name="beanPrice">
-			사업자번호
-			<input class="mx-3" type="text" id="businessNo" name="businessNo">
-			</td> 
+			<td>원두이름</td>
+			<td><input type="text" maxlength="50" id="beanName" name="beanName"></td>
 		</tr>
 		<tr>
+			<td>원두원산지</td>
+			<td><input type="text" maxlength="30" id="origin" name="origin"></td>
+		</tr>
+		<tr>
+			<td>원두금액</td>	
+			<td><input type="number" min="1" max="100000" id="beanPrice" name="beanPrice"></td>	
+		</tr>
+		<tr>
+			<td>사업자번호</td>	
+			<td><input type="text" id="businessNo" name="businessNo"></td>	
 		</tr>
 		<!-- 원두이미지삽입 -->
 		<tr>
@@ -184,9 +221,7 @@ $(function () {
 			</td>
 		</tr>
 	</table>
-	<div id="btnWrite">
-	<button class="btn btn-primary">완료</button>
-	</div>
+	<button id="btnWrite">완료</button>
 </form>
 </div>
 

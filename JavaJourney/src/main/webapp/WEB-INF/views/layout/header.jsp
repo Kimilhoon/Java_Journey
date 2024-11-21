@@ -263,5 +263,3 @@ footer {
     </div>
   </nav>
 </div>
-
-<div id="wrap">

@@ -101,11 +101,22 @@ public interface MypageService {
 	public List<MemberQuizResult> selectByUserNoQuizeResult(int userNo);
 	
 	/**
-	 * 세션에서 가져온 userNo에 맞는 회원의 구독정보보기
-	 * @param userNo
+	 * 마이페이지의 구독정보에서 현재페이지를 전달받음
+	 * @param beanSub 
+	 * @param curPage 
+	 * @param curPage
 	 * @return
 	 */
-	public List<BeanSub> selectMyBeanSub(int userNo);
+	public Paging getBeanSubPage(Paging curPage, int userNo);
+	
+	/**
+	 * 세션에서 가져온 userNo에 맞는 회원의 구독정보보기
+	 * 페이징 해주기...
+	 * @param userNo
+	 * @param paging 
+	 * @return
+	 */
+	public List<BeanSub> selectMyBeanSub(int userNo, Paging paging);
 	
 	/**
 	 * Ajax로 전달받은 subNo <Integer> 배열로 구독 취소하기 -> 구독취소여부 Y(구취)로 바꾸기 기존은 N(구독중)
@@ -126,6 +137,7 @@ public interface MypageService {
 	 * @param userNick
 	 */
 	public void updateCommNickTag(String userNick);
+
 
 
 
