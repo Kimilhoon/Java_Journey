@@ -34,7 +34,6 @@ $(function() {
 </script>
 
 <style>
-<<<<<<< HEAD
 
 html, body {
     height: 70%
@@ -50,8 +49,6 @@ footer {
     transform: translatY(-80%);
 }
 
-=======
->>>>>>> refs/remotes/origin/master
 /* 로고 크기 조정 */
 #logo {
 	position: flex;
@@ -185,11 +182,7 @@ footer {
 		</div>
 	</c:if>
   </div>
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> refs/remotes/origin/master
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
