@@ -114,21 +114,20 @@ public interface MypageService {
 	public void updateSubCancelBySubNo(List<Integer> subNo);
 
 	/**
-	 * 회원탈퇴눌렀을때 STATUS 변경 (Y->N)
-	 * @param member
+	 * 탈퇴하기를 누르면 STATUS 변경 (Y->N)
+	 * userNick='(탈퇴한회원)'으로 변경
+	 * @param userNo
 	 */
-	public void outMember(Member member);
+	public void outMember(int userNo);
 
 	/**
-	 * 내가 작성한글 페이징
-	 * @param curPage - 현재페이지정보
-	 * @param category - 카테고리
-	 * @param search - 검색어
-	 * @return
+	 * 탈퇴하기 누르면
+	 * 대댓글 닉네임을 '(탈퇴한회원)'으로 변경
+	 * @param userNick
 	 */
-//	public Paging getMyViewPaging(Paging curPage, String category, String search);
+	public void updateCommNickTag(String userNick);
 
-//	public List<Map<String, Object>> getAll(Paging paging, String category, String search);
+
 
 
 

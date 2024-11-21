@@ -4,6 +4,8 @@ import java.util.List;
 
 import web.dto.Cafe;
 import web.dto.CafeImg;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 
 public interface CreateCafeDao {
 
@@ -46,6 +48,11 @@ public interface CreateCafeDao {
 	 */
 	public void updateCafe(Cafe cafe);
 	
+	/**
+	 * 카페 글 삭제할때 그 안의 리뷰글 삭제
+	 * @param cafeRev
+	 */
+	public void deleteCafeRev(CafeRev cafeRev);
 	
 	/**
 	 * 협약 카페 글 삭제
@@ -53,12 +60,17 @@ public interface CreateCafeDao {
 	 */
 	public void deleteCafe(Cafe cafe);
 
-
 	/**
-	 * 협약 카페 메인 이미지 삭제
+	 * 카페 메인 이미지 삭제
 	 * @param cafeImg
 	 */
-//	public void deleteCafeImg(CafeImg cafeImg);
+	public void deleteCafeImg(CafeImg cafeImg);
+
+
+	public void deleteCafeRevComm(CafeRevComm cafeRevComm);
+
+
+
 
 
 }

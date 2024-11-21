@@ -138,7 +138,7 @@ img{
 <div class="container custom-container" >
 
 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb"> 
 		<li class="breadcrumb-item"><a href="./best">best</a></li>
 		<li class="breadcrumb-item active" aria-current="page">bean</li>
 	</ol>
@@ -198,9 +198,17 @@ img{
 				${bean.beanOriginName}
 			</div>
 		</a>
+		<c:choose>
+			<c:when test="${ bean.status == 'Y' }">
 			<p>${bean.beanName}</p>
 			<p>${bean.origin}</p>
 			<p>리뷰 : ${ bean.reviewCount }</p>
+			</c:when>
+			<c:when test="${ bean.status == 'N' }">
+			<p>판매 종료</p>
+			</c:when>
+		</c:choose>	
+			<p>상태표시[TEST] : ${ bean.status }</p>
 	</td>
    
 		<c:if test="${status.index % 4 == 3 || status.last}">

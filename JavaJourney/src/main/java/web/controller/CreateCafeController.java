@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Cafe;
 import web.dto.CafeImg;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 import web.service.face.CreateCafeService;
 
 @Controller
@@ -53,9 +55,11 @@ public class CreateCafeController {
 	}
 	
 	@RequestMapping("/cafeDelete")
-	public String delete(Cafe cafe, Model model) {
+	public String delete(Cafe cafe, Model model, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
+		log.info("delete cafe1:{}", cafe);
+		service.delete(cafe, cafeImg, cafeRev, cafeRevComm);
 		
-		service.delete(cafe);
+		log.info("delete cafe2:{}", cafe);
 		return "redirect:/cafe/all";
 	}
 

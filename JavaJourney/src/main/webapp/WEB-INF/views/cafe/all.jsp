@@ -30,7 +30,7 @@ $(function() {
 			
 		});
 		
-	}); // $("#location").on("change", function() end
+	}); // $("#location").change(function() { end
 	
 	$("#searchIcon").click(function() {
 // 		console.log($("#search").val());

@@ -34,6 +34,24 @@ $(function() {
 </script>
 
 <style>
+<<<<<<< HEAD
+
+html, body {
+    height: 70%
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+}
+
+footer {
+    position: relative;
+    transform: translatY(-80%);
+}
+
+=======
+>>>>>>> refs/remotes/origin/master
 /* 로고 크기 조정 */
 #logo {
 	position: flex;
@@ -52,6 +70,7 @@ $(function() {
 
 /* 메뉴바 크기 및 텍스트 스타일 조정 */
 .navbar-nav .nav-link {
+	cursor: pointer
     color: #f3e9dc !important;
     font-size: 1.1rem;
     font-weight: 500;
@@ -166,7 +185,11 @@ $(function() {
 		</div>
 	</c:if>
   </div>
+<<<<<<< HEAD
+  
+=======
 
+>>>>>>> refs/remotes/origin/master
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
@@ -246,3 +269,5 @@ $(function() {
     </div>
   </nav>
 </div>
+
+<div id="wrap">

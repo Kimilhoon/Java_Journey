@@ -4,6 +4,8 @@ import java.util.List;
 
 import web.dto.Cafe;
 import web.dto.CafeImg;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 
 public interface CreateCafeService {
 
@@ -34,7 +36,13 @@ public interface CreateCafeService {
 	 * @param cafe
 	 * @param cafeImg 
 	 */
-	public void delete(Cafe cafe);
+//	public void delete(Cafe cafe);
+//	public void delete(Cafe cafe, CafeImg cafeImg);
+//	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev);
+	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm);
+
+
+
 
 
 
