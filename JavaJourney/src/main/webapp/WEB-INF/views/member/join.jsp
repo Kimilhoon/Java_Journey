@@ -833,7 +833,7 @@ label.agree button:hover {
 	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
-	<p id="resultMsg" style="font-size:0.6rem;"></p>
+	<p id="resultMsg" style="font-size:0.8rem;"></p>
 
 <!-- <div> -->
 <!-- 	<label for="userEmail">이메일 -->

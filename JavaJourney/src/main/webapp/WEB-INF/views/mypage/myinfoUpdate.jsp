@@ -210,8 +210,8 @@ $(function() {
             }).fail(function() {
                 alert("탈퇴 처리 중 오류가 발생했습니다.");
             });
-            // "예"를 선택한 경우 탈퇴 요청 전송
-            location.href = "<c:url value='/mypage/out'/>"; // 회원 탈퇴 요청 URL
+//             // "예"를 선택한 경우 탈퇴 요청 전송
+//             location.href = "<c:url value='/mypage/out'/>"; // 회원 탈퇴 요청 URL
         }
 	})
 	
