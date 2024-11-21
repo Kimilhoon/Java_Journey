@@ -28,7 +28,7 @@
 		INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
 		INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
 		<where>
-			USERNO = #{userNo}
+			B1.USERNO = #{userNo}
 <!-- 			<if test='searchText != "N"'> -->
 <!-- 				upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
 <!-- 			</if> -->
@@ -147,7 +147,7 @@
 		WHERE USERNO = #{userNo}
 	</update>
 	
-	<update id="changeFreeNick" parameterType="int">
+	<update id="changeMyrepNick" parameterType="int">
 		UPDATE FREEBOARDCOMMENT
 		SET userNick = '(탈퇴한 회원)'
 		WHERE USERNO = #{userNo}
@@ -159,10 +159,10 @@
 		WHERE USERNO = #{userNo}
 	</update>
 	
-	<update id="changeFreeCommNickTag" parameterType="string">
-		UPDATE FREEBOARDCOMMENT
-		SET FREEBOARDCOMMNICKTAG = '(탈퇴한 회원)'
-		WHERE FREEBOARDCOMMNICKTAG = #{userNick}
+	<update id="changeMyrecipeCommNickTag" parameterType="string">
+		UPDATE MYRECIPECOMMENT
+		SET MYRIPCOMMNICKTAG = '(탈퇴한 회원)'
+		WHERE MYRIPCOMMNICKTAG = #{userNick}
 	</update>
 	
 	<update id="changeMyrecipeCommNickTag" parameterType="string">

@@ -11,7 +11,7 @@
 $(function() {
 	
 	$("#beanSubInfoBtn").click(function() {
-		location.href="../mypage/subscribe?beanNo=${ beanSub.beanNo }"
+		location.href="../mypage/subscribe?subNo=${ beanSub.subNo }"
 	})
 	
 	$("#beanAllBtn").click(function() {
@@ -64,7 +64,7 @@ $(function() {
 
 <div id="beanSub" class="d-grid gap-2 col-4 mx-auto">
 <button id="beanSubInfoBtn" type="button" class="btn btn-lg btn-secondary">구독 정보 보러가기</button>
-<button id="beanAllBtn" type="button" class="btn btn-lg btn-secondary">메인으로 쓩~</button>
+<button id="beanAllBtn" type="button" class="btn btn-lg btn-secondary">원두더 사러 가자 쓩~</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->
