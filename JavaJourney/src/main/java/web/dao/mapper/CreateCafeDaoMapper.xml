@@ -92,6 +92,7 @@
 <!-- 	</delete> -->
 	
 <!-- 	<delete id="deleteCafeImg" parameterType="CafeImg"> -->
+<!-- 	<delete id="deleteCafeImg"> -->
 <!-- 		DELETE CafeImg -->
 <!-- 		<where> -->
 <!-- 			cafeImgNo = #{cafeImgNo} -->
