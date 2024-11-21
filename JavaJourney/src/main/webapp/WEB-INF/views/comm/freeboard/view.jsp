@@ -14,13 +14,13 @@ function shareToKakao() {
 	  // 카카오톡 메시지 전송
     Kakao.Share.sendDefault({
       objectType: 'text',
-      text: `${userNick } 님이 !`,
+      text: `${userNick } 님이 공유한 게시글!`,
       link: {
         webUrl: window.location.href
       },
       buttons: [
         {
-          title: '카페 보러가기',
+          title: '자유 게시판 보러가기',
           link: {
             webUrl: window.location.href
           }
@@ -550,7 +550,7 @@ a {
 	<tr id="boardContent">
 		<td colspan="8">${freeBoardView.freeBoardContent}</td>
 	</tr>
-<<<<<<< HEAD
+
 <%-- 	<c:if test='${freeBoardView.freeBoardMapX ne"123" }'> --%>
 <!-- 		<tr> -->
 <!-- 			<td colspan="8"> -->
@@ -580,28 +580,7 @@ a {
 		      </tr>
 		   </c:otherwise>
 		 </c:choose>
-=======
-	<c:choose>
-	<c:when test='${freeBoardView.freeBoardMapX ne"123" }'>
-		<tr>
-			<td colspan="8">
-				<div>
-					<div id="map" style="width: -webkit-fill-available; height:500px;"></div>
-				</div>
-			</td>
-		</tr>
-	</c:when>
-	<c:otherwise>
-		<tr style="display:none;">
-			<td colspan="8">
-				<div>
-					<div id="map" style="width: -webkit-fill-available; height:500px;"></div>
-				</div>
-			</td>
-		</tr>
-	</c:otherwise>
-	</c:choose>
->>>>>>> refs/remotes/origin/master
+
 </table>
 </div> <!-- table -->
 <div id="bottom" >

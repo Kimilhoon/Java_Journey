@@ -16,13 +16,13 @@ function shareToKakao() {
 	  // 카카오톡 메시지 전송
     Kakao.Share.sendDefault({
       objectType: 'text',
-      text: `${userNick } 님이 !`,
+      text: `${userNick } 님이 공유한 나만의 레시피 !`,
       link: {
         webUrl: window.location.href
       },
       buttons: [
         {
-          title: '카페 보러가기',
+          title: '나만의 레시피 보러가기',
           link: {
             webUrl: window.location.href
           }
