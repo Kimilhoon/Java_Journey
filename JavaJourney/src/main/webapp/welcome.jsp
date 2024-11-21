@@ -189,7 +189,7 @@ body {
     <article class="item">
     <a href="/main" class="logo-image">
 		<div class="img">
-			<img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="240px" height="240px" class="logo" />
+			<img  src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="240px" height="240px" class="logo" />
 		</div>
 		<div class="more">
 			<p>
