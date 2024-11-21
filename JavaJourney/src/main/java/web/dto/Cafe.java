@@ -16,6 +16,8 @@ public class Cafe {
 	private String cafeAdd2;
 	private String businessNo;
 	private String cafeInfo;
+	private String status;
+	
 	
 	//조인CafeWish
 	private int userNo;

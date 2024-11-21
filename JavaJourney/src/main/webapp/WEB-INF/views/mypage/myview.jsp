@@ -173,27 +173,47 @@
 
 
 <!-- 페이징 처리 -->
-<div class="pagination justify-content-center" >
-    <c:if test="${paging.curPage > 1}" >
-        <a href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" class="start" style="background: #ebddcc; color: black; border: 1px solid #ebddcc; padding: 8px 16px;"><<</a>
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 1}&category=${category}&search=${search}" class="prev" style="color: black; border: 1px solid #ebddcc; padding: 8px 16px;">이전</a>
+<div>
+<ul class="pagination justify-content-center" > <!-- pagination: bootstrap 페이징 스타일 -->
+
+	<!-- 이전페이지이동 -->
+    <c:if test="${paging.curPage > 1}" > 
+    	<li class="page-item">
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;"><<</a>
+    	</li>
+    	<li class="page-item">
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 10}&category=${category}&search=${search}" style="color: black; border: 1px solid #ebddcc;"><</a>
+		</li>
     </c:if>
 
     <!-- 페이지 번호 출력 -->
-    <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+    <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}"> <!-- 1~10페이지까지 보임 -->
         <c:if test="${i == paging.curPage}">
-            <span class="current" style="background: #6f4e37; color: white; border: 1px solid #6f4e37; padding: 8px 16px; font-weight: bold; ">${i}</span>
+			<li class="page-item">   
+			<!-- 현재페이지는 클릭하지 못하도록 span -->        
+            <span class="page-link" style="background: #6f4e37; color: white; border: 1px solid #6f4e37; font-weight: bold; ">${i}</span>
+        	</li>
         </c:if>
         <c:if test="${i != paging.curPage}">
-            <a href="/mypage/myview?userNo=${userNo}&curPage=${i}&category=${category}&search=${search}" class="page" style="color: black; border: 1px solid #ebddcc; padding: 8px 16px; font-weight: bold; text-decoration: none;">${i}</a>
+        	<li class="page-item">
+            <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${i}&category=${category}&search=${search}" style="color: black; border: 1px solid #ebddcc; text-decoration: none;">${i}</a>
+        	</li>
         </c:if>
     </c:forEach>
 
+	<!-- 다음페이지이동 -->
     <c:if test="${paging.curPage < paging.totalPage}">
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 1}&category=${category}&search=${search}" class="next" style=" color: black; border: 1px solid #ebddcc; padding: 8px 16px;">다음</a>
-        <a href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" class="next" style="background: #ebddcc; color: black; border: 1px solid #ebddcc; padding: 8px 16px;">>></a>
+    	<li class="page-item">
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 10}&category=${category}&search=${search}" style=" color: black; border: 1px solid #ebddcc;">></a>
+        </li>
+        <li class="page-item">
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">>></a>
+   		</li>
     </c:if>
+</ul>
 </div>
+
+
 
 
 <c:import url="../layout/footer.jsp" />
