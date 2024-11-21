@@ -46,7 +46,7 @@ public class MypageServiceImpl implements MypageService {
 		
 		//페이징 객체 : 현재페이지 / 전체 데이투 수
 		// 보여질 글(데이터) 수 / 페이지네이션의 숫자( 하단 페이지 숫자 )
-		Paging paging = new Paging(curPage.getCurPage(),totalCnt,5,10);
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt,10,10);
 		
 		return paging;
 	}

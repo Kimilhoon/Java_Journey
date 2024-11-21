@@ -30,7 +30,9 @@ $(function () {
                 console.log("ajax 성공");
 				//성공시 모든 체크박스 해제
 				$("input[type='checkbox'][name='subNo']").prop("checked", false);
-				location.reload();//새로고침
+				alert("구독이 취소되었습니다.");
+				location.reload();//새로고침 -> 추후 append로 body부문 append로 바꾸기
+				//현재 ajax의 장점을 살리고 있지 못함
             },
             error: function(error) {
                 console.log("ajax 실패");
@@ -49,7 +51,8 @@ $(function () {
     }
 </style>
 <h1 class="text-center">구독정보</h1>
-<div class="container" style="width: 870px; height: 187px;">
+<!-- <div class="container" style="width: 870px; height: 187px;"> -->
+<div class="container" style="width: 870px; min-height: 300px; margin-bottom: 100px;">
 <%-- ${beanSubList } --%>
 <c:forEach var="sub" items="${beanSubList }">
 <%-- ${sub.nonSub } --%>
@@ -77,12 +80,12 @@ $(function () {
 <%-- 	</c:choose> --%>
 	</td>
 	<td>
-		<div style="width: 300px; height: 50px; margin-left: 30px;">
+		<div style="width: 370px; height: 50px; margin-left: 50px;">
 		<ul style="list-style:none">
 			<li>원두명 : ${sub.beanName }</li>
 			<li>
-			<fmt:formatDate value="${sub.subStartDate }" pattern="yyyy-MM-dd"/>
-			<fmt:formatDate value="${sub.subEndDate }" pattern="yyyy-MM-dd"/>
+			날짜 : <fmt:formatDate value="${sub.subStartDate }" pattern="yyyy-MM-dd"/>(시작)
+			~ <fmt:formatDate value="${sub.subEndDate }" pattern="yyyy-MM-dd"/>(종료)
 			</li>
 			<li>구독기간 : ${sub.subTime }</li>
 			<li>금액 : ${sub.price }</li>
@@ -115,12 +118,11 @@ $(function () {
 </tr>
 </table>
 </div>
+</c:forEach>
 <div id="btn">
+<%-- <c:import url="/WEB-INF/views/mypage/layout/mybeansubpage.jsp"/> --%>
+<c:import url="./layout/mybeansubpage.jsp"/>
 <button class="btn btn-danger" id="btnCancle" type="button">구독취소</button>
 </div>
-<c:import url="/WEB-INF/views/mypage/layout/mybeansubpage.jsp"/>
-</c:forEach>
 </div>
-
-
 <c:import url="../layout/footer.jsp"/>

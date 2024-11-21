@@ -23,9 +23,9 @@
 			SELECT cafeNo_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO CAFE (cafeNo, imgNo, cafeName, cafeComm, cafePhone
-		, busyTime, cafeLoc, cafeAdd1, cafeAdd2, cafeInfo)
+		, busyTime, cafeLoc, cafeAdd1, cafeAdd2, cafeInfo, status)
 		VALUES (#{cafeNo}, #{imgNo}, #{cafeName}, #{cafeComm}, #{cafePhone}
-		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2}, #{cafeInfo})
+		, #{busyTime}, #{cafeLoc}, #{cafeAdd1}, #{cafeAdd2}, #{cafeInfo}, 'Y')
 	</insert>
 	
 	
@@ -64,33 +64,40 @@
 		WHERE CAFENO = #{cafeNo}
 	</update>
 	
-	<delete id="deleteCafeRev" parameterType="CafeRev">
-		DELETE CafeRev
-		<where>
-			cafeNo = #{cafeNo}
-		</where>
-	</delete>
+	<update id="updateCafeStatus" parameterType="int">
+		UPDATE CAFE
+		SET status = 'N'
+		where cafeNo = #{cafeNo}
+	</update>
 	
-	<delete id="deleteCafeRevComm" parameterType="CafeRevComm">
-		DELETE CAFEREVCOMM
-		<where>
-			revNo = #{revNo}
-		</where>
-	</delete>
+<!-- 	<delete id="deleteCafeRev" parameterType="CafeRev"> -->
+<!-- 		DELETE CafeRev -->
+<!-- 		<where> -->
+<!-- 			cafeNo = #{cafeNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
 	
-	<delete id="deleteCafe" parameterType="Cafe">
-		DELETE Cafe
-		<where>
-			cafeNo = #{cafeNo}
-		</where>
-	</delete>
+<!-- 	<delete id="deleteCafeRevComm" parameterType="CafeRevComm"> -->
+<!-- 		DELETE CAFEREVCOMM -->
+<!-- 		<where> -->
+<!-- 			revNo = #{revNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
 	
-	<delete id="deleteCafeImg" parameterType="CafeImg">
-		DELETE CafeImg
-		<where>
-			cafeImgNo = #{cafeImgNo}
-		</where>
-	</delete>
+<!-- 	<delete id="deleteCafe" parameterType="Cafe"> -->
+<!-- 		DELETE Cafe -->
+<!-- 		<where> -->
+<!-- 			cafeNo = #{cafeNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
+	
+<!-- 	<delete id="deleteCafeImg" parameterType="CafeImg"> -->
+<!-- 	<delete id="deleteCafeImg"> -->
+<!-- 		DELETE CafeImg -->
+<!-- 		<where> -->
+<!-- 			cafeImgNo = #{cafeImgNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
 	
 	
 </mapper>

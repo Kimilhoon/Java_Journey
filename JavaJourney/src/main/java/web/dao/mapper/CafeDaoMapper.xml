@@ -27,88 +27,55 @@
    	SELECT count(cafeNo) as cafeCount FROM cafe
    </select>
 
-<!-- 	<select id="selectAll" resultType="Cafe" parameterType="web.util.Paging"> -->
-<!-- 	    SELECT  -->
-<!-- 	        c.cafeNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime,  -->
-<!-- 	        c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo,  -->
-<!-- 	        i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize,  -->
-<!-- 	        NVL(r.reviewCount, 0) AS reviewCount,  -->
-<!-- 	        NVL(ROUND(r.avgRevStarPoint, 1), 0) AS avgRevStarPoint -->
-<!-- 	    FROM  -->
-<!-- 	        cafe c -->
-<!-- 	    INNER JOIN  -->
-<!-- 	        cafeImg i ON c.imgNo = i.cafeImgNo -->
-<!-- 	    LEFT JOIN  -->
-<!-- 	        (SELECT  -->
-<!-- 	             cafeNo,  -->
-<!-- 	             COUNT(*) AS reviewCount,  -->
-<!-- 	             AVG(revsp) AS avgRevStarPoint -->
-<!-- 	         FROM  -->
-<!-- 	             cafeRev -->
-<!-- 	         GROUP BY  -->
-<!-- 	             cafeNo) r  -->
-<!-- 	    ON  -->
-<!-- 	        c.cafeNo = r.cafeNo -->
-<!--         <where> -->
-<!--         	<if test='location != null and location != "N"'> -->
-<!--         	AND cafeLoc = #{ location }  -->
-<!--         	</if> -->
-<!--         	<if test='keyword != null and keyword != "N"'> -->
-<!--         	And upper(c.cafeName) LIKE '%' || upper(#{keyword}) || '%' -->
-<!--         	</if> -->
-<!--         </where> -->
-<!-- 	    ORDER BY  -->
-<!-- 	        avgRevStarPoint DESC -->
-<!-- 	</select> -->
-<select id="selectAll" resultType="Cafe" parameterType="map">
-    SELECT * FROM (
-        SELECT rowNum AS rnum, a.* FROM (
-            SELECT 
-                c.cafeNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, 
-                c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo, 
-                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize, 
-                NVL(r.reviewCount, 0) AS reviewCount, 
-                NVL(ROUND(r.avgRevStarPoint, 1), 0) AS avgRevStarPoint
-            FROM 
-                cafe c
-            INNER JOIN 
-                cafeImg i 
-            ON 
-                c.imgNo = i.cafeImgNo
-            LEFT JOIN (
-                SELECT 
-                    cafeNo, 
-                    COUNT(*) AS reviewCount, 
-                    AVG(revsp) AS avgRevStarPoint
-                FROM 
-                    cafeRev
-                GROUP BY 
-                    cafeNo
-            ) r 
-            ON 
-                c.cafeNo = r.cafeNo
-            ORDER BY 
-                avgRevStarPoint DESC
-        ) a
-        WHERE ROWNUM &lt;= #{endNo}
-    )
-<!--     WHERE rnum >= #{startNo} -->
-	WHERE rnum &gt;= #{startNo}
-</select>
+	<select id="selectAll" resultType="Cafe" parameterType="map">
+	    SELECT * FROM (
+	        SELECT rowNum AS rnum, a.* FROM (
+	            SELECT 
+	                c.cafeNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, 
+	                c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo, 
+	                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize, 
+	                NVL(r.reviewCount, 0) AS reviewCount, 
+	                NVL(ROUND(r.avgRevStarPoint, 1), 0) AS avgRevStarPoint
+	            FROM 
+	                cafe c
+	            INNER JOIN 
+	                cafeImg i 
+	            ON 
+	                c.imgNo = i.cafeImgNo
+	            LEFT JOIN (
+	                SELECT 
+	                    cafeNo, 
+	                    COUNT(*) AS reviewCount, 
+	                    AVG(revsp) AS avgRevStarPoint
+	                FROM 
+	                    cafeRev
+	                GROUP BY 
+	                    cafeNo
+	            ) r 
+	            ON 
+	                c.cafeNo = r.cafeNo
+	            ORDER BY 
+	                avgRevStarPoint DESC
+	        ) a
+	        WHERE rownum &lt;= #{endNo} 
+	    )
+	    WHERE rnum &gt;= #{startNo}
+	
+	</select>
    
-   <select id="selectCntAll" resultType="int" parameterType="hashmap">
-        SELECT count(*) 
-        FROM cafe c
-        <where>
-        	<if test='location != null and location != "N"'>
-        	AND cafeLoc = #{ location } 
-        	</if>
-        	<if test='keyword != null and keyword != "N"'>
-        	And upper(c.cafeName) LIKE '%' || upper(#{keyword}) || '%'
-        	</if>
-        </where>
-    </select>
-
+	<select id="selectCntAll" resultType="int" parameterType="hashmap">
+			SELECT count(*) 
+			FROM cafe c
+		<where>
+	     	<if test='location != null and location != "N"'>
+	     	AND cafeLoc = #{ location } 
+	     	</if>
+	     	<if test='keyword != null and keyword != "N"'>
+	     	And upper(c.cafeName) LIKE '%' || upper(#{keyword}) || '%'
+			</if>
+		</where>
+	</select>
+    
    <select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
       SELECT
          cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
