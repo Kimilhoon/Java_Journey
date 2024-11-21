@@ -182,9 +182,6 @@
 		WHERE MYRIPCOMMNICKTAG = #{userNick}
 	</update>
 	
-	
-	
-	
 	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
 	    SELECT 
 			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revDate

@@ -80,15 +80,18 @@ public class CreateBeanServiceImpl implements CreateBeanService{
 
 	@Override
 	public void beanDelete(int beanNo) {
-		BeanTaste beanTaste = new BeanTaste();
-		beanTaste.setBeanNo(beanNo);
-		dao.deleteByBeanTasteNo(beanTaste.getBeanNo());
+		//--예전 DB 삭제구문들 지금은 사용안할거임
+//		BeanTaste beanTaste = new BeanTaste();
+//		beanTaste.setBeanNo(beanNo);
+//		dao.deleteByBeanTasteNo(beanTaste.getBeanNo());
 		
-		dao.deleteByBeanNo(beanNo);
+//		dao.deleteByBeanNo(beanNo);
 		
-		BeanImg beanImg = new BeanImg();
-		beanImg.setBeanImgNo(beanNo);
-		dao.deleteByBeanImgNo(beanImg.getBeanImgNo());
+//		BeanImg beanImg = new BeanImg();
+//		beanImg.setBeanImgNo(beanNo);
+//		dao.deleteByBeanImgNo(beanImg.getBeanImgNo());
+		//데이터 보존 방법으로 할 것이므로
+		dao.updateBeanStatusByBeanNo(beanNo);
 	}
 
 

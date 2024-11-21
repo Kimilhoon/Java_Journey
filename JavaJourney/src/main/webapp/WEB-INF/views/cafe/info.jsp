@@ -18,6 +18,7 @@
 <script type="text/javascript">
 $(function() {
 
+	//지도 표시하기 항목
 	var mapContainer = document.getElementById('map'),
     mapOption = {
         center: new kakao.maps.LatLng(37.5665, 126.9780), // 초기 지도 중심 좌표 (서울)
@@ -138,8 +139,14 @@ $(function() {
 			location.href="./best";
 		});
 		
+		//리뷰쓰기 버튼 클릭 이벤트 처리
 		$("#review").click(function() {
-			location.href="/comm/creview/write?cafeNo=${cafeInfo.cafeNo }";
+			if(!userNo){ //로그인하지 않은 경우
+				alert("로그인 후 이용해 주세요.");
+				location.href = "../member/login"; //로그인 페이지로 리디렉션
+			} else {
+				location.href="/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; //로그인한 경우 리뷰 작성 페이지로 이동
+			}
 		});
 		
 		$("#btnUpdate").click(function() {

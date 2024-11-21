@@ -103,16 +103,17 @@ public class CafeController {
 		
 		//로그인 여부 확인하기
 		if (userId == null) {
-			// 로그인한 경우 사용자 번호 조회 및 추가
-			Member userNo = service.selectUserNoByUserId(userId);
-			if(userNo != null) {
-				model.addAttribute("userNo", userNo.getUserNo());
-			} else {
-				log.warn("userId에 해당하는 사용자 번호를 찾을 수 없습니다. userId: {}", userId);
-			}
+			//로그인하지 않은 경우
+			log.warn("로그인되지 않았습니다.");
+			model.addAttribute("userNo", null); // 로그인하지 않은 경우 userNo를 null로 설정
 		} else {
-	        log.warn("사용자가 로그인하지 않았거나 세션이 만료되었습니다.");
-	        model.addAttribute("userNo", null); // 로그인하지 않은 경우 userNo를 null로 설정
+	        // 로그인한 경우 사용자 번호 조회 및 추가
+	        Member userNo = service.selectUserNoByUserId(userId);
+	        if(userNo != null) {
+	        	model.addAttribute("userNo", userNo.getUserNo());
+	        } else {
+	        	log.warn("userId에 해당하는 사용자 번호를 찾을 수 없습니다. userId: {}", userId);
+	        }
 	    } // if (userId == null) end
 		
 //		log.info("userNo: {}", userNo.getUserNo());

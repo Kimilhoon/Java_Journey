@@ -69,6 +69,7 @@
 					b.beanNo, i.beanImgNo, beanName, origin, 
 					beanComm, beanInfo, beanPrice, businessNo,
 					beanOriginname, beanStoredname, beanImgSize,
+					status,
 					<if test='cupnote != "N"'>
 					c.cupNoteNo, c.cupNoteName,
 					</if>
@@ -109,7 +110,8 @@
 		SELECT 
 				b.beanNo, i.beanImgNo, beanName, origin, 
 				beanComm, beanInfo, beanPrice, businessNo,
-				beanOriginname, beanStoredname, beanImgSize
+				beanOriginname, beanStoredname, beanImgSize,
+				status
 		FROM	bean b
 		INNER JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 		<where>
