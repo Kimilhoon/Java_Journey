@@ -1,14 +1,21 @@
 package web.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
@@ -50,9 +57,9 @@ public class QuizController {
 //		
 //	} // quizForm() end
 	
-	@RequestMapping("/quizResult")
+	@PostMapping("/quizForm")
 	public void quizResult(@SessionAttribute(value = "userId", required = false) String userId,
-			@RequestBody QuizResult param, Model model) {
+			@RequestBody QuizResult param, Model model, HttpServletResponse resp) {
 		
 		log.info("QuizResult QuizResult QuizResult QuizResult QuizResult{}", param);
 		
@@ -62,16 +69,34 @@ public class QuizController {
 	        return;
 	    } // if (userId == null) end
 		
+		// 컵 노트 번호를 받아와서 빈 조회하기
+		List<Bean> list = service.getBeanByCupnoteNo(param);
+		
+		model.addAttribute("list", list);
+		
 		Member userNo = service.selectUserNoByUserId(userId);
 		log.info("userNo: {}", userNo.getUserNo());
 		model.addAttribute("userNo", userNo.getUserNo());
 		
 		// 원두 조회 전 퀴즈결과 저장하기
-		service.insertQuizResult(param);
+		boolean isResult = service.insertQuizResult(param);
 		
-		// 컵 노트 번호를 받아와서 빈 조회하기
-		List<Bean> list = service.getBeanByCupnoteNo(param);
+		Gson gson = new Gson();
 		
-	} // quizForm() end
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("isResult", isResult);
+		
+		resp.setCharacterEncoding("utf-8");
+		
+		try {
+			resp.getWriter().append(gson.toJson(map));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		} // try end
+		
+	} // quizResult() end
+	
 	
 } // class end
