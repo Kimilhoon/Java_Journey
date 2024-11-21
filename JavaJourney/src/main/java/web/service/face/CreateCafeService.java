@@ -32,6 +32,7 @@ public interface CreateCafeService {
 	public void update(Cafe cafe, CafeImg cafeImg);
 
 
+
 	/**
 	 * 협약 카페 비활성화 (삭제)
 	 * @param cafeNo

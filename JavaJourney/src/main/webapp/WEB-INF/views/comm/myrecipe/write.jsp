@@ -52,6 +52,32 @@ $(function() {
 	
 	$("#write").click(function() {
 		
+		if($('#beanNameSel').val() == 'N'){
+			alert("원두를 선택하세요.");
+			return false;
+		}
+		if($('#grindNameSel').val() == 'N'){
+			alert("분쇄도를 선택하세요.");
+			return false;
+		}
+		if($('#extractionNameSel').val() == 'N'){
+			alert("추출방식을 선택하세요.");
+			return false;
+		}
+		if($('#summernote').val().length <= 0){
+			alert("본문 내용을 입력하세요.");
+			return false;
+		}
+		if($(".cupNote:checked").length <= 1){
+			alert("맛을 2개 선택하세요.");
+			return false;
+		}
+		
+		if($('#myRipTitle').val().length <= 0){
+			alert("제목을 입력하세요.");
+			return false;
+		}
+		
 		 const selectedValues = $(".cupNote:checked")
          .map(function() {
              return $(this).val();
@@ -110,6 +136,9 @@ $(function() {
 	
 	$("#beanNameSel").change(function() {
 		//체크항목 초기화
+		
+		
+		
 		$(".cupNote").prop("checked",false);
 		
 		$.ajax({
@@ -229,7 +258,7 @@ table{
 
 
 <button class="btn " type="button" id="btn_select_quiz"><small>취향조사결과 불러오기</small></button>
-<button class="btn " type="button" id="btn_select_self"><small>직접 입력하기</small></button>
+<button class="btn " type="button" id="btn_select_self"><small>직접 선택하기</small></button>
 
 
 <select id="select_result"  class="form-select" style="display: none;">
@@ -250,18 +279,23 @@ table{
 
 <div id="select_quiz" >
 	<select id="beanNameSel" name="beanNo"  class="form-select" style="width: 30%; display: inline-block;">
+	
+		<option value="N" id="bn">- 원두 선택 -</option>
+	
 	<c:forEach var="bList" items="${bList }">
 		<option value="${bList.beanNo }" id="${bList.beanName }">${bList.beanName }</option>
 	</c:forEach>
 	</select>
 	
 	<select id="extractionNameSel" name="extractionName"  class="form-select" style="width: 30%;display: inline-block;">
+		<option value="N" id="en">- 추출방식 선택 -</option>
 	<c:forEach var="eList" items="${eList }">
 		<option value="${eList.extractionName }" id="${eList.extractionName }">${eList.extractionName }</option>
 	
 	</c:forEach>
 	</select>
 	<select id="grindNameSel" name="grindName"  class="form-select" style="width: 30%;display: inline-block;">
+	<option value="N" id="gn">- 분쇄도 선택 -</option>
 	<c:forEach var="gList" items="${gList }">
 		<option value="${gList.grindName }" id="${gList.grindName }">${gList.grindName }</option>
 	
@@ -272,6 +306,7 @@ table{
 <!-- 	<label>추출법:<input type="text" name="extractionName" id="extractionName" readonly="readonly"></label> -->
 <!-- 	<label>분쇄도:<input type="text" name="grindName" id="grindName" readonly="readonly"></label> -->
 	<br>
+	
 	
 	<c:forEach items="${cList }" var="cList" varStatus="idx">
 		<label class="btn " for="${cList.cupNoteName }">${cList.cupNoteName }</label>

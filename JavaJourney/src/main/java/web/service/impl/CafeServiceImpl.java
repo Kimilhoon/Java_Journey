@@ -140,6 +140,7 @@ public class CafeServiceImpl implements CafeService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startNo", paging.getStartNo());
 		map.put("endNo", paging.getEndNo());
+//		map.put("paging", paging);
 		map.put("location", location);
 		map.put("keyword", keyword);
 //		map.put("location", String.valueOf(location)); // 문자열로 변환

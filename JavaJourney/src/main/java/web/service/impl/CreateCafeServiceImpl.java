@@ -56,7 +56,6 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 		dao.updateCafeStatus(cafeNo);
 	}
 
-	
 
 
 

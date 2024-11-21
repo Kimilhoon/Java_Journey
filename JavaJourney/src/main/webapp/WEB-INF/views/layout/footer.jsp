@@ -178,6 +178,6 @@ a {
 <!-- </div> -->
 
 </div>
-
 </footer>
+</body>
 </html>

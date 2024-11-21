@@ -59,12 +59,9 @@ public class CreateCafeController {
 	
 	@RequestMapping("/cafeDelete")
 	public String deleteCafe(Cafe cafe, HttpSession session) {
-		log.info("cafedelete:{}", cafe);
-		int cafeNo = (int) session.getAttribute("cafeNo");
 		
-		log.info("cafedelete cafeNo:{}", cafeNo);
+		service.updateCafeStatus(cafe.getCafeNo());
 		
-		service.updateCafeStatus(cafeNo);
 		return "redirect:/cafe/all";
 	}
 	
