@@ -6,19 +6,16 @@
 <mapper namespace="web.dao.face.MypageDao">
 
 	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
-		SELECT C1.CAFENO, C1.USERNO, 
-		C2.CAFENO, CAFENAME, CAFECOMM,
+		SELECT C1.CAFENO, USERNO, C2.CAFENO, CAFENAME, CAFECOMM,
 		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
-		CAFEADD2, CAFEINFO,
-		C3.CAFEIMGORINAME
+		CAFEADD2, CAFEINFO
 		FROM CAFEWISH C1
 		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
-		INNER JOIN CAFEIMG C3 ON C2.IMGNO = C3.CAFEIMGNO
 		<where>
-			C1.USERNO = #{userNo}
-<!-- 			<if test='searchText != "N"'> -->
-<!-- 				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%' -->
-<!-- 			</if> -->
+			USERNO = #{userNo}
+			<if test='searchText != "N"'>
+				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%'
+			</if>
 		</where>
 	</select>
 	
@@ -31,7 +28,7 @@
 		INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
 		INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
 		<where>
-			USERNO = #{userNo}
+			B1.USERNO = #{userNo}
 <!-- 			<if test='searchText != "N"'> -->
 <!-- 				upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
 <!-- 			</if> -->
@@ -47,7 +44,7 @@
 		g.GRINDNAME,
 		e.EXTRACTIONNAME 
 		FROM MEMBERQUIZRESULT m
-		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO
+		INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO 
 		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
 		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
 		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
@@ -87,31 +84,21 @@
 				AND b2.BEANIMGNO = b3.BEANIMGNO
 				AND b1.BEANNO = b4.BEANNO(+)
 				AND b1.USERNO = #{userNo}
-				AND b1.NONSUB = 'N'
 			</where>
 			ORDER BY SUBNO DESC
 	</select>
 
-<!-- 	<delete id="subCancel" parameterType="Integer"> -->
-<!-- 		DELETE BEANSUB -->
-<!-- 		<where> -->
-<!-- 			subNo = #{No} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
-	
-	<update id="subUpdateCancel" parameterType="Integer">
-		UPDATE BEANSUB
-   	 	SET NONSUB = 
-      	  CASE 
-      	      WHEN NONSUB = 'N' THEN 'Y'
-     	   END
+	<delete id="subCancel" parameterType="Integer">
+		DELETE BEANSUB
 		<where>
-			SUBNO = #{subNo}
+			subNo = #{No}
 		</where>
-	</update>
+	</delete>
 	
 	<select id="findByUserId" parameterType="String" resultType="Member">
-		SELECT *
+		SELECT 
+			userNo, userId, userPw, userNick, userEmail, userName
+	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
 	 	FROM MEMBER
 	 	<where>
 	 		userId = #{userId}
@@ -119,7 +106,9 @@
 	</select>	
 	
 	<select id="findByUserNo" parameterType="int" resultType="Member">
-		SELECT *
+		SELECT 
+			userNo, userId, userPw, userNick, userEmail, userName
+	 		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
 	 	FROM MEMBER
 	 	<where>
 	 		userNo = #{userNo}
@@ -158,7 +147,7 @@
 		WHERE USERNO = #{userNo}
 	</update>
 	
-	<update id="changeFreeNick" parameterType="int">
+	<update id="changeMyrepNick" parameterType="int">
 		UPDATE FREEBOARDCOMMENT
 		SET userNick = '(탈퇴한 회원)'
 		WHERE USERNO = #{userNo}
@@ -170,10 +159,10 @@
 		WHERE USERNO = #{userNo}
 	</update>
 	
-	<update id="changeFreeCommNickTag" parameterType="string">
-		UPDATE FREEBOARDCOMMENT
-		SET FREEBOARDCOMMNICKTAG = '(탈퇴한 회원)'
-		WHERE FREEBOARDCOMMNICKTAG = #{userNick}
+	<update id="changeMyrecipeCommNickTag" parameterType="string">
+		UPDATE MYRECIPECOMMENT
+		SET MYRIPCOMMNICKTAG = '(탈퇴한 회원)'
+		WHERE MYRIPCOMMNICKTAG = #{userNick}
 	</update>
 	
 	<update id="changeMyrecipeCommNickTag" parameterType="string">
@@ -231,8 +220,6 @@
 	
 	
 	
-
-
 <!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
 <!-- 		FROM ( -->
@@ -255,5 +242,10 @@
 <!-- 			WHERE userNo = #{userNo} -->
 <!-- 		) -->
 <!-- 	</select> -->
+
+
+
+
+
 
 </mapper>

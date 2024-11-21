@@ -17,10 +17,14 @@ $(function () {
 
 <style>
 
+.custom-image img {
+	padding: 20px;
+	background-color: f5f5f5;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
     align-items: center;
 /*      padding: 20px; */
 /*      background-color: #f5f5f5; */
@@ -81,7 +85,12 @@ $(function () {
 
 <div class="container">
 
+<<<<<<< HEAD
     <!-- Right Carousel -->
+=======
+
+    <!-- Left Carousel -->
+>>>>>>> refs/remotes/origin/master
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
