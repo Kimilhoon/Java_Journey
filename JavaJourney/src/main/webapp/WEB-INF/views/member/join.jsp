@@ -50,7 +50,6 @@ var idDuplicate = false;
 var userPw = false;
 var pwCheck = false;
 var nickCheck = false; 
-var emailCheck = false;
 var nickDuplicate = false;
 
 $(function() {
@@ -129,19 +128,19 @@ $(function() {
     }); //$("#userPwCheck") end
     
     // 이메일 형식 검사
-//     $("#userEmail").on("change", function() {
-//         var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-//         var resultEmail = regexEmail.exec($("#userEmail").val());
+    $("#userEmail").on("change", function() {
+        var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        var resultEmail = regexEmail.exec($("#userEmail").val());
 
-//         if (resultEmail != null) {
-//             $("#emailValidation").hide();
-//             emailValidation = true;
-//         } else {
-//             $("#emailValidation").show();
-//             $("#userEmail").focus();
-//             emailValidation = false;
-//         }
-//     }); // $("#userEmail") end
+        if (resultEmail != null) {
+            $("#emailValidation").hide();
+            emailValidation = true;
+        } else {
+            $("#emailValidation").show();
+            $("#userEmail").focus();
+            emailValidation = false;
+        }
+    }); // $("#userEmail") end
 	
     
 
@@ -190,19 +189,10 @@ $(function() {
 			alert("이메일을 입력하세요");
 			return false;
 		}
-//         if (!emailValidation) {
-//             alert("이메일 형식이 올바르지 않습니다");
-//             return false;
-//         }		
-        if( !emailCheck ) {
-			alert("이메일 인증을 진행하세요");
-			return false;
-		}
-        if( !mailNumCheck.value ) {
-			alert("인증번호를 확인하세요");
-			return false;
-		}      
-        
+        if (!emailValidation) {
+            alert("이메일 형식이 올바르지 않습니다");
+            return false;
+        }
 		if( !userName.value ) {
 			alert("이름을 입력하세요");
 			return false;
@@ -477,6 +467,7 @@ function businessNoChk() {
 </script>
 
 
+<<<<<<< HEAD
 <!-- 이메일 인증 -->
 <script>
 let code = "";  // 서버에서 보내준 인증번호를 저장할 변수
@@ -550,6 +541,8 @@ $(document).ready(function() {
 </script>
 
 
+=======
+>>>>>>> refs/remotes/origin/master
 
 <!-- 이용약관 모달 -->
 <!-- -------------------------------------------------- -->
@@ -822,27 +815,10 @@ label.agree button:hover {
 </p>
 
 
-<!-- <div> -->
-<!-- 	<label for="userEmail">이메일 -->
-<!-- 		<input type="email" name="userEmail" id="userEmail" required="required"> -->
-<!-- 		<button type="button" id="mail-Check-Btn">인증번호받기</button> -->
-<!-- 		<input type="text" placeholder="인증번호를 입력해주세요!" > -->
-<!-- 	</label> -->
-<!-- </div> -->
-
-<div class="emailSection">
-	<label for="userEmail">이메일</label>
-	<div class="input-group">
-		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" >
-	</div>   
-<div class="input-group-addon">
-	<button type="button" id="mailCheckBtn" name="mailCheckBtn">본인인증</button>
-</div>
-<div class="mail-check-box">
-	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
-	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
-</div>
-	<p id="resultMsg" style="font-size:0.6rem;"></p>
+<div>
+	<label for="userEmail">이메일
+		<input type="email" name="userEmail" id="userEmail" required="required">
+	</label>
 </div>
 
 <div>
@@ -853,7 +829,7 @@ label.agree button:hover {
 
 <div>
 	<label for="userPhone">전화번호
-		<input type="text" name="userPhone" id="userPhone" placeholder="ex) 010-0000-0000" 
+		<input type="text" name="userPhone" id="userPhone" required="required" placeholder="ex) 010-0000-0000" 
 		pattern="\d{3}-\d{4}-\d{4}" oninput="this.value = this.value.replace(/[^0-9-]/g, '');"> 
 	</label>
 </div>

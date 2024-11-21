@@ -85,12 +85,12 @@
 		</where>
 	</delete>
 	
-	<delete id="deleteCafeImg" parameterType="CafeImg">
-		DELETE CafeImg
-		<where>
-			cafeImgNo = #{cafeImgNo}
-		</where>
-	</delete>
+<!-- 	<delete id="deleteCafeImg"> -->
+<!-- 		DELETE CafeImg -->
+<!-- 		<where> -->
+<!-- 			cafeImgNo = #{cafeImgNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
 	
 	
 </mapper>

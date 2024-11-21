@@ -57,7 +57,6 @@ public class CreateCafeController {
 	@RequestMapping("/cafeDelete")
 	public String delete(Cafe cafe, Model model, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
 		log.info("delete cafe1:{}", cafe);
-		
 		service.delete(cafe, cafeImg, cafeRev, cafeRevComm);
 		
 		log.info("delete cafe2:{}", cafe);

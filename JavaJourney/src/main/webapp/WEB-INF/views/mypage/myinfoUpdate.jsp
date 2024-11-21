@@ -204,12 +204,17 @@ $(function() {
 	$("#btnOut").click(function() {
         const realOut = confirm("정말 탈퇴하시겠습니까?"); //confirm -> 예/아니오 로 나옴
         if (realOut) {
+<<<<<<< HEAD
             $.post("/mypage/out", function(response) {
                 alert("탈퇴가 처리되었습니다.");
                 location.href = "/"; // 메인 페이지로 이동
             }).fail(function() {
                 alert("탈퇴 처리 중 오류가 발생했습니다.");
             });
+=======
+            // "예"를 선택한 경우 탈퇴 요청 전송
+            location.href = "<c:url value='/mypage/out'/>"; // 회원 탈퇴 요청 URL
+>>>>>>> refs/remotes/origin/master
         }
 	})
 	
@@ -463,7 +468,7 @@ $(function() {
 
 <div>
 	<label for="userEmail">이메일
-		<input type="email" name="userEmail" id="userEmail" required="required" value="${member.userEmail }" readonly="readonly">
+		<input type="email" name="userEmail" id="userEmail" required="required" value="${member.userEmail }">
 	</label>
 </div>
 
@@ -498,7 +503,10 @@ $(function() {
 </form>
 </div> <!-- id="infoUpdateForm" -->
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 <button id="btnOut" type="button">|탈퇴하기|</button>
 
 

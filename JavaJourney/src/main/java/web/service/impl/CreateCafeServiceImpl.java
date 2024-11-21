@@ -56,7 +56,6 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 		dao.deleteCafeRev(cafeRev);
 		dao.deleteCafeRevComm(cafeRevComm);
 		dao.deleteCafe(cafe);
-		dao.deleteCafeImg(cafeImg);
 	}
 
 

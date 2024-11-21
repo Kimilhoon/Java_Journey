@@ -92,6 +92,8 @@ $(function() {
     }    
 </style>
 
+
+
 <h2 style="text-align: center; font-weight: bold;" >로그인</h2>
 <hr>
 
@@ -122,5 +124,7 @@ $(function() {
 
 
 </form>
+
+
 
 <c:import url="../layout/footer.jsp" />
