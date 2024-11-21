@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.net.http.HttpHeaders;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -18,22 +17,17 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,6 +37,7 @@ import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Member;
 import web.service.face.MemberService;
+import web.service.impl.KakaoApi;
 
 @Controller
 @RequestMapping("/member")
@@ -51,6 +46,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	private KakaoApi kakaoApi = new KakaoApi();
 	
 	//이메일인증 의존성주입
 	@Autowired 
@@ -225,6 +222,39 @@ public void test() {}
 		return num; // String 타입으로 변환 후 반환
 	}
 	
+	@RequestMapping("/kakao/login")
+	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		// 1. 인증코드 요청 전달 
+		String access_token = kakaoApi.getAccessToken(code);
+		
+		// 2. 인증코드로 토큰 전달
+		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_token);
+		
+		if(userInfo.get("email") != null) {
+			session.setAttribute("userId", userInfo.get("email"));
+			session.setAttribute("access_token", access_token);
+			session.setAttribute("isLogin", true);
+		}
+		mav.addObject("userId", userInfo.get("email"));
+		mav.setViewName("main");
+		return mav;
+		
+	}
+	
+	@RequestMapping("/kakao/logout")
+	public ModelAndView kakaoLogout(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		kakaoApi.kakaoLogout((String) session.getAttribute("access_token"));
+		session.removeAttribute("access_token");
+		session.removeAttribute("userId");
+		mav.setViewName("main");
+		
+		return mav;
+	}
 	
 	//네이버 로그인 =======================================================================
 	@GetMapping("/naver/login")

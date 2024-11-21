@@ -43,9 +43,16 @@ $(function() {
 		location.href = "./pwfind";
 	});
 });
+
 </script>
 
 <style>
+	#findRegister {
+		display: flex; /* 플렉스박스 사용 */
+		justify-content: space-between; /* 양쪽 끝에 배치 */
+		align-items: center; /* 세로 정렬 */
+	}
+	
     #goJoin {
     	cursor: pointer; /* 클릭 가능한 모양으로 커서 변경 */
    	 	text-decoration: none; /* 밑줄 제거 */
@@ -111,6 +118,8 @@ $(function() {
     }    
 </style>
 
+
+
 <h2 style="text-align: center; font-weight: bold;" >로그인</h2>
 <hr>
 
@@ -131,6 +140,8 @@ $(function() {
 </div>
  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 
+<div id="findRegister">
+
 <div>
 	<a href="./idfind">아이디찾기</a>
 	|
@@ -139,8 +150,16 @@ $(function() {
 
 <div id="goJoin">회원가입</div>
 
+</div>
+
+<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7df1421a7bccf6b6463a62d7e3cc88f1&redirect_uri=http://localhost:8088/member/kakao/login
+">
+	<img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; cursor: pointer; ">
+</a>
 
 
 </form>
+
+
 
 <c:import url="../layout/footer.jsp" />
