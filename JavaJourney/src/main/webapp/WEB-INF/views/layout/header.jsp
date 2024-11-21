@@ -35,6 +35,20 @@ $(function() {
 
 <style>
 
+html, body {
+    height: 70%
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+}
+
+footer {
+    position: relative;
+    transform: translatY(-80%);
+}
+
 /* 로고 크기 조정 */
 #logo {
 	position: flex;
@@ -53,6 +67,7 @@ $(function() {
 
 /* 메뉴바 크기 및 텍스트 스타일 조정 */
 .navbar-nav .nav-link {
+	cursor: pointer
     color: #f3e9dc !important;
     font-size: 1.1rem;
     font-weight: 500;
@@ -133,6 +148,7 @@ $(function() {
 <a href="/main" style="text-decoration: none;">
 <img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="200" height="200" id="logo" />
 </a>
+
 <!-- 로그인 및 기타 링크 -->
  	 <div class="flex-shrink-0 mt-4">
 		<c:if test="${empty isLogin }">
@@ -143,6 +159,7 @@ $(function() {
 			</div>
 		</c:if>
   	</div>
+  	
   	<c:if test="${userNick eq 'admin' }">
 	    <div class="loginLoc">
 	      <ul style="list-style:none">
@@ -150,6 +167,7 @@ $(function() {
 	      </ul>
 	    </div>
   	</c:if>
+  	
   	<c:if test="${isLogin and (userNick ne 'admin') }">
 	    <div class="loginLoc">
 	      <ul style="list-style:none">
@@ -157,12 +175,14 @@ $(function() {
 	      </ul>
 	    </div>
   	</c:if>
+  	
 	<c:if test="${isLogin }">
 		<div class="flex-shrink-0 mt-4 loginLoc">
 		    <a id="btnLogout" style="color: #f3e9dc; cursor: pointer;"><small>로그아웃</small></a>
 		</div>
 	</c:if>
   </div>
+
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
@@ -205,7 +225,7 @@ $(function() {
             취향조사
           </a>
           <ul class="dropdown-menu bg-light">
-            <li><a class="dropdown-item" href="/quiz/quizForm">취향 원두 찾기</a></li>
+            <li><a class="dropdown-item" href="/quiz/quiz1">취향 원두 찾기</a></li>
           </ul>
         </li>
         
@@ -242,3 +262,5 @@ $(function() {
     </div>
   </nav>
 </div>
+
+<div id="wrap">

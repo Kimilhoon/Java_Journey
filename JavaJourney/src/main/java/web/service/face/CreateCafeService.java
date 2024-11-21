@@ -4,6 +4,8 @@ import java.util.List;
 
 import web.dto.Cafe;
 import web.dto.CafeImg;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 
 public interface CreateCafeService {
 
@@ -30,12 +32,22 @@ public interface CreateCafeService {
 	public void update(Cafe cafe, CafeImg cafeImg);
 
 	/**
+	 * 협약 카페 비활성화 (삭제)
+	 * @param cafeNo
+	 */
+	public void deleteCafe(int cafeNo);
+
+	/**
 	 * 협약 카페 글 삭제
 	 * @param cafe
 	 * @param cafeImg 
 	 */
 //	public void delete(Cafe cafe);
-	public void delete(Cafe cafe, CafeImg cafeImg);
+//	public void delete(Cafe cafe, CafeImg cafeImg);
+//	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev);
+//	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm);
+
+
 
 
 

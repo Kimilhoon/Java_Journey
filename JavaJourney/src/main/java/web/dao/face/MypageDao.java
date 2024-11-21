@@ -115,25 +115,38 @@ public interface MypageDao {
 	public void subUpdateCancel(Integer No);
 
 	/**
-	 * 회원탈퇴를 한다면 status를 Y에서 N으로 바꿔준다
-	 * 회원은 로그인 불가능(탈퇴기능)
-	 * @param member
+	 * 탈퇴하기를 누르면 status를 Y에서 N으로 바꿔준다
+	 * 로그인 불가능하게 (N)비활성화시킴 (탈퇴기능)
+	 * 닉네임을 '(탈퇴한 회원)'으로 변경
+	 * @param userNo
 	 */
-	public void updateStatus(Member member);
+	public void changeStatus(int userNo);
 
 	/**
-	 * 카테고리와 검색어로 필터링된 게시글 수
-	 * @param map - 카테고리, 검색어 정보를 담은 객체
-	 * @return 필터링된 게시글 수
+	 * FREEBOARDCOMMENT.userNick 변경 (댓글닉네임)
+	 * @param userNo
 	 */
-//	public int getMyViewTotalCnt(HashMap<String, String> map);
+	public void changeFreeNick(int userNo);
 
 	/**
-	 * 필터링된 bean 리스트
-	 * @param map
-	 * @return
+	 * MYRECIPECOMMENT.userNick 변경 (댓글닉네임)
+	 * @param userNo
 	 */
-//	public List<Map<String, Object>> selectAll(HashMap<String, Object> map);
+	public void changeMyrepNick(int userNo);
+
+	/**
+	 *  FREEBOARDCOMMENT.FREEBOARDCOMMNICKTAG (대댓글닉네임)
+	 * @param userNick
+	 */
+	public void changeFreeCommNickTag(String userNick);
+
+	/**
+	 * MYRECIPECOMMENT.MYRIPCOMMNICKTAG 변경 (대댓글닉네임)
+	 * @param userNick
+	 */
+	public void changeMyrecipeCommNickTag(String userNick);
+
+
 
 
 

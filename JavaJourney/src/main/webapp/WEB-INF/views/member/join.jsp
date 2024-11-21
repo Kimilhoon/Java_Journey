@@ -50,7 +50,6 @@ var idDuplicate = false;
 var userPw = false;
 var pwCheck = false;
 var nickCheck = false; 
-var emailCheck = false;
 var nickDuplicate = false;
 
 $(function() {
@@ -129,19 +128,19 @@ $(function() {
     }); //$("#userPwCheck") end
     
     // 이메일 형식 검사
-//     $("#userEmail").on("change", function() {
-//         var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-//         var resultEmail = regexEmail.exec($("#userEmail").val());
+    $("#userEmail").on("change", function() {
+        var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        var resultEmail = regexEmail.exec($("#userEmail").val());
 
-//         if (resultEmail != null) {
-//             $("#emailValidation").hide();
-//             emailValidation = true;
-//         } else {
-//             $("#emailValidation").show();
-//             $("#userEmail").focus();
-//             emailValidation = false;
-//         }
-//     }); // $("#userEmail") end
+        if (resultEmail != null) {
+            $("#emailValidation").hide();
+            emailValidation = true;
+        } else {
+            $("#emailValidation").show();
+            $("#userEmail").focus();
+            emailValidation = false;
+        }
+    }); // $("#userEmail") end
 	
     
 
@@ -190,19 +189,10 @@ $(function() {
 			alert("이메일을 입력하세요");
 			return false;
 		}
-//         if (!emailValidation) {
-//             alert("이메일 형식이 올바르지 않습니다");
-//             return false;
-//         }		
-        if( !emailCheck ) {
-			alert("이메일 인증을 진행하세요");
-			return false;
-		}
-        if( !mailNumCheck.value ) {
-			alert("인증번호를 확인하세요");
-			return false;
-		}      
-        
+        if (!emailValidation) {
+            alert("이메일 형식이 올바르지 않습니다");
+            return false;
+        }
 		if( !userName.value ) {
 			alert("이름을 입력하세요");
 			return false;
@@ -477,6 +467,7 @@ function businessNoChk() {
 </script>
 
 
+<<<<<<< HEAD
 <!-- 이메일 인증 -->
 <script>
 let code = "";  // 서버에서 보내준 인증번호를 저장할 변수
@@ -505,7 +496,7 @@ $(document).ready(function() {
 			success : function (data) { 
 				
 	            emailCheck = true;
-// 				console.log("data : " +  data);
+				console.log("data : " +  data);
 				checkInput.attr('disabled',false); //인증번호입력하는곳 활성화
 				code = data;  // 서버에서 받은 인증번호를 code 변수에 저장
 				alert('인증번호가 전송되었습니다.')
@@ -522,9 +513,9 @@ $(document).ready(function() {
         const $resultMsg = $('#mail-check-warn'); // 결과 메시지를 출력할 엘리먼트
         const $inputBox = $('.mail-check-input'); // 입력 필드
         
-//         console.log("서버에서 받은 code: " + code);
-//         console.log("사용자가 입력한 인증번호: " + inputCode);
-//         console.log("결과 메시지 요소:", $resultMsg);
+        console.log("서버에서 받은 code: " + code);
+        console.log("사용자가 입력한 인증번호: " + inputCode);
+        console.log("결과 메시지 요소:", $resultMsg);
         
 		if(inputCode === code.toString()){
 // 		    console.log("인증번호 일치!");
@@ -550,6 +541,8 @@ $(document).ready(function() {
 </script>
 
 
+=======
+>>>>>>> refs/remotes/origin/master
 
 <!-- 이용약관 모달 -->
 <!-- -------------------------------------------------- -->
@@ -711,26 +704,37 @@ $(document).ready(function() {
 /* ------------------------------------------------------------- */
 #joinForm .idSection,
 #joinForm .nickSection,
-#joinForm .businessSection{
+#joinForm .businessSection,
+#joinForm .mail-check-box {
     margin-bottom: 30px; /* 섹션 간 간격 설정 */
 }
 #joinForm .addressSection {
     margin-bottom: 5px; /* 섹션 간 간격 설정 */
 }
+#joinForm .emailSection .inputGroup {
+	margin-bottom: 30px;
+    display: flex;       /* 입력 필드와 버튼 가로 정렬 */
+    gap : 5px;
+}
 
 
 #joinForm .idSection input,
 #joinForm .nickSection input,
-#joinForm .businessSection input{
+#joinForm .businessSection input,
+#joinForm .emailSection input,
+#joinForm .mail-check-box input{
     width: 83%; /* 텍스트 필드의 너비를 줄여서 버튼이 들어갈 공간 확보 */
 }
 #joinForm .addressSection input{
     width: 77%;
 }
 
+
 #joinForm .idSection button,
 #joinForm .nickSection button,
-#joinForm .businessSection button{
+#joinForm .businessSection button,
+#joinForm .emailSection .inputGroup button,
+#joinForm .mail-check-box button{
     width: 16%;
     padding: 10px;
     background-color: #6f4e37;
@@ -821,28 +825,23 @@ label.agree button:hover {
 	닉네임은 5~10자의 영문, 한글, 숫자만 가능합니다
 </p>
 
-
-<!-- <div> -->
-<!-- 	<label for="userEmail">이메일 -->
-<!-- 		<input type="email" name="userEmail" id="userEmail" required="required"> -->
-<!-- 		<button type="button" id="mail-Check-Btn">인증번호받기</button> -->
-<!-- 		<input type="text" placeholder="인증번호를 입력해주세요!" > -->
-<!-- 	</label> -->
-<!-- </div> -->
-
 <div class="emailSection">
 	<label for="userEmail">이메일</label>
-	<div class="input-group">
-		<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" >
-	</div>   
-<div class="input-group-addon">
-	<button type="button" id="mailCheckBtn" name="mailCheckBtn">본인인증</button>
+	<div class="inputGroup">
+	<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" >
+	<button type="button" id="mailCheckBtn">본인인증</button>
+	</div>
 </div>
 <div class="mail-check-box">
 	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
 	<p id="resultMsg" style="font-size:0.6rem;"></p>
+
+<div>
+	<label for="userEmail">이메일
+		<input type="email" name="userEmail" id="userEmail" required="required">
+	</label>
 </div>
 
 <div>
@@ -853,7 +852,7 @@ label.agree button:hover {
 
 <div>
 	<label for="userPhone">전화번호
-		<input type="text" name="userPhone" id="userPhone" placeholder="ex) 010-0000-0000" 
+		<input type="text" name="userPhone" id="userPhone" required="required" placeholder="ex) 010-0000-0000" 
 		pattern="\d{3}-\d{4}-\d{4}" oninput="this.value = this.value.replace(/[^0-9-]/g, '');"> 
 	</label>
 </div>

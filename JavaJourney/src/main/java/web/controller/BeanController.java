@@ -204,6 +204,8 @@ public class BeanController {
 		beanSub.setBeanName(param.getBeanName());
 		beanSub.setUserName(param.getUserName());
 		
+		
+		
 		model.addAttribute("beanSub", beanSub);
 		
 		log.info("beanSub: {}", beanSub);

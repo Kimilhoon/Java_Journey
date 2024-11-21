@@ -1,236 +1,259 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-	<!DOCTYPE mapper
+   <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.MypageDao">
 
-	<select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
-		SELECT C1.CAFENO, C1.USERNO, 
-		C2.CAFENO, CAFENAME, CAFECOMM,
-		CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
-		CAFEADD2, CAFEINFO,
-		C3.CAFEIMGORINAME
-		FROM CAFEWISH C1
-		INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
-		INNER JOIN CAFEIMG C3 ON C2.IMGNO = C3.CAFEIMGNO
-		<where>
-			C1.USERNO = #{userNo}
-<!-- 			<if test='searchText != "N"'> -->
-<!-- 				AND	upper(cafeName) LIKE '%'||upper(#{searchText})||'%' -->
-<!-- 			</if> -->
-		</where>
-	</select>
-	
-	<select id="selectByUserLikeBean" resultType="BeanWish" parameterType="int">
-		SELECT BEANWISHNO, B1.BEANNO, B1.USERNO,
-		B2.BEANNO, B2.BEANIMGNO, B2.BEANNAME, B2.ORIGIN,
-		B2.BEANCOMM, B2.BEANINFO, B2.BEANPRICE, B2.BUSINESSNO,
-		B3.BEANIMGNO, B3.BEANORIGINNAME 
-		FROM BEANWISH B1
-		INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
-		INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
-		<where>
-			B1.USERNO = #{userNo}
-<!-- 			<if test='searchText != "N"'> -->
-<!-- 				upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
-<!-- 			</if> -->
-		</where>
-		
-	</select>
-	
-	<select id="selectMyQuizeResult" resultType="MemberQuizResult">
-		SELECT m.quizresult, m.userno,
-		b1.BEANNO, b1.BEANNAME, 
-		b2.BEANORIGINNAME,
-		c.CUPNOTENAME,
-		g.GRINDNAME,
-		e.EXTRACTIONNAME 
-		FROM MEMBERQUIZRESULT m
-		INNER JOIN QUIZRESULT q ON m.QUIZRESULTNO = q.QUIZRESULTNO
-		INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
-		INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
-		INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
-		INNER JOIN CUPNOTE c ON b3.CUPNOTENO = c.CUPNOTENO 
-		INNER JOIN GRIND g ON q.GRIND = g.GRINDNO
-		INNER JOIN EXTRACTION e ON q.EXTRACTION = e.EXTRACTIONNO 
-		<where>
-			m.USERNO = #{userNo}
-		</where> 
-	</select>
-	
-<!-- 	<select id="selectMyBeanSubResult" resultType="BeanSub"> -->
-<!-- 		SELECT -->
-<!-- 			SUBNO, USERNO, BEANNO, GRAM, PRICE, -->
-<!-- 			GRIND, SUBSTARTDATE, SUBENDDATE, SUBTIME, NONSUB -->
-<!-- 			FROM BEANSUB -->
-<!-- 			<where> -->
-<!-- 				USERNO = #{userNo} -->
-<!-- 			</where> -->
-<!-- 			ORDER BY SUBNO -->
-<!-- 	</select> -->
-	<select id="selectMyBeanSubResult" resultType="BeanSub">
-		SELECT
-			b1.SUBNO, b1.USERNO,
-			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
-			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
-			b2.BEANNAME,
-			b3.BEANORIGINNAME,
-			b4.REVSTARPOINT,
-			CASE 
-			WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
-			ELSE 0
-			END AS REVSTARPOINT 
-			FROM BEANSUB b1, BEAN b2, BEANIMG b3, BEANREV b4
-			<where>
-				AND b1.BEANNO = b2.BEANNO
-				AND b2.BEANIMGNO = b3.BEANIMGNO
-				AND b1.BEANNO = b4.BEANNO(+)
-				AND b1.USERNO = #{userNo}
-				AND b1.NONSUB = 'N'
-			</where>
-			ORDER BY SUBNO DESC
-	</select>
+   <select id="selectByUserLikeCafe" resultType="CafeWish" parameterType="int">
+      SELECT C1.CAFENO, C1.USERNO, 
+      C2.CAFENO, CAFENAME, CAFECOMM,
+      CAFEPHONE, BUSYTIME, CAFELOC, CAFEADD1,
+      CAFEADD2, CAFEINFO,
+      C3.CAFEIMGORINAME
+      FROM CAFEWISH C1
+      INNER JOIN CAFE C2 ON C1.CAFENO = C2.CAFENO
+      INNER JOIN CAFEIMG C3 ON C2.IMGNO = C3.CAFEIMGNO
+      <where>
+         C1.USERNO = #{userNo}
+<!--          <if test='searchText != "N"'> -->
+<!--             AND   upper(cafeName) LIKE '%'||upper(#{searchText})||'%' -->
+<!--          </if> -->
+      </where>
+   </select>
+   
+   <select id="selectByUserLikeBean" resultType="BeanWish" parameterType="int">
+      SELECT BEANWISHNO, B1.BEANNO, B1.USERNO,
+      B2.BEANNO, B2.BEANIMGNO, B2.BEANNAME, B2.ORIGIN,
+      B2.BEANCOMM, B2.BEANINFO, B2.BEANPRICE, B2.BUSINESSNO,
+      B3.BEANIMGNO, B3.BEANORIGINNAME 
+      FROM BEANWISH B1
+      INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
+      INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
+      <where>
+         USERNO = #{userNo}
+<!--          <if test='searchText != "N"'> -->
+<!--             upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
+<!--          </if> -->
+      </where>
+      
+   </select>
+   
+   <select id="selectMyQuizeResult" resultType="MemberQuizResult">
+      SELECT m.quizresult, m.userno,
+      b1.BEANNO, b1.BEANNAME, 
+      b2.BEANORIGINNAME,
+      c.CUPNOTENAME,
+      g.GRINDNAME,
+      e.EXTRACTIONNAME 
+      FROM MEMBERQUIZRESULT m
+      INNER JOIN QUIZRESULT q ON m.QUIZRESULT = q.QUIZRESULTNO
+      INNER JOIN bean b1 ON q.BEANNO = b1.BEANNO
+      INNER JOIN beanimg b2 ON b2.BEANIMGNO = b1.BEANIMGNO
+      INNER JOIN BEANTASTE b3 ON b1.BEANNO = b3.BEANNO
+      INNER JOIN CUPNOTE c ON b3.CUPNOTENO = c.CUPNOTENO 
+      INNER JOIN GRIND g ON q.GRIND = g.GRINDNO
+      INNER JOIN EXTRACTION e ON q.EXTRACTION = e.EXTRACTIONNO 
+      <where>
+         m.USERNO = #{userNo}
+      </where> 
+   </select>
+   
+<!--    <select id="selectMyBeanSubResult" resultType="BeanSub"> -->
+<!--       SELECT -->
+<!--          SUBNO, USERNO, BEANNO, GRAM, PRICE, -->
+<!--          GRIND, SUBSTARTDATE, SUBENDDATE, SUBTIME, NONSUB -->
+<!--          FROM BEANSUB -->
+<!--          <where> -->
+<!--             USERNO = #{userNo} -->
+<!--          </where> -->
+<!--          ORDER BY SUBNO -->
+<!--    </select> -->
+   <select id="selectMyBeanSubResult" resultType="BeanSub">
+      SELECT
+         b1.SUBNO, b1.USERNO,
+         b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
+         b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
+         b2.BEANNAME,
+         b3.BEANORIGINNAME,
+         b4.REVSTARPOINT,
+         CASE 
+         WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
+         ELSE 0
+         END AS REVSTARPOINT 
+         FROM BEANSUB b1, BEAN b2, BEANIMG b3, BEANREV b4
+         <where>
+            AND b1.BEANNO = b2.BEANNO
+            AND b2.BEANIMGNO = b3.BEANIMGNO
+            AND b1.BEANNO = b4.BEANNO(+)
+            AND b1.USERNO = #{userNo}
+            AND b1.NONSUB = 'N'
+         </where>
+         ORDER BY SUBNO DESC
+   </select>
 
-<!-- 	<delete id="subCancel" parameterType="Integer"> -->
-<!-- 		DELETE BEANSUB -->
-<!-- 		<where> -->
-<!-- 			subNo = #{No} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
-	
-	<update id="subUpdateCancel" parameterType="Integer">
-		UPDATE BEANSUB
-   	 	SET NONSUB = 
-      	  CASE 
-      	      WHEN NONSUB = 'N' THEN 'Y'
-     	   END
-		<where>
-			SUBNO = #{subNo}
-		</where>
-	</update>
-	
-	<select id="findByUserId" parameterType="String" resultType="Member">
-		SELECT *
-	 	FROM MEMBER
-	 	<where>
-	 		userId = #{userId}
-	 	</where>
-	</select>	
-	
-	<select id="findByUserNo" parameterType="int" resultType="Member">
-		SELECT *
-	 	FROM MEMBER
-	 	<where>
-	 		userNo = #{userNo}
-	 	</where>
-	</select>
-	
-	<update id="myinfoUpdate" parameterType="Member">
-		UPDATE MEMBER
-		<set>
-			, userPw = #{userPw}
-			, userNick = #{userNick}			
-			, userEmail = #{userEmail}			
-			, userPhone = #{userPhone}			
-			, userPostcode = #{userPostcode}			
-			, userAdd1 = #{userAdd1}			
-			, userAdd2 = #{userAdd2}			
-		</set>
-		<where>
-			userNo = #{userNo}
-		</where>		
-	</update>	
-	
-	<select id="selectByMemberNick" resultType="int" parameterType="Member">
-		SELECT count(*) cnt
-		FROM member
-		<where>
-			AND userNick = #{userNick}
-		</where>
-	</select>
-	
-<!-- 	<delete id="deleteMemberByUserNo" parameterType="Integer"> -->
-<!-- 		DELETE FROM member -->
-<!-- 		WHERE userNo = #{userNo} -->
-<!-- 	</delete> -->
-	<update id="updateStatus" parameterType="Member">
-		UPDATE MEMBER
-		SET status = 'N'
-		WHERE USERNO = #{userNo}  
-	</update>
-	
-	
-	
-	
-	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
-	    SELECT 
-			 r.revNo, r.cafeNo, r.userNo, r.revContent, r.revDate
-			 , c.cafeName, c.cafeComm
-	    FROM 
-	        CafeRev r
-	    JOIN 
-	        Cafe c ON r.cafeNo = c.cafeNo
-	    <where>
-	    	AND userNo = #{userNo}
-	    </where> 
-	    ORDER BY 
-	        r.revDate DESC
-	</select>	
+<!--    <delete id="subCancel" parameterType="Integer"> -->
+<!--       DELETE BEANSUB -->
+<!--       <where> -->
+<!--          subNo = #{No} -->
+<!--       </where> -->
+<!--    </delete> -->
+   
+   <update id="subUpdateCancel" parameterType="Integer">
+      UPDATE BEANSUB
+          SET NONSUB = 
+           CASE 
+               WHEN NONSUB = 'N' THEN 'Y'
+           END
+      <where>
+         SUBNO = #{subNo}
+      </where>
+   </update>
+   
+   <select id="findByUserId" parameterType="String" resultType="Member">
+      SELECT *
+       FROM MEMBER
+       <where>
+          userId = #{userId}
+       </where>
+   </select>   
+   
+   <select id="findByUserNo" parameterType="int" resultType="Member">
+      SELECT *
+       FROM MEMBER
+       <where>
+          userNo = #{userNo}
+       </where>
+   </select>
+   
+   <update id="myinfoUpdate" parameterType="Member">
+      UPDATE MEMBER
+      <set>
+         , userPw = #{userPw}
+         , userNick = #{userNick}         
+         , userEmail = #{userEmail}         
+         , userPhone = #{userPhone}         
+         , userPostcode = #{userPostcode}         
+         , userAdd1 = #{userAdd1}         
+         , userAdd2 = #{userAdd2}         
+      </set>
+      <where>
+         userNo = #{userNo}
+      </where>      
+   </update>   
+   
+   <select id="selectByMemberNick" resultType="int" parameterType="Member">
+      SELECT count(*) cnt
+      FROM member
+      <where>
+         AND userNick = #{userNick}
+      </where>
+   </select>
 
-	<select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
-		SELECT
-			br.revNo, br.beanNo, br.subNo, br.userNo, br.revCont, br.revDate
-			, b.beanNo, b.beanName
-		FROM BeanRev br
-		JOIN BEAN b ON br.beanNo = b.beanNo
-		<where>
-		userNo = #{userNo}
-		</where> 
-		ORDER BY br.revDate DESC
-	</select>	
-	
-	<select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
-		SELECT 
-			freeBoardNo, userNo, freeBoardCategory, freeBoardTitle, freeBoardWriteDate
-		FROM FreeBoard
-		<where>
-			userNo = #{userNo}
-		</where>
-		ORDER BY freeBoardNo DESC
-	</select>		
-	
-	<select id="selectMyRecipeByUserNo" resultType="MyRecipe" parameterType="int">
-		SELECT 
-			myRipNo, userNo, myRipTitle, myRipContent, myRipHit, myRipWriteDate
-		FROM MyRecipe
-		<where>
-			userNo = #{userNo}
-		</where>
-		ORDER BY myRipNo DESC
-	</select>
-	
-<!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
-<!-- 		SELECT COUNT(*) -->
-<!-- 		FROM ( -->
-<!-- 			SELECT c.cafename  -->
-<!-- 			FROM CAFEREV cr  -->
-<!-- 			JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
-<!-- 			WHERE cr.userNo = #{userNo} -->
-<!-- 			UNION ALL -->
-<!-- 			SELECT b.beanname -->
-<!-- 			FROM BEANREV br -->
-<!-- 			JOIN BEAN b ON b.BEANNO = br.BEANNO -->
-<!-- 			WHERE br.userNo = #{userNo} -->
-<!-- 			UNION ALL -->
-<!-- 			SELECT FREEBOARDTITLE -->
-<!-- 			FROM FREEBOARD -->
-<!-- 			WHERE userNo = #{userNo} -->
-<!-- 			UNION ALL -->
-<!-- 			SELECT MYRIPTITLE -->
-<!-- 			FROM MYRECIPE -->
-<!-- 			WHERE userNo = #{userNo} -->
-<!-- 		) -->
-<!-- 	</select> -->
+
+   <update id="changeStatus" parameterType="int">
+      UPDATE MEMBER
+      SET status = 'N'
+      , userNick = '(탈퇴한 회원)'
+      WHERE USERNO = #{userNo}
+   </update>
+   
+   <update id="changeFreeNick" parameterType="int">
+      UPDATE FREEBOARDCOMMENT
+      SET userNick = '(탈퇴한 회원)'
+      WHERE USERNO = #{userNo}
+   </update>
+   
+   <update id="changeMyrepNick" parameterType="int">
+      UPDATE MYRECIPECOMMENT
+      SET userNick = '(탈퇴한 회원)'
+      WHERE USERNO = #{userNo}
+   </update>
+   
+   <update id="changeFreeCommNickTag" parameterType="string">
+      UPDATE FREEBOARDCOMMENT
+      SET FREEBOARDCOMMNICKTAG = '(탈퇴한 회원)'
+      WHERE FREEBOARDCOMMNICKTAG = #{userNick}
+   </update>
+   
+   <update id="changeMyrecipeCommNickTag" parameterType="string">
+      UPDATE MYRECIPECOMMENT
+      SET MYRIPCOMMNICKTAG = '(탈퇴한 회원)'
+      WHERE MYRIPCOMMNICKTAG = #{userNick}
+   </update>
+   
+   <select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
+       SELECT 
+          r.revNo, r.cafeNo, r.userNo, r.revContent, r.revDate
+          , c.cafeName, c.cafeComm
+       FROM 
+           CafeRev r
+       JOIN 
+           Cafe c ON r.cafeNo = c.cafeNo
+       <where>
+          AND userNo = #{userNo}
+       </where> 
+       ORDER BY 
+           r.revDate DESC
+   </select>   
+
+   <select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
+      SELECT
+         br.revNo, br.beanNo, br.subNo, br.userNo, br.revCont, br.revDate
+         , b.beanNo, b.beanName
+      FROM BeanRev br
+      JOIN BEAN b ON br.beanNo = b.beanNo
+      <where>
+      userNo = #{userNo}
+      </where> 
+      ORDER BY br.revDate DESC
+   </select>   
+   
+   <select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
+      SELECT 
+         freeBoardNo, userNo, freeBoardCategory, freeBoardTitle, freeBoardWriteDate
+      FROM FreeBoard
+      <where>
+         userNo = #{userNo}
+      </where>
+      ORDER BY freeBoardNo DESC
+   </select>      
+   
+   <select id="selectMyRecipeByUserNo" resultType="MyRecipe" parameterType="int">
+      SELECT 
+         myRipNo, userNo, myRipTitle, myRipContent, myRipHit, myRipWriteDate
+      FROM MyRecipe
+      <where>
+         userNo = #{userNo}
+      </where>
+      ORDER BY myRipNo DESC
+   </select>
+   
+   
+   
+
+
+<!--    <select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
+<!--       SELECT COUNT(*) -->
+<!--       FROM ( -->
+<!--          SELECT c.cafename  -->
+<!--          FROM CAFEREV cr  -->
+<!--          JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
+<!--          WHERE cr.userNo = #{userNo} -->
+<!--          UNION ALL -->
+<!--          SELECT b.beanname -->
+<!--          FROM BEANREV br -->
+<!--          JOIN BEAN b ON b.BEANNO = br.BEANNO -->
+<!--          WHERE br.userNo = #{userNo} -->
+<!--          UNION ALL -->
+<!--          SELECT FREEBOARDTITLE -->
+<!--          FROM FREEBOARD -->
+<!--          WHERE userNo = #{userNo} -->
+<!--          UNION ALL -->
+<!--          SELECT MYRIPTITLE -->
+<!--          FROM MYRECIPE -->
+<!--          WHERE userNo = #{userNo} -->
+<!--       ) -->
+<!--    </select> -->
 
 </mapper>

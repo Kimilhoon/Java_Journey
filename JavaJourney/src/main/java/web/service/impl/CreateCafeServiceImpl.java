@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import web.dao.face.CreateCafeDao;
 import web.dto.Cafe;
 import web.dto.CafeImg;
+import web.dto.CafeRev;
+import web.dto.CafeRevComm;
 import web.service.face.CreateCafeService;
 
 @Service
@@ -48,12 +50,29 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 		dao.updateCafe(cafe);
 	}
 	
-	@Override
-	@Transactional
-	public void delete(Cafe cafe, CafeImg cafeImg) {
-		dao.deleteCafe(cafe);
-		dao.deleteCafeImg(cafeImg);
-	}
+//	@Override
+//	public void deleteCafe(int cafeNo) {
+//		dao.updateCafeStatus(cafeNo);
+//		
+//	}
+//	
+//	@Override
+//	@Transactional
+//	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
+//		dao.deleteCafeRev(cafeRev);
+//		dao.deleteCafeRevComm(cafeRevComm);
+//		dao.deleteCafe(cafe);
+//	}
+	
+	
+//	@Override
+//	@Transactional
+//	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
+//		dao.deleteCafeRev(cafeRev);
+//		dao.deleteCafeRevComm(cafeRevComm);
+//		dao.deleteCafe(cafe);
+//		dao.deleteCafeImg(cafeImg);
+//	}
 
 
 
