@@ -223,6 +223,9 @@ public void test() {}
 		return num; // String 타입으로 변환 후 반환
 	}
 	
+
+	//========================================[ 카카오 로그인 ]========================================
+	
 	@RequestMapping("/kakao/login")
 	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpSession session) {
 		
@@ -240,6 +243,7 @@ public void test() {}
 			session.setAttribute("userId", userInfo.get("userId"));
 			session.setAttribute("userNo", userInfo.get("userNo"));
 			session.setAttribute("isLogin", true);
+			session.setAttribute("isKakao", true);
 		}
 		
 		mav.addObject("userNick", userInfo.get("nickname"));
