@@ -42,7 +42,41 @@ $("#QuizBtn").click(function() {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
+<div id="List" class="mx-auto">
 
+<table>
+<tbody>
+
+<c:forEach var="bean" items="${ list }" varStatus="status">
+	<c:if test="${status.index % 4 == 0}">
+		<tr>
+	</c:if>
+	
+	<td class="text-center" style="flex-shrink: 0;">
+	<a href="./info?beanNo=${ bean.beanNo }">
+			<div class="custom-image">${bean.beanOriginName}</div>
+	</a>
+		<p class="fw-bold fs-4">${bean.beanName}(${ bean.gram }g)</p>
+		<p>${bean.origin}</p>
+	</td>
+   
+		<c:if test="${status.index % 4 == 3 || status.last}">
+		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
+		</c:if>	
+</c:forEach>
+
+<!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
+<c:if test="${fn:length(list) % 4 != 0}">
+	<c:forEach begin="1" end="${4 - (fn:length(list) % 4)}"> 
+		<td></td>
+	</c:forEach>
+</tr>
+</c:if>
+
+</tbody>
+</table>
+
+</div>
 
 <div id="beanQuiz" class="d-grid gap-2 col-4 mx-auto">
 <button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>

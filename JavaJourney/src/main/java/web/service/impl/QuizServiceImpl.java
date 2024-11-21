@@ -25,8 +25,9 @@ public class QuizServiceImpl implements QuizService {
 
 	
 	@Override
-	public void insertQuizResult(QuizResult param) {
+	public boolean insertQuizResult(QuizResult param) {
 		dao.insertQuizResult(param);
+		return true;
 	}
 	
 	
