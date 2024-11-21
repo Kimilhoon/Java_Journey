@@ -43,10 +43,12 @@ a {
 }
 </style>
 <div id="content">
+<c:if test="${userNick eq 'admin' }">
 <div id="btn">
 <button id="btnUpate">수정</button>
 <button id="btnCancle">삭제</button>
 </div>
+</c:if>
 <div class="table">
 
 <table class="table table-bordered">
