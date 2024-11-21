@@ -57,11 +57,17 @@ public class MypageController {
 	@GetMapping("/subscribe")
 	public void subscribeForm(
 			BeanSub beanSub,
+			Paging curPage,
 			Model model
 			) {
 		log.info("beanSub UserNo : {}",beanSub.getUserNo());
-		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo());
+		log.info("Paging-curPage : {}",curPage);
+		
+		Paging paging = service.getBeanSubPage(curPage, beanSub.getUserNo());
+		
+		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo(), paging);
 		model.addAttribute("beanSubList",beanSubList);
+		model.addAttribute("paging",paging);
 	}
 	
 	@PostMapping("/cancelsub")

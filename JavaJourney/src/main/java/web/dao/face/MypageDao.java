@@ -102,11 +102,19 @@ public interface MypageDao {
 	public List<MemberQuizResult> selectMyQuizeResult(int userNo);
 	
 	/**
-	 * 나의 구독정보를 DB에서 조회하기
+	 * 유저가 구독한 원두 전체 데이터 개수 조회
 	 * @param userNo
 	 * @return
 	 */
-	public List<BeanSub> selectMyBeanSubResult(int userNo);
+	public int getBeanSubTotalCnt(int userNo);
+	
+	/**
+	 * 나의 구독정보를 DB에서 조회하기
+	 * @param userNo
+	 * @param paging 
+	 * @return
+	 */
+	public List<BeanSub> selectMyBeanSubResult(HashMap<String, Object> map);
 	
 	/**
 	 * 구독정보에서 구독번호를 넘겨받아 구독원두를 취소하는 표시로 만들기
@@ -145,6 +153,7 @@ public interface MypageDao {
 	 * @param userNick
 	 */
 	public void changeMyrecipeCommNickTag(String userNick);
+
 
 
 

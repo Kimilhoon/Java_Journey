@@ -34,8 +34,32 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<BeanSub> selectMyBeanSub(int userNo) {
-		return dao.selectMyBeanSubResult(userNo);
+	public Paging getBeanSubPage(Paging curPage, int userNo) {
+		
+		if( curPage.getCurPage() == 0 ) {
+			curPage.setCurPage(1);
+			//만약 현재페이지가 0이라면 1페이지로 set
+		}
+		//전체 데이터 수 조회, 유저(userNo)가 구독한 원두 데이터들
+		//count(*)하기
+		int totalCnt = dao.getBeanSubTotalCnt(userNo);
+		
+		//페이징 객체 : 현재페이지 / 전체 데이투 수
+		// 보여질 글(데이터) 수 / 페이지네이션의 숫자( 하단 페이지 숫자 )
+		Paging paging = new Paging(curPage.getCurPage(),totalCnt,5,10);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<BeanSub> selectMyBeanSub(int userNo, Paging paging) {
+		//기본적으로 DB필터가 없으니 페이징 매개변수만 넣어줌
+		//만약 필터링을 넣어주면 Map을 사용해야할듯?
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		return dao.selectMyBeanSubResult(map);
 	}
 	
 	@Override

@@ -69,27 +69,54 @@
 <!-- 			</where> -->
 <!-- 			ORDER BY SUBNO -->
 <!-- 	</select> -->
-	<select id="selectMyBeanSubResult" resultType="BeanSub">
-		SELECT
+
+	<select id="getBeanSubTotalCnt" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM BEANSUB
+		WHERE USERNO = #{userNo}
+	</select>
+
+	<select id="selectMyBeanSubResult" resultType="BeanSub" parameterType="hashmap">
+<!-- 		SELECT -->
+<!-- 			b1.SUBNO, b1.USERNO, b1.NONSUB, -->
+<!-- 			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND, -->
+<!-- 			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB, -->
+<!-- 			b2.BEANNAME, -->
+<!-- 			b3.BEANORIGINNAME, -->
+<!-- 			b4.REVSTARPOINT, -->
+<!-- 			b4.REVNO, -->
+<!-- 			CASE  -->
+<!-- 			WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT -->
+<!-- 			ELSE 0 -->
+<!-- 			END AS REVSTARPOINT  -->
+<!-- 			FROM BEANSUB b1, BEAN b2, BEANIMG b3, BEANREV b4 -->
+<!-- 			<where> -->
+<!-- 				AND b1.BEANNO = b2.BEANNO -->
+<!-- 				AND b2.BEANIMGNO = b3.BEANIMGNO -->
+<!-- 				AND b1.BEANNO = b4.BEANNO(+) -->
+<!-- 				AND b1.USERNO = #{userNo} -->
+<!-- 			</where> -->
+<!-- 			ORDER BY SUBNO DESC -->
+			SELECT * FROM (
+			SELECT rownum r, a.* FROM (
+			SELECT
 			b1.SUBNO, b1.USERNO,
 			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
 			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
 			b2.BEANNAME,
 			b3.BEANORIGINNAME,
-			b4.REVSTARPOINT,
-			CASE 
-			WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
-			ELSE 0
-			END AS REVSTARPOINT 
-			FROM BEANSUB b1, BEAN b2, BEANIMG b3, BEANREV b4
-			<where>
-				AND b1.BEANNO = b2.BEANNO
+			b4.REVNO,
+				CASE 
+					WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
+					ELSE 0
+					END AS REVSTARPOINT
+				FROM BEANSUB b1, bean b2, beanimg b3, BEANREV b4
+				WHERE b1.BEANNO = b2.BEANNO
 				AND b2.BEANIMGNO = b3.BEANIMGNO
 				AND b1.BEANNO = b4.BEANNO(+)
-				AND b1.USERNO = #{userNo}
-				AND b1.NONSUB = 'N'
-			</where>
-			ORDER BY SUBNO DESC
+				AND b1.USERNO = 1
+				ORDER BY SUBNO DESC
+				)a
+			)WHERE r BETWEEN #{paging.startNo } AND #{paging.endNo }
 	</select>
 
 <!-- 	<delete id="subCancel" parameterType="Integer"> -->
@@ -228,11 +255,6 @@
 		</where>
 		ORDER BY myRipNo DESC
 	</select>
-	
-	
-	
-
-
 <!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
 <!-- 		FROM ( -->
