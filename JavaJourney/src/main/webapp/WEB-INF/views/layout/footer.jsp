@@ -181,5 +181,3 @@ a {
 
 </footer>
 </html>
-</body>
-</html>

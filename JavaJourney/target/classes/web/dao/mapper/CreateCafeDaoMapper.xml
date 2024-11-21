@@ -64,23 +64,11 @@
 		WHERE CAFENO = #{cafeNo}
 	</update>
 	
-	
-<!-- 	<update id="updateCafeStatus" parameterType="int"> -->
-<!-- 		UPDATE CAFE -->
-<!-- 		SET status = 'N' -->
-<!-- 		where cafeNo = #{cafeNo} -->
-<!-- 	</update> -->
-	
-	
-	
-	
-<!-- 	<delete id="deleteCafeImg" parameterType="CafeImg"> -->
-<!-- 	<delete id="deleteCafeImg"> -->
-<!-- 		DELETE CafeImg -->
-<!-- 		<where> -->
-<!-- 			cafeImgNo = #{cafeImgNo} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
+	<update id="updateCafeStatus">
+		UPDATE CAFE
+		SET status = 'N'
+		WHERE CAFENO = #{CAFENO}
+	</update>
 	
 	
 </mapper>

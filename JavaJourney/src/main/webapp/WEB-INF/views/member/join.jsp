@@ -835,11 +835,7 @@ label.agree button:hover {
 </div>
 	<p id="resultMsg" style="font-size:0.8rem;"></p>
 
-<!-- <div> -->
-<!-- 	<label for="userEmail">이메일 -->
-<!-- 		<input type="email" name="userEmail" id="userEmail" required="required"> -->
-<!-- 	</label> -->
-<!-- </div> -->
+
 
 <div>
 	<label for="userName">이름

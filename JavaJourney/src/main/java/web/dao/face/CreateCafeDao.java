@@ -54,28 +54,12 @@ public interface CreateCafeDao {
 	 */
 	public void deleteCafeImg(CafeImg cafeImg);
 
-
 	/**
 	 * 협약 카페 status 'Y' -> 'N' 으로 변경
 	 * @param cafeNo
 	 */
-//	public void updateCafeStatus(int cafeNo);
-	
-//	/**
-//	 * 카페 글 삭제할때 그 안의 리뷰글 삭제
-//	 * @param cafeRev
-//	 */
-//	public void deleteCafeRev(CafeRev cafeRev);
-//	
-//	/**
-//	 * 협약 카페 글 삭제
-//	 * @param cafe
-//	 */
-//	public void deleteCafe(Cafe cafe);
-//
-//
-//
-//	public void deleteCafeRevComm(CafeRevComm cafeRevComm);
+	public void updateCafeStatus(int cafeNo);
+
 
 
 

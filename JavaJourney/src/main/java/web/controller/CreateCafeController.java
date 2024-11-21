@@ -57,16 +57,18 @@ public class CreateCafeController {
 	}
 	
 	
-//	@RequestMapping("/cafeDelete")
-//	public String deleteCafe(Cafe cafe, HttpSession session) {
-//		log.info("cafeDelete cafe:{}", cafe);
-//		
-//		 = session.getAttribute(cafeNo);
-//		
-//		service.deleteCafe(cafe);
-//		
-//		return "redirect:/cafe/all";
-//	}
+	@RequestMapping("/cafeDelete")
+	public String deleteCafe(Cafe cafe, HttpSession session) {
+		log.info("cafedelete:{}", cafe);
+		int cafeNo = (int) session.getAttribute("cafeNo");
+		
+		log.info("cafedelete cafeNo:{}", cafeNo);
+		
+		service.updateCafeStatus(cafeNo);
+		return "redirect:/cafe/all";
+	}
+	
+	
 
 	
 	
