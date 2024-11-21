@@ -40,7 +40,7 @@
    
    <select id="selectMyQuizeResult" resultType="MemberQuizResult">
       SELECT m.quizresult, m.userno,
-      b1.BEANNO, b1.BEANNAME, 
+      b1.BEANNO, b1.BEANNAME, b1.BEANCOMM,
       b2.BEANORIGINNAME,
       c.CUPNOTENAME,
       g.GRINDNAME,

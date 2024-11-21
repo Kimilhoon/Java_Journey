@@ -7,63 +7,44 @@
 <script type="text/javascript">
 $(function () {
 	$(".custom-image img").css({
-        width: "200px",
-        height: "200px"
+        width: "300px",
+        height: "300px"
     });
 })
 </script>
 <style>
-.carousel-item{
-	background-color: #ece6cc; /* 배경색 설정 */
-	padding: 20px; /* 내용과 배경 색 사이 여백 */
-	border-radius: 10px; /* 슬라이드 모서리를 둥글게 */
-}
+/* .carousel-item{ */
+/* 	background-color: #ece6cc; /* 배경색 설정 */ */
+/* 	padding: 20px; /* 내용과 배경 색 사이 여백 */ */
+/* 	border-radius: 10px; /* 슬라이드 모서리를 둥글게 */ */
+/* } */
 </style>
-<div class="container">
-<!--  -->
-<div class="container" style="width: 330px;">
-<div id="bestBean">
-    <!-- 이달의 베스트원두 -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators (optional) -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<div class="container" style="width: 900px; height:350px; background-color: #f8f5f0; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+    <div class="d-flex" style="align-items: flex-start;">
+        <!-- Image Section -->
+        <div class="custom-image" style="margin-right: 20px;">
+            <div style="width: 310px; height: 305px; object-fit: cover; border-radius: 10px; border: 2px solid #d1a589;">
+            <a href="/bean/info?beanNo=${MyQuizResult[0].beanNo }">
+            ${MyQuizResult[0].beanOriginName }
+            </a>	
+            </div>
         </div>
-
-        <!-- carousel items -->
-        <div class="carousel-inner">
-            <c:forEach var="myresult" items="${MyQuizResult }" varStatus="status">
-                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                    <div class="text-center" style="flex-shrink: 0;">
-                        <a href="/bean/info?beanNo=${myresult.beanNo}">
-                            <div class="custom-image">
-                                ${myresult.beanOriginName}
-                            </div>
-                        </a>
-                        <p>${myresult.cupNoteName}</p>
-                        <p>${myresult.grindName}</p>
-                        <p>${myresult.extractionName}</p>
-                    </div>
-                </div>
-            </c:forEach>
+        <!-- Info Section -->
+        <div id="beanInfo" style="flex-grow: 1;">
+            <h2 style="margin-left: 200px; color: #5d4037; font-family: 'Arial', sans-serif;">취향 정보</h2>
+            <ul style="margin-left: 200px; list-style: none; padding: 0; font-size: 16px; color: #4e342e;">
+                <li><strong>원두명:</strong> ${MyQuizResult[0].beanName }</li>
+                <li><strong>맛:</strong> ${MyQuizResult[0].cupNoteName }, ${MyQuizResult[1].cupNoteName }</li>
+                <li><strong>분쇄:</strong> ${MyQuizResult[0].grindName }</li>
+                <li><strong>추출:</strong> ${MyQuizResult[0].extractionName }</li>
+            </ul>
+            <p style="margin-left: 200px; font-size: 14px; color: #6d4c41;">원두 정보</p>
+            <p style="margin-left: 200px; font-size: 14px; color: #795548;">${MyQuizResult[0].beanComm }</p>
         </div>
-
-        <!-- Controls -->
-        <button class="carousel-control-prev btn btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next btn btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
 </div>
+<div style="text-align:center;">
+<a style="text-decoration: none;" href="/"><button>취향조사 다시하기</button></a>
 </div>
-</div>
-
-
 
 <c:import url="../layout/footer.jsp"/>
