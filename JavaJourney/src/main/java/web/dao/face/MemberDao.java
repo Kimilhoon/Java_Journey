@@ -31,6 +31,8 @@ public interface MemberDao {
 	/**
 	 * 아이디 비밀번호로 로그인
 	 * id,pw 일치하는 행 수 조회
+	 * status='Y'일때 로그인 가능(활성화)
+	 * status='N'일때 로그인 불가능(비활성화)
 	 * 
 	 * @param member
 	 * @return

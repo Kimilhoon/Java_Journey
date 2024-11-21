@@ -505,7 +505,7 @@ $(document).ready(function() {
 			success : function (data) { 
 				
 	            emailCheck = true;
-// 				console.log("data : " +  data);
+				console.log("data : " +  data);
 				checkInput.attr('disabled',false); //인증번호입력하는곳 활성화
 				code = data;  // 서버에서 받은 인증번호를 code 변수에 저장
 				alert('인증번호가 전송되었습니다.')
@@ -522,9 +522,9 @@ $(document).ready(function() {
         const $resultMsg = $('#mail-check-warn'); // 결과 메시지를 출력할 엘리먼트
         const $inputBox = $('.mail-check-input'); // 입력 필드
         
-//         console.log("서버에서 받은 code: " + code);
-//         console.log("사용자가 입력한 인증번호: " + inputCode);
-//         console.log("결과 메시지 요소:", $resultMsg);
+        console.log("서버에서 받은 code: " + code);
+        console.log("사용자가 입력한 인증번호: " + inputCode);
+        console.log("결과 메시지 요소:", $resultMsg);
         
 		if(inputCode === code.toString()){
 // 		    console.log("인증번호 일치!");

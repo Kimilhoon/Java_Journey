@@ -39,7 +39,10 @@ public interface CreateBeanService {
 	public void updateBean(BeanImg beanImg, Bean bean, List<Integer> cupNotes);
 	
 	/**
-	 * beanNo를 전달받아 BeanTaste -> Bean -> BeanImg 순으로 삭제
+	 * beanNo를 전달받아 BeanTaste -> Bean -> BeanImg 순으로 삭제--취소선
+	 * 11.20 : 원래는 위에 처럼 삭제하려고 했으나 데이터 보존을 위해
+	 * 활성화상태('Y')를 비활성화상태('N')로 변경할 것
+	 * 따라서 데이터 보존은되면서 논리적인 삭제로만 진행! 
 	 * @param beanNo
 	 */
 	public void beanDelete(int beanNo);

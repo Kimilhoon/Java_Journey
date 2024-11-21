@@ -43,8 +43,7 @@
 	</select>
 	
 	<select id="selectByLogin" parameterType="Member" resultType="Member">
-		SELECT userNo, userId, userPw, userNick, userEmail, userName
-		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		SELECT *
 		FROM member
 		<where>
 			AND userId = #{userId}

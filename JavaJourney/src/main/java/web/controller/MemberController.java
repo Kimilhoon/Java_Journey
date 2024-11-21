@@ -89,19 +89,27 @@ public class MemberController {
 		
 		boolean isLogin = service.login(member);
 
-//		if("Y".equals(member.getStatus())) {
 
 		if(isLogin) {
 			log.info("로그인 성공");
 			
 			member= service.info(member);
 			
+			log.info("info member : {}", member);
+			
+	       if ("Y".equals(member.getStatus())) {
 			session.setAttribute("isLogin", true);
 			session.setAttribute("userId", member.getUserId());
 			session.setAttribute("userNick", member.getUserNick());
 			session.setAttribute("userNo", member.getUserNo());
 			
 			return "redirect:/main";
+	       } else {
+	    	   log.info("로그인 실패 : 비활성화된 계정");
+	    	   session.setAttribute("loginError", "탈퇴한 회원입니다");
+				return "redirect:/member/login";
+	       }
+		
 		}else {
 			log.info("로그인 실패");
 			
@@ -111,8 +119,6 @@ public class MemberController {
 			return "redirect:/member/login";
 		}
 		
-//		} return "redirect:/main";
-
 	}
 	
 	@RequestMapping("/logout")
@@ -183,7 +189,7 @@ public void test() {}
 		//인증번호 생성
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
-//		System.out.println("인증번호 :"+ checkNum);
+		System.out.println("인증번호 :"+ checkNum);
 		
 		
 		//이메일 전송 내용

@@ -115,6 +115,10 @@ $(function() {
 	$("#btnDelete").click(function() {
 		location.href="/create/beandelete?beanNo=${beanInfo.beanNo}";
 	});
+
+	$("#btnRevive").click(function() {
+		location.href="/create/beandelete?beanNo=${beanInfo.beanNo}";
+	});
 	
 /* -------------------------------------------------------------------------------------------------------------- */
 	
@@ -281,7 +285,10 @@ $(function() {
 		<button type="button" id="wish" class="btn btn-secondary btn-lg m-2" >찜 ♡</button>
 	</c:otherwise>
 </c:choose>
+<!-- 찜도 원두가 비활성화되면 안보이게 해야할지 고민... -->
+<c:if test="${beanInfo.status == 'Y' }">
 <button type="button" id="sub" class="btn btn-secondary btn-lg m-2">구독</button>
+</c:if>
 </div>
 
 </div> <!-- <div id="explain" class="p-2"> -->
@@ -399,6 +406,7 @@ ${ beanInfo.beanInfo }
 <c:if test="${ userNick eq 'admin' }">
 <button type="button" id="btnUpdate" class="btn btn-warning">수정</button>
 <button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+<button type="button" id="btnRevive" class="btn btn-info">재등록</button>
 </c:if>
 </div>
 

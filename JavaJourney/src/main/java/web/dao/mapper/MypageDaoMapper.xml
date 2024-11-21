@@ -149,19 +149,38 @@
 			AND userNick = #{userNick}
 		</where>
 	</select>
-	
-<!-- 	<delete id="deleteMemberByUserNo" parameterType="Integer"> -->
-<!-- 		DELETE FROM member -->
-<!-- 		WHERE userNo = #{userNo} -->
-<!-- 	</delete> -->
-	<update id="updateStatus" parameterType="Member">
+
+
+	<update id="changeStatus" parameterType="int">
 		UPDATE MEMBER
 		SET status = 'N'
-		WHERE USERNO = #{userNo}  
+		, userNick = '(탈퇴한 회원)'
+		WHERE USERNO = #{userNo}
 	</update>
 	
+	<update id="changeFreeNick" parameterType="int">
+		UPDATE FREEBOARDCOMMENT
+		SET userNick = '(탈퇴한 회원)'
+		WHERE USERNO = #{userNo}
+	</update>
 	
+	<update id="changeMyrepNick" parameterType="int">
+		UPDATE MYRECIPECOMMENT
+		SET userNick = '(탈퇴한 회원)'
+		WHERE USERNO = #{userNo}
+	</update>
 	
+	<update id="changeFreeCommNickTag" parameterType="string">
+		UPDATE FREEBOARDCOMMENT
+		SET FREEBOARDCOMMNICKTAG = '(탈퇴한 회원)'
+		WHERE FREEBOARDCOMMNICKTAG = #{userNick}
+	</update>
+	
+	<update id="changeMyrecipeCommNickTag" parameterType="string">
+		UPDATE MYRECIPECOMMENT
+		SET MYRIPCOMMNICKTAG = '(탈퇴한 회원)'
+		WHERE MYRIPCOMMNICKTAG = #{userNick}
+	</update>
 	
 	<select id="selectCafeRevByUserNo" resultType="CafeRev" parameterType="int">
 	    SELECT 
@@ -210,6 +229,10 @@
 		ORDER BY myRipNo DESC
 	</select>
 	
+	
+	
+
+
 <!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
 <!-- 		FROM ( -->

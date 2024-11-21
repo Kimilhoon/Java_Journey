@@ -57,6 +57,13 @@ public interface CreateBeanDao {
 	public void updateBeanData(Bean bean);
 	
 	/**
+	 * 원본 원두데이터를 보존하는 방식으로
+	 * 상태를 비활성화 상태로 두는 방법
+	 * @param beanNo
+	 */
+	public void updateBeanStatusByBeanNo(int beanNo);
+	
+	/**
 	 * 원두의 수정된 맛을 update보다는
 	 * delete로 하여 다시 삽입해주는 방식으로 가기
 	 * @param beanNo
@@ -67,13 +74,13 @@ public interface CreateBeanDao {
 	 * 넘겨받은 beanNo를 DB에 조건절로 주어서 행(데이터) 삭제
 	 * @param beanNo
 	 */
-	public void deleteByBeanNo(int beanNo);
+//	public void deleteByBeanNo(int beanNo);
 	
 	/**
 	 * 넘겨받은 beanImg를 DB에 조건절로 주어서 행(데이터) 삭제
 	 * @param beanImg
 	 */
-	public void deleteByBeanImgNo(int beanImg);
+//	public void deleteByBeanImgNo(int beanImg);
 
 	
 	
