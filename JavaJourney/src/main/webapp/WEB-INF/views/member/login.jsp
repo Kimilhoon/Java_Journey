@@ -3,6 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp" />
 
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+
+  <%
+    String clientId = "pbxVOw3sgvBhBzt9HayL";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://192.168.10.39:8088/member/naver/login", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+ %>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script type="text/javascript">
@@ -132,9 +148,10 @@ $(function() {
 
 </div>
 
+ <a href="<%=apiURL%>"><img height="50" src="/resources/img/naverLogin.png" style="width: 360px; height: 52px; cursor: pointer; "/></a>
 <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a54ccddb4065ad4dbb6ab457409929d7&redirect_uri=http://192.168.10.240:8088/member/kakao/login
 ">
-	<img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; cursor: pointer; ">
+   <img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; margin-top: 10px; cursor: pointer; ">
 </a>
 
 
