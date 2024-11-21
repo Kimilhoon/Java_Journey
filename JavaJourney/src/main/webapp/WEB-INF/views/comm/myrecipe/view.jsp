@@ -475,6 +475,51 @@ a {
 	color: #6f4e37;
 }
 	
+.share-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.share-nav {
+    position: absolute; 
+    margin-bottom: 110px;
+    display: flex;  /* 플렉스박스로 변경 */
+    justify-content: center;  /* 아이콘을 가로로 가운데 정렬 */
+    align-items: center;  /* 아이콘을 세로로 가운데 정렬 */
+    display: none; 
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-10px);
+    z-index: 10;
+    height: 60px;
+    width: 130px;
+}
+
+.share-nav.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.share-nav i {
+  margin-right: 5px;
+  font-size: 2rem;
+}
+
+#share-btn {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100%; /* 부모 요소의 높이에 맞추기 */
+}
+
+
 </style>
 
 
@@ -566,23 +611,45 @@ function clip(){
 
   
 }
+//공유 네비게이션 토글
+function toggleShareNav() {
+    const shareNav = document.getElementById('share-nav');
+    shareNav.classList.toggle('active');
+}
+
+
+// 네비게이션 클릭 외부 클릭 시 닫기
+document.addEventListener('click', function (event) {
+    const shareNav = document.getElementById('share-nav'); // 주의: share-nav의 id 확인
+    const shareButton = document.querySelector('.share-button');
+    if (!shareButton.contains(event.target) && !shareNav.contains(event.target)) {
+        shareNav.style.display = 'none';
+    }
+});
 
 </script>
 
-<div id="bottom" >
-	<div style="display: inline-block; float: left; vertical-align: middle;">
-	    <i class="bi bi-share" onclick="clip()" style="cursor: pointer;	color: #6f4e37; margin-right: 15px;"></i>
-	    <i class="bi bi-chat-fill" onclick="shareToKakao()" style="cursor: pointer; color: #6f4e37; font-size: 1.8em; margin-right: 15px;"></i>
-	    <button id="btn_rec" class="btn ">☆추천</button>
-	</div>
-    <div style="display: inline-block; float: right;">
-		<a href="./list"><button class="btn "><small>목록</small></button></a>
-	    <c:if test="${member.userNick eq userNick or (userNick eq 'admin')}">
-			<a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>수정</small></button></a>
-			<a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn "><small>삭제</small></button></a>
-		</c:if>
+
+
+<div id="bottom" style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="display: flex; align-items: center;">
+    <i class="bi bi-share share-button" onclick="toggleShareNav()" style="cursor: pointer; color: #6f4e37;"></i>
+    <div class="share-nav" id="share-nav" style="margin-left: 8px;">
+      <i class="bi bi-clipboard" onclick="clip()" style="cursor: pointer; color: #6f4e37;"></i>
+      <a id="kakaotalk-sharing-btn" onclick="shareToKakao()" style="cursor: pointer;">
+        <img src="/resources/img/kakaoLogo.png" style="cursor: pointer; width: 38px; height: 38px;">
+      </a>
     </div>
-</div> <!-- bottom -->
+    <button id="btn_rec" class="btn" style="margin-left: 15px;">☆추천</button>
+  </div>
+  <div>
+    <a href="./list"><button class="btn"><small>목록</small></button></a>
+    <c:if test="${member.userNick eq userNick or (userNick eq 'admin')}">
+      <a href="./update?myRipNo=${myRecipeView.myRipNo }"><button class="btn"><small>수정</small></button></a>
+      <a href="./delete?myRipNo=${myRecipeView.myRipNo }"><button class="btn"><small>삭제</small></button></a>
+    </c:if>
+  </div>
+</div>
 
 
 <div class="comment_reply_wrap">
