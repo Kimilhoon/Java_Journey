@@ -85,12 +85,6 @@ $(function () {
 
 <div class="container">
 
-<<<<<<< HEAD
-    <!-- Right Carousel -->
-=======
-
-    <!-- Left Carousel -->
->>>>>>> refs/remotes/origin/master
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">

@@ -178,11 +178,6 @@ a {
 <!-- </div> -->
 
 </div>
-
-<<<<<<< HEAD
 </footer>
-</html>
-=======
 </body>
-</html>
->>>>>>> refs/remotes/origin/master
+
