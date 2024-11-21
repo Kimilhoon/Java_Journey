@@ -177,7 +177,6 @@
 		</where>
 	</select>
 
-
 	<update id="changeStatus" parameterType="int">
 		UPDATE MEMBER
 		SET status = 'N'
