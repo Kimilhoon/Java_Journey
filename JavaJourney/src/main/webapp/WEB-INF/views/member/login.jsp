@@ -4,9 +4,28 @@
 <c:import url="../layout/header.jsp" />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+
+  <%
+    String clientId = "pbxVOw3sgvBhBzt9HayL";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://192.168.10.39:8088/member/naver/login", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+ %>
 <script type="text/javascript">
+
 $(function() {
+
 	
     <c:if test="${not empty sessionScope.loginError}">
    	 alert("${sessionScope.loginError}");
@@ -110,6 +129,7 @@ $(function() {
 <div>
 	<button id="btnLogin" class="btn btn-primary">로그인</button>
 </div>
+ <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 
 <div>
 	<a href="./idfind">아이디찾기</a>
