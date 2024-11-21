@@ -13,9 +13,53 @@ $(function () {
     });
 })
 
+document.addEventListener("DOMContentLoaded", function () {
+    const banner = document.querySelector(".banner");
+    const video = document.getElementById("background_video");
+
+    // 스크롤 이벤트 처리
+    window.addEventListener("scroll", function () {
+        const scrollPosition = window.scrollY + window.innerHeight;
+
+        // 배너 표시: 스크롤 시 배너가 보이면 애니메이션 적용
+        if (banner && banner.getBoundingClientRect().top < scrollPosition) {
+            banner.classList.add("visible");
+        }
+
+        // 동영상 재생 효과
+        if (video && video.getBoundingClientRect().top < scrollPosition) {
+            video.classList.add("playing");
+        }
+    });
+});
+
+
+
 </script>
 
 <style>
+
+/* 배너 애니메이션 */
+.banner {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.banner.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 동영상 애니메이션 */
+#background_video {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#background_video.playing {
+    opacity: 1;
+}
 
 .custom-image img {
 	padding: 20px;
@@ -83,7 +127,7 @@ $(function () {
 <video id="background_video" src="/resources/bgvideo.mp4" autoplay="autoplay" loop="loop" muted="muted"></video>
 </div>
 
-<div class="container">
+<div class="container banner">
 
     <!-- Left Carousel -->
     <div class="carousel-container left">
