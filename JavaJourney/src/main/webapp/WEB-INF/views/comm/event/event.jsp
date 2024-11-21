@@ -50,7 +50,7 @@
 }
     
     #content {
-    max-width: fit-content;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 30px 50px;
     background-color: #f9f9f9;
@@ -64,7 +64,7 @@
     <c:forEach var="eventList" items="${eventList}" varStatus="status">
         <div>
             <!-- 이벤트 배너 버튼 -->
-            <button type="button" onclick="showModal('modal-${status.index}')" style="margin-bottom: 20px; border: none;">
+            <button type="button" onclick="showModal('modal-${status.index}')" style="margin-bottom: 20px;">
                 <!-- 이벤트 이미지 출력 -->
                     ${eventList.eventBanner}
             </button>

@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanImg;
-import web.dto.CupNote;
 import web.service.face.CreateBeanService;
 
 @Controller
@@ -47,9 +47,15 @@ public class CreateBeanController {
 			) {
 		log.info("benaNo : {}", bean.getBeanNo());
 		List<Bean> ListNo = service.selectBeanNo(bean.getBeanNo());
+		
+		List<Integer> cupNote = new ArrayList<>();
+		cupNote.add(0, ListNo.get(0).getCupNoteNo());
+		cupNote.add(1, ListNo.get(1).getCupNoteNo());
+		
 		model.addAttribute("ListNo",ListNo);
+		model.addAttribute("cupNote",cupNote);
 	}
-
+	
 	@PostMapping("/beanupdate")
 	public String beanUpdateProc(
 			BeanImg BeanImg,
@@ -73,4 +79,5 @@ public class CreateBeanController {
 		service.beanDelete(bean.getBeanNo());
 		return "redirect:/bean/all";
 	}
+	
 }

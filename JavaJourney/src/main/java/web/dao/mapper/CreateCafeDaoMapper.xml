@@ -59,9 +59,24 @@
 			, cafeInfo = #{cafeInfo}
 			, cafeAdd1 = #{cafeAdd1}
 			, cafeAdd2 = #{cafeAdd2}
+			, cafeLoc = #{cafeLoc}
 		</set>
 		WHERE CAFENO = #{cafeNo}
 	</update>
+	
+	<delete id="deleteCafeRev" parameterType="CafeRev">
+		DELETE CafeRev
+		<where>
+			cafeNo = #{cafeNo}
+		</where>
+	</delete>
+	
+	<delete id="deleteCafeRevComm" parameterType="CafeRevComm">
+		DELETE CAFEREVCOMM
+		<where>
+			revNo = #{revNo}
+		</where>
+	</delete>
 	
 	<delete id="deleteCafe" parameterType="Cafe">
 		DELETE Cafe
@@ -70,12 +85,12 @@
 		</where>
 	</delete>
 	
-	<delete id="deleteCafeImg" parameterType="CafeImg">
-		DELETE CafeImg
-		<where>
-			cafeImgNo = #{cafeImgNo}
-		</where>
-	</delete>
+<!-- 	<delete id="deleteCafeImg"> -->
+<!-- 		DELETE CafeImg -->
+<!-- 		<where> -->
+<!-- 			cafeImgNo = #{cafeImgNo} -->
+<!-- 		</where> -->
+<!-- 	</delete> -->
 	
 	
 </mapper>
