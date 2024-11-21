@@ -24,7 +24,7 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public List<Cafe> getCafeTop() {
-		return dao.selectBeanTop();
+		return dao.selectCafeTop();
 	}
 	
 	@Override
@@ -76,10 +76,10 @@ public class CafeServiceImpl implements CafeService {
 		} // if( keyword == null || "".equals(keyword) ) end
 		
 		HashMap<String, String> map = new HashMap<String, String>();
-//		map.put("location", location);
-//		map.put("keyword", keyword);
-		map.put("location", String.valueOf(location)); // 문자열로 변환
-	    map.put("keyword", String.valueOf(keyword));   // 문자열로 변환
+		map.put("location", location);
+		map.put("keyword", keyword);
+//		map.put("location", String.valueOf(location)); // 문자열로 변환
+//	    map.put("keyword", String.valueOf(keyword));   // 문자열로 변환
 		
 		//총 게시글 수 조회하기
 		int totalCount = dao.selectCntAll(map);
@@ -88,6 +88,7 @@ public class CafeServiceImpl implements CafeService {
 		//페이징 계산하기
 		param.setTotalPage(totalCount);
 		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 10);
+
 		
 		log.info("paging: {}", paging);
 		
@@ -136,12 +137,11 @@ public class CafeServiceImpl implements CafeService {
 		} // if( keyword == null || "".equals(keyword) ) end
 		
 		// HashMap 생성 및 값 설정
-		HashMap<String, Object> map = new HashMap<>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startNo", paging.getStartNo());
 		map.put("endNo", paging.getEndNo());
 		map.put("location", location);
 		map.put("keyword", keyword);
-//		map.put("location", (location != null && !location.isEmpty()) ? location : "N");
 //		map.put("location", String.valueOf(location)); // 문자열로 변환
 //	    map.put("keyword", String.valueOf(keyword));   // 문자열로 변환
 		

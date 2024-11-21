@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.face.CafeDao">
    <select id="selectBest" resultType="Cafe">
@@ -60,21 +60,21 @@
         WHERE rownum &lt;= #{endNo} 
     )
     WHERE rnum &gt;= #{startNo}
+
 </select>
    
    <select id="selectCntAll" resultType="int" parameterType="hashmap">
         SELECT count(*) 
         FROM cafe c
         <where>
-        	<if test='cafeLoc != null and cafeLoc != "N"'>
-        	AND cafeLoc = #{ cafeLoc } 
+        	<if test='location != null and location != "N"'>
+        	AND cafeLoc = #{ location } 
         	</if>
         	<if test='keyword != null and keyword != "N"'>
         	And upper(c.cafeName) LIKE '%' || upper(#{keyword}) || '%'
         	</if>
         </where>
     </select>
-    
 
    <select id="selectByCafeNo" parameterType="Cafe" resultType="Cafe">
       SELECT
@@ -113,7 +113,7 @@
 		FROM cafeRev c
 		LEFT JOIN member m ON c.userNo = m.userNo
 		<where>
-			cafeNo = ${ cafeNo }
+			cafeNo = #{ cafeNo }
 		</where>
 	</select>
 
@@ -133,7 +133,7 @@
 		</where>
 	</delete>
 
-	<select id="selectBeanTop" resultType="cafe">
+	<select id="selectCafeTop" resultType="cafe">
 		SELECT *
 		FROM (
 		    SELECT ROWNUM AS rnum, c.*, ci.cafeimgoriname, revcnt.reviewCount, revcnt.avgRevStarPoint

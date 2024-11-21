@@ -9,10 +9,9 @@
 <script type="text/javascript">
 $(function() {
 	$("#location").change(function() {
-		
 		var locationValue = $(this).val();
-// 		console.log($("#search").val());
-// 		console.log($("#category").val());
+	    console.log("Selected location:", locationValue); // 선택된 값 확인
+	    
 		$.ajax({
 			url: "./all",
 			type: "get",
@@ -21,7 +20,7 @@ $(function() {
 			},
 			dataType: "html",
 			success: function(res) {
-// 				console.log(res);
+	            console.log("Response received:", res); // 응답 확인
 				$("body").children().remove();
 				$("body").html(res); 
 			},

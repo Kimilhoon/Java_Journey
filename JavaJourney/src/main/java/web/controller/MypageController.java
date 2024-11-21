@@ -199,7 +199,7 @@ public class MypageController {
     public boolean checkPassword(@RequestParam("userPw") String userPw, HttpSession session) {
         // 세션에서 현재 사용자 ID 가져오기
         String userId = (String) session.getAttribute("userId");
-        log.info("userId",userId);
+        log.info("userId:{}",userId);
 
         // DB에 저장된 비밀번호와 비교하기
         Member member = service.findByUserId(userId);
@@ -242,39 +242,22 @@ public class MypageController {
 		
 		return ResponseEntity.ok(checkNickResult);
 	}
+	
 	@RequestMapping("/out")
 	public String leave(Member member, HttpSession session) {
-		// DB에서 기존 사용자 정보 가져오기
-		Integer userNo = (Integer) session.getAttribute("userNo");
-	    log.info("OutMember userNo before update: {}", member.getUserNo());
-		service.outMember(member);
-	    log.info("out userNo1:{}", userNo);
-	    log.info("out member1:{}", member);
-	    
-		member = service.findByUserNo(userNo);
-		log.info("out userNo2:{}", userNo);
-		log.info("out member2:{}", member);
+		int userNo = (int) session.getAttribute("userNo");
+		String userNick = (String)session.getAttribute("userNick");
+		log.info("userNo:{}", userNo);
+		log.info("userNick:{}", userNick);
 		
-		log.info("Before session.invalidate() - userNo: {}", userNo);
+		service.outMember(userNo);
+		service.updateCommNickTag(userNick);
+		
+		
 		session.invalidate();
-		return "redirect:/main"; 
+		
+		return "redirect:/main";
 	}
-//	@GetMapping("/out")
-//	public void leaveMember(HttpSession session, Model model) {
-//        // 세션에서 userNo 가져오기
-//        Integer userNo = (Integer) session.getAttribute("userNo");
-//        // DB에서 기존 사용자 정보 가져오기
-//        Member member = service.findByUserNo(userNo);
-//        model.addAttribute("member", member);
-//	}
-	
-//	@RequestMapping("/out")
-//	public String leave(Member member, HttpSession session) {
-//		service.outMember(member);
-//		
-//		session.invalidate();
-//		return "redirect:/main"; 
-//	}
 	
 	
 

@@ -53,6 +53,11 @@ public class CafeController {
 		log.info("location: {}", location);
 		log.info("keyword: {}", keyword);
 		
+//		// location이 빈 문자열인 경우 null로 변환
+//	    if (location != null && location.trim().isEmpty()) {
+//	        location = null;
+//	    }
+		
 		//전달파라미터 이용한 현재 페이징 객체 알아내기
 		Paging paging = service.getPaging(param, location, keyword);
 		log.info("paging : {}",paging);
@@ -66,6 +71,8 @@ public class CafeController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("location", location);
 		model.addAttribute("keyword", keyword);
+//		model.addAttribute("location", String.valueOf(location)); // 문자열로 변환
+//		model.addAttribute("keyword", String.valueOf(keyword));   // 문자열로 변환
 		
 		log.info("AllCafeForm 호출 성공");
 	} // AllCafeForm() end
@@ -78,28 +85,43 @@ public class CafeController {
 		
 		//서비스에서 카페 상세 정보를 조회
 		Cafe cafeInfo = service.getCafeInfo(cafe);
+		if (cafeInfo == null) {
+			log.error("cafeInfo가 null입니다. 잘못된 cafeNo: {}", cafe.getCafeNo());
+			return;
+		}
 		
 		//조회한 카페 정보를 모델에 추가
 		model.addAttribute("cafeInfo", cafeInfo);
 		
 		// 평균 별점 구하기
 		CafeRev sp = service.getStarPoint(cafe);
+		if (sp == null) {
+			log.warn("별점 정보가 없습니다. cafeNo: {}", cafe.getCafeNo());
+		}
 //		log.info("sp: {}", sp);
-		
 		model.addAttribute("starPoint", sp);
 		
+		//로그인 여부 확인하기
 		if (userId == null) {
-	        // 세션에 userId가 없을 때 처리
-	        log.warn("User is not logged in or session has expired.");
-	        return;
+			// 로그인한 경우 사용자 번호 조회 및 추가
+			Member userNo = service.selectUserNoByUserId(userId);
+			if(userNo != null) {
+				model.addAttribute("userNo", userNo.getUserNo());
+			} else {
+				log.warn("userId에 해당하는 사용자 번호를 찾을 수 없습니다. userId: {}", userId);
+			}
+		} else {
+	        log.warn("사용자가 로그인하지 않았거나 세션이 만료되었습니다.");
+	        model.addAttribute("userNo", null); // 로그인하지 않은 경우 userNo를 null로 설정
 	    } // if (userId == null) end
 		
-		Member userNo = service.selectUserNoByUserId(userId);
 //		log.info("userNo: {}", userNo.getUserNo());
-		model.addAttribute("userNo", userNo.getUserNo());
 		
 		// 리뷰 보여주기
 		List<CafeRev> list = service.selectAllRev(cafe);
+		if (list == null || list.isEmpty()) {
+	        log.warn("리뷰 목록이 비어 있습니다. cafeNo: {}", cafe.getCafeNo());
+	    }
 		
 		log.info("list: {}", list);
 		
@@ -107,6 +129,9 @@ public class CafeController {
 
 		//주소 정보 추가
 		String savedAddress = cafeInfo.getCafeAdd1(); // 카페 주소
+		if (savedAddress == null || savedAddress.isEmpty()) {
+	        log.warn("주소 정보가 비어 있습니다. cafeNo: {}", cafe.getCafeNo());
+	    }
 	    model.addAttribute("savedAddress", savedAddress);
 
 	    log.info("Saved Address: {}", savedAddress);
