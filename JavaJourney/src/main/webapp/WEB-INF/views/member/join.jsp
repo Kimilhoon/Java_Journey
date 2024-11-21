@@ -701,26 +701,37 @@ $(document).ready(function() {
 /* ------------------------------------------------------------- */
 #joinForm .idSection,
 #joinForm .nickSection,
-#joinForm .businessSection{
+#joinForm .businessSection,
+#joinForm .mail-check-box {
     margin-bottom: 30px; /* 섹션 간 간격 설정 */
 }
 #joinForm .addressSection {
     margin-bottom: 5px; /* 섹션 간 간격 설정 */
 }
+#joinForm .emailSection .inputGroup {
+	margin-bottom: 30px;
+    display: flex;       /* 입력 필드와 버튼 가로 정렬 */
+    gap : 5px;
+}
 
 
 #joinForm .idSection input,
 #joinForm .nickSection input,
-#joinForm .businessSection input{
+#joinForm .businessSection input,
+#joinForm .emailSection input,
+#joinForm .mail-check-box input{
     width: 83%; /* 텍스트 필드의 너비를 줄여서 버튼이 들어갈 공간 확보 */
 }
 #joinForm .addressSection input{
     width: 77%;
 }
 
+
 #joinForm .idSection button,
 #joinForm .nickSection button,
-#joinForm .businessSection button{
+#joinForm .businessSection button,
+#joinForm .emailSection .inputGroup button,
+#joinForm .mail-check-box button{
     width: 16%;
     padding: 10px;
     background-color: #6f4e37;
@@ -811,6 +822,18 @@ label.agree button:hover {
 	닉네임은 5~10자의 영문, 한글, 숫자만 가능합니다
 </p>
 
+<div class="emailSection">
+	<label for="userEmail">이메일</label>
+	<div class="inputGroup">
+	<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" >
+	<button type="button" id="mailCheckBtn">본인인증</button>
+	</div>
+</div>
+<div class="mail-check-box">
+	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
+	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
+</div>
+	<p id="resultMsg" style="font-size:0.6rem;"></p>
 
 <div>
 	<label for="userEmail">이메일

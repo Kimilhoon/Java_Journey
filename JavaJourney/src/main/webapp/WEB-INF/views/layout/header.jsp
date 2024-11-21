@@ -49,7 +49,6 @@ footer {
     transform: translatY(-80%);
 }
 
-
 /* 로고 크기 조정 */
 #logo {
 	position: flex;

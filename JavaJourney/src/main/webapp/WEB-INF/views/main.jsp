@@ -85,6 +85,7 @@ $(function () {
 
 <div class="container">
 
+    <!-- Left Carousel -->
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">

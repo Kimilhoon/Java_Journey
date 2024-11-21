@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript">
 $(function() {
 	$("#btnIdFind").click(function() {
@@ -46,17 +41,68 @@ $(function() {
 });	//$(function) end
 
 </script>
-</head>
-<body>
-아이디 찾기
+
+
+<style>
+    .idFindForm {
+        width: 100%;
+        max-width: 400px;  /* 폼의 최대 너비 설정 */
+        margin: 0 auto;    /* 수평 중앙 정렬 */
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 각 요소의 간격을 설정 */
+    .idFindForm div {
+        margin-bottom: 15px;
+    }
+
+    /* 레이블 스타일 */
+    .idFindForm label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    /* 입력 필드 스타일 */
+    .idFindForm input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* padding과 border를 포함한 너비 */
+    }
+
+    /* 버튼 스타일 */
+    .idFindForm button {
+        width: 100%;
+        padding: 12px;
+        background-color: #6f4e37;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    /* 버튼 호버 스타일 */
+    .idFindForm button:hover {
+        background-color: #5a3e2f;
+    }    
+</style>
+
+
+
+<h2 style="text-align: center; font-weight: bold;">아이디 찾기</h2>
 <hr>
 
-<form action="./idfind" method="post" id="idfindForm">
+<form action="./idfind" method="post" class="idFindForm">
 
 <div>
-	<label for="userName">이름
-		<input type="text" name="userName" id="userName" required="required">
-	</label>
+	<label for="userName">이름</label>
+	<input type="text" name="userName" id="userName" required="required">
 </div>
 
 <div>
@@ -72,16 +118,14 @@ $(function() {
 	<p id="searchIdResult"></p>
 </div>
 
-<a href="./pwfind">|비밀번호 찾기|</a>
+<div>
+	<a href="./pwfind">| 비밀번호 찾기 |</a>
+</div>
+
+<!-- <div> -->
+<!-- 	<a href="./login">| 로그인 |</a> -->
+<!-- </div> -->
 
 </form>
 
-<div>
-	<a href="./login">
-	<button>로그인 하러가기</button>
-	</a>
-</div>
-
-
-</body>
-</html>
+<c:import url="../layout/footer.jsp" />
