@@ -7,7 +7,8 @@
 <script type="text/javascript">
 $(function() {
 	$("#summernote").summernote({
-		 height: 300
+		 height: 300,
+		 required:true
 
 	});
 	
@@ -22,7 +23,43 @@ $(function() {
      
 	});
 	
+	$("#updateForm").submit(function() {
+		
+		if($('#summernote').val().length <= 0){
+			alert("본문 내용을 입력하세요.");
+			return false;
+		}
+		
+		if($('#myRipTitle').val().length <= 0){
+			alert("제목을 입력하세요.");
+			return false;
+		}
+	})
 })
+$(document).ready(function() {
+    let isSubmitting = false;  // 플래그 변수 추가
+
+    // Summernote가 비어있는지 확인하는 함수
+    function hasContent() {
+        return !$('#summernote').summernote('isEmpty');
+    }
+
+    // 페이지를 벗어날 때 경고창 표시
+    function beforeUnloadHandler(e) {
+        if (hasContent() && !isSubmitting) {  // 플래그를 확인하여 submit 상태에서는 경고창 표시하지 않음
+            e.preventDefault();
+            e.returnValue = ''; // 브라우저에 따라 메시지를 표시하기 위한 설정
+        }
+    }
+
+    // beforeunload 이벤트 등록
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+
+    // submit 버튼 클릭 시 플래그 설정 및 beforeunload 이벤트 무시
+    $('#write').on('click', function() {
+        isSubmitting = true;  // submit 이벤트가 발생했음을 표시
+    });
+});
 </script>
 
 <style>
@@ -56,7 +93,7 @@ $(function() {
 <div class="container">
 
 
-<form action="./update?myRipNo=${myRecipeView.myRipNo }" method="post" enctype="multipart/form-data" >
+<form id="updateForm" action="./update?myRipNo=${myRecipeView.myRipNo }" method="post" enctype="multipart/form-data" >
 
 
 
@@ -112,9 +149,9 @@ $(function() {
 </tr>
 </table>
 
-<div style="float: right;">
-<a href="./list"><button class="btn " type="button">목록</button></a>
-<button class="btn " id="write">수정</button>
+<div style="text-align: right;	">
+	<a href="./view?myRipNo=${myRecipeView.myRipNo }"><button class="btn " type="button" >취소</button></a>
+	<button class="btn " id="write">수정</button>
 </div>
 
 </form>

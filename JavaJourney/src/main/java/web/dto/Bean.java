@@ -17,13 +17,14 @@ public class Bean {
 	private int beanCount;
 	
 	private String businessNo;	
+	private String status;	
 	
 	//beanImg join
 	private String beanStoredName;
     private String beanOriginName;
     
     //cupNote join
-	private String cupNoteName;
+	private String cupNoteName[];
 	
 	// beanRev join
 	private int revStarPoint;
@@ -43,4 +44,8 @@ public class Bean {
 	private String userPostcode;
 	private String userAdd1;
 	private String userAdd2;
+	
+	//조인 BeanTaste
+//	private int beanNo;
+	private int cupNoteNo;
 }

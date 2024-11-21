@@ -13,7 +13,7 @@ $(function() {
 $("#QuizBtn").click(function() {
 
 	// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)
-	location.href = "./quiz1";
+	location.href = "./quizForm";
 	
 	
 });

@@ -15,6 +15,17 @@ $(document).ready(function() {
 $(function() {
 	
 	$("#write").click(function() {
+		
+		if($('#summernote').val().length <= 0){
+			alert("본문 내용을 입력하세요.");
+			return false;
+		}
+		
+		if($('#t').val().length <= 0){
+			alert("제목을 입력하세요.");
+			return false;
+		}
+		
 // 		console.log($("#t").val());
 // 		console.log($("input:radio[name=freeBoardCategory]:checked").val());
 // 		console.log($("#summernote").val());
@@ -318,6 +329,30 @@ $(function() {
 	
 	
 })
+$(document).ready(function() {
+    let isSubmitting = false;  // 플래그 변수 추가
+
+    // Summernote가 비어있는지 확인하는 함수
+    function hasContent() {
+        return !$('#summernote').summernote('isEmpty');
+    }
+
+    // 페이지를 벗어날 때 경고창 표시
+    function beforeUnloadHandler(e) {
+        if (hasContent() && !isSubmitting) {  // 플래그를 확인하여 submit 상태에서는 경고창 표시하지 않음
+            e.preventDefault();
+            e.returnValue = ''; // 브라우저에 따라 메시지를 표시하기 위한 설정
+        }
+    }
+
+    // beforeunload 이벤트 등록
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+
+    // submit 버튼 클릭 시 플래그 설정 및 beforeunload 이벤트 무시
+    $('#write').on('click', function() {
+        isSubmitting = true;  // submit 이벤트가 발생했음을 표시
+    });
+});
 </script>
 <style>
 .map_wrap, .map_wrap * {margin:0 auto;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -391,7 +426,7 @@ $(function() {
 <div id="content">
 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="./list">myrecipe</a></li>
+		<li class="breadcrumb-item"><a href="./list">freeboard</a></li>
 		<li class="breadcrumb-item active" aria-current="page">write</li>
 	</ol>
 </nav>

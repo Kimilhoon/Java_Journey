@@ -466,6 +466,7 @@ public class CommunityServiceImpl implements CommunityService {
 			if(file.getOriginalFilename().length()<1) {
 				return;
 			}
+			myRecipeFile = new MyRecipeFile();
 			String storedPath = context.getRealPath("upload");
 			File upFolder = new File(context.getRealPath("upload"));
 			upFolder.mkdir();
@@ -498,10 +499,10 @@ public class CommunityServiceImpl implements CommunityService {
 			dao.insertMyRecipeFile(myRecipeFile);
 			
 		}else {
+			dao.deleteMyRecipeFileByMyRipNo(myRecipe);
 			if(file.getOriginalFilename().length()<1) {
 				return;
 			}
-			dao.deleteMyRecipeFileByMyRipNo(myRecipe);
 			String storedPath = context.getRealPath("upload");
 			File upFolder = new File(context.getRealPath("upload"));
 			upFolder.mkdir();
@@ -712,8 +713,8 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void dropCafeReview(CafeRev cafeRev) {
 		
-		dao.deleteCafeReviewByCafeNo(cafeRev);
 		dao.deleteCafeReviewCommByCafeNo(cafeRev);
+		dao.deleteCafeReviewByCafeNo(cafeRev);
 		
 	}
 	
@@ -1030,8 +1031,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void dropBeanReview(BeanRev beanRev) {
     	
+    	dao.deleteBeanReviewCommByBeanNo(beanRev);
 		dao.deleteBeanReviewByBeanNo(beanRev);
-		dao.deleteBeanReviewCommByBeanNo(beanRev);
     	
     }
     

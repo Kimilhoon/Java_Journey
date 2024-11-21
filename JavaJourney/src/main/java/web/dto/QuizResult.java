@@ -9,10 +9,10 @@ public class QuizResult {
 	private int beanNo;
 	private int grind;
 	private int extraction;
-	private int cupNoteNo;
+	private int cupNoteNoQuiz[];
 	private String grindName;
 	private String extractionName;
-	private String cupNoteName[];
+	private String cupNoteName;
 	private String beanName;
 	
 } // class end

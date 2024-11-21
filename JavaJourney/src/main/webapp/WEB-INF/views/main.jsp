@@ -85,7 +85,6 @@ $(function () {
 
 <div class="container">
 
-
     <!-- Left Carousel -->
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
@@ -93,31 +92,6 @@ $(function () {
                 <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <c:forEach var="bean" items="${bList}" varStatus="status">
-                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                    	 <div class="custom-image">
-                                ${bean.beanOriginName}
-                          </div>
-                        <a href="/bean/info?beanNo=${bean.beanNo}">
-                            <p class="fw-bold fs-4">${bean.beanName}</p>
-                        </a>
-                        <p>${bean.origin}</p>
-                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
-    </div>
-
-    <!-- Right Carousel -->
-    <div class="carousel-container right">
-        <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
                 <c:forEach var="cafe" items="${cList }" varStatus="status">
@@ -135,8 +109,32 @@ $(function () {
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Left Carousel -->
+    <div class="carousel-container right">
+        <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <c:forEach var="bean" items="${bList}" varStatus="status">
+                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                    	 <div class="custom-image">
+                                ${bean.beanOriginName}
+                          </div>
+                        <a href="/bean/info?beanNo=${bean.beanNo}">
+                            <p class="fw-bold fs-4">${bean.beanName}</p>
+                        </a>
+                        <p>${bean.origin}</p>
+                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- footer -->
 <c:import url="./layout/footer.jsp"/> 

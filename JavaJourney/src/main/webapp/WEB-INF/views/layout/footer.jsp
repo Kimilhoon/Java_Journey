@@ -66,6 +66,9 @@ a {
 	  });
 </script>
 
+</div>
+
+<footer>
 <div class="mt-5 footer" style="background: #F5F3EF">
 	
 	<br>
@@ -175,6 +178,6 @@ a {
 <!-- </div> -->
 
 </div>
-
+</footer>
 </body>
 </html>

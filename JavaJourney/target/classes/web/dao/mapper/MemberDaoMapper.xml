@@ -43,8 +43,7 @@
 	</select>
 	
 	<select id="selectByLogin" parameterType="Member" resultType="Member">
-		SELECT userNo, userId, userPw, userNick, userEmail, userName
-		, userPhone, userPostcode, userAdd1, userAdd2, businessNo
+		SELECT *
 		FROM member
 		<where>
 			AND userId = #{userId}
@@ -68,6 +67,28 @@
 		</where>			
 	</select>
 	
+	<select id="cntByUserEmail" parameterType="string" resultType="int">
+		SELECT count(*)
+		FROM MEMBER
+		WHERE useremail = #{email }
+	</select>
+	
+	<insert id="insertKakaoLoginUser" parameterType="hashmap">
+		INSERT INTO MEMBER (userno, userid, userpw, usernick, useremail, username, userphone, userpostcode, useradd1, useradd2)
+		VALUES ( userNo_seq.nextval, #{userId }, #{userPw }, #{nickname }, #{email }, #{name }, #{phone_number }, 'userpostcode', 'useradd1', 'useradd2' )
+	</insert>
+	
+	<select id="selectUSerNoByKakaoEmail" resultType="int" parameterType="hashmap">
+		SELECT userno
+		FROM MEMBER
+		WHERE useremail = #{email }
+	</select>
+	
+	<select id="selectUSerIdByKakaoEmail" resultType="string" parameterType="hashmap">
+		SELECT userid
+		FROM MEMBER
+		WHERE useremail = #{email }
+	</select>
 	
 	
 </mapper>

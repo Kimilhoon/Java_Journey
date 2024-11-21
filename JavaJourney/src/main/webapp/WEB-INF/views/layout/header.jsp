@@ -34,6 +34,21 @@ $(function() {
 </script>
 
 <style>
+
+html, body {
+    height: 70%
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+}
+
+footer {
+    position: relative;
+    transform: translatY(-80%);
+}
+
 /* 로고 크기 조정 */
 #logo {
 	position: flex;
@@ -52,6 +67,7 @@ $(function() {
 
 /* 메뉴바 크기 및 텍스트 스타일 조정 */
 .navbar-nav .nav-link {
+	cursor: pointer
     color: #f3e9dc !important;
     font-size: 1.1rem;
     font-weight: 500;
@@ -246,3 +262,5 @@ $(function() {
     </div>
   </nav>
 </div>
+
+<div id="wrap">
