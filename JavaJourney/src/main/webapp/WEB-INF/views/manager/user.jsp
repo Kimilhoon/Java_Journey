@@ -93,12 +93,42 @@ $(function () {
 			 			
 			});
 		});
+	
+	
+		$("#btn_search").click(function() {
+	 		console.log($("#search").val()); 
+			$.ajax({
+				url: "./user",
+				type: "get",
+				data:{
+					"search":$("#search").val(), //search:검색입력값을 서버에 전달
+				},
+				dataType: "html",
+				success: function(res) {
+//	 				console.log(res);
+					$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
+					$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
+				},
+				error: function() {
+					
+				}
+				
+			});
+			
+		});		
 })
 </script>
 </head>
 <body>
 <h1 style="text-align: center;">유저 관리</h1>
 <div id="List">
+
+<div id="search_div">
+	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+</div>
+	
+
 <table class="table">
 	<thead>
 		<tr>
@@ -144,6 +174,8 @@ $(function () {
 	<button class="btn btn-primary" id="btnUserCancel">비활성화</button>
 	<button class="btn btn-primary" id="btnUserRevive">활성화</button>
 </div>
+
+
 
 <c:import url="/WEB-INF/views/manager/userpage.jsp"/>
 

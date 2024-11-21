@@ -49,8 +49,10 @@
 	<c:if test="${paging.curPage ne paging.totalPage }">
 		<li class="page-item">
 			<a class="page-link" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${paging.endPage }">&rarr; 마지막</a>
+			<a class="page-link" href="/mypage/subscribe?${sub.userNo }&curPage=${paging.startPage }">&larr; 처음</a>
 		</li>
 	</c:if>
+
 </ul>
 
 </div>

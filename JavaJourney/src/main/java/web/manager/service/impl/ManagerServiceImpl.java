@@ -1,5 +1,6 @@
 package web.manager.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import web.dto.BeanSub;
 import web.dto.Member;
+import web.dto.Notice;
 import web.manager.dao.face.ManagerDao;
 import web.manager.service.face.ManagerService;
 import web.util.Paging;
@@ -117,6 +119,28 @@ public class ManagerServiceImpl implements ManagerService {
 			
 		}
 		return true;
+	}
+
+	@Override
+	public List<Member> searchByUserNick(String search, Paging paging) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<Member> memberList = dao.selectByUserNick(map);
+		
+		return memberList;
+	}
+
+	@Override
+	public List<BeanSub> searchsubuserByUserNick(String search, Paging paging) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
+		List<BeanSub> subuserList = dao.selectsubuserByUserNick(map);
+		
+		return subuserList;
 	}
 	
 }

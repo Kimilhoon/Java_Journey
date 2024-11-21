@@ -54,6 +54,15 @@
 	            ) r 
 	            ON 
 	                c.cafeNo = r.cafeNo
+	            WHERE 
+<!--                 (c.cafeLoc = NVL(#{location}, c.cafeLoc)) -->
+					(#{location} = 'N' OR c.cafeLoc = #{location})
+	                AND (
+	                    #{keyword} IS NULL 
+	                    OR c.cafeName LIKE '%' || #{keyword} || '%'
+	                    OR c.cafeComm LIKE '%' || #{keyword} || '%'
+	                    OR c.cafeInfo LIKE '%' || #{keyword} || '%'
+	                )
 	            ORDER BY 
 	                avgRevStarPoint DESC
 	        ) a

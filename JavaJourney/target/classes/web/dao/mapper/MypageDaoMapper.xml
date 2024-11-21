@@ -96,7 +96,6 @@
 				)a
 			)WHERE r BETWEEN #{paging.startNo } AND #{paging.endNo }
 	</select>
-
 <!--    <delete id="subCancel" parameterType="Integer"> -->
 <!--       DELETE BEANSUB -->
 <!--       <where> -->

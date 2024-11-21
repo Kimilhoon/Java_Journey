@@ -1,10 +1,20 @@
 package web.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Member;
@@ -35,7 +47,8 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	private KakaoApi kakaoApi = new KakaoApi();
+	@Autowired
+	private KakaoApi kakaoApi;
 	
 	//이메일인증 의존성주입
 	@Autowired 
@@ -210,6 +223,9 @@ public void test() {}
 		return num; // String 타입으로 변환 후 반환
 	}
 	
+
+	//========================================[ 카카오 로그인 ]========================================
+	
 	@RequestMapping("/kakao/login")
 	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpSession session) {
 		
@@ -221,12 +237,16 @@ public void test() {}
 		// 2. 인증코드로 토큰 전달
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_token);
 		
-		if(userInfo.get("email") != null) {
-			session.setAttribute("userId", userInfo.get("email"));
+		if(userInfo.get("nickname") != null) {
+			session.setAttribute("userNick", userInfo.get("nickname"));
 			session.setAttribute("access_token", access_token);
+			session.setAttribute("userId", userInfo.get("userId"));
+			session.setAttribute("userNo", userInfo.get("userNo"));
 			session.setAttribute("isLogin", true);
+			session.setAttribute("isKakao", true);
 		}
-		mav.addObject("userId", userInfo.get("email"));
+		
+		mav.addObject("userNick", userInfo.get("nickname"));
 		mav.setViewName("main");
 		return mav;
 		
@@ -239,10 +259,264 @@ public void test() {}
 		kakaoApi.kakaoLogout((String) session.getAttribute("access_token"));
 		session.removeAttribute("access_token");
 		session.removeAttribute("userId");
+		session.invalidate();
 		mav.setViewName("main");
 		
 		return mav;
 	}
+	
+	//네이버 로그인 =======================================================================
+	@GetMapping("/naver/login")
+	public String naverLogin(HttpSession session,HttpServletRequest request) {
+		
+				String clientId = "pbxVOw3sgvBhBzt9HayL";//애플리케이션 클라이언트 아이디값";
+			    String clientSecret = "FuIdnBni_S";//애플리케이션 클라이언트 시크릿값";
+			    String code = request.getParameter("code");
+			    String state = request.getParameter("state");
+			    String redirectURI=null;
+			    StringBuffer res = new StringBuffer();
+				try {
+					redirectURI = URLEncoder.encode("http://localhost:8088/main", "UTF-8");
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+			    String apiURL;
+			    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+			    apiURL += "client_id=" + clientId;
+			    apiURL += "&client_secret=" + clientSecret;
+			    apiURL += "&redirect_uri=" + redirectURI;
+			    apiURL += "&code=" + code;
+			    apiURL += "&state=" + state;
+			    String access_token = "";
+			    String refresh_token = "";
+			    System.out.println("apiURL="+apiURL);
+			    try {
+			      URL url = new URL(apiURL);
+			      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			      con.setRequestMethod("GET");
+			      int responseCode = con.getResponseCode();
+			      BufferedReader br;
+			      System.out.print("responseCode="+responseCode);
+			      if(responseCode==200) { // 정상 호출
+			        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			      } else {  // 에러 발생
+			        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			      }
+			      String inputLine;
+			      
+			      while ((inputLine = br.readLine()) != null) {
+			        res.append(inputLine);
+			      }
+			      br.close();
+			      if(responseCode==200) {
+			        System.out.println(res.toString());
+			      }
+			    } catch (Exception e) {
+			      System.out.println(e);
+			    }
+				//------------------------------
+			    
+			    String res1 = res.toString();
+		        // responseCode와 JSON 부분 분리
+		        int splitIndex = res1.indexOf("{"); // JSON 시작 위치
+		        String responseCodePart = res1.substring(0, splitIndex); // "responseCode=200"
+		        String jsonPart = res1.substring(splitIndex);           // "{\"access_token\": ...}"
+		        System.out.println();
+		        // responseCode 값 추출
+//		        String responseCode = responseCodePart.split("=")[1];
+
+		        // Gson을 사용하여 JSON 데이터 파싱
+		        Gson gson = new Gson();
+		        JsonObject jsonObject = gson.fromJson(jsonPart, JsonObject.class);
+
+		        // 각각의 값을 추출하여 문자열로 저장
+		        String accessToken = jsonObject.get("access_token").getAsString();
+		        String refreshToken = jsonObject.get("refresh_token").getAsString();
+		        String tokenType = jsonObject.get("token_type").getAsString();
+		        String expiresIn = jsonObject.get("expires_in").getAsString();
+
+		        // 결과 출력
+		        System.out.println("accessToken: " + accessToken);
+		        System.out.println("refreshToken: " + refreshToken);
+		        System.out.println("tokenType: " + tokenType);
+		        System.out.println("expiresIn: " + expiresIn);
+			    
+			    
+			    
+			    
+			    
+			    String token = accessToken; // 네이버 로그인 접근 토큰;
+		        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+
+
+		        String apiURL1 = "https://openapi.naver.com/v1/nid/me";
+
+
+		        Map<String, String> requestHeaders = new HashMap<>();
+		        requestHeaders.put("Authorization", header);
+		        String responseBody = get(apiURL1,requestHeaders);
+
+
+		        System.out.println(responseBody);
+		        
+		        // JSON 형식의 문자열 데이터
+		        String json = responseBody;
+		        // Gson 객체 생성
+
+		        // JSON 문자열을 JsonObject로 변환
+		        jsonObject = gson.fromJson(json, JsonObject.class);
+
+		        // 최상위 값 추출
+		        String resultCode = jsonObject.get("resultcode").getAsString();
+		        String message = jsonObject.get("message").getAsString();
+
+		        // 중첩된 "response" 객체 추출
+		        JsonObject responseObject = jsonObject.getAsJsonObject("response");
+		        String id = responseObject.get("id").getAsString();
+		        String nickname = responseObject.get("nickname").getAsString();
+		        String email = responseObject.get("email").getAsString();
+		        String mobile = responseObject.get("mobile").getAsString();
+		        String mobileE164 = responseObject.get("mobile_e164").getAsString();
+		        String name = responseObject.get("name").getAsString();
+
+		        // 결과 출력
+		        System.out.println("resultCode: " + resultCode);
+		        System.out.println("message: " + message);
+		        System.out.println("id: " + id);
+		        System.out.println("nickname: " + nickname);
+		        System.out.println("email: " + email);
+		        System.out.println("mobile: " + mobile);
+		        System.out.println("mobile_e164: " + mobileE164);
+		        System.out.println("name: " + name);
+
+		        // 필요한 경우 각각의 값 문자열로 저장
+		        String resultCodeStr = resultCode;
+		        String messageStr = message;
+		        String idStr = id;
+		        String nicknameStr = nickname;
+		        String emailStr = email;
+		        String mobileStr = mobile;
+		        String mobileE164Str = mobileE164;
+		        String nameStr = name;
+		        
+		        Member member = new Member();
+		        member.setBusinessNo("null");
+		        member.setSocialNo(1);
+		        member.setStatus("Y");
+		        member.setUserAdd1("네이버 로그인");
+		        member.setUserAdd2("네이버로그인");
+		        member.setUserEmail(emailStr);
+		        member.setUserId(idStr);
+		        member.setUserName(nameStr);
+		        member.setUserNick(nicknameStr);
+		        member.setUserPhone(mobileStr);
+		        member.setUserPostcode("네이버로그인");
+		        member.setUserPw("naverLoginPW");
+		        
+		        Map<String, Object> map = service.checkId(member);
+		        if((boolean)map.get("duplicate")) {
+		        	
+	    			member= service.info(member);
+	    			
+	    			log.info("info member : {}", member);
+	    			
+	    	       if ("Y".equals(member.getStatus())) {
+	    			session.setAttribute("isLogin", true);
+	    			session.setAttribute("userId", member.getUserId());
+	    			session.setAttribute("userNick", member.getUserNick());
+	    			session.setAttribute("userNo", member.getUserNo());
+	    			
+	    			return "redirect:/main";
+	    	       } else {
+	    	    	   log.info("로그인 실패 : 비활성화된 계정");
+	    	    	   session.setAttribute("loginError", "탈퇴한 회원입니다");
+	    				return "redirect:/member/login";
+	    	       }
+		    		
+		        }else {
+		        	
+		        	service.join(member);
+		        	member= service.info(member);
+	    			
+	    			log.info("info member : {}", member);
+	    			
+	    	       if ("Y".equals(member.getStatus())) {
+	    			session.setAttribute("isLogin", true);
+	    			session.setAttribute("userId", member.getUserId());
+	    			session.setAttribute("userNick", member.getUserNick());
+	    			session.setAttribute("userNo", member.getUserNo());
+	    			
+	    			return "redirect:/main";
+	    	       } else {
+	    	    	   log.info("로그인 실패 : 비활성화된 계정");
+	    	    	   session.setAttribute("loginError", "탈퇴한 회원입니다");
+	    				return "redirect:/member/login";
+	    	       }
+		        	
+		        }
+		        
+		
+	}
+	//네이버 로그인 메소드==========================================================================================
+	private static String get(String apiUrl, Map<String, String> requestHeaders){
+        HttpURLConnection con = connect(apiUrl);
+        try {
+            con.setRequestMethod("GET");
+            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+                con.setRequestProperty(header.getKey(), header.getValue());
+            }
+
+
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+                return readBody(con.getInputStream());
+            } else { // 에러 발생
+                return readBody(con.getErrorStream());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("API 요청과 응답 실패", e);
+        } finally {
+            con.disconnect();
+        }
+    }
+
+
+    private static HttpURLConnection connect(String apiUrl){
+        try {
+            URL url = new URL(apiUrl);
+            return (HttpURLConnection)url.openConnection();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+        } catch (IOException e) {
+            throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
+        }
+    }
+
+
+    private static String readBody(InputStream body){
+        InputStreamReader streamReader = new InputStreamReader(body);
+
+
+        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+            StringBuilder responseBody = new StringBuilder();
+
+
+            String line;
+            while ((line = lineReader.readLine()) != null) {
+                responseBody.append(line);
+            }
+
+
+            return responseBody.toString();
+        } catch (IOException e) {
+            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+        }
+    }
+    //네이버 로그인 메소드==========================================================================================
+	
+	
+	
+	
 	
 	
 	

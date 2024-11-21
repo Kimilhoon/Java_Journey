@@ -98,10 +98,19 @@ $(function() {
 		<input type="text" name="userId" id="userId" readonly="readonly" value="${userId }" placeholder="로그인">
 	</div>
 	
-	<div>
-		<label for="userPw"></label>
-		<input type="password" name="userPw" id="userPw" placeholder="비밀번호">
-	</div>
+	<c:if test="${isKakao }">
+		<div>
+			<label for="userPw"></label>
+			<input type="password" name="userPw" id="userPw" placeholder="초기 비밀번호는 이메일 @ 앞자리 입니다.">
+		</div>
+	</c:if>
+	
+	<c:if test="${not isKakao }">
+		<div>
+			<label for="userPw"></label>
+			<input type="password" name="userPw" id="userPw" placeholder="비밀번호">
+		</div>
+	</c:if>
 	
 	<button id="btnInfoUpdate">정보 수정하기</button>
 </div>
