@@ -129,6 +129,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div class="container banner">
 
+    <!-- Right Carousel -->
+
     <!-- Left Carousel -->
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">

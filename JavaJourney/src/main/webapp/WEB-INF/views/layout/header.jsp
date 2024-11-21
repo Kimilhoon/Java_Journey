@@ -182,6 +182,7 @@ footer {
 		</div>
 	</c:if>
   </div>
+  
 
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">

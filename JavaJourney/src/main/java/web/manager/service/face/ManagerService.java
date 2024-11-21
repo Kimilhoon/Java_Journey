@@ -61,6 +61,22 @@ public interface ManagerService {
 	 */
 	public boolean subCancelBySubNo(List<Integer> subNo);
 
+	/**
+	 * 유저관리에서 회원닉네임으로 검색
+	 * @param search
+	 * @param paging
+	 * @return
+	 */
+	public List<Member> searchByUserNick(String search, Paging paging);
+
+	/**
+	 * 구독관리에서 회원닉네임으로 검색
+	 * @param search
+	 * @param paging
+	 * @return
+	 */
+	public List<BeanSub> searchsubuserByUserNick(String search, Paging paging);
+
 	
 
 	

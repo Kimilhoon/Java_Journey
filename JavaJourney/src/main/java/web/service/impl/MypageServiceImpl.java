@@ -170,6 +170,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
+	@Transactional
 	public void updateCommNickTag(String userNick) {
 		dao.changeFreeCommNickTag(userNick);
 		dao.changeMyrecipeCommNickTag(userNick);

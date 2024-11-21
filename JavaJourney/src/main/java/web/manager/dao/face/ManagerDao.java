@@ -1,5 +1,6 @@
 package web.manager.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -62,6 +63,20 @@ public interface ManagerDao {
 	 * @param no
 	 */
 	public void subNoSubCancenBySubNoForUpdate(Integer no);
+
+	/**
+	 * 검색 조건에 따라 유저 관리 회원 조회
+	 * @param map
+	 * @return
+	 */
+	public List<Member> selectByUserNick(HashMap<String, Object> map);
+
+	/**
+	 * 검색 조건에 따라 구독 관리 회원 조회
+	 * @param map
+	 * @return
+	 */
+	public List<BeanSub> selectsubuserByUserNick(HashMap<String, Object> map);
 
 	
 
