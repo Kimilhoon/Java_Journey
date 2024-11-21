@@ -51,13 +51,19 @@ public class CreateCafeServiceImpl implements CreateCafeService{
 	}
 	
 	@Override
-	@Transactional
-	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
-		dao.deleteCafeRev(cafeRev);
-		dao.deleteCafeRevComm(cafeRevComm);
-		dao.deleteCafe(cafe);
-		dao.deleteCafeImg(cafeImg);
+	public void deleteCafe(int cafeNo) {
+		dao.updateCafeStatus(cafeNo);
 	}
+	
+	
+//	@Override
+//	@Transactional
+//	public void delete(Cafe cafe, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
+//		dao.deleteCafeRev(cafeRev);
+//		dao.deleteCafeRevComm(cafeRevComm);
+//		dao.deleteCafe(cafe);
+//		dao.deleteCafeImg(cafeImg);
+//	}
 
 
 

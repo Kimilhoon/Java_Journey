@@ -400,7 +400,10 @@ $(function() {
 
 <div id="btn" class="d-flex justify-content-center align-self-end">
 	<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
+	
+<%-- 	<c:if test="${cafe.status == 'Y'}"> --%>
 	<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
+<%-- 	</c:if> --%>
 </div>
 	
 </div> <!-- explain p-2 End -->
