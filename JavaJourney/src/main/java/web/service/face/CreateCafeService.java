@@ -35,7 +35,8 @@ public interface CreateCafeService {
 	 * 협약 카페 비활성화 (삭제)
 	 * @param cafeNo
 	 */
-	public void deleteCafe(int cafeNo);
+//	public void deleteCafe(int cafeNo);
+
 
 	/**
 	 * 협약 카페 글 삭제

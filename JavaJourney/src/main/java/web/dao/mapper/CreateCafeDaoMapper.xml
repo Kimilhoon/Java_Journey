@@ -64,11 +64,11 @@
 		WHERE CAFENO = #{cafeNo}
 	</update>
 	
-	<update id="updateCafeStatus" parameterType="int">
-		UPDATE CAFE
-		SET status = 'N'
-		where cafeNo = #{cafeNo}
-	</update>
+<!-- 	<update id="updateCafeStatus" parameterType="int"> -->
+<!-- 		UPDATE CAFE -->
+<!-- 		SET status = 'N' -->
+<!-- 		where cafeNo = #{cafeNo} -->
+<!-- 	</update> -->
 	
 <!-- 	<delete id="deleteCafeRev" parameterType="CafeRev"> -->
 <!-- 		DELETE CafeRev -->

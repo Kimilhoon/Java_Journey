@@ -59,7 +59,7 @@ public interface CreateCafeDao {
 	 * 협약 카페 status 'Y' -> 'N' 으로 변경
 	 * @param cafeNo
 	 */
-	public void updateCafeStatus(int cafeNo);
+//	public void updateCafeStatus(int cafeNo);
 	
 //	/**
 //	 * 카페 글 삭제할때 그 안의 리뷰글 삭제
