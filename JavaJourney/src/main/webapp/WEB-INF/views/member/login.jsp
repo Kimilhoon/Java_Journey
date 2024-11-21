@@ -138,7 +138,6 @@ $(function() {
 <div>
 	<button id="btnLogin" class="btn btn-primary">로그인</button>
 </div>
- <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 
 <div id="findRegister">
 
@@ -152,9 +151,10 @@ $(function() {
 
 </div>
 
+ <a href="<%=apiURL%>"><img height="50" src="/resources/img/naverLogin.png" style="width: 360px; height: 52px; cursor: pointer; "/></a>
 <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7df1421a7bccf6b6463a62d7e3cc88f1&redirect_uri=http://localhost:8088/member/kakao/login
 ">
-	<img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; cursor: pointer; ">
+	<img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; margin-top: 10px; cursor: pointer; ">
 </a>
 
 
