@@ -132,7 +132,7 @@ $(function() {
 
 </div>
 
-<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7df1421a7bccf6b6463a62d7e3cc88f1&redirect_uri=http://localhost:8088/member/kakao/login
+<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a54ccddb4065ad4dbb6ab457409929d7&redirect_uri=http://192.168.10.240:8088/member/kakao/login
 ">
 	<img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; cursor: pointer; ">
 </a>

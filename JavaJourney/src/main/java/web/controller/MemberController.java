@@ -35,7 +35,8 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	private KakaoApi kakaoApi = new KakaoApi();
+	@Autowired
+	private KakaoApi kakaoApi;
 	
 	//이메일인증 의존성주입
 	@Autowired 
@@ -221,12 +222,15 @@ public void test() {}
 		// 2. 인증코드로 토큰 전달
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_token);
 		
-		if(userInfo.get("email") != null) {
-			session.setAttribute("userId", userInfo.get("email"));
+		if(userInfo.get("nickname") != null) {
+			session.setAttribute("userNick", userInfo.get("nickname"));
 			session.setAttribute("access_token", access_token);
+			session.setAttribute("userId", userInfo.get("userId"));
+			session.setAttribute("userNo", userInfo.get("userNo"));
 			session.setAttribute("isLogin", true);
 		}
-		mav.addObject("userId", userInfo.get("email"));
+		
+		mav.addObject("userNick", userInfo.get("nickname"));
 		mav.setViewName("main");
 		return mav;
 		
@@ -239,6 +243,7 @@ public void test() {}
 		kakaoApi.kakaoLogout((String) session.getAttribute("access_token"));
 		session.removeAttribute("access_token");
 		session.removeAttribute("userId");
+		session.invalidate();
 		mav.setViewName("main");
 		
 		return mav;
