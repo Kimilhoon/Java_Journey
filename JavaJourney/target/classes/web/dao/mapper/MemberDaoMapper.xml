@@ -54,7 +54,8 @@
 		SELECT userId FROM member
 		<where>
 			AND userName = #{userName}		
-			AND userPhone = #{userPhone}
+<!-- 			AND userPhone = #{userPhone} -->
+			AND userEmail = #{userEmail}
 		</where>			
 	</select>
 	
@@ -63,7 +64,8 @@
 		<where>
 			AND userId = #{userId}		
 			AND userName = #{userName}		
-			AND userPhone = #{userPhone}
+<!-- 			AND userPhone = #{userPhone} -->
+			AND userEmail = #{userEmail}
 		</where>			
 	</select>
 	
@@ -89,6 +91,12 @@
 		FROM MEMBER
 		WHERE useremail = #{email }
 	</select>
+	
+	<update id="updatePw" parameterType="map">
+		UPDATE MEMBER
+		SET userPw = #{checkNum}
+		where userEmail = #{userEmail}
+	</update>
 	
 	
 </mapper>
