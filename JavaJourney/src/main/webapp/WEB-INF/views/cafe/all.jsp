@@ -191,10 +191,20 @@ img{
 		<a href="./info?cafeNo=${cafe.cafeNo }">
 			<div class="custom-image">${cafe.cafeImgOriName }</div>
 		</a>
+		<c:choose>
+			<c:when test="${ cafe.status == 'Y' }">
 			<p class="fw-bolder fs-4">${cafe.cafeName }</p>
 			<p class="fw-semibold fs-5">${cafe.cafeLoc }</p>
 			<p class="fw-semibold fs-5">${cafe.cafePhone }</p>
 			<p>리뷰( ${cafe.reviewCount } ) | ★( ${cafe.avgRevStarPoint} )</p>
+			</c:when>
+			<c:when test="${ cafe.status == 'N' }">
+			<p class="fw-bolder fs-4">협약 종료</p>
+			<p class="fw-semibold fs-5" style="visibility: hidden;">${cafe.cafeLoc }</p>
+			<p class="fw-semibold fs-5" style="visibility: hidden;">${cafe.cafeLoc }</p>
+			<p style="visibility: hidden;">${cafe.cafeLoc }</p>
+			</c:when>
+		</c:choose>
 	</td>
 		<c:if test="${status.index % 4 == 3 || status.last }">
 		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->

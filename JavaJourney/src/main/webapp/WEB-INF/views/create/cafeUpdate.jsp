@@ -330,6 +330,10 @@ select {
       <div id="map" style="width:500px; height:400px;"></div>
       </td>
 	</tr>
+	<tr>
+		<td>활성화 여부</td>
+		<td>${cafe.status}</td>
+	</tr>
 
 
 </table>

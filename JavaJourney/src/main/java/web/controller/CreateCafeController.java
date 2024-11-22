@@ -43,13 +43,15 @@ public class CreateCafeController {
 		cafe = service.view(cafe);
 		model.addAttribute("cafe", cafe);
 		
+		log.info("update get cafe:{}", cafe);
+		
 		
 		return "/create/cafeUpdate";
 	}
 	
 	@PostMapping("/cafeUpdate")
 	public String updateProc(Cafe cafe, Model model, CafeImg cafeImg) {
-		log.info("cafe:{}", cafe);
+		log.info("update post cafe:{}", cafe);
 		log.info("cafe:{}", cafeImg);
 		
 		service.update(cafe, cafeImg);
@@ -58,8 +60,9 @@ public class CreateCafeController {
 	
 	
 	@RequestMapping("/cafeDelete")
-	public String deleteCafe(Cafe cafe, HttpSession session) {
+	public String deleteCafe(Cafe cafe) {
 		
+		log.info("delete:{}",cafe.getCafeNo());
 		service.updateCafeStatus(cafe.getCafeNo());
 		
 		return "redirect:/cafe/all";
