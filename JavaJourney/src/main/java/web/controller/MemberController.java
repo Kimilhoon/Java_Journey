@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -227,9 +228,7 @@ public void test() {}
 	//========================================[ 카카오 로그인 ]========================================
 	
 	@RequestMapping("/kakao/login")
-	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpSession session) {
-		
-		ModelAndView mav = new ModelAndView();
+	public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
 		
 		// 1. 인증코드 요청 전달 
 		String access_token = kakaoApi.getAccessToken(code);
@@ -246,23 +245,20 @@ public void test() {}
 			session.setAttribute("isKakao", true);
 		}
 		
-		mav.addObject("userNick", userInfo.get("nickname"));
-		mav.setViewName("main");
-		return mav;
+		model.addAttribute("userNick", userInfo.get("nickname"));
+		return "redirect: /main";
 		
 	}
 	
 	@RequestMapping("/kakao/logout")
-	public ModelAndView kakaoLogout(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
+	public String kakaoLogout(HttpSession session) {
 		
 		kakaoApi.kakaoLogout((String) session.getAttribute("access_token"));
 		session.removeAttribute("access_token");
 		session.removeAttribute("userId");
 		session.invalidate();
-		mav.setViewName("main");
 		
-		return mav;
+		return "redirect: /main";
 	}
 	
 	//네이버 로그인 =======================================================================
