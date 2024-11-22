@@ -10,8 +10,6 @@
 <script type="text/javascript">
 $(function() {
 
-$(document).ready(function() {
-
 	// 현재 표시 중인 단계 (0: beanGram, 1: beanGrind, 2: beanExtraction)
 	let currentStep = 0;
 		
@@ -37,7 +35,7 @@ $(document).ready(function() {
 	}); // $("input[name='cupNoteName']") end
 	
 	
-$("#QuizBtn").click(function() {
+$("#QuizNextBtn").click(function() {
 	
 	// 체크박스 최대 선택 개수 제한
 	const maxSelection = 2;
@@ -50,7 +48,7 @@ $("#QuizBtn").click(function() {
 	
 	if ( currentStep < steps.length -1 ) {
 		// 현재 단계를 숨기고 다음 단계를 표시
-		$("#QuizBtn").prop("disabled", true); // 버튼 비활성화
+		$("#QuizNextBtn").prop("disabled", true); // 버튼 비활성화
 		
 		$(steps[currentStep]).fadeOut(250, function () {
 			
@@ -58,7 +56,7 @@ $("#QuizBtn").click(function() {
 				
 			$(steps[currentStep]).fadeIn(250, function () {
 				
-				$("#QuizBtn").prop("disabled", false); // 애니메이션 종료 후 활성화
+				$("#QuizNextBtn").prop("disabled", false); // 애니메이션 종료 후 활성화
 			
 			});
 		});
@@ -98,7 +96,6 @@ function submitForm() {
         return result;
     }, {});
 
-	
 	$.ajax({
 		url: form.attr("action"), // form의 action 속성에서 URL 가져옴
 		type: form.attr("method"), // form의 method 속성에서 전송 방식 가져옴
@@ -107,9 +104,46 @@ function submitForm() {
 		contentType : 'application/json',
 		success: function(res) {
 			
-			$("#beanExtraction").hide();
+			$("#quizMain").hide();
 			$("#quizResultForm").fadeIn(250);
-			
+
+	        let listHTML = '';
+	        let index = 0;
+
+	        // 데이터를 4개씩 묶어서 테이블 행을 생성
+	        res.list.forEach(function(bean) {
+	            // 4개마다 tr 태그 시작
+	            if (index % 4 === 0) {
+	                listHTML += "<tr>";
+	            }
+
+	            listHTML += 
+	                "<td class='customImage' data-beanno='" + bean.beanNo + "'>" + 
+	                bean.beanOriginName + 
+	                "</th>" +
+	                "<p>" + bean.beanName + "</p>" +
+	                "<p>" + bean.origin + "</p>" +
+	                ""
+	                ;
+
+	            // 4개마다 tr 태그 종료
+	            if (index % 4 === 3 || index === res.list.length - 1) {
+	                listHTML += "</tr>";
+	            }
+
+	            index++;
+	        });
+
+	        // 마지막 행에 남은 빈 셀이 있을 경우 채우기
+	        if (res.list.length % 4 !== 0) {
+	            const emptyCells = 4 - (res.list.length % 4);
+	            for (let i = 0; i < emptyCells; i++) {
+	                listHTML += "<td></td>";
+	            }
+	            listHTML += "</tr>";
+	        }
+
+	        $("tbody").html(listHTML);
 		},
 		error: function() {
 			console.error("AJAX 요청에 실패했습니다.");
@@ -117,6 +151,7 @@ function submitForm() {
 	});
 	
 }; // function submitForm() end
+
 
 // 	// 쿼리 스트링 만들기
 // 	let queryString = "";
@@ -128,9 +163,44 @@ function submitForm() {
 // 	location.href = "./quiz2" + queryString;
 	
 
-}); // $(document).ready(function() end
+	//동적으로 생성된 .customImage에 클릭 이벤트를 바인딩
+	$(document).on("click", ".customImage img", function() {
+		
+		
+	    const beanNo = $(this).closest(".customImage").data("beanno");  // data-beanno 속성에서 beanNo 값 추출
+		location.href = "../bean/info?beanNo=" + beanNo; // 해당 페이지로 리다이렉트
+		
+		$.ajax({
+			type: "get"
+			, url: "./resultbean"
+			, data: {
+				beanNo: beanNo
+				
+			}
+			, success: function( res ) {
+					
+				console.log("완료");
+				
+			}
+			, error: function( res ) {
+				
+				console.log("실패");
+				
+			}
+			
+		});
+		
+	});
+	
+	$("#ReQuizBtn").click(function() {
 
-}) // $(function() end
+		// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)
+		location.href = "./quizForm";
+		
+	});
+
+});// $(function() end
+	
 </script>
 
 <style type="text/css">
@@ -164,6 +234,41 @@ form div p {
   justify-content: center; /* 전체 컨테이너 중앙 배치 */
 }
 
+.customImage img {
+	cursor: pointer;
+	width: 300px !important;
+	height: 460px;	
+	margin: 0px auto;
+	overflow: hidden;
+	border-radius: 8px;
+	flex-shrink: 0;
+	
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#resultTable {
+	display: flex;
+	justify-content: center;	
+
+	width: 100%;
+	table-layout: fixed;  /* 테이블 셀 너비 고정 */
+	
+	text-align: center;
+	
+}
+
+#quizMain, #quizResultForm {
+	position: relative;
+	height: 730px;
+}
+
+#beanQuizBtn, #beanReQuiz {
+	position: absolute; /* 절대 위치 지정 */
+	bottom: 20px; /* 하단에 20px 간격으로 배치 */
+	left: 50%;
+	transform: translateX(-50%); /* 중앙 정렬 */
+}
 
 
 </style>
@@ -190,7 +295,10 @@ form div p {
 <div>
 <p>원하시는 향 또는 맛을 선택해주세요요요요용요요</p>
 </div>
-
+<%-- ddf : ${ list[0].beanName } --%>
+<%-- ${ userNo }, --%>
+<%-- ${ userId }, --%>
+<%-- ${ userNick } --%>
 <fieldset id="gramField">
 
 <table class="table table-borderless">
@@ -233,7 +341,7 @@ form div p {
 
 <fieldset id="grindField">
 
-	<div class="form-check">
+	<div class="form-check">	
 		<input class="form-check-input" type="radio" name="grind" id="grind1" value="1" checked>
 		<label class="form-check-label" for="grind1">굵은 분쇄</label>
 	</div>
@@ -287,18 +395,20 @@ form div p {
 
 
 <div id="beanQuizBtn" class="d-grid gap-2 col-4 mx-auto">
-<button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">다 음</button>
+<button id="QuizNextBtn" type="button" class="btn btn-lg btn-secondary">다 음</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->
 
 
 
-<div id="quizResultForm" class="container" style="display: none;">
+<div id="quizResultForm" class="container"  style="display: none;">
 
 <div class="text-center m-5">
 <h1> <퀴즈 결과> </h1>
 </div>
+
+${ quizResultNo }
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->
@@ -309,44 +419,25 @@ form div p {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<div id="List" class="mx-auto">
+<div id="List">
+<!-- asd -->
+<%-- ${ hello[0].beanOriginName } --%>
+<%-- ${ userNo } --%>
 
-<table>
-<tbody>
-
-<c:forEach var="bean" items="${ list }" varStatus="status">
-	<c:if test="${status.index % 4 == 0}">
-		<tr>
-	</c:if>
-	
-	<td class="text-center" style="flex-shrink: 0;">
-	<a href="./info?beanNo=${ bean.beanNo }">
-			<div class="custom-image">${bean.beanOriginName}</div>
-	</a>
-		<p class="fw-bold fs-4">${bean.beanName}(${ bean.gram }g)</p>
-		<p>${bean.origin}</p>
-	</td>
-   
-		<c:if test="${status.index % 4 == 3 || status.last}">
-		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
-		</c:if>	
-</c:forEach>
-
-<!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
-<c:if test="${fn:length(list) % 4 != 0}">
-	<c:forEach begin="1" end="${4 - (fn:length(list) % 4)}"> 
-		<td></td>
-	</c:forEach>
+<table id="resultTable">
+<thead>
+<tr>
+<th></th>
 </tr>
-</c:if>
+</thead>
 
-</tbody>
+<tbody></tbody>
 </table>
 
-</div>
+</div> <!-- <div id="List"> -->
 
-<div id="beanQuiz" class="d-grid gap-2 col-4 mx-auto">
-<button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>
+<div id="beanReQuiz" class="d-grid gap-2 col-4 mx-auto">
+<button id="ReQuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->
