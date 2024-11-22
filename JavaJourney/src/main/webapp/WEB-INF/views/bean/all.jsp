@@ -102,7 +102,7 @@ $(function() {
 	
 	$(".custom-image img").css({
 		width: "400px",
-		height: "500px",
+		height: "250px",
         objectFit: "cover",		// 이미지가 썸네일 크기에 맞도록 설정
         borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
     });
@@ -114,7 +114,7 @@ $(function() {
 .custom-container {
     width: 1600px;
     max-width: 100%; /* 뷰포트보다 크지 않도록 제한 */
-}
+}	
 
 img{
 	max-width: 100%;
@@ -123,7 +123,7 @@ img{
 
 .custom-image{
 	width: 400px;
-	height: 500px;
+	height: 250px;
 	margin: 0px auto;
 	overflow: hidden;
 	border-radius: 8px;
@@ -208,7 +208,6 @@ img{
 			<p>판매 종료</p>
 			</c:when>
 		</c:choose>	
-			<p>상태표시[TEST] : ${ bean.status }</p>
 	</td>
    
 		<c:if test="${status.index % 4 == 3 || status.last}">
