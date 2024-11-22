@@ -7,7 +7,7 @@
 
 <div>
 
-<ul class="pagination justify-content-center" >
+<ul class="pagination justify-content-center">
 
 	<!-- 첫 페이지로 이동 -->
 	<c:if test="${paging.curPage ne 1 }">
@@ -51,7 +51,6 @@
 	<c:if test="${paging.curPage ne paging.totalPage }">
 		<li class="page-item">
 			<a class="page-link" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${paging.endPage }">&rarr; 마지막</a>
-			<a class="page-link" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;" href="/mypage/subscribe?${sub.userNo }&curPage=${paging.startPage }">&larr; 처음</a>
 		</li>
 	</c:if>
 

@@ -49,7 +49,7 @@ $(function () {
     </div>
 </div>
 <div style="text-align:center; margin-top: 20px;">
-<a style="text-decoration: none;" href="/"><button id="btnRestart">취향조사 다시하기</button></a>
+<a style="text-decoration: none;" href="/quiz/quizForm"><button id="btnRestart">취향조사 다시하기</button></a>
 </div>
 
 <c:import url="../layout/footer.jsp"/>
