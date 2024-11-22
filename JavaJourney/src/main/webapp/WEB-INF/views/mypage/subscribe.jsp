@@ -49,6 +49,14 @@ $(function () {
         border-width: 0.5px; /* 테두리 두께 */
         border-color: #000; /* 테두리 색상 (검정색) */
     }
+ #page ul {
+    padding: 0;
+    margin: 0;
+}
+
+#page ul li {
+    list-style: none; /* 불릿 제거 */
+}   
 </style>
 <h1 class="text-center">구독정보</h1>
 <!-- <div class="container" style="width: 870px; height: 187px;"> -->
@@ -121,8 +129,9 @@ $(function () {
 </c:forEach>
 <div id="btn">
 <%-- <c:import url="/WEB-INF/views/mypage/layout/mybeansubpage.jsp"/> --%>
-<c:import url="./layout/mybeansubpage.jsp"/>
 <button class="btn btn-danger" id="btnCancle" type="button">구독취소</button>
 </div>
+<c:import url="./layout/mybeansubpage.jsp"/>
 </div>
+
 <c:import url="../layout/footer.jsp"/>

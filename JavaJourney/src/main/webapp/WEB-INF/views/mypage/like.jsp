@@ -7,18 +7,18 @@ var userNo = "${cafeWishNoList[0].userNo}";
 $(function () {
 	
 	$("#all").click(function () {
-		$(".cafetb").show();
-		$(".beantb").show();
+		$("#cafeAll").show();
+		$("#beanAll").show();
 	})
 	
 	$("#cafe").click(function () {
-		$(".cafetb").show();
-		$(".beantb").hide();
+		$("#cafeAll").show();
+		$("#beanAll").hide();
 	})
 
 	$("#bean").click(function () {
-		$(".cafetb").hide();
-		$(".beantb").show();
+		$("#cafeAll").hide();
+		$("#beanAll").show();
 	})
 	
 	$(".custom-image img").css({
@@ -42,30 +42,95 @@ $(function () {
   });
 	
 	$("#order-list").css("cursor", "pointer");
+
 	
 });
 </script>
 <style type="text/css">
-/* a{
-	cursor: pointer;
-	text-decoration: none; /* 기본밑줄제거 */
-	color: #333;	/* 기본 텍스트 색상 */
-	transition: color 0.3s ease, background-color 0.3 ease; /* 부드러운 전환 효과 */
+ a {
+    cursor: pointer;
+    text-decoration: none; /* 기본 밑줄 제거 */
+    color: #333; /* 기본 텍스트 색상 */
+    transition: color 0.3s ease, background-color 0.3s ease; /* 부드러운 전환 효과 */
 }
-a:hover{
-	color: #007bff; /* 마우스 오버시 텍스트 색상 변화 */
-	text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
-	background-color: #f0f0f0; /* 배경 색상 변경으로 클릭 효과 */
+a:hover {
+    color: #007bff; /* 마우스 오버시 텍스트 색상 변화 */
+    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+    background-color: #f0f0f0; /* 배경 색상 변경 */
 }
-a:active{
-	color: #0056b3; /* 클릭할 떄 텍스트 색상 */
-	background-color: #e0e0e0; /* 클릭할 떄 배경색 변화 */
-	font-weight: bold; /* 클릭할 때 텍스트를 진하게 */
-} */
-</style>
-<h1>찜목록</h1> 
+a:active {
+    color: #0056b3; /* 클릭할 때 텍스트 색상 */
+    background-color: #e0e0e0; /* 클릭할 때 배경 색상 변경 */
+    font-weight: bold; /* 클릭할 때 텍스트를 진하게 */
+}
+.overflow-auto {
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    cursor: grab;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+.overflow-auto::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+.overflow-auto:hover {
+    cursor: grabbing;
+}
+.overflow-auto > .d-inline-block {
+    min-width: 200px; /* 자식 요소 최소 너비 */
+    display: inline-block;
+}
+#cafeWish {
+    user-select: none; /* 텍스트 선택 방지 */
+    -webkit-user-select: none; /* 웹킷 브라우저용 */
+    -ms-user-select: none; /* 구형 IE용 */
+    cursor: default; /* 기본 커서 */
+}
 
-<div class="col-6 d-flext flex-column">
+#cafeWish.dragging {
+    cursor: grab; /* 드래그 가능 커서 */
+}
+
+#cafeWish.dragging:active {
+    cursor: grabbing; /* 클릭 중일 때 커서 */
+}
+#beanWish {
+    user-select: none; /* 텍스트 선택 방지 */
+    -webkit-user-select: none; /* 웹킷 브라우저용 */
+    -ms-user-select: none; /* 구형 IE용 */
+    cursor: default; /* 기본 커서 */
+}
+
+#beanWish.dragging {
+    cursor: grab; /* 드래그 가능 커서 */
+}
+
+#beanWish.dragging:active {
+    cursor: grabbing; /* 클릭 중일 때 커서 */
+}
+/* 찜목록 제목 글자 꾸미기 */
+.wish-font-container {
+    display: inline-block;
+    background-color: #f5e6ca; /* 따뜻한 연한 베이지색 (커피 크림 색) */
+    padding: 10px 20px; /* 텍스트 주변 여백 */
+    border-radius: 15px; /* 둥근 테두리 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    border: 1px solid #d4a373; /* 연한 갈색 테두리 */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* 부드러운 효과 */
+} 
+
+.wish-font {
+    text-decoration: none; /* 밑줄 제거 */
+    color: #6f4e37; /* 원두 갈색 */
+    font-weight: bold; /* 글자 강조 */
+    font-size: 1.2rem; /* 적당한 크기 */
+    font-family: 'Arial', sans-serif; /* 심플한 글꼴 */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* 부드러운 효과 */
+}
+</style>
+<h1 style="text-align: center">찜목록</h1> 
+<div class="col-2 d-flext flex-column">
 <div id="order-list" class="mb-2">
 <a id="all">전체보기</a>
 &nbsp;|&nbsp;
@@ -75,55 +140,192 @@ a:active{
 </div> <!-- order-list -->
 </div>
 
-<div class="container mt-5">
-<div class="d-flex justify-content-end">
-	<div class="col-2">
-	<input id="searchText"class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
+<!-- <div class="container mt-5"> -->
+<!-- <div class="d-flex justify-content-end"> -->
+<!-- 	<div class="col-2"> -->
+<!-- 	<input id="searchText"class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search"> -->
+<!-- 	</div> -->
+<!-- 	<span style="margin-right: 5px;"></span> -->
+<!-- 	<button id="btnSearch" class="btn btn-primary">검색</button> -->
+<!-- </div> -->
+<!-- </div> -->
+
+<div id="cafeAll" class="container mt-3 mb-3">
+	<div class="wish-font-container">
+    <h2 class="wish-font">카페찜</h2>
 	</div>
-	<span style="margin-right: 5px;"></span>
-	<button id="btnSearch" class="btn btn-primary">검색</button>
-</div>
-</div>
-
-<div class="container">
-    <table id="contentall">
-        <!-- Cafe 리스트 출력 -->
-        <c:forEach var="cafe" items="${cafeWishNoList}" varStatus="cafeStatus">
-            <c:if test="${cafeStatus.index % 8 == 0}">
-                <tr>
-            </c:if>
-
-            <td class="cafetb">
-                <div class="custom-image">
-                    <p><a href="/cafe/info?cafeNo=${cafe.cafeNo}">${cafe.cafeImgOriName}</a></p>
+    <div id="cafeWish" class="overflow-auto">
+    <c:forEach var="cafe" items="${cafeWishNoList}">
+        <div class="d-inline-block border bg-light">
+        	<div class="custom-image">
+                    <p><a id="custom-image" href="/cafe/info?cafeNo=${cafe.cafeNo}">${cafe.cafeImgOriName}</a></p>
                     <p>${cafe.cafeName}</p>
-                </div>
-            </td>
-
-            <c:if test="${cafeStatus.index % 8 == 7 || cafeStatus.last}">
-                </tr>
-            </c:if>
-        </c:forEach>
-
-        <!-- Bean 리스트 출력 -->
-        <c:forEach var="bean" items="${beanWishList}" varStatus="beanStatus">
-            <c:if test="${beanStatus.index % 8 == 0}">
-                <tr>
-            </c:if>
-
-            <td class="beantb">
-                <div class="custom-image">
+        	</div>
+        </div>
+    </c:forEach>
+    </div>
+</div>
+<div id="beanAll" class="container mt-5">
+	<div class="wish-font-container">
+    <h2 class="wish-font">원두찜</h2>
+	</div>
+    <div id="beanWish" class="overflow-auto">
+    <c:forEach var="bean" items="${beanWishList}">
+    <div class="d-inline-block border bg-light">
+        	<div class="custom-image">
                     <p><a href="/bean/info?beanNo=${bean.beanNo}">${bean.beanOriginName}</a></p>
                     <p>${bean.beanName}</p>
-                </div>
-            </td>
-
-            <c:if test="${beanStatus.index % 8 == 7 || beanStatus.last}">
-                </tr>
-            </c:if>
+            </div>
+        </div>
         </c:forEach>
-    </table>
+    </div>
 </div>
+
+<script type="text/javascript">
+/* 스크룰이벤트 */
+document.addEventListener('DOMContentLoaded', function () {
+    const cafeWish = document.querySelector('#cafeWish');
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false; // 드래그 상태 여부를 판단
+
+    // 마우스 눌렀을 때
+    cafeWish.addEventListener('mousedown', (e) => {
+        // .custom-image 영역에서 드래그 동작
+        if (e.target.closest('.custom-image')) {
+            e.preventDefault(); // 기본 드래그 방지 (이미지가 따라오는 문제 방지)
+            isDown = true;
+            isDragging = false; // 드래그 여부 초기화
+            cafeWish.classList.add('dragging'); // 드래그 상태 커서 활성화
+            startX = e.pageX - cafeWish.offsetLeft;
+            scrollLeft = cafeWish.scrollLeft;
+            return;
+        }
+    });
+
+    // 마우스가 영역 밖으로 나갈 때
+    cafeWish.addEventListener('mouseleave', () => {
+        isDown = false;
+        cafeWish.classList.remove('dragging'); // 드래그 상태 해제
+    });
+
+    // 마우스를 뗐을 때
+    cafeWish.addEventListener('mouseup', (e) => {
+        if (!isDragging && e.target.closest('a')) {
+            // 드래그하지 않고 클릭한 경우만 링크 이동
+            window.location.href = e.target.closest('a').href;
+        }
+        isDown = false;
+        cafeWish.classList.remove('dragging'); // 드래그 상태 해제
+    });
+
+    // 마우스 이동
+    cafeWish.addEventListener('mousemove', (e) => {
+        if (!isDown) return; // 마우스가 눌려있지 않으면 동작하지 않음
+        e.preventDefault(); // 기본 동작 방지 (선택 방지)
+        isDragging = true; // 드래그 중 상태로 설정
+        const x = e.pageX - cafeWish.offsetLeft;
+        const walk = (x - startX) * 1.5; // 스크롤 속도 조정
+        cafeWish.scrollLeft = scrollLeft - walk;
+    });
+
+    // 이미지의 기본 드래그 방지 및 드래그 커서 표시
+    cafeWish.querySelectorAll('.custom-image img').forEach((img) => {
+        img.addEventListener('dragstart', (e) => {
+            e.preventDefault(); // 기본 드래그 방지
+        });
+
+        img.addEventListener('mousedown', () => {
+            cafeWish.classList.add('dragging'); // 드래그 상태 커서 표시
+        });
+
+        img.addEventListener('mouseup', () => {
+            cafeWish.classList.remove('dragging'); // 드래그 상태 해제
+        });
+    });
+
+    cafeWish.querySelectorAll('a').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault(); // 드래그 후 클릭 이벤트 방지
+            }
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const beanWish = document.querySelector('#beanWish');
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false; // 드래그 상태 여부를 판단
+
+    // 마우스 눌렀을 때
+ 	 beanWish.addEventListener('mousedown', (e) => {
+        // .custom-image 영역에서 드래그 동작
+        if (e.target.closest('.custom-image')) {
+            e.preventDefault(); // 기본 드래그 방지 (이미지가 따라오는 문제 방지)
+            isDown = true;
+            isDragging = false; // 드래그 여부 초기화
+            beanWish.classList.add('dragging'); // 드래그 상태 커서 활성화
+            startX = e.pageX - beanWish.offsetLeft;
+            scrollLeft = beanWish.scrollLeft;
+            return;
+        }
+    });
+
+    // 마우스가 영역 밖으로 나갈 때
+    beanWish.addEventListener('mouseleave', () => {
+        isDown = false;
+        beanWish.classList.remove('dragging'); // 드래그 상태 해제
+    });
+
+    // 마우스를 뗐을 때
+    beanWish.addEventListener('mouseup', (e) => {
+        if (!isDragging && e.target.closest('a')) {
+            // 드래그하지 않고 클릭한 경우만 링크 이동
+            window.location.href = e.target.closest('a').href;
+        }
+        isDown = false;
+        beanWish.classList.remove('dragging'); // 드래그 상태 해제
+    });
+
+    // 마우스 이동
+    beanWish.addEventListener('mousemove', (e) => {
+        if (!isDown) return; // 마우스가 눌려있지 않으면 동작하지 않음
+        e.preventDefault(); // 기본 동작 방지 (선택 방지)
+        isDragging = true; // 드래그 중 상태로 설정
+        const x = e.pageX - beanWish.offsetLeft;
+        const walk = (x - startX) * 1.5; // 스크롤 속도 조정
+        beanWish.scrollLeft = scrollLeft - walk;
+    });
+
+    // 이미지의 기본 드래그 방지 및 드래그 커서 표시
+    beanWish.querySelectorAll('.custom-image img').forEach((img) => {
+        img.addEventListener('dragstart', (e) => {
+            e.preventDefault(); // 기본 드래그 방지
+        });
+
+        img.addEventListener('mousedown', () => {
+        	beanWish.classList.add('dragging'); // 드래그 상태 커서 표시
+        });
+
+        img.addEventListener('mouseup', () => {
+        	beanWish.classList.remove('dragging'); // 드래그 상태 해제
+        });
+    });
+
+    beanWish.querySelectorAll('a').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault(); // 드래그 후 클릭 이벤트 방지
+            }
+        });
+    });
+});
+</script>
 
 <div>
 <c:import url="../layout/footer.jsp"/>
