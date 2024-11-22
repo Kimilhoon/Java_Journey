@@ -60,13 +60,18 @@
 			, cafeAdd1 = #{cafeAdd1}
 			, cafeAdd2 = #{cafeAdd2}
 			, cafeLoc = #{cafeLoc}
+			, cafePhone = #{cafePhone}
 		</set>
 		WHERE CAFENO = #{cafeNo}
 	</update>
 	
-	<update id="updateCafeStatus">
+	<update id="updateCafeStatus" parameterType="int">
 		UPDATE CAFE
-		SET status = 'N'
+		SET status =
+			CASE 
+      	      WHEN STATUS = 'Y' THEN 'N'
+      	      WHEN STATUS = 'N' THEN 'Y'
+     	   END
 		WHERE CAFENO = #{CAFENO}
 	</update>
 	

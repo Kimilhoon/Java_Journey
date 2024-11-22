@@ -825,7 +825,7 @@ label.agree button:hover {
 <div class="emailSection">
 	<label for="userEmail">이메일</label>
 	<div class="inputGroup">
-	<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" >
+	<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="ex) java@journey.com" >
 	<button type="button" id="mailCheckBtn">본인인증</button>
 	</div>
 </div>
