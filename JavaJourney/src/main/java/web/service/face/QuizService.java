@@ -21,8 +21,9 @@ public interface QuizService {
 	 * 퀴즈 정보 저장하기
 	 * 
 	 * @param param - 전달 받은 데이터
+	 * @return 
 	 */
-	public void insertQuizResult(QuizResult param);
+	public boolean insertQuizResult(QuizResult param);
 
 	
 	/**

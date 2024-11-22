@@ -37,8 +37,11 @@ public class BeanSub {
 	//조인 BeanImg
 	private String beanOriginName;
 	
-	//조인 BeanRev
+	//조인 BeanRev	
+	private String revNo;
 	private String revStarPoint;
+	
+	
 	
 
 }

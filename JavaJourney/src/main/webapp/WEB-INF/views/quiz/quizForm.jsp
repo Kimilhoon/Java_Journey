@@ -107,8 +107,9 @@ function submitForm() {
 		contentType : 'application/json',
 		success: function(res) {
 			
-			console.log(res);
-			 
+			$("#beanExtraction").hide();
+			$("#quizResultForm").fadeIn(250);
+			
 		},
 		error: function() {
 			console.error("AJAX 요청에 실패했습니다.");
@@ -167,7 +168,7 @@ form div p {
 
 </style>
 
-<div class="container">
+<div id="quizMain" class="container">
 
 <div class="text-center m-5">
 <h1> <퀴즈 시간> </h1>
@@ -182,7 +183,7 @@ form div p {
 <!-- 	</ol> -->
 <!-- </nav> -->
 
-<form action="./quizResult" method="post" >
+<form action="./quizForm" method="Post" >
 
 <div id="beanGram" style="display: none;">
 
@@ -287,6 +288,65 @@ form div p {
 
 <div id="beanQuizBtn" class="d-grid gap-2 col-4 mx-auto">
 <button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">다 음</button>
+</div>
+
+</div> <!-- <div class="container custom-container"> -->
+
+
+
+<div id="quizResultForm" class="container" style="display: none;">
+
+<div class="text-center m-5">
+<h1> <퀴즈 결과> </h1>
+</div>
+
+<!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
+<!-- 	<ol class="breadcrumb"> -->
+<!-- 		<li class="breadcrumb-item"><a href="./best">best</a></li> -->
+<!-- 		<li class="breadcrumb-item"><a href="./all">bean</a></li> -->
+<%-- 		<li class="breadcrumb-item"><a href="./info?beanNo=${ bean.beanNo }">info</a></li> --%>
+<!-- 		<li class="breadcrumb-item active" aria-current="page">sub</li> -->
+<!-- 	</ol> -->
+<!-- </nav> -->
+
+<div id="List" class="mx-auto">
+
+<table>
+<tbody>
+
+<c:forEach var="bean" items="${ list }" varStatus="status">
+	<c:if test="${status.index % 4 == 0}">
+		<tr>
+	</c:if>
+	
+	<td class="text-center" style="flex-shrink: 0;">
+	<a href="./info?beanNo=${ bean.beanNo }">
+			<div class="custom-image">${bean.beanOriginName}</div>
+	</a>
+		<p class="fw-bold fs-4">${bean.beanName}(${ bean.gram }g)</p>
+		<p>${bean.origin}</p>
+	</td>
+   
+		<c:if test="${status.index % 4 == 3 || status.last}">
+		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
+		</c:if>	
+</c:forEach>
+
+<!-- 마지막 행에 남은 빈 셀이 있을 경우 채우기 -->
+<c:if test="${fn:length(list) % 4 != 0}">
+	<c:forEach begin="1" end="${4 - (fn:length(list) % 4)}"> 
+		<td></td>
+	</c:forEach>
+</tr>
+</c:if>
+
+</tbody>
+</table>
+
+</div>
+
+<div id="beanQuiz" class="d-grid gap-2 col-4 mx-auto">
+<button id="QuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->

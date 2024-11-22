@@ -154,7 +154,15 @@ $(function() {
 		});
 		
 		$("#btnDelete").click(function() {
-			location.href="/create/cafeDelete?cafeNo=${cafeInfo.cafeNo}";
+	        const realOut = confirm("삭제하시겠습니까?"); //confirm -> 예/아니오 로 나옴
+	        if (realOut) {
+	            $.post("/create/cafeDelete", function(response) {
+	                alert("삭제가 처리되었습니다.");
+	                location.href = "/cafe/all"; // 전체카페 페이지로 이동
+	            }).fail(function() {
+	                alert("삭제 처리 중 오류가 발생했습니다.");
+	            });
+	        }	
 		});
 	
 	/* -------------------------------------------------------------------------------------------------------------- */
