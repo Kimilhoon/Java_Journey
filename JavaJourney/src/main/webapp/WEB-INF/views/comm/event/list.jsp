@@ -50,18 +50,34 @@ $(function() {
 </script>
 <style type="text/css">
  .image-container { 
-         display: flex;/
-         gap: 100px; /* 이미지 간 간격  
-     } 
+         display: flex;
+         gap: 100px;   
+     }
+#btnEventWrite{
+    padding: 7px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}     
+#btnCancel{
+    padding: 7px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}     
 </style>
 
-<h1>이벤트 목록</h1>
+<h1 class="text-center">이벤트 목록</h1>
 
-<div>
-<button id="btnManagerMenu">관리자메뉴로가기</button>
-<button id="btnEventWrite">이벤트 등록</button>
-<button id="btnBack">뒤로가기</button>
-</div>
+<button id="btnEventWrite">등록</button>
+<!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
+<!-- <button id="btnBack">뒤로가기</button> -->
 
 
 <div class="d-flex justify-content-center">
@@ -89,7 +105,7 @@ $(function() {
 	        <div><fmt:formatDate value="${event.eveStart}" pattern="yyyy-MM-dd"/>
 	        ~ <fmt:formatDate value="${event.eveEnd}" pattern="yyyy-MM-dd"/></div>
 	    </td>
-	    <td><a href="./delete?eventNo=${event.eventNo }"><button type="button"> 삭제</button></a></td>
+	    <td><a href="./delete?eventNo=${event.eventNo }"><button id="btnCancel" type="button"> 삭제</button></a></td>
     </tr>
     </c:forEach>
 </table>
