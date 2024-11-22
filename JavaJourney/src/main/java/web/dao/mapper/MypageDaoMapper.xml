@@ -91,7 +91,7 @@
 				WHERE b1.BEANNO = b2.BEANNO
 				AND b2.BEANIMGNO = b3.BEANIMGNO
 				AND b1.BEANNO = b4.BEANNO(+)
-				AND b1.USERNO = 1
+				AND b1.USERNO = #{userNo}
 				ORDER BY SUBNO DESC
 				)a
 			)WHERE r BETWEEN #{paging.startNo } AND #{paging.endNo }
