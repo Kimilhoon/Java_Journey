@@ -131,6 +131,16 @@ img{
 	transform: scale(1.2);
 }
 
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
+
 </style>
 
 <div class="container custom-container">
@@ -168,12 +178,27 @@ img{
 		</div>
 	</div>
 	
-	<div id="search" class="p-2 d-flex justify-content-between">
-		<input type="text" id="keyword" name="keyword" class="form-control">
-		<span id="searchIcon">
-			<i class="bi bi-search"></i>
-		</span>
-	</div>
+<!-- 	<div id="search" class="p-2 d-flex justify-content-between"> -->
+<!-- 		<input type="text" id="keyword" name="keyword" class="form-control"> -->
+<!-- 		<span id="searchIcon"> -->
+<!-- 			<i class="bi bi-search"></i> -->
+<!-- 		</span> -->
+<!-- 	</div> -->
+<!-- 검색창 설정 -->
+<div id="search" class="p-2 d-flex justify-content-between"">
+    <!-- 검색 입력창 -->
+    <input type="text" id="keyword" name="keyword" class="form-control me-2" placeholder="검색어를 입력하세요" style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+    
+    <!-- 돋보기 아이콘 -->
+    <button id="searchIcon" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+<!--     <span id="searchIcon">  -->
+<!--         <button type="button" class="btn " aria-label="검색" style="float: right;  display: inline-block;"> -->
+<!--             <i class="bi bi-search"></i> -->
+<!--         </button> -->
+<!--     </span> -->
+</div>
+
+
 
 </div> <!-- id="up" End -->
 

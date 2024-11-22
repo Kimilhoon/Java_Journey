@@ -63,7 +63,8 @@ img{
 </nav>
 
 
-<div id="BestCafeList" class="mx-auto">
+    <div class="d-flex justify-content-center">
+        <div id="BestCafeList">
 
 <table>
 <tbody>

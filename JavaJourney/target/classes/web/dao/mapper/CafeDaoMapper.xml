@@ -64,7 +64,8 @@
 	                    OR c.cafeInfo LIKE '%' || #{keyword} || '%'
 	                )
 	            ORDER BY 
-	                avgRevStarPoint DESC
+<!-- 	                avgRevStarPoint DESC -->
+	                c.cafeNo DESC  <!-- 최신순 정렬 -->
 	        ) a
 	        WHERE rownum &lt;= #{endNo} 
 	    )
