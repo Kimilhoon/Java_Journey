@@ -214,9 +214,9 @@ select {
 
 </style>
 
-<button id="btnManagerMenu">관리자메뉴로가기</button>
+<!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
+<!-- <hr> -->
 
-<hr>
 <div>
 <form action="./cafe" method="post" enctype="multipart/form-data">
 <table>
