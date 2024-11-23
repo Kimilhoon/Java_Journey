@@ -50,17 +50,13 @@ $(function () {
  a {
     cursor: pointer;
     text-decoration: none; /* 기본 밑줄 제거 */
-    color: #333; /* 기본 텍스트 색상 */
     transition: color 0.3s ease, background-color 0.3s ease; /* 부드러운 전환 효과 */
 }
 a:hover {
     color: #007bff; /* 마우스 오버시 텍스트 색상 변화 */
     text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
-    background-color: #f0f0f0; /* 배경 색상 변경 */
 }
 a:active {
-    color: #0056b3; /* 클릭할 때 텍스트 색상 */
-    background-color: #e0e0e0; /* 클릭할 때 배경 색상 변경 */
     font-weight: bold; /* 클릭할 때 텍스트를 진하게 */
 }
 .overflow-auto {
@@ -111,32 +107,35 @@ a:active {
 }
 /* 찜목록 제목 글자 꾸미기 */
 .wish-font-container {
-    display: inline-block;
-    background-color: #f5e6ca; /* 따뜻한 연한 베이지색 (커피 크림 색) */
+    display: flex; /* Flexbox 활성화 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    background-color: #f5e6ca; /* 배경색 */
     padding: 10px 20px; /* 텍스트 주변 여백 */
     border-radius: 15px; /* 둥근 테두리 */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-    border: 1px solid #d4a373; /* 연한 갈색 테두리 */
-    transition: transform 0.3s ease, background-color 0.3s ease; /* 부드러운 효과 */
-} 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+    border: 1px solid #d4a373; /* 테두리 */
+    text-align: center; /* 텍스트 가로 정렬 */
+    height: 50px; /* 고정 높이 */
+}
 
 .wish-font {
-    text-decoration: none; /* 밑줄 제거 */
-    color: #6f4e37; /* 원두 갈색 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    color: #6f4e37; /* 글자 색상 */
     font-weight: bold; /* 글자 강조 */
-    font-size: 1.2rem; /* 적당한 크기 */
-    font-family: 'Arial', sans-serif; /* 심플한 글꼴 */
-    transition: color 0.3s ease, text-shadow 0.3s ease; /* 부드러운 효과 */
+    font-size: 1.2rem; /* 글자 크기 */
+    font-family: 'Arial', sans-serif; /* 글꼴 */
 }
 </style>
 <h1 style="text-align: center">찜목록</h1> 
 <div class="col-2 d-flext flex-column">
 <div id="order-list" class="mb-2">
-<a id="all">전체보기</a>
+<a id="all" style=" color: #6f4e37;">전체보기</a>
 &nbsp;|&nbsp;
-<a id="cafe">카페</a>
+<a id="cafe" style=" color: #6f4e37;">카페</a>
 &nbsp;|&nbsp;
-<a id="bean">원두</a>
+<a id="bean" style=" color: #6f4e37;">원두</a>
 </div> <!-- order-list -->
 </div>
 
@@ -148,7 +147,7 @@ a:active {
 <!-- 	<span style="margin-right: 5px;"></span> -->
 <!-- 	<button id="btnSearch" class="btn btn-primary">검색</button> -->
 <!-- </div> -->
-<!-- </div> -->
+</div>
 
 <div id="cafeAll" class="container mt-3 mb-3">
 	<div class="wish-font-container">

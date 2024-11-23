@@ -19,7 +19,7 @@
 	<!-- 이전 페이징 리스트로 이동 -->
 	<c:if test="${paging.startPage ne 1 }">
 	<li class="page-item">
-		<a class="page-link" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${paging.startPage - paging.pageCount }">&laquo;</a>
+		<a class="page-link" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${paging.startPage - paging.pageCount }">&laquo;</a>
 	</li>
 	</c:if>
 
@@ -28,13 +28,13 @@
 	
 		<c:if test="${paging.curPage eq i }">
 			<li class="page-item active">
-				<a class="page-link" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${i }">${i }</a>
+				<a class="page-link" style="background:#6f4e37; color: white; border: 1px solid #6f4e37;" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${i }">${i }</a>
 			</li>
 		</c:if>
 		
 		<c:if test="${paging.curPage ne i }">
 			<li class="page-item">
-				<a class="page-link" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${i }">${i }</a>
+				<a class="page-link" style="background: white; color: black; border: 1px solid #ebddcc;"  href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${i }">${i }</a>
 			</li>
 		</c:if>
 		
@@ -43,7 +43,7 @@
 	<!-- 다음 페이징 리스트로 이동 -->
 	<c:if test="${paging.endPage ne paging.totalPage }">
 	<li class="page-item">
-		<a class="page-link" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${paging.startPage + paging.pageCount }">&raquo;</a>
+		<a class="page-link" href="/mypage/subscribe?userNo=${beanSubList[0].userNo }&curPage=${paging.startPage + paging.pageCount }">&raquo;</a>
 	</li>
 	</c:if>
 
