@@ -123,10 +123,26 @@ public class QuizController {
 		
 	} // quizResult() end
 	
-	@GetMapping("/resultbean")
-	public void resultbeanProc(QuizResult param) {
+	@PostMapping("/resultbean")
+	public String resultbeanProc(QuizResult param, @SessionAttribute(value = "userNo", required = false) int userNo) {
 		log.info("paramparamparamparam: {}", param);
-	}
+		log.info("userNo: {}", userNo);
+		
+		// quizResult테이블에 beanNo 업데이트
+		service.updateBeanNo(param);
+		
+		// memberQuizResult에 결과값 삽입하기
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("userNo", userNo);
+		map.put("quizResult", param.getQuizResultNo());
+		
+		log.info("map: {}", map);
+		
+		service.insertMemberQuizResult(map);
+		
+		return "redirect:/bean/info?beanNo="+param.getBeanNo();
+		
+	} // resultbeanProc() end
 	
 	
 } // class end

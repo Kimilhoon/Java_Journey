@@ -106,6 +106,11 @@ function submitForm() {
 			
 			$("#quizMain").hide();
 			$("#quizResultForm").fadeIn(250);
+			
+			// 응답에서 quizResultNo 추출
+			const quizResultNo = res.quizResultNo; 
+			console.log("submit quizResultNo: ", quizResultNo);
+			
 
 	        let listHTML = '';
 	        let index = 0;
@@ -118,7 +123,7 @@ function submitForm() {
 	            }
 
 	            listHTML += 
-	                "<td class='customImage' data-beanno='" + bean.beanNo + "'>" + 
+	                "<td class='customImage' data-beanno='" + bean.beanNo + "' data-quizResultNo='" + quizResultNo + "' >" + 
 	                bean.beanOriginName + 
 	                "</th>" +
 	                "<p>" + bean.beanName + "</p>" +
@@ -144,6 +149,7 @@ function submitForm() {
 	        }
 
 	        $("tbody").html(listHTML);
+// 	        console.log($("tbody").html());
 		},
 		error: function() {
 			console.error("AJAX 요청에 실패했습니다.");
@@ -166,23 +172,28 @@ function submitForm() {
 	//동적으로 생성된 .customImage에 클릭 이벤트를 바인딩
 	$(document).on("click", ".customImage img", function() {
 		
-		
 	    const beanNo = $(this).closest(".customImage").data("beanno");  // data-beanno 속성에서 beanNo 값 추출
-		location.href = "../bean/info?beanNo=" + beanNo; // 해당 페이지로 리다이렉트
+	    const quizResultNo = parseInt($(this).closest(".customImage").attr("data-quizResultNo"), 10);
+	    
+	    console.log("Click beanNo:", beanNo); // 디버깅: 값 확인
+	    console.log("Click quizResultNo:", quizResultNo); // 디버깅: 값 확인
+
 		
 		$.ajax({
-			type: "get"
-			, url: "./resultbean"
+			type: "post"
+			, url: "/quiz/resultbean"
 			, data: {
-				beanNo: beanNo
+				
+				beanNo: beanNo,
+				quizResultNo: quizResultNo
 				
 			}
-			, success: function( res ) {
+			, success: function() {
 					
 				console.log("완료");
 				
 			}
-			, error: function( res ) {
+			, error: function() {
 				
 				console.log("실패");
 				
@@ -190,7 +201,7 @@ function submitForm() {
 			
 		});
 		
-	});
+	}); // $(document).on("click", ".customImage img", function() end
 	
 	$("#ReQuizBtn").click(function() {
 
@@ -408,7 +419,6 @@ form div p {
 <h1> <퀴즈 결과> </h1>
 </div>
 
-${ quizResultNo }
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->
