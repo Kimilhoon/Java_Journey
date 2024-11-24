@@ -58,16 +58,6 @@
       </where> 
    </select>
    
-<!--    <select id="selectMyBeanSubResult" resultType="BeanSub"> -->
-<!--       SELECT -->
-<!--          SUBNO, USERNO, BEANNO, GRAM, PRICE, -->
-<!--          GRIND, SUBSTARTDATE, SUBENDDATE, SUBTIME, NONSUB -->
-<!--          FROM BEANSUB -->
-<!--          <where> -->
-<!--             USERNO = #{userNo} -->
-<!--          </where> -->
-<!--          ORDER BY SUBNO -->
-<!--    </select> -->
    <select id="getBeanSubTotalCnt" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM BEANSUB
 		WHERE USERNO = #{userNo}

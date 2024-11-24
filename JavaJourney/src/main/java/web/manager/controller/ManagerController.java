@@ -136,7 +136,7 @@ public class ManagerController {
 
 		if( isSubCancel ) {
 			result.put("status", "success");
-			result.put("message", "작업이 성공적으로 취소되었습니다");
+			result.put("message", "작업이 성공적하였습니다");
 		} else {
 			result.put("status", "fail");
 			result.put("message", "이미 구독이 취소가 된 상태입니다");

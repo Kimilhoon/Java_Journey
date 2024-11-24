@@ -206,6 +206,8 @@ img{
 			</c:when>
 			<c:when test="${ bean.status == 'N' }">
 			<p>판매 종료</p>
+     		<p>&nbsp;</p>
+     		<p>&nbsp;</p>
 			</c:when>
 		</c:choose>	
 	</td>
