@@ -163,26 +163,26 @@ textarea {
 	<table>
 		<tr>
 			<td>원두이름</td>
-			<td><input type="text" maxlength="50" id="beanName" name="beanName"></td>
+			<td><input type="text" maxlength="50" id="beanName" name="beanName" required="required"></td>
 		</tr>
 		<tr>
 			<td>원두원산지</td>
-			<td><input type="text" maxlength="30" id="origin" name="origin"></td>
+			<td><input type="text" maxlength="30" id="origin" name="origin" required="required"></td>
 		</tr>
 		<tr>
 			<td>원두금액</td>	
-			<td><input type="number" min="1" max="100000" id="beanPrice" name="beanPrice"></td>	
+			<td><input type="number" min="1" max="100000" id="beanPrice" name="beanPrice" required="required"></td>	
 		</tr>
 		<tr>
 			<td>사업자번호</td>	
-			<td><input type="text" id="businessNo" name="businessNo"></td>	
+			<td><input required="required" type="text" id="businessNo" name="businessNo"></td>	
 		</tr>
 		<!-- 원두이미지삽입 -->
 		<tr>
 			<td>원두[이미지삽입]</td>
 			<td>
 			<textarea id="beanOriginName" name="beanOriginName" class="form-control"
-			rows="4" cols="4"></textarea>
+			rows="4" cols="4" required="required"></textarea>
 			</td>
 		</tr>
 		<tr>	
@@ -211,13 +211,13 @@ textarea {
 		<!-- 원두이미지삽입 -->
 		<tr>
 		<td>원두설명</td>
-		<td><textarea id="beanComm" name="beanComm" rows="3" style="width: 1000px;"></textarea></td>
+		<td><textarea id="beanComm" name="beanComm" rows="3" style="width: 1000px;" required="required"></textarea></td>
 		</tr>
 		<tr>
 			<td>원두상세설명[이미지삽입]</td>
 			<td>
 			<textarea id="beanInfo" name="beanInfo" class="form-control"
-			rows="4" cols="2"></textarea>
+			rows="4" cols="2" required="required"></textarea>
 			</td>
 		</tr>
 	</table>
