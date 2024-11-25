@@ -75,7 +75,7 @@ $(function() {
 
 <h1 class="text-center">이벤트 목록</h1>
 
-<button id="btnEventWrite">등록</button>
+<button id="btnEventWrite" class="mx-2">등록</button>
 <!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
 <!-- <button id="btnBack">뒤로가기</button> -->
 

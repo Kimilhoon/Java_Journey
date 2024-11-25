@@ -52,6 +52,23 @@ public interface QuizService {
 	public void insertMemberQuizResult(HashMap<String, Integer> map);
 
 
+	/**
+	 * 수행한 퀴즈가 있는지 없는지 확인
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public boolean countQuizResultNo(HashMap<String, Integer> map);
+
+
+	/**
+	 * 퀴즈 결과가 있으면 삭제하기
+	 * 
+	 * @param map
+	 */
+	public void deleteMemberQuizResult(HashMap<String, Integer> map);
+
+
 
 	
 	

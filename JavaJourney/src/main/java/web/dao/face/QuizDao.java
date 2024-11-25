@@ -54,6 +54,31 @@ public interface QuizDao {
 	public void insertMemberQuizResult(HashMap<String, Integer> map);
 
 
+	/**
+	 * 전달된 데이터로 변경하기
+	 * 
+	 * @param map
+	 */
+	public void updateMemberQuizResult(HashMap<String, Integer> map);
+
+
+	/**
+	 * 퀴즈 결과 있고 없음 확인
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public int countQuizResultNo(HashMap<String, Integer> map);
+
+
+	/**
+	 * 퀴즈 결과가 있으면 삭제하기
+	 * 
+	 * @param map
+	 */
+	public void deleteMemberQuizResult(HashMap<String, Integer> map);
+
+
 
 	
 	

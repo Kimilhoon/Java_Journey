@@ -59,7 +59,9 @@ $(function () {
     font-size: 15px;
 }       
 </style>
+<div class="mb-4">
 <h1 class="text-center">구독정보</h1>
+</div>
 <!-- <div class="container" style="width: 870px; height: 187px;"> -->
 <div class="container" style="width: 870px; min-height: 300px; margin-bottom: 100px;">
 <%-- ${beanSubList } --%>
@@ -117,7 +119,7 @@ $(function () {
 <div id="btn">
 <button id="btnCancle" type="button">구독취소</button>
 </div>
-<c:import url="./layout/mybeansubpage.jsp"/>
 </div>
+<c:import url="./layout/mybeansubpage.jsp"/>
 
 <c:import url="../layout/footer.jsp"/>
