@@ -133,7 +133,7 @@ $(function() {
 </div>
 
 <div>
-	<button id="btnLogin" class="btn btn-primary">로그인</button>
+	<button id="btnLogin" >로그인</button>
 </div>
 
 <div id="findRegister">

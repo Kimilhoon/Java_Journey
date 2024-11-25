@@ -22,10 +22,15 @@
 
 
 
-		<div class="d-flex align-items-center"> <!-- 오른쪽 끝 정렬이라는 뜻 -->
-		    <input id="searchText" class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
-		    <button id="btnSearch" >검색</button>
-		</div> <!-- class="d-flex align-items-center" end -->
+<!-- 		<div class="d-flex align-items-center"> 오른쪽 끝 정렬이라는 뜻 -->
+<!-- 		    <input id="searchText" class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search"> -->
+<!-- 		    <button id="btnSearch" >검색</button> -->
+<!-- 		</div> class="d-flex align-items-center" end -->
+		
+		<div id="search_div">
+			<button id="btnSearch" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+			<input type="search" id="searchText" class="form-control me-2 " placeholder="검색어를 입력하세요." aria-label="Search" style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+		</div>
 	
 	</div><!-- <div class="d-flex justify-content-between mb-3"> -->
 
@@ -68,16 +73,16 @@
     width: 200px; /* Adjust the width as needed */
 }
 
-#btnSearch {
-    width: 27%;
-    padding: 7px;
-    background-color: #6f4e37;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 15px;
-}
+/* #btnSearch { */
+/*     width: 27%; */
+/*     padding: 7px; */
+/*     background-color: #6f4e37; */
+/*     color: white; */
+/*     border: none; */
+/*     border-radius: 4px; */
+/*     cursor: pointer; */
+/*     font-size: 15px; */
+/* } */
 
 </style>
 

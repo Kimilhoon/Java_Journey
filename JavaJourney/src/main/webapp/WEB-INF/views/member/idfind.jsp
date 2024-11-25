@@ -7,14 +7,14 @@
 $(function() {
 	$("#btnIdFind").click(function() {
         var userName = $("#userName").val();
-        var userPhone = $("#userPhone").val();
+        var userEmail = $("#userEmail").val();
         
 		$.ajax({
 			type: "post"
 			, url: "./idfind"
 			, data: {
 	              userName: userName,
-	              userPhone: userPhone
+	              userEmail: userEmail
 			}
 			, dataType: "json"
 			, success: function( obj ) {
@@ -46,7 +46,7 @@ $(function() {
 <style>
     .idFindForm {
         width: 100%;
-        max-width: 400px;  /* 폼의 최대 너비 설정 */
+        max-width: 500px;  /* 폼의 최대 너비 설정 */
         margin: 0 auto;    /* 수평 중앙 정렬 */
         padding: 20px;
         background-color: #f9f9f9;
@@ -105,9 +105,14 @@ $(function() {
 	<input type="text" name="userName" id="userName" required="required">
 </div>
 
+<!-- <div> -->
+<!-- 	<label for="userPhone">전화번호</label> -->
+<!-- 	<input type="text" name="userPhone" id="userPhone" required="required"> -->
+<!-- </div> -->
+
 <div>
-	<label for="userPhone">전화번호</label>
-	<input type="text" name="userPhone" id="userPhone" required="required">
+	<label for="userEmail">이메일</label>
+	<input type="text" name="userEmail" id="userEmail" required="required" placeholder="가입 시 인증한 이메일을 입력하세요">
 </div>
 
 <div>

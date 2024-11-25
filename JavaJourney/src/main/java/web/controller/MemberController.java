@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -189,12 +190,12 @@ public class MemberController {
 	@GetMapping("/tempPw")
 	@ResponseBody //json통신위해 작성
 	public String tempPw(String userEmail) throws Exception{
-//		log.info("userEmail:{}", userEmail);
+		log.info("userEmail:{}", userEmail);
 		
 	
 		//임시비밀번호 생성
-		Random random = new Random();
-		int checkNum = random.nextInt(888888) + 111111;
+		String uuid = UUID.randomUUID().toString();
+		String checkNum = uuid.replaceAll("-", "").substring(0, 8);  // 하이픈 제거 후 8자리로 잘라내기
 		System.out.println("임시비밀번호 :"+ checkNum);
 		
 		
@@ -202,8 +203,7 @@ public class MemberController {
 		String toMail = userEmail;         //받는 이메일
 		String title = "JAVA JOURNEY 임시 비밀번호 인증 이메일 입니다.";
 		String content = 
-						"임시 비밀번호는 " + checkNum + "입니다.\n\n" + 
-						"해당 임시 비밀번호를 확인란에 기입하여 주세요.\n\n" + 
+						"임시 비밀번호는 " + checkNum + "입니다.<br>" + 
 						"반드시 새 비밀번호로 변경하여 주세요.";
 	
 		//이메일 전송 코드
@@ -217,8 +217,13 @@ public class MemberController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		String num = Integer.toString(checkNum); // ajax를 뷰로 반환시 데이터 타입은 String 타입만 가능
-		return num; // String 타입으로 변환 후 반환
+		
+		log.info("checkNum&userEmail:{}", checkNum);		
+		log.info("checkNum&userEmail:{}", userEmail);		
+		service.updatePw(checkNum, userEmail);
+		
+		return checkNum;
+		
 	}	
 	
 

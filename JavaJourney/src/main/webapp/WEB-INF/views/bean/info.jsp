@@ -405,8 +405,14 @@ ${ beanInfo.beanInfo }
 
 <c:if test="${ userNick eq 'admin' }">
 <button type="button" id="btnUpdate" class="btn btn-warning">수정</button>
+<c:choose>
+<c:when test="${beanInfo.status == 'Y' }">
 <button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+</c:when>
+<c:when test="${beanInfo.status =='N' }">
 <button type="button" id="btnRevive" class="btn btn-info">재등록</button>
+</c:when>
+</c:choose>
 </c:if>
 </div>
 
