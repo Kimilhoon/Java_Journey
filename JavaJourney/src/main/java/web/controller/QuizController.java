@@ -136,9 +136,21 @@ public class QuizController {
 		map.put("userNo", userNo);
 		map.put("quizResult", param.getQuizResultNo());
 		
+		boolean isResult = service.countQuizResultNo(map);
+		
+		log.info("isResult: {}", isResult);
+		
 		log.info("map: {}", map);
 		
-		service.insertMemberQuizResult(map);
+		if( !isResult ) {
+			service.insertMemberQuizResult(map);
+			
+		} else {
+			service.deleteMemberQuizResult(map);
+			
+			service.insertMemberQuizResult(map);
+		}
+		
 		
 		// AJAX 요청에 대해서는 리다이렉트를 반환하지 않고 성공 응답 처리
 	    return ResponseEntity.ok().build();

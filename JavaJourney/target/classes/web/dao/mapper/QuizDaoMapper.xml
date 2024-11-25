@@ -49,21 +49,31 @@
 		ORDER BY rnum
 	</select>
 	
+	<select id="countQuizResultNo" parameterType="Hashmap" resultType="int">
+		SELECT	count(quizResult)
+		FROM	memberquizresult
+		<where> 
+		AND		userNo = #{ userNo }
+		AND		quizResult = #{ quizResult }
+		</where>
+	</select>
+	
 	<update id="updateBeanNoByQuizResultNo" parameterType="QuizResult">
 		UPDATE	quizresult
-		SET		beanNo = ${ beanNo }
+		SET		beanNo = #{ beanNo }
 		WHERE	quizResultNo = #{ quizResultNo }
 	</update>
 	
 	<insert id="insertMemberQuizResult" parameterType="Hashmap">
 		INSERT INTO memberquizresult ( quizresult, userNo )
-		VALUES ( ${ quizResult }, ${ userNo } )
+		VALUES ( #{ quizResult }, #{ userNo } )
 	</insert>
 	
-	<update id="updateMemberQuizResult" parameterType="Hashmap">
-		UPDATE	memberquizresult
-		SET		quizResult = ${ quizResult }
-		WHERE	userNo = #{ userNo }
-	</update>
+	<delete id="deleteMemberQuizResult" parameterType="Hashmap">
+		DELETE 
+		FROM	memberquizresult
+		WHERE	quizResult = #{ quizResult }
+	</delete>
+	
 	
 </mapper>
