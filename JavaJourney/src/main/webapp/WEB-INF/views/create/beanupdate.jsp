@@ -156,8 +156,8 @@ textarea {
 <div class="container">
 
 <div>
-<button id="btnManagerMenu">관리자메뉴로가기</button>
-<button id="btnBack">뒤로가기</button>
+<!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
+<!-- <button id="btnBack">뒤로가기</button> -->
 </div>
 <%-- ${ListNo[0].cupNoteNo}	 --%>
 <%-- ${ListNo[1].cupNoteNo}	 --%>
@@ -170,25 +170,25 @@ textarea {
 	<table>
 		<tr>
 			<td>원두이름</td>
-			<td><input type="text" maxlength="50" id="beanName" name="beanName" value="${ListNo[0].beanName}"></td>
+			<td><input required="required" type="text" maxlength="50" id="beanName" name="beanName" value="${ListNo[0].beanName}"></td>
 		</tr>
 		<tr>
 			<td>원두원산지</td>
-			<td><input type="text" maxlength="30" id="origin" name="origin" value="${ListNo[0].beanPrice}"></td>
+			<td><input required="required" type="text" maxlength="30" id="origin" name="origin" value="${ListNo[0].beanPrice}"></td>
 		</tr>
 		<tr>
 			<td>원두금액</td>	
-			<td><input type="number" min="1" max="100000" id="beanPrice" name="beanPrice" value="${ListNo[0].origin}"></td>	
+			<td><input required="required" type="number" min="1" max="100000" id="beanPrice" name="beanPrice" value="${ListNo[0].origin}"></td>	
 		</tr>
 		<tr>
 			<td>사업자번호</td>	
-			<td><input type="text" id="businessNo" name="businessNo" value="${ListNo[0].businessNo}"></td>	
+			<td><input required="required" type="text" id="businessNo" name="businessNo" value="${ListNo[0].businessNo}"></td>	
 		</tr>
 		<!-- 원두이미지삽입 -->
 		<tr>
 			<td>원두[이미지삽입]</td>
 			<td>
-			<textarea id="beanOriginName" name="beanOriginName" rows="4" cols="4">${ListNo[0].beanOriginName}</textarea>
+			<textarea required="required" id="beanOriginName" name="beanOriginName" rows="4" cols="4">${ListNo[0].beanOriginName}</textarea>
 			</td>
 		</tr>
 		<tr>	
@@ -225,12 +225,12 @@ textarea {
 		<!-- 원두이미지삽입 -->
 		<tr>
 		<td>원두설명</td>
-		<td><textarea id="beanComm" name="beanComm" rows="3" style="width: 1000px;">${ListNo[0].beanComm}</textarea></td>
+		<td><textarea required="required" id="beanComm" name="beanComm" rows="3" style="width: 1000px;">${ListNo[0].beanComm}</textarea></td>
 		</tr>
 		<tr>
 			<td>원두상세설명[이미지삽입]</td>
 			<td>
-			<textarea id="beanInfo" name="beanInfo" rows="4" cols="2">${ListNo[0].beanInfo}</textarea>
+			<textarea required="required" id="beanInfo" name="beanInfo" rows="4" cols="2">${ListNo[0].beanInfo}</textarea>
 			</td>
 		</tr>
 	</table>
