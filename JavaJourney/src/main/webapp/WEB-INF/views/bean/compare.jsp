@@ -51,23 +51,24 @@
 							const beanName = res.beanName || "정보 없음";
 							const beanOriginName = res.beanOriginName || "정보 없음";
 							const origin = res.origin || "정보 없음";
-							const cupNoteName = res.cupNoteName || "정보 없음";
+							const cupNoteName = res.cupNoteNames || "정보 없음";
 							const beanPrice = res.beanPrice || "정보 없음";
+							const beanNo = res.beanNo;
 
                             // 데이터가 제대로 있으면 HTML로 출력
                             if (beanName && beanOriginName && origin && cupNoteName && beanPrice) {
                             	
                             	console.log(beanName, beanOriginName, origin, cupNoteName, beanPrice);
                             	
-                                beanInfoHtml += `
-                                	<div class="bean-data"
-                                    <div class="bean-name">`+ beanName + `</div>
-                                    <div class="bean-img">` + beanOriginName + `</div>
-                                    <div class="bean-origin">원산지 : ` + origin + `</div>
-                                    <div class="bean-cupNoteName">맛과 향 : ` + cupNoteName + `</div>
-                                    <div class="bean-price">가격 : ` + beanPrice + `</div>
-                                    </div>
-                                `;
+                            	beanInfoHtml +=
+                                	'<div class="bean-data">' +
+                                    '<div class="bean-name">' + beanName + '</div>' +
+                                    '<div class="bean-img"><a href="./info?beanNo=' + beanNo + '">' + beanOriginName + '</a></div>' +
+                                    '<div class="bean-origin">원산지 : ' + origin + '</div>' +
+                                    '<div class="bean-cupNoteName">맛과 향 : ' + cupNoteName + '</div>' +
+                                    '<div class="bean-price">가격(100g) : ' + beanPrice + '원</div>' +
+                                    '</div>';
+                                    
                             } else {
                                 beanInfoHtml = "<p>원두 정보가 불완전합니다.</p>";
                             }
@@ -109,23 +110,24 @@
 							const beanName = res.beanName || "정보 없음";
 							const beanOriginName = res.beanOriginName || "정보 없음";
 							const origin = res.origin || "정보 없음";
-							const cupNoteName = res.cupNoteName || "정보 없음";
+							const cupNoteName = res.cupNoteNames || "정보 없음";
 							const beanPrice = res.beanPrice || "정보 없음";
-
+							const beanNo = res.beanNo;
+							
                             // 데이터가 제대로 있으면 HTML로 출력
                             if (beanName && beanOriginName && origin && cupNoteName && beanPrice) {
                             	
                             	console.log(beanName, beanOriginName, origin, cupNoteName, beanPrice);
                             	
-                                beanInfoHtml += `
-                                	<div class="bean-data"
-                                    <div class="bean-name">`+ beanName + `</div>
-                                    <div class="bean-img">` + beanOriginName + `</div>
-                                    <div class="bean-origin">원산지 : ` + origin + `</div>
-                                    <div class="bean-cupNoteName">맛과 향 : ` + cupNoteName + `</div>
-                                    <div class="bean-price">가격 : ` + beanPrice + `</div>
-                                    </div>
-                                `;
+                            	beanInfoHtml +=
+                            	'<div class="bean-data">' +
+                                '<div class="bean-name">' + beanName + '</div>' +
+                                '<div class="bean-img"><a href="./info?beanNo=' + beanNo + '">' + beanOriginName + '</a></div>' +
+                                '<div class="bean-origin">원산지 : ' + origin + '</div>' +
+                                '<div class="bean-cupNoteName">맛과 향 : ' + cupNoteName + '</div>' +
+                                '<div class="bean-price">가격(100g) : ' + beanPrice + '원</div>' +
+                                '</div>';
+                                
                             } else {
                                 beanInfoHtml = "<p>원두 정보가 불완전합니다.</p>";
                             }
@@ -152,22 +154,24 @@
 
 <style>
 
+.bean-data div {
+	text-align: center;
+	margin: 40px 0px 20px 0px;
+}
+
 /* 기본 스타일 */
 .bean-name {
-    font-size: 2rem; /* 루트 폰트 크기의 2배로 설정 */
-    font-weight: bold;
+    font-size: 1.6rem; /* 루트 폰트 크기의 2배로 설정 */
     color: #333;
     margin-bottom: 10px;
 }
 
 .bean-img, .bean-origin, .bean-cupNoteName, .bean-price {
-    font-size: 1rem; /* 기본 폰트 크기 */
+    font-size: 1.1rem; /* 기본 폰트 크기 */
     color: #666;
-    margin: 8px 0;
 }
 
 .bean-img {
-    font-size: 1.2rem; /* 원산지와 이미지명은 좀 더 큰 폰트 크기 */
     margin-top: 10px;
 }
 
@@ -192,21 +196,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.compare select {
-    height: 35px;
-    width: 100%;
-    padding: 5px;
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    font-size: 16px;
-}
-
-.compare select:focus {
-    outline: none;
-    border-color: #007bff;
-}
-
 .compare .bean-info1, .compare .bean-info2 {
     margin-top: 20px;
     font-size: 14px;
@@ -217,6 +206,47 @@
 .compare .bean-info1 p, .compare .bean-info2 p {
     font-size: 16px;
     color: #999;
+}
+
+.compare select {
+    height: 40px;
+    width: 100%;
+    padding: 0 20px; /* 텍스트와 테두리 간의 공간을 추가 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    appearance: none; /* 기본 화살표 제거 */
+    -webkit-appearance: none; /* Safari에서 기본 화살표 제거 */
+    -moz-appearance: none; /* Firefox에서 기본 화살표 제거 */
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.compare select:focus {
+    outline: none; /* 포커스 시 기본 테두리 제거 */
+    border-color: #6f4e37; /* 포커스 시 테두리 색상 변경 */
+    box-shadow: 0 0 5px rgba(111, 78, 55, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+.compare select:hover {
+    border-color: #6f4e37; /* 호버 시 테두리 색상 변경 */
+}
+
+.compare .choose-bean {
+    position: relative; /* 셀렉트 박스에 아이콘을 추가할 수 있도록 */
+}
+
+.compare .choose-bean::after {
+    content: "▼"; /* 화살표 아이콘 추가 */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #6f4e37;
+    pointer-events: none; /* 화살표 아이콘이 클릭 이벤트에 방해되지 않도록 */
 }
 
 /* 반응형 디자인 */
@@ -261,7 +291,7 @@
         <hr style="margin: 50px 80px">
 				
         <!-- 동적으로 데이터를 추가할 영역 -->
-        <div class="bean-info1">
+        <div class="bean-info1" style="text-align: center;">
             <p>원두를 선택하면 정보가 표시됩니다.</p>
         </div>
     </div>
@@ -279,7 +309,7 @@
         <hr style="margin: 50px 100px">
 				
         <!-- 동적으로 데이터를 추가할 영역 -->
-        <div class="bean-info2">
+        <div class="bean-info2" style="text-align: center;">
             <p>원두를 선택하면 정보가 표시됩니다.</p>
         </div>
     </div>

@@ -24,7 +24,7 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired private HttpServletRequest req;
 
 	@Override
-	public Paging getPaging(HttpServletRequest req) {
+	public Paging getPaging(HttpServletRequest req, String search) {
 		String param = req.getParameter("curPage");
 		int curPage = 0;
 
@@ -33,9 +33,16 @@ public class ManagerServiceImpl implements ManagerService {
 		} else {
 			log.info("curPage 값이 null이거나 비어있음");
 		}
-
+		
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		
 		//유저 데이터 총 합 조회하기 
-		int totalCount = dao.selectCntAll();
+		int totalCount = dao.selectCntAll(map);
 
 		//페이징 계산하기
 		Paging paging = new Paging(curPage, totalCount);		
@@ -77,7 +84,7 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 	
 	@Override
-	public Paging getBeanSubPaging(HttpServletRequest req) {
+	public Paging getBeanSubPaging(HttpServletRequest req, String search) {
 		String param = req.getParameter("curPage");
 		int curPage = 0;
 
@@ -86,9 +93,16 @@ public class ManagerServiceImpl implements ManagerService {
 		} else {
 			log.info("curPage 값이 null이거나 비어있음");
 		}
-
+		
+		if(search == null || "".equals(search)) {
+			search = "N";
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("search", search);
+		
 		//유저 데이터 총 합 조회하기 
-		int totalCount = dao.selectCntBeanSubAll();
+		int totalCount = dao.selectCntBeanSubAll(map);
 
 		//페이징 계산하기
 		Paging paging = new Paging(curPage, totalCount);		

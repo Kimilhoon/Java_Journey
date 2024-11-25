@@ -236,6 +236,8 @@ public class BeanServiceImpl implements BeanService {
 		
 		Bean bean = dao.selectBeanByBeanNoForCompare(beanNo);
 		
+		log.info("bean: {}", bean);
+		
 		return bean;
 	}
 	
