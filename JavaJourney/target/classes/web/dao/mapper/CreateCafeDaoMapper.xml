@@ -60,44 +60,20 @@
 			, cafeAdd1 = #{cafeAdd1}
 			, cafeAdd2 = #{cafeAdd2}
 			, cafeLoc = #{cafeLoc}
+			, cafePhone = #{cafePhone}
 		</set>
 		WHERE CAFENO = #{cafeNo}
 	</update>
 	
 	<update id="updateCafeStatus" parameterType="int">
 		UPDATE CAFE
-		SET status = 'N'
-		where cafeNo = #{cafeNo}
+		SET status =
+			CASE 
+      	      WHEN STATUS = 'Y' THEN 'N'
+      	      WHEN STATUS = 'N' THEN 'Y'
+     	   END
+		WHERE CAFENO = #{CAFENO}
 	</update>
-	
-<!-- 	<delete id="deleteCafeRev" parameterType="CafeRev"> -->
-<!-- 		DELETE CafeRev -->
-<!-- 		<where> -->
-<!-- 			cafeNo = #{cafeNo} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
-	
-<!-- 	<delete id="deleteCafeRevComm" parameterType="CafeRevComm"> -->
-<!-- 		DELETE CAFEREVCOMM -->
-<!-- 		<where> -->
-<!-- 			revNo = #{revNo} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
-	
-<!-- 	<delete id="deleteCafe" parameterType="Cafe"> -->
-<!-- 		DELETE Cafe -->
-<!-- 		<where> -->
-<!-- 			cafeNo = #{cafeNo} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
-	
-<!-- 	<delete id="deleteCafeImg" parameterType="CafeImg"> -->
-<!-- 	<delete id="deleteCafeImg"> -->
-<!-- 		DELETE CafeImg -->
-<!-- 		<where> -->
-<!-- 			cafeImgNo = #{cafeImgNo} -->
-<!-- 		</where> -->
-<!-- 	</delete> -->
 	
 	
 </mapper>

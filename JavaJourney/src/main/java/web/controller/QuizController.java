@@ -1,14 +1,22 @@
 package web.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
@@ -29,30 +37,44 @@ public class QuizController {
 		
 	} // quizForm() end
 	
-//	@PostMapping("/quizForm")
+//	@GetMapping("/quizResult")
 //	public void quizFormProc(@RequestBody QuizResult param, 
 //			@SessionAttribute(value = "userId", required = false) String userId,
-//			Model model) {
+//			Model model, HttpServletResponse resp) {
 //		
-//		log.info("{}", param);
+//		// 컵 노트 번호를 받아와서 빈 조회하기
+//		List<Bean> list = service.getBeanByCupnoteNo(param);
 //		
-//		if (userId == null) {
-//	        // 세션에 userId가 없을 때 처리
-//	        log.warn("User is not logged in or session has expired.");
-//	        return;
-//	    } // if (userId == null) end
+//		log.info("list: {}", list);
+//
+//		model.addAttribute("list", list);
 //		
-//		Member userNo = service.selectUserNoByUserId(userId);
-//		log.info("userNo: {}", userNo.getUserNo());
-//		model.addAttribute("userNo", userNo.getUserNo());
 //		
-//		List<Bean> 
+//		// 원두 조회 전 퀴즈결과 저장하기
+//		boolean isResult = service.insertQuizResult(param);
+//		
+//		Gson gson = new Gson();
+//		
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("isResult", isResult);
+//		map.put("list", list);
+//		
+//		resp.setCharacterEncoding("utf-8");
+//		
+//		try {
+//			resp.getWriter().append(gson.toJson(map));
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			
+//		} // try end
+//		
 //		
 //	} // quizForm() end
 	
-	@RequestMapping("/quizResult")
+	@PostMapping("/quizForm")
 	public void quizResult(@SessionAttribute(value = "userId", required = false) String userId,
-			@RequestBody QuizResult param, Model model) {
+			@RequestBody QuizResult param, Model model, HttpServletResponse resp) {
 		
 		log.info("QuizResult QuizResult QuizResult QuizResult QuizResult{}", param);
 		
@@ -62,16 +84,65 @@ public class QuizController {
 	        return;
 	    } // if (userId == null) end
 		
+		// 컵 노트 번호를 받아와서 빈 조회하기
+		List<Bean> list = service.getBeanByCupnoteNo(param);
+		
+		log.info("list: {}", list);
+
+		model.addAttribute("list", list);
+		
 		Member userNo = service.selectUserNoByUserId(userId);
 		log.info("userNo: {}", userNo.getUserNo());
 		model.addAttribute("userNo", userNo.getUserNo());
 		
 		// 원두 조회 전 퀴즈결과 저장하기
-		service.insertQuizResult(param);
+		boolean isResult = service.insertQuizResult(param);
 		
-		// 컵 노트 번호를 받아와서 빈 조회하기
-		List<Bean> list = service.getBeanByCupnoteNo(param);
+		// 삽입된 퀴즈 넘버 가져오기
+		int quizResultNo = param.getQuizResultNo();
 		
-	} // quizForm() end
+		log.info("isResult: {}", isResult);
+		log.info("quizResultNo: {}", quizResultNo);
+		
+		Gson gson = new Gson();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("isResult", isResult);
+		map.put("list", list);
+		map.put("quizResultNo", quizResultNo);
+		
+		resp.setCharacterEncoding("utf-8");
+		
+		try {
+			resp.getWriter().append(gson.toJson(map));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		} // try end
+		
+	} // quizResult() end
+	
+	@PostMapping("/resultbean")
+	public String resultbeanProc(QuizResult param, @SessionAttribute(value = "userNo", required = false) int userNo) {
+		log.info("paramparamparamparam: {}", param);
+		log.info("userNo: {}", userNo);
+		
+		// quizResult테이블에 beanNo 업데이트
+		service.updateBeanNo(param);
+		
+		// memberQuizResult에 결과값 삽입하기
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("userNo", userNo);
+		map.put("quizResult", param.getQuizResultNo());
+		
+		log.info("map: {}", map);
+		
+		service.insertMemberQuizResult(map);
+		
+		return "redirect:/bean/info?beanNo="+param.getBeanNo();
+		
+	} // resultbeanProc() end
+	
 	
 } // class end

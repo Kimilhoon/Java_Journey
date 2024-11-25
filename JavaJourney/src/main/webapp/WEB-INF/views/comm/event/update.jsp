@@ -31,19 +31,54 @@ $(function() {
 
 </script>
 
-
-<h1>이벤트 업데이트</h1>
-
-<div>
-<button id="btnManagerMenu">관리자메뉴로가기</button>
-<button id="btnBack">뒤로가기</button>
-</div>
-
+<style type="text/css">
+table {
+    margin: 20px auto; /* 페이지 중앙 정렬 */
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    width: 100%; /* 너비 조정 */
+    max-width: 1500px; /* 최대 너비 설정 */
+    background-color: #f9f9f9; /* 테이블 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 8px; /* 테이블 모서리를 둥글게 */
+    overflow: hidden; /* 둥근 테두리 안에 내용 제한 */
+    
+}
+table tr {
+/*         border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 희미한 줄 */ */
+}
+table td {
+        padding-bottom: 10px;
+}
+input[type="text"],
+textarea {
+	width: 100%; /* 입력 필드의 너비를 셀에 맞게 조정 */
+    padding: 10px; /* 내부 여백 */
+    font-size: 14px; /* 폰트 크기 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 4px; /* 모서리를 둥글게 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
+#btnWrite {
+    width: 100%;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
+</style>
+<h1 class="text-center">이벤트 업데이트</h1>
+<!-- <div> -->
+<!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
+<!-- <button id="btnBack">뒤로가기</button> -->
+<!-- </div> -->
 <div class="container">	
 <form id="form" action="./update?eventNo=${eventView.eventNo }" method="post" enctype="multipart/form-data">
-	<table class="table table-info">
+	<table>
 		<tr>
-			<td class="mx-3">
+			<td>
 			이벤트 이름
 			<input type="text" name="eventName" value="${eventView.eventName }" readonly="readonly">
 			</td>
@@ -69,9 +104,7 @@ $(function() {
 			</td>
 		</tr>
 	</table>
-	<div id="btnWrite">
-	<button class="btn btn-primary">완료</button>
-	</div>
+	<button id="btnWrite">수정</button>
 </form>
 </div>
 

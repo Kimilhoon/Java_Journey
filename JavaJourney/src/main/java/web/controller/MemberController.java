@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +49,8 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	private KakaoApi kakaoApi = new KakaoApi();
+	@Autowired
+	private KakaoApi kakaoApi;
 	
 	//이메일인증 의존성주입
 	@Autowired 
@@ -183,6 +186,46 @@ public class MemberController {
 		return jsonStr;
 	}
 	
+	//임시비밀번호
+	@GetMapping("/tempPw")
+	@ResponseBody //json통신위해 작성
+	public String tempPw(String userEmail) throws Exception{
+		log.info("userEmail:{}", userEmail);
+		
+	
+		//임시비밀번호 생성
+		String uuid = UUID.randomUUID().toString();
+		String checkNum = uuid.replaceAll("-", "").substring(0, 8);  // 하이픈 제거 후 8자리로 잘라내기
+		System.out.println("임시비밀번호 :"+ checkNum);
+		
+		
+		//이메일 전송 내용
+		String toMail = userEmail;         //받는 이메일
+		String title = "JAVA JOURNEY 임시 비밀번호 인증 이메일 입니다.";
+		String content = 
+						"임시 비밀번호는 " + checkNum + "입니다.<br>" + 
+						"반드시 새 비밀번호로 변경하여 주세요.";
+	
+		//이메일 전송 코드
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content,true);
+			mailSender.send(message);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		log.info("checkNum&userEmail:{}", checkNum);		
+		log.info("checkNum&userEmail:{}", userEmail);		
+		service.updatePw(checkNum, userEmail);
+		
+		return checkNum;
+		
+	}	
+	
 
 @GetMapping("/test")
 public void test() {}
@@ -222,10 +265,11 @@ public void test() {}
 		return num; // String 타입으로 변환 후 반환
 	}
 	
+
+	//========================================[ 카카오 로그인 ]========================================
+	
 	@RequestMapping("/kakao/login")
-	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpSession session) {
-		
-		ModelAndView mav = new ModelAndView();
+	public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) {
 		
 		// 1. 인증코드 요청 전달 
 		String access_token = kakaoApi.getAccessToken(code);
@@ -233,27 +277,29 @@ public void test() {}
 		// 2. 인증코드로 토큰 전달
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(access_token);
 		
-		if(userInfo.get("email") != null) {
-			session.setAttribute("userId", userInfo.get("email"));
+		if(userInfo.get("nickname") != null) {
+			session.setAttribute("userNick", userInfo.get("nickname"));
 			session.setAttribute("access_token", access_token);
+			session.setAttribute("userId", userInfo.get("userId"));
+			session.setAttribute("userNo", userInfo.get("userNo"));
 			session.setAttribute("isLogin", true);
+			session.setAttribute("isKakao", true);
 		}
-		mav.addObject("userId", userInfo.get("email"));
-		mav.setViewName("main");
-		return mav;
+		
+		model.addAttribute("userNick", userInfo.get("nickname"));
+		return "redirect: /main";
 		
 	}
 	
 	@RequestMapping("/kakao/logout")
-	public ModelAndView kakaoLogout(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
+	public String kakaoLogout(HttpSession session) {
 		
 		kakaoApi.kakaoLogout((String) session.getAttribute("access_token"));
 		session.removeAttribute("access_token");
 		session.removeAttribute("userId");
-		mav.setViewName("main");
+		session.invalidate();
 		
-		return mav;
+		return "redirect: /main";
 	}
 	
 	//네이버 로그인 =======================================================================

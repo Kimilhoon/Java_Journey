@@ -1,5 +1,8 @@
 package web.dao.face;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import web.dto.Member;
@@ -61,6 +64,39 @@ public interface MemberDao {
 	 * @return
 	 */
 	public String searchPw(Member member);
+
+	/**
+	 * (카카오로그인) 유저 정보가 있나 없나 확인하기
+	 * 
+	 * @param userInfo
+	 * @return
+	 */
+	public int cntByUserEmail(String email);
+
+	/**
+	 * (카카오로그인) 유저 정보 db 삽입
+	 * 
+	 * @param userInfo
+	 */
+	public void insertKakaoLoginUser(HashMap<String, Object> userInfo);
+
+	/**
+	 * (카카오로그인) 유저의 유저번호, 아이디 정보를 로그인한 이메일로 갖고오기
+	 * 
+	 * @param userInfo
+	 * @return
+	 */
+	public int selectUSerNoByKakaoEmail(HashMap<String, Object> userInfo);
+	public String selectUSerIdByKakaoEmail(HashMap<String, Object> userInfo);
+
+
+	public void updatePw(Map<String, Object> tempPw);
+
+	/**
+	 * 비밀번호찾기페이지에서 새비밀번호로 변경
+	 * @param member
+	 */
+//	public void pwUpdate(Member member);
 	
 	
 }

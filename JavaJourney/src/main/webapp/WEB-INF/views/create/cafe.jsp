@@ -214,14 +214,14 @@ select {
 
 </style>
 
-<button id="btnManagerMenu">관리자메뉴로가기</button>
+<!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
+<!-- <hr> -->
 
-<hr>
 <div>
 <form action="./cafe" method="post" enctype="multipart/form-data">
 <table>
    <tr>
-      <td >카페 이름</td>
+      <td>카페 이름</td>
       <td><input type="text" id="cafeName" name="cafeName"></td>      
    </tr>
    <tr>

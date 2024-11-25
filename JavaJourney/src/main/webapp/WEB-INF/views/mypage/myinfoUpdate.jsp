@@ -210,7 +210,6 @@ $(function() {
             }).fail(function() {
                 alert("탈퇴 처리 중 오류가 발생했습니다.");
             });
-            // "예"를 선택한 경우 탈퇴 요청 전송
 //             location.href = "<c:url value='/mypage/out'/>"; // 회원 탈퇴 요청 URL
         }
 	})
@@ -440,7 +439,7 @@ $(function() {
 		<input type="text" name="userPw" id="userPw" required="required">
 	</label>
 </div>
-<p id="pwValidation" style="color:red; font-size:0.6rem;">
+<p id="pwValidation" style="color:red; font-size:0.8rem;">
 	비밀번호는 5~20자의 영문 대/소문자, 숫자, 특수문자만 가능합니다
 </p>
 
@@ -449,7 +448,7 @@ $(function() {
 		<input type="password" name="userPwCheck" id="userPwCheck" required="required">
 	</label>
 </div>
-<p id="pwCheckResult" style="font-size:0.6rem;">
+<p id="pwCheckResult" style="font-size:0.8rem;">
 
 
 <div class="nickSection">
@@ -458,7 +457,7 @@ $(function() {
 	<button id="userNickCheck" type="button">중복확인</button>
 	<span id="userNickCheckMsg"></span>
 </div>
-<p id="nickValidation" style="color:red; font-size:0.6rem;">
+<p id="nickValidation" style="color:red; font-size:0.8rem;">
 	닉네임은 5~10자의 영문, 한글, 숫자만 가능합니다
 </p>
 
@@ -499,6 +498,7 @@ $(function() {
 
 </form>
 </div> <!-- id="infoUpdateForm" -->
+
 
 <button id="btnOut" type="button">|탈퇴하기|</button>
 

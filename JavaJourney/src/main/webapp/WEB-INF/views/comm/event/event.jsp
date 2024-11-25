@@ -4,6 +4,12 @@
 <c:import url="/WEB-INF/views/layout/header.jsp"/>
 
 <script type="text/javascript">
+$(function () {
+	$(".custom-image img").css({
+        width: "1100px",
+        height: "300px"
+    });
+})
     // 모달 열기 함수
     function showModal(modalId) {
         document.getElementById(modalId).style.display = 'flex'; // 중앙 정렬을 위해 flex 사용
@@ -64,9 +70,11 @@
     <c:forEach var="eventList" items="${eventList}" varStatus="status">
         <div>
             <!-- 이벤트 배너 버튼 -->
-            <button type="button" onclick="showModal('modal-${status.index}')" style="margin-bottom: 20px;">
+            <button type="button" onclick="showModal('modal-${status.index}')" style="margin-bottom: 50px;">
                 <!-- 이벤트 이미지 출력 -->
+                	<div class="custom-image">
                     ${eventList.eventBanner}
+                    </div>
             </button>
             <!-- 모달 -->
             <div id="modal-${status.index}" class="modal">

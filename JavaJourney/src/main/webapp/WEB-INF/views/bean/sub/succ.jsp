@@ -11,7 +11,7 @@
 $(function() {
 	
 	$("#beanSubInfoBtn").click(function() {
-		location.href="../mypage/subscribe?subNo=${ beanSub.subNo }"
+		location.href="../mypage/subscribe?userNo=${ beanSub.userNo }"
 	})
 	
 	$("#beanAllBtn").click(function() {

@@ -154,7 +154,7 @@ $(function() {
 		});
 		
 		$("#btnDelete").click(function() {
-			location.href="/create/cafeDelete?cafeNo=${cafeInfo.cafeNo}";
+			location.href="/create/cafeDelete?cafeNo=${cafeInfo.cafeNo}";	
 		});
 	
 	/* -------------------------------------------------------------------------------------------------------------- */
@@ -287,6 +287,8 @@ $(function() {
 
 <div id="starPoint">
 <table class="table table-borderless p-2 text-center">
+<c:choose>
+<c:when test="${cafeInfo.status == 'Y' }">
 <tr>
 	<th>별점</th>
 	<td>
@@ -298,15 +300,18 @@ $(function() {
     </c:if>
 </td>
 </tr>
+</c:when>
+</c:choose>
 </table>
 </div> <!-- id="starPoint" End -->
 
 <div id="btn" class="d-flex justify-content-center align-self-end">
-	<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
-	
-<%-- 	<c:if test="${cafe.status == 'Y'}"> --%>
-	<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
-<%-- 	</c:if> --%>
+	<c:choose>
+		<c:when test="${cafeInfo.status == 'Y' }">
+			<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
+			<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
+		</c:when>
+	</c:choose>
 </div>
 	
 </div> <!-- explain p-2 End -->
@@ -385,8 +390,15 @@ $(function() {
 <!-- 	<a href="./best"><button id="btnBest" class="btn btn-secondary" type="button">베스트 카페</button></a> -->
 
 <c:if test="${ userNick eq 'admin' }">
-<button type="button" id="btnUpdate" class="btn btn-warning">수정</button>
-<button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+	<button type="button" id="btnUpdate" class="btn btn-warning">수정</button>
+	<c:choose>
+		<c:when test="${cafeInfo.status == 'Y' }">
+			<button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+		</c:when>
+		<c:when test="${cafeInfo.status == 'N' }">
+			<button type="button" id="btnDelete" class="btn btn-danger">활성화</button>
+		</c:when>
+	</c:choose>
 </c:if>
 </div>
 

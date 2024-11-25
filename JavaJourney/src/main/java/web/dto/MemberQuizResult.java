@@ -23,6 +23,7 @@ public class MemberQuizResult {
 //	private int beanNo;
 	private int beanImgNo;
 //	private String beanName;
+	private int beanComm;
 	
 	//조인 beanimg
 //	private int beanImgNo;

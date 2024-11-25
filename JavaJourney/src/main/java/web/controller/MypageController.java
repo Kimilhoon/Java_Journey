@@ -45,23 +45,43 @@ public class MypageController {
 	//----------------------------------------------------------------------------
 	//jinjaeyoung
 	@GetMapping("/quizres")
-	public void quizresForm(
+	public String quizresForm(
 			MemberQuizResult memberQuizResult,
 			Model model
 			) {
 //		log.info("memberQuizResult UserNo : {}",memberQuizResult.getUserNo());
 		List<MemberQuizResult> MyQuizResult = service.selectByUserNoQuizeResult(memberQuizResult.getUserNo());
+		
+//		log.info("MyQuizResult 조건문 : {}", MyQuizResult.isEmpty());
+		
+		if( MyQuizResult == null || MyQuizResult.isEmpty() ) {
+			model.addAttribute("message", "아직 취향결과를 하지 않았습니다");
+			return "mypage/nodata"; // View Resolver를 통해 JSP파일을 찾아 렌더링 한다
+			//**렌더링 : 서버에서 JSP 파일을 HTML로 변환하여 클라이언트(브라우저)에 보내는 것을 의미합니다
+			///WEB-INF/views/mypage/nodata.jsp를 찾아서 클라이언트에게 반환합니다
+		}
+		
 		model.addAttribute("MyQuizResult",MyQuizResult);
+		return "mypage/quizres";//HTTP Redirect를 수행한다, 브라우저가 지정된 URL로 재요청을 보낸다
+		//클라이언트가 /mypage/quizres라는 URL로 새로운 요청을 생성합니다.
+		//리다이렉트는 브라우저가 새로운 URL로 다시 요청을 보냅니다. 이로 인해 2번의 GET 요청이 발생합니다.
+		//따라서 여기에는 리다이렉트를 사용하지 않음, 2번요청하면 data가 없다고 조회되서
 	}
 	
 	@GetMapping("/subscribe")
 	public void subscribeForm(
 			BeanSub beanSub,
+			Paging curPage,
 			Model model
 			) {
 		log.info("beanSub UserNo : {}",beanSub.getUserNo());
-		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo());
+		log.info("Paging-curPage : {}",curPage);
+		
+		Paging paging = service.getBeanSubPage(curPage, beanSub.getUserNo());
+		
+		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo(), paging);
 		model.addAttribute("beanSubList",beanSubList);
+		model.addAttribute("paging",paging);
 	}
 	
 	@PostMapping("/cancelsub")
@@ -89,58 +109,6 @@ public class MypageController {
 	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//----------------------------------------------------------------------------
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

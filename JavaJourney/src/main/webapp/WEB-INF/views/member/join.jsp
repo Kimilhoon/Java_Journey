@@ -539,7 +539,11 @@ $(document).ready(function() {
 });
 </script>
 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> refs/remotes/origin/master
 
 <!-- 이용약관 모달 -->
 <!-- -------------------------------------------------- -->
@@ -791,41 +795,41 @@ label.agree button:hover {
 	<input type="text" name="userId" id="userId" required="required" placeholder="5-15자의 영문, 숫자">
 	<button id="userIdCheck" type="button">중복확인</button>
 	<span id="userIdCheckMsg"></span>
-</div>
-<p id="idValidation" style="color:red; font-size:0.6rem;">
+<p id="idValidation" style="color:red; font-size:0.8rem;">
 	아이디는 5~15자의 영문, 숫자만 가능합니다
 </p>
+</div>
 
 <div>
 	<label for="userPw">비밀번호
 		<input type="text" name="userPw" id="userPw" required="required" placeholder="5-20자의 영문 대/소문자, 숫자, 특수문자">
 	</label>
-</div>
-<p id="pwValidation" style="color:red; font-size:0.6rem;">
+<p id="pwValidation" style="color:red; font-size:0.8rem;">
 	비밀번호는 5~20자의 영문 대/소문자, 숫자, 특수문자만 가능합니다
 </p>
+</div>
 
 <div>
 	<label for="userPwCheck">비밀번호 확인
 		<input type="password" name="userPwCheck" id="userPwCheck" required="required">
 	</label>
+<p id="pwCheckResult" style="font-size:0.8rem;">
 </div>
-<p id="pwCheckResult" style="font-size:0.6rem;">
 
 <div class="nickSection">
 	<label for="userNick">닉네임</label>
 	<input type="text" name="userNick" id="userNick" required="required" placeholder="5-10자의 영문, 한글, 숫자">
 	<button id="userNickCheck" type="button">중복확인</button>
 	<span id="userNickCheckMsg"></span>
-</div>
 <p id="nickValidation" style="color:red; font-size:0.6rem;">
 	닉네임은 5~10자의 영문, 한글, 숫자만 가능합니다
 </p>
+</div>
 
 <div class="emailSection">
 	<label for="userEmail">이메일</label>
 	<div class="inputGroup">
-	<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일" >
+	<input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="ex) java@journey.com" >
 	<button type="button" id="mailCheckBtn">본인인증</button>
 	</div>
 </div>
@@ -833,7 +837,7 @@ label.agree button:hover {
 	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
-	<p id="resultMsg" style="font-size:0.6rem;"></p>
+	<p id="resultMsg" style="font-size:0.8rem;"></p>
 
 
 <div>

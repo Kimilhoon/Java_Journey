@@ -4,11 +4,14 @@
 <c:import url="../layout/header.jsp" />
 
 <script type="text/javascript">
+
 $(function(){
+
 	$("#btnPwFind").click(function(){
 		var userId = $("#userId").val();
         var userName = $("#userName").val();
-        var userPhone = $("#userPhone").val();
+        var userEmail = $("#userEmail").val();
+        var userCheck = $('#mailCheckBtn');
         
         $.ajax({
         	type: "post"
@@ -16,7 +19,7 @@ $(function(){
         	, data: {
         		userId: userId,
         		userName: userName,
-	            userPhone: userPhone
+        		userEmail: userEmail
         	}
         	, dataType: "json"
         	, success: function(obj){
@@ -24,9 +27,11 @@ $(function(){
         		$("#resultPwDiv").show();
         		
         		if(obj.msg == "succ"){
-                    $("#searchPwResult").text("비밀번호는 " + obj.searchPw +" 입니다.");
+                    $("#searchPwResult").text("");
+                    userCheck.css('display', 'inline-block');
                 } else{
                     $("#searchPwResult").text("존재하지 않는 사용자입니다.");
+                    userCheck.css('display', 'none');
                 }       	
         		
         	}
@@ -36,15 +41,66 @@ $(function(){
 			}
         	
         }) // $.ajax end
-	})
+	
+	}) //$("#btnPwFind") end
+	
+	
+	
 });	//$(function) end
 
 </script>
 
+
+
+<!-- 임시비밀번호 -->
+<script>
+let code = "";  // 서버에서 보내준 인증번호를 저장할 변수
+$(document).ready(function() {
+	$('#mailCheckBtn').click(function() {
+		const userEmail = $('#userEmail').val(); // 이메일 주소값 얻어오기!
+		console.log('완성된 이메일 : ' + userEmail); // 이메일 오는지 확인
+		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+
+	    if (!userEmail) {
+	        alert("이메일을 입력해주세요");
+	        return false;
+	    }
+	    // 이메일 형식 검사
+	    const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+	    if (!regexEmail.test(userEmail)) {
+	        alert("이메일 형식을 확인해주세요");
+	        return;
+	    }
+// 	    console.log("이메일 형식이 올바릅니다:", userEmail);
+		
+		$.ajax({
+			type : "get",
+			url : "/member/tempPw", 
+		    data: { userEmail: userEmail },
+			success : function (data) { 
+				
+	            emailCheck = true;
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false); //인증번호입력하는곳 활성화
+				code = data;  // 서버에서 받은 인증번호를 code 변수에 저장
+				alert('임시 비밀번호가 전송되었습니다.\n반드시 마이페이지에서 새 비밀번호로 변경하세요.')
+			},
+	        error: function () {
+	            alert("이메일 인증 요청에 실패했습니다");
+	            emailCheck = false;
+	        }
+		}); // end ajax
+	}); // $('#mailCheckBtn') end
+	
+
+});
+</script>
+
+
 <style>
     .pwFindForm {
         width: 100%;
-        max-width: 400px;  /* 폼의 최대 너비 설정 */
+        max-width: 500px;  /* 폼의 최대 너비 설정 */
         margin: 0 auto;    /* 수평 중앙 정렬 */
         padding: 20px;
         background-color: #f9f9f9;
@@ -108,12 +164,12 @@ $(function(){
 </div>
 
 <div>
-	<label for="userPhone">전화번호</label>
-	<input type="text" name="userPhone" id="userPhone" required="required">
+	<label for="userEmail">이메일</label>
+	<input type="text" name="userEmail" id="userEmail" required="required" placeholder="가입 시 인증한 이메일을 입력하세요">
 </div>
 
 <div>
-	<button id="btnPwFind" type="button">비밀번호 찾기</button>
+	<button id="btnPwFind" type="button">확인</button>
 </div>
 
 <div id="resultPwDiv" style="display: none;">
@@ -121,13 +177,13 @@ $(function(){
 </div>
 
 <div>
-	<a href="./idfind">| 아이디 찾기 |</a>
+	<button type="button" id="mailCheckBtn" disabled="disabled" style="display: none;">이메일로 임시 비밀번호 받기</button>
 </div>
 
-<!-- <div> -->
-<!-- 	<a href="./login">| 로그인 |</a> -->
-<!-- </div> -->
 
+<div>
+	<a href="./idfind">| 아이디 찾기 |</a>
+</div>
 
 
 </form>

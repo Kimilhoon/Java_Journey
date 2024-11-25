@@ -12,7 +12,7 @@
       		SELECT
 				c.cafeNo, i.cafeImgNo, c.cafeName, c.cafeComm, c.cafePhone, 
                 c.busyTime, c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo,
-                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize,
+                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize, c.status,
 				(SELECT COUNT(cr.revNo) FROM cafeRev cr WHERE cr.cafeNo = c.cafeNo) AS reviewCount,
 				(SELECT TRUNC( avg(cr.revsp)) FROM cafeRev cr WHERE cr.cafeNo = c.cafeNo ) AS avgRevStarPoint
 			FROM cafe c
@@ -33,7 +33,7 @@
 	            SELECT 
 	                c.cafeNo, c.cafeName, c.cafeComm, c.cafePhone, c.busyTime, 
 	                c.cafeLoc, c.cafeAdd1, c.cafeAdd2, c.businessNo, c.cafeInfo, 
-	                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize, 
+	                i.cafeImgOriName, i.cafeImgStoName, i.cafeImgSize, c.status,
 	                NVL(r.reviewCount, 0) AS reviewCount, 
 	                NVL(ROUND(r.avgRevStarPoint, 1), 0) AS avgRevStarPoint
 	            FROM 
@@ -54,6 +54,15 @@
 	            ) r 
 	            ON 
 	                c.cafeNo = r.cafeNo
+	            WHERE 
+<!--                 (c.cafeLoc = NVL(#{location}, c.cafeLoc)) -->
+					(#{location} = 'N' OR c.cafeLoc = #{location})
+	                AND (
+	                    #{keyword} IS NULL 
+	                    OR c.cafeName LIKE '%' || #{keyword} || '%'
+	                    OR c.cafeComm LIKE '%' || #{keyword} || '%'
+	                    OR c.cafeInfo LIKE '%' || #{keyword} || '%'
+	                )
 	            ORDER BY 
 	                avgRevStarPoint DESC
 	        ) a
@@ -80,7 +89,7 @@
       SELECT
          cafeNo, i.cafeImgNo, cafeName, cafeComm, cafePhone, 
          busyTime, cafeLoc, cafeAdd1, cafeAdd2, businessNo, cafeInfo,
-         cafeImgOriName, cafeImgStoName, cafeImgSize            
+         cafeImgOriName, cafeImgStoName, cafeImgSize, c.status            
       FROM cafe c
       INNER JOIN cafeimg i ON c.imgNo = i.cafeImgNo
         <where>

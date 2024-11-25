@@ -33,12 +33,24 @@ public class ManagerController {
 	@GetMapping("/user")
 	public void userForm(
 			HttpServletRequest req,
-			Model model
+			Model model,
+			String search
 			) {
 		log.info("req : {}", req);
+		log.info("search : {}", search);
 		Paging paging = service.getPaging(req);
 		
-		List<Member> memberList = service.selectAll(paging);
+//		List<Member> memberList = service.selectAll(paging); //모두검색
+		
+	    List<Member> memberList;
+	    if (search != null && !search.trim().isEmpty()) {
+	        // 검색어가 있을 경우
+	        memberList = service.searchByUserNick(search, paging);
+	    } else {
+	        // 검색어가 없을 경우
+	        memberList = service.selectAll(paging);
+	    }
+		
 		log.info("memberList: {}",memberList);
 		
 		model.addAttribute("memberList",memberList);
@@ -89,12 +101,23 @@ public class ManagerController {
 	public void subuserFoem(
 			HttpServletRequest req,
 			Model model,
-			BeanSub beanSub
+			BeanSub beanSub,
+			String search
 			) {
 		log.info("req : {}", req);
 		Paging paging = service.getBeanSubPaging(req);
 		
-		List<BeanSub> beanSubList = service.selectBeanSubAll(paging);
+//		List<BeanSub> beanSubList = service.selectBeanSubAll(paging);
+		
+	    List<BeanSub> beanSubList;
+	    if (search != null && !search.trim().isEmpty()) {
+	        // 검색어가 있을 경우
+	    	beanSubList = service.searchsubuserByUserNick(search, paging);
+	    } else {
+	        // 검색어가 없을 경우
+	    	beanSubList = service.selectBeanSubAll(paging);
+	    }
+		
 		log.info("beanSubList: {}",beanSubList);
 		
 		model.addAttribute("beanSubList",beanSubList);
@@ -113,7 +136,7 @@ public class ManagerController {
 
 		if( isSubCancel ) {
 			result.put("status", "success");
-			result.put("message", "작업이 성공적으로 취소되었습니다");
+			result.put("message", "작업이 성공적하였습니다");
 		} else {
 			result.put("status", "fail");
 			result.put("message", "이미 구독이 취소가 된 상태입니다");

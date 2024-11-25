@@ -85,7 +85,7 @@
       <property name="password" value="mzqc erwq keqb sxvv" />
       <property name="javaMailProperties">
          <props>
-            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.transport.protocol">smtp</prop> <!-- Simple Mail Transfer Protocol의 약자로 인터넷에서 이메일을 보내기 위해 이용되는 프로토콜 -->
             <prop key="mail.smtp.auth">true</prop>
             <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
             <prop key="mail.smtp.starttls.enable">true</prop>

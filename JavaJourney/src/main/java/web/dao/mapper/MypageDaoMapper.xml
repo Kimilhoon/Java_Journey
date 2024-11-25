@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
    <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -41,7 +40,7 @@
    
    <select id="selectMyQuizeResult" resultType="MemberQuizResult">
       SELECT m.quizresult, m.userno,
-      b1.BEANNO, b1.BEANNAME, 
+      b1.BEANNO, b1.BEANNAME, b1.BEANCOMM,
       b2.BEANORIGINNAME,
       c.CUPNOTENAME,
       g.GRINDNAME,
@@ -59,39 +58,34 @@
       </where> 
    </select>
    
-<!--    <select id="selectMyBeanSubResult" resultType="BeanSub"> -->
-<!--       SELECT -->
-<!--          SUBNO, USERNO, BEANNO, GRAM, PRICE, -->
-<!--          GRIND, SUBSTARTDATE, SUBENDDATE, SUBTIME, NONSUB -->
-<!--          FROM BEANSUB -->
-<!--          <where> -->
-<!--             USERNO = #{userNo} -->
-<!--          </where> -->
-<!--          ORDER BY SUBNO -->
-<!--    </select> -->
-   <select id="selectMyBeanSubResult" resultType="BeanSub">
-      SELECT
-         b1.SUBNO, b1.USERNO,
-         b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
-         b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
-         b2.BEANNAME,
-         b3.BEANORIGINNAME,
-         b4.REVSTARPOINT,
-         CASE 
-         WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
-         ELSE 0
-         END AS REVSTARPOINT 
-         FROM BEANSUB b1, BEAN b2, BEANIMG b3, BEANREV b4
-         <where>
-            AND b1.BEANNO = b2.BEANNO
-            AND b2.BEANIMGNO = b3.BEANIMGNO
-            AND b1.BEANNO = b4.BEANNO(+)
-            AND b1.USERNO = #{userNo}
-            AND b1.NONSUB = 'N'
-         </where>
-         ORDER BY SUBNO DESC
-   </select>
+   <select id="getBeanSubTotalCnt" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM BEANSUB
+		WHERE USERNO = #{userNo}
+	</select>
 
+	<select id="selectMyBeanSubResult" resultType="BeanSub" parameterType="hashmap">
+			SELECT * FROM (
+			SELECT rownum r, a.* FROM (
+			SELECT
+			b1.SUBNO, b1.USERNO,
+			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
+			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
+			b2.BEANNAME,
+			b3.BEANORIGINNAME,
+			b4.REVNO,
+				CASE 
+					WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
+					ELSE 0
+					END AS REVSTARPOINT
+				FROM BEANSUB b1, bean b2, beanimg b3, BEANREV b4
+				WHERE b1.BEANNO = b2.BEANNO
+				AND b2.BEANIMGNO = b3.BEANIMGNO
+				AND b1.BEANNO = b4.BEANNO(+)
+				AND b1.USERNO = #{userNo}
+				ORDER BY SUBNO DESC
+				)a
+			)WHERE r BETWEEN #{paging.startNo } AND #{paging.endNo }
+	</select>
 <!--    <delete id="subCancel" parameterType="Integer"> -->
 <!--       DELETE BEANSUB -->
 <!--       <where> -->
@@ -150,7 +144,6 @@
       </where>
    </select>
 
-
    <update id="changeStatus" parameterType="int">
       UPDATE MEMBER
       SET status = 'N'
@@ -196,64 +189,58 @@
        ORDER BY 
            r.revDate DESC
    </select>   
-
-   <select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
-      SELECT
-         br.revNo, br.beanNo, br.subNo, br.userNo, br.revCont, br.revDate
-         , b.beanNo, b.beanName
-      FROM BeanRev br
-      JOIN BEAN b ON br.beanNo = b.beanNo
-      <where>
-      userNo = #{userNo}
-      </where> 
-      ORDER BY br.revDate DESC
-   </select>   
    
-   <select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
-      SELECT 
-         freeBoardNo, userNo, freeBoardCategory, freeBoardTitle, freeBoardWriteDate
-      FROM FreeBoard
-      <where>
-         userNo = #{userNo}
-      </where>
-      ORDER BY freeBoardNo DESC
-   </select>      
-   
-   <select id="selectMyRecipeByUserNo" resultType="MyRecipe" parameterType="int">
-      SELECT 
-         myRipNo, userNo, myRipTitle, myRipContent, myRipHit, myRipWriteDate
-      FROM MyRecipe
-      <where>
-         userNo = #{userNo}
-      </where>
-      ORDER BY myRipNo DESC
-   </select>
-   
-   
-   
-
-
-<!--    <select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
-<!--       SELECT COUNT(*) -->
-<!--       FROM ( -->
-<!--          SELECT c.cafename  -->
-<!--          FROM CAFEREV cr  -->
-<!--          JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
-<!--          WHERE cr.userNo = #{userNo} -->
-<!--          UNION ALL -->
-<!--          SELECT b.beanname -->
-<!--          FROM BEANREV br -->
-<!--          JOIN BEAN b ON b.BEANNO = br.BEANNO -->
-<!--          WHERE br.userNo = #{userNo} -->
-<!--          UNION ALL -->
-<!--          SELECT FREEBOARDTITLE -->
-<!--          FROM FREEBOARD -->
-<!--          WHERE userNo = #{userNo} -->
-<!--          UNION ALL -->
-<!--          SELECT MYRIPTITLE -->
-<!--          FROM MYRECIPE -->
-<!--          WHERE userNo = #{userNo} -->
-<!--       ) -->
-<!--    </select> -->
-
+	<select id="selectBeanRevByUserNo" resultType="BeanRev" parameterType="int">
+		SELECT
+			br.revNo, br.beanNo, br.subNo, br.userNo, br.revCont, br.revDate
+			, b.beanNo, b.beanName
+		FROM BeanRev br
+		JOIN BEAN b ON br.beanNo = b.beanNo
+		<where>
+		userNo = #{userNo}
+		</where> 
+		ORDER BY br.revDate DESC
+	</select>	
+	
+	<select id="selectFreeBoardByUserNo" resultType="FreeBoard" parameterType="int">
+		SELECT 
+			freeBoardNo, userNo, freeBoardCategory, freeBoardTitle, freeBoardWriteDate
+		FROM FreeBoard
+		<where>
+			userNo = #{userNo}
+		</where>
+		ORDER BY freeBoardNo DESC
+	</select>		
+	
+	<select id="selectMyRecipeByUserNo" resultType="MyRecipe" parameterType="int">
+		SELECT 
+			myRipNo, userNo, myRipTitle, myRipContent, myRipHit, myRipWriteDate
+		FROM MyRecipe
+		<where>
+			userNo = #{userNo}
+		</where>
+		ORDER BY myRipNo DESC
+	</select>
+<!-- 	<select id="getMyViewTotalCnt" parameterType="hashmap" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM ( -->
+<!-- 			SELECT c.cafename  -->
+<!-- 			FROM CAFEREV cr  -->
+<!-- 			JOIN CAFE c ON c.CAFENO = cr.CAFENO -->
+<!-- 			WHERE cr.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT b.beanname -->
+<!-- 			FROM BEANREV br -->
+<!-- 			JOIN BEAN b ON b.BEANNO = br.BEANNO -->
+<!-- 			WHERE br.userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT FREEBOARDTITLE -->
+<!-- 			FROM FREEBOARD -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 			UNION ALL -->
+<!-- 			SELECT MYRIPTITLE -->
+<!-- 			FROM MYRECIPE -->
+<!-- 			WHERE userNo = #{userNo} -->
+<!-- 		) -->
+<!-- 	</select> -->
 </mapper>

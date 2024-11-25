@@ -43,42 +43,32 @@ public class CreateCafeController {
 		cafe = service.view(cafe);
 		model.addAttribute("cafe", cafe);
 		
+		log.info("update get cafe:{}", cafe);
+		
 		
 		return "/create/cafeUpdate";
 	}
 	
 	@PostMapping("/cafeUpdate")
 	public String updateProc(Cafe cafe, Model model, CafeImg cafeImg) {
-		log.info("cafe:{}", cafe);
+		log.info("update post cafe:{}", cafe);
 		log.info("cafe:{}", cafeImg);
 		
 		service.update(cafe, cafeImg);
 		return "redirect:/cafe/info?cafeNo=" + cafe.getCafeNo();
 	}
 	
-//	@RequestMapping("/cafeDelete")
-//	public String delete(Cafe cafe, Model model, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
-//		log.info("delete cafe1:{}", cafe);
-//		
-//		service.delete(cafe, cafeImg, cafeRev, cafeRevComm);
-//		
-//		log.info("delete cafe2:{}", cafe);
-//		return "redirect:/cafe/all";
-//	}
 	
-//	@RequestMapping("/cafeDelete")
-//	public String deleteCafe(Cafe cafe, HttpSession session) {
-//		log.info("cafeDelete cafe:{}", cafe);
-//		
-//		int cafeNo = (int) session.getAttribute("cafeNo");
-//	public String delete(Cafe cafe, Model model, CafeImg cafeImg, CafeRev cafeRev, CafeRevComm cafeRevComm) {
-//		log.info("delete cafe1:{}", cafe);
-//		service.delete(cafe, cafeImg, cafeRev, cafeRevComm);
-//		
-//		service.deleteCafe(cafeNo);
-//		
-//		return "redirect:/cafe/all";
-//	}
+	@RequestMapping("/cafeDelete")
+	public String deleteCafe(Cafe cafe) {
+		
+		log.info("delete:{}",cafe.getCafeNo());
+		service.updateCafeStatus(cafe.getCafeNo());
+		
+		return "redirect:/cafe/all";
+	}
+	
+	
 
 	
 	

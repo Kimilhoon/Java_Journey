@@ -99,8 +99,8 @@ $(function() {
 // 	}		
 	
 	$(".custom-image img").css({
-		width: "320px",
-		height: "200px",
+		width: "400px",
+		height: "250px",
         objectFit: "cover",		// 이미지가 썸네일 크기에 맞도록 설정
         borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
     });
@@ -120,9 +120,9 @@ img{
 }
 
 .custom-image {
-	width: 320px;
-	height: 200px;
-  	margin: 0px auto;
+	width: 400px;
+	height: 250px;
+  	margin: 1px auto;
   	overflow: hidden;
 	border-radius: 8px;
 }
@@ -133,7 +133,14 @@ img{
 
 </style>
 
-<div class="container-lg position-relative">
+<div class="container custom-container">
+
+<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="./best">best</a></li>
+		<li class="breadcrumb-item active" aria-current="page">cafe</li>
+	</ol>
+</nav>
 	
 	<div class="text-center m-5">
 		<h1>
@@ -143,12 +150,6 @@ img{
 		</h1>
 	</div><!-- <h1> End -->
 	
-<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="./best">best</a></li>
-		<li class="breadcrumb-item active" aria-current="page">cafe</li>
-	</ol>
-</nav>
 
 <div id="up" class="mb-4 d-flex flex-row align-items-center">
 
@@ -190,10 +191,20 @@ img{
 		<a href="./info?cafeNo=${cafe.cafeNo }">
 			<div class="custom-image">${cafe.cafeImgOriName }</div>
 		</a>
+		<c:choose>
+			<c:when test="${ cafe.status == 'Y' }">
 			<p class="fw-bolder fs-4">${cafe.cafeName }</p>
 			<p class="fw-semibold fs-5">${cafe.cafeLoc }</p>
 			<p class="fw-semibold fs-5">${cafe.cafePhone }</p>
 			<p>리뷰( ${cafe.reviewCount } ) | ★( ${cafe.avgRevStarPoint} )</p>
+			</c:when>
+			<c:when test="${ cafe.status == 'N' }">
+			<p class="fw-bolder fs-4">협약 종료</p>
+			<p class="fw-semibold fs-5" style="visibility: hidden;">${cafe.cafeLoc }</p>
+			<p class="fw-semibold fs-5" style="visibility: hidden;">${cafe.cafeLoc }</p>
+			<p style="visibility: hidden;">${cafe.cafeLoc }</p>
+			</c:when>
+		</c:choose>
 	</td>
 		<c:if test="${status.index % 4 == 3 || status.last }">
 		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->

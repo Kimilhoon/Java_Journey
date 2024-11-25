@@ -24,13 +24,13 @@ table {
 }
 th{
 	padding : 13.5px 5px;
-	font-size: 24px;
+	font-size: 20px;
 	text-align: center;
 }
 td {
 	text-align: center;
 	padding : 13.5px 5px;
-	font-size: 20px;
+	font-size: 16px;
 	margin-bottom: 10px;
 }
 </style>
@@ -95,12 +95,40 @@ $(function () {
 			 			
 			});
 		});
+	
+	$("#btn_search").click(function() {
+ 		console.log($("#search").val()); 
+		$.ajax({
+			url: "./subuser",
+			type: "get",
+			data:{
+				"search":$("#search").val(), //search:검색입력값을 서버에 전달
+			},
+			dataType: "html",
+			success: function(res) {
+// 				console.log(res);
+				$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
+				$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
+			},
+			error: function() {
+				
+			}
+			
+		});
+		
+	});			
 })
 </script>
 </head>
 <body>
 <h1 style="text-align: center;">구독 관리</h1>
 <div id="List">
+
+<div id="search_div">
+	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+</div>
+
 <table class="table">
 	<thead>
 		<tr>
