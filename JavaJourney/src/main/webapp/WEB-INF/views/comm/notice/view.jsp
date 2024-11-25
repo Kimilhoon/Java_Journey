@@ -41,16 +41,8 @@ a {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+#btnCancle,
 #btnUpate{
-    padding: 7px;
-    background-color: #6f4e37;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 15px;
-}     
-#btnCancle{
     padding: 7px;
     background-color: #6f4e37;
     color: white;
@@ -62,7 +54,7 @@ a {
 </style>
 <div id="content">
 <c:if test="${userNick eq 'admin' }">
-<div id="btn">
+<div id="btn" class="mb-2">
 <button id="btnUpate">수정</button>
 <button id="btnCancle">삭제</button>
 </div>
