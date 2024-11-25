@@ -52,6 +52,14 @@ public interface QuizService {
 	public void insertMemberQuizResult(HashMap<String, Integer> map);
 
 
+	/**
+	 * 전달 받은 데이터로 변경하기
+	 * 
+	 * @param map
+	 */
+	public void updateMemberQuizResult(HashMap<String, Integer> map);
+
+
 
 	
 	

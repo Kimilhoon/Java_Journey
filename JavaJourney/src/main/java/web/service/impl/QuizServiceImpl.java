@@ -51,6 +51,12 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 
+	@Override
+	public void updateMemberQuizResult(HashMap<String, Integer> map) {
+		dao.updateMemberQuizResult(map);
+	}
+
+
 
 	
 } // class end
