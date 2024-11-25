@@ -48,4 +48,6 @@ public class Bean {
 	//조인 BeanTaste
 //	private int beanNo;
 	private int cupNoteNo;
+	
+	
 }

@@ -189,9 +189,10 @@ function submitForm() {
 				
 			}
 			, success: function() {
-					
-				console.log("완료");
 				
+				console.log("완료");
+				location.href = "/bean/info?beanNo=" + beanNo;
+			
 			}
 			, error: function() {
 				
@@ -206,7 +207,7 @@ function submitForm() {
 	$("#ReQuizBtn").click(function() {
 
 		// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)
-		location.href = "./quizForm";
+		location.href = "./quizForm"; 
 		
 	});
 
@@ -231,6 +232,17 @@ fieldset {
 
 form div p {
 	font-size: 30px;
+}
+
+#gramField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gramField .table {
+    margin: 0 auto;
+    text-align: center;
 }
 
 #grindField .form-check,
@@ -280,6 +292,8 @@ form div p {
 	left: 50%;
 	transform: translateX(-50%); /* 중앙 정렬 */
 }
+
+
 
 
 </style>
