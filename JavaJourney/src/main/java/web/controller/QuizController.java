@@ -7,11 +7,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -124,7 +124,7 @@ public class QuizController {
 	} // quizResult() end
 	
 	@PostMapping("/resultbean")
-	public String resultbeanProc(QuizResult param, @SessionAttribute(value = "userNo", required = false) int userNo) {
+	public ResponseEntity<Void> resultbeanProc(QuizResult param, @SessionAttribute(value = "userNo", required = false) int userNo) {
 		log.info("paramparamparamparam: {}", param);
 		log.info("userNo: {}", userNo);
 		
@@ -136,13 +136,27 @@ public class QuizController {
 		map.put("userNo", userNo);
 		map.put("quizResult", param.getQuizResultNo());
 		
+		boolean isResult = service.countQuizResultNo(map);
+		
+		log.info("isResult: {}", isResult);
+		
 		log.info("map: {}", map);
 		
-		service.insertMemberQuizResult(map);
+		if( !isResult ) {
+			service.insertMemberQuizResult(map);
+			
+		} else {
+			service.deleteMemberQuizResult(map);
+			
+			service.insertMemberQuizResult(map);
+			
+		} // if( !isResult ) end
 		
-		return "redirect:/bean/info?beanNo="+param.getBeanNo();
+		// AJAX 요청에 대해서는 리다이렉트를 반환하지 않고 성공 응답 처리
+	    return ResponseEntity.ok().build();
 		
 	} // resultbeanProc() end
+	
 	
 	
 } // class end

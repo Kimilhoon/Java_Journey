@@ -148,8 +148,11 @@ $(function() {
 
 </div>
 
+<!-- 네이버 로그인 -->
  <a href="<%=apiURL%>"><img height="50" src="/resources/img/naverLogin.png" style="width: 360px; height: 52px; cursor: pointer; "/></a>
-<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a54ccddb4065ad4dbb6ab457409929d7&redirect_uri=http://192.168.10.240:8088/member/kakao/login
+ 
+ <!-- 카카오 로그인 -->
+<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a54ccddb4065ad4dbb6ab457409929d7&redirect_uri=http://localhost:8088/member/kakao/login
 ">
    <img src="/resources/img/kakao_login.png" style="width: 360px; height: 52px; margin-top: 10px; cursor: pointer; ">
 </a>

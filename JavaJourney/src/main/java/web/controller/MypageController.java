@@ -55,7 +55,9 @@ public class MypageController {
 //		log.info("MyQuizResult 조건문 : {}", MyQuizResult.isEmpty());
 		
 		if( MyQuizResult == null || MyQuizResult.isEmpty() ) {
-			model.addAttribute("message", "아직 취향결과를 하지 않았습니다");
+			model.addAttribute("message1", "취향조사를 통해 원두 추천을 받아보실 수 있습니다.");
+			model.addAttribute("message2", "취향조사를 해서 나만의 취향 원두를 찾아보세요!");
+			model.addAttribute("nodata", "quizres");
 			return "mypage/nodata"; // View Resolver를 통해 JSP파일을 찾아 렌더링 한다
 			//**렌더링 : 서버에서 JSP 파일을 HTML로 변환하여 클라이언트(브라우저)에 보내는 것을 의미합니다
 			///WEB-INF/views/mypage/nodata.jsp를 찾아서 클라이언트에게 반환합니다
@@ -69,7 +71,7 @@ public class MypageController {
 	}
 	
 	@GetMapping("/subscribe")
-	public void subscribeForm(
+	public String subscribeForm(
 			BeanSub beanSub,
 			Paging curPage,
 			Model model
@@ -80,8 +82,17 @@ public class MypageController {
 		Paging paging = service.getBeanSubPage(curPage, beanSub.getUserNo());
 		
 		List<BeanSub> beanSubList = service.selectMyBeanSub(beanSub.getUserNo(), paging);
+		
+		if( beanSubList == null || beanSubList.isEmpty() ) {
+			model.addAttribute("message1", "구독된 원두가 없습니다.");
+			model.addAttribute("message2", "원하는 원두를 둘러보세요!");
+			model.addAttribute("nodata", "subscribe");
+			return "mypage/nodata";
+		}
+		
 		model.addAttribute("beanSubList",beanSubList);
 		model.addAttribute("paging",paging);
+		return "mypage/subscribe";
 	}
 	
 	@PostMapping("/cancelsub")
@@ -94,7 +105,7 @@ public class MypageController {
 	}
 	
 	@GetMapping("/like")
-	public void likeForm(
+	public String likeForm(
 			Model model,
 			Member member,
 			@RequestParam(required = false) String searchText
@@ -104,8 +115,20 @@ public class MypageController {
 		List<CafeWish> cafeWishNoList = service.selectByLikeCafe(member.getUserNo(),searchText);
 //		log.info("cafeWishNoList",cafeWishNoList);
 		List<BeanWish> beanWishList = service.selectByLikeBean(member.getUserNo());
+		
+		if( cafeWishNoList == null || cafeWishNoList.isEmpty()
+				&& beanWishList == null || beanWishList.isEmpty() ) {
+			model.addAttribute("message1", "찜한 목록이 비어 있어요.");
+			model.addAttribute("message2", "찜으로 나만의 카페/원두 리스트를 만들어보세요!");
+			model.addAttribute("nodata", "like");
+			return "mypage/nodata";
+		}
+		
 		model.addAttribute("cafeWishNoList",cafeWishNoList);
 		model.addAttribute("beanWishList",beanWishList);
+		
+		return "mypage/like";
+
 	}
 	
 

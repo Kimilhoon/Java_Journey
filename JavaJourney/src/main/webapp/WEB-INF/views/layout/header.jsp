@@ -217,6 +217,7 @@ footer {
           <ul class="dropdown-menu bg-light">
             <li><a class="dropdown-item" href="/bean/best">이달의 원두</a></li>
             <li><a class="dropdown-item" href="/bean/all">전체 원두</a></li>
+            <li><a class="dropdown-item" href="/bean/compare">원두 비교하기</a></li>
           </ul>
         </li>
         

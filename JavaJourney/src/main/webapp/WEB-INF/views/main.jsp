@@ -230,8 +230,7 @@ $(document).ready(function () {
         </div>
     </div>
 
-    <!-- Right Carousel -->
-            	<c:if test="${not empty bList }" var="test">
+        <!-- Right Carousel -->
     <div class="carousel-container right">
         <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators" hidden="">
@@ -240,6 +239,7 @@ $(document).ready(function () {
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
+            	<c:if test="${not empty bList }" var="test">
 	                <c:forEach var="bean" items="${bList }" varStatus="status">
 	                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
 	                    	 <div class="custom-image">
@@ -252,26 +252,10 @@ $(document).ready(function () {
 	                    </div>
 	                    </div>
 	                </c:forEach>
-            </div>
-        </div>
-    </div>
                 </c:if>
-                
-<c:if test="${fn:length(bList) <= 3}">
-    <div class="carousel-container right">
-        <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators" hidden="">
-            </div>
-            <div class="carousel-inner">
-            <div class="carouselRight carousel-item">
-			        <p>죄송합니다.</p>
-			        <p>이달의 베스트 원두가 존재하지 않습니다.</p>
-              	  </div>
             </div>
         </div>
     </div>
-</c:if>
-
 </div>
 
               	  

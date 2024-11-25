@@ -14,9 +14,10 @@ public interface ManagerDao {
 //	
 	/**
 	 * 유저 데이터 총 합 조회하기 
+	 * @param map 
 	 * @return
 	 */
-	public int selectCntAll();
+	public int selectCntAll(HashMap<String, String> map);
 	
 	/**
 	 * DB에서 모든 유저 정보 조회
@@ -40,9 +41,10 @@ public interface ManagerDao {
 	
 	/**
 	 * 구독유저 페이징
+	 * @param map 
 	 * @return
 	 */
-	public int selectCntBeanSubAll();
+	public int selectCntBeanSubAll(HashMap<String, String> map);
 	
 	/**
 	 * DB에서 모든 구독 유저 조회

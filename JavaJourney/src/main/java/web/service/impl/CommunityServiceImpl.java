@@ -890,9 +890,7 @@ public class CommunityServiceImpl implements CommunityService {
 			}
 		}
 		
-		
 		List<List<BeanRev>> bList = new ArrayList<List<BeanRev>>();
-		
 		
 		for(BeanRev br : brList) {
 			List<BeanRev> resList = dao.selectBeanRevByBeanRevNo(br);

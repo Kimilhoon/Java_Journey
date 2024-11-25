@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.google.gson.Gson;
+
 import lombok.extern.slf4j.Slf4j;
 import web.dto.Bean;
 import web.dto.BeanRev;
@@ -225,5 +227,126 @@ public class BeanController {
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
+	
+	// compare
+	@GetMapping("/compare")
+    public void getComparePage(Model model) {
+		
+        List<Bean> list = service.getBeanList();
+        
+        model.addAttribute("list", list);
+        
+    }
+	
+	@PostMapping("/compare")
+	public ResponseEntity<Bean> getBeanDetails(@RequestBody Map<String, Integer> payload, Model model) {
+	    int beanNo = payload.get("beanNo");
+
+	    // Bean 객체 가져오기
+	    Bean bean = service.getBeanInfoByBeanNo(beanNo);
+
+	    // Bean 객체가 null이 아니라면 기본값을 설정
+	    if (bean != null) {
+	        setDefaultValues(bean);  // null인 필드에 기본값 설정
+	        return ResponseEntity.ok(bean); // 성공적으로 Bean 객체 반환
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Bean을 찾지 못한 경우
+	    }
+	}
+
+	// Bean 객체의 필드가 null일 경우 기본값을 설정하는 메소드
+	private void setDefaultValues(Bean bean) {
+	    if (bean.getBeanName() == null) {
+	        bean.setBeanName("정보 없음");
+	    }
+	    if (bean.getOrigin() == null) {
+	        bean.setOrigin("정보 없음");
+	    }
+	    if (bean.getBeanComm() == null) {
+	        bean.setBeanComm("정보 없음");
+	    }
+	    if (bean.getBeanInfo() == null) {
+	        bean.setBeanInfo("정보 없음");
+	    }
+	    if (bean.getBeanPrice() == 0) {
+	        bean.setBeanPrice(-1);  // 기본값 설정 (가격이 없다면)
+	    }
+	    if (bean.getBeanStoredName() == null) {
+	        bean.setBeanStoredName("정보 없음");
+	    }
+	    if (bean.getBeanOriginName() == null) {
+	        bean.setBeanOriginName("정보 없음");
+	    }
+	    if (bean.getCupNoteName() == null || bean.getCupNoteName().length == 0) {
+	        bean.setCupNoteName(new String[]{"정보 없음"});
+	    }
+	    if (bean.getRevStarPoint() == 0) {
+	        bean.setRevStarPoint(-1);  // 기본값 설정
+	    }
+	    if (bean.getReviewCount() == 0) {
+	        bean.setReviewCount(-1);  // 기본값 설정
+	    }
+	    if (bean.getAvgRevStarPoint() == 0.0) {
+	        bean.setAvgRevStarPoint(0.0);  // 기본값 설정
+	    }
+	    if (bean.getGram() == 0) {
+	        bean.setGram(-1);  // 기본값 설정
+	    }
+	    if (bean.getUserNo() == 0) {
+	        bean.setUserNo(-1);  // 기본값 설정
+	    }
+	    if (bean.getUserId() == null) {
+	        bean.setUserId("정보 없음");
+	    }
+	    if (bean.getUserNick() == null) {
+	        bean.setUserNick("정보 없음");
+	    }
+	    if (bean.getUserEmail() == null) {
+	        bean.setUserEmail("정보 없음");
+	    }
+	    if (bean.getUserName() == null) {
+	        bean.setUserName("정보 없음");
+	    }
+	    if (bean.getUserPhone() == null) {
+	        bean.setUserPhone("정보 없음");
+	    }
+	    if (bean.getUserPostcode() == null) {
+	        bean.setUserPostcode("정보 없음");
+	    }
+	    if (bean.getUserAdd1() == null) {
+	        bean.setUserAdd1("정보 없음");
+	    }
+	    if (bean.getUserAdd2() == null) {
+	        bean.setUserAdd2("정보 없음");
+	    }
+	    if (bean.getCupNoteNo() == 0) {
+	        bean.setCupNoteNo(-1);  // 기본값 설정
+	    }
+	}
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 } // class end
