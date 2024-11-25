@@ -12,12 +12,17 @@ $(function () {
     });
 })
 </script>
-<style>
-/* .carousel-item{ */
-/* 	background-color: #ece6cc; /* 배경색 설정 */ */
-/* 	padding: 20px; /* 내용과 배경 색 사이 여백 */ */
-/* 	border-radius: 10px; /* 슬라이드 모서리를 둥글게 */ */
-/* } */
+<style type="text/css">
+#btnRestart { 
+    width: 48%;
+    padding: 10px;
+    background-color: #d1a589;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
 </style>
 <div class="container" style="width: 900px; height:350px; background-color: #f8f5f0; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <div class="d-flex" style="align-items: flex-start;">
@@ -43,8 +48,8 @@ $(function () {
         </div>
     </div>
 </div>
-<div style="text-align:center;">
-<a style="text-decoration: none;" href="/"><button>취향조사 다시하기</button></a>
+<div style="text-align:center; margin-top: 20px;">
+<a style="text-decoration: none;" href="/quiz/quizForm"><button id="btnRestart">취향조사 다시하기</button></a>
 </div>
 
 <c:import url="../layout/footer.jsp"/>

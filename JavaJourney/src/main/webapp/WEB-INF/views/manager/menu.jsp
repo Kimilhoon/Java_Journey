@@ -28,6 +28,7 @@ $(function() {
 	<li><a href="/create/bean" style="text-decoration: none; color: black;">원두등록</a></li>
 	<li><a href="/comm/notice/write" style="text-decoration: none; color: black;">공지사항등록</a></li>
 	<li><a href="/comm/event/write" style="text-decoration: none; color: black;">이벤트등록</a></li>
+	<li><a href="/comm/event/list" style="text-decoration: none; color: black;">이벤트목록</a></li>
 	<li><a href="/manager/user" style="text-decoration: none; color: black;">유저관리</a></li>
 	<li><a href="/manager/subuser" style="text-decoration: none; color: black;">구독관리</a></li>
 </ul>

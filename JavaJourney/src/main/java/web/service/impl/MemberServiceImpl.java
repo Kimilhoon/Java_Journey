@@ -77,6 +77,22 @@ public class MemberServiceImpl implements MemberService {
 		return dao.searchPw(member);
 	}
 
+	@Override
+	public void updatePw(String checkNum, String userEmail) {
+		Map<String, Object> tempPw = new HashMap<String, Object>();
+		tempPw.put("userEmail", userEmail);
+		tempPw.put("checkNum", checkNum);
+		
+		dao.updatePw(tempPw);
+		
+	}
+
+//	@Override
+//	public void findpw(Member member) {
+//		dao.pwUpdate(member);
+//		
+//	}
+
 
 
 

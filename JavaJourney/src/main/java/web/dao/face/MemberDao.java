@@ -1,6 +1,7 @@
 package web.dao.face;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -87,6 +88,15 @@ public interface MemberDao {
 	 */
 	public int selectUSerNoByKakaoEmail(HashMap<String, Object> userInfo);
 	public String selectUSerIdByKakaoEmail(HashMap<String, Object> userInfo);
+
+
+	public void updatePw(Map<String, Object> tempPw);
+
+	/**
+	 * 비밀번호찾기페이지에서 새비밀번호로 변경
+	 * @param member
+	 */
+//	public void pwUpdate(Member member);
 	
 	
 }

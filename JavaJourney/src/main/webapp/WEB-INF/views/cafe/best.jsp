@@ -52,9 +52,6 @@ img{
 
 <div class="container custom-container">
 
-	<div class="text-center m-5">
-		<h1><베스트 카페></h1>
-	</div>
 
 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 	<ol class="breadcrumb">
@@ -62,9 +59,12 @@ img{
 	</ol>
 </nav>
 
+<div class="text-center m-5">
+	<h1><베스트 카페></h1>
+</div>
 
-    <div class="d-flex justify-content-center">
-        <div id="BestCafeList">
+<div class="d-flex justify-content-center">
+    <div id="BestCafeList">
 
 <table>
 <tbody>
@@ -84,7 +84,7 @@ img{
 			<p>리뷰( ${cafe.reviewCount } ) | ★( ${cafe.avgRevStarPoint} )</p>
 	</td>
 		<c:if test="${status.index % 4 == 3 || status.last }">
-		</tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
+		<tr></tr> <!-- 4개의 열이 끝날 때 또는 마지막 항목 후 행 종료 -->
 		</c:if>
 </c:forEach>
 
@@ -93,7 +93,7 @@ img{
 	<c:forEach begin="1" end="${4 - (fn:length(BestCafeList) % 4) }">
 		<td></td>
 	</c:forEach>
-</tr>
+<tr></tr>
 </c:if>
 
 </tbody>
@@ -105,6 +105,8 @@ img{
 
 <div class="d-flex justify-content-center">
 <button id="allCafe" type="button" class="btn btn-outline-secondary btn-lg w-75">전체 카페 보러가기 >> ${ count.cafeCount }</button>
+</div>
+
 </div>
 
 <c:import url="../layout/footer.jsp"/>

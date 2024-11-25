@@ -7,44 +7,57 @@
 
 <script type="text/javascript">
 
-$(function () {
-   $(".custom-image img").css({
-        width: "200px"
-        , height: "200px"
+$(document).ready(function () {
+    $(".custom-image img").css({
+        width: "200px",
+        height: "200px"
     });
-})
+	
+    let scrollTimeout;
+    $(window).on("scroll", function () {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(function () {
+                const scrollPosition = $(window).scrollTop() + $(window).height();
 
-document.addEventListener("DOMContentLoaded", function () {
-    const banner = document.querySelector(".banner");
-    const video = document.getElementById("background_video");
-    const best = document.getElementById("best");
+                if ($("#background_video").offset().top < scrollPosition) {
+                    $("#background_video").addClass("playing");
+                }
 
-    // 스크롤 이벤트 처리
-    window.addEventListener("scroll", function () {
-        const scrollPosition = window.scrollY + window.innerHeight;
+                if ($(".banner").offset().top < scrollPosition) {
+                    $(".banner").addClass("visible");
+                }
 
-        // 동영상 재생 효과
-        if (video && video.getBoundingClientRect().top < scrollPosition) {
-            video.classList.add("playing");
-        }
-        
-        // 배너 표시: 스크롤 시 배너가 보이면 애니메이션 적용
-        if (banner && banner.getBoundingClientRect().top < scrollPosition) {
-            banner.classList.add("visible");
-        }
+                if ($("#best").offset().top < scrollPosition) {
+                    $("#best").addClass("visible");
+                }
 
-        // 베스트 이미지 재생 효과
-        if (best && best.getBoundingClientRect().top < scrollPosition) {
-            best.classList.add("visible");
+                scrollTimeout = null;
+            }, 100); // 100ms 간격으로 호출 제한
         }
     });
+
+    
 });
+
+
+
 
 
 
 </script>
 
 <style>
+
+.transition {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.transition.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .barogagi-btn {
 	display: flex;
@@ -56,20 +69,21 @@ document.addEventListener("DOMContentLoaded", function () {
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
+    transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease; /* 기본 상태에도 적용 */
+	
 }
-
 
 .barogagi-btn:hover {
     background-color: #6f4e37;
     color: white;
+    transform: scale(1.05);
 }
-
 
 #barogagi {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 100px 40px 100px 40px;
+	margin: 100px 80px;
 }
 
 #best {
@@ -104,20 +118,33 @@ document.addEventListener("DOMContentLoaded", function () {
     transform: translateY(0);
 }
 
+#video_area {
+  padding: 0;
+  width: 100vw;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
 /* 동영상 애니메이션 */
 #background_video {
-    opacity: 0;
-    transition: opacity 1s ease;
+    z-index: -1;
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
 }
+
 
 #background_video.playing {
     opacity: 1;
+    transform: translateY(0);
 }
 
 .custom-image img {
-	padding: 20px;
-	background-color: f5f5f5;
+    border-radius: 20px;
 }
+
 
 .container {
     display: flex;
@@ -127,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .carousel-container {
-    width: 48%; /* 양쪽 배너를 나누기 위한 크기 설정 */
+    width: 50%; /* 양쪽 배너를 나누기 위한 크기 설정 */
     position: relative;
 }
 
@@ -140,14 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .carousel-item {
-    background-color: #faebd7;
+     background-color: #ccc;
     padding: 20px;
 /*     border-radius: 10px; */
     text-align: center;
 }
 
 .carousel-indicators {
-    position: absolute;
+    position: flex;
+   	justify-content: center;
+	align-items: center;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
@@ -162,16 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
     transition: background-color 0.3s ease, transform 0.3s ease; /* 클릭 시 애니메이션 효과 */
 }
 
-#video_area {
-  padding: 0;
-  width: 100vw;
-  overflow: hidden;
-  margin-bottom: 30px;
-}
-#background_video {
-    z-index: -1;
-    width: 100vw;
-}
 
 </style>
 
@@ -189,49 +208,57 @@ document.addEventListener("DOMContentLoaded", function () {
     <!-- Left Carousel -->
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
+	         <div class="carousel-indicators" hidden="">
+	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1""></button>
+	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="1" aria-label="Slide 2"></button>
+	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	         </div>
             <div class="carousel-inner">
                 <c:forEach var="cafe" items="${cList }" varStatus="status">
                     <div class="carousel-item ${status.index == 0 ? 'active' : '' }">
-            	 		<div class="custom-image">
-                                ${cafe.cafeImgOriName }
-                          </div>
-                        <a href="/cafe/info?cafeNo=${cafe.cafeNo }">
-                            <p class="fw-bold fs-4">${cafe.cafeName }</p>
-                        </a>
-                        <p>${cafe.cafeLoc }</p>
-                        <p>리뷰: ${cafe.reviewCount } ★(${cafe.avgRevStarPoint })</p>
+	           	 		<div class="custom-image">
+	                        <a href="/cafe/info?cafeNo=${cafe.cafeNo }">
+							${cafe.cafeImgOriName }
+	                            <p class="fw-bold fs-4">${cafe.cafeName }</p>
+	                        </a>
+	                        <p>${cafe.cafeLoc }</p>
+	                        <p>리뷰: ${cafe.reviewCount } ★(${cafe.avgRevStarPoint })</p>
+                    	</div>
                     </div>
                 </c:forEach>
             </div>
         </div>
     </div>
 
-    <!-- Left Carousel -->
+    <!-- Right Carousel -->
     <div class="carousel-container right">
         <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
+            <div class="carousel-indicators" hidden="">
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <c:forEach var="bean" items="${bList}" varStatus="status">
-                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                    	 <div class="custom-image">
-                                ${bean.beanOriginName}
-                          </div>
-                        <a href="/bean/info?beanNo=${bean.beanNo}">
-                            <p class="fw-bold fs-4">${bean.beanName}</p>
-                        </a>
-                        <p>${bean.origin}</p>
-                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+            	<c:if test="${not empty bList }" var="test">
+	                <c:forEach var="bean" items="${bList }" varStatus="status">
+	                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+	                    	 <div class="custom-image">
+	                      	  <a href="/bean/info?beanNo=${bean.beanNo}">
+	                                ${bean.beanOriginName}
+	                            <p class="fw-bold fs-4">${bean.beanName}</p>
+	                        </a>
+	                        <p>${bean.origin}</p>
+	                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+	                    </div>
+	                    </div>
+	                </c:forEach>
+                </c:if>
+              	  <c:if var="bListEmpty" test="${empty bList }">
+                	  <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                        <p>죄송합니다.</p>
+                        <p>이달의 베스트 원두가 존재하지 않습니다.</p>
                     </div>
-                </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>

@@ -57,6 +57,19 @@ public interface MemberService {
 	 */
 	public String searchPw(Member member);
 
+	/**
+	 * 임시비밀번호를 저장
+	 * @param checkNum
+	 * @param userEmail
+	 */
+	public void updatePw(String checkNum, String userEmail);
+
+	/**
+	 * 비밀번호 찾기에서 새비밀번호로 변경
+	 * @param member
+	 */
+//	public void findpw(Member member);
+
 
 
 	

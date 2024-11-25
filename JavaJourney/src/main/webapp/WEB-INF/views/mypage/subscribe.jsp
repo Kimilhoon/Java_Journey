@@ -49,6 +49,15 @@ $(function () {
         border-width: 0.5px; /* 테두리 두께 */
         border-color: #000; /* 테두리 색상 (검정색) */
     }
+#btnCancle{
+    padding: 7px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}       
 </style>
 <h1 class="text-center">구독정보</h1>
 <!-- <div class="container" style="width: 870px; height: 187px;"> -->
@@ -70,14 +79,6 @@ $(function () {
 	<input class="form-check-input" type="checkbox" id="${sub.subNo}" name="subNo" value="${sub.subNo}">
 	</c:if>
 	</div>
-<%-- 	<c:choose> --%>
-<%-- 		<c:when test="${sub.nonSub == 'N' }"> --%>
-<%-- 		<input class="form-check-input" type="checkbox" id="${sub.subNo}" name="subNo" value="${sub.subNo}"> --%>
-<%-- 		</c:when> --%>
-<%-- 		<c:when test="${sub.nonSub == 'Y' }"> --%>
-<!-- 		<p>--</p>                -->
-<%-- 		</c:when> --%>
-<%-- 	</c:choose> --%>
 	</td>
 	<td>
 		<div style="width: 370px; height: 50px; margin-left: 50px;">
@@ -96,33 +97,27 @@ $(function () {
 		</div>
 	</td>
 	<td>
-	<c:if test="${empty sub.revStarPoint}">
-	<a href="/comm/breview/write?subNo=${sub.subNo}">
-	<span id="isRev">리뷰쓰러가기</span>
-	</a>
-	</c:if>
-<%-- 	${sub.revStarPoint} --%>
+
 	<td class="text-center"  style="width: 15%">
-<!-- 	http://localhost:8088/comm/breview/view?revNo=101
- -> 이 번호로 넘겨야함 그렇다면 그 회원의 리뷰번호도 조회되서 가져오자 -->
-	<a href="/comm/breview/view?revNo=${sub.revNo}">
+		<a href="/comm/breview/view?revNo=${sub.revNo}">
 	    <c:forEach var="star" begin="1" end="${ sub.revStarPoint != null ? sub.revStarPoint : 0 }">
 	     ★
 	    </c:forEach>
-	    <c:if test="${ sub.revStarPoint != null }">
-	        (<c:out value="${ sub.revStarPoint }" />)
-	    </c:if>
 	    </a>
+	    <c:if test="${sub.revStarPoint == 0}">
+			<a href="/comm/breview/write?subNo=${sub.subNo}">
+			<span id="isRev">리뷰쓰러가기</span>
+			</a>
+		</c:if>
 	</td>
-<!-- 	</td> -->
 </tr>
 </table>
 </div>
 </c:forEach>
 <div id="btn">
-<%-- <c:import url="/WEB-INF/views/mypage/layout/mybeansubpage.jsp"/> --%>
+<button id="btnCancle" type="button">구독취소</button>
+</div>
 <c:import url="./layout/mybeansubpage.jsp"/>
-<button class="btn btn-danger" id="btnCancle" type="button">구독취소</button>
 </div>
-</div>
+
 <c:import url="../layout/footer.jsp"/>
