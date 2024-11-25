@@ -467,7 +467,6 @@ function businessNoChk() {
 </script>
 
 
-<<<<<<< HEAD
 <!-- 이메일 인증 -->
 <script>
 let code = "";  // 서버에서 보내준 인증번호를 저장할 변수
@@ -541,8 +540,6 @@ $(document).ready(function() {
 </script>
 
 
-=======
->>>>>>> refs/remotes/origin/master
 
 <!-- 이용약관 모달 -->
 <!-- -------------------------------------------------- -->
@@ -838,11 +835,6 @@ label.agree button:hover {
 </div>
 	<p id="resultMsg" style="font-size:0.6rem;"></p>
 
-<div>
-	<label for="userEmail">이메일
-		<input type="email" name="userEmail" id="userEmail" required="required">
-	</label>
-</div>
 
 <div>
 	<label for="userName">이름
