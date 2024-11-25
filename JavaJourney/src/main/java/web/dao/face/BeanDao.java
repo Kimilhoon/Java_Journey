@@ -152,12 +152,28 @@ public interface BeanDao {
 
 
 
-
-
 	
 
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
 	
+	// beanCompare
+	
+	
+	/**
+	 * 모든 원두 리스트 불러오기(원두비교하기용)
+	 * 
+	 * @return 조회된 리스트
+	 */
+	public List<Bean> selectAllBean();
+
+	
+	/**
+	 * 원두 정보 상세 조회(원두비교하기용)
+	 * 
+	 * @param beanNo 조회할 원두번호
+	 * @return
+	 */
+	public Bean selectBeanByBeanNoForCompare(int beanNo);
 	
 } // interface end

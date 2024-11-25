@@ -110,7 +110,7 @@ public class KakaoApi {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=a54ccddb4065ad4dbb6ab457409929d7");
-			sb.append("&redirect_url=http://192.168.10.240:8088/member/kakao/login");
+			sb.append("&redirect_url=http://localhost:8088/member/kakao/login");
 			sb.append("&code=" + code);
 			
 			bw.write(sb.toString());
