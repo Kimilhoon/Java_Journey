@@ -54,6 +54,14 @@ public interface QuizDao {
 	public void insertMemberQuizResult(HashMap<String, Integer> map);
 
 
+	/**
+	 * 전달된 데이터로 변경하기
+	 * 
+	 * @param map
+	 */
+	public void updateMemberQuizResult(HashMap<String, Integer> map);
+
+
 
 	
 	

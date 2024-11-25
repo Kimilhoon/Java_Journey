@@ -29,11 +29,10 @@
 			    SELECT
 			        b.beanno, b.beanimgno, beanname, origin,
 			        bi.beanoriginname, beanstoredname,
-			        bt.CUPNOTENO, q.QUIZRESULTNO,
+			        bt.CUPNOTENO, 
 			        ROW_NUMBER() OVER (PARTITION BY b.beanNo ORDER BY bt.CUPNOTENO) AS rn
 				FROM bean b
 			    LEFT JOIN beantaste bt ON b.beanno = bt.beanno
-			    LEFT JOIN QUIZRESULT q ON q.beanNo = b.beanno
 			    LEFT JOIN beanImg bi ON b.beanimgno = bi.beanimgno
 			    <where>
 	                bt.cupnoteno IN
@@ -53,12 +52,18 @@
 	<update id="updateBeanNoByQuizResultNo" parameterType="QuizResult">
 		UPDATE	quizresult
 		SET		beanNo = ${ beanNo }
-		WHERE	quizResultNo = #{quizResultNo}
+		WHERE	quizResultNo = #{ quizResultNo }
 	</update>
 	
 	<insert id="insertMemberQuizResult" parameterType="Hashmap">
 		INSERT INTO memberquizresult ( quizresult, userNo )
 		VALUES ( ${ quizResult }, ${ userNo } )
 	</insert>
+	
+	<update id="updateMemberQuizResult" parameterType="Hashmap">
+		UPDATE	memberquizresult
+		SET		quizResult = ${ quizResult }
+		WHERE	userNo = #{ userNo }
+	</update>
 	
 </mapper>
