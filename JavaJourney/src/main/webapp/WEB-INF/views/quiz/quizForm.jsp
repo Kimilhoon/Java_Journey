@@ -46,6 +46,24 @@ $("#QuizNextBtn").click(function() {
 		return;
 	}
 	
+    // Bean Grind 단계: 라디오 버튼 체크 여부 확인
+	if (currentStep === 1) {
+		const isGrindChecked = $("input[name='grind']:checked").length > 0;
+ 		if (!isGrindChecked) {
+			alert("원하시는 원두의 굵기를 선택해 주세요.");
+			return;
+		}
+	} // if (currentStep === 1) end
+
+	// Bean Extraction 단계: 라디오 버튼 체크 여부 확인
+	if (currentStep === 2) {
+		const isExtractionChecked = $("input[name='extraction']:checked").length > 0;
+		if (!isExtractionChecked) {
+			alert("원하시는 추출 방법을 선택해 주세요.");
+			return;
+		}
+	} // if (currentStep === 2) end
+	
 	if ( currentStep < steps.length -1 ) {
 		// 현재 단계를 숨기고 다음 단계를 표시
 		$("#QuizNextBtn").prop("disabled", true); // 버튼 비활성화
@@ -232,6 +250,7 @@ fieldset {
 
 form div p {
 	font-size: 30px;
+	text-align: center;
 }
 
 #gramField {
@@ -248,6 +267,7 @@ form div p {
 #grindField .form-check,
 #extractionField .form-check {
   display: flex; /* 라디오 버튼을 수평으로 정렬 */
+  flex-direction: column; /* 세로 정렬 */
   align-items: center; /* 텍스트와 버튼 세로 맞춤 */
   margin-right: 20px; /* 버튼 간격 */
 }
@@ -256,6 +276,45 @@ form div p {
 #extractionField {
   justify-content: center; /* 전체 컨테이너 중앙 배치 */
 }
+
+
+#quizMain img {
+	width: 350px;
+	height: 350px;
+	
+	margin-bottom: 10px;
+	border-radius: 8px;
+	
+	cursor: pointer;
+}
+
+.radio-group{
+	display: flex; /* 가로 정렬 */
+	justify-content: center;
+	text-align: center;
+	margin-top: 5px; /* 이미지와 라디오 그룹 간격 */
+	cursor: pointer;
+}
+
+.form-check-input{
+	margin-right: 5px; /* 라디오 버튼과 텍스트 간격 */
+}
+
+/* 버튼 하단 정렬 */
+
+#quizMain, #quizResultForm {
+	position: relative;
+	height: 730px;
+}
+
+#beanQuizBtn, #beanReQuiz {
+	position: absolute; /* 절대 위치 지정 */
+	bottom: 20px; /* 하단에 20px 간격으로 배치 */
+	left: 50%;
+	transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+/* 결과창 css */
 
 .customImage img {
 	cursor: pointer;
@@ -280,21 +339,6 @@ form div p {
 	text-align: center;
 	
 }
-
-#quizMain, #quizResultForm {
-	position: relative;
-	height: 730px;
-}
-
-#beanQuizBtn, #beanReQuiz {
-	position: absolute; /* 절대 위치 지정 */
-	bottom: 20px; /* 하단에 20px 간격으로 배치 */
-	left: 50%;
-	transform: translateX(-50%); /* 중앙 정렬 */
-}
-
-
-
 
 </style>
 
@@ -366,19 +410,34 @@ form div p {
 
 <fieldset id="grindField">
 
-	<div class="form-check">	
-		<input class="form-check-input" type="radio" name="grind" id="grind1" value="1" checked>
-		<label class="form-check-label" for="grind1">굵은 분쇄</label>
+	<div class="form-check">
+		<label class="form-check-label" for="grind1">
+			<img alt="wholeBean" src="/resources/img/quiz/wholeBean.jpg">
+			<div class="radio-group"> 
+				<input class="form-check-input" type="radio" name="grind" id="grind1" value="1">
+				굵은 분쇄
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
-		<label class="form-check-label" for="grind2">중간 분쇄</label>
+		<label class="form-check-label" for="grind2">
+			<img alt="wholeBean" src="/resources/img/quiz/handdrip.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
+				중간 분쇄
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
-		<label class="form-check-label" for="grind3">가는 분쇄</label>
+		<label class="form-check-label" for="grind3">	
+			<img alt="wholeBean" src="/resources/img/quiz/espresso.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
+				가는 분쇄
+			</div>
+		</label>
 	</div>
 	
 </fieldset>
@@ -394,23 +453,43 @@ form div p {
 <fieldset id="extractionField">
 
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1" checked>
-		<label class="form-check-label" for="extraction1">압력</label>
+		<label class="form-check-label" for="extraction1">	
+			<img alt="wholeBean" src="/resources/img/quiz/vaccumfiltration.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1">
+				압력
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
-		<label class="form-check-label" for="extraction2">드립</label>
+		<label class="form-check-label" for="extraction2">	
+			<img alt="wholeBean" src="/resources/img/quiz/handdrip.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
+				드립
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
-		<label class="form-check-label" for="extraction3">침출</label>
+		<label class="form-check-label" for="extraction3">	
+			<img alt="wholeBean" src="/resources/img/quiz/steeping.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
+				침출
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
-		<label class="form-check-label" for="extraction4">달임</label>
+		<label class="form-check-label" for="extraction4">	
+			<img alt="wholeBean" src="/resources/img/quiz/decoction.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
+				달임
+			</div>
+		</label>
 	</div>
 	
 </fieldset>
