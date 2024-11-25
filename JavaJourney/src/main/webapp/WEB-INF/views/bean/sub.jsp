@@ -202,9 +202,6 @@ async function requestPayment() {
 // 		location.href = "./sub/fail";
 		
 // 	}
-	
-
-
 	        
 	
 }; // function requestPayment() end
