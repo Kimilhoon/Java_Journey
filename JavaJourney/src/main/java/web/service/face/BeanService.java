@@ -5,9 +5,7 @@ import java.util.Map;
 
 import web.dto.Bean;
 import web.dto.BeanRev;
-import web.dto.BeanRevComm;
 import web.dto.BeanSub;
-import web.dto.BeanWish;
 import web.dto.Member;
 import web.util.Paging;
 
@@ -150,9 +148,24 @@ public interface BeanService {
 	 */
 	public void beanSubscribe(BeanSub beanSub);
 
-	
-	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
+	
+	//beanCompare
+	
+	/**
+	 * 모든 원두 정보 불러오기
+	 * 
+	 * @return - 조회된 원두 리스트
+	 */
+	public List<Bean> getBeanList();
+
+	/**
+	 * 원두번호로 원두 정보 조회
+	 * 
+	 * @param beanNo
+	 * @return
+	 */
+	public Bean getBeanInfoByBeanNo(int beanNo);
 	
 } // interface end
