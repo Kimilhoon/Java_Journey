@@ -6,8 +6,8 @@
 
 <c:import url="../layout/header.jsp"/>
 
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- <!-- jQuery --> -->
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
 
 <!-- 카카오주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -65,26 +65,48 @@ $(function() {
 		//데이터 객체 생성
 		var cafeNo = "${cafeInfo.cafeNo }";
 		var userNo = "${userNo }";
+		var isWish = "${isWish }";
 
-// 	$(document).ready(function() {
+	$(document).ready(function() {
+		// 찜 버튼 초기 상태 설정
+		if (isWish === "true") {
+			$("#wish").text("찜 ♥");  // 찜 상태일 때
+		} else {
+			$("#wish").text("찜 ♡");  // 찜하지 않은 상태일 때
+		}
 		
 		$("#wish").click(function() {
 			
 			//현재 버튼의 텍스트 가져오기
 			const currentText = $(this).text();
 			
+			// 데이터 객체 생성
+			var cafeNo = "${ cafeInfo.cafeNo }";
+			var userNo = "${ userNo }";
+			
 			//버트 클릭 시 텍스트 변경(찜 상태 토글)
 			if (currentText === "찜 ♡") {
 	            $(this).text("찜 ♥"); //찜 추가
 	            sendWishData(cafeNo, userNo, 'add'); //데이터 추가 요청
 	            
+	         	// 찜 상태에 맞는 모달 내용 변경
+				$("#disSubModal .modal-body p").text("해당 카페를 찜 했습니다");
+// 				console.log("모달 열기: 찜 상태 추가");
+				$('#disSubModal').modal('show');
+	            
 	        } else {
 	            $(this).text("찜 ♡"); //찜 취소
 	            sendWishData(cafeNo, userNo, 'remove'); //데이터 삭제 요청
+	            
+	         	// 찜 해제에 맞는 모달 내용 변경
+				$("#subModal .modal-body p").text("해당 카페 찜을 해제합니다");
+// 				console.log("모달 열기: 찜 상태 취소");
+				$('#subModal').modal('show');
 	        }
 			
 		}); // $("#wish").click(function() end
 		
+		// 찜 데이터 서버로 전송
 		function sendWishData(cafeNo, userNo, action) {
 	    	
 	        $.ajax({
@@ -111,7 +133,7 @@ $(function() {
 	            }
 	        });
 	    }
-// 	}); // $(document).ready() End
+	}); // $(document).ready() End
 		
 	/* 메뉴바 설정 */
 	/* -------------------------------------------------------------------------------------------------------------- */
@@ -139,15 +161,29 @@ $(function() {
 			location.href="./best";
 		});
 		
-		//리뷰쓰기 버튼 클릭 이벤트 처리
+// 		//리뷰쓰기 버튼 클릭 이벤트 처리
+// 		$("#review").click(function() {
+// 			var userId = '${userId}'; // session에서 userId 가져오기
+// 			if(!userNo){ //로그인하지 않은 경우
+// 				alert("로그인 후 이용해 주세요.");
+// 				location.href = "../member/login"; //로그인 페이지로 리디렉션
+// 			} else {
+// 				location.href="/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; //로그인한 경우 리뷰 작성 페이지로 이동
+// 			}
+// 		});
+		
+		// 리뷰쓰기 버튼 클릭 이벤트 처리(모달)
 		$("#review").click(function() {
-			if(!userNo){ //로그인하지 않은 경우
-				alert("로그인 후 이용해 주세요.");
-				location.href = "../member/login"; //로그인 페이지로 리디렉션
-			} else {
-				location.href="/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; //로그인한 경우 리뷰 작성 페이지로 이동
-			}
+		    var userId = '${userId}'; // session에서 userId 가져오기
+		    if (!userNo) { // 로그인하지 않은 경우
+		        // 모달 표시
+   				$("#loginModal .modal-body p").text("로그인 후 이용해 주세요.");
+		        $('#loginModal').modal('show');
+		    } else {
+		        location.href = "/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; // 로그인한 경우 리뷰 작성 페이지로 이동
+		    }
 		});
+		
 		
 		$("#btnUpdate").click(function() {
 			location.href="/create/cafeUpdate?cafeNo=${cafeInfo.cafeNo}";
@@ -245,22 +281,29 @@ $(function() {
 	margin-right: 5px;
 }
 
+.modal-header{
+	background: #6f4e37;
+}
+
+.modal-title{
+	color: white;
+}
 
 </style>
 
 <div class="container">
 
-<div class="text-center m-5">
-<h1>카페 상세보기</h1>
-</div>
-
-<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="./best">best</a></li>
 		<li class="breadcrumb-item"><a href="./all">cafe</a></li>
 		<li class="breadcrumb-item active" aria-current="page">info</li>
 	</ol>
 </nav>
+
+<div class="text-center m-5">
+<h1>카페 상세보기</h1>
+</div>
 
 <div id="commCafe" class="d-flex mb-3 grid gap-0 column-gap-5">
 <div id="imageDiv" style="flex-shrink: 0;" >
@@ -360,7 +403,20 @@ $(function() {
 	<c:forEach var="cafeRev" items="${ list }">
 	<tr>
 		<td class="text-center" style="width: 10%">${ cafeRev.userNick }</td>
-		<td style="width: 60%">${ cafeRev.revContent }</td>
+		<td style="width: 60%">
+			<a href="../comm/creview/view?revNo=${ cafeRev.revNo }" 
+			   class="link-dark link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+<%-- 			${ cafeRev.revContent } --%>
+				<c:choose>
+			        <c:when test="${fn:length(cafeRev.revContent) gt 26}">
+						<c:out value="${fn:substring(cafeRev.revContent, 0, 25)}..."></c:out>
+			        </c:when>
+			        <c:otherwise>
+						<c:out value="${fn:escapeXml(cafeRev.revContent)}"></c:out>
+			        </c:otherwise>
+				</c:choose>
+			</a> 
+		</td>
 		<td class="text-center"  style="width: 15%">
 		<fmt:formatDate value="${ cafeRev.revDate }" pattern="yyyy년 MM월 dd일" />
 		</td>
@@ -400,6 +456,68 @@ $(function() {
 		</c:when>
 	</c:choose>
 </c:if>
+</div> <!-- container End -->
+
+<!-- 로그인 필요 모달 -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginModalLabel">로그인 알림</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='../member/login';">닫기</button>
+<!--         <a href="../member/login" class="btn btn-primary"></a> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 찜 추가 모달 -->
+<div id="disSubModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="disSubModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            	<h1 class="modal-title fs-5" id="exampleModalLabel">찜 선택하기</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+<!--                     <span aria-hidden="true">&times;</span> -->
+                </button>
+<!--                 <h5 class="modal-title" id="disSubModalLabel">찜 추가</h5> -->
+            </div>
+            <div class="modal-body">
+                <p></p> <!-- 여기서 모달 내용이 바뀐다 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- 찜 해제 모달 -->
+<div id="subModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="subModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            	<h1 class="modal-title fs-5" id="exampleModalLabel">찜 선택하기</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+<!--                     <span aria-hidden="true">&times;</span> -->
+                </button>
+<!--                 <h5 class="modal-title" id="subModalLabel">찜 해제</h5> -->
+            </div>
+            <div class="modal-body">
+                <p></p> <!-- 여기서 모달 내용이 바뀐다 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
