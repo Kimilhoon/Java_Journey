@@ -214,4 +214,35 @@ ORDER BY rnum
 	<!-- /bean/sub -->
 	<!-- ====================================================================================================== -->
 	
+	
+	<!-- beanCompare -->
+	<select id="selectAllBean" resultType="Bean">
+		SELECT * FROM bean
+	</select>
+	
+	<select id="selectBeanByBeanNoForCompare" resultType="Bean" parameterType="int">
+		SELECT 
+		    a.*, 
+		    bi.beanoriginname AS beanOriginName
+		FROM 
+		    (SELECT 
+		         b.beanno AS beanNo,
+		         b.beanname AS beanName,
+		         b.origin AS origin,
+		         b.beanprice AS beanPrice,
+		         b.beanimgno AS beanImgNo,
+		         LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteName
+		     FROM 
+		         bean b
+		     JOIN beantaste bt ON b.beanno = bt.beanno
+		     JOIN cupnote c ON bt.cupnoteno = c.cupnoteno
+		     <where>
+		         AND b.beanno = #{beanNo }
+		     </where>
+		     GROUP BY 
+		         b.beanno, b.beanname, b.origin, b.beanprice, b.beanimgno
+		    ) a
+		JOIN beanimg bi ON a.beanImgNo = bi.beanimgno
+	</select>
+
 </mapper>

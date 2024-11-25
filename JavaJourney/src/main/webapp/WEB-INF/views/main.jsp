@@ -253,12 +253,6 @@ $(document).ready(function () {
 	                    </div>
 	                </c:forEach>
                 </c:if>
-              	  <c:if var="bListEmpty" test="${empty bList }">
-                	  <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                        <p>죄송합니다.</p>
-                        <p>이달의 베스트 원두가 존재하지 않습니다.</p>
-                    </div>
-                </c:if>
             </div>
         </div>
     </div>
