@@ -5,8 +5,13 @@
     
 <mapper namespace="web.manager.dao.face.ManagerDao">
 
-	<select id="selectCntAll" resultType="int">
+	<select id="selectCntAll" resultType="int" parameterType="hashmap">
 		select count(*) from member
+		<where>
+			<if test='search != "N" '>
+				AND upper(USERNICK) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
 	</select>
 
 	<select id="selectAllUser" resultType="Member" parameterType="Paging">
@@ -54,8 +59,16 @@
 		</where>
 	</update>
 	
-	<select id="selectCntBeanSubAll" resultType="int">
-		select count(*) from beansub
+	<select id="selectCntBeanSubAll" resultType="int" parameterType="hashmap">
+		select count(*)
+		from beansub b, MEMBER m
+		<!-- 이부분 수정해야함 구독관리 -->
+		<where>
+			 b.USERNO = m.USERNO
+			<if test='search != "N" '>
+				AND upper(userName) LIKE '%'||upper(#{search})||'%'
+			</if>
+		</where>
 	</select>
 	
 	<select id="selectAllBeanSubUser" parameterType="Paging" resultType="BeanSub">
@@ -79,16 +92,6 @@
         rnum BETWEEN #{startNo} AND #{endNo}
     </where>
 	</select>
-	
-<!-- 	<select id="selectBeanSubCancelByBeanSub" resultType="boolean" parameterType="int"> -->
-<!-- 			SELECT  -->
-<!-- 				CASE  -->
-<!-- 					WHEN NONSUB = 'Y' THEN 'N' -->
-<!-- 					WHEN NONSUB = 'N' THEN 'Y' -->
-<!-- 				END  -->
-<!-- 			FROM BEANSUB -->
-<!-- 			WHERE SUBNO = #{subNo} -->
-<!-- 	</select> -->
 	
 	<update id="subNoSubCancenBySubNoForUpdate" parameterType="int">
 		UPDATE BEANSUB
@@ -126,7 +129,7 @@
 					M.USERADD2, M.USERNAME, B2.BEANNAME 
 					FROM BEANSUB B, "MEMBER" M, BEAN B2
 			     <where>
-			     	AND upper(USERNICK) LIKE '%'||upper(#{search})||'%'
+			     	AND upper(userName) LIKE '%'||upper(#{search})||'%'
 	       	     	AND B.USERNO = M.USERNO
 	       	     	AND B.BEANNO = B2.BEANNO
 	       	     </where>
@@ -137,6 +140,4 @@
         r BETWEEN #{paging.startNo} AND #{paging.endNo}
     	</where>
 	</select>
-
-	
 </mapper>

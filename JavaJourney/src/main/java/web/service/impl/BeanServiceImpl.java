@@ -1,5 +1,6 @@
 package web.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -214,11 +215,41 @@ public class BeanServiceImpl implements BeanService {
 	public void beanSubscribe(BeanSub beanSub) {
 		dao.beanSubscribe(beanSub);
 	} // beanSubscribe(BeanSub beanSub) end
-
-
 	
 	
 	// /bean/sub
 	// --------------------------------------------------------------------------------------
+	
+	
+	// beanCompare
+	
+	@Override
+	public List<Bean> getBeanList() {
+		
+		List<Bean> list = dao.selectAllBean();
+		
+		return list;
+	}
+	
+	@Override
+	public Bean getBeanInfoByBeanNo(int beanNo) {
+		
+		Bean bean = dao.selectBeanByBeanNoForCompare(beanNo);
+		
+		log.info("bean: {}", bean);
+		
+		return bean;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 } // class end

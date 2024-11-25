@@ -46,6 +46,24 @@ $("#QuizNextBtn").click(function() {
 		return;
 	}
 	
+    // Bean Grind 단계: 라디오 버튼 체크 여부 확인
+	if (currentStep === 1) {
+		const isGrindChecked = $("input[name='grind']:checked").length > 0;
+ 		if (!isGrindChecked) {
+			alert("원하시는 원두의 굵기를 선택해 주세요.");
+			return;
+		}
+	} // if (currentStep === 1) end
+
+	// Bean Extraction 단계: 라디오 버튼 체크 여부 확인
+	if (currentStep === 2) {
+		const isExtractionChecked = $("input[name='extraction']:checked").length > 0;
+		if (!isExtractionChecked) {
+			alert("원하시는 추출 방법을 선택해 주세요.");
+			return;
+		}
+	} // if (currentStep === 2) end
+	
 	if ( currentStep < steps.length -1 ) {
 		// 현재 단계를 숨기고 다음 단계를 표시
 		$("#QuizNextBtn").prop("disabled", true); // 버튼 비활성화
@@ -189,9 +207,10 @@ function submitForm() {
 				
 			}
 			, success: function() {
-					
-				console.log("완료");
 				
+				console.log("완료");
+				location.href = "/bean/info?beanNo=" + beanNo;
+			
 			}
 			, error: function() {
 				
@@ -206,7 +225,7 @@ function submitForm() {
 	$("#ReQuizBtn").click(function() {
 
 		// 새로운 페이지로 리디렉션 (쿼리 스트링 포함)
-		location.href = "./quizForm";
+		location.href = "./quizForm"; 
 		
 	});
 
@@ -231,11 +250,24 @@ fieldset {
 
 form div p {
 	font-size: 30px;
+	text-align: center;
+}
+
+#gramField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gramField .table {
+    margin: 0 auto;
+    text-align: center;
 }
 
 #grindField .form-check,
 #extractionField .form-check {
   display: flex; /* 라디오 버튼을 수평으로 정렬 */
+  flex-direction: column; /* 세로 정렬 */
   align-items: center; /* 텍스트와 버튼 세로 맞춤 */
   margin-right: 20px; /* 버튼 간격 */
 }
@@ -244,6 +276,45 @@ form div p {
 #extractionField {
   justify-content: center; /* 전체 컨테이너 중앙 배치 */
 }
+
+
+#quizMain img {
+	width: 350px;
+	height: 350px;
+	
+	margin-bottom: 10px;
+	border-radius: 8px;
+	
+	cursor: pointer;
+}
+
+.radio-group{
+	display: flex; /* 가로 정렬 */
+	justify-content: center;
+	text-align: center;
+	margin-top: 5px; /* 이미지와 라디오 그룹 간격 */
+	cursor: pointer;
+}
+
+.form-check-input{
+	margin-right: 5px; /* 라디오 버튼과 텍스트 간격 */
+}
+
+/* 버튼 하단 정렬 */
+
+#quizMain, #quizResultForm {
+	position: relative;
+	height: 730px;
+}
+
+#beanQuizBtn, #beanReQuiz {
+	position: absolute; /* 절대 위치 지정 */
+	bottom: 20px; /* 하단에 20px 간격으로 배치 */
+	left: 50%;
+	transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+/* 결과창 css */
 
 .customImage img {
 	cursor: pointer;
@@ -269,18 +340,13 @@ form div p {
 	
 }
 
-#quizMain, #quizResultForm {
-	position: relative;
-	height: 730px;
+.progress {
+	position: fixed;
+	top: 0;
+	/* width: 100% */
+	left: 0;
+	right: 0;
 }
-
-#beanQuizBtn, #beanReQuiz {
-	position: absolute; /* 절대 위치 지정 */
-	bottom: 20px; /* 하단에 20px 간격으로 배치 */
-	left: 50%;
-	transform: translateX(-50%); /* 중앙 정렬 */
-}
-
 
 </style>
 
@@ -341,6 +407,11 @@ form div p {
 </table>
 
 </fieldset>
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 25%"></div>
+</div>
+
 </div> <!-- <div id="beanGram"> -->
 
 
@@ -352,22 +423,42 @@ form div p {
 
 <fieldset id="grindField">
 
-	<div class="form-check">	
-		<input class="form-check-input" type="radio" name="grind" id="grind1" value="1" checked>
-		<label class="form-check-label" for="grind1">굵은 분쇄</label>
+	<div class="form-check">
+		<label class="form-check-label" for="grind1">
+			<img alt="wholeBean" src="/resources/img/quiz/wholeBean.jpg">
+			<div class="radio-group"> 
+				<input class="form-check-input" type="radio" name="grind" id="grind1" value="1">
+				굵은 분쇄
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
-		<label class="form-check-label" for="grind2">중간 분쇄</label>
+		<label class="form-check-label" for="grind2">
+			<img alt="wholeBean" src="/resources/img/quiz/handdrip.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
+				중간 분쇄
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
-		<label class="form-check-label" for="grind3">가는 분쇄</label>
+		<label class="form-check-label" for="grind3">	
+			<img alt="wholeBean" src="/resources/img/quiz/espresso.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
+				가는 분쇄
+			</div>
+		</label>
 	</div>
 	
 </fieldset>
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 50%"></div>
+</div>
+
 </div> <!-- <div id="beanGram"> -->
 
 
@@ -380,26 +471,51 @@ form div p {
 <fieldset id="extractionField">
 
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1" checked>
-		<label class="form-check-label" for="extraction1">압력</label>
+		<label class="form-check-label" for="extraction1">	
+			<img alt="wholeBean" src="/resources/img/quiz/vaccumfiltration.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1">
+				압력
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
-		<label class="form-check-label" for="extraction2">드립</label>
+		<label class="form-check-label" for="extraction2">	
+			<img alt="wholeBean" src="/resources/img/quiz/handdrip.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
+				드립
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
-		<label class="form-check-label" for="extraction3">침출</label>
+		<label class="form-check-label" for="extraction3">	
+			<img alt="wholeBean" src="/resources/img/quiz/steeping.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
+				침출
+			</div>
+		</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
-		<label class="form-check-label" for="extraction4">달임</label>
+		<label class="form-check-label" for="extraction4">	
+			<img alt="wholeBean" src="/resources/img/quiz/decoction.jpg">
+			<div class="radio-group">
+				<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
+				달임
+			</div>
+		</label>
 	</div>
 	
 </fieldset>
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 75%"></div>
+</div>
+
 </div> <!-- <div id="beanExtraction"> -->
 
 </form>
@@ -418,7 +534,6 @@ form div p {
 <div class="text-center m-5">
 <h1> <퀴즈 결과> </h1>
 </div>
-
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->
@@ -445,6 +560,10 @@ form div p {
 </table>
 
 </div> <!-- <div id="List"> -->
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 100%"></div>
+</div>
 
 <div id="beanReQuiz" class="d-grid gap-2 col-4 mx-auto">
 <button id="ReQuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>

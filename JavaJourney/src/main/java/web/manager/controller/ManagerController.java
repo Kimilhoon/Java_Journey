@@ -38,7 +38,7 @@ public class ManagerController {
 			) {
 		log.info("req : {}", req);
 		log.info("search : {}", search);
-		Paging paging = service.getPaging(req);
+		Paging paging = service.getPaging(req, search);
 		
 //		List<Member> memberList = service.selectAll(paging); //모두검색
 		
@@ -55,6 +55,7 @@ public class ManagerController {
 		
 		model.addAttribute("memberList",memberList);
 		model.addAttribute("paging",paging);
+		model.addAttribute("search", search);
 	}
 	
 	@GetMapping("/usercancel")
@@ -105,7 +106,7 @@ public class ManagerController {
 			String search
 			) {
 		log.info("req : {}", req);
-		Paging paging = service.getBeanSubPaging(req);
+		Paging paging = service.getBeanSubPaging(req, search);
 		
 //		List<BeanSub> beanSubList = service.selectBeanSubAll(paging);
 		
@@ -122,6 +123,8 @@ public class ManagerController {
 		
 		model.addAttribute("beanSubList",beanSubList);
 		model.addAttribute("paging",paging);
+		model.addAttribute("search", search);
+
 	}
 	
 	@GetMapping("/subcancel")
@@ -144,9 +147,5 @@ public class ManagerController {
 		return result;
 	
 	}
-	
-	
-	
-	
 	
 }

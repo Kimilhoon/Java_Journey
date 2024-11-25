@@ -16,4 +16,6 @@ public class QuizResult {
 	private String cupNoteName;
 	private String beanName;
 	
+	private int userNo;
+	
 } // class end

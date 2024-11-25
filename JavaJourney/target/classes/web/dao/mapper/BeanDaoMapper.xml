@@ -22,21 +22,20 @@
 <!-- 		WHERE rNum &lt;= 3 -->
 		
 		SELECT m.*,n.*,bi.* FROM (
-	SELECT rownum rnum ,b.beanno,revcnt.reviewCount, revcnt.avgRevStarPoint FROM (
-		SELECT a.beanno,a.reviewCount, a.avgRevStarPoint FROM (
-			SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
-			WHERE qq.BEANNO = ww.BEANNO) a
-		GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
-        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
-	)revcnt , bean b
-	WHERE b.BEANNO = revcnt.beanno
-	
-)m, bean n, BEANIMG bi
-WHERE rnum BETWEEN 1 AND 3
-AND m.beanno = n.beanno
-AND n.BEANIMGNO = bi.BEANIMGNO 
-ORDER BY rnum 
-		
+			SELECT rownum rnum ,b.beanno,revcnt.reviewCount, revcnt.avgRevStarPoint FROM (
+				SELECT a.beanno,a.reviewCount, a.avgRevStarPoint FROM (
+					SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,
+					round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
+					WHERE qq.BEANNO = ww.BEANNO) a
+				GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
+		        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
+			)revcnt , bean b
+			WHERE b.BEANNO = revcnt.beanno
+		)m, bean n, BEANIMG bi
+		WHERE rnum BETWEEN 1 AND 3
+		AND m.beanno = n.beanno
+		AND n.BEANIMGNO = bi.BEANIMGNO 
+		ORDER BY rnum 
 	</select>
 	
 	<select id="selectBeanCount" resultType="Bean">
@@ -66,16 +65,15 @@ ORDER BY rnum
 	
 	<select id="selectAll" parameterType="hashmap" resultType="Bean">
 		SELECT * FROM (
-			SELECT rowNum rNum, B.* FROM (
+			SELECT rowNum rNum, B.*, i.beanOriginname FROM (
 				SELECT 
-					b.beanNo, i.beanImgNo, beanName, origin, 
-					beanComm, beanInfo, beanPrice, businessNo,
-					beanOriginname, beanStoredname, beanImgSize,
-					status,
+					b.beanNo, b.beanImgNo, beanName, origin, 
+					beanComm, beanPrice, businessNo, status,
 					<if test='cupnote != "N"'>
 					c.cupNoteNo, c.cupNoteName,
 					</if>
-					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount
+					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount,
+					LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteNames
 <!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
 <!-- 						FROM ( -->
 <!-- 							SELECT DISTINCT c.cupNoteName -->
@@ -86,11 +84,8 @@ ORDER BY rnum
 <!-- 					) AS cupNoteNames -->
 <!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
 				FROM bean b
-				<if test='cupnote != "N"'>
 				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
 				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
-				</if>
-				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				<where>
 				<if test='cupnote != "N"'>
 				AND		c.cupNoteName = #{ cupnote }
@@ -99,8 +94,15 @@ ORDER BY rnum
 				AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 
 				</if>
 				</where>
-				ORDER BY beanNo DESC
+				GROUP BY
+					b.beanNo, b.beanImgNo, beanName, origin, 
+					beanComm, beanPrice, businessNo, status
+					<if test='cupnote != "N"'>
+					, c.cupNoteNo, c.cupNoteName
+					</if>
+				ORDER BY b.beanNo DESC
 			) B
+				LEFT JOIN beanImg i ON B.beanImgNo = i.beanImgNo
 		) bean
 		WHERE rNum BETWEEN #{ paging.startNo } AND #{ paging.endNo }
 	</select>  
@@ -214,4 +216,38 @@ ORDER BY rnum
 	<!-- /bean/sub -->
 	<!-- ====================================================================================================== -->
 	
+	
+	<!-- beanCompare -->
+	<select id="selectAllBean" resultType="Bean">
+		SELECT * FROM bean
+	</select>
+	
+	<select id="selectBeanByBeanNoForCompare" resultType="Bean" parameterType="int">
+		SELECT 
+		    a.*,
+		    bi.beanoriginname AS beanOriginName
+		FROM 
+		    (SELECT 
+		         b.beanno AS beanNo,
+		         b.beanname AS beanName,
+		         b.origin AS origin,
+		         b.beanprice AS beanPrice,
+		         b.beanimgno AS beanImgNo,
+		         LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteNames
+		     FROM 
+		         bean b
+		     JOIN 
+		         beantaste bt ON b.beanno = bt.beanno
+		     JOIN 
+		         cupnote c ON bt.cupnoteno = c.cupnoteno
+	         <where>
+	         	AND b.beanno = #{beanNo }
+	         </where>
+		     GROUP BY 
+		         b.beanno, b.beanname, b.origin, b.beanprice, b.beanimgno
+		    ) a
+		JOIN 
+		    beanimg bi ON a.beanImgNo = bi.beanimgno
+	</select>
+
 </mapper>

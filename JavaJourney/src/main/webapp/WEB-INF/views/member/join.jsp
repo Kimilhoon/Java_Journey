@@ -51,6 +51,8 @@ var userPw = false;
 var pwCheck = false;
 var nickCheck = false; 
 var nickDuplicate = false;
+var emailCheck = false; 
+var numCheck = false; 
 
 $(function() {
 	$("#btnJoin").click(function() {	
@@ -193,6 +195,14 @@ $(function() {
             alert("이메일 형식이 올바르지 않습니다");
             return false;
         }
+		if( !emailCheck ) {
+			alert("이메일 본인인증을 진행하세요");
+			return false;
+		}
+		if( !numCheck ) {
+			alert("인증번호를 확인하세요");
+			return false;
+		}
 		if( !userName.value ) {
 			alert("이름을 입력하세요");
 			return false;
@@ -523,6 +533,7 @@ $(document).ready(function() {
 			.html("인증번호가 일치합니다");
 	        $inputBox.css("border-color", "green");
 	        emailCheck = true;
+	        numCheck = true;
 		} else {
 // 			console.log("인증번호 불일치!");
 			$("#resultMsg")
@@ -539,7 +550,11 @@ $(document).ready(function() {
 });
 </script>
 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> refs/remotes/origin/master
 
 <!-- 이용약관 모달 -->
 <!-- -------------------------------------------------- -->
@@ -834,7 +849,6 @@ label.agree button:hover {
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
 	<p id="resultMsg" style="font-size:0.8rem;"></p>
-
 
 
 <div>
