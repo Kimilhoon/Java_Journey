@@ -243,6 +243,7 @@ footer {
             <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
             <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
             <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
+            <li><a class="dropdown-item" href="/comm/chat">채팅</a></li>
           </ul>
         </li>
         

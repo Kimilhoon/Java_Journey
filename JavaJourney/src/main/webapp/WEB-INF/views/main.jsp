@@ -12,27 +12,34 @@ $(document).ready(function () {
         width: "200px",
         height: "200px"
     });
-
-    const banner = $(".banner");
-    const video = $("#background_video");
-    const best = $("#best");
-
+	
+    let scrollTimeout;
     $(window).on("scroll", function () {
-        const scrollPosition = $(window).scrollTop() + $(window).height();
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(function () {
+                const scrollPosition = $(window).scrollTop() + $(window).height();
 
-        if (video.offset().top < scrollPosition) {
-            video.addClass("playing");
-        }
+                if ($("#background_video").offset().top < scrollPosition) {
+                    $("#background_video").addClass("playing");
+                }
 
-        if (banner.offset().top < scrollPosition) {
-            banner.addClass("visible");
-        }
+                if ($(".banner").offset().top < scrollPosition) {
+                    $(".banner").addClass("visible");
+                }
 
-        if (best.offset().top < scrollPosition) {
-            best.addClass("visible");
+                if ($("#best").offset().top < scrollPosition) {
+                    $("#best").addClass("visible");
+                }
+
+                scrollTimeout = null;
+            }, 100); // 100ms 간격으로 호출 제한
         }
     });
+
+    
 });
+
+
 
 
 
@@ -41,6 +48,16 @@ $(document).ready(function () {
 
 <style>
 
+.transition {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.transition.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .barogagi-btn {
 	display: flex;
@@ -52,20 +69,21 @@ $(document).ready(function () {
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
+    transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease; /* 기본 상태에도 적용 */
+	
 }
-
 
 .barogagi-btn:hover {
     background-color: #6f4e37;
     color: white;
+    transform: scale(1.05);
 }
-
 
 #barogagi {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 100px 40px 100px 40px;
+	margin: 100px 80px;
 }
 
 #best {
@@ -124,8 +142,9 @@ $(document).ready(function () {
 }
 
 .custom-image img {
-	border-radius: 20px;
+    border-radius: 20px;
 }
+
 
 .container {
     display: flex;
@@ -135,7 +154,7 @@ $(document).ready(function () {
 }
 
 .carousel-container {
-    width: 52%; /* 양쪽 배너를 나누기 위한 크기 설정 */
+    width: 50%; /* 양쪽 배너를 나누기 위한 크기 설정 */
     position: relative;
 }
 
@@ -148,7 +167,7 @@ $(document).ready(function () {
 }
 
 .carousel-item {
-    background-color: #ccc;
+     background-color: #ccc;
     padding: 20px;
 /*     border-radius: 10px; */
     text-align: center;
@@ -212,6 +231,7 @@ $(document).ready(function () {
     </div>
 
     <!-- Right Carousel -->
+            	<c:if test="${not empty bList }" var="test">
     <div class="carousel-container right">
         <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators" hidden="">
@@ -220,24 +240,41 @@ $(document).ready(function () {
                 <button type="button" data-bs-target="#carouselRight" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <c:forEach var="bean" items="${bList}" varStatus="status">
-                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                    	 <div class="custom-image">
-                      	  <a href="/bean/info?beanNo=${bean.beanNo}">
-                                ${bean.beanOriginName}
-                            <p class="fw-bold fs-4">${bean.beanName}</p>
-                        </a>
-                        <p>${bean.origin}</p>
-                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
-                    </div>
-                    </div>
-                </c:forEach>
+	                <c:forEach var="bean" items="${bList }" varStatus="status">
+	                    <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+	                    	 <div class="custom-image">
+	                      	  <a href="/bean/info?beanNo=${bean.beanNo}">
+	                                ${bean.beanOriginName}
+	                            <p class="fw-bold fs-4">${bean.beanName}</p>
+	                        </a>
+	                        <p>${bean.origin}</p>
+	                        <p>리뷰: ${bean.reviewCount} ★(${bean.avgRevStarPoint})</p>
+	                    </div>
+	                    </div>
+	                </c:forEach>
             </div>
         </div>
     </div>
+                </c:if>
+                
+<c:if test="${fn:length(bList) <= 3}">
+    <div class="carousel-container right">
+        <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators" hidden="">
+            </div>
+            <div class="carousel-inner">
+            <div class="carouselRight carousel-item">
+			        <p>죄송합니다.</p>
+			        <p>이달의 베스트 원두가 존재하지 않습니다.</p>
+              	  </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+
 </div>
 
-
+              	  
 <div id="barogagi">
 	<a href="/quiz/quizForm" class="barogagi-btn">
 		취향조사 하러가기
