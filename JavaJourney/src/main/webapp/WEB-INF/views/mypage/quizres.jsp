@@ -7,13 +7,19 @@
 $(function () {
 	$(".custom-image img").css({
         width: "400px",
-        height: "300px"
+        height: "300px",
+        objectFit: "container",      // 이미지가 썸네일 크기에 맞도록 설정
+        borderRadius: "8px"      // 모서리를 둥글게 (선택 사항)
     });
+	
+	$("#btnRestart").click(function() {
+		location.href = "/quiz/quizForm?userNo=" + "${MyQuizResult[0].userNo }";
+	});
 })
 </script>
 <style type="text/css">
 #btnRestart { 
-    width: 48%;
+    width: 900px;
     padding: 10px;
     background-color: #d1a589;
     color: white;
@@ -23,15 +29,14 @@ $(function () {
     font-size: 17px;
 }
 </style>
+
 <div class="container" style="width: 900px; height:385px; background-color: #f8f5f0; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <div class="d-flex" style="align-items: flex-start;">
         <!-- Image Section -->
-        <div class="custom-image" style="margin-right: 20px; margin-top: 20px;">
-            <div style="margin-left: 30px; width: 410px; height: 310px; object-fit: cover; border-radius: 9px; border: 3px solid #d1a589;">
+        <div class="custom-image" style="margin-right: 20px; margin-top: 20px; margin-left: 30px;">
             <a href="/bean/info?beanNo=${MyQuizResult[0].beanNo }">
             ${MyQuizResult[0].beanOriginName }
             </a>	
-            </div>
         </div>
         <!-- Info Section -->
         <div id="beanInfo" style="flex-grow: 1;">
@@ -42,7 +47,7 @@ $(function () {
                 <li><strong>분쇄:</strong> ${MyQuizResult[0].grindName }</li>
                 <li><strong>추출:</strong> ${MyQuizResult[0].extractionName }</li>
             </ul>
-            <p style="margin-left: 40px; margin-top: 20px; margin-bottom: 5px; font-size: 16px; color: #6d4c41;">원두 정보</p>
+            <p style="margin-left: 40px; margin-top: 20px; margin-bottom: 5px; font-size: 16px; color: #6d4c41;"><strong>원두 정보</strong></p>
 			<p style="margin-left: 40px; font-size: 14px; color: #795548;
 	          	max-width: 300px; max-height: 200px;
           		overflow: hidden; text-overflow: ellipsis; 
@@ -54,7 +59,7 @@ $(function () {
     </div>
 </div>
 <div style="text-align:center; margin-top: 20px;">
-<a style="text-decoration: none;" href="/quiz/quizForm"><button id="btnRestart">취향조사 다시하기</button></a>
+<a style="text-decoration: none;"><button id="btnRestart">취향조사 다시하기</button></a>
 </div>
 
 <c:import url="../layout/footer.jsp"/>

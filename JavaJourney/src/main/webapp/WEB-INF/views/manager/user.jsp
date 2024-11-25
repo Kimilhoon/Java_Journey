@@ -32,6 +32,17 @@ td {
 	font-size: 16px;
 	margin-bottom: 10px;
 }
+#btnUserCancel,
+#btnUserRevive { 
+    width: 100px;
+    padding: 10px;
+    background-color: #adb5bd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
 </style>
 <script type="text/javascript">
 $(function () {
@@ -120,12 +131,12 @@ $(function () {
 </script>
 </head>
 <body>
-<h1 style="text-align: center;">유저 관리</h1>
 <div id="List">
 
 <div id="search_div">
 	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
-	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
+	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;
+	  display: inline-block; width: 200px; margin-left: 10px;">
 </div>
 	
 
@@ -170,8 +181,9 @@ $(function () {
 </tbody>
 </table>
 
-<div class="position-absolute top-20 end-0 translate-middle-y">
+<div class="position-absolute top-20 end-0 translate-middle-y mt-3 mx-1">
 	<button class="btn btn-primary" id="btnUserCancel">비활성화</button>
+	<span style="margin-left: 5px;"></span>
 	<button class="btn btn-primary" id="btnUserRevive">활성화</button>
 </div>
 

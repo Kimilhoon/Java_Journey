@@ -222,7 +222,7 @@ ORDER BY rnum
 	
 	<select id="selectBeanByBeanNoForCompare" resultType="Bean" parameterType="int">
 		SELECT 
-		    a.*, 
+		    a.*,
 		    bi.beanoriginname AS beanOriginName
 		FROM 
 		    (SELECT 
@@ -231,18 +231,21 @@ ORDER BY rnum
 		         b.origin AS origin,
 		         b.beanprice AS beanPrice,
 		         b.beanimgno AS beanImgNo,
-		         LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteName
+		         LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteNames
 		     FROM 
 		         bean b
-		     JOIN beantaste bt ON b.beanno = bt.beanno
-		     JOIN cupnote c ON bt.cupnoteno = c.cupnoteno
-		     <where>
-		         AND b.beanno = #{beanNo }
-		     </where>
+		     JOIN 
+		         beantaste bt ON b.beanno = bt.beanno
+		     JOIN 
+		         cupnote c ON bt.cupnoteno = c.cupnoteno
+	         <where>
+	         	AND b.beanno = #{beanNo }
+	         </where>
 		     GROUP BY 
 		         b.beanno, b.beanname, b.origin, b.beanprice, b.beanimgno
 		    ) a
-		JOIN beanimg bi ON a.beanImgNo = bi.beanimgno
+		JOIN 
+		    beanimg bi ON a.beanImgNo = bi.beanimgno
 	</select>
 
 </mapper>
