@@ -550,7 +550,11 @@ $(document).ready(function() {
 });
 </script>
 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> refs/remotes/origin/master
 
 <!-- 이용약관 모달 -->
 <!-- -------------------------------------------------- -->
@@ -845,7 +849,6 @@ label.agree button:hover {
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
 	<p id="resultMsg" style="font-size:0.8rem;"></p>
-
 
 
 <div>
