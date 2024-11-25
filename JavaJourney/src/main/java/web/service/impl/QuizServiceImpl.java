@@ -1,5 +1,6 @@
 package web.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,19 @@ public class QuizServiceImpl implements QuizService {
 	@Override
 	public List<Bean> getBeanByCupnoteNo(QuizResult param) {
 		return dao.selectBeanByCupnoteNo(param);
+	}
+
+
+	
+	@Override
+	public void updateBeanNo(QuizResult param) {
+		dao.updateBeanNoByQuizResultNo(param);
+	}
+
+
+	@Override
+	public void insertMemberQuizResult(HashMap<String, Integer> map) {
+		dao.insertMemberQuizResult(map);
 	}
 
 

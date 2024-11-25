@@ -50,4 +50,15 @@
 		ORDER BY rnum
 	</select>
 	
+	<update id="updateBeanNoByQuizResultNo" parameterType="QuizResult">
+		UPDATE	quizresult
+		SET		beanNo = ${ beanNo }
+		WHERE	quizResultNo = #{quizResultNo}
+	</update>
+	
+	<insert id="insertMemberQuizResult" parameterType="Hashmap">
+		INSERT INTO memberquizresult ( quizresult, userNo )
+		VALUES ( ${ quizResult }, ${ userNo } )
+	</insert>
+	
 </mapper>

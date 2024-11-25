@@ -24,13 +24,13 @@ table {
 }
 th{
 	padding : 13.5px 5px;
-	font-size: 24px;
+	font-size: 20px;
 	text-align: center;
 }
 td {
 	text-align: center;
 	padding : 13.5px 5px;
-	font-size: 20px;
+	font-size: 16px;
 	margin-bottom: 10px;
 }
 </style>

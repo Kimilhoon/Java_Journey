@@ -1,5 +1,6 @@
 package web.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -35,6 +36,22 @@ public interface QuizDao {
 	 * @return 조회된 원두
 	 */
 	public List<Bean> selectBeanByCupnoteNo(QuizResult param);
+
+
+	/**
+	 * 전달된 quizResultNo에 beanNo 업데이트
+	 * 
+	 * @param param - 전달된 데이터
+	 */
+	public void updateBeanNoByQuizResultNo(QuizResult param);
+
+
+	/**
+	 * 전달된 데이터 삽입하기
+	 * 
+	 * @param map
+	 */
+	public void insertMemberQuizResult(HashMap<String, Integer> map);
 
 
 

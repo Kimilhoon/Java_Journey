@@ -1,5 +1,6 @@
 package web.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import web.dto.Bean;
@@ -33,6 +34,22 @@ public interface QuizService {
 	 * @return 조회된 원두
 	 */
 	public List<Bean> getBeanByCupnoteNo(QuizResult param);
+
+
+	/**
+	 * 전달받은 quizResultNo에 beanNo 업데이드
+	 * 
+	 * @param param - 전달 받은 데이터
+	 */
+	public void updateBeanNo(QuizResult param);
+
+
+	/**
+	 * 전달 받은 데이터 삽입하기
+	 * 
+	 * @param map - 전달받은 데이터
+	 */
+	public void insertMemberQuizResult(HashMap<String, Integer> map);
 
 
 
