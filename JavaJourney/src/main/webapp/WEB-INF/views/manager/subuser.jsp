@@ -33,6 +33,17 @@ td {
 	font-size: 16px;
 	margin-bottom: 10px;
 }
+#btnBeanSubCancel,
+#btnBeanSubReturn { 
+    width: 100px;
+    padding: 10px;
+    background-color: #adb5bd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
 </style>
 <script type="text/javascript">
 $(function () {
@@ -121,7 +132,6 @@ $(function () {
 </script>
 </head>
 <body>
-<h1 style="text-align: center;">구독 관리</h1>
 <div id="List">
 
 <div id="search_div">
@@ -170,9 +180,10 @@ $(function () {
 </tbody>
 </table>
 
-<div class="position-absolute top-20 end-0 translate-middle-y">
-	<button class="btn btn-primary" id="btnBeanSubCancel">구독취소하기</button>
-	<button class="btn btn-primary" id="btnBeanSubReturn">되돌리기</button>
+<div class="position-absolute top-20 end-0 translate-middle-y mt-3 mx-1">
+	<button id="btnBeanSubCancel">구독취소</button>
+	<span style="margin-left: 5px;"></span>
+	<button id="btnBeanSubReturn">되돌리기</button>
 </div>
 
 <c:import url="/WEB-INF/views/manager/beansubpage.jsp"/>

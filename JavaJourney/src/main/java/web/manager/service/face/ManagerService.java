@@ -13,9 +13,10 @@ public interface ManagerService {
 	/**
 	 * 현재 페이지를 전달받아 처리하기
 	 * @param req
+	 * @param search 
 	 * @return
 	 */
-	public Paging getPaging(HttpServletRequest req);
+	public Paging getPaging(HttpServletRequest req, String search);
 	
 	/**
 	 * 모든 유저 정보 조회
@@ -42,9 +43,10 @@ public interface ManagerService {
 	/**
 	 * 구독유저 페이징
 	 * @param req
+	 * @param search 
 	 * @return
 	 */
-	public Paging getBeanSubPaging(HttpServletRequest req);
+	public Paging getBeanSubPaging(HttpServletRequest req, String search);
 
 	
 	/**

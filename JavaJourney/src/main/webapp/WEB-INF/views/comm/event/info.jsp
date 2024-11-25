@@ -28,15 +28,7 @@ $(function() {
 })
 </script>
 <style type="text/css">
-#btnEventUpdate{
-    padding: 7px;
-    background-color: #6f4e37;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 15px;
-}     
+#btnEventUpdate,
 #btnEventDelete{
     padding: 7px;
     background-color: #6f4e37;
@@ -50,7 +42,7 @@ $(function() {
 
 <h1 class="text-center">이벤트 상세보기</h1>
 
-<div>
+<div class="mx-3">
 <!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
 <button id="btnEventDelete">삭제</button>
 <button id="btnEventUpdate">수정</button>
