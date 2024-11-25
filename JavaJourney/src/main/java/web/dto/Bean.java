@@ -25,6 +25,7 @@ public class Bean {
     
     //cupNote join
 	private String cupNoteName[];
+	private String cupNoteNames;
 	
 	// beanRev join
 	private int revStarPoint;
