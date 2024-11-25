@@ -184,10 +184,10 @@
 	<!-- 이전페이지이동 -->
     <c:if test="${paging.curPage > 1}" > 
     	<li class="page-item">
-        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;"><<</a>
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
     	</li>
     	<li class="page-item">
-        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 10}&category=${category}&search=${search}" style="color: black; border: 1px solid #ebddcc;"><</a>
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage - 10}&category=${category}&search=${search}" style="color: black; border: 1px solid #ebddcc;">&laquo;</a>
 		</li>
     </c:if>
 
@@ -209,10 +209,10 @@
 	<!-- 다음페이지이동 -->
     <c:if test="${paging.curPage < paging.totalPage}">
     	<li class="page-item">
-        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 10}&category=${category}&search=${search}" style=" color: black; border: 1px solid #ebddcc;">></a>
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.curPage + 10}&category=${category}&search=${search}" style=" color: black; border: 1px solid #ebddcc;">&raquo;</a>
         </li>
         <li class="page-item">
-        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">>></a>
+        <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=${paging.totalPage}&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&rarr; 마지막</a>
    		</li>
     </c:if>
 </ul>
