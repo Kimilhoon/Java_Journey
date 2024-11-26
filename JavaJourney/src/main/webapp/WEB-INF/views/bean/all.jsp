@@ -182,7 +182,7 @@ img{
 </div>
 
 
-<div id="List">
+<div id="List" class="container-fluid">
 
 <table>
 <tbody>
