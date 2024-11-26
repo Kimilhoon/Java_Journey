@@ -340,6 +340,14 @@ form div p {
 	
 }
 
+.progress {
+	position: fixed;
+	top: 0;
+	/* width: 100% */
+	left: 0;
+	right: 0;
+}
+
 </style>
 
 <div id="quizMain" class="container">
@@ -399,6 +407,11 @@ form div p {
 </table>
 
 </fieldset>
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 25%"></div>
+</div>
+
 </div> <!-- <div id="beanGram"> -->
 
 
@@ -441,6 +454,11 @@ form div p {
 	</div>
 	
 </fieldset>
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 50%"></div>
+</div>
+
 </div> <!-- <div id="beanGram"> -->
 
 
@@ -493,6 +511,11 @@ form div p {
 	</div>
 	
 </fieldset>
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 75%"></div>
+</div>
+
 </div> <!-- <div id="beanExtraction"> -->
 
 </form>
@@ -511,7 +534,6 @@ form div p {
 <div class="text-center m-5">
 <h1> <퀴즈 결과> </h1>
 </div>
-
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->
@@ -538,6 +560,10 @@ form div p {
 </table>
 
 </div> <!-- <div id="List"> -->
+
+<div class="progress" role="progressbar" aria-label="Example 10px high" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 5px; width: 100%;">
+  <div class="progress-bar" style="width: 100%"></div>
+</div>
 
 <div id="beanReQuiz" class="d-grid gap-2 col-4 mx-auto">
 <button id="ReQuizBtn" type="button" class="btn btn-lg btn-secondary">퀴즈 다시하기</button>

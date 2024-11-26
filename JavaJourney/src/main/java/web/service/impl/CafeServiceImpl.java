@@ -186,6 +186,15 @@ public class CafeServiceImpl implements CafeService {
 		dao.removeWish(params);
 	}
 
+	@Override
+	public boolean checkUserWish(int cafeNo, int userNo) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("cafeNo", cafeNo);
+	    params.put("userNo", userNo);
+		int count = dao.countUserWish(params);
+		return count > 0;
+	}
+
 	
 	
 }

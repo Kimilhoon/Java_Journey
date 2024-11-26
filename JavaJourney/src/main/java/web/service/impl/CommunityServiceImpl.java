@@ -397,7 +397,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		dao.insertMyRecipeFile(myRecipeFile);
 
-		
+			
 	}
 	
 	@Override

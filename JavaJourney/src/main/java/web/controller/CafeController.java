@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,17 +108,22 @@ public class CafeController {
 			//로그인하지 않은 경우
 			log.warn("로그인되지 않았습니다.");
 			model.addAttribute("userNo", null); // 로그인하지 않은 경우 userNo를 null로 설정
+			model.addAttribute("isWish", false); // 비회원은 찜하기 상태를 false로 설정
 		} else {
 	        // 로그인한 경우 사용자 번호 조회 및 추가
 	        Member userNo = service.selectUserNoByUserId(userId);
 	        if(userNo != null) {
 	        	model.addAttribute("userNo", userNo.getUserNo());
+	        	
+	        	//현재 카페에 대한 찜 상태 조회
+	        	boolean isWish = service.checkUserWish(cafeInfo.getCafeNo(), userNo.getUserNo());
+	        	model.addAttribute("isWish", isWish);
 	        } else {
 	        	log.warn("userId에 해당하는 사용자 번호를 찾을 수 없습니다. userId: {}", userId);
+	        	model.addAttribute("userNo", null);
+	            model.addAttribute("isWish", false); // 사용자 정보를 찾지 못한 경우도 찜 상태를 false로 설정
 	        }
 	    } // if (userId == null) end
-		
-//		log.info("userNo: {}", userNo.getUserNo());
 		
 		// 리뷰 보여주기
 		List<CafeRev> list = service.selectAllRev(cafe);
@@ -124,9 +131,8 @@ public class CafeController {
 	        log.warn("리뷰 목록이 비어 있습니다. cafeNo: {}", cafe.getCafeNo());
 	    }
 		
-		log.info("list: {}", list);
-		
 		model.addAttribute("list", list);
+		
 
 		//주소 정보 추가
 		String savedAddress = cafeInfo.getCafeAdd1(); // 카페 주소
@@ -140,7 +146,8 @@ public class CafeController {
 	} // CafeInfoForm(Cafe) end
 	
 	@PostMapping("/info")
-	public void CafeInfoFormProc(@RequestBody CafeWish cafeWish) {
+	public ResponseEntity<?> CafeInfoFormProc(@RequestBody CafeWish cafeWish) {
+
 		log.info("cafeNo: {}", cafeWish.getCafeNo());
 		log.info("userNo: {}", cafeWish.getUserNo());
 		log.info("action: {}", cafeWish.getAction());
@@ -149,13 +156,25 @@ public class CafeController {
 	    params.put("cafeNo", cafeWish.getCafeNo());
 	    params.put("userNo", cafeWish.getUserNo());
 	    
-		if( "add".equals(cafeWish.getAction()) ){
-			service.addWish(params);
-		} else if ("remove".equals(cafeWish.getAction())) {
-	        service.removeWish(params);
-	    }
-		
-	}
+	    try {
+			if( "add".equals(cafeWish.getAction()) ){
+				service.addWish(params);
+			} else if ("remove".equals(cafeWish.getAction())) {
+		        service.removeWish(params);
+		    }
+			
+			// 응답 데이터 설정
+	        Map<String, String> response = new HashMap<>();
+	        response.put("status", "success");
+	        response.put("message", cafeWish.getAction().equals("add") ? "찜 상태가 추가되었습니다." : "찜 상태가 취소되었습니다.");
+	        
+	        return ResponseEntity.ok().body(response);
+	        
+	    	} catch (Exception e) {
+				// 예외 처리
+		    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed");
+	    	}
+	} // CafeInfoFormProc End
 	
 	
 	

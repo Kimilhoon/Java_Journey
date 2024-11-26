@@ -230,7 +230,7 @@ $(document).ready(function () {
         </div>
     </div>
 
-    <!-- Right Carousel -->
+        <!-- Right Carousel -->
     <div class="carousel-container right">
         <div id="carouselRight" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators" hidden="">
@@ -258,7 +258,7 @@ $(document).ready(function () {
     </div>
 </div>
 
-
+              	  
 <div id="barogagi">
 	<a href="/quiz/quizForm" class="barogagi-btn">
 		취향조사 하러가기
