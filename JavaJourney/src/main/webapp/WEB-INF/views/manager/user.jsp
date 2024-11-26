@@ -104,10 +104,20 @@ $(function () {
 			 			
 			});
 		});
+		
+	// 검색 버튼 클릭 이벤트
+	$("#btn_search").click(function() {
+	    sendSearchRequest(); // 검색 요청 함수 호출
+	});
+
+	// 검색 입력 필드에서 Enter 키 이벤트 처리
+	$("#search").keydown(function(e) {
+	    if (e.key === "Enter") { // Enter 키 감지
+	        sendSearchRequest(); // 검색 요청 함수 호출
+	    }
+	});
 	
-	
-		$("#btn_search").click(function() {
-	 		console.log($("#search").val()); 
+		function sendSearchRequest() {
 			$.ajax({
 				url: "./user",
 				type: "get",
@@ -116,28 +126,51 @@ $(function () {
 				},
 				dataType: "html",
 				success: function(res) {
-//	 				console.log(res);
+				console.log(res);
 					$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
 					$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
 				},
 				error: function() {
-					
 				}
-				
 			});
-			
-		});		
+		}
+// 		$("#btn_search").click(function() {
+// 	 		console.log($("#search").val()); 
+// 			$.ajax({
+// 				url: "./user",
+// 				type: "get",
+// 				data:{
+// 					"search":$("#search").val(), //search:검색입력값을 서버에 전달
+// 				},
+// 				dataType: "html",
+// 				success: function(res) {
+//	 				console.log(res);
+// 					$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
+// 					$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
+// 				},
+// 				error: function() {
+// 				}
+// 			});
+// 		});		
 })
 </script>
 </head>
 <body>
 <div id="List">
 
-<div id="search_div">
+<div id="search_div" class="container" style="position: relative; height: 100px;">
+    <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+        <button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+		<input type="text" id="search" class="form-control me-2 " placeholder="회원닉네임 검색" style="float: right;
+		  display: inline-block; width: 600px; margin-left: 10px;">
+    </div>
+</div>
+
+<!-- <div id="search_div" class="">
 	<button id="btn_search" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
 	<input type="text" id="search" class="form-control me-2 " placeholder="검색어를 입력하세요." style="float: right;
 	  display: inline-block; width: 200px; margin-left: 10px;">
-</div>
+</div> -->
 	
 
 <table class="table">

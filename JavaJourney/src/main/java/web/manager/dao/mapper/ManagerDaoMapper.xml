@@ -5,7 +5,7 @@
     
 <mapper namespace="web.manager.dao.face.ManagerDao">
 
-	<select id="selectCntAll" resultType="int">
+	<select id="selectCntAll" resultType="int" parameterType="hashmap">
 		select count(*) from member
 		<where>
 			<if test='search != "N" '>
@@ -59,10 +59,12 @@
 		</where>
 	</update>
 	
-	<select id="selectCntBeanSubAll" resultType="int">
-		select count(*) from beansub
+	<select id="selectCntBeanSubAll" resultType="int" parameterType="hashmap">
+		select count(*)
+		from beansub b, MEMBER m
 		<!-- 이부분 수정해야함 구독관리 -->
 		<where>
+			 b.USERNO = m.USERNO
 			<if test='search != "N" '>
 				AND upper(userName) LIKE '%'||upper(#{search})||'%'
 			</if>

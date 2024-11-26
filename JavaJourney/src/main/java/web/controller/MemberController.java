@@ -227,8 +227,8 @@ public class MemberController {
 	}	
 	
 
-@GetMapping("/test")
-public void test() {}
+//@GetMapping("/test")
+//public void test() {}
 	
 	//이메일 인증
 	@GetMapping("/mailCheck")
