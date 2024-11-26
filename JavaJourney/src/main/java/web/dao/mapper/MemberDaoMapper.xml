@@ -76,8 +76,8 @@
 	</select>
 	
 	<insert id="insertKakaoLoginUser" parameterType="hashmap">
-		INSERT INTO MEMBER (userno, userid, userpw, usernick, useremail, username, userphone, userpostcode, useradd1, useradd2)
-		VALUES ( userNo_seq.nextval, #{userId }, #{userPw }, #{nickname }, #{email }, #{name }, #{phone_number }, 'userpostcode', 'useradd1', 'useradd2' )
+		INSERT INTO MEMBER (userno, userid, userpw, usernick, useremail, username, userphone, userpostcode, useradd1, useradd2, status)
+		VALUES ( userNo_seq.nextval, #{userId }, #{userPw }, #{nickname }, #{email }, #{name }, #{phone_number }, 'userpostcode', 'useradd1', 'useradd2', 'Y' )
 	</insert>
 	
 	<select id="selectUSerNoByKakaoEmail" resultType="int" parameterType="hashmap">

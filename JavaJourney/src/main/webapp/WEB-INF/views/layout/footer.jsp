@@ -13,15 +13,16 @@ a {
 	text-decoration: none;
 }
 
-.footer a {
-	color: #6f4e37;
-	text-decoration: none;
-	font-weight: bold;
-}
+ .footer a {
+ 	color: #6f4e37;
+ 	text-decoration: none;
+ 	font-weight: bold;
+ }
 
-.footer {
-	color: #A39E94;
-}
+ .footer {
+ 	color: #A39E94;
+ }
+
 </style>
 
 <script>
