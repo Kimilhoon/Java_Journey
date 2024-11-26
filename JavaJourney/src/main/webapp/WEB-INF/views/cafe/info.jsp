@@ -68,43 +68,67 @@ $(function() {
 		var isWish = "${isWish }";
 
 	$(document).ready(function() {
+		// 공통 로그인 확인 함수
+	    function checkLogin(callback) {
+	        if (!userNo) { // 로그인하지 않은 경우
+	            $("#loginModal .modal-body p").text("로그인 후 이용해 주세요.");
+	            $('#loginModal').modal('show');
+	        } else {
+	            callback(); // 로그인한 경우 전달된 동작 실행
+	        }
+	    }
+		
 		// 찜 버튼 초기 상태 설정
 		if (isWish === "true") {
 			$("#wish").text("찜 ♥");  // 찜 상태일 때
 		} else {
 			$("#wish").text("찜 ♡");  // 찜하지 않은 상태일 때
 		}
-		
+				
+	 	// 로그인한 상태에서만 찜 버튼 클릭 이벤트 설정
 		$("#wish").click(function() {
-			
-			//현재 버튼의 텍스트 가져오기
-			const currentText = $(this).text();
-			
-			// 데이터 객체 생성
-			var cafeNo = "${ cafeInfo.cafeNo }";
-			var userNo = "${ userNo }";
-			
-			//버트 클릭 시 텍스트 변경(찜 상태 토글)
-			if (currentText === "찜 ♡") {
-	            $(this).text("찜 ♥"); //찜 추가
-	            sendWishData(cafeNo, userNo, 'add'); //데이터 추가 요청
-	            
-	         	// 찜 상태에 맞는 모달 내용 변경
-				$("#disSubModal .modal-body p").text("해당 카페를 찜 했습니다");
-// 				console.log("모달 열기: 찜 상태 추가");
-				$('#disSubModal').modal('show');
-	            
-	        } else {
-	            $(this).text("찜 ♡"); //찜 취소
-	            sendWishData(cafeNo, userNo, 'remove'); //데이터 삭제 요청
-	            
-	         	// 찜 해제에 맞는 모달 내용 변경
-				$("#subModal .modal-body p").text("해당 카페 찜을 해제합니다");
-// 				console.log("모달 열기: 찜 상태 취소");
-				$('#subModal').modal('show');
-	        }
-			
+			checkLogin(function () {
+				// 로그인한 경우 찜 상태 토글 처리
+	// 			const currentText = $(this).text();
+				const currentText = $("#wish").text();
+	            const cafeNo = "${ cafeInfo.cafeNo }";
+	            const userNo = "${ userNo }";
+				
+	// 			// 데이터 객체 생성
+	// 			var cafeNo = "${ cafeInfo.cafeNo }";
+	// 			var userNo = "${ userNo }";
+				
+				//버트 클릭 시 텍스트 변경(찜 상태 토글)
+				if (currentText === "찜 ♡") {
+	// 	            $(this).text("찜 ♥"); //찜 추가
+		            $("#wish").text("찜 ♥"); // 찜 추가
+		            sendWishData(cafeNo, userNo, 'add'); //데이터 추가 요청
+		            
+		         	// 찜 상태에 맞는 모달 내용 변경
+					$("#disSubModal .modal-body p").text("해당 카페를 찜 했습니다");
+	// 				console.log("모달 열기: 찜 상태 추가");
+					$('#disSubModal').modal('show');
+		            
+		        } else {
+	// 	            $(this).text("찜 ♡"); //찜 취소
+		            $("#wish").text("찜 ♡"); // 찜 해제
+		            sendWishData(cafeNo, userNo, 'remove'); //데이터 삭제 요청
+		            
+		         	// 찜 해제에 맞는 모달 내용 변경
+					$("#subModal .modal-body p").text("해당 카페 찜을 해제합니다");
+	// 				console.log("모달 열기: 찜 상태 취소");
+					$('#subModal').modal('show');
+		        }
+			}); // checkLogin(function () end
 		}); // $("#wish").click(function() end
+		
+		// 리뷰쓰기 버튼 클릭 이벤트
+	    $("#review").click(function () {
+	        checkLogin(function () {
+	            // 로그인한 경우 리뷰 작성 페이지로 이동
+	            location.href = "/comm/creview/write?cafeNo=${cafeInfo.cafeNo}";
+	        });
+	    });
 		
 		// 찜 데이터 서버로 전송
 		function sendWishData(cafeNo, userNo, action) {
@@ -160,29 +184,18 @@ $(function() {
 		$("#btnBest").click(function() {
 			location.href="./best";
 		});
-		
-// 		//리뷰쓰기 버튼 클릭 이벤트 처리
+	
+// 		// 리뷰쓰기 버튼 클릭 이벤트 처리(모달) - 70번째 줄 document 쪽으로 포함시킴.
 // 		$("#review").click(function() {
-// 			var userId = '${userId}'; // session에서 userId 가져오기
-// 			if(!userNo){ //로그인하지 않은 경우
-// 				alert("로그인 후 이용해 주세요.");
-// 				location.href = "../member/login"; //로그인 페이지로 리디렉션
-// 			} else {
-// 				location.href="/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; //로그인한 경우 리뷰 작성 페이지로 이동
-// 			}
+// 		    var userId = '${userId}'; // session에서 userId 가져오기
+// 		    if (!userNo) { // 로그인하지 않은 경우
+// 		        // 모달 표시
+//    				$("#loginModal .modal-body p").text("로그인 후 이용해 주세요.");
+// 		        $('#loginModal').modal('show');
+// 		    } else {
+// 		        location.href = "/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; // 로그인한 경우 리뷰 작성 페이지로 이동
+// 		    }
 // 		});
-		
-		// 리뷰쓰기 버튼 클릭 이벤트 처리(모달)
-		$("#review").click(function() {
-		    var userId = '${userId}'; // session에서 userId 가져오기
-		    if (!userNo) { // 로그인하지 않은 경우
-		        // 모달 표시
-   				$("#loginModal .modal-body p").text("로그인 후 이용해 주세요.");
-		        $('#loginModal').modal('show');
-		    } else {
-		        location.href = "/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; // 로그인한 경우 리뷰 작성 페이지로 이동
-		    }
-		});
 		
 		
 		$("#btnUpdate").click(function() {
