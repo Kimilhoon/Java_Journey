@@ -34,7 +34,7 @@ a {
 
 .footer-icons {
     position: absolute;
-    right: 20px; /* 화면 우측 끝에서 20px 떨어지게 설정 */
+    right: 30px; /* 화면 우측 끝에서 20px 떨어지게 설정 */
     display: flex;
     gap: 15px; /* 아이콘 간 간격 */
 }
@@ -98,8 +98,8 @@ a {
 		</div>
 		
 		<div class="footer-icons">
-		    <a href="http://www.youtube.com" target="_blank"><i class="bi bi-youtube icon" style="color: red; font-size: 2.5em;"></i></a>
-		    <a href="http://www.facebook.com" target="_blank"><i class="bi bi-facebook icon" style="color: blue; font-size: 2.5em;"></i></a>
+		    <a href="http://www.youtube.com" target="_blank"><i class="bi bi-youtube icon" style="color: red; font-size: 2em;"></i></a>
+		    <a href="http://www.facebook.com" target="_blank"><i class="bi bi-facebook icon" style="color: blue; font-size: 2em;"></i></a>
 		</div>
 	</div>
 
