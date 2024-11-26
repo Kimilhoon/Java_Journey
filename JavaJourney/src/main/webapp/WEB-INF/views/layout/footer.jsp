@@ -13,15 +13,32 @@ a {
 	text-decoration: none;
 }
 
- .footer a {
- 	color: #6f4e37;
- 	text-decoration: none;
- 	font-weight: bold;
- }
+.footer a {
+	color: #6f4e37;
+	text-decoration: none;
+	font-weight: bold;
+}
 
- .footer {
- 	color: #A39E94;
- }
+.footer {
+	color: #A39E94;
+}
+
+.footer-btns {
+    display: flex;
+    justify-content: center; /* 전체 컨테이너의 가운데 정렬 */
+    align-items: center;
+    width: 100%; /* 부모 컨테이너의 전체 너비 사용 */
+    padding: 0 20px; /* 좌우 여백 */
+    position: relative; /* 자식 요소 정렬에 활용 */
+}
+
+.footer-icons {
+    position: absolute;
+    right: 20px; /* 화면 우측 끝에서 20px 떨어지게 설정 */
+    display: flex;
+    gap: 15px; /* 아이콘 간 간격 */
+}
+
 
 </style>
 
@@ -73,10 +90,17 @@ a {
 <div class="mt-5 footer" style="background: #F5F3EF">
 	
 	<br>
-	<div class="footer text-center">
-	    <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">이용약관</a>
-	    <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">개인정보처리방침</a>
-	    <a href="#" data-bs-toggle="modal" data-bs-target="#refundModal">환불규정</a>
+	<div class="footer-btns">
+		<div class="footer text-center">
+		    <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">이용약관</a>
+		    <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">개인정보처리방침</a>
+		    <a href="#" data-bs-toggle="modal" data-bs-target="#refundModal">환불규정</a>
+		</div>
+		
+		<div class="footer-icons">
+		    <a href="http://www.youtube.com" target="_blank"><i class="bi bi-youtube icon" style="color: red; font-size: 2.5em;"></i></a>
+		    <a href="http://www.facebook.com" target="_blank"><i class="bi bi-facebook icon" style="color: blue; font-size: 2.5em;"></i></a>
+		</div>
 	</div>
 
 	<!-- Terms Modal -->
@@ -171,12 +195,6 @@ a {
 		Copyright © JavaJourney. All right Reserved. Created By 커피타조.
 		</pre>
 	</div>
-
-<!-- <div class="footer-icons"> -->
-<!--     <a href="http://www.youtube.com"><i class="bi bi-youtube icon" style="color: red; font-size: 2.5em;"></i></a> -->
-<!--     <a href="http://www.instagram.com"><i class="bi bi-instagram" style="font-size:2.5em;"></i></a> -->
-<!--     <a href="http://www.facebook.com"><i class="bi bi-facebook icon" style="color: blue; font-size: 2.5em;"></i></a> -->
-<!-- </div> -->
 
 </div>
 </footer>
