@@ -113,9 +113,9 @@
     color: black;
     text-align: right;
     margin-bottom: 8px;
-	background: #ffe4b5;
+	background: #FEEFBC;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 10px 15px;
 	max-width:50%;
 	display: inline;
 }
@@ -130,10 +130,10 @@
 	margin-right: 7px;
 	display: inline;
 	max-width:50%;
-	padding: 10px;
+	padding: 10px 15px;
 	border-radius: 10px;
 	width: max-content;
-	background: #add8e6;
+	background:#d4eafc;
     color: black;
     text-align: left;
     margin-bottom: 8px;
@@ -159,6 +159,9 @@
     color: gray;
     text-align: center;
     margin-bottom: 8px;
+}
+.time{
+	vertical-align: -webkit-baseline-middle;
 }
 #content {
 	max-width: 1200px;
@@ -265,11 +268,11 @@ $(function() {
 		}else {
 	        if (data.sender === userId) {
 	            $('#chatting').append(
-	                "<div class='mdiv'><span class='time'><small>(" + time + ")</small></span><p class='me' >" + data.contents + "</p></div>"
+	                "<div class='mdiv'><span class='time'><small>" + time + "</small></span><p class='me' >" + data.contents + "</p></div>"
 	            );
 	        } else {
 	            $('#chatting').append(
-	                "<div class='odiv'><div class='oidiv'>[" + data.sender + "]</div><p class='other'>" + data.contents + "</p><span class='time'><small>(" + time + ")</small></span></div>"
+	                "<div class='odiv'><div class='oidiv'>" + data.sender + "</div><p class='other'>" + data.contents + "</p><span class='time'><small>" + time + "</small></span></div>"
 	            );
 	        }
 	    }
