@@ -64,7 +64,7 @@ img{
 
 
 
-<div id="List" class="mx-auto">
+<div id="List" class="container-fluid mx-auto">
 
 <table>
 <tbody>
