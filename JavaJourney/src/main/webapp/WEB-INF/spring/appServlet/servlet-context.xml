@@ -39,6 +39,7 @@
 			<mapping path="/comm/freeboard/*" />
 			<mapping path="/comm/myrecipe/*" />
 			<mapping path="/mypage/*" />
+			<mapping path="/comm/chat" />
 			
 			<exclude-mapping path="/comm/freeboard/list"/>
 			<exclude-mapping path="/comm/freeboard/view"/>
