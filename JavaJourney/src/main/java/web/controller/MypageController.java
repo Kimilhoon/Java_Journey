@@ -97,11 +97,13 @@ public class MypageController {
 	
 	@PostMapping("/cancelsub")
 	@ResponseBody
-	public void cancelsubForm(
+	public String cancelsubForm(
 			@RequestParam("subNo") List<Integer> subNo
 			) {
 		log.info("subNo : {}",subNo);
 		service.updateSubCancelBySubNo(subNo);
+		
+		return "redirect:/mypage/subscribe";
 	}
 	
 	@GetMapping("/like")

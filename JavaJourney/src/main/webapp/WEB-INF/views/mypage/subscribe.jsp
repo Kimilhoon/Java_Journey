@@ -10,10 +10,6 @@ $(function () {
         height: "100px",
         "margin-right": "-130px"
     });
-})
-</script>
-<script type="text/javascript">
-$(function () {
     $("#btnCancle").click(function () {
         // 선택한 subNo 변수를 null로 초기화
        const subNo = $('input[name="subNo"]:checked') .map(function() {
@@ -28,9 +24,15 @@ $(function () {
             , data: { "subNo": subNo }
             , success: function(res) {
                 console.log("ajax 성공");
+                console.log(res);
 				//성공시 모든 체크박스 해제
 				$("input[type='checkbox'][name='subNo']").prop("checked", false);
+// 		        $("#retable").load("/mypage/subscribe #retable > *");
 				alert("구독이 취소되었습니다.");
+// 				$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
+// 				$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
+// 				$("#retable").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
+// 				$("#retable").load("/mypage/subscribe"); //현재 페이지의 내용이 검색 결과로 완전히 대체
 				location.reload();//새로고침 -> 추후 append로 body부문 append로 바꾸기
 				//현재 ajax의 장점을 살리고 있지 못함
             },
@@ -68,7 +70,7 @@ $(function () {
 <c:forEach var="sub" items="${beanSubList }">
 <%-- ${sub.nonSub } --%>
 <div>
-<table class="table">
+<table id="retable" class="table">
 <tr>
 	<td>
 	<div class="custom-image">
