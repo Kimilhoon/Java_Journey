@@ -34,9 +34,4 @@ public class ChatController {
 	}
 	
 	
-	@MessageMapping("/chat/send")
-    public void sendMsg(@Payload Map<String,Object> data){
-        simpMessagingTemplate.convertAndSend("/app/topic/1",data);
-    }
-	
 }
