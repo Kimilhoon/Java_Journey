@@ -154,23 +154,26 @@ $(document).ready(function () {
 }
 
 .carousel-container {
-    width: 50%; /* 양쪽 배너를 나누기 위한 크기 설정 */
+    width: 48%; /* 양쪽 배너를 나누기 위한 크기 설정 */
     position: relative;
+    margin: 0 auto;
 }
 
-.carousel-container.left .carousel-item {
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-}
+/* .carousel-container.left .carousel-item { */
+/*     clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%); */
+/* } */
 
-.carousel-container.right .carousel-item {
-    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-}
+/* .carousel-container.right .carousel-item { */
+/*     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); */
+/* } */
 
 .carousel-item {
-     background-color: #ccc;
+/*     background-color: #ccc; */
     padding: 20px;
 /*     border-radius: 10px; */
     text-align: center;
+    background: #F7F1E6;
+    border-radius: 20px;
 }
 
 .carousel-indicators {

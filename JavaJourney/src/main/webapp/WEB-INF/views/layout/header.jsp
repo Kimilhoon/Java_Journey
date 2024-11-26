@@ -35,19 +35,23 @@ $(function() {
 
 <style>
 
-html, body {
-    height: 70%
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    flex: 1 0 auto;
+    
 }
 
-#wrap {
-    min-height: 100%;
-    position: relative;
+header {
+    flex: 0 0 auto;
 }
 
 footer {
-    position: relative;
-    transform: translatY(-80%);
+    flex: 0 0 auto;
 }
+
 
 /* 로고 크기 조정 */
 #logo {
@@ -267,3 +271,5 @@ footer {
     </div>
   </nav>
 </div>
+
+<div class="wrap">
