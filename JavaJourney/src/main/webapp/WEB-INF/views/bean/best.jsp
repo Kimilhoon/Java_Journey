@@ -79,7 +79,7 @@ img{
 			<div class="custom-image">${bean.beanOriginName}</div>
 	</a>
 		<p class="fw-bold fs-4">${bean.beanName}</p>
-		<p>${bean.origin}</p>
+		<p>${bean.cupNoteNames}</p>
 		<p>리뷰 : ${ bean.reviewCount } | ★( ${ bean.avgRevStarPoint } )</p>
 	</td>
    

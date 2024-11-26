@@ -21,21 +21,42 @@
 <!-- 		) -->
 <!-- 		WHERE rNum &lt;= 3 -->
 		
-		SELECT m.*,n.*,bi.* FROM (
-			SELECT rownum rnum ,b.beanno,revcnt.reviewCount, revcnt.avgRevStarPoint FROM (
-				SELECT a.beanno,a.reviewCount, a.avgRevStarPoint FROM (
-					SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,
-					round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
-					WHERE qq.BEANNO = ww.BEANNO) a
-				GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
-		        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
-			)revcnt , bean b
-			WHERE b.BEANNO = revcnt.beanno
-		)m, bean n, BEANIMG bi
-		WHERE rnum BETWEEN 1 AND 3
-		AND m.beanno = n.beanno
-		AND n.BEANIMGNO = bi.BEANIMGNO 
-		ORDER BY rnum 
+	SELECT 
+		m.*, n.*, bi.* 
+	FROM (
+		SELECT 
+				rownum rnum,
+				b.beanno,
+				revcnt.reviewCount,
+				revcnt.avgRevStarPoint 
+		FROM (
+			SELECT 
+				a.beanno,
+				a.reviewCount,
+				a.avgRevStarPoint 
+			FROM (
+				SELECT 
+					qq.beanno,
+					COUNT(*) OVER (PARTITION BY qq.beanno) AS reviewCount,
+					ROUND(AVG(revstarpoint) OVER (PARTITION BY qq.beanno), 2) AS avgRevStarPoint,
+					LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteNames
+				FROM	bean qq
+	            INNER JOIN	beanrev ww ON qq.beanno = ww.beanno
+	            LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
+				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
+			) a
+			GROUP BY 
+				a.beanno, 
+				a.reviewCount, 
+				a.avgRevStarPoint
+			ORDER BY	COUNT(*) DESC, avgRevStarPoint DESC
+		) revcnt 
+		INNER JOIN	bean b ON b.beanno = revcnt.beanno
+	) m
+	INNER JOIN	bean n ON m.beanno = n.beanno
+	INNER JOIN	beanimg bi ON n.beanimgno = bi.beanimgno 
+	WHERE	rnum BETWEEN 1 AND 3
+	ORDER BY	rnum
 	</select>
 	
 	<select id="selectBeanCount" resultType="Bean">
