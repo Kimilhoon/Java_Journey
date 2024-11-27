@@ -35,22 +35,25 @@ $(function() {
 
 <style>
 
+/* 푸터가 항상 화면 하단에 위치하도록 설정 */
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* 화면 전체 높이를 최소로 설정 */
     margin: 0;
-    flex: 1 0 auto;
-    
 }
 
-header {
-    flex: 0 0 auto;
+.wrap {
+    flex: 1; /* 본문을 채우기 위해 flex-grow 설정 */
 }
 
 footer {
-    flex: 0 0 auto;
+    flex-shrink: 0;
+    text-align: center;
+    padding: 10px 0;
+    color: #6f4e37;
 }
+
 
 
 /* 로고 크기 조정 */
