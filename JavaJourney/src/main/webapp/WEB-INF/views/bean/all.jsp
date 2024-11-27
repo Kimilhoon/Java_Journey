@@ -133,6 +133,17 @@ img{
 	transform: scale(1.2);
 }
 
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
+
 </style>
 
 <div class="container custom-container" >
@@ -144,14 +155,6 @@ img{
 	</ol>
 </nav>
 
-<div class="text-center m-5">
-<h1> 
-<a href="./all" class="link-offset-2 link-offset-3-hover link-underline-secondary link-underline-opacity-0 link-underline-opacity-75-hover">
-<전체 원두>
-</a> 
-</h1>
-</div>
-
 
 <div id="up" class="mb-4 d-flex flex-row align-items-center">
 
@@ -159,7 +162,7 @@ img{
 <label for="cupnote" class="col-sm-4 col-form-label">맛과향</label>
 <div class="col-sm-10">
 <select id="cupnote" name="cupnote" class="form-select" >
-	<option value="" selected disabled>-- 선택하세요 --</option>
+	<option value="" selected disabled>-- 전체 --</option>
 	<option value="1">새콤이</option>
 	<option value="2">달달이</option>
 	<option value="3">쌉쌀이</option>
@@ -173,10 +176,9 @@ img{
 </div>
  
 <div id="search" class="p-2 d-flex justify-content-between">
-<input type="text" id="keyword" name="keyword" class="form-control">
-<span id="searchIcon">
-	<i class="bi bi-search"></i>
-</span>
+<input type="text" id="keyword" name="keyword" class="form-control me-2" placeholder="검색어를 입력하세요">
+<!-- 돋보기 아이콘 -->
+    <button id="searchIcon" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
 </div>
 
 </div>

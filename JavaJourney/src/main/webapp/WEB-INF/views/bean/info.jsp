@@ -165,6 +165,7 @@ $(function() {
 </script>
 
 <style type="text/css">
+
 #wish, #sub{
 	width: 150px;
 }
@@ -188,6 +189,35 @@ $(function() {
 	height: 300px;
 	
 	word-break: keep-all;
+}
+
+#beanReview .table td {
+    table-layout: fixed; /* 각 열의 너비를 고정 */
+    border-collapse: collapse; /* 테이블 셀 간의 경계를 없애기 */
+}
+
+/* 테이블 내부의 각 셀을 flex로 처리 */
+#beanReview .table tr {
+    display: flex;
+    flex-direction: row; /* 수평으로 정렬 */
+    align-items: center; /* 셀 안의 내용 세로로 가운데 정렬 */
+    justify-content: flex-start; /* 셀 안의 내용 가로로 시작 위치에서 정렬 */
+}
+
+/* 각 셀에 대해 말줄임표 적용 */
+#revCont {
+	display: block;
+    -webkit-box-orient: vertical;   /* 세로 방향으로 텍스트 제한 */
+    -webkit-line-clamp: 1;          /* 1줄로 제한 */
+    text-overflow: ellipsis;        /* 말줄임표 표시 */
+    overflow: hidden;               /* 넘친 텍스트 숨기기 */
+    white-space: nowrap;            /* 텍스트가 한 줄로 유지되도록 설정 */
+}
+
+/* 링크 스타일 설정 */
+#revCont a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit;        /* 부모의 글자 색상 따르기 */
 }
 
 .custom-imgae{
@@ -234,7 +264,7 @@ $(function() {
 </nav>
 
 <div class="text-center m-5">
-<h1>원두 상세보기</h1>
+<h1>${ beanInfo.beanName } 원두 살펴보기</h1>
 </div>
 
 <div id="commbean" class="d-flex mb-3 grid gap-0 column-gap-5">
@@ -371,7 +401,7 @@ $(function() {
 ${ beanInfo.beanInfo }
 </div>
  
-<div id="beanReview" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+<div id="beanReview" class="container shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 <div>
 <p class="text-bg-secondary p-3 text-center mb-3 w-100">제품 리뷰</p>
 </div>
@@ -379,12 +409,12 @@ ${ beanInfo.beanInfo }
 <c:forEach var="beanRev" items="${ list }">
 <tr>
 	<td class="text-center" style="width: 10%">${ beanRev.userNick }</td>
-	<td style="width: 60%">
+	<td id="revCont" style="width: 60%">
 		<a href="../comm/breview/view?revNo=${ beanRev.revNo }" class="link-dark link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
 		${ beanRev.revCont }
 		</a>
 	</td>
-	<td class="text-center"  style="width: 15%">
+	<td id="revDate" class="text-center"  style="width: 15%">
 	<fmt:formatDate value="${ beanRev.revDate }" pattern="yyyy년 MM월 dd일" />
 	</td>
 	<td class="text-center"  style="width: 15%">
