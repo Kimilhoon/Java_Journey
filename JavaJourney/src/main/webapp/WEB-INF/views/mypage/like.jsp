@@ -126,7 +126,7 @@ a:active {
 <a id="bean" style=" color: #6f4e37;">원두</a>
 </div> <!-- order-list -->
 </div>
-
+<!-- 찜목록시작 -->
 <div id="cafeAll" class="container mt-3 mb-3">
 	<div class="wish-font-container">
     <h2 class="wish-font">카페찜</h2>
