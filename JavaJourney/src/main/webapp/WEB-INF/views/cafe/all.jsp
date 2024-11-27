@@ -120,7 +120,7 @@ img{
 }
 
 .custom-image {
-	width: 400px;
+	width: 380px;
 	height: 250px;
   	margin: 1px auto;
   	overflow: hidden;
@@ -141,6 +141,9 @@ img{
 	color: white;
 }
 
+p {
+	margin: 1 auto;
+}
 </style>
 
 <div class="container custom-container">
@@ -152,13 +155,13 @@ img{
 	</ol>
 </nav>
 	
-	<div class="text-center m-5">
-		<h1>
-		<a href="./all" class="link-offset-2 link-offset-3-hover link-underline-secondary link-underline-opacity-0 link-underline-opacity-75-hover">
-			<전체 카페>
-		</a> 
-		</h1>
-	</div><!-- <h1> End -->
+<!-- 	<DIV CLASS="TEXT-CENTER M-5"> -->
+<!-- 		<H1> -->
+<!-- 		<A HREF="./ALL" CLASS="LINK-OFFSET-2 LINK-OFFSET-3-HOVER LINK-UNDERLINE-SECONDARY LINK-UNDERLINE-OPACITY-0 LINK-UNDERLINE-OPACITY-75-HOVER"> -->
+<!-- 			<전체 카페> -->
+<!-- 		</A>  -->
+<!-- 		</H1> -->
+<!-- 	</DIV><H1> END -->
 	
 
 <div id="up" class="mb-4 d-flex flex-row align-items-center">
@@ -167,7 +170,8 @@ img{
 	<label for="location" class="col-sm-4 col-form-label">지역 : </label>
 		<div class="col-sm-10">
 		<select id="location" name="location" class="form-select">
-			<option value="" selected disabled>-- 전 체 --</option>
+			<option value="" selected disabled>-- 선 택 --</option>
+			<option value="all">전 체</option>
 			<option value="1">강남구</option>
 			<option value="2">서초구</option>
 			<option value="3">송파구</option>
@@ -204,7 +208,7 @@ img{
 
 <div id="AllcafeList" class="mx-auto">
 
-<table>
+<table class="mx-auto" style="width: 1576px">
 <tbody>
 
 <c:forEach var="cafe" items="${AllCafeList }" varStatus="status">

@@ -6,9 +6,6 @@
 
 <c:import url="../layout/header.jsp"/>
 
-<!-- <!-- jQuery --> -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
-
 <!-- 카카오주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -181,19 +178,6 @@ $(function() {
 		$("#btnBest").click(function() {
 			location.href="./best";
 		});
-	
-// 		// 리뷰쓰기 버튼 클릭 이벤트 처리(모달) - 70번째 줄 document 쪽으로 포함시킴.
-// 		$("#review").click(function() {
-// 		    var userId = '${userId}'; // session에서 userId 가져오기
-// 		    if (!userNo) { // 로그인하지 않은 경우
-// 		        // 모달 표시
-//    				$("#loginModal .modal-body p").text("로그인 후 이용해 주세요.");
-// 		        $('#loginModal').modal('show');
-// 		    } else {
-// 		        location.href = "/comm/creview/write?cafeNo=${cafeInfo.cafeNo }"; // 로그인한 경우 리뷰 작성 페이지로 이동
-// 		    }
-// 		});
-		
 		
 		$("#btnUpdate").click(function() {
 			location.href="/create/cafeUpdate?cafeNo=${cafeInfo.cafeNo}";
@@ -232,27 +216,6 @@ $(function() {
 	        borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
 			 
 		});
-
-// 		$(document).ready(function() {
-// 		    $.ajax({
-// 		        url: '/comm/creview/list', // 서버에서 리뷰 목록을 가져오는 API 엔드포인트
-// 		        type: 'GET',
-// 		        data: { cafeNo: ${cafeInfo.cafeNo} }, // 해당 카페의 번호를 파라미터로 전달
-// 		        success: function(data) {
-// 		            // 서버에서 받은 리뷰 데이터를 이용하여 HTML 생성
-// 		            let html = '';
-// 		            data.forEach(cafeRev => {
-// 		                html += `
-// 		                    <tr>
-// 		                        <td>${cafeRev.userNick}</td>
-// 		                        <td>${cafeRev.revContent}</td>
-// 		                        </tr>
-// 		                `;
-// 		            });
-// 		            $('#reviewList').html(html);
-// 		        }
-// 		    });
-// 		}); // $(document).ready() : reviewList End
 				
 }); // $(function() end 
 </script>
@@ -299,28 +262,34 @@ $(function() {
 	color: white;
 }
 
+#wish, #review {
+    width: 150px; /* 버튼 너비 고정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    padding: 10px 20px; /* 패딩 고정 */
+}
+
 </style>
 
 <div class="container">
 
 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-	<ol class="breadcrumb">
+	<ol class="breadcrumb" style="height: 30px">
 		<li class="breadcrumb-item"><a href="./best">best</a></li>
 		<li class="breadcrumb-item"><a href="./all">cafe</a></li>
 		<li class="breadcrumb-item active" aria-current="page">info</li>
 	</ol>
 </nav>
 
-<div class="text-center m-5">
-<h1>카페 상세보기</h1>
+<div class="text-center">
+<!-- <h1>카페 상세보기</h1> -->
 </div>
 
-<div id="commCafe" class="d-flex mb-3 grid gap-0 column-gap-5">
-<div id="imageDiv" style="flex-shrink: 0;" >
-<div class="custom-image">${ cafeInfo.cafeImgOriName }</div>
- </div>
+<div id="commCafe" class="d-flex mb-1 grid gap-0 column-gap-2" style="height: 550px; margin: 40px;">
+<div id="imageDiv" style="flex-shrink: 0; height: 410px" >
+	<div class="custom-image">${ cafeInfo.cafeImgOriName }</div>
+</div>
 
-<div id="explain p-2" style="text-align: center;  margin: 0 auto;">
+<div id="explain p-2" style="text-align: center;  margin: 0 auto; width: 800px; height: 410px;">
 <div id="cafeName">
 <p class="fw-bold fs-1">${ cafeInfo.cafeName }</p>
 </div>
@@ -330,11 +299,11 @@ $(function() {
 </div>
 
 <div id="busytime" class="mb-2">
-<p>${ cafeInfo.busyTime }</p>
+<p class="fw-bold fs-5">${ cafeInfo.busyTime }</p>
 </div>
 
-<div id="cafeComm" class="mb-2">
-<p>${ cafeInfo.cafeComm }</p>
+<div id="cafeComm" class="mb-2" style="height: 240px">
+<p class="fw-bold fs-6 text-warp" style="white-space: pre-wrap;">${ cafeInfo.cafeComm }</p>
 <!-- <p> 대충 카페 분위기에 대한 설명임...</p> -->
 </div>
 
@@ -361,7 +330,7 @@ $(function() {
 <div id="btn" class="d-flex justify-content-center align-self-end">
 	<c:choose>
 		<c:when test="${cafeInfo.status == 'Y' }">
-			<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜 ♡</button>
+			<button type="button" id="wish" class="btn btn-secondary btn-lg m-2">찜♡</button>
 			<button type="button" id="review" class="btn btn-secondary btn-lg m-2">리뷰쓰기</button>
 		</c:when>
 	</c:choose>
