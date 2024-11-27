@@ -35,25 +35,32 @@ $(function() {
 
 <style>
 
-html, body {
-    height: 70%
+/* 푸터가 항상 화면 하단에 위치하도록 설정 */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 화면 전체 높이를 최소로 설정 */
+    margin: 0;
 }
 
-#wrap {
-    min-height: 100%;
-    position: relative;
+.wrap {
+    flex: 1; /* 본문을 채우기 위해 flex-grow 설정 */
 }
 
 footer {
-    position: relative;
-    transform: translatY(-80%);
+    flex-shrink: 0;
+    text-align: center;
+    padding: 10px 0;
+    color: #6f4e37;
 }
+
+
 
 /* 로고 크기 조정 */
 #logo {
 	position: flex;
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     margin-top: 35px;
     margin-bottom: 20px;
 }
@@ -121,6 +128,8 @@ footer {
 
 .navbar-nav {
     gap: 1rem; /* 메뉴 간격 */
+    display: flex;
+  	flex-wrap: nowrap; /* 메뉴 항목이 한 줄에 나열되도록 */
 }
 
 /* 드롭다운 메뉴가 hover 시 나타나도록 */
@@ -146,7 +155,7 @@ footer {
 
 <div class="header d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="200" height="200" id="logo" />
+<img src="<c:url value='/resources/img/testtest.png' />" alt="로고" width="200" height="200" id="logo" />
 </a>
 
 <!-- 로그인 및 기타 링크 -->
@@ -185,7 +194,7 @@ footer {
   
 
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
-  <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
+  <nav class="navbar navbar-expand container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-0 header d-flex justify-content-center">
         <!-- 브랜드 메뉴 -->
@@ -244,7 +253,7 @@ footer {
             <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
             <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
             <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
-            <li><a class="dropdown-item" href="/comm/chat">채팅</a></li>
+            <li><a class="dropdown-item" href="/comm/chat">라운지톡 &nbsp <i class="bi bi-chat-text"></i></a></li>
           </ul>
         </li>
         
@@ -265,3 +274,5 @@ footer {
     </div>
   </nav>
 </div>
+
+<div class="wrap">

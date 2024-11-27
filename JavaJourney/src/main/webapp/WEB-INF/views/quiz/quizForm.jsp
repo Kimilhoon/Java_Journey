@@ -259,9 +259,21 @@ form div p {
     align-items: center;
 }
 
-#gramField .table {
-    margin: 0 auto;
-    text-align: center;
+#gramField .table tr {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#gramField .table td {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+#gramField .table td div {
+	cursor: pointer;
+	border: ridge;
+	text-align: center;
 }
 
 #grindField .form-check,
@@ -378,30 +390,46 @@ form div p {
 <%-- ${ userNick } --%>
 <fieldset id="gramField">
 
-<table class="table table-borderless">
+<table class="container table table-borderless">
 <tr>
 	<td>
+	<div style="width: 200px; height: 150px;">
 	<span>새콤</span>
 	<input type="checkbox" id="cupNoteNoQuiz1" name="cupNoteNoQuiz" value="1">
+	</div>
+	<div style="width: 200px; height: 150px;">
 	<span>달콤</span>
 	<input type="checkbox" id="cupNoteNoQuiz2" name="cupNoteNoQuiz" value="2">
+	</div>
+	<div style="width: 200px; height: 150px;">
 	<span>쌉쌀</span>
 	<input type="checkbox" id="cupNoteNoQuiz3" name="cupNoteNoQuiz" value="3">
+	</div>
+	<div style="width: 200px; height: 150px;">
 	<span>고소</span>
 	<input type="checkbox" id="cupNoteNoQuiz4" name="cupNoteNoQuiz" value="4">
+	</div>
 	</td>
 </tr>
 
 <tr>
 	<td>
+	<div style="width: 200px; height: 150px;">
 	<span>은은한</span>
 	<input type="checkbox" id="cupNoteNoQuiz5" name="cupNoteNoQuiz" value="5">
+	</div>
+	<div style="width: 200px; height: 150px;">
 	<span>향긋한</span>
 	<input type="checkbox" id="cupNoteNoQuiz6" name="cupNoteNoQuiz" value="6">
+	</div>
+	<div style="width: 200px; height: 150px;">
 	<span>진한</span>
 	<input type="checkbox" id="cupNoteNoQuiz7" name="cupNoteNoQuiz" value="7">
+	</div>
+	<div style="width: 200px; height: 150px;">
 	<span>부드러운</span>
 	<input type="checkbox" id="cupNoteNoQuiz8" name="cupNoteNoQuiz" value="8">
+	</div>
 	</td>
 </tr>
 </table>
