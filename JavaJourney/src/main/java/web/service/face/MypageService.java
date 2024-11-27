@@ -31,7 +31,7 @@ public interface MypageService {
 
 	/**
 	 * 유저번호로 회원정보 불러오기
-	 * @param userNo
+	 * @param userNo - 세션에서 불러온 회원번호
 	 * @return
 	 */
 	public Member findByUserNo(Integer userNo);
@@ -67,7 +67,7 @@ public interface MypageService {
 	/**
 	 * 유저번호에 해당하는 카페리뷰 리스트 가져오기
 	 * @param userNo
-	 * @return
+	 * @return 유저번호에 해당하는 카페리뷰 리스트
 	 */
 	public List<CafeRev> selectCafeRevByUserNo(int userNo);
 
@@ -127,7 +127,7 @@ public interface MypageService {
 	/**
 	 * 탈퇴하기를 누르면 STATUS 변경 (Y->N)
 	 * userNick='(탈퇴한회원)'으로 변경
-	 * @param userNo
+	 * @param userNo - 로그인 되어있는 유저번호
 	 */
 	public void outMember(int userNo);
 

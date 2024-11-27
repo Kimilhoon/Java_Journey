@@ -59,8 +59,8 @@ public interface MemberService {
 
 	/**
 	 * 임시비밀번호를 저장
-	 * @param checkNum
-	 * @param userEmail
+	 * @param checkNum - UUID를 사용한 임시비번
+	 * @param userEmail - 유저이메일
 	 */
 	public void updatePw(String checkNum, String userEmail);
 
