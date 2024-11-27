@@ -18,7 +18,6 @@
 
    <dependencies>
    
-   
 <!-- 이메일 인증 -->   
 <dependency>
    <groupId>javax.mail</groupId>
@@ -36,8 +35,6 @@
    <artifactId>spring-context-support</artifactId>
    <version>${org.springframework-version}</version>
 </dependency>
-   
-   
 
 <!-- 문자 인증관련 라이브러리 -->
 <dependency>

@@ -30,7 +30,7 @@
       INNER JOIN BEAN B2 ON B1.BEANNO = B2.BEANNO 
       INNER JOIN BEANIMG B3 ON B2.BEANIMGNO = B3.BEANIMGNO 
       <where>
-         USERNO = #{userNo}
+         B1.USERNO = #{userNo}
 <!--          <if test='searchText != "N"'> -->
 <!--             upper(beanName) LIKE '%'||upper(#{searchText})||'%' -->
 <!--          </if> -->
@@ -190,7 +190,7 @@
 		FROM BeanRev br
 		JOIN BEAN b ON br.beanNo = b.beanNo
 		<where>
-		userNo = #{userNo}
+		br.userNo = #{userNo}
 		</where> 
 		ORDER BY br.revDate DESC
 	</select>	

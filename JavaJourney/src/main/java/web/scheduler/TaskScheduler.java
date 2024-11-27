@@ -1,10 +1,23 @@
 package web.scheduler;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
-@Configuration // 해당 클래스가 Bean 구성 클래스임을 명시
-@EnableScheduling // 클래스를 스케쥴링 목적으로 사용하겠다 명시
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
 public class TaskScheduler {
+	
+	@Scheduled(fixedRate = 5000)
+	public void runTask() {
+		log.info("스케쥴러 작업 실행중 : {}", System.currentTimeMillis());
+	}
+	
+	@Scheduled( cron = "0 0 * * * ?")
+	public void runCronTask() {
+		log.info("Cron 스케쥴링 작업 실행중 : {}", System.currentTimeMillis());
 
+	}
+	
 }
