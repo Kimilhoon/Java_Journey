@@ -50,7 +50,7 @@ body {
 footer {
     flex-shrink: 0;
     text-align: center;
-    padding: 10px 0;
+/*     padding: 10px 0; */
     color: #6f4e37;
 }
 
