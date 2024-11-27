@@ -132,7 +132,6 @@ a:active {
     font-size: 17px;
 }
 </style>
-<h1 style="text-align: center">찜목록</h1> 
 <div class="col-2 d-flext flex-column">
 <div id="order-list" class="mb-2">
 <a id="all" style=" color: #6f4e37;">전체보기</a>

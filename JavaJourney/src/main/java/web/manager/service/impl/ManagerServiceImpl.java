@@ -118,19 +118,13 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public boolean subCancelBySubNo(List<Integer> subNo) {
 		for(Integer No : subNo) {
-//			if( dao.selectBeanSubCancelByBeanSub(No)) {
-//				log.info("구독을 이미 취소한 유저");
-//				return false;
-//			} else {
-//				
-//			}
-			if( No == null) {
-				return false;
-			} else {
+			if( dao.selectBeanSubCancelByBeanSub(No)) {
+				log.info("구독을 취소하려는 유저");
 				dao.subNoSubCancenBySubNoForUpdate(No);
-				
+			} else {
+				dao.subNoSubReturnBySubNoForUpdate(No);
+				log.info("구독상태로 되돌리려는 유저");
 			}
-			
 		}
 		return true;
 	}

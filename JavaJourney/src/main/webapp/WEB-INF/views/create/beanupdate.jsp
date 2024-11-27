@@ -4,7 +4,6 @@
 <!-- header -->
 <c:import url="../layout/header.jsp"/>
 
-<h1 class="text-center">구독원두 작성</h1>
 <script>
 $(function () {
 	

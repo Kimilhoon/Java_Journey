@@ -67,7 +67,7 @@
 			SELECT * FROM (
 			SELECT rownum r, a.* FROM (
 			SELECT
-			b1.SUBNO, b1.USERNO,
+			b1.SUBNO, b1.USERNO, b1.NONSUBDATE,
 			b1.BEANNO, b1.GRAM, b1.PRICE, b1.GRIND,
 			b1.SUBSTARTDATE, b1.SUBENDDATE, b1.SUBTIME, b1.NONSUB,
 			b2.BEANNAME,
@@ -86,19 +86,12 @@
 				)a
 			)WHERE r BETWEEN #{paging.startNo } AND #{paging.endNo }
 	</select>
-<!--    <delete id="subCancel" parameterType="Integer"> -->
-<!--       DELETE BEANSUB -->
-<!--       <where> -->
-<!--          subNo = #{No} -->
-<!--       </where> -->
-<!--    </delete> -->
    
    <update id="subUpdateCancel" parameterType="Integer">
       UPDATE BEANSUB
           SET NONSUB = 
-           CASE 
-               WHEN NONSUB = 'N' THEN 'Y'
-           END
+           CASE WHEN NONSUB = 'N' THEN 'Y' END,
+           		NONSUBDATE = SYSDATE
       <where>
          SUBNO = #{subNo}
       </where>

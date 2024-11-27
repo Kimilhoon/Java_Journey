@@ -62,7 +62,6 @@ $(function () {
 }       
 </style>
 <div class="mb-4">
-<h1 class="text-center">구독정보</h1>
 </div>
 <!-- <div class="container" style="width: 870px; height: 187px;"> -->
 <div class="container" style="width: 870px; min-height: 300px; margin-bottom: 100px;">
@@ -95,7 +94,9 @@ $(function () {
 			<li>구독기간 : ${sub.subTime }</li>
 			<li>금액 : ${sub.price }</li>
 			<c:if test="${sub.nonSub == 'Y' }">
-			<li>구독취소됨</li>
+			<li>
+			취소 날짜 : <fmt:formatDate value="${sub.nonSubDate }" pattern="yyyy-MM-dd"/>
+			</li>
 			</c:if>
 		</ul>
 		</div>

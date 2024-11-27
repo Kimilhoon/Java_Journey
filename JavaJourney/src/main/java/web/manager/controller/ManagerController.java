@@ -131,22 +131,26 @@ public class ManagerController {
 	@GetMapping("/subcancel")
 	@ResponseBody
 	public Map<String, Object> subCancelProcAjax(
-		@RequestParam("subNo") List<Integer> subNo
+		@RequestParam("subNo") List<Integer> subNo,
+		@RequestParam("btnValue") String btnValue
 			) {
 		log.info("subNo : {}", subNo);
-		
-		boolean isSubCancel = service.subCancelBySubNo(subNo);
+		log.info("btnValue : {}", btnValue);
 		Map<String, Object> result = new HashMap<>();
-
+		
+		if( btnValue.equals("cancel") ) {
+			log.info("cancel : {}", btnValue);
+		boolean isSubCancel = service.subCancelBySubNo(subNo);
 		if( isSubCancel ) {
 			result.put("status", "success");
-			result.put("message", "작업이 성공적하였습니다");
+			result.put("message", "구독을 취소/원복 하였습니다");
 		} else {
 			result.put("status", "fail");
-			result.put("message", "이미 구독이 취소가 된 상태입니다");
+			result.put("message", "알수 없는 이유로 작업이 취소되었습니다");
 		}
+		
+	  }// if btnValue.equals("cancel") End
+		
 		return result;
-	
-	}
-	
+  }
 }

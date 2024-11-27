@@ -65,7 +65,13 @@ public interface ManagerDao {
 	 * @param no
 	 */
 	public void subNoSubCancenBySubNoForUpdate(Integer no);
-
+	
+	/**
+	 * 구독유저를 구독취소에서 구독상태로 되돌리기
+	 * @param no
+	 */
+	public void subNoSubReturnBySubNoForUpdate(Integer no);
+	
 	/**
 	 * 검색 조건에 따라 유저 관리 회원 조회
 	 * @param map
@@ -79,6 +85,7 @@ public interface ManagerDao {
 	 * @return
 	 */
 	public List<BeanSub> selectsubuserByUserNick(HashMap<String, Object> map);
+
 
 	
 

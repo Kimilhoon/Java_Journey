@@ -70,7 +70,6 @@ textarea {
 }
 </style>
 
-<h1 class=text-center>이벤트 글작성</h1>
 
 <!-- <div> -->
 <!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
