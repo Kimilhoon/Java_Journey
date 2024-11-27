@@ -90,6 +90,14 @@ public interface CafeDao {
 	 */
 	public List<Cafe> selectCafeTop();
 
+	/**
+	 * 찜하기 서비스 값 반환
+	 * @param cafeNo
+	 * @param userNo
+	 * @return
+	 */
+	public int countUserWish(Map<String, Object> params);
+
 
 
 

@@ -31,8 +31,8 @@ border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: cent
 	<c:when test="${nodata == 'like'}">
 	<h4 style="margin-bottom: 15px; width: 900px;">${message1}</h4>
 	<p style="margin-bottom: 15px;">${message2}</p>
-	<a href="/cafe/all"><button id="btn" style="margin-bottom: 15px;">카페 찜 하기</button></a>
-	<a href="/bean/all"><button id="btn">원두 찜 하기</button></a>
+	<a href="/cafe/all"><button id="btn" style="margin-bottom: 15px;">카페찜 하기</button></a>
+	<a href="/bean/all"><button id="btn">원두찜 하기</button></a>
 	</c:when>
 	</c:choose>
     </div>

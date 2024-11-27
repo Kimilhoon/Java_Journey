@@ -154,23 +154,26 @@ $(document).ready(function () {
 }
 
 .carousel-container {
-    width: 50%; /* 양쪽 배너를 나누기 위한 크기 설정 */
+    width: 48%; /* 양쪽 배너를 나누기 위한 크기 설정 */
     position: relative;
+    margin: 0 auto;
 }
 
-.carousel-container.left .carousel-item {
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-}
+/* .carousel-container.left .carousel-item { */
+/*     clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%); */
+/* } */
 
-.carousel-container.right .carousel-item {
-    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-}
+/* .carousel-container.right .carousel-item { */
+/*     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); */
+/* } */
 
 .carousel-item {
-     background-color: #ccc;
+/*     background-color: #ccc; */
     padding: 20px;
 /*     border-radius: 10px; */
     text-align: center;
+    background: #F7F1E6;
+    border-radius: 20px;
 }
 
 .carousel-indicators {
@@ -209,7 +212,7 @@ $(document).ready(function () {
     <div class="carousel-container left">
         <div id="carouselLeft" class="carousel slide" data-bs-ride="carousel">
 	         <div class="carousel-indicators" hidden="">
-	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1""></button>
+	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="1" aria-label="Slide 2"></button>
 	             <button type="button" data-bs-target="#carouselLeft" data-bs-slide-to="2" aria-label="Slide 3"></button>
 	         </div>

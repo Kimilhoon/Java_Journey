@@ -21,22 +21,39 @@
 <!-- 		) -->
 <!-- 		WHERE rNum &lt;= 3 -->
 		
-		SELECT m.*,n.*,bi.* FROM (
-	SELECT rownum rnum ,b.beanno,revcnt.reviewCount, revcnt.avgRevStarPoint FROM (
-		SELECT a.beanno,a.reviewCount, a.avgRevStarPoint FROM (
-			SELECT qq.BEANNO ,count(*) over(PARTITION BY qq.BEANNO) reviewCount ,round(avg(revstarpoint) over(PARTITION  BY qq.BEANNO),2) avgRevStarPoint FROM BEAN qq ,BEANREV ww 
-			WHERE qq.BEANNO = ww.BEANNO) a
-		GROUP BY a.beanno,a.reviewCount, a.avgRevStarPoint
-        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
-	)revcnt , bean b
-	WHERE b.BEANNO = revcnt.beanno
-	
-)m, bean n, BEANIMG bi
-WHERE rnum BETWEEN 1 AND 3
-AND m.beanno = n.beanno
-AND n.BEANIMGNO = bi.BEANIMGNO 
-ORDER BY rnum 
-		
+		SELECT 
+		    m.*, n.*, bi.*, cupData.cupNoteNames
+		FROM (
+		    SELECT 
+		        rownum rnum, b.beanno, revcnt.reviewCount, revcnt.avgRevStarPoint 
+		    FROM (
+		        SELECT 
+		            a.beanno, a.reviewCount, a.avgRevStarPoint 
+		        FROM (
+		            SELECT 
+		                qq.beanno,
+		                COUNT(*) OVER (PARTITION BY qq.beanno) AS reviewCount,
+		                ROUND(AVG(revstarpoint) OVER (PARTITION BY qq.beanno), 2) AS avgRevStarPoint 
+		            FROM bean qq
+		            INNER JOIN beanrev ww ON qq.beanno = ww.beanno
+		        ) a
+		        GROUP BY a.beanno, a.reviewCount, a.avgRevStarPoint
+		        ORDER BY COUNT(*) DESC, avgRevStarPoint DESC
+		    ) revcnt 
+		    INNER JOIN bean b ON b.beanno = revcnt.beanno
+		) m
+		INNER JOIN bean n ON m.beanno = n.beanno
+		INNER JOIN beanimg bi ON n.beanimgno = bi.beanimgno
+		LEFT JOIN (
+		    SELECT 
+		        bt.beanno, 
+		        LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteNames
+		    FROM beantaste bt
+		    INNER JOIN cupnote c ON bt.cupnoteno = c.cupnoteno
+		    GROUP BY bt.beanno
+		) cupData ON m.beanno = cupData.beanno
+		WHERE rnum BETWEEN 1 AND 3
+		ORDER BY rnum
 	</select>
 	
 	<select id="selectBeanCount" resultType="Bean">
@@ -66,16 +83,15 @@ ORDER BY rnum
 	
 	<select id="selectAll" parameterType="hashmap" resultType="Bean">
 		SELECT * FROM (
-			SELECT rowNum rNum, B.* FROM (
+			SELECT rowNum rNum, B.*, i.beanOriginname FROM (
 				SELECT 
-					b.beanNo, i.beanImgNo, beanName, origin, 
-					beanComm, beanInfo, beanPrice, businessNo,
-					beanOriginname, beanStoredname, beanImgSize,
-					status,
+					b.beanNo, b.beanImgNo, beanName, origin, 
+					beanComm, beanPrice, businessNo, status,
 					<if test='cupnote != "N"'>
 					c.cupNoteNo, c.cupNoteName,
 					</if>
-					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount
+					(SELECT COUNT(br.revNo) FROM beanrev br WHERE br.beanNo = b.beanNo) AS reviewCount,
+					LISTAGG(c.cupnotename, ', ') WITHIN GROUP (ORDER BY c.cupnoteno) AS cupNoteNames
 <!-- 					(SELECT LISTAGG(cupNoteName, ', ') WITHIN GROUP (ORDER BY cupNoteName) AS cupNoteNames -->
 <!-- 						FROM ( -->
 <!-- 							SELECT DISTINCT c.cupNoteName -->
@@ -86,11 +102,8 @@ ORDER BY rnum
 <!-- 					) AS cupNoteNames -->
 <!-- 					(select count(*) from beanrevcomm where b.beanNo=#{beanNo}) as reviewCount -->
 				FROM bean b
-				<if test='cupnote != "N"'>
 				LEFT JOIN beanTaste bt ON b.beanNo = bt.beanNo
 				LEFT JOIN cupNote c ON bt.cupNoteNo = c.cupNoteNo
-				</if>
-				LEFT JOIN beanImg i ON b.beanImgNo = i.beanImgNo
 				<where>
 				<if test='cupnote != "N"'>
 				AND		c.cupNoteName = #{ cupnote }
@@ -99,8 +112,15 @@ ORDER BY rnum
 				AND		upper(beanName) LIKE '%'||upper(#{keyword})||'%' 
 				</if>
 				</where>
-				ORDER BY beanNo DESC
+				GROUP BY
+					b.beanNo, b.beanImgNo, beanName, origin, 
+					beanComm, beanPrice, businessNo, status
+					<if test='cupnote != "N"'>
+					, c.cupNoteNo, c.cupNoteName
+					</if>
+				ORDER BY b.beanNo DESC
 			) B
+				LEFT JOIN beanImg i ON B.beanImgNo = i.beanImgNo
 		) bean
 		WHERE rNum BETWEEN #{ paging.startNo } AND #{ paging.endNo }
 	</select>  

@@ -182,7 +182,7 @@ img{
 </div>
 
 
-<div id="List">
+<div id="List" class="container-fluid">
 
 <table>
 <tbody>
@@ -200,8 +200,8 @@ img{
 		</a>
 		<c:choose>
 			<c:when test="${ bean.status == 'Y' }">
-			<p>${bean.beanName}</p>
-			<p>${bean.origin}</p>
+			<p>${ bean.beanName }</p>
+			<p>맛: ${ bean.cupNoteNames }</p>
 			<p>리뷰 : ${ bean.reviewCount }</p>
 			</c:when>
 			<c:when test="${ bean.status == 'N' }">

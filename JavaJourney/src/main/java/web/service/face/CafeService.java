@@ -91,6 +91,15 @@ public interface CafeService {
 	 */
 	public List<Cafe> getCafeTop();
 
+	/**
+	 * cafeNo, userNo를 가져와 로그인 여부 확인
+	 * 
+	 * @param cafeNo 
+	 * @param userNo
+	 * @return true / false
+	 */
+	public boolean checkUserWish(int cafeNo, int userNo);
+
 
 
 

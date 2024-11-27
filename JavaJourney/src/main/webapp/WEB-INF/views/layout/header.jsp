@@ -35,19 +35,23 @@ $(function() {
 
 <style>
 
-html, body {
-    height: 70%
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    flex: 1 0 auto;
+    
 }
 
-#wrap {
-    min-height: 100%;
-    position: relative;
+header {
+    flex: 0 0 auto;
 }
 
 footer {
-    position: relative;
-    transform: translatY(-80%);
+    flex: 0 0 auto;
 }
+
 
 /* 로고 크기 조정 */
 #logo {
@@ -121,6 +125,8 @@ footer {
 
 .navbar-nav {
     gap: 1rem; /* 메뉴 간격 */
+    display: flex;
+  	flex-wrap: nowrap; /* 메뉴 항목이 한 줄에 나열되도록 */
 }
 
 /* 드롭다운 메뉴가 hover 시 나타나도록 */
@@ -185,7 +191,7 @@ footer {
   
 
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
-  <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
+  <nav class="navbar navbar-expand container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-0 header d-flex justify-content-center">
         <!-- 브랜드 메뉴 -->
@@ -265,3 +271,5 @@ footer {
     </div>
   </nav>
 </div>
+
+<div class="wrap">

@@ -115,6 +115,22 @@ a:active {
     font-size: 1.2rem; /* 글자 크기 */
     font-family: 'Arial', sans-serif; /* 글꼴 */
 }
+#btncafelike,
+#btnbeanlike {
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	position: relative;
+	left: 260px;
+    width: 60%;
+    margin-top: 35px;
+    padding: 10px;
+    background-color: #6f4e37;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+}
 </style>
 <h1 style="text-align: center">찜목록</h1> 
 <div class="col-2 d-flext flex-column">
@@ -132,6 +148,9 @@ a:active {
     <h2 class="wish-font">카페찜</h2>
 	</div>
     <div id="cafeWish" class="overflow-auto">
+    <c:if test="${empty cafeWishNoList}">
+	<a href="/cafe/all"><button id="btncafelike">카페찜 하기</button></a>
+	</c:if>
     <c:forEach var="cafe" items="${cafeWishNoList}">
         <div class="d-inline-block border bg-light">
         	<div class="custom-image">
@@ -142,11 +161,15 @@ a:active {
     </c:forEach>
     </div>
 </div>
+<span class="mt-5 mb-5">&nbsp;</span>
 <div id="beanAll" class="container mt-5">
 	<div class="wish-font-container">
     <h2 class="wish-font">원두찜</h2>
 	</div>
     <div id="beanWish" class="overflow-auto">
+    <c:if test="${empty beanWishList}">
+	<a href="/bean/all"><button id="btnbeanlike">원두찜 하기</button></a>
+	</c:if>
     <c:forEach var="bean" items="${beanWishList}">
     <div class="d-inline-block border bg-light">
         	<div class="custom-image">

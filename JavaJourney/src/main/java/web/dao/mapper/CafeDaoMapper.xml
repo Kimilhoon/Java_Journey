@@ -64,7 +64,8 @@
 	                    OR c.cafeInfo LIKE '%' || #{keyword} || '%'
 	                )
 	            ORDER BY 
-	                avgRevStarPoint DESC
+<!-- 	                avgRevStarPoint DESC -->
+	                c.cafeNo DESC  <!-- 최신순 정렬 -->
 	        ) a
 	        WHERE rownum &lt;= #{endNo} 
 	    )
@@ -136,11 +137,16 @@
 	
 	<delete id="removeWish" parameterType="map">
 		DELETE 	cafeWish
-		<where>
-		AND		cafeNo = #{ cafeNo }
-		AND		userNo = #{ userNo }
-		</where>
+		WHERE cafeNo = #{ cafeNo }
+		AND	userNo = #{ userNo }
 	</delete>
+	
+	<select id="countUserWish" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM cafeWish
+		WHERE cafeNo = #{ cafeNo } 
+		AND userNo = #{ userNo }
+	</select>
 
 	<select id="selectCafeTop" resultType="cafe">
 		SELECT *
@@ -160,11 +166,5 @@
 		)
 		ORDER BY rnum
 	</select>
-	
-	
-	
-	
-	
-	
    
 </mapper>

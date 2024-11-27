@@ -81,7 +81,7 @@ $(document).ready(function() {
 				
 	            emailCheck = true;
 				console.log("data : " +  data);
-				checkInput.attr('disabled',false); //인증번호입력하는곳 활성화
+// 				checkInput.attr('disabled',false); //인증번호입력하는곳 활성화
 				code = data;  // 서버에서 받은 인증번호를 code 변수에 저장
 				alert('임시 비밀번호가 전송되었습니다.\n반드시 마이페이지에서 새 비밀번호로 변경하세요.')
 			},
@@ -177,7 +177,7 @@ $(document).ready(function() {
 </div>
 
 <div>
-	<button type="button" id="mailCheckBtn" disabled="disabled" style="display: none;">이메일로 임시 비밀번호 받기</button>
+	<button type="button" id="mailCheckBtn" style="display: none;">이메일로 임시 비밀번호 받기</button>
 </div>
 
 
