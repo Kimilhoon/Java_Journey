@@ -43,7 +43,7 @@ public interface MemberDao {
 	public int SelectByMemberIdPw(Member member);
 
 	/**
-	 * 로그인 세션 정보
+	 * 아이디에 맞는 회원정보 전체 조회
 	 * 
 	 * @param member
 	 * @return
