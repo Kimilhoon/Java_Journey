@@ -93,7 +93,7 @@ public class BeanServiceImpl implements BeanService {
 		param.setTotalCount(totalCount);
 //		param.setListCount(4);
 //		param.setPageCount(2);
-		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 5);
+		Paging paging = new Paging(param.getCurPage(), totalCount, 8, 10);
 		
 		log.info("paging: {}", paging);
 		

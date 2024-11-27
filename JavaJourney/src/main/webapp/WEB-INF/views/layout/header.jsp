@@ -35,22 +35,25 @@ $(function() {
 
 <style>
 
+/* 푸터가 항상 화면 하단에 위치하도록 설정 */
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* 화면 전체 높이를 최소로 설정 */
     margin: 0;
-    flex: 1 0 auto;
-    
 }
 
-header {
-    flex: 0 0 auto;
+.wrap {
+    flex: 1; /* 본문을 채우기 위해 flex-grow 설정 */
 }
 
 footer {
-    flex: 0 0 auto;
+    flex-shrink: 0;
+    text-align: center;
+    padding: 10px 0;
+    color: #6f4e37;
 }
+
 
 
 /* 로고 크기 조정 */
@@ -125,6 +128,8 @@ footer {
 
 .navbar-nav {
     gap: 1rem; /* 메뉴 간격 */
+    display: flex;
+  	flex-wrap: nowrap; /* 메뉴 항목이 한 줄에 나열되도록 */
 }
 
 /* 드롭다운 메뉴가 hover 시 나타나도록 */
@@ -189,7 +194,7 @@ footer {
   
 
 <div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
-  <nav class="navbar navbar-expand-lg container py-2" style="width: 100%; max-width: 1200px;">
+  <nav class="navbar navbar-expand container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-0 header d-flex justify-content-center">
         <!-- 브랜드 메뉴 -->
