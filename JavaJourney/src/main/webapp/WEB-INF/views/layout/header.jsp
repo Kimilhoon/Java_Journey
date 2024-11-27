@@ -59,8 +59,8 @@ footer {
 /* 로고 크기 조정 */
 #logo {
 	position: flex;
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     margin-top: 35px;
     margin-bottom: 20px;
 }
@@ -155,7 +155,7 @@ footer {
 
 <div class="header d-flex justify-content-center">
 <a href="/main" style="text-decoration: none;">
-<img src="<c:url value='/resources/img/coffeeLogo.png' />" alt="로고" width="200" height="200" id="logo" />
+<img src="<c:url value='/resources/img/testtest.png' />" alt="로고" width="200" height="200" id="logo" />
 </a>
 
 <!-- 로그인 및 기타 링크 -->
@@ -253,7 +253,7 @@ footer {
             <li><a class="dropdown-item" href="/comm/event/event">이벤트</a></li>
             <li><a class="dropdown-item" href="/comm/notice/list">공지사항</a></li>
             <li><a class="dropdown-item" href="/comm/faq/list">자주묻는 질문</a></li>
-            <li><a class="dropdown-item" href="/comm/chat">채팅</a></li>
+            <li><a class="dropdown-item" href="/comm/chat">라운지톡 &nbsp <i class="bi bi-chat-text"></i></a></li>
           </ul>
         </li>
         
