@@ -22,6 +22,7 @@ a {
 .footer {
 	color: #A39E94;
 }
+
 </style>
 
 <script>
@@ -64,6 +65,7 @@ a {
 	  "pluginKey": "d06a891b-9676-4688-9587-0f0f670f5b34" 
 	  // 위에서 확인한 플러그인 키를 입력하세요.
 	  });
+  
 </script>
 
 </div>
@@ -176,6 +178,70 @@ a {
 <!--     <a href="http://www.instagram.com"><i class="bi bi-instagram" style="font-size:2.5em;"></i></a> -->
 <!--     <a href="http://www.facebook.com"><i class="bi bi-facebook icon" style="color: blue; font-size: 2.5em;"></i></a> -->
 <!-- </div> -->
+
+<!-- 최상단으로 이동하기 버튼 -->
+<div id="scrollTopBtn" class="scroll-btn" aria-pressed="false">
+	<img src="/resources/img/coffeeLogo.png" alt="최상단으로 이동" />
+</div>
+
+<script type="text/javascript">
+//최상단으로 이동 버튼 로직
+window.addEventListener("DOMContentLoaded", function() {
+	const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+	// 최상단으로 이동 버튼 클릭 시 이벤트 리스너 추가
+	if (scrollTopBtn) {
+  		scrollTopBtn.addEventListener("click", function (e) {
+  			e.preventDefault(); // 기본 동작 방지
+  			window.scrollTo({
+  				top: 0,
+  		        behavior: "smooth", // 부드럽게 스크롤
+  			});
+      		console.log("버튼 클릭됨"); // 버튼이 표시되면 로그 출력
+  		});
+	}
+	// 스크롤 시 버튼 표시/숨기기
+	window.onscroll = function () {
+		if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+		    scrollTopBtn.style.display = "block"; // 300px 이상이면 버튼 보이기
+		} else {
+			scrollTopBtn.style.display = "none"; // 그 외엔 버튼 숨기기
+		}
+	};
+
+});
+</script>
+
+<style>
+/* 최상단으로 이동 버튼 CSS */
+.scroll-btn {
+  position: fixed;
+  bottom: 25px; /* 화면 하단에서의 위치 */
+  right: 90px; /* 화면 오른쪽에서의 위치 */
+  z-index: 999; /* ChannelIO와 겹치지 않도록 높은 우선순위 설정 */
+  width: 55px; /* 버튼 크기 */
+  height: 55px;
+  border-radius: 50%; /* 동그랗게 */
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 검정 배경 */
+  display: none; /* 초기에는 숨김 */
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과 */
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-btn img {
+  width: 55px; /* 아이콘 크기 */
+  height: 55px;
+}
+
+.scroll-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* 호버 시 더 진한 색 */
+  transform: scale(1.1); /* 살짝 확대 */
+}
+</style>
+
 
 </div>
 </footer>
