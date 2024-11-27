@@ -49,11 +49,8 @@ body {
 
 footer {
     flex-shrink: 0;
-    text-align: center;
     color: #6f4e37;
 }
-
-
 
 /* 로고 크기 조정 */
 #logo {
