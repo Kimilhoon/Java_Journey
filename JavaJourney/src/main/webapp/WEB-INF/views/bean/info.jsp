@@ -161,6 +161,13 @@ $(function() {
 		 
 	});
 	
+	function share() {
+      var url = encodeURI(encodeURIComponent(myform.url.value));
+      var title = encodeURI(myform.title.value);
+      var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
+      document.location = shareURL;
+    }
+	
 }) // $(function() end 
 </script>
 
@@ -205,7 +212,7 @@ $(function() {
 }
 
 /* 각 셀에 대해 말줄임표 적용 */
-#revCont {
+#revCont, #revDate {
 	display: block;
     -webkit-box-orient: vertical;   /* 세로 방향으로 텍스트 제한 */
     -webkit-line-clamp: 1;          /* 1줄로 제한 */
