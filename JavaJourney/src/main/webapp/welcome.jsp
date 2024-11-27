@@ -176,7 +176,7 @@ body {
 			    </div>
 			</div>
         </a>
-   		<a href="/bean/best"  style="height: 100%;">
+   		<a href="/quiz/quizForm"  style="height: 100%;">
 			<div class="box1 bestbean">
 			    <div class="imgbox beanbox">
 			       	<img src="/resources/img/welcome/bestBean.jpg" alt="베스트원두이미지" width="50%" height="100%" />

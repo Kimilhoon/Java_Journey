@@ -270,10 +270,55 @@ form div p {
 	flex-wrap: wrap;
 }
 
-#gramField .table td div {
+#gramField .table label {
+	width: 200px; 
+	height: 150px;
+	
+	display: flex; /* Flexbox를 사용하여 텍스트 정렬 */
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: flex-end; /* 수직 하단 정렬 */
+	
 	cursor: pointer;
-	border: ridge;
 	text-align: center;
+	
+	border: solid 3px;
+	border-color: #8B4513;
+	transition: border 0.3s ease;
+	padding-bottom: 25px; /* 텍스트와 하단 경계선 사이에 여백 추가 */
+	box-sizing: border-box; /* padding 포함하여 height 계산 */
+	
+	font-weight: bold;
+}
+
+
+/* 체크 상태 변경 */
+#gramField .table input:checked + label {
+ 	border-color: #C29F6D !important;
+ 	
+}
+
+#gramField input{
+	display: none;
+}
+
+#grindField input{
+	display: none;
+}
+
+#extractionField input{
+	display: none;
+}
+
+/* 라디오 버튼 선택 시 이미지에 테두리 추가 */
+#grindField .form-check-input:checked + label img {
+    border: 3px solid #8B4513; /* 선택된 이미지 테두리 색상 */
+    border-radius: 8px; /* 이미지 둥근 모서리 */
+}
+
+/* 라디오 버튼 선택 시 이미지에 테두리 추가 */
+#extractionField .form-check-input:checked + label img {
+    border: 3px solid #8B4513; /* 선택된 이미지 테두리 색상 */
+    border-radius: 8px; /* 이미지 둥근 모서리 */
 }
 
 #grindField .form-check,
@@ -298,6 +343,12 @@ form div p {
 	border-radius: 8px;
 	
 	cursor: pointer;
+}
+
+/* 기본 이미지 스타일 */
+.form-check label img {
+    border: 2px solid transparent;  /* 기본 상태에서는 테두리를 투명하게 설정 */
+    transition: border 0.3s ease;   /* 부드러운 전환 효과 */
 }
 
 .radio-group{
@@ -362,11 +413,39 @@ form div p {
 
 </style>
 
-<div id="quizMain" class="container">
+<!-- label[for="cupNoteNoQuiz1"] { -->
+<!--     border-color: #f5b48e !important; -->
+<!-- } -->
 
-<div class="text-center m-5">
-<h1> <퀴즈 시간> </h1>
-</div>
+<!-- label[for="cupNoteNoQuiz2"] { -->
+<!--     border-color: #f0d58e !important; -->
+<!-- } -->
+
+<!-- label[for="cupNoteNoQuiz3"] { -->
+<!--     border-color: #8ebbf5 !important; -->
+<!-- } -->
+
+<!-- label[for="cupNoteNoQuiz4"] { -->
+<!--     border-color: #a7f58e !important; -->
+<!-- } -->
+
+<!-- label[for="cupNoteNoQuiz5"] { -->
+<!-- 	border-color: #f9f6dc !important; -->
+<!-- } -->
+
+<!-- label[for="cupNoteNoQuiz6"] { -->
+<!-- 	border-color: #f7e4e3 !important; -->
+<!-- } -->
+
+<!-- label[for="cupNoteNoQuiz7"] { -->
+<!-- 	border-color: #a08877 !important; -->
+<!-- } -->
+
+<!-- label[for="cupNoteNoQuiz8"] { -->
+<!-- 	border-color: #fbf1d5 !important; -->
+<!-- } -->
+
+<div id="quizMain" class="container">
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->
@@ -390,46 +469,36 @@ form div p {
 <%-- ${ userNick } --%>
 <fieldset id="gramField">
 
-<table class="container table table-borderless">
+<table class="table table-borderless">
 <tr>
 	<td>
-	<div style="width: 200px; height: 150px;">
-	<span>새콤</span>
-	<input type="checkbox" id="cupNoteNoQuiz1" name="cupNoteNoQuiz" value="1">
-	</div>
-	<div style="width: 200px; height: 150px;">
-	<span>달콤</span>
-	<input type="checkbox" id="cupNoteNoQuiz2" name="cupNoteNoQuiz" value="2">
-	</div>
-	<div style="width: 200px; height: 150px;">
-	<span>쌉쌀</span>
-	<input type="checkbox" id="cupNoteNoQuiz3" name="cupNoteNoQuiz" value="3">
-	</div>
-	<div style="width: 200px; height: 150px;">
-	<span>고소</span>
-	<input type="checkbox" id="cupNoteNoQuiz4" name="cupNoteNoQuiz" value="4">
-	</div>
+		<input type="checkbox" id="cupNoteNoQuiz1" name="cupNoteNoQuiz" value="1">
+		<label for="cupNoteNoQuiz1">상큼하게<br> 새콤한 맛</label>
+		
+		<input type="checkbox" id="cupNoteNoQuiz2" name="cupNoteNoQuiz" value="2">
+		<label for="cupNoteNoQuiz2">달달한 초콜릿을<br> 달콤한 맛</label>
+
+		<input type="checkbox" id="cupNoteNoQuiz3" name="cupNoteNoQuiz" value="3">
+		<label for="cupNoteNoQuiz3">인생의 쓴맛처럼<br> 쌉쌀한 맛</label>
+		
+		<input type="checkbox" id="cupNoteNoQuiz4" name="cupNoteNoQuiz" value="4">
+		<label for="cupNoteNoQuiz4">땅콩 같은<br> 고소한 맛</label>
 	</td>
 </tr>
 
 <tr>
 	<td>
-	<div style="width: 200px; height: 150px;">
-	<span>은은한</span>
-	<input type="checkbox" id="cupNoteNoQuiz5" name="cupNoteNoQuiz" value="5">
-	</div>
-	<div style="width: 200px; height: 150px;">
-	<span>향긋한</span>
-	<input type="checkbox" id="cupNoteNoQuiz6" name="cupNoteNoQuiz" value="6">
-	</div>
-	<div style="width: 200px; height: 150px;">
-	<span>진한</span>
-	<input type="checkbox" id="cupNoteNoQuiz7" name="cupNoteNoQuiz" value="7">
-	</div>
-	<div style="width: 200px; height: 150px;">
-	<span>부드러운</span>
-	<input type="checkbox" id="cupNoteNoQuiz8" name="cupNoteNoQuiz" value="8">
-	</div>
+		<input type="checkbox" id="cupNoteNoQuiz5" name="cupNoteNoQuiz" value="5">
+		<label for="cupNoteNoQuiz5">오이비누처럼<br>은은한 향</label>
+		
+		<input type="checkbox" id="cupNoteNoQuiz6" name="cupNoteNoQuiz" value="6">
+		<label for="cupNoteNoQuiz6">꽃 향기처럼<br>향긋한 향</label>
+		
+		<input type="checkbox" id="cupNoteNoQuiz7" name="cupNoteNoQuiz" value="7">
+		<label for="cupNoteNoQuiz7">에스프레소처럼<br> 진한 향</label>
+		
+		<input type="checkbox" id="cupNoteNoQuiz8" name="cupNoteNoQuiz" value="8">
+		<label for="cupNoteNoQuiz8">크림처럼<br> 부드러운 향</label>
 	</td>
 </tr>
 </table>
@@ -451,31 +520,31 @@ form div p {
 
 <fieldset id="grindField">
 
-	<div class="form-check">
+	<div class="form-check container-sm">
+		<input class="form-check-input" type="radio" name="grind" id="grind1" value="1">
 		<label class="form-check-label" for="grind1">
 			<img alt="wholeBean" src="/resources/img/quiz/wholeBean.jpg">
 			<div class="radio-group"> 
-				<input class="form-check-input" type="radio" name="grind" id="grind1" value="1">
 				굵은 분쇄
 			</div>
 		</label>
 	</div>
 	
-	<div class="form-check">
+	<div class="form-check container-sm">
+		<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
 		<label class="form-check-label" for="grind2">
 			<img alt="wholeBean" src="/resources/img/quiz/handdrip.jpg">
 			<div class="radio-group">
-				<input class="form-check-input" type="radio" name="grind" id="grind2" value="2">
 				중간 분쇄
 			</div>
 		</label>
 	</div>
 	
-	<div class="form-check">
+	<div class="form-check container-sm">
+		<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
 		<label class="form-check-label" for="grind3">	
 			<img alt="wholeBean" src="/resources/img/quiz/espresso.jpg">
 			<div class="radio-group">
-				<input class="form-check-input" type="radio" name="grind" id="grind3" value="3">
 				가는 분쇄
 			</div>
 		</label>
@@ -499,40 +568,40 @@ form div p {
 <fieldset id="extractionField">
 
 	<div class="form-check">
+		<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1">
 		<label class="form-check-label" for="extraction1">	
 			<img alt="wholeBean" src="/resources/img/quiz/vaccumfiltration.jpg">
 			<div class="radio-group">
-				<input class="form-check-input" type="radio" name="extraction" id="extraction1" value="1">
 				압력
 			</div>
 		</label>
 	</div>
 	
 	<div class="form-check">
+		<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
 		<label class="form-check-label" for="extraction2">	
 			<img alt="wholeBean" src="/resources/img/quiz/handdrip.jpg">
 			<div class="radio-group">
-				<input class="form-check-input" type="radio" name="extraction" id="extraction2" value="2">
 				드립
 			</div>
 		</label>
 	</div>
 	
 	<div class="form-check">
+		<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
 		<label class="form-check-label" for="extraction3">	
 			<img alt="wholeBean" src="/resources/img/quiz/steeping.jpg">
 			<div class="radio-group">
-				<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
 				침출
 			</div>
 		</label>
 	</div>
 	
 	<div class="form-check">
+		<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
 		<label class="form-check-label" for="extraction4">	
 			<img alt="wholeBean" src="/resources/img/quiz/decoction.jpg">
 			<div class="radio-group">
-				<input class="form-check-input" type="radio" name="extraction" id="extraction4" value="4">
 				달임
 			</div>
 		</label>
