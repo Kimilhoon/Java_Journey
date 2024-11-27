@@ -253,24 +253,24 @@ form div p {
 	text-align: center;
 }
 
-#gramField {
+#tasteField {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#gramField .table tr {
+#tasteField .table tr {
     display: flex;
     flex-wrap: wrap;
 }
 
-#gramField .table td {
+#tasteField .table td {
 	display: flex;
 	gap: 20px;
 	flex-wrap: wrap;
 }
 
-#gramField .table label {
+#tasteField .table label {
 	width: 200px; 
 	height: 150px;
 	
@@ -292,12 +292,12 @@ form div p {
 
 
 /* 체크 상태 변경 */
-#gramField .table input:checked + label {
+#tasteField .table input:checked + label {
  	border-color: #C29F6D !important;
  	
 }
 
-#gramField input{
+#tasteField input{
 	display: none;
 }
 
@@ -329,15 +329,29 @@ form div p {
   margin-right: 20px; /* 버튼 간격 */
 }
 
-#grindField,
-#extractionField {
+#grindField {
   justify-content: center; /* 전체 컨테이너 중앙 배치 */
 }
 
+#quizMain {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-#quizMain img {
+#quizMain #grindField img {
 	width: 350px;
 	height: 350px;
+	
+	margin-bottom: 10px;
+	border-radius: 8px;
+	
+	cursor: pointer;
+}
+
+#quizMain #extractionField img {
+	width: 250px;
+	height: 250px;
 	
 	margin-bottom: 10px;
 	border-radius: 8px;
@@ -467,7 +481,7 @@ form div p {
 <%-- ${ userNo }, --%>
 <%-- ${ userId }, --%>
 <%-- ${ userNick } --%>
-<fieldset id="gramField">
+<fieldset id="tasteField">
 
 <table class="table table-borderless">
 <tr>
@@ -586,6 +600,7 @@ form div p {
 			</div>
 		</label>
 	</div>
+	
 	
 	<div class="form-check">
 		<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">

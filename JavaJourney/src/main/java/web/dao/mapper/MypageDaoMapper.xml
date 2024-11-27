@@ -197,7 +197,7 @@
 		FROM BeanRev br
 		JOIN BEAN b ON br.beanNo = b.beanNo
 		<where>
-		userNo = #{userNo}
+		br.userNo = #{userNo}
 		</where> 
 		ORDER BY br.revDate DESC
 	</select>	
