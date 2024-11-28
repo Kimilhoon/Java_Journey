@@ -196,6 +196,7 @@ a {
 		Copyright © JavaJourney. All right Reserved. Created By 커피타조.
 		</pre>
 	</div>
+</div>
 
 <!-- 최상단으로 이동하기 버튼 -->
 <div id="scrollTopBtn" class="scroll-btn" aria-pressed="false">
@@ -260,7 +261,6 @@ window.addEventListener("DOMContentLoaded", function() {
 }
 </style>
 
-</div>
 </footer>
 </body>
 </html>
