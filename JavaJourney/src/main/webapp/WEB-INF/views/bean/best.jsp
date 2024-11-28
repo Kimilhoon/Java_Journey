@@ -10,11 +10,11 @@
 $(function() {
 	
 	$(".custom-image img").css({
-		width: "400px",
-		height: "560px",
+		width: "370px",
+		height: "390px",
         objectFit: "container",		// 이미지가 썸네일 크기에 맞도록 설정
         borderRadius: "8px"		// 모서리를 둥글게 (선택 사항)
-		 
+		
 	});
 	
 	$("#allBean").click(function() {
@@ -37,9 +37,9 @@ img{
 }
 
 .custom-image{
-	width: 400px;
-	height: 560px;	
-	margin: 0px auto;
+	width: 370px;
+	height: 390px;	
+	margin: 5px auto;
 	overflow: hidden;
 	border-radius: 8px;
 }

@@ -142,7 +142,7 @@ async function requestPayment() {
 		channelKey: "channel-key-67189232-0ce2-4acf-ab99-4a03ee845cb5",
 		paymentId: paymentId,
 		orderName: orderName,
-		totalAmount: 1000,
+		totalAmount: totalAmount,
 		currency: "KRW",
 		payMethod: "CARD",
 		customer: {
@@ -179,7 +179,7 @@ async function requestPayment() {
 			paymentId: paymentId,
 			beanNo: beanNo,
 			orderName: orderName,
-			totalAmount: 10000,
+			totalAmount: totalAmount,
 			customerId: customerId,
 			fullName: fullname,
 			phoneNumber: phoneNumber,
