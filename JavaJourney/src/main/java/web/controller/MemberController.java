@@ -123,7 +123,7 @@ public class MemberController {
 		}else {
 			log.info("로그인 실패");
 			
-			session.invalidate();
+//			session.invalidate();
 			session.setAttribute("loginError", "아이디 또는 비밀번호를 확인해주세요");
 			
 			return "redirect:/member/login";
