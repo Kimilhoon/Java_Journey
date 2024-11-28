@@ -176,8 +176,7 @@ public class MypageController {
         // DB에서 기존 사용자 정보 가져오기
         Member member = service.findByUserNo(userNo);
         
-        if (member != null) {
-            // 전체 Member 객체를 모델에 추가
+        if (member != null) { //데이터가 존재할때만 모델에 추가
             model.addAttribute("member", member);
         }
         
@@ -195,7 +194,7 @@ public class MypageController {
         // DB에 저장된 비밀번호와 비교하기
         Member member = service.findByUserId(userId);
         
-        return member != null && member.getUserPw().equals(userPw);
+        return member != null && member.getUserPw().equals(userPw); //사용자가 존재하고 비번 일치하면 true 반환
     }
 
 	
@@ -206,9 +205,9 @@ public class MypageController {
 		Integer userNo = (Integer) session.getAttribute("userNo");
 	    member = service.findByUserNo(userNo);
 	    
-	    if (userNo != null) {
-	        member.setUserNo(userNo);  // 세션에서 userNo 가져와서 설정
-	    }
+//	    if (userNo != null) {
+//	        member.setUserNo(userNo);  // 세션에서 userNo 가져와서 설정
+//	    }
 
 	    model.addAttribute("member", member);
 		
@@ -264,10 +263,8 @@ public class MypageController {
 		
         // 세션에서 userNo 가져오기
         Integer userNo = (Integer) session.getAttribute("userNo");
- 
-//        if(userNo == null) {
-//        	return "redirect:/member/login";
-//        }
+//		int userNo = member.getUserNo();
+        
         
         List<Map<String, Object>> myView = new ArrayList<>();
         
@@ -345,19 +342,22 @@ public class MypageController {
 
         
         
-        // 날짜 기준으로 정렬 //지피티출신입니다
-        Collections.sort(myView, new Comparator<Map<String, Object>>() {
+        // 날짜 기준으로 정렬
+        Collections.sort(myView, new Comparator<Map<String, Object>>() { //myView 리스트를 Comparator를 사용하여 정렬
             @Override
             public int compare(Map<String, Object> map1, Map<String, Object> map2) {
                 Date date1 = getDate(map1.get("data"));
                 Date date2 = getDate(map2.get("data"));
-                return date2.compareTo(date1);  // 최신 글이 먼저 오도록 내림차순 정렬
+                return date2.compareTo(date1);  // 최신 글이 먼저 오도록 내림차순 정렬 
+                // date1이 date2보다 이전날짜면 -1 / 같은 날짜면 0 / date1이 더 최신이면 1 반환
             }
 
-            private Date getDate(Object obj) {
+            private Date getDate(Object obj) { //getDate 메서드에 전달된 obj 객체가 어떤 타입인지를 확인하고, 그에 맞는 날짜 정보를 추출하여 반환
             	
-                if (obj instanceof CafeRev) {
-                    return ((CafeRev) obj).getRevDate();
+            	//다같은 Date타입이여도 클래스가 다르기때문에 해당 객체가 어떤 클래스에 속하는지 알기위해 instanceof를 사용
+            	
+                if (obj instanceof CafeRev) { //obj가 CafeRev 클래스의 인스턴스일 경우, ((CafeRev) obj).getRevDate()를 호출하여 해당 객체의 revDate 값을 반환
+                    return ((CafeRev) obj).getRevDate(); //CafeRev 객체에서 getRevDate() 메서드를 호출하여 리뷰 날짜를 가져옴
                     
                 } else if (obj instanceof BeanRev) {
                     return ((BeanRev) obj).getRevDate();
@@ -377,8 +377,9 @@ public class MypageController {
         //rownum역순으로 줘서 글번호 출력하기
         for (int i = 0; i < myView.size(); i++) {
             Map<String, Object> map = myView.get(i);
-            map.put("rownum", myView.size() - i);
+            map.put("rownum", myView.size() - i); //역순인덱스
         }
+        
         
         // 페이징 처리
         int listCount  = 10; //한 페이지당 10개
@@ -388,7 +389,7 @@ public class MypageController {
         
         // 현재 페이지 (기본값 1)
         int curPage = param != null && param.getCurPage() > 0 ? param.getCurPage() : 1;
-        	// 현재페이지가 null이 아닌게 맞다면 curPage.getCurPage(). null이라면 1페이지
+        	// 현재페이지가 null이 아닌게 맞다면 curPage.getCurPage(). null 또는 0이하라면 1페이지
 
         // 페이지별 시작/끝 글번호 계산
         int startNo = Math.max(0, (curPage - 1) * listCount );  // startIndex가 음수일 경우 0으로 처리
@@ -408,32 +409,16 @@ public class MypageController {
         log.info("startNo: {}", startNo);
         log.info("endNo: {}", endNo);
        
-        // 해당 페이지에 맞는 데이터만 가져오기
-//        List<Map<String, Object>> paginatedList = myView.subList(startNo, endNo);
-        //myView 리스트에서 startIndex부터 endIndex까지 가져오기
-        
-//        if (startNo < totalCount) {
-//            List<Map<String, Object>> paginatedList = myView.subList(startNo, endNo);
-//            model.addAttribute("myView", paginatedList);
-//        } else {
-//            model.addAttribute("myView", new ArrayList<>());  // 빈 리스트 반환
-//        }
         
         // 해당 페이지에 맞는 데이터만 가져오기
         List<Map<String, Object>> paginatedList = new ArrayList<>();
         	//빈 ArrayList를 생성하여 paginatedList라는 리스트를 초기화. 페이징된 데이터를 저장하는 용도
         if (startNo < totalCount) {
-            paginatedList = myView.subList(startNo, endNo);
+            paginatedList = myView.subList(startNo, endNo); //subList는 리스트의 특정 범위만 잘라서 새로운 리스트로 반환
         }
         
         model.addAttribute("myView", paginatedList);// 페이징된 데이터만 전달
-        
-        
-        // 페이지네이션 정보 계산 (현재 페이지, 시작 페이지, 끝 페이지)
-//        int startPage = Math.max(1, curPage - 2);
-        //최소1페이지시작. 
-//        int endPage = Math.min(totalPage, curPage + 2);
-        //끝페이지가 전체페이지수 넘지 않도록. 
+  
         
         int pageCount = 10; //	한 화면에 출력될 페이지네이션의 개수
         int startPage = ((curPage-1)/pageCount)*pageCount + 1; 

@@ -117,8 +117,8 @@ $(function() {
 
 
 
-<h2 style="text-align: center; font-weight: bold;" >로그인</h2>
-<hr>
+<!-- <h2 style="text-align: center; font-weight: bold;" >로그인</h2> -->
+<!-- <hr> -->
 
 <form action="./login" method="post" class="loginForm">
 

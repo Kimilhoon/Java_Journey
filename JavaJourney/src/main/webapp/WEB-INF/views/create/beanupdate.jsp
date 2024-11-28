@@ -173,11 +173,11 @@ textarea {
 		</tr>
 		<tr>
 			<td>원두원산지</td>
-			<td><input required="required" type="text" maxlength="30" id="origin" name="origin" value="${ListNo[0].beanPrice}"></td>
+			<td><input required="required" type="text" maxlength="30" id="origin" name="origin" value="${ListNo[0].origin}"></td>
 		</tr>
 		<tr>
 			<td>원두금액</td>	
-			<td><input required="required" type="number" min="1" max="100000" id="beanPrice" name="beanPrice" value="${ListNo[0].origin}"></td>	
+			<td><input required="required" type="number" min="1" max="100000" id="beanPrice" name="beanPrice" value="${ListNo[0].beanPrice}"></td>	
 		</tr>
 		<tr>
 			<td>사업자번호</td>	

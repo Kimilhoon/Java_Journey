@@ -107,40 +107,64 @@
 }
 
 /* 메시지 스타일 */
-.me {
-	margin-left: 7px;
-	width: max-content;
-    color: black;
+/* .me { */
+/* 	margin-left: 7px; */
+/* 	width: max-content; */
+/*     color: black; */
+/*     text-align: right; */
+/*     margin-bottom: 8px; */
+/* 	background: #FEEFBC; */
+/* 	border-radius: 10px; */
+/* 	padding: 10px 15px; */
+/* 	max-width:50%; */
+/* 	display: inline; */
+/* } */
+/* 나의 메시지 */
+.mdiv {
     text-align: right;
-    margin-bottom: 8px;
-	background: #FEEFBC;
-	border-radius: 10px;
-	padding: 10px 15px;
-	max-width:50%;
-	display: inline;
+    margin-bottom: 20px;
 }
-.mdiv p{
-	display: inline;
-}
-.mdiv{
-	text-align: -webkit-right;
-	margin-bottom: 20px;
-}
-.other {
-	margin-right: 7px;
-	display: inline;
-	max-width:50%;
-	padding: 10px 15px;
-	border-radius: 10px;
-	width: max-content;
-	background:#d4eafc;
+
+.me {
+    margin-left: 7px;
+    max-width: 50%;
+    background: #FEEFBC;
     color: black;
     text-align: left;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: inline-block;
+    word-wrap: break-word;
 }
-.odiv{
-	text-align: -webkit-left;
-	margin-bottom: 10px;
+/* .other { */
+/* 	margin-right: 7px; */
+/* 	display: inline; */
+/* 	max-width:50%; */
+/* 	padding: 10px 15px; */
+/* 	border-radius: 10px; */
+/* 	width: max-content; */
+/* 	background:#d4eafc; */
+/*     color: black; */
+/*     text-align: left; */
+/*     margin-bottom: 8px; */
+/* } */
+.odiv {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.other {
+    margin-right: 7px;
+    max-width: 50%;
+    background: #d4eafc;
+    color: black;
+    text-align: left;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: inline-block;
+    word-wrap: break-word;
 }
 .oidiv{
 	text-align: -webkit-left;
@@ -160,8 +184,20 @@
     text-align: center;
     margin-bottom: 8px;
 }
-.time{
-	vertical-align: -webkit-baseline-middle;
+/* .time{ */
+/* 	vertical-align: -webkit-baseline-middle; */
+/* } */
+/* .time { */
+/*     display: block; */
+    
+/*     font-size: 0.8em; */
+/*     color: gray; */
+/*     margin-top: 5px; */
+/* } */
+.time {
+    font-size: 0.8em;
+    color: gray;
+    margin-top: 5px;
 }
 #content {
 	max-width: 1200px;
@@ -184,7 +220,12 @@ window.onbeforeunload = function () {
     // 퇴장 메시지를 서버로 전송
     sendExitMessage();
 };
-
+$(document).ready(function() {
+	  $('.summernote').summernote({
+		  placeholder:"내용을 입력하세요."
+	  });
+	  
+	});
 $(function() {
 
 //     console.log('처음 로드됐을 떄 roomId: '+roomId);
@@ -251,37 +292,74 @@ $(function() {
 
 	//화면에 메시지를 표시하는 함수
 	
+// 	function showMessage(data) {
+// 		//     console.log("쇼 메세지");               
+		
+// 		const now = new Date();
+//     	const time = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+    	
+//     	 if (data.contents.length > 25) {
+//     	        data.contents = data.contents.replace(/(.{25})/g, "$1<br>");
+//     	    }
+    	
+
+// 		if(data.contents == 'enter'){
+// 			$('#chatting').append(
+// 					"<div><p class='enter' style='text-align:center;'>" + data.sender
+// 							+ "님이 입장하셨습니다.</p></div>");
+// 		} else if (data.contents == 'exit') {
+// 	        $('#chatting').append(
+// 	                "<div><p class='exit' style='text-align:center;'>" + data.sender + "님이 퇴장하셨습니다.</p></div>"
+// 	            );
+// 		}else {
+// 	        if (data.sender == userId) {
+// 	            $('#chatting').append(
+// 	                "<div class='mdiv'><span class='time'><small>" + time + "</small></span><div class='me'>" + data.contents + "</div></div>"
+// 	            );
+// 	        } else {
+// 	            $('#chatting').append(
+// 	                "<div class='odiv'><div class='oidiv'>" + data.sender + "</div><div class='other'><p class='other'>" + data.contents + "</p></div><span class='time'><small>" + time + "</small></span></div>"
+// 	            );
+// 	        }
+// 	    }
+		
+
+// 	    // 메시지 추가 후 스크롤 자동 내려가기
+// 	    scrollToBottom();
+		
+// 	}
 	function showMessage(data) {
-		//     console.log("쇼 메세지");               
-		
-		const now = new Date();
-    	const time = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+    const now = new Date();
+    const time = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
 
-		if(data.contents == 'enter'){
-			$('#chatting').append(
-					"<div><p class='enter' style='text-align:center;'>" + data.sender
-							+ "님이 입장하셨습니다.</p></div>");
-		} else if (data.contents == 'exit') {
-	        $('#chatting').append(
-	                "<div><p class='exit' style='text-align:center;'>" + data.sender + "님이 퇴장하셨습니다.</p></div>"
-	            );
-		}else {
-	        if (data.sender === userId) {
-	            $('#chatting').append(
-	                "<div class='mdiv'><span class='time'><small>" + time + "</small></span><p class='me' >" + data.contents + "</p></div>"
-	            );
-	        } else {
-	            $('#chatting').append(
-	                "<div class='odiv'><div class='oidiv'>" + data.sender + "</div><p class='other'>" + data.contents + "</p><span class='time'><small>" + time + "</small></span></div>"
-	            );
-	        }
-	    }
-		
+    // 메시지가 길 경우 25자마다 <br> 추가
+//     if (data.contents.length > 25) {
+//         data.contents = data.contents.replace(/(.{25})/g, "$1<br>");
+//     }
 
-	    // 메시지 추가 후 스크롤 자동 내려가기
-	    scrollToBottom();
-		
-	}
+    if (data.contents == 'enter') {
+        $('#chatting').append(
+            "<div><p class='enter' style='text-align:center;'>"+data.sender+"님이 입장하셨습니다.</p></div>"
+        );
+    } else if (data.contents == 'exit') {
+        $('#chatting').append(
+            "<div><p class='exit' style='text-align:center;'>"+data.sender+"님이 퇴장하셨습니다.</p></div>"
+        );
+    } else {
+        if (data.sender == userId) {
+            $('#chatting').append(
+				"<div class='mdiv'><span class='time' style='text-align: right;'><small>"+time+"</small></span><div class='me'>"+data.contents+"</div></div>"
+            );
+        } else {
+            $('#chatting').append(
+                "<div class='odiv'><div class='oidiv'>"+data.sender+"</div><div class='other'>"+data.contents+"</div><span class='time'><small>"+time+"</small></span></div>"
+            );
+        }
+    }
+
+    // 메시지 추가 후 스크롤 자동 내려가기
+    scrollToBottom();
+}
 
 	//메시지 브로커로 메시지 전송
 	function send() {
@@ -322,7 +400,6 @@ $(function() {
 
 	    // 채팅창 초기화
 	    $('#chatting').empty();
-	    console.log(`채팅방 전환: ${roomId}`);
 	}
 	function sendExitMessage() {
 	    if (stompClient && roomId) { // stompClient와 roomId가 유효할 때만 실행
