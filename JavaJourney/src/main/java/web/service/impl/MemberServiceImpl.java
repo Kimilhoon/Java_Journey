@@ -30,9 +30,9 @@ public class MemberServiceImpl implements MemberService {
 		
 		Map<String, Object> checkIdResult = new HashMap<String, Object>();
 		if(cnt>0) {
-			checkIdResult.put("duplicate", true);
+			checkIdResult.put("duplicate", true); //중복있음
 		} else {
-			checkIdResult.put("duplicate", false);
+			checkIdResult.put("duplicate", false); //중복없음 (cnt == 0)
 		}
 		
 		return checkIdResult;
@@ -56,9 +56,9 @@ public class MemberServiceImpl implements MemberService {
 	public boolean login(Member member) {
 		int result = dao.SelectByMemberIdPw(member);
 		if(result>0)
-			return true;
+			return true; //회원정보 일치
 		
-		return false;
+		return false; // 회원정보 불일치
 	}
 
 	@Override
