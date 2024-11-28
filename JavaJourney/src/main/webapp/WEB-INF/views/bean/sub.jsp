@@ -105,7 +105,8 @@ $("#CancelBtn").click(function() {
 
 async function requestPayment() {
 
-	const totalAmount = parseInt($("#totalPrice").text());
+	const totalAmount = 1000;
+// 	const totalAmount = parseInt($("#totalPrice").text());
 	const paymentId = `payment-${randomUUID}`;
 	const orderName = `${bean.beanName}`;
 	const customerId = `${member.userNo}`;
@@ -202,7 +203,7 @@ async function requestPayment() {
 			gram: gram,
 			grind: grind,
 			subTime: subTime,
-			subenddate: subenddate,
+			subenddate: subEndDate,
 	    }),
 	});
 // 	console.log(notified);
