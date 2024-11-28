@@ -222,10 +222,6 @@ $(function() {
 
 <style type="text/css">
 /* ID 이름에서 공백 제거 */
-#wish {
-	width: 150px;
-}
-
 #imageDiv{
 	 width: 399px; 
 	 height: 559px;
@@ -247,11 +243,11 @@ $(function() {
 
 #cafeComm p{
 	width: 840px;
-	height: 300px;
+	height: 235px;
 }
 
 .custom-image{
-	margin-right: 5px;
+	margin-right: 10px;
 }
 
 .modal-header{
@@ -280,11 +276,7 @@ $(function() {
 	</ol>
 </nav>
 
-<div class="text-center">
-<!-- <h1>카페 상세보기</h1> -->
-</div>
-
-<div id="commCafe" class="d-flex mb-1 grid gap-0 column-gap-2" style="height: 550px; margin: 40px;">
+<div id="commCafe" class="d-flex mb-2 grid gap-0 column-gap-2" style="height: 550px; margin: 40px;">
 <div id="imageDiv" style="flex-shrink: 0; height: 410px" >
 	<div class="custom-image">${ cafeInfo.cafeImgOriName }</div>
 </div>
@@ -304,7 +296,6 @@ $(function() {
 
 <div id="cafeComm" class="mb-2" style="height: 240px">
 <p class="fw-bold fs-6 text-warp" style="white-space: pre-wrap;">${ cafeInfo.cafeComm }</p>
-<!-- <p> 대충 카페 분위기에 대한 설명임...</p> -->
 </div>
 
 <div id="starPoint">
