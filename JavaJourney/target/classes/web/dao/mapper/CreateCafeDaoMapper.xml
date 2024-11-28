@@ -38,15 +38,15 @@
 		</where>
 	</select>
 	
-	<update id="updateImg" parameterType="CafeImg">
-		UPDATE CAFEIMG
-		<set>
-			cafeImgOriName = #{cafeImgOriName}
-		</set>
-		<where>
-			cafeImgNo = #{cafeImgNo}
-		</where>		
-	</update>
+<!-- 	<update id="updateImg" parameterType="CafeImg"> -->
+<!-- 		UPDATE CAFEIMG -->
+<!-- 		<set> -->
+<!-- 			cafeImgOriName = #{cafeImgOriName} -->
+<!-- 		</set> -->
+<!-- 		<where> -->
+<!-- 			cafeImgNo = #{cafeImgNo} -->
+<!-- 		</where>		 -->
+<!-- 	</update> -->
 
 
 	<update id="updateCafe" parameterType="Cafe">
