@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <c:import url="../layout/header.jsp"/>
 
 <!-- 카카오주소 -->
@@ -362,7 +363,6 @@ $(function() {
 			<p class="fw-bold fs-4 text-center">${ cafeInfo.cafeAdd1 }, ${ cafeInfo.cafeAdd2 }</p>
 		</div>
 </div>
-
 <div id="cafeRev" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
 		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 리뷰</p>
@@ -382,7 +382,7 @@ $(function() {
 						<c:out value="${fn:substring(cafeRev.revContent, 0, 25)}..."></c:out>
 			        </c:when>
 			        <c:otherwise>
-						<c:out value="${fn:escapeXml(cafeRev.revContent)}"></c:out>
+						<c:out value="${cafeRev.revContent}" escapeXml="false"></c:out>
 			        </c:otherwise>
 				</c:choose>
 			</a> 
