@@ -24,7 +24,7 @@ public interface CreateCafeDao {
 	public void insertCafeImg(CafeImg cafeImg);
 
 	/**
-	 * DB에서 방금 삽입한 이미지의 번호를 가져온다
+	 * DB에서 가장 최근에 삽입한 이미지의 번호를 가져온다
 	 * @return
 	 */
 	public int selectByLatest();

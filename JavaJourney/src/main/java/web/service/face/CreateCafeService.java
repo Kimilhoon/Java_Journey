@@ -12,14 +12,14 @@ public interface CreateCafeService {
 	/**
 	 * 협약 카페 등록
 	 * 
-	 * @param cafe 
-	 * @param cafeImg 
+	 * @param cafe - 작성 정보
+	 * @param cafeImg - 메인사진
 	 */
 	public void insertCafe(Cafe cafe, CafeImg cafeImg);
 
 	/**
 	 * 게시글 상세보기
-	 * @param cafe
+	 * @param cafe - cafeno에 맞는 정보
 	 * @return
 	 */
 	public Cafe view(Cafe cafe);
