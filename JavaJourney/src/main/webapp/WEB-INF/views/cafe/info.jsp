@@ -379,10 +379,10 @@ $(function() {
 <%-- 			${ cafeRev.revContent } --%>
 				<c:choose>
 			        <c:when test="${fn:length(cafeRev.revContent) gt 26}">
-						<c:out value="${fn:substring(cafeRev.revContent, 0, 25)}..."></c:out>
+						<c:out value="${fn:substring(cafeRev.revContent.replaceAll('<[^>]+>', '').replaceAll('&[^;]+;', ''), 0, 25)}..."></c:out>
 			        </c:when>
 			        <c:otherwise>
-						<c:out value="${cafeRev.revContent}" escapeXml="false"></c:out>
+						<c:out value="${cafeRev.revContent.replaceAll('<[^>]+>', '').replaceAll('&[^;]+;', '')}" escapeXml="false"></c:out>
 			        </c:otherwise>
 				</c:choose>
 			</a> 
