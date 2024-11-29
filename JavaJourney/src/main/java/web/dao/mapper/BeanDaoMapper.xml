@@ -228,7 +228,7 @@
 			SELECT beanWishNo_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO beanSub ( subno, userno, beanno, gram, price, grind, substartdate, subenddate, subtime, nonsub )
-		VALUES ( #{ subNo }, #{ userNo }, #{ beanNo }, #{ gram }, #{ price }, #{ grind }, SYSDATE, NULL, #{ subTime }, 'N' )
+		VALUES ( #{ subNo }, #{ userNo }, #{ beanNo }, #{ gram }, #{ price }, #{ grind }, SYSDATE, #{ subEndDate }, #{ subTime }, 'N' )
 	</insert>
 	
 	<!-- /bean/sub -->

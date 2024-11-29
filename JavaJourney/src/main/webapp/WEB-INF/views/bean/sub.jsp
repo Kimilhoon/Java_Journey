@@ -105,7 +105,8 @@ $("#CancelBtn").click(function() {
 
 async function requestPayment() {
 
-	const totalAmount = parseInt($("#totalPrice").text());
+	const totalAmount = 1000;
+// 	const totalAmount = parseInt($("#totalPrice").text());
 	const paymentId = `payment-${randomUUID}`;
 	const orderName = `${bean.beanName}`;
 	const customerId = `${member.userNo}`;
@@ -119,6 +120,17 @@ async function requestPayment() {
 	const gram = parseInt($("input[name='gram']:checked").val());
 	const grind = $("input[name='grind']:checked").val();
 	const subTime = $("input[name='subTime']:checked").val();
+	
+	// 현재 날짜
+	let today = new Date();
+	
+	// 배송 기간(subTime)을 기준으로 종료일 계산
+	let endDate = new Date(today);
+	endDate.setDate(today.getDate() + parseInt(subTime)); // subTime에 맞춰 종료일 계산
+	
+	// 종료일을 YYYY-MM-DD 형식으로 변환 (예: 2024-11-28)
+	let subenddate = endDate.toISOString().split('T')[0];
+	
 	
 	console.log(totalAmount);
 	console.log(paymentId);
@@ -134,6 +146,7 @@ async function requestPayment() {
 	console.log(gram);
 	console.log(grind);
 	console.log(subTime);
+	console.log("Calculated end date: " + subenddate); // 종료일 출력
 	
 	const response = await PortOne.requestPayment({
 		// Store ID 설정
@@ -142,7 +155,7 @@ async function requestPayment() {
 		channelKey: "channel-key-67189232-0ce2-4acf-ab99-4a03ee845cb5",
 		paymentId: paymentId,
 		orderName: orderName,
-		totalAmount: 1000,
+		totalAmount: totalAmount,
 		currency: "KRW",
 		payMethod: "CARD",
 		customer: {
@@ -179,7 +192,7 @@ async function requestPayment() {
 			paymentId: paymentId,
 			beanNo: beanNo,
 			orderName: orderName,
-			totalAmount: 10000,
+			totalAmount: totalAmount,
 			customerId: customerId,
 			fullName: fullname,
 			phoneNumber: phoneNumber,
@@ -190,6 +203,7 @@ async function requestPayment() {
 			gram: gram,
 			grind: grind,
 			subTime: subTime,
+			subenddate: subEndDate,
 	    }),
 	});
 // 	console.log(notified);
@@ -341,17 +355,17 @@ async function requestPayment() {
 <legend class="col-form-label col-sm-10 pt-0">►배송 기간◄</legend>
 <div class="col-sm-10">
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="subTime" id="subTime1" value="1주" checked>
+		<input class="form-check-input" type="radio" name="subTime" id="subTime1" value="7" checked>
 		<label class="form-check-label" for="subTime1">1주</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="subTime" id="subTime2" value="2주">
+		<input class="form-check-input" type="radio" name="subTime" id="subTime2" value="14">
 		<label class="form-check-label" for="subTime2">2주</label>
 	</div>
 	
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="subTime" id="subTime3" value="1개월">
+		<input class="form-check-input" type="radio" name="subTime" id="subTime3" value="30">
 		<label class="form-check-label" for="subTime3">한달</label>
 	</div>
 </div>

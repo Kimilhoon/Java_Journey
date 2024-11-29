@@ -28,7 +28,7 @@
 <!-- 		</div> class="d-flex align-items-center" end -->
 		
 		<div id="search_div">
-			<button id="btnSearch" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+			<button id="btnSearch" class="btn btn-outline-primary" style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
 			<input type="search" id="searchText" class="form-control me-2 " placeholder="검색어를 입력하세요." aria-label="Search" style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
 		</div>
 	
@@ -83,7 +83,15 @@
 /*     cursor: pointer; */
 /*     font-size: 15px; */
 /* } */
-
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
 </style>
 
 
