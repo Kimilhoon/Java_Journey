@@ -138,7 +138,6 @@ $(function () {
 			<th>분쇄</th>
 			<th>구독기간</th>
 			<th>취소여부</th>
-			<th>취소날짜</th>
 		</tr>
 	</thead>
 <tbody>
@@ -163,9 +162,6 @@ $(function () {
 		<fmt:formatDate value="${beanSub.subEndDate }" pattern="yyyy-MM-dd"/>
 		</td>
 		<td>${beanSub.nonSub}</td>
-		<td>
-		<fmt:formatDate value="${beanSub.nonSubDate }" pattern="yyyy-MM-dd"/>
-		</td>
 	</tr>
 </c:forEach>
 </tbody>

@@ -54,7 +54,6 @@
 	<update id="updateUserStatus" parameterType="int">
 		UPDATE MEMBER
    	 	SET STATUS = CASE WHEN STATUS = 'N' THEN 'Y' END,
-   	 	SET NONSUBDATE = SYSDATE
 		WHERE USERNO = #{userNo}
 	</update>
 	
@@ -76,8 +75,8 @@
        	 SELECT rownum rnum, B.*
        	 FROM (
        	     SELECT B.SUBNO, B.USERNO AS BEANSUB_USERNO, B.BEANNO, B.GRAM,
-				B.PRICE, B.GRIND, B.SUBSTARTDATE, B.SUBENDDATE,
-				B.SUBTIME, B.NONSUB, B.NONSUBDATE, M.USERNO AS MEMBER_USERNO, M.USERADD1,
+				B.PRICE, B.GRIND, B.SUBSTARTDATE,
+				B.SUBTIME, B.NONSUB, M.USERNO AS MEMBER_USERNO, M.USERADD1,
 				M.USERADD2, M.USERNAME, B2.BEANNAME 
 				FROM BEANSUB B, "MEMBER" M, BEAN B2
 		     <where>
@@ -104,15 +103,13 @@
 		SET NONSUB = 
 			CASE
 				WHEN NONSUB = 'N' THEN 'Y'
-			END,
-			NONSUBDATE = SYSDATE
+			END
 			WHERE SUBNO = #{subNo}
 	</update>
 	
 	<update id="subNoSubReturnBySubNoForUpdate" parameterType="int">
 		UPDATE BEANSUB
-		SET NONSUB = 'N',
-		    NONSUBDATE = NULL
+		SET NONSUB = 'N'
 		WHERE SUBNO = #{subNo} AND NONSUB = 'Y'
 	</update>
 	

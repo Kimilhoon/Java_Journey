@@ -94,9 +94,7 @@ $(function () {
 			<li>구독기간 : ${sub.subTime }</li>
 			<li>금액 : ${sub.price }</li>
 			<c:if test="${sub.nonSub == 'Y' }">
-			<li>
-			취소 날짜 : <fmt:formatDate value="${sub.nonSubDate }" pattern="yyyy-MM-dd"/>
-			</li>
+			<li>구독취소됨</li>
 			</c:if>
 		</ul>
 		</div>
