@@ -142,6 +142,8 @@ public class QuizController {
 		
 		log.info("map: {}", map);
 		
+		
+		// 취향조사 데이터가 있을 경우 기존 데이터를 삭제 후 새로운 데이터 삽입
 		if( !isResult ) {
 			service.insertMemberQuizResult(map);
 			
