@@ -8,6 +8,10 @@
 
 <script type="text/javascript">
 $(function() {
+	
+	
+	// 원두 향 카테고리 선택 코드
+	
 // 	$("#cupnote").on("change", function() {
 	$("#cupnote").change(function() {
 		
@@ -18,7 +22,7 @@ $(function() {
 			url: "./all",
 			type: "get",
 			data:{
-				"cupnote":cupnoteValue
+				"cupnote":cupnoteValue // 선택된 원두 향 value 데이터
 			},
 			dataType: "html",
 			success: function(res) {
@@ -34,17 +38,19 @@ $(function() {
 		
 	}); // $("#cupnote").on("change", function() end
 	
+			
+	// 검색어 입력시 키워드에 따른 검색 코드		
 	$("#searchIcon").click(function() {
 // 		console.log($("#search").val());
 // 		console.log($("#category").val());
 	
-		var keywordValue = $("#keyword").val();
+		var keywordValue = $("#keyword").val(); // 입력된 키워드 value 데이터
 	
 		$.ajax({
 			url: "./all",
 			type: "get",
 			data:{
-				"keyword":keywordValue
+				"keyword":keywordValue // 입력된 키워드 value 데이터
 			},
 			dataType: "html",
 			success: function(res) {
