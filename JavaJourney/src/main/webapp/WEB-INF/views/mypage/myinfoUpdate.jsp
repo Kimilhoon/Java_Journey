@@ -221,7 +221,7 @@ $(function() {
 		
 	$("#postcodeWrap").css({
 	    left: (innerWidth / 2) - (500 / 2),
-	    top: (innerHeight / 2) - (500 / 2)
+	    top: (innerHeight / 2) - (500 / 2) + 500
 		
 	})
 	
