@@ -291,7 +291,9 @@ form div p {
 
 /* 체크 상태 변경 */
 #tasteField .table input:checked + label {
- 	border-color: #C29F6D !important;
+	color: white;
+	background-color: #6F4C37 !important;
+	border-color: #6F4C37 !important;
  	
 }
 
@@ -309,13 +311,13 @@ form div p {
 
 /* 라디오 버튼 선택 시 이미지에 테두리 추가 */
 #grindField .form-check-input:checked + label img {
-    border: 3px solid #8B4513; /* 선택된 이미지 테두리 색상 */
+    border: 3px solid #6F4C37; /* 선택된 이미지 테두리 색상 */
     border-radius: 8px; /* 이미지 둥근 모서리 */
 }
 
 /* 라디오 버튼 선택 시 이미지에 테두리 추가 */
 #extractionField .form-check-input:checked + label img {
-    border: 3px solid #8B4513; /* 선택된 이미지 테두리 색상 */
+    border: 3px solid #6F4C37; /* 선택된 이미지 테두리 색상 */
     border-radius: 8px; /* 이미지 둥근 모서리 */
 }
 
@@ -477,7 +479,7 @@ form div p {
 <div id="beanGram" style="display: none;">
 
 <div>
-<p>원하시는 향 또는 맛을 선택해주세요요요요용요요</p>
+<p>원하시는 향 또는 맛을 선택해주세요</p>
 </div>
 <%-- ddf : ${ list[0].beanName } --%>
 <%-- ${ userNo }, --%>
@@ -578,7 +580,7 @@ form div p {
 <div id="beanExtraction" style="display: none;">
 
 <div>
-<p>원하시는 추출방법을 선택해주세욧</p>
+<p>원하시는 추출방법을 선택해주세요</p>
 </div>
 
 <fieldset id="extractionField">

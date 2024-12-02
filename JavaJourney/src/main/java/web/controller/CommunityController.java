@@ -501,7 +501,7 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/creview/write")
-	public void cafeReviewWrite(Model model, Cafe cafeNo) {
+	public void cafeReviewWrite(Model model, Cafe cafeNo, HttpSession session) {
 		
 		String cafeName = service.getCafeName(cafeNo);
 		
