@@ -22,7 +22,9 @@
 <!-- 		WHERE rNum &lt;= 3 -->
 		
 		SELECT 
-		    m.*, n.*, bi.*, cupData.cupNoteNames
+			m.*, 
+			n.beanno, n.BEANNAME, n.ORIGIN,  
+			bi.BEANIMGNO, bi.BEANORIGINNAME, cupData.cupNoteNames
 		FROM (
 		    SELECT 
 		        rownum rnum, b.beanno, revcnt.reviewCount, revcnt.avgRevStarPoint 
