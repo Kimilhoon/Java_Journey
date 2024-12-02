@@ -33,11 +33,11 @@
 	</logger>
 	
 	<logger name="web.controller">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="web.service">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="web.dao">
@@ -57,7 +57,7 @@
 	</logger>
 	
 	<logger name="aop">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	<logger name="web.chat">
 		<level value="info" />

@@ -54,7 +54,6 @@
 		FROM	memberquizresult
 		<where> 
 		AND		userNo = #{ userNo }
-		AND		quizResult = #{ quizResult }
 		</where>
 	</select>
 	
@@ -72,7 +71,7 @@
 	<delete id="deleteMemberQuizResult" parameterType="Hashmap">
 		DELETE 
 		FROM	memberquizresult
-		WHERE	quizResult = #{ quizResult }
+		WHERE	userNo = #{ userNo }
 	</delete>
 	
 	
