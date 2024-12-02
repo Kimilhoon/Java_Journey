@@ -54,6 +54,9 @@ public class QuizServiceImpl implements QuizService {
 	@Override
 	public boolean countQuizResultNo(HashMap<String, Integer> map) {
 		int count = dao.countQuizResultNo(map);
+		
+		log.info("countQuizResultNo: {}", count);
+		
 		return count > 0;
 	}
 
