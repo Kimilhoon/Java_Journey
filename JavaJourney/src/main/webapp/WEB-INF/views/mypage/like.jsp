@@ -261,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 document.addEventListener('DOMContentLoaded', function () {
     const beanWish = document.querySelector('#beanWish');
 

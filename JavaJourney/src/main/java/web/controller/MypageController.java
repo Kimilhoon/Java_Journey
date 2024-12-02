@@ -205,9 +205,9 @@ public class MypageController {
 		Integer userNo = (Integer) session.getAttribute("userNo");
 	    member = service.findByUserNo(userNo);
 	    
-//	    if (userNo != null) {
-//	        member.setUserNo(userNo);  // 세션에서 userNo 가져와서 설정
-//	    }
+	    if (userNo != null) {
+	        member.setUserNo(userNo);  // 세션에서 userNo 가져와서 설정
+	    }
 
 	    model.addAttribute("member", member);
 		

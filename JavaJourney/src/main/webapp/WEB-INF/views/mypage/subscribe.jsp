@@ -27,14 +27,8 @@ $(function () {
                 console.log(res);
 				//성공시 모든 체크박스 해제
 				$("input[type='checkbox'][name='subNo']").prop("checked", false);
-// 		        $("#retable").load("/mypage/subscribe #retable > *");
 				alert("구독이 취소되었습니다.");
-// 				$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
-// 				$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
-// 				$("#retable").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
-// 				$("#retable").load("/mypage/subscribe"); //현재 페이지의 내용이 검색 결과로 완전히 대체
-				location.reload();//새로고침 -> 추후 append로 body부문 append로 바꾸기
-				//현재 ajax의 장점을 살리고 있지 못함
+				location.reload();
             },
             error: function(error) {
                 console.log("ajax 실패");
@@ -88,8 +82,10 @@ $(function () {
 		<ul style="list-style:none">
 			<li>원두명 : ${sub.beanName }</li>
 			<li>
-			날짜 : <fmt:formatDate value="${sub.subStartDate }" pattern="yyyy-MM-dd"/>(시작)
-			~ <fmt:formatDate value="${sub.subEndDate }" pattern="yyyy-MM-dd"/>(종료)
+			구독시작 : <fmt:formatDate value="${sub.subStartDate }" pattern="yyyy-MM-dd"/>
+			</li>
+			<li>
+			구독종료 : <fmt:formatDate value="${sub.subEndDate }" pattern="yyyy-MM-dd"/>
 			</li>
 			<li>구독기간 : ${sub.subTime }</li>
 			<li>금액 : ${sub.price }</li>

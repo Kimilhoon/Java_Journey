@@ -78,56 +78,56 @@ $(function() {
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '강남' }">
-				<option value="강남" selected="selected">강남</option>
+			<c:when test="${category eq '강남구' }">
+				<option value="강남구" selected="selected">강남구</option>
 			</c:when>
 			<c:otherwise>
-				<option value="강남">강남</option>
+				<option value="강남구">강남구</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '서초' }">
-				<option value="서초" selected="selected">서초</option>
+			<c:when test="${category eq '서초구' }">
+				<option value="서초구" selected="selected">서초구</option>
 			</c:when>
 			<c:otherwise>
-				<option value="서초">서초</option>
+				<option value="서초구">서초구</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '송파' }">
-				<option value="송파" selected="selected">송파</option>
+			<c:when test="${category eq '송파구' }">
+				<option value="송파구" selected="selected">송파구</option>
 			</c:when>
 			<c:otherwise>
-				<option value="송파">송파</option>
+				<option value="송파구">송파구</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '종로' }">
-				<option value="종로" selected="selected">종로</option>
+			<c:when test="${category eq '종로구' }">
+				<option value="종로구" selected="selected">종로구</option>
 			</c:when>
 			<c:otherwise>
-				<option value="종로">종로</option>
+				<option value="종로구">종로구</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '서대문' }">
-				<option value="서대문" selected="selected">서대문</option>
+			<c:when test="${category eq '서대문구' }">
+				<option value="서대문구" selected="selected">서대문구</option>
 			</c:when>
 			<c:otherwise>
-				<option value="서대문">서대문</option>
+				<option value="서대문구">서대문구</option>
 			</c:otherwise>
 		</c:choose>
 		
 		<c:choose>
-			<c:when test="${category eq '마포' }">
-				<option value="마포" selected="selected">마포</option>
+			<c:when test="${category eq '마포구' }">
+				<option value="마포구" selected="selected">마포구</option>
 			</c:when>
 			<c:otherwise>
-				<option value="마포">마포</option>
+				<option value="마포구">마포구</option>
 			</c:otherwise>
 		</c:choose>
 		
@@ -202,10 +202,10 @@ $(function() {
 </table>
 
 
-<div class="col-1">
-	<a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a><br>
-	<small>(삭제해!!!)</small>
-</div>
+<!-- <div class="col-1"> -->
+<!-- 	<a href="./write"><input type="button" class="btn btn-primary" value="글 작성"></a><br> -->
+<!-- 	<small>(삭제해!!!)</small> -->
+<!-- </div> -->
 
 </div><!-- content -->
 

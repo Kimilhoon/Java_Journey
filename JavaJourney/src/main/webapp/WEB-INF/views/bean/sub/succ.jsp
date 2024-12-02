@@ -11,7 +11,7 @@
 $(function() {
 	
 	$("#beanSubInfoBtn").click(function() {
-		location.href="../mypage/subscribe?userNo=${ beanSub.userNo }"
+		location.href="/mypage/subscribe?userNo=${ sessionScope.userNo }"
 	})
 	
 	$("#beanAllBtn").click(function() {
@@ -25,6 +25,7 @@ $(function() {
 <style type="text/css">
 #subText{
 	font-size: 40px;
+	margin-top: 100px;
 }
 
 #subText p span{
@@ -33,13 +34,11 @@ $(function() {
 	color: #6f4e37;
 }
 
+
+
 </style>
 
 <div class="container">
-
-<div class="text-center m-5">
-<h1> <구독결과!!> </h1>
-</div>
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->
@@ -64,7 +63,7 @@ $(function() {
 
 <div id="beanSub" class="d-grid gap-2 col-4 mx-auto">
 <button id="beanSubInfoBtn" type="button" class="btn btn-lg btn-secondary">구독 정보 보러가기</button>
-<button id="beanAllBtn" type="button" class="btn btn-lg btn-secondary">원두더 사러 가자 쓩~</button>
+<button id="beanAllBtn" type="button" class="btn btn-lg btn-secondary">원두 더 둘러보기</button>
 </div>
 
 </div> <!-- <div class="container custom-container"> -->

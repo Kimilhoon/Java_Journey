@@ -46,11 +46,9 @@ td {
 </style>
 <script type="text/javascript">
 $(function () {
-	
+	// 비활성화/활성화 버튼
 	$("#btnBeanSubCancel").on("click", function () {
 		console.log("테스트");
-// 		var btnValue = $('button[name="cancel"]').val()
-// 		var btnStringValue = $("#btnBeanSubCancel").val()
 		var btnStringValue = $(this).val()
 		var beanSubNoValue = $('input[name="subNo"]:checked')
 		.map(function () {
@@ -62,14 +60,13 @@ $(function () {
 		$.ajax({
 			type: "get"
 			, url: "/manager/subcancel?subNo=" + beanSubNoValue
-// 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음 -> 사실 안받아질듯
 			,data: {btnValue : btnStringValue}
 			, success: function (res) {
 				console.log("ajax 성공");
 				
 				if(res.status === "success") {
 					alert(res.message);
-					location.reload();//새로고침
+					location.reload();
 				} else if(res.status === "fail") {
 					alert(res.message);
 					location.reload();
