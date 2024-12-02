@@ -455,7 +455,7 @@ $(function() {
 	<label for="userNick">닉네임</label>
 	<input type="text" name="userNick" id="userNick" required="required" value="${member.userNick }">
 	<button id="userNickCheck" type="button">중복확인</button>
-	<span id="userNickCheckMsg"></span>
+	<span id="userNickCheckMsg" style="font-size:0.8rem;"></span>
 </div>
 <p id="nickValidation" style="color:red; font-size:0.8rem;">
 	닉네임은 5~10자의 영문, 한글, 숫자만 가능합니다
