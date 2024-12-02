@@ -42,8 +42,6 @@ public class CafeServiceImpl implements CafeService {
 		
 		if( location == null || "".equals(location) || "all".equals(location)) {
 			location = "N";
-//		} else if( location.equals("./all") ) {
-//			location = "전 체";
 		} else if( location.equals("1") ) {
 			location = "강남구";
 		} else if( location.equals("2") ) {
@@ -85,8 +83,6 @@ public class CafeServiceImpl implements CafeService {
 		
 		if( location == null || "".equals(location) || "all".equals(location)) {
 			location = "N";
-//		} else if( location.equals("./all") ) {
-//			location = "전 체";
 		} else if( location.equals("1") ) {
 			location = "강남구";
 		} else if( location.equals("2") ) {

@@ -55,16 +55,9 @@ public class CafeController {
 		log.info("location: {}", location);
 		log.info("keyword: {}", keyword);
 		
-//		// location이 빈 문자열인 경우 null로 변환
-//	    if (location != null && location.trim().isEmpty()) {
-//	        location = null;
-//	    }
-		
 		//전달파라미터 이용한 현재 페이징 객체 알아내기
 		Paging paging = service.getPaging(param, location, keyword);
 		log.info("paging : {}",paging);
-//		//페이징 객체 Model값으로 전달
-//		model.addAttribute("paging", paging);
 				
 		//전체 페이지 조회
 		List<Cafe> AllCafeList = service.getAllCafe(paging, location, keyword);
@@ -73,8 +66,6 @@ public class CafeController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("location", location);
 		model.addAttribute("keyword", keyword);
-//		model.addAttribute("location", String.valueOf(location)); // 문자열로 변환
-//		model.addAttribute("keyword", String.valueOf(keyword));   // 문자열로 변환
 		
 		log.info("AllCafeForm 호출 성공");
 	} // AllCafeForm() end
@@ -98,7 +89,7 @@ public class CafeController {
 		// 평균 별점 구하기
 		CafeRev sp = service.getStarPoint(cafe);
 		if (sp == null) {
-			log.warn("별점 정보가 없습니다. cafeNo: {}", cafe.getCafeNo());
+//			log.warn("별점 정보가 없습니다. cafeNo: {}", cafe.getCafeNo());
 		}
 //		log.info("sp: {}", sp);
 		model.addAttribute("starPoint", sp);
@@ -175,8 +166,5 @@ public class CafeController {
 		    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed");
 	    	}
 	} // CafeInfoFormProc End
-	
-	
-	
 	
 } // class end
