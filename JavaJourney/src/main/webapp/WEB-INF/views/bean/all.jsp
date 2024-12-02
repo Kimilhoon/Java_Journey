@@ -169,14 +169,14 @@ img{
 <div class="col-sm-10">
 <select id="cupnote" name="cupnote" class="form-select" >
 	<option value="" selected disabled>-- 전체 --</option>
-	<option value="1">새콤이</option>
-	<option value="2">달달이</option>
-	<option value="3">쌉쌀이</option>
-	<option value="4">고소미</option>
-	<option value="5">은은이</option>
-	<option value="6">향긋이</option>
-	<option value="7">진한이</option>
-	<option value="8">부드럽이</option>
+	<option value="1">새콤</option>
+	<option value="2">달콤</option>
+	<option value="3">쌉쌀</option>
+	<option value="4">고소</option>
+	<option value="5">은은한</option>
+	<option value="6">향긋한</option>
+	<option value="7">진한</option>
+	<option value="8">부드러운</option>
 </select>
 </div>
 </div>
