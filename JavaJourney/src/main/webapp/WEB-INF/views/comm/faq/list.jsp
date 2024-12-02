@@ -47,20 +47,23 @@ $(function() {
 <tbody>
 	<tr class="line">
 		<td style="text-align: center;">1</td>
-		<td>군인은 현역을 면한 후가 아니면 국무총리로 임명될 수 없다.</td>
+		<td>Java Journey는 어떤 서비스를 제공하나요?</td>
 	</tr>
 	<tr class="con" style="display: none;">
 		<td></td>
 		<td colspan="2" >
+			Java Journey는 커피 애호가들을 위한 원두 구독 서비스와 커뮤니티 플랫폼을 제공합니다.
 			<ul>
-				<li>대통령은 국회에 출석하여 발언하거나 서한으로 의견을 표시할 수 있다. 대통령은 국무회의의 의장이 되고, 국무총리는 부의장이 된다. 국무총리·국무위원 또는 정부위원은 국회나 그 위원회에 출석하여 국정처리상황을 보고하거나 의견을 진술하고 질문에 응답할 수 있다.</li>
-				<li>민주평화통일자문회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 법관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니하며, 징계처분에 의하지 아니하고는 정직·감봉 기타 불리한 처분을 받지 아니한다.</li>
+				
+				<li>원두 구독 서비스: 사용자 취향에 맞는 국내외 고품질 원두를 큐레이션하여 정기 배송합니다.</li>
+				<li>커뮤니티: 커피 전문가와 애호가들이 모여 원두 추천, 카페 리뷰, 커피 추출법 등을 공유하며 새로운 커피 문화를 만들어갑니다.
+Java Journey에서 커피와 관련된 모든 것을 경험해보세요!</li>
 			</ul>
 		</td>
 	</tr>
 	<tr class="line">
 		<td  style="text-align: center;">2</td>
-		<td>대한민국의 경제질서는 개인과 기업의 경제상의 자유와 창의를 존중함을 기본으로 한다.</td>
+		<td>Java Journey의 원두 구독 서비스는 어떻게 작동하나요?</td>
 	</tr>
 	<tr class="con" style="display: none;">
 		<td></td>
@@ -73,7 +76,7 @@ $(function() {
 	</tr>
 	<tr class="line">
 		<td style="text-align: center;" >3</td>
-		<td>대통령은 제3항과 제4항의 사유를 지체없이 공포하여야 한다.</td>
+		<td>커피 초보자도 Java Journey를 이용할 수 있나요?</td>
 	</tr>
 	<tr class="con" style="display: none;">
 		<td></td>
@@ -86,7 +89,7 @@ $(function() {
 	</tr>
 	<tr class="line">
 		<td  style="text-align: center;">4</td>
-		<td>대통령은 법률이 정하는 바에 의하여 훈장 기타의 영전을 수여한다.</td>
+		<td>Java Journey 커뮤니티에서는 무엇을 할 수 있나요?</td>
 	</tr>
 	<tr class="con" style="display: none;">
 		<td></td>
@@ -100,7 +103,7 @@ $(function() {
 	</tr>
 	<tr class="line">
 		<td  style="text-align: center;">5</td>
-		<td>비상계엄이 선포된 때에는 법률이 정하는 바에 의하여 영장제도, 언론·출판·집회·결사의 자유, 정부나 법원의 권한에 관하여 특별한 조치를 할 수 있다.</td>
+		<td>Java Journey의 지속 가능성(Sustainability) 노력은 무엇인가요?</td>
 	</tr>
 	<tr class="con" style="display: none;">
 		<td></td>
