@@ -52,7 +52,7 @@ public class MemberController {
 	@Autowired
 	private KakaoApi kakaoApi;
 	
-	//이메일인증 의존성주입
+	//이메일전송 의존성주입
 	@Autowired 
 	private JavaMailSender mailSender;
 	
@@ -70,6 +70,8 @@ public class MemberController {
 	
 	@GetMapping("/checkId")
 	public ResponseEntity<Map<String, Object>> checkId(@RequestParam("userId") String userId){
+//		ResponseEntity는 Spring에서 HTTP 상태 코드, 헤더, 바디를 포함한 응답을 생성하기 위해 사용하는 객체
+		
 		Member checkIdParam = new Member();
 		checkIdParam.setUserId(userId);
 		
@@ -96,7 +98,6 @@ public class MemberController {
 	
 	@PostMapping("/login")
 	public String loginForm(Member member, HttpSession session) {
-		log.info("login param : {}", member);
 		
 		boolean isLogin = service.login(member);
 
@@ -105,8 +106,6 @@ public class MemberController {
 			log.info("로그인 성공");
 			
 			member= service.info(member);
-			
-			log.info("info member : {}", member);
 			
 	       if ("Y".equals(member.getStatus())) {
 			session.setAttribute("isLogin", true);
@@ -134,7 +133,7 @@ public class MemberController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.invalidate(); //세션초기화
 		return "redirect:/main";
 	}
 	
@@ -159,7 +158,7 @@ public class MemberController {
 		//Map을 JSON 형식으로 변환
 		String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resultMap);
 		
-		return jsonStr;
+		return jsonStr; //JSON형식의 문자열을 반환
 	}
 
 	
@@ -190,13 +189,13 @@ public class MemberController {
 	@GetMapping("/tempPw")
 	@ResponseBody //json통신위해 작성
 	public String tempPw(String userEmail) throws Exception{
-		log.info("userEmail:{}", userEmail);
+//		log.info("userEmail:{}", userEmail);
 		
 	
 		//임시비밀번호 생성
 		String uuid = UUID.randomUUID().toString();
 		String checkNum = uuid.replaceAll("-", "").substring(0, 8);  // 하이픈 제거 후 8자리로 잘라내기
-		System.out.println("임시비밀번호 :"+ checkNum);
+		log.info("임시비밀번호: {}", checkNum);
 		
 		
 		//이메일 전송 내용
@@ -208,8 +207,9 @@ public class MemberController {
 	
 		//이메일 전송 코드
 		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			MimeMessage message = mailSender.createMimeMessage(); //이메일 메시지 생성
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8"); 
+			//message:MimeMessage 객체. 이메일 제목, 내용 설정 / true:이메일 본문이 HTML 형식 - false:일반 텍스트 형식
 			helper.setTo(toMail);
 			helper.setSubject(title);
 			helper.setText(content,true);
@@ -218,11 +218,11 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		log.info("checkNum&userEmail:{}", checkNum);		
-		log.info("checkNum&userEmail:{}", userEmail);		
+//		log.info("checkNum&userEmail:{}", checkNum);		
+//		log.info("checkNum&userEmail:{}", userEmail);		
 		service.updatePw(checkNum, userEmail);
 		
-		return checkNum;
+		return checkNum; //임시비밀번호(checkNum)을 JSON 형식으로 반환
 		
 	}	
 	
@@ -230,17 +230,16 @@ public class MemberController {
 //@GetMapping("/test")
 //public void test() {}
 	
-	//이메일 인증
+	//회원가입 이메일 인증
 	@GetMapping("/mailCheck")
 	@ResponseBody //json통신위해 작성
 	public String mailCheck(String userEmail) throws Exception{
-//		log.info("userEmail:{}", userEmail);
 		
 	
 		//인증번호 생성
 		Random random = new Random();
-		int checkNum = random.nextInt(888888) + 111111;
-		System.out.println("인증번호 :"+ checkNum);
+		int checkNum = random.nextInt(888888) + 111111; //888888 : 0~888887까지의 값. + 111111 => 111111~999998 사이의 값
+		log.info("인증번호: {}", checkNum);
 		
 		
 		//이메일 전송 내용
@@ -261,6 +260,7 @@ public class MemberController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		String num = Integer.toString(checkNum); // ajax를 뷰로 반환시 데이터 타입은 String 타입만 가능
 		return num; // String 타입으로 변환 후 반환
 	}

@@ -188,14 +188,12 @@ function submitForm() {
 	
 
 	//동적으로 생성된 .customImage에 클릭 이벤트를 바인딩
+	// 결과 창의 이미지 클릭시 선택된 원두 DB에 저장
 	$(document).on("click", ".customImage img", function() {
 		
 	    const beanNo = $(this).closest(".customImage").data("beanno");  // data-beanno 속성에서 beanNo 값 추출
-	    const quizResultNo = parseInt($(this).closest(".customImage").attr("data-quizResultNo"), 10);
+	    const quizResultNo = parseInt($(this).closest(".customImage").attr("data-quizResultNo"), 10); // data-beanno 속성에서 beanNo 값 추출
 	    
-	    console.log("Click beanNo:", beanNo); // 디버깅: 값 확인
-	    console.log("Click quizResultNo:", quizResultNo); // 디버깅: 값 확인
-
 		
 		$.ajax({
 			type: "post"
@@ -253,24 +251,24 @@ form div p {
 	text-align: center;
 }
 
-#gramField {
+#tasteField {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#gramField .table tr {
+#tasteField .table tr {
     display: flex;
     flex-wrap: wrap;
 }
 
-#gramField .table td {
+#tasteField .table td {
 	display: flex;
 	gap: 20px;
 	flex-wrap: wrap;
 }
 
-#gramField .table label {
+#tasteField .table label {
 	width: 200px; 
 	height: 150px;
 	
@@ -292,12 +290,12 @@ form div p {
 
 
 /* 체크 상태 변경 */
-#gramField .table input:checked + label {
+#tasteField .table input:checked + label {
  	border-color: #C29F6D !important;
  	
 }
 
-#gramField input{
+#tasteField input{
 	display: none;
 }
 
@@ -329,15 +327,29 @@ form div p {
   margin-right: 20px; /* 버튼 간격 */
 }
 
-#grindField,
-#extractionField {
+#grindField {
   justify-content: center; /* 전체 컨테이너 중앙 배치 */
 }
 
+#quizMain {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-#quizMain img {
+#quizMain #grindField img {
 	width: 350px;
 	height: 350px;
+	
+	margin-bottom: 10px;
+	border-radius: 8px;
+	
+	cursor: pointer;
+}
+
+#quizMain #extractionField img {
+	width: 250px;
+	height: 250px;
 	
 	margin-bottom: 10px;
 	border-radius: 8px;
@@ -390,6 +402,10 @@ form div p {
 	
 	margin-left: 20px;
 	margin-right: 20px;
+}
+
+#quizResultForm {
+	margin-top: 30px;
 }
 
 #resultTable {
@@ -467,7 +483,7 @@ form div p {
 <%-- ${ userNo }, --%>
 <%-- ${ userId }, --%>
 <%-- ${ userNick } --%>
-<fieldset id="gramField">
+<fieldset id="tasteField">
 
 <table class="table table-borderless">
 <tr>
@@ -587,6 +603,7 @@ form div p {
 		</label>
 	</div>
 	
+	
 	<div class="form-check">
 		<input class="form-check-input" type="radio" name="extraction" id="extraction3" value="3">
 		<label class="form-check-label" for="extraction3">	
@@ -627,10 +644,6 @@ form div p {
 
 
 <div id="quizResultForm" class="container"  style="display: none;">
-
-<div class="text-center m-5">
-<h1> <퀴즈 결과> </h1>
-</div>
 
 <!-- <nav class="mb-5" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
 <!-- 	<ol class="breadcrumb"> -->

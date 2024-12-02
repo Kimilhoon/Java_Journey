@@ -11,7 +11,7 @@
     <div class="d-flex justify-content-between mb-3">
 		<div id="category-list">
 		    <label>카테고리 </label>
-		    <select id="category" onchange="filterByCategory()">
+		    <select id="category" onchange="filterByCategory()"> <!-- select: 드롭다운목록 / onchange: 드롭다운목록 선택했을 때 함수 자동 호출시킴 -->
 		        <option value="전체" ${category == '전체' ? 'selected' : ''}>전체</option>
 		        <option value="카페리뷰" ${category == '카페리뷰' ? 'selected' : ''}>카페리뷰</option>
 		        <option value="원두리뷰" ${category == '원두리뷰' ? 'selected' : ''}>원두리뷰</option>
@@ -28,7 +28,7 @@
 <!-- 		</div> class="d-flex align-items-center" end -->
 		
 		<div id="search_div">
-			<button id="btnSearch" class="btn " style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
+			<button id="btnSearch" class="btn btn-outline-primary" style="float: right;  display: inline-block; "><i class="bi bi-search"></i></button>
 			<input type="search" id="searchText" class="form-control me-2 " placeholder="검색어를 입력하세요." aria-label="Search" style="float: right;  display: inline-block; width: 200px; margin-left: 10px;">
 		</div>
 	
@@ -40,7 +40,7 @@
 	function filterByCategory() {
 	    const selectedCategory = document.getElementById("category").value || '전체';  // 카테고리가 선택되지 않으면 기본값 '전체'
 	    const searchText = document.getElementById("searchText").value;  // 검색어를 가져옴
-	    const currentSearch = searchText ? "&search=" + encodeURIComponent(searchText) : "";  // 검색어가 있을 때만 추가
+	    const currentSearch = searchText ? "&search=" + encodeURIComponent(searchText) : "";  // 검색어가 있을 때만 추가 / 공백이나 특수문자 처리하도록 인코딩
 	    location.href = "/mypage/myview?userNo=" + ${userNo} +"&curPage=1" + "&category=" + encodeURIComponent(selectedCategory) + currentSearch;
 	}
 	
@@ -51,7 +51,7 @@
 	
 	//Enter key 이벤트로 검색 처리
 	document.getElementById("searchText").addEventListener("keypress", function(event) {
-	    if (event.key === "Enter") {
+	    if (event.key === "Enter") { //event.key : 사용자가 누른 키
 	        filterByCategory();  // Enter 키를 누르면 검색 실행
 	    }
 	});
@@ -83,7 +83,15 @@
 /*     cursor: pointer; */
 /*     font-size: 15px; */
 /* } */
-
+.btn{
+	background: transparent;
+	border: 1px solid #6f4e37;
+	color: black;
+}
+.btn:hover{
+	background: #6f4e37;
+	color: white;
+}
 </style>
 
 
@@ -179,11 +187,11 @@
 
 <!-- 페이징 처리 -->
 <div>
-<ul class="pagination justify-content-center" > <!-- pagination: bootstrap 페이징 스타일 -->
+<ul class="pagination justify-content-center" > <!-- pagination: bootstrap 페이징 스타일 / justify-content-center: 화면중앙에 정렬 -->
 
 	<!-- 이전페이지이동 -->
     <c:if test="${paging.curPage > 1}" > 
-    	<li class="page-item">
+    	<li class="page-item"> <!-- page-item : 페이지네이션 스타일링 / page-link: 링크 스타일링(이전,다음 클릭 링크) --> 
         <a class="page-link" href="/mypage/myview?userNo=${userNo}&curPage=1&category=${category}&search=${search}" style="background: #ebddcc; color: black; border: 1px solid #ebddcc;">&larr; 처음</a>
     	</li>
     	<li class="page-item">

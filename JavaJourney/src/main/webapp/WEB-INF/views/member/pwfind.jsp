@@ -8,7 +8,7 @@
 $(function(){
 
 	$("#btnPwFind").click(function(){
-		var userId = $("#userId").val();
+		var userId = $("#userId").val(); // 입력필드에 입력된 값 가져오기
         var userName = $("#userName").val();
         var userEmail = $("#userEmail").val();
         var userCheck = $('#mailCheckBtn');
@@ -16,13 +16,18 @@ $(function(){
         $.ajax({
         	type: "post"
         	, url: "./pwfind"
-        	, data: {
+        	, data: { //서버로 전송할 데이터
         		userId: userId,
         		userName: userName,
         		userEmail: userEmail
+        		
+        		//위에서 변수 선언 안하고 이렇게도 가능
+//                 userId: $("#userId").val(),  // id="userId"에서 값을 가져옴
+//                 userName: $("#userName").val(),  // id="userName"에서 값을 가져옴
+//                 userEmail: $("#userEmail").val() // id="userEmail"에서 값을 가져옴
         	}
         	, dataType: "json"
-        	, success: function(obj){
+        	, success: function(obj){ //서버에서 보내준 응답(obj)
         		
         		$("#resultPwDiv").show();
         		
@@ -54,8 +59,8 @@ $(function(){
 
 <!-- 임시비밀번호 -->
 <script>
-let code = "";  // 서버에서 보내준 인증번호를 저장할 변수
-$(document).ready(function() {
+let code = "";  // 서버에서 보내준 인증번호를 저장할 변수 / let을 사용함으로써 값이 나중에 변경될 수 있도록 허용
+$(document).ready(function() { // ->JavaScript 코드가 DOM이 완전히 로드된 후 실행되도록 보장
 	$('#mailCheckBtn').click(function() {
 		const userEmail = $('#userEmail').val(); // 이메일 주소값 얻어오기!
 		console.log('완성된 이메일 : ' + userEmail); // 이메일 오는지 확인

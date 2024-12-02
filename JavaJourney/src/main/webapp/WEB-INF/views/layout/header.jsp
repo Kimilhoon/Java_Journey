@@ -189,7 +189,7 @@ footer {
   </div>
   
 
-<div class="header d-flex justify-content-center align-items-center mb-5" style="width: 100%; background-color: #6f4e37;">
+<div class="header d-flex justify-content-center align-items-center mb-4" style="width: 100%; background-color: #6f4e37;">
   <nav class="navbar navbar-expand container py-2" style="width: 100%; max-width: 1200px;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-0 header d-flex justify-content-center">

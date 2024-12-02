@@ -207,22 +207,22 @@ $(function() {
 			alert("이름을 입력하세요");
 			return false;
 		}
-		if( !userPhone.value ) {
-			alert("전화번호를 입력하세요");
-			return false;
-		}
-		if( !userPostcode.value ) {
-			alert("우편번호를 입력하세요");
-			return false;
-		}
-		if( !userAdd1.value ) {
-			alert("주소를 입력하세요");
-			return false;
-		}
-		if( !userAdd2.value ) {
-			alert("상세주소를 입력하세요");
-			return false;
-		}
+// 		if( !userPhone.value ) {
+// 			alert("전화번호를 입력하세요");
+// 			return false;
+// 		}
+// 		if( !userPostcode.value ) {
+// 			alert("우편번호를 입력하세요");
+// 			return false;
+// 		}
+// 		if( !userAdd1.value ) {
+// 			alert("주소를 입력하세요");
+// 			return false;
+// 		}
+// 		if( !userAdd2.value ) {
+// 			alert("상세주소를 입력하세요");
+// 			return false;
+// 		}
 		
 	    if (document.querySelectorAll('.terms-checkbox:checked').length < 2) {  // 필수 항목이 모두 체크되지 않으면
 	        alert("모든 필수 약관에 동의하셔야 합니다");
@@ -791,8 +791,8 @@ label.agree button:hover {
 
 
 
-<h2 style="text-align: center; font-weight: bold;">회원가입</h2>
-<hr>
+<!-- <h2 style="text-align: center; font-weight: bold;">회원가입</h2> -->
+<!-- <hr> -->
 
 <div id="joinForm">
 <form action="./join" method="post" id="joinForm">
@@ -841,7 +841,7 @@ label.agree button:hover {
 	</div>
 </div>
 <div class="mail-check-box">
-	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
+	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요 (개발자도구에서 확인가능)" disabled="disabled" maxlength="6">
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
 	<p id="resultMsg" style="font-size:0.8rem;"></p>
@@ -855,7 +855,7 @@ label.agree button:hover {
 
 <div>
 	<label for="userPhone">전화번호
-		<input type="text" name="userPhone" id="userPhone" required="required" placeholder="ex) 010-0000-0000" 
+		<input type="text" name="userPhone" id="userPhone" placeholder="ex) 010-0000-0000" 
 		pattern="\d{3}-\d{4}-\d{4}" oninput="this.value = this.value.replace(/[^0-9-]/g, '');"> 
 	</label>
 </div>

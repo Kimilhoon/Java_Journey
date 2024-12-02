@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <c:import url="../layout/header.jsp"/>
 
 <!-- 카카오주소 -->
@@ -222,10 +223,6 @@ $(function() {
 
 <style type="text/css">
 /* ID 이름에서 공백 제거 */
-#wish {
-	width: 150px;
-}
-
 #imageDiv{
 	 width: 399px; 
 	 height: 559px;
@@ -247,11 +244,11 @@ $(function() {
 
 #cafeComm p{
 	width: 840px;
-	height: 300px;
+	height: 235px;
 }
 
 .custom-image{
-	margin-right: 5px;
+	margin-right: 10px;
 }
 
 .modal-header{
@@ -280,11 +277,7 @@ $(function() {
 	</ol>
 </nav>
 
-<div class="text-center">
-<!-- <h1>카페 상세보기</h1> -->
-</div>
-
-<div id="commCafe" class="d-flex mb-1 grid gap-0 column-gap-2" style="height: 550px; margin: 40px;">
+<div id="commCafe" class="d-flex mb-2 grid gap-0 column-gap-2" style="height: 550px; margin: 40px;">
 <div id="imageDiv" style="flex-shrink: 0; height: 410px" >
 	<div class="custom-image">${ cafeInfo.cafeImgOriName }</div>
 </div>
@@ -304,7 +297,6 @@ $(function() {
 
 <div id="cafeComm" class="mb-2" style="height: 240px">
 <p class="fw-bold fs-6 text-warp" style="white-space: pre-wrap;">${ cafeInfo.cafeComm }</p>
-<!-- <p> 대충 카페 분위기에 대한 설명임...</p> -->
 </div>
 
 <div id="starPoint">
@@ -371,7 +363,6 @@ $(function() {
 			<p class="fw-bold fs-4 text-center">${ cafeInfo.cafeAdd1 }, ${ cafeInfo.cafeAdd2 }</p>
 		</div>
 </div>
-
 <div id="cafeRev" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
 		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 리뷰</p>
@@ -391,7 +382,7 @@ $(function() {
 						<c:out value="${fn:substring(cafeRev.revContent, 0, 25)}..."></c:out>
 			        </c:when>
 			        <c:otherwise>
-						<c:out value="${fn:escapeXml(cafeRev.revContent)}"></c:out>
+						<c:out value="${cafeRev.revContent}" escapeXml="false"></c:out>
 			        </c:otherwise>
 				</c:choose>
 			</a> 

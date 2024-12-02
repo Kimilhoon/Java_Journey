@@ -23,14 +23,14 @@ $(function() {
     // 지도 초기화
     var mapContainer = document.getElementById('map'),
         mapOption = {
-            center: new kakao.maps.LatLng(37.5665, 126.9780),
-            level: 3
+            center: new kakao.maps.LatLng(37.5665, 126.9780), //초기 중심 좌표
+            level: 3 //초기 지도 확대 수준
         };
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-    var marker = new kakao.maps.Marker({
-        position: map.getCenter()
+    var map = new kakao.maps.Map(mapContainer, mapOption); //지도 객체 생성
+    var marker = new kakao.maps.Marker({ //마커 생성
+        position: map.getCenter() // 초기 마커 위치
     });
-    marker.setMap(map);
+    marker.setMap(map); //마커를 지도에 표시
 
     // 우편번호 찾기 버튼 클릭
     $("#btnPostcode").click(function(e) {
@@ -43,28 +43,26 @@ $(function() {
 
         new daum.Postcode({
             oncomplete: function(data) {
-                $("#postCode").val(data.zonecode);
+                $("#postCode").val(data.zonecode); // 우편번호 입력
                 if (data.userSelectedType === 'R') {
-                    $("#cafeAdd1").val(data.roadAddress);
+                    $("#cafeAdd1").val(data.roadAddress); // 도로명 주소
                 } else {
-                    $("#cafeAdd1").val(data.jibunAddress);
+                    $("#cafeAdd1").val(data.jibunAddress); // 지번 주소
                 }
 
-                // 상세주소 입력 포커스
-                $("#cafeAdd2").focus();
-                $("#postcodeWrap").hide();
+                $("#cafeAdd2").focus(); // 상세주소 입력 포커스
+                $("#postcodeWrap").hide(); // 우편번호 찾기 UI 숨김
 
                 // 주소로 지도 위치 갱신
                 var geocoder = new kakao.maps.services.Geocoder();
                 geocoder.addressSearch(data.roadAddress, function(result, status) {
                     if (status === kakao.maps.services.Status.OK) {
-                        var lat = result[0].y;
-                        var lon = result[0].x;
+                        var lat = result[0].y; //위도
+                        var lon = result[0].x; //경도
                         var moveLatLon = new kakao.maps.LatLng(lat, lon);
 
-                        // 지도 중심 이동
-                        map.setCenter(moveLatLon);
-                        marker.setPosition(moveLatLon);
+                        map.setCenter(moveLatLon); // 지도 중심 이동
+                        marker.setPosition(moveLatLon); // 마커 위치 이동
                     }
                 });
             }
