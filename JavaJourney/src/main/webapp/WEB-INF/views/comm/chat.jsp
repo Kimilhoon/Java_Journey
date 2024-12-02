@@ -258,13 +258,13 @@ $(function() {
 	
 	
 }) // jquery
+
 	function connect(roomId) {
 		//StompConfig.java에 설정된 endpoint로 SockJS 객체, StompClient 객체 생성
 		var socket = new SockJS("/chatting");
 		console.log("");
 		//do Handshake
 		stompClient = Stomp.over(socket);
-		console.log("악수");
 
 		// connect(header,연결 성공시 콜백,에러발생시 콜백)
 		stompClient.connect({}, function() {
@@ -283,59 +283,14 @@ $(function() {
 			
 			
 		}, function(e) {
-			//에러 콜백
 			alert('에러발생!!!!!!');
 		});
-		console.log("연결 성공");
 
 	}
 
-	//화면에 메시지를 표시하는 함수
-	
-// 	function showMessage(data) {
-// 		//     console.log("쇼 메세지");               
-		
-// 		const now = new Date();
-//     	const time = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-    	
-//     	 if (data.contents.length > 25) {
-//     	        data.contents = data.contents.replace(/(.{25})/g, "$1<br>");
-//     	    }
-    	
-
-// 		if(data.contents == 'enter'){
-// 			$('#chatting').append(
-// 					"<div><p class='enter' style='text-align:center;'>" + data.sender
-// 							+ "님이 입장하셨습니다.</p></div>");
-// 		} else if (data.contents == 'exit') {
-// 	        $('#chatting').append(
-// 	                "<div><p class='exit' style='text-align:center;'>" + data.sender + "님이 퇴장하셨습니다.</p></div>"
-// 	            );
-// 		}else {
-// 	        if (data.sender == userId) {
-// 	            $('#chatting').append(
-// 	                "<div class='mdiv'><span class='time'><small>" + time + "</small></span><div class='me'>" + data.contents + "</div></div>"
-// 	            );
-// 	        } else {
-// 	            $('#chatting').append(
-// 	                "<div class='odiv'><div class='oidiv'>" + data.sender + "</div><div class='other'><p class='other'>" + data.contents + "</p></div><span class='time'><small>" + time + "</small></span></div>"
-// 	            );
-// 	        }
-// 	    }
-		
-
-// 	    // 메시지 추가 후 스크롤 자동 내려가기
-// 	    scrollToBottom();
-		
-// 	}
 	function showMessage(data) {
     const now = new Date();
     const time = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-
-    // 메시지가 길 경우 25자마다 <br> 추가
-//     if (data.contents.length > 25) {
-//         data.contents = data.contents.replace(/(.{25})/g, "$1<br>");
-//     }
 
     if (data.contents == 'enter') {
         $('#chatting').append(
@@ -378,6 +333,7 @@ $(function() {
 		}
 		
 	}
+	
 	function changeRoom(newRoomId) {
 		
 		if (stompClient && roomId) {
@@ -410,6 +366,7 @@ $(function() {
 	        stompClient.send('/app/topic/'+roomId, {}, JSON.stringify(data));
 	    }
 	}
+	//새로운 채팅 올라올 떄 자동으로 밑으로 스크롤
 	function scrollToBottom() {
 	    const chattingDiv = $('#chatting');
 	    chattingDiv.scrollTop(chattingDiv.prop("scrollHeight"));
