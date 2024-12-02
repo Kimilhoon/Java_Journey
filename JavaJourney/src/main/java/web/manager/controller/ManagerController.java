@@ -72,6 +72,7 @@ public class ManagerController {
 		if( isCanceled ) {
 			result.put("status", "success");
 			result.put("message", "사용자가 성공적으로 비활성화(삭제)되었습니다");
+			result.put("redirectUrl", "/manager/user");
 		} else {
 			result.put("status", "fail");
 			result.put("message", "사용자는 이미 비활성화 상태입니다");
@@ -90,7 +91,8 @@ public class ManagerController {
 
 		if( isRevived ) {
 			result.put("status", "success");
-			result.put("message", "사용자가 성공적으로 활성화(부활)되었습니다");
+			result.put("message", "사용자가 성공적으로 활성화되었습니다");
+			result.put("redirectUrl", "/manager/user");
 		} else {
 			result.put("status", "fail");
 			result.put("message", "사용자는 이미 활성화 상태입니다");

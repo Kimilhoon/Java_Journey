@@ -60,7 +60,6 @@ public class ManagerServiceImpl implements ManagerService {
 		for(Integer No : userNo) {
 			if( dao.selectByUserNoForStatus(No)) {
 				//user의 상태가 N인 경우 
-				log.info("이미 비활성화된 유저입니다");
 				return false;
 			} else {
 				dao.updateUserStatus(No);
@@ -73,11 +72,10 @@ public class ManagerServiceImpl implements ManagerService {
 	public boolean userReviveByUserNo(List<Integer> userNo) {
 		for(Integer No : userNo) {
 			if( dao.selectByUserNoForStatus(No)) {
-				//user의 상태가 N인 경우 
-				dao.updateUserStatus(No);
-			} else {
-				log.info("이미 활성화된 유저입니다");
 				return false;
+			} else {
+				//user의 상태가 N인 경우 
+				dao.updateUserStatusReturn(No);
 			}
 		}// for(Integer No : userNo) End
 		return true;

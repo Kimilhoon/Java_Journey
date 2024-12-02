@@ -40,6 +40,12 @@ public interface ManagerDao {
 	public void updateUserStatus(Integer no);
 	
 	/**
+	 * 선택한 userno 활성화로 원복
+	 * @param no
+	 */
+	public void updateUserStatusReturn(Integer no);
+	
+	/**
 	 * 구독유저 페이징
 	 * @param map 
 	 * @return
@@ -85,6 +91,7 @@ public interface ManagerDao {
 	 * @return
 	 */
 	public List<BeanSub> selectsubuserByUserNick(HashMap<String, Object> map);
+
 
 
 	

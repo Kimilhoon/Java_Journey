@@ -134,6 +134,7 @@ $(function () {
 			<th>구독유저</th>
 			<th>원두명</th>
 			<th>주소</th>
+			<th>가격</th>
 			<th>용량</th>
 			<th>분쇄</th>
 			<th>구독기간</th>
@@ -155,7 +156,8 @@ $(function () {
 		${beanSub.userAdd1}
 		${beanSub.userAdd2}
 		</td>
-		<td>${beanSub.gram}</td>
+		<td><fmt:formatNumber value="${beanSub.price}" type="number" /></td>
+		<td><fmt:formatNumber value="${beanSub.gram}" type="number" />(g)</td>
 		<td>${beanSub.grind}</td>
 		<td>
 		<fmt:formatDate value="${beanSub.subStartDate }" pattern="yyyy-MM-dd"/>

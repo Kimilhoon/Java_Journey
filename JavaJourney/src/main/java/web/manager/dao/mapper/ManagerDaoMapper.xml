@@ -32,19 +32,6 @@
 	</select>
 	
 	<select id="selectByUserNoForStatus" resultType="boolean" parameterType="int">
-<!--     SELECT CASE WHEN EXISTS ( -->
-<!--         SELECT 1 -->
-<!--         FROM BEANSUB -->
-<!--         WHERE userno = #{userNo} -->
-<!--     ) THEN 1 ELSE 0 END -->
-<!--     FROM DUAL -->
-<!-- 			SELECT  -->
-<!-- 				CASE  -->
-<!-- 					WHEN STATUS = 'N' THEN 'TRUE' -->
-<!-- 					ELSE 'FALSE' -->
-<!-- 				END AS RESULT -->
-<!-- 			FROM MEMBER -->
-<!-- 			WHERE USERNO = #{subNo} -->
 		SELECT count(*)
 		FROM BEANSUB
 		WHERE userno = #{userNo}
@@ -53,7 +40,19 @@
 	
 	<update id="updateUserStatus" parameterType="int">
 		UPDATE MEMBER
-   	 	SET STATUS = CASE WHEN STATUS = 'N' THEN 'Y' END,
+   	 	SET STATUS = 
+   	 		CASE
+   	 			WHEN STATUS = 'Y' THEN 'N' 
+   	 			END
+		WHERE USERNO = #{userNo}
+	</update>
+	
+	<update id="updateUserStatusReturn" parameterType="int">
+	UPDATE MEMBER
+   	 	SET STATUS = 
+   	 		CASE 
+   	 			WHEN STATUS = 'N' THEN 'Y'
+   	 			END
 		WHERE USERNO = #{userNo}
 	</update>
 	
