@@ -733,18 +733,18 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		if(category == null || "".equals(category)||"all".equals(category)) {
 			category = "N";
-		}else if(category.equals("강남")) {
-			category="강남";
-		}else if(category.equals("서초")) {
-			category="서초";
-		}else if(category.equals("송파")) {
-			category="송파";
-		}else if(category.equals("종로")) {
-			category="종로";
-		}else if(category.equals("마포")) {
-			category="마포";
-		}else if(category.equals("서대문")) {
-			category="서대문";
+		}else if(category.equals("강남구")) {
+			category="강남구";
+		}else if(category.equals("서초구")) {
+			category="서초구";
+		}else if(category.equals("송파구")) {
+			category="송파구";
+		}else if(category.equals("종로구")) {
+			category="종로구";
+		}else if(category.equals("마포구")) {
+			category="마포구";
+		}else if(category.equals("서대문구")) {
+			category="서대문구";
 		}
 		
 		if(search == null || "".equals(search)) {
