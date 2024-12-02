@@ -31,6 +31,7 @@ $(async function() {
 // 	    description.style.display = "none";
 // 	});
 
+// 선택된 값에 따른 HTML 변경 코드
 $(document).ready( async function() {
 	// 각 라디오 그룹에 대한 요소 선택
 	const gramRadios = $("input[name='gram']");
@@ -105,8 +106,7 @@ $("#CancelBtn").click(function() {
 
 async function requestPayment() {
 
-	const totalAmount = 1000;
-// 	const totalAmount = parseInt($("#totalPrice").text());
+	const totalAmount = parseInt($("#totalPrice").text());
 	const paymentId = `payment-${randomUUID}`;
 	const orderName = `${bean.beanName}`;
 	const customerId = `${member.userNo}`;
@@ -129,7 +129,7 @@ async function requestPayment() {
 	endDate.setDate(today.getDate() + parseInt(subTime)); // subTime에 맞춰 종료일 계산
 	
 	// 종료일을 YYYY-MM-DD 형식으로 변환 (예: 2024-11-28)
-	let subenddate = endDate.toISOString().split('T')[0];
+	let subEndDate = endDate.toISOString().split('T')[0];
 	
 	
 	console.log(totalAmount);
@@ -146,13 +146,16 @@ async function requestPayment() {
 	console.log(gram);
 	console.log(grind);
 	console.log(subTime);
-	console.log("Calculated end date: " + subenddate); // 종료일 출력
+	console.log("Calculated end date: " + subEndDate); // 종료일 출력
 	
+	
+	// 포트원 API 호출
 	const response = await PortOne.requestPayment({
 		// Store ID 설정
 		storeId: "store-be1fa1df-6baa-44e7-ba56-8e23cd18366d",
 		// 채널 키 설정
 		channelKey: "channel-key-67189232-0ce2-4acf-ab99-4a03ee845cb5",
+		// 결제 정보 데이터
 		paymentId: paymentId,
 		orderName: orderName,
 		totalAmount: totalAmount,
@@ -184,6 +187,7 @@ async function requestPayment() {
 	
 	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
 	
+	// 결제 완료 후 결제 정보 데이터 전달
 	const notified = await fetch('http://localhost:8088/bean/sub/payment/complete', {
 	method: "POST",
 	headers: { "Content-Type": "application/json" },
@@ -203,14 +207,14 @@ async function requestPayment() {
 			gram: gram,
 			grind: grind,
 			subTime: subTime,
-			subenddate: subEndDate,
+			subEndDate: subEndDate,
 	    }),
 	});
-// 	console.log(notified);
 	if(notified.ok){
-		console.log("결제 완ㄹ효");
+		console.log("결제 완료");
 		location.href = '/bean/sub/succ?beanNo=' + beanNo + "&&beanName=" + orderName + "&&userName=" + fullname;
 	}
+	
 // 	}else{
 // 		console.log("결제ㅌㅌㅌㅌㅌㅌㅌ");
 // 		location.href = "./sub/fail";

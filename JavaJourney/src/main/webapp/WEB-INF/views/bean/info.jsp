@@ -18,7 +18,9 @@ $(function() {
 	})
 
 	$(document).ready(function() {
+		
 	
+		// 찜 버튼 클릭시 텍스트 변경 및 찜 데이터 추가 및 제거 요청
 		$("#wish").click(function() {
 			
 			// 현재 버튼의 텍스트 가져오기
@@ -48,7 +50,9 @@ $(function() {
 	        }
 			
 	    }); // $("#wish").click(function() end
-			
+	    		
+		
+	    // 전달된 찜 데이터를 통해 SQL 요청
 	    function sendWishData(beanNo, userNo, action) {
 	    	
 	        $.ajax({
@@ -136,22 +140,30 @@ $(function() {
 	
 	$(document).ready(function() {
 		
+		
+		// 메뉴 위치를 지날시 메뉴바 상단 고정
 		var tapsTop = $("#beanMenu").offset().top; 
-		console.log(tapsTop)
+// 		console.log(tapsTop)
 		
 		$(window).scroll(function() {
 		   
-			var window = $(this).scrollTop();
+			var window = $(this).scrollTop(); 
 		    
-			if(tapsTop <= window) {
+			if(tapsTop <= window) { // 메뉴 위치 기준 점을 지날 시 상단 고정
+				
 				$("#beanMenu").addClass("fixed");
-			}else{
+				
+			}else{ // 기준점을 되돌아가면 고정 풀림
+				
 				$("#beanMenu").removeClass("fixed");
+				
 			} // if(tapsTop <= window) end
 			
 		}); // $(window).scroll(function() end
 				
+				
 	}); // $(document).ready(function() end
+			
 	
 	$(".custom-image img").css({
 		width: "400px",
