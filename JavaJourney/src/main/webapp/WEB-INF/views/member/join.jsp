@@ -356,7 +356,7 @@ $(function() {
 	
 	$("#postcodeWrap").css({
 	    left: (innerWidth / 2) - (500 / 2),
-	    top: (innerHeight / 2) - (500 / 2)
+	    top: (innerHeight / 2) - (500 / 2) + 800
 		
 	})
 	
@@ -841,7 +841,7 @@ label.agree button:hover {
 	</div>
 </div>
 <div class="mail-check-box">
-	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요 (개발자도구에서 확인가능)" disabled="disabled" maxlength="6">
+	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
 </div>
 	<p id="resultMsg" style="font-size:0.8rem;"></p>
