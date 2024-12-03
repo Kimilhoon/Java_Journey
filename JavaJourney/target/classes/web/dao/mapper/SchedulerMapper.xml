@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="web.dao.face.SchedulerDao">
+    <!-- 취소된 지 1시간 이상 경과된 구독 데이터 조회 -->
+    <select id="findExpiredCancelledSub" resultType="int">
+    	SELECT SUBNO
+    	FROM BEANSUB
+    	WHERE NONSUB = 'Y'
+    		AND NONSUBDATE &lt;= #{expiredTime}
+    		AND HIDDEN = 'N'
+    </select>
+    
+    <!-- 숨김 처리 -->
+    <update id="updateHiddenStatus">
+    	UPDATE BEANSUB
+    	SET HIDDEN = 'Y'
+    	WHERE SUBNO IN
+    	<foreach item="id" collection="list" open="(" separator="," close=")">
+    		#{id}
+    	</foreach>
+    
+    </update>
+    
+    </mapper>

@@ -137,6 +137,13 @@ public interface MypageService {
 	 * @param userNick
 	 */
 	public void updateCommNickTag(String userNick);
+	
+	/**
+	 * 자기가 작성한 리뷰를 조회
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanRev> selectMyRev(int userNo);
 
 
 

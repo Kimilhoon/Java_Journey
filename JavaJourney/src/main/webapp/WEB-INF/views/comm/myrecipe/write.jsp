@@ -148,7 +148,7 @@ $(function() {
 			success: function(res) {
 				$("#"+res.cupList[0].cupNoteName).prop("checked",true);
 				$("#"+res.cupList[1].cupNoteName).prop("checked",true);
-				$("#"+res.cupList[2].cupNoteName).prop("checked",true);
+// 				$("#"+res.cupList[2].cupNoteName).prop("checked",true);
 				$("input:checkbox[name='cupNoteNo']").prev().css("background","");
 				$("input:checkbox[name='cupNoteNo']").prev().css("color","black");
 				$("input:checkbox[name='cupNoteNo']:checked").prev().css("background","#6f4e37");
@@ -262,6 +262,7 @@ table{
 
 
 <select id="select_result"  class="form-select" style="display: none;">
+	<option>-선택-</option>
 	<c:forEach items="${qList }" var="list">
 		<option class="op">
 			<c:forEach items="${list }" var="qrList" varStatus="status">

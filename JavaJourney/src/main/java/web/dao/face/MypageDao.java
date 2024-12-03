@@ -153,6 +153,13 @@ public interface MypageDao {
 	 * @param userNick
 	 */
 	public void changeMyrecipeCommNickTag(String userNick);
+	
+	/**
+	 * 내가 작성한 리뷰 글 DB 조회
+	 * @param userNo
+	 * @return
+	 */
+	public List<BeanRev> selectMyRevData(int userNo);
 
 
 
