@@ -78,6 +78,13 @@ public interface ManagerService {
 	 * @return
 	 */
 	public List<BeanSub> searchsubuserByUserNick(String search, Paging paging);
+	
+	/**
+	 * userNick인지 DB에서 count로 조회 
+	 * @param checkUserNick
+	 * @return
+	 */
+	public boolean selectFindUserNick(String checkUserNick);
 
 	
 

@@ -33,9 +33,8 @@ td {
 	font-size: 16px;
 	margin-bottom: 10px;
 }
-#btnBeanSubCancel,
-#btnBeanSubReturn { 
-    width: 100px;
+#btnBeanSubCancel { 
+    width: 200px;
     padding: 10px;
     background-color: #adb5bd;
     color: white;
@@ -47,56 +46,30 @@ td {
 </style>
 <script type="text/javascript">
 $(function () {
-	
-	$("#btnBeanSubCancel").click(function () {
+	// 비활성화/활성화 버튼
+	$("#btnBeanSubCancel").on("click", function () {
 		console.log("테스트");
+		var btnStringValue = $(this).val()
 		var beanSubNoValue = $('input[name="subNo"]:checked')
 		.map(function () {
 			return this.value;
 		}).get()
-		console.log(beanSubNoValue);
+
+		console.log(btnStringValue);
 		
 		$.ajax({
 			type: "get"
 			, url: "/manager/subcancel?subNo=" + beanSubNoValue
-// 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
+			,data: {btnValue : btnStringValue}
 			, success: function (res) {
 				console.log("ajax 성공");
 				
 				if(res.status === "success") {
 					alert(res.message);
-					location.reload();//새로고침
+					location.reload();
 				} else if(res.status === "fail") {
 					alert(res.message);
-				}
-				
-			}
-			, error: function () {
-				console.log("ajax 실패");
-			}
-			 			
-			});
-		});
-	$("#btnBeanSubReturn").click(function () {
-		console.log("테스트");
-		var beanSubNoValue = $('input[name="subNo"]:checked')
-		.map(function () {
-			return this.value;
-		}).get()
-		console.log(beanSubNoValue);
-		
-		$.ajax({
-			type: "get"
-			, url: "/manager/subcancel?subNo=" + beanSubNoValue
-// 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
-			, success: function (res) {
-				console.log("ajax 성공");
-				
-				if(res.status === "success") {
-					alert(res.message);
-					location.reload();//새로고침
-				} else if(res.status === "fail") {
-					alert(res.message);
+					location.reload();
 				}
 				
 			}
@@ -158,6 +131,7 @@ $(function () {
 			<th>구독유저</th>
 			<th>원두명</th>
 			<th>주소</th>
+			<th>가격</th>
 			<th>용량</th>
 			<th>분쇄</th>
 			<th>구독기간</th>
@@ -179,7 +153,8 @@ $(function () {
 		${beanSub.userAdd1}
 		${beanSub.userAdd2}
 		</td>
-		<td>${beanSub.gram}</td>
+		<td><fmt:formatNumber value="${beanSub.price}" type="number" /></td>
+		<td><fmt:formatNumber value="${beanSub.gram}" type="number" />(g)</td>
 		<td>${beanSub.grind}</td>
 		<td>
 		<fmt:formatDate value="${beanSub.subStartDate }" pattern="yyyy-MM-dd"/>
@@ -191,10 +166,10 @@ $(function () {
 </tbody>
 </table>
 
-<div class="position-absolute top-20 end-0 translate-middle-y mt-3 mx-1">
-	<button id="btnBeanSubCancel">구독취소</button>
-	<span style="margin-left: 5px;"></span>
-	<button id="btnBeanSubReturn">되돌리기</button>
+<div class="position-absolute top-20 end-0 translate-middle-y mt-3 mx-3">
+	<button id="btnBeanSubCancel" value="cancel">구독취소/되돌리기</button>
+<!-- 	<span style="margin-left: 5px;"></span> -->
+<!-- 	<button id="btnBeanSubReturn" value="return">되돌리기</button> -->
 </div>
 
 <c:import url="/WEB-INF/views/manager/beansubpage.jsp"/>

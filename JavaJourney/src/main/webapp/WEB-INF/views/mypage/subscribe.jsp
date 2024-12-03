@@ -10,10 +10,6 @@ $(function () {
         height: "100px",
         "margin-right": "-130px"
     });
-})
-</script>
-<script type="text/javascript">
-$(function () {
     $("#btnCancle").click(function () {
         // 선택한 subNo 변수를 null로 초기화
        const subNo = $('input[name="subNo"]:checked') .map(function() {
@@ -28,11 +24,11 @@ $(function () {
             , data: { "subNo": subNo }
             , success: function(res) {
                 console.log("ajax 성공");
+                console.log(res);
 				//성공시 모든 체크박스 해제
 				$("input[type='checkbox'][name='subNo']").prop("checked", false);
 				alert("구독이 취소되었습니다.");
-				location.reload();//새로고침 -> 추후 append로 body부문 append로 바꾸기
-				//현재 ajax의 장점을 살리고 있지 못함
+				location.reload();
             },
             error: function(error) {
                 console.log("ajax 실패");
@@ -60,7 +56,6 @@ $(function () {
 }       
 </style>
 <div class="mb-4">
-<h1 class="text-center">구독정보</h1>
 </div>
 <!-- <div class="container" style="width: 870px; height: 187px;"> -->
 <div class="container" style="width: 870px; min-height: 300px; margin-bottom: 100px;">
@@ -68,7 +63,7 @@ $(function () {
 <c:forEach var="sub" items="${beanSubList }">
 <%-- ${sub.nonSub } --%>
 <div>
-<table class="table">
+<table id="retable" class="table">
 <tr>
 	<td>
 	<div class="custom-image">
@@ -87,8 +82,10 @@ $(function () {
 		<ul style="list-style:none">
 			<li>원두명 : ${sub.beanName }</li>
 			<li>
-			날짜 : <fmt:formatDate value="${sub.subStartDate }" pattern="yyyy-MM-dd"/>(시작)
-			~ <fmt:formatDate value="${sub.subEndDate }" pattern="yyyy-MM-dd"/>(종료)
+			구독시작 : <fmt:formatDate value="${sub.subStartDate }" pattern="yyyy-MM-dd"/>
+			</li>
+			<li>
+			구독종료 : <fmt:formatDate value="${sub.subEndDate }" pattern="yyyy-MM-dd"/>
 			</li>
 			<li>구독기간 : ${sub.subTime }</li>
 			<li>금액 : ${sub.price }</li>
@@ -101,16 +98,20 @@ $(function () {
 	<td>
 
 	<td class="text-center"  style="width: 15%">
+	<c:choose>
+		<c:when test="${not empty sub.revNo}">
 		<a href="/comm/breview/view?revNo=${sub.revNo}">
 	    <c:forEach var="star" begin="1" end="${ sub.revStarPoint != null ? sub.revStarPoint : 0 }">
 	     ★
 	    </c:forEach>
 	    </a>
-	    <c:if test="${sub.revStarPoint == 0}">
+	    </c:when>
+	    <c:when test="${sub.revStarPoint == 0 && empty sub.revNo}">
 			<a href="/comm/breview/write?subNo=${sub.subNo}">
 			<span id="isRev">리뷰쓰러가기</span>
 			</a>
-		</c:if>
+		</c:when>
+		</c:choose>
 	</td>
 </tr>
 </table>

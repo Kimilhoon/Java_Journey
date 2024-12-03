@@ -47,6 +47,7 @@ td {
 <script type="text/javascript">
 $(function () {
 	
+	//유저 비활성화 버튼
 	$("#btnUserCancel").click(function () {
 		console.log("테스트");
 		var userNoValue = $('input[name="userNo"]:checked')
@@ -58,24 +59,21 @@ $(function () {
 		$.ajax({
 			type: "get"
 			, url: "/manager/usercancel?userNo=" + userNoValue
-// 			,data: {userNo : userNoValue} // url 쿼리스트링의 데이터로 주니 data 딱히 필요없음
 			, success: function (res) {
 				console.log("ajax 성공");
-				
 				if(res.status === "success") {
 					alert(res.message);
-					location.reload();//새로고침
+					window.location.href = res.redirectUrl;
 				} else if(res.status === "fail") {
 					alert(res.message);
 				}
-				
 			}
 			, error: function () {
 				console.log("ajax 실패");
 			}
-			 			
 			});
 		});
+	
 	$("#btnUserRevive").click(function () {
 		console.log("테스트");
 		var userNoValue = $('input[name="userNo"]:checked')
@@ -83,7 +81,6 @@ $(function () {
 			return this.value;
 		}).get()
 		console.log(userNoValue);
-		
 		$.ajax({
 			type: "get"
 			, url: "/manager/userrevive?userNo=" + userNoValue
@@ -92,16 +89,14 @@ $(function () {
 				
 				if(res.status === "success") {
 					alert(res.message);
-					location.reload();//새로고침
+					window.location.href = res.redirectUrl;
 				} else if(res.status === "fail") {
 					alert(res.message);
 				}
-				
 			}
 			, error: function () {
 				console.log("ajax 실패");
 			}
-			 			
 			});
 		});
 		
@@ -116,7 +111,6 @@ $(function () {
 	        sendSearchRequest(); // 검색 요청 함수 호출
 	    }
 	});
-	
 		function sendSearchRequest() {
 			$.ajax({
 				url: "./user",
@@ -134,24 +128,6 @@ $(function () {
 				}
 			});
 		}
-// 		$("#btn_search").click(function() {
-// 	 		console.log($("#search").val()); 
-// 			$.ajax({
-// 				url: "./user",
-// 				type: "get",
-// 				data:{
-// 					"search":$("#search").val(), //search:검색입력값을 서버에 전달
-// 				},
-// 				dataType: "html",
-// 				success: function(res) {
-//	 				console.log(res);
-// 					$("body").children().remove(); //화면을 갱신하기 전에 기존 내용을 초기화
-// 					$("body").html(res); //현재 페이지의 내용이 검색 결과로 완전히 대체
-// 				},
-// 				error: function() {
-// 				}
-// 			});
-// 		});		
 })
 </script>
 </head>

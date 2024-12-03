@@ -60,7 +60,6 @@ public class ManagerServiceImpl implements ManagerService {
 		for(Integer No : userNo) {
 			if( dao.selectByUserNoForStatus(No)) {
 				//user의 상태가 N인 경우 
-				log.info("이미 비활성화된 유저입니다");
 				return false;
 			} else {
 				dao.updateUserStatus(No);
@@ -73,11 +72,10 @@ public class ManagerServiceImpl implements ManagerService {
 	public boolean userReviveByUserNo(List<Integer> userNo) {
 		for(Integer No : userNo) {
 			if( dao.selectByUserNoForStatus(No)) {
-				//user의 상태가 N인 경우 
-				dao.updateUserStatus(No);
-			} else {
-				log.info("이미 활성화된 유저입니다");
 				return false;
+			} else {
+				//user의 상태가 N인 경우 
+				dao.updateUserStatusReturn(No);
 			}
 		}// for(Integer No : userNo) End
 		return true;
@@ -118,19 +116,13 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public boolean subCancelBySubNo(List<Integer> subNo) {
 		for(Integer No : subNo) {
-//			if( dao.selectBeanSubCancelByBeanSub(No)) {
-//				log.info("구독을 이미 취소한 유저");
-//				return false;
-//			} else {
-//				
-//			}
-			if( No == null) {
-				return false;
-			} else {
+			if( dao.selectBeanSubCancelByBeanSub(No)) {
+				log.info("구독을 취소하려는 유저");
 				dao.subNoSubCancenBySubNoForUpdate(No);
-				
+			} else {
+				dao.subNoSubReturnBySubNoForUpdate(No);
+				log.info("구독상태로 되돌리려는 유저");
 			}
-			
 		}
 		return true;
 	}
@@ -155,6 +147,14 @@ public class ManagerServiceImpl implements ManagerService {
 		List<BeanSub> subuserList = dao.selectsubuserByUserNick(map);
 		
 		return subuserList;
+	}
+	
+	@Override
+	public boolean selectFindUserNick(String checkUserNick) {
+		
+		
+		
+		return false;
 	}
 	
 }
