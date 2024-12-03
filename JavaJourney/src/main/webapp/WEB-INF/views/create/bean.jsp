@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp"/>
 
-<h1 class="text-center">구독원두 작성</h1>
 <script>
 $(function () {
 	
@@ -179,7 +178,7 @@ textarea {
 		</tr>
 		<!-- 원두이미지삽입 -->
 		<tr>
-			<td>원두[이미지삽입]</td>
+			<td>원두</td>
 			<td>
 			<textarea id="beanOriginName" name="beanOriginName" class="form-control"
 			rows="4" cols="4" required="required"></textarea>
@@ -187,7 +186,7 @@ textarea {
 		</tr>
 		<tr>	
 			<td>
-			원두맛[체크박스]
+			원두맛
 			</td>
 			<td>
 			<span>새콤</span>
@@ -214,7 +213,7 @@ textarea {
 		<td><textarea id="beanComm" name="beanComm" rows="3" style="width: 1000px;" required="required"></textarea></td>
 		</tr>
 		<tr>
-			<td>원두상세설명[이미지삽입]</td>
+			<td>원두상세설명</td>
 			<td>
 			<textarea id="beanInfo" name="beanInfo" class="form-control"
 			rows="4" cols="2" required="required"></textarea>

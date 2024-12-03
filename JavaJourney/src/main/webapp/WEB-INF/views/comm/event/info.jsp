@@ -40,8 +40,6 @@ $(function() {
 }     
 </style>
 
-<h1 class="text-center">이벤트 상세보기</h1>
-
 <div class="mx-3">
 <!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
 <button id="btnEventDelete">삭제</button>

@@ -22,6 +22,8 @@ public class BeanSub {
 	private Date subEndDate;
 	private String subTime;
 	private String nonSub;
+	private Date nonSubDate;
+	private String reviewStatus;
 	
 	//조인 Bean
 //	private int beanNo;

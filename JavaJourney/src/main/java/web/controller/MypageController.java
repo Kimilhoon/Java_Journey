@@ -90,18 +90,24 @@ public class MypageController {
 			return "mypage/nodata";
 		}
 		
+		List<BeanRev> beanRev = service.selectMyRev(beanSub.getUserNo());
+		
 		model.addAttribute("beanSubList",beanSubList);
 		model.addAttribute("paging",paging);
+		model.addAttribute("beanRev",beanRev);
+
 		return "mypage/subscribe";
 	}
 	
 	@PostMapping("/cancelsub")
 	@ResponseBody
-	public void cancelsubForm(
+	public String cancelsubForm(
 			@RequestParam("subNo") List<Integer> subNo
 			) {
 		log.info("subNo : {}",subNo);
 		service.updateSubCancelBySubNo(subNo);
+		
+		return "redirect:/mypage/subscribe";
 	}
 	
 	@GetMapping("/like")
@@ -116,8 +122,8 @@ public class MypageController {
 //		log.info("cafeWishNoList",cafeWishNoList);
 		List<BeanWish> beanWishList = service.selectByLikeBean(member.getUserNo());
 		
-		if( cafeWishNoList == null || cafeWishNoList.isEmpty()
-				&& beanWishList == null || beanWishList.isEmpty() ) {
+		if( (cafeWishNoList == null || cafeWishNoList.isEmpty())
+				&& (beanWishList == null || beanWishList.isEmpty()) ) {
 			model.addAttribute("message1", "찜한 목록이 비어 있어요.");
 			model.addAttribute("message2", "찜으로 나만의 카페/원두 리스트를 만들어보세요!");
 			model.addAttribute("nodata", "like");

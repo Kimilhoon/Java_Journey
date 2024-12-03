@@ -64,7 +64,6 @@ textarea {
     font-size: 17px;
 }
 </style>
-<h1 class=text-center>공지사항 등록</h1>
 <div class="container">
 <div id="btn">
 <!-- <button id="btnBack">뒤로가기</button> -->

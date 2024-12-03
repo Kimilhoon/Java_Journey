@@ -69,7 +69,6 @@ textarea {
     font-size: 17px;
 }
 </style>
-<h1 class="text-center">이벤트 업데이트</h1>
 <!-- <div> -->
 <!-- <button id="btnManagerMenu">관리자메뉴로가기</button> -->
 <!-- <button id="btnBack">뒤로가기</button> -->

@@ -34,7 +34,7 @@ $(function() {
 </ul>
 </div>
 
-<iframe id="target-element" src="/" style="margin-left: 240px; width: 1660px; height: 850px;
+<iframe id="target-element" src="/" style="margin-left: 240px; width: 1660px; height: 1300px;
 overflow: hidden; border: 1px solid #ccc;"></iframe>
 
 

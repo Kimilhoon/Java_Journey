@@ -43,6 +43,7 @@ a {
 </style>
 
 <script>
+
   (function() {
     var w = window;
     if (w.ChannelIO) {
@@ -77,7 +78,6 @@ a {
       w.addEventListener("load", l);
     }
   })();
-  
   ChannelIO('boot', {
 	  "pluginKey": "d06a891b-9676-4688-9587-0f0f670f5b34" 
 	  // 위에서 확인한 플러그인 키를 입력하세요.

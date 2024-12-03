@@ -32,31 +32,28 @@
 	</select>
 	
 	<select id="selectByUserNoForStatus" resultType="boolean" parameterType="int">
-<!--     SELECT CASE WHEN EXISTS ( -->
-<!--         SELECT 1 -->
-<!--         FROM BEANSUB -->
-<!--         WHERE userno = #{userNo} -->
-<!--     ) THEN 1 ELSE 0 END -->
-<!--     FROM DUAL -->
-			SELECT 
-				CASE 
-					WHEN STATUS = 'N' THEN 'TRUE'
-					ELSE 'FALSE'
-				END AS RESULT
-			FROM MEMBER
-			WHERE USERNO = #{subNo}
+		SELECT count(*)
+		FROM BEANSUB
+		WHERE userno = #{userNo}
+		AND NONSUB = 'N'
 	</select>
 	
 	<update id="updateUserStatus" parameterType="int">
 		UPDATE MEMBER
    	 	SET STATUS = 
-      	  CASE 
-      	      WHEN STATUS = 'Y' THEN 'N'
-      	      WHEN STATUS = 'N' THEN 'Y'
-     	   END
-		<where>
-			USERNO = #{userNo}
-		</where>
+   	 		CASE
+   	 			WHEN STATUS = 'Y' THEN 'N' 
+   	 			END
+		WHERE USERNO = #{userNo}
+	</update>
+	
+	<update id="updateUserStatusReturn" parameterType="int">
+	UPDATE MEMBER
+   	 	SET STATUS = 
+   	 		CASE 
+   	 			WHEN STATUS = 'N' THEN 'Y'
+   	 			END
+		WHERE USERNO = #{userNo}
 	</update>
 	
 	<select id="selectCntBeanSubAll" resultType="int" parameterType="hashmap">
@@ -77,7 +74,7 @@
        	 SELECT rownum rnum, B.*
        	 FROM (
        	     SELECT B.SUBNO, B.USERNO AS BEANSUB_USERNO, B.BEANNO, B.GRAM,
-				B.PRICE, B.GRIND, B.SUBSTARTDATE, B.SUBENDDATE,
+				B.PRICE, B.GRIND, B.SUBSTARTDATE,
 				B.SUBTIME, B.NONSUB, M.USERNO AS MEMBER_USERNO, M.USERADD1,
 				M.USERADD2, M.USERNAME, B2.BEANNAME 
 				FROM BEANSUB B, "MEMBER" M, BEAN B2
@@ -93,14 +90,26 @@
     </where>
 	</select>
 	
+	<select id="selectBeanSubCancelByBeanSub" resultType="boolean" parameterType="int">
+		SELECT count(*)
+		FROM BEANSUB
+		WHERE SUBNO = #{subNo}
+		AND NONSUB = 'N'
+	</select>
+	
 	<update id="subNoSubCancenBySubNoForUpdate" parameterType="int">
 		UPDATE BEANSUB
-		SET NONSUB =
+		SET NONSUB = 
 			CASE
-				WHEN NONSUB = 'Y' THEN 'N'
 				WHEN NONSUB = 'N' THEN 'Y'
 			END
 			WHERE SUBNO = #{subNo}
+	</update>
+	
+	<update id="subNoSubReturnBySubNoForUpdate" parameterType="int">
+		UPDATE BEANSUB
+		SET NONSUB = 'N'
+		WHERE SUBNO = #{subNo} AND NONSUB = 'Y'
 	</update>
 	
 	<select id="selectByUserNick" parameterType="hashmap" resultType="Member">

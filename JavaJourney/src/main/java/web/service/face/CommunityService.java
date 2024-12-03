@@ -683,6 +683,7 @@ public interface CommunityService {
 	 * @param event
 	 */
 	public void changeEvent(Event event);
+
 	
 }
 
