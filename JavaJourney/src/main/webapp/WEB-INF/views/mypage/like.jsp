@@ -182,53 +182,37 @@ a:active {
 
 
 <script type="text/javascript">
-/* 스크룰이벤트 */
 document.addEventListener('DOMContentLoaded', function () {
     const cafeWish = document.querySelector('#cafeWish');
-//     const cafeWish = $("#cafeWish");
-
     let isDown = false; // 마우스 클릭 여부 확인
     let startX;
     let scrollLeft;
     let isDragging = false; // 드래그 상태 여부를 판단
-
-    // 마우스 눌렀을 때
     cafeWish.addEventListener('mousedown', (e) => {
-        // .custom-image 영역에서 드래그 동작
         if (e.target.closest('.custom-image')) {
-//         	console.log("e.target : " + e.target.closest('.custom-imag'));
             e.preventDefault(); // 기본 드래그 방지 (이미지가 따라오는 문제 방지)
             isDown = true;
             isDragging = false; // 드래그 여부 초기화
             cafeWish.classList.add('dragging'); // 드래그 상태 커서 활성화
             startX = e.pageX - cafeWish.offsetLeft;
-//             console.log("e.pageX위치 : " + e.pageX);
-//             console.log("cafeWish.offsetLeft위치 : " + cafeWish.offsetLeft);
-//             console.log("statxX위치 : " + startX);
-            
             scrollLeft = cafeWish.scrollLeft;
-//             console.log("scrollLeft : " + scrollLeft);
             return;
         }
     });
 
-    // 마우스가 영역 밖으로 나갈 때
     cafeWish.addEventListener('mouseleave', () => {
         isDown = false;
         cafeWish.classList.remove('dragging'); // 드래그 상태 해제
     });
 
-    // 마우스를 뗐을 때
     cafeWish.addEventListener('mouseup', (e) => {
         if (!isDragging && e.target.closest('a')) {
-            // 드래그하지 않고 클릭한 경우만 링크 이동
             window.location.href = e.target.closest('a').href;
         }
         isDown = false;
         cafeWish.classList.remove('dragging'); // 드래그 상태 해제
     });
 
-    // 마우스 이동
     cafeWish.addEventListener('mousemove', (e) => {
         if (!isDown) return; // 마우스가 눌려있지 않으면 동작하지 않음
         e.preventDefault(); // 기본 동작 방지 (선택 방지)
@@ -238,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function () {
         cafeWish.scrollLeft = scrollLeft - walk;
     });
 
-    // 이미지의 기본 드래그 방지 및 드래그 커서 표시
     cafeWish.querySelectorAll('.custom-image img').forEach((img) => {
         img.addEventListener('dragstart', (e) => {
             e.preventDefault(); // 기본 드래그 방지

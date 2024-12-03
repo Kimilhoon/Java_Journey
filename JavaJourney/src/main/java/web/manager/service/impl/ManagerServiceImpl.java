@@ -149,14 +149,6 @@ public class ManagerServiceImpl implements ManagerService {
 		return subuserList;
 	}
 	
-	@Override
-	public boolean selectFindUserNick(String checkUserNick) {
-		
-		
-		
-		return false;
-	}
-	
 }
 
 

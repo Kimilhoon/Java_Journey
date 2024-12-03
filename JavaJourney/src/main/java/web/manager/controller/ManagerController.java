@@ -30,12 +30,7 @@ public class ManagerController {
 	
 	@GetMapping("/menu")
 	public void menuForm(
-			HttpSession session, 
-			@RequestParam( value = "userNick", required = false) String userNick
 			) {
-		String checkUserNick = (String) session.getAttribute("userNick");
-		System.out.println("checkUserNick" + checkUserNick);
-		boolean isOwnerNick = service.selectFindUserNick(checkUserNick);
 	}
 	
 	@GetMapping("/user")

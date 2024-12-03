@@ -19,8 +19,10 @@ $(function() {
 		//-> 연속으로 클릭하면 DB조회와 클릭을 한 시간이 서로 맞지 않게되어
 		//설정을 하였음
 	})
+	
 })
 </script>
+
 <div class="sidebar" style="position: absolute; width: 230px;">
 	<a class="nav-link text-black fs-3 px-3" href="/main" role="button" aria-expanded="false">홈페이지</a>
 <ul class="fs-3 px-3" style="list-style:none;">

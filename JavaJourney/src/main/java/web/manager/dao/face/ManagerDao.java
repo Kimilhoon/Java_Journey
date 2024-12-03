@@ -91,11 +91,6 @@ public interface ManagerDao {
 	 * @return
 	 */
 	public List<BeanSub> selectsubuserByUserNick(HashMap<String, Object> map);
-
-
-
-	
-
 	
 
 	
