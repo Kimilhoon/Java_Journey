@@ -118,10 +118,17 @@ public class CafeController {
 		
 		// 리뷰 보여주기
 		List<CafeRev> list = service.selectAllRev(cafe);
+		
+		//리스트가 비어있는지 확인
 		if (list == null || list.isEmpty()) {
 	        log.warn("리뷰 목록이 비어 있습니다. cafeNo: {}", cafe.getCafeNo());
-	    }
-		
+	    } else {
+			//태그 제거 처리 추가
+	    	for (CafeRev review : list) {
+	    		review.setRevContent(stripHtmlTags(review.getRevContent())); // HTML 태그 제거
+	    	}
+		}
+		//모델에 추가
 		model.addAttribute("list", list);
 		
 
@@ -136,6 +143,11 @@ public class CafeController {
 		
 	} // CafeInfoForm(Cafe) end
 	
+	private String stripHtmlTags(String revContent) {
+		if (revContent == null) return "";
+		return revContent.replaceAll("<[^>]*>", "").replaceAll("&[^;]+;", ""); // HTML 태그와 특수 문자 제거;
+	}
+
 	@PostMapping("/info")
 	public ResponseEntity<?> CafeInfoFormProc(@RequestBody CafeWish cafeWish) {
 
