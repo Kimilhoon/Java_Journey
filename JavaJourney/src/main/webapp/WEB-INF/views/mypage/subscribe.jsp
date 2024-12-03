@@ -98,16 +98,20 @@ $(function () {
 	<td>
 
 	<td class="text-center"  style="width: 15%">
+	<c:choose>
+		<c:when test="${not empty sub.revNo}">
 		<a href="/comm/breview/view?revNo=${sub.revNo}">
 	    <c:forEach var="star" begin="1" end="${ sub.revStarPoint != null ? sub.revStarPoint : 0 }">
 	     ★
 	    </c:forEach>
 	    </a>
-	    <c:if test="${sub.revStarPoint == 0}">
+	    </c:when>
+	    <c:when test="${sub.revStarPoint == 0 && empty sub.revNo}">
 			<a href="/comm/breview/write?subNo=${sub.subNo}">
 			<span id="isRev">리뷰쓰러가기</span>
 			</a>
-		</c:if>
+		</c:when>
+		</c:choose>
 	</td>
 </tr>
 </table>

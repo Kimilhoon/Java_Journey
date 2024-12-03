@@ -76,16 +76,29 @@
 				CASE 
 					WHEN b4.REVSTARPOINT IS NOT NULL THEN b4.REVSTARPOINT
 					ELSE 0
-					END AS REVSTARPOINT
-				FROM BEANSUB b1, bean b2, beanimg b3, BEANREV b4
+					END AS REVSTARPOINT,
+				CASE 
+                    WHEN b4.REVNO IS NOT NULL THEN '작성'
+                    ELSE '미작성'
+                END AS REVIEWSTATUS
+				FROM BEANSUB b1, bean b2, BEANIMG b3, BEANREV b4
 				WHERE b1.BEANNO = b2.BEANNO
 				AND b2.BEANIMGNO = b3.BEANIMGNO
 				AND b1.BEANNO = b4.BEANNO(+)
+				AND b4.USERNO(+) = #{userNo}
 				AND b1.USERNO = #{userNo}
 				ORDER BY SUBNO DESC
 				)a
 			)WHERE r BETWEEN #{paging.startNo } AND #{paging.endNo }
 	</select>
+   
+   <select id="selectMyRevData" parameterType="int" resultType="BeanRev">
+   		SELECT REVNO, BEANNO, SUBNO, USERNO
+				REVCONT, REVHIT, REVDATE, REVSTARPOINT
+		 	FROM BEANREV
+		WHERE USERNO = #{userNo}
+			AND REVNO = #{revNo} 
+   </select>
    
    <update id="subUpdateCancel" parameterType="Integer">
       UPDATE BEANSUB

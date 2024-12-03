@@ -70,8 +70,10 @@ public class MypageServiceImpl implements MypageService {
 		
 	}
 	
-//    private final BeanSubMapper beanSubMapper; // MyBatis Mapper
-
+	@Override
+	public List<BeanRev> selectMyRev(int userNo) {
+		return dao.selectMyRevData(userNo);
+	}
 	
 	
 	

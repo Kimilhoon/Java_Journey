@@ -90,8 +90,12 @@ public class MypageController {
 			return "mypage/nodata";
 		}
 		
+		List<BeanRev> beanRev = service.selectMyRev(beanSub.getUserNo());
+		
 		model.addAttribute("beanSubList",beanSubList);
 		model.addAttribute("paging",paging);
+		model.addAttribute("beanRev",beanRev);
+
 		return "mypage/subscribe";
 	}
 	
