@@ -188,7 +188,7 @@ async function requestPayment() {
 	// /payment/complete 엔드포인트를 구현해야 합니다. 다음 목차에서 설명합니다.
 	
 	// 결제 완료 후 결제 정보 데이터 전달
-	const notified = await fetch('http://localhost:8088/bean/sub/payment/complete', {
+	const notified = await fetch('http://43.203.107.197:8088/bean/sub/payment/complete', {
 	method: "POST",
 	headers: { "Content-Type": "application/json" },
 		// paymentId와 주문 정보를 서버에 전달합니다
