@@ -362,12 +362,12 @@ $(function() {
 			<div id="map" style="width:800px; height:400px; margin: 0 auto;"></div>
 			<p class="fw-bold fs-4 text-center">${ cafeInfo.cafeAdd1 }, ${ cafeInfo.cafeAdd2 }</p>
 		</div>
-</div>
+</div> <!-- id="cafeLoc" End -->
+
 <div id="cafeRev" class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 	<div>
 		<p class="text-bg-secondary p-3 text-center mb-3 w-100">카페 리뷰</p>
 	</div>
-<!-- 	<div id="reviewList"></div> -->
 	
 	<table class="table" style="width: 100%">
 	<c:forEach var="cafeRev" items="${ list }">
@@ -379,10 +379,12 @@ $(function() {
 <%-- 			${ cafeRev.revContent } --%>
 				<c:choose>
 			        <c:when test="${fn:length(cafeRev.revContent) gt 26}">
+<%-- 						<c:out value="${fn:substring(cafeRev.revContent.replaceAll('<[^>]+>', '').replaceAll('&[^;]+;', ''), 0, 25)}..."></c:out> --%>
 						<c:out value="${fn:substring(cafeRev.revContent, 0, 25)}..."></c:out>
 			        </c:when>
 			        <c:otherwise>
-						<c:out value="${cafeRev.revContent}" escapeXml="false"></c:out>
+<%-- 						<c:out value="${cafeRev.revContent.replaceAll('<[^>]+>', '').replaceAll('&[^;]+;', '')}" escapeXml="false"></c:out> --%>
+						<c:out value="${cafeRev.revContent}"></c:out>
 			        </c:otherwise>
 				</c:choose>
 			</a> 
@@ -401,9 +403,7 @@ $(function() {
 	</tr>
 	</c:forEach>
 	</table>
-</div>
-
-</div><!-- id="commCafe" class="clearfix" End -->
+</div><!-- id="cafeRev" End -->
 
 </div><!-- container End -->
 
@@ -426,7 +426,7 @@ $(function() {
 		</c:when>
 	</c:choose>
 </c:if>
-</div> <!-- container End -->
+</div> <!-- id="btnGroup" End -->
 
 <!-- 로그인 필요 모달 -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">

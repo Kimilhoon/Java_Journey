@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,14 @@ public class ManagerController {
 	@Autowired private ManagerService service;
 	
 	@GetMapping("/menu")
-	public void menuForm() {}
+	public void menuForm(
+			HttpSession session, 
+			@RequestParam( value = "userNick", required = false) String userNick
+			) {
+		String checkUserNick = (String) session.getAttribute("userNick");
+		System.out.println("checkUserNick" + checkUserNick);
+		boolean isOwnerNick = service.selectFindUserNick(checkUserNick);
+	}
 	
 	@GetMapping("/user")
 	public void userForm(
@@ -71,6 +79,7 @@ public class ManagerController {
 		if( isCanceled ) {
 			result.put("status", "success");
 			result.put("message", "사용자가 성공적으로 비활성화(삭제)되었습니다");
+			result.put("redirectUrl", "/manager/user");
 		} else {
 			result.put("status", "fail");
 			result.put("message", "사용자는 이미 비활성화 상태입니다");
@@ -89,7 +98,8 @@ public class ManagerController {
 
 		if( isRevived ) {
 			result.put("status", "success");
-			result.put("message", "사용자가 성공적으로 활성화(부활)되었습니다");
+			result.put("message", "사용자가 성공적으로 활성화되었습니다");
+			result.put("redirectUrl", "/manager/user");
 		} else {
 			result.put("status", "fail");
 			result.put("message", "사용자는 이미 활성화 상태입니다");
@@ -124,28 +134,32 @@ public class ManagerController {
 		model.addAttribute("beanSubList",beanSubList);
 		model.addAttribute("paging",paging);
 		model.addAttribute("search", search);
-
+		
 	}
 	
 	@GetMapping("/subcancel")
 	@ResponseBody
 	public Map<String, Object> subCancelProcAjax(
-		@RequestParam("subNo") List<Integer> subNo
+		@RequestParam("subNo") List<Integer> subNo,
+		@RequestParam("btnValue") String btnValue
 			) {
 		log.info("subNo : {}", subNo);
-		
-		boolean isSubCancel = service.subCancelBySubNo(subNo);
+		log.info("btnValue : {}", btnValue);
 		Map<String, Object> result = new HashMap<>();
-
+		
+		if( btnValue.equals("cancel") ) {
+			log.info("cancel : {}", btnValue);
+		boolean isSubCancel = service.subCancelBySubNo(subNo);
 		if( isSubCancel ) {
 			result.put("status", "success");
-			result.put("message", "작업이 성공적하였습니다");
+			result.put("message", "구독을 취소/원복 하였습니다");
 		} else {
 			result.put("status", "fail");
-			result.put("message", "이미 구독이 취소가 된 상태입니다");
+			result.put("message", "알수 없는 이유로 작업이 취소되었습니다");
 		}
+		
+	  }// if btnValue.equals("cancel") End
+		
 		return result;
-	
-	}
-	
+  }
 }
