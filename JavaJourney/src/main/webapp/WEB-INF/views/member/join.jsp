@@ -11,35 +11,6 @@
 
 <script type="text/javascript">
 
-// IMP.init("{imp77683350}"); //고객사 식별코드
-// //IMP.certification(param, callback) 호출
-// IMP.certification(
-//   {
-//     // param
-//     channelKey: "channel-key-9937917d-f104-4bb7-822d-9681d7bb33c5",
-//     // 주문 번호
-//     merchant_uid: "ORD20180131-0000011",
-//     // 모바일환경에서 popup:false(기본값) 인 경우 필수
-//     m_redirect_url: "http://localhost:8088/member/join",
-//     // PC환경에서는 popup 파라미터가 무시되고 항상 true 로 적용됨
-//     popup: false,
-//   },
-//   function (rsp) {
-//     // callback
-//     if (rsp.success) {
-//         // 인증 성공 시 jQuery로 HTTP 요청
-//         jQuery.ajax({
-//           url: "./join",
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           data: { imp_uid: rsp.imp_uid },
-//         });
-//       } else {
-//         alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-//       }
-//     },
-//   );
-
 var idValidation = false; //형식 체크
 var pwValidation = false; 
 var nickValidation = false; 
@@ -53,6 +24,7 @@ var nickCheck = false;
 var nickDuplicate = false;
 var emailCheck = false; 
 var numCheck = false; 
+var businessCheck = false;
 
 $(function() {
 	$("#btnJoin").click(function() {	
@@ -112,6 +84,7 @@ $(function() {
             pwCheck = false;
             $("#pwCheckResult").css("color", "red");
             $("#pwCheckResult").text("비밀번호가 일치하지 않습니다.");
+            return false;
         }
     });  //$("#userPw") end
 
@@ -126,6 +99,7 @@ $(function() {
         	pwCheck = false;
             $("#pwCheckResult").css("color", "red");
             $("#pwCheckResult").text("비밀번호가 일치하지 않습니다.");
+            return false;
         }
     }); //$("#userPwCheck") end
     
@@ -143,6 +117,16 @@ $(function() {
             emailValidation = false;
         }
     }); // $("#userEmail") end
+    
+    //사업자번호 입력값 변경 시 다시 확인
+    $("#businessNo").on("input", function () {
+        businessCheck = false; // 입력값 변경 시 다시 확인해야 함
+    });
+    
+    //인증번호 입력값 변경 시 다시 확인
+    $("#mailNumCheck").on("input", function () {
+    	numCheck = false; // 입력값 변경 시 다시 확인해야 함
+    });
 	
     
 
@@ -153,81 +137,111 @@ $(function() {
 		
 		if( !userId.value ) {
 			alert("아이디를 입력하세요");
+			$("#userId").focus();
 			return false;
 		}
 		
 		if( !idCheck ) {
 			alert("아이디를 중복체크하세요");
+			$("#userId").focus();
 			return false;
 		}
 		if( idDuplicate ) {
 			alert("이미 존재하는 아이디입니다");
+			$("#userId").focus();
 			return false;
 		}
 		
-// 		if( !userPw.value) {
+// 		if( !userPw.value ) {
 // 			alert("비밀번호를 입력하세요");
 // 			return false;
 // 		}
-// 		if( !userPwCheck.value) {
-// 			alert("비밀번호 확인을 입력하세요");
-// 			return false;
-// 		}
+		if( !userPwCheck.value) {
+			alert("비밀번호 확인을 입력하세요");
+			$("#userPwCheck").focus();
+			return false;
+		}
+		
+        if( !pwCheck ){
+			alert("비밀번호를 확인하세요");
+	        $("#userPwCheck").focus();
+			return false;
+        }
 		
 		if( !userNick.value ) {
 			alert("닉네임을 입력하세요");
+	        $("#userNick").focus();
 			return false;
 		}
 
 		if( !nickCheck ) {
 			alert("닉네임을 중복체크하세요");
+			$("#userNick").focus();
 			return false;
 		}
 		if( nickDuplicate ) {
 			alert("이미 존재하는 닉네임입니다");
+			$("#userNick").focus();
 			return false;
 		}
 		if( !userEmail.value ) {
 			alert("이메일을 입력하세요");
+			$("#userEmail").focus();
 			return false;
 		}
         if (!emailValidation) {
             alert("이메일 형식이 올바르지 않습니다");
+            $("#userEmail").focus();
             return false;
         }
 		if( !emailCheck ) {
 			alert("이메일 본인인증을 진행하세요");
+			$("#userEmail").focus();
 			return false;
 		}
 		if( !numCheck ) {
 			alert("인증번호를 확인하세요");
+			$("#userEmail").focus();
 			return false;
 		}
 		if( !userName.value ) {
 			alert("이름을 입력하세요");
+			$("#userName").focus();
 			return false;
 		}
-// 		if( !userPhone.value ) {
-// 			alert("전화번호를 입력하세요");
-// 			return false;
-// 		}
-// 		if( !userPostcode.value ) {
-// 			alert("우편번호를 입력하세요");
-// 			return false;
-// 		}
-// 		if( !userAdd1.value ) {
-// 			alert("주소를 입력하세요");
-// 			return false;
-// 		}
-// 		if( !userAdd2.value ) {
-// 			alert("상세주소를 입력하세요");
-// 			return false;
-// 		}
+		if( !userPhone.value ) {
+			alert("전화번호를 입력하세요");
+			$("#userPhone").focus();
+			return false;
+		}
+		if( !userPostcode.value ) {
+			alert("우편번호를 입력하세요");
+			$("#userPostcode").focus();
+			return false;
+		}
+		if( !userAdd1.value ) {
+			alert("주소를 입력하세요");
+			return false;
+		}
+		if( !userAdd2.value ) {
+			alert("상세주소를 입력하세요");
+			$("#userAdd2").focus();
+			return false;
+		}
+
+		const businessNo = $("#businessNo").val().trim(); // input의 값을 가져오기
+		if( businessNo !== "" && !businessCheck ) {
+			alert("사업자번호를 확인하세요");
+			$("#businessNo").focus();
+			return false;
+		}
 		
 	    if (document.querySelectorAll('.terms-checkbox:checked').length < 2) {  // 필수 항목이 모두 체크되지 않으면
 	        alert("모든 필수 약관에 동의하셔야 합니다");
 	        return false;
 	    }
+	    
+	    
 		
 	}) //$("#joinForm form") end
 	
@@ -437,12 +451,14 @@ $(function() {
 <!-- -------------------------------------------------- -->
 <script type="text/javascript">
 function businessNoChk() {
-    $("#businessNo").val($("#businessNo").val().replace(/[^0-9]/g, ""));
-    bNoNum = $("#businessNo").val();
+    const businessNoField = $("#businessNo");
+    let bNoNum = businessNoField.val().replace(/[^0-9]/g, ""); // 숫자만 남기기
+    businessNoField.val(bNoNum);
 
-    if(!bNoNum) {
-        alert("사업자등록번호를 입력해주세요.");
-        return false;
+    if (bNoNum === "") {
+        businessCheck = true; // 입력 없으면 true로 설정
+        alert("사업자등록번호는 선택 항목입니다.");
+        return;
     }
 
     var data = {
@@ -462,15 +478,20 @@ function businessNoChk() {
             if(result.match_cnt == "1") {
                 //성공
                 console.log("success");
+                alert("사업자등록번호가 확인되었습니다.");
+                businessCheck = true;
             } else {
                 //실패
                 console.log("fail");
                 alert(result.data[0]["tax_type"]);
+                businessCheck = false;
+                return false;
             }
         },
         error: function(result) {
             console.log("error");
             console.log(result.responseText); //responseText의 에러메세지 확인
+            businessCheck = false;
         }
     });
 }
@@ -828,7 +849,7 @@ label.agree button:hover {
 	<input type="text" name="userNick" id="userNick" required="required" placeholder="5-10자의 영문, 한글, 숫자">
 	<button id="userNickCheck" type="button">중복확인</button>
 	<span id="userNickCheckMsg"></span>
-<p id="nickValidation" style="color:red; font-size:0.6rem;">
+<p id="nickValidation" style="color:red; font-size:0.8rem;">
 	닉네임은 5~10자의 영문, 한글, 숫자만 가능합니다
 </p>
 </div>
@@ -843,8 +864,8 @@ label.agree button:hover {
 <div class="mail-check-box">
 	<input class="mail-check-input"  id="mailNumCheck" placeholder="인증번호를 입력하세요" disabled="disabled" maxlength="6">
 	<button type="button" id="numCheckBtn" name="numCheckBtn">확인</button>
-</div>
 	<p id="resultMsg" style="font-size:0.8rem;"></p>
+</div>
 
 
 <div>
